@@ -3,9 +3,9 @@
  */
 describe('Protractor Demo App', function () {
 
-	var adminURL = "http://secure.themoveboard.com/moveBoard/#/dashboard";
-	var localDispatchURL = 'http://secure.themoveboard.com/moveBoard/#/dispatch/local';
-	var clientPage = 'http://secure.themoveboard.com/account/#/login';
+	var adminURL = "http://stage.themoveboard.com/moveBoard/#/dashboard";
+	var localDispatchURL = 'http://stage.themoveboard.com/moveBoard/#/dispatch/local';
+	var clientPage = 'http://stage.themoveboard.com/account/#/login';
 	var zipFrom = "02461";
 	var zipTo = "02111";
 	var temp, i, j, k;
@@ -19,8 +19,8 @@ describe('Protractor Demo App', function () {
 	var requestId;
 	var now = new Date();
 	var msInDay = 86400000;
-	var future = new Date(now.getTime() + msInDay * 5);//4 дня вперёд
-	var farFuture = new Date(now.getTime() + msInDay * 6);//8 дня вперёд
+	var future = new Date(now.getTime() + msInDay * 5);//4 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	var farFuture = new Date(now.getTime() + msInDay * 6);//8 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	var moveDate = {month: 0, day: 0, year: 0};
 	var sleepTime = 1500;
 	var monthNumbers = {
@@ -42,7 +42,7 @@ describe('Protractor Demo App', function () {
 	it('admin Login', function () {
 
 		browser.get(adminURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		TryToClickModel('email', function () {
 			adminLogin();
 			TryToClickXpath('//a[@ng-click="vm.openEditModal()"]');
@@ -52,7 +52,7 @@ describe('Protractor Demo App', function () {
 	it('creating Client', function () {
 		//element(by.xpath('//a[@ng-click="vm.openEditModal()"]')).click();
 		browser.sleep(sleepTime * 2);
-		element(by.xpath('//select[@ng-options="service.id as service.title for service in services"]/option[2]')).click();//выбираем Moving & Storage
+		element(by.xpath('//select[@ng-options="service.id as service.title for service in services"]/option[2]')).click();//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Moving & Storage
 		element(by.id('edit-move-date-datepicker-popup-0')).click();
 		browser.sleep(sleepTime * 1);
 		element(by.xpath('//td[@data-month="' + future.getMonth() + '" and @data-year="' + future.getFullYear() + '"]/a[contains(text(),"' + future.getDate() + '")]')).click();
@@ -116,20 +116,20 @@ describe('Protractor Demo App', function () {
 		element(by.xpath('//ul[@class="nav nav-tabs"]/li')).click();
 	});
 	it('select truck & confirm', function () {
-		//----------------------------выбираем грузовик
+		//----------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		var trucks = element.all(by.xpath('//div[@class="park_lot"]/div[@class="trucks"]/div'));
 		trucks.count().then(function (c) {
-			recurs = function (number, count, a, timeZone) { //передаём текущий номер, общее количество и массив строк и проход
-				if (number < count) {  //Если ещё не дошли до конца
+			recurs = function (number, count, a, timeZone) { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+				if (number < count) {  //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 					trucks.get(number).getAttribute('class').then(function (css) {
-						a.get(number).all(by.xpath('td/div/span')).count().then(function (result) { //считаем спаны текущей строки
-							if ((css == "dhx_matrix_scell truckid ng-binding ng-scope") && (result < (2 + timeZone))) { //если спанов мало и грузовик виден, тогда тыкаем грузовик
+						a.get(number).all(by.xpath('td/div/span')).count().then(function (result) { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+							if ((css == "dhx_matrix_scell truckid ng-binding ng-scope") && (result < (2 + timeZone))) { //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 								browser.actions().click(trucks.get(number)).perform();
 								//expect('tiknuli' + number).toEqual('');
-								return true; //возвращаем true как подтверждение тыка
-							} else { //иначе идём дальше
+								return true; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ true пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+							} else { //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 								//expect('goNext:' + (number + 1)).toEqual('');
-								return recurs(number + 1, count, a, timeZone); //возвращаем то, что нам передадут позже
+								return recurs(number + 1, count, a, timeZone); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 							}
 						});
 					});
@@ -153,7 +153,7 @@ describe('Protractor Demo App', function () {
 			var vibrali = recurs(0, c, a, 0);
 		});
 		browser.sleep(sleepTime * 5);
-		//-------------------------ставим Confirmed
+		//-------------------------пїЅпїЅпїЅпїЅпїЅпїЅ Confirmed
 		var status = element(by.id('edit-status'));
 		status.click();
 		browser.sleep(sleepTime * 1);
@@ -182,7 +182,7 @@ describe('Protractor Demo App', function () {
 		browser.sleep(sleepTime * 4);
 	});
 	it('local dispathing', function () {
-		//---------------------------------идём в local dispatch
+		//---------------------------------пїЅпїЅпїЅ пїЅ local dispatch
 		browser.get(localDispatchURL);
 		browser.sleep(sleepTime * 5);
 		var findYear = function (target) {
@@ -205,7 +205,7 @@ describe('Protractor Demo App', function () {
 		};
 		findYear(future.getFullYear());
 		browser.sleep(sleepTime * 3);
-		//ставим нужный месяц
+		//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 		var findMonth = function (target) {
 			browser.sleep(sleepTime * 4);
 			element(by.css(".ui-datepicker-month")).getText().then(function (result) {
@@ -262,7 +262,7 @@ describe('Protractor Demo App', function () {
 		element(by.model('invoice.travel_time.value')).clear();
 		element(by.model('invoice.travel_time.value')).sendKeys('01:00');
 		browser.sleep(sleepTime * 2);
-		//---------------------------------добавляем packing и additional services
+		//---------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ packing пїЅ additional services
 		element(by.xpath('//label[@ng-click="openAddPackingInvoiceModal();"]')).click();
 		browser.sleep(sleepTime * 2);
 		var packingCost;
@@ -307,7 +307,7 @@ describe('Protractor Demo App', function () {
 			browser.sleep(sleepTime * 8);
 			sweetConfirm();
 			browser.sleep(sleepTime * 2);
-			//-------------------------------считаем, какая должна быть зарплата Макса
+			//-------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 			return element(by.xpath('//label[contains(text(),"Grand Total: ")]/../div')).getText();
 		};
 		var prom6 = function (totalCost) {
@@ -332,7 +332,7 @@ describe('Protractor Demo App', function () {
 		var prom9 = function (toMax) {
 			expect(Math.floor(maxMoney * 5) / 100).toEqual(dollarAway(toMax));
 
-			//----------------------------проверяем зарплату прораба
+			//----------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			element(by.xpath('//li[@heading="Foremen"]/a')).click();
 			browser.sleep(sleepTime * 2);
 			return element(by.xpath('//select/option[@selected="selected" and contains(text(),"Daily Rate")]/../../../td[5]/span')).getText();
@@ -418,7 +418,7 @@ describe('Protractor Demo App', function () {
 
 	function clientLogin(login, passwd) {
 		browser.get(clientPage);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(12000);
 		element(by.model('email')).sendKeys(login);
 		element(by.model('password')).sendKeys(passwd);
@@ -435,7 +435,7 @@ describe('Protractor Demo App', function () {
 
 	function NikolsanLogin() {
 		browser.get('http://secure.themoveboard.com/account/#/login');
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(sleepTime * 15);
 		element(by.model('email')).sendKeys('nikolsan');
 		element(by.model('password')).sendKeys('123');

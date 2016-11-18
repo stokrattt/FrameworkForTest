@@ -3,9 +3,9 @@
  */
 describe('Protractor Demo App', function () {
 
-	var adminURL = "http://secure.themoveboard.com/moveBoard/#/dashboard";
-	var clientURL = "http://secure.themoveboard.com/account/#/login";
-	var pendingUrl = "https://moversboard.net:8083/moveBoard/#/storages/pending";
+	var adminURL = "http://stage.themoveboard.com/moveBoard/#/dashboard";
+	var clientURL = "http://stage.themoveboard.com/account/#/login";
+	var pendingUrl = "http://stage.themoveboard.com/account/#/storages/pending";
 	var zipFrom = "02461";
 	var zipTo = "02111";
 	var temp, i, j, k;
@@ -19,8 +19,8 @@ describe('Protractor Demo App', function () {
 	var requestId;
 	var now = new Date();
 	var msInDay = 86400000;
-	var future = new Date(now.getTime() + msInDay * 4);//4 дня вперёд
-	var farFuture = new Date(now.getTime() + msInDay * 8);//8 дня вперёд
+	var future = new Date(now.getTime() + msInDay * 4);//4 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	var farFuture = new Date(now.getTime() + msInDay * 8);//8 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	var moveDate = {month: 0, day: 0, year: 0};
 	var monthNumbers = {
 		JANUARY: 1,
@@ -37,10 +37,10 @@ describe('Protractor Demo App', function () {
 		DECEMBER: 12
 	};
 	var sleepTime = 1500;
-	var repeats = 10;
+	var repeats = 20;
 
 	it('Fill 1st form', function () {
-		browser.get('http://demo.themoveboard.com/');
+		browser.get('http://stage.themoveboard.com/');
 		browser.sleep(sleepTime * 5);
 		TryToClickXpath('//small-desktop-form//input[@ng-model="request.first_name"]', function () {
 			var root = element(by.css('.sf-calculate-wrapper'));
@@ -96,7 +96,7 @@ describe('Protractor Demo App', function () {
 
 			browser.sleep(sleepTime * 2);
 
-			//-------------------------------------тыкаем галочки
+			//-------------------------------------пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			var checkBoxes = root.all(by.xpath("//div[@id='sf-rooms' and @style!='display:none;' and @style!='display: none;']/div"));
 			temp = checkBoxes.count().then(function (result) {
 				result--;
@@ -112,7 +112,7 @@ describe('Protractor Demo App', function () {
 				if (!result) {
 					var entranceFrom = typeFrom.all(by.tagName("option"));
 					temp = entranceFrom.count().then(function (result) {
-						result--;//потому что count() считает с 1
+						result--;//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ count() пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ 1
 						entranceFrom.get(Math.floor(Math.random() * result + 1)).click();
 						return result;
 					});
@@ -129,7 +129,7 @@ describe('Protractor Demo App', function () {
 			browser.sleep(sleepTime * 5);
 			submit.click();
 			browser.sleep(sleepTime * 7);
-			//----------------------------закончили заполнять первую форму
+			//----------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 			//var temp = element(by.id('congrats_menu')).element(by.tagName('a')).click();
 			//browser.sleep(sleepTime*5);
 		});
@@ -137,7 +137,7 @@ describe('Protractor Demo App', function () {
 
 	it('Admin login', function () {
 		browser.get(adminURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		TryToClickModel('email', function () {
 			adminLogin();
 			TryToClickXpath("//td[contains(text(),'" + fullName + "')]", function () {
@@ -149,7 +149,7 @@ describe('Protractor Demo App', function () {
 	it('first time in Adminka, get ID from name', function () {
 		//element(by.xpath("//td[contains(text(),'" + fullName + "')]")).click();
 
-		//---------------------------------добавляем packing и additional services
+		//---------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ packing пїЅ additional services
 		browser.sleep(sleepTime * 2);
 		TryToClickXpath('//label[@ng-click="openAddPackingModal();"]', function () {
 			//element(by.xpath('//label[@ng-click="openAddPackingModal();"]')).click();
@@ -193,17 +193,17 @@ describe('Protractor Demo App', function () {
 										expect(Number(text.substr(1))).toEqual(adddollrs);
 
 
-										//----------------------------выбираем грузовик
+										//----------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 										var trucks = element(by.css('.park_lot')).element(by.css('.trucks')).all(by.tagName('div'));
 										trucks.count().then(function (c) {
-											recurs = function (number, count, a) { //передаём текущий номер, общее количество и массив строк
-												if (number <= count) {  //Если ещё не дошли до конца
-													element.all(by.xpath('//tr[@ng-repeat="(tid,truck_name) in ::trucks"][' + number + ']/td/div/span')).count().then(function (result) { //считаем спаны текущей строки
-														if (result < 2) { //если спанов мало, тогда тыкаем грузовик
+											recurs = function (number, count, a) { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+												if (number <= count) {  //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+													element.all(by.xpath('//tr[@ng-repeat="(tid,truck_name) in ::trucks"][' + number + ']/td/div/span')).count().then(function (result) { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+														if (result < 2) { //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 															browser.actions().click(trucks.get(number - 1)).perform();
-															return true; //возвращаем true как подтверждение тыка
-														} else { //иначе идём дальше
-															return recurs(number + 1, count, a); //возвращаем то, что нам передадут позже
+															return true; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ true пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+														} else { //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+															return recurs(number + 1, count, a); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 														}
 													});
 
@@ -228,7 +228,7 @@ describe('Protractor Demo App', function () {
 										browser.sleep(sleepTime * 4);
 										element(by.xpath("//div[contains(text(),'Update request and send emails')]")).click();
 										browser.sleep(sleepTime * 10);
-										//-----------------------------------идём во вкладку Client
+										//-----------------------------------пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Client
 										TryToClickXpath('//li[@heading="Client"]/a', function () {
 											//element(by.xpath('//li[@heading="Client"]/a')).click();
 											browser.sleep(sleepTime * 2);
@@ -249,9 +249,9 @@ describe('Protractor Demo App', function () {
 	});
 
 	it('go to client', function () {
-		//----------------------------------закончили дела в админке, идём в клиента
+		//----------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.get(clientURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		TryToClickModel('email', function () {
 			//clientLogin('mCWstzLi@gmail.com', '123');
 			clientLogin(email, '123');
@@ -369,7 +369,7 @@ describe('Protractor Demo App', function () {
 
 	it('Admin login', function () {
 		browser.get(adminURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		TryToClickModel('email', function () {
 			adminLogin();
 			TryToClickXpath("//td[contains(text(),'" + requestId + "')]", function () {
@@ -379,7 +379,7 @@ describe('Protractor Demo App', function () {
 	});
 
 	it('again in Adminka', function () {
-		//-----------------------------------идём обратно в админку чтобы опять поставить Not Confirmed
+		//-----------------------------------пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Not Confirmed
 		browser.sleep(sleepTime * 2);
 		TryToClickId('edit-status', function () {
 			var status = element(by.id('edit-status'));
@@ -393,13 +393,13 @@ describe('Protractor Demo App', function () {
 			element(by.xpath("//div[contains(text(),'Update request and send emails')]")).click();
 			browser.sleep(sleepTime * 4);
 			adminLogout();
-			//сделали опять Not Confirmed, теперь можно выписывать чек
+			//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Not Confirmed, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 		});
 	});
 
 	it('Goto Client Again', function () {
 		browser.get(clientURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		TryToClickModel('email', clientLogin(email, '123'));
 	});
 
@@ -453,7 +453,7 @@ describe('Protractor Demo App', function () {
 
 	it('Admin login', function () {
 		browser.get(adminURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		TryToClickModel('email', function () {
 			adminLogin();
 			TryToClickXpath("//td[contains(text(),'" + requestId + "')]", function () {
@@ -465,18 +465,18 @@ describe('Protractor Demo App', function () {
 	it('select a Foreman', function () {
 
 		browser.sleep(sleepTime * 5);
-		//requestId=4875;//++++++++++++++для отладки
+		//requestId=4875;//++++++++++++++пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		element(by.xpath("//td[contains(text(),'" + requestId + "')]/../td[@class=\"dtDate ng-binding\"]")).getText().then(function (result) {
 			/*moveDate.day = Number(result.substr(3, 2));
 			 moveDate.month = Number(result.substr(0, 2));
 			 moveDate.year = Number(result.substr(6, 4));
 			 */
-			//---------------------------------идём в local dispatch
+			//---------------------------------пїЅпїЅпїЅ пїЅ local dispatch
 			browser.get('http://secure.themoveboard.com/moveBoard/#/dispatch/local')
 			browser.sleep(sleepTime * 3);
 
-			//-------------------------------теперь надо тыкнуть нужную дату
-			//ставим нужный год
+			//-------------------------------пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+			//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 
 			var findYear = function (target) {
 				browser.sleep(sleepTime * 3);
@@ -498,7 +498,7 @@ describe('Protractor Demo App', function () {
 			};
 			findYear(future.getFullYear());
 			browser.sleep(sleepTime * 3);
-			//ставим нужный месяц
+			//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 			var findMonth = function (target) {
 				browser.sleep(sleepTime * 4);
 				element(by.css(".ui-datepicker-month")).getText().then(function (result) {
@@ -612,10 +612,10 @@ describe('Protractor Demo App', function () {
 	 browser.sleep(sleepTime * 2);
 	 NikolsanSign();
 	 browser.sleep(sleepTime * 5);
-	 //----------------------------------теперь надо проверить часы
+	 //----------------------------------пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 	 expect(element(by.xpath('//th[contains(text(),"Total hourly charge")]/../td[2]')).getText()).toEqual('6');
 
-	 //----------------------------------теперь тыкаем циферки справа
+	 //----------------------------------пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	 element(by.model('p.name')).click();
 	 browser.actions().sendKeys(protractor.Key.TAB).perform();
 	 browser.actions().sendKeys(protractor.Key.ARROW_DOWN).perform();
@@ -639,7 +639,7 @@ describe('Protractor Demo App', function () {
 	 services.get(Math.floor(Math.random() * count + 1)).click();
 	 });
 
-	 //---------------------------------и проверяем, как он посчитал
+	 //---------------------------------пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	 var summing = function (rows, count, current, sum, total, HowToLook) {
 	 if (current < count) {
 	 rows.get(current).getText().then(function (text) {
@@ -681,7 +681,7 @@ describe('Protractor Demo App', function () {
 	 expect(Number(text)).toEqual('480');
 	 });
 
-	 //-----------------------------------проверяем, чтобы Balance = 0
+	 //-----------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ Balance = 0
 	 element(by.xpath('//p[contains(text(),"Total balance paid:")]/../../td[2]')).getText().then(function (text) {
 	 //expect(text.substr(text.indexOf('$') + 1,5)).toEqual('Balance');
 	 expect(Number(text.substr(text.indexOf('$') + 1, 5))).toEqual(0);
@@ -717,15 +717,15 @@ describe('Protractor Demo App', function () {
 	 it('should upload a file', function () {
 
 	 browser.sleep(sleepTime * 5);
-	 var path = require('path');//тут мы просим у NodeJS зависимость path
+	 var path = require('path');//пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ NodeJS пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ path
 	 var slip_image = element(by.id("inputImage"));
-	 var fileToUpload = "D:/git.jpg";//наш путь к файлу (от корня или от исполняемого чего-то)
+	 var fileToUpload = "D:/git.jpg";//пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ-пїЅпїЅ)
 	 browser.sleep(sleepTime * 3);
-	 var absolutePath = path.resolve(__dirname, fileToUpload); //преобразуем относительный путь в абсолютный(в нашем случае просто разворачиваем слеши обратно)
+	 var absolutePath = path.resolve(__dirname, fileToUpload); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ(пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 	 browser.sleep(sleepTime * 3);
-	 //slip_image.click();//этого, наверное, можно и не делать...
+	 //slip_image.click();//пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ...
 	 //browser.sleep(sleepTime*1);
-	 //expect(absolutePath).toEqual('path.resolve'); //смотрим, чего он там наресолвил
+	 //expect(absolutePath).toEqual('path.resolve'); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	 slip_image.sendKeys(absolutePath);
 	 browser.sleep(sleepTime * 3);
 	 element(by.xpath("(//button[contains(text(),'Save')])[4]")).click();
@@ -781,7 +781,7 @@ describe('Protractor Demo App', function () {
 
 	function NikolsanLogin() {
 		browser.get(clientURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(15000);
 		element(by.model('email')).sendKeys('nikolsan');
 		element(by.model('password')).sendKeys('123');

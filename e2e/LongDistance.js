@@ -6,9 +6,9 @@ describe('LongDistance test', function () {
 	var zipFrom = "02461";
 	var zipTo = "90001";
 	var temp, i, j, k;
-	var clientURL = 'http://secure.themoveboard.com/account/#/login';
-	var adminURL = "http://secure.themoveboard.com/moveBoard/#/dashboard";
-	var requestPage = 'http://secure.themoveboard.com/account/#/request/';
+	var clientURL = 'http://stage.themoveboard.com/account/#/login';
+	var adminURL = "http://stage.themoveboard.com/moveBoard/#/dashboard";
+	var requestPage = 'http://stage.themoveboard.com/account/#/request/';
 	var Admin_EmailId = "roma4ke";
 	var Admin_Password = "root";
 	var firstName = randomBukva(6) + "_name";
@@ -19,8 +19,8 @@ describe('LongDistance test', function () {
 	var requestId;
 	var now = new Date();
 	var msInDay = 86400000;
-	var future = new Date(now.getTime() + msInDay * 4);//4 дня вперёд
-	var farFuture = new Date(now.getTime() + msInDay * 8);//8 дня вперёд
+	var future = new Date(now.getTime() + msInDay * 4);//4 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	var farFuture = new Date(now.getTime() + msInDay * 8);//8 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	var moveDate = {month: 0, day: 0, year: 0};
 	var sleepTime = 1500;
 	var repeats = 20;
@@ -38,12 +38,12 @@ describe('LongDistance test', function () {
 		NOVEMBER: 10,
 		DECEMBER: 11
 	};
-	var monthWords = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	var monthWords = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 
 	it('Admin login', function () {
 		browser.get(adminURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		TryToClickModel('email', function () {
 			adminLogin();
 			TryToClickXpath('//a[@ng-click="vm.openEditModal()"]');
@@ -53,7 +53,7 @@ describe('LongDistance test', function () {
 	it('creating Client', function () {
 		//element(by.xpath('//a[@ng-click="vm.openEditModal()"]')).click();
 		browser.sleep(sleepTime * 2);
-		element(by.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[@label="Long Distance"]')).click();//выбираем Lond Distance
+		element(by.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[@label="Long Distance"]')).click();//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Lond Distance
 		element(by.id('edit-move-date-datepicker-popup-0')).click();
 		browser.sleep(sleepTime * 1);
 		element(by.xpath('//td[@data-month="' + future.getMonth() + '" and @data-year="' + future.getFullYear() + '"]/a[contains(text(),"' + future.getDate() + '")]')).click();
@@ -105,7 +105,7 @@ describe('LongDistance test', function () {
 			});
 			browser.sleep(sleepTime * 4);
 
-			//-----------------------------------идём во вкладку Client
+			//-----------------------------------пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Client
 			element(by.xpath('//li[@heading="Client"]/a')).click();
 			browser.sleep(sleepTime * 2);
 			element(by.model('client.password')).sendKeys('123');
@@ -118,9 +118,9 @@ describe('LongDistance test', function () {
 
 
 	it('go to client', function () {
-		//----------------------------------закончили дела в админке, идём в клиента
+		//----------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.get(clientURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		TryToClickModel('email', function () {
 			//clientLogin('mCWstzLi@gmail.com', '123');
 			clientLogin(email, '123');
@@ -236,7 +236,7 @@ describe('LongDistance test', function () {
 
 	it('Admin login', function () {
 		browser.get(adminURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		TryToClickModel('email', function () {
 			adminLogin();
 			TryToClickXpath("//td[contains(text(),'" + requestId + "')]", function () {
@@ -252,7 +252,7 @@ describe('LongDistance test', function () {
 	var GrandTotal;
 
 	it('confirming', function () {
-		//-------------------------ставим Not Confirmed
+		//-------------------------пїЅпїЅпїЅпїЅпїЅпїЅ Not Confirmed
 		TryToClickId('edit-status', function () {
 			var status = element(by.id('edit-status'));
 			browser.sleep(sleepTime * 1);
@@ -260,20 +260,20 @@ describe('LongDistance test', function () {
 				stats[1].click();
 			});
 			//openRequest(70511);
-			//----------------------------выбираем грузовик
+			//----------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			var trucks = element.all(by.xpath('//div[@class="park_lot"]/div[@class="trucks"]/div'));
 			trucks.count().then(function (c) {
-				recurs = function (number, count, a, timeZone) { //передаём текущий номер, общее количество и массив строк и проход
-					if (number < count) {  //Если ещё не дошли до конца
+				recurs = function (number, count, a, timeZone) { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+					if (number < count) {  //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 						trucks.get(number).getAttribute('class').then(function (css) {
-							a.get(number).all(by.xpath('td/div/span')).count().then(function (result) { //считаем спаны текущей строки
-								if ((css == "dhx_matrix_scell truckid ng-binding ng-scope") && (result < (2 + timeZone))) { //если спанов мало и грузовик виден, тогда тыкаем грузовик
+							a.get(number).all(by.xpath('td/div/span')).count().then(function (result) { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+								if ((css == "dhx_matrix_scell truckid ng-binding ng-scope") && (result < (2 + timeZone))) { //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 									browser.actions().click(trucks.get(number)).perform();
 									//expect('tiknuli' + number).toEqual('');
-									return true; //возвращаем true как подтверждение тыка
-								} else { //иначе идём дальше
+									return true; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ true пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+								} else { //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 									//expect('goNext:' + (number + 1)).toEqual('');
-									return recurs(number + 1, count, a, timeZone); //возвращаем то, что нам передадут позже
+									return recurs(number + 1, count, a, timeZone); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 								}
 							});
 						});
@@ -298,7 +298,7 @@ describe('LongDistance test', function () {
 			});
 			browser.sleep(sleepTime * 5);
 
-			//---------------------------------добавляем packing и additional services
+			//---------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ packing пїЅ additional services
 			element(by.xpath('//label[@ng-click="openAddPackingModal();"]')).click();
 			browser.sleep(sleepTime * 5);
 			extras = element.all(by.repeater("extra_charge in extra_charges"));
@@ -358,7 +358,7 @@ describe('LongDistance test', function () {
 
 	it('go to client again', function () {
 		browser.get(clientURL);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		TryToClickModel('email', function () {
 			//clientLogin('oOaDeUZx@gmail.com', '123');
 			clientLogin(email, '123');
@@ -475,7 +475,7 @@ describe('LongDistance test', function () {
 
 	function NikolsanLogin() {
 		browser.get('http://secure.themoveboard.com/account/#/login');
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(sleepTime * 15);
 		element(by.model('email')).sendKeys('nikolsan');
 		element(by.model('password')).sendKeys('123');

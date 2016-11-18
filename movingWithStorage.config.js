@@ -23,6 +23,7 @@ exports.config = {
             reporter.afterLaunch(resolve.bind(this, exitCode));
         });
     },
+    seleniumAddress: 'http://localhost:4444/wd/hub',
     specs: [
         'e2e/MovingWithStorage.js'
     ],
