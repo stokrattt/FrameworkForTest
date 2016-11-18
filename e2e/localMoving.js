@@ -1,11 +1,13 @@
 describe('Local moving', function () {
-	var FirstName;
-	var LastName;
-	var Email;
+    var firstName = randomBukva(6) + "_name";
+    var lastName = randomBukva(5) + "_fam";
+    var fullName = firstName + ' ' + lastName;
+    var phone = randomCifra(10);
+    var email = randomBukva(8) + "@gmail.com";
 	var Password = "s123456";
 	var PrimaryPhone = "(123)124-4144";
-	var ZipFrom = "02461";
-	var ZipTo = "02111";
+    var zipFrom = "02461";
+    var zipTo = "02111";
 	var Address = "Indore";
 	var RequestId;
 	var URL_Homepage = "http://stage.themoveboard.com/";
@@ -16,10 +18,12 @@ describe('Local moving', function () {
 	var Apt = "29";
 	var name = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	var urlString;
-	var now = new Date();
-	var after_2_day = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 3);
-	var after_2_day_actual_date = after_2_day.getDate();
-	var sleepTime = 1500;
+    var now = new Date();
+    var msInDay = 86400000;
+    var future = new Date(now.getTime() + msInDay * 4);//4 ��� �����
+    var farFuture = new Date(now.getTime() + msInDay * 8);//8 ��� �����
+    var sleepTime = 1500;
+    var repeats = 20;
 	var monthNumbers = {
 		JANUARY: 0,
 		FEBRUARY: 1,
@@ -36,8 +40,101 @@ describe('Local moving', function () {
 	};
 
 
+	it('Fill 1st form', function () {
+		browser.get('http://stage.themoveboard.com/');
+		browser.sleep(sleepTime * 5);
+        element(by.model("moveDate")).click();
+        browser.sleep(sleepTime * 5);
+		TryToSendXpath('//small-desktop-form//input[@ng-model="request.first_name"]', firstName , function () {
+			var root = element(by.css('.sf-calculate-wrapper'));
+			var firstNameField = root.element(by.model("request.first_name"));
+			var lastNameField = root.element(by.model("request.last_name"));
+			var emailField = root.element(by.id("edit-email"));
+			var phoneField = root.element(by.id("primary_phone"));
+			var datePicker = root.element(by.id("short-datepicker"));
+			var storageDatePicker = root.element(by.id("edit-date-storage-datepicker-popup-0"));
+			var submit = root.element(by.xpath("//input[@value='Get Quote Now']"));
+			var editService = root.element(by.id("edit-service"));
+			var fromZipInput = root.element(by.model("request.zipFrom"));
+			var toZipInput = root.element(by.model("request.zipTo"));
+			var movingSize = root.element(by.id("sf-move-size"));
+			var typeFrom = root.element(by.model('request.typeFrom'));
+			var typeTo = root.element(by.model('request.typeTo'));
+			var calendarDay;
 
 
+			//firstNameField.sendKeys(firstName);
+			lastNameField.sendKeys(lastName);
+			emailField.sendKeys(email);
+			phoneField.sendKeys(phone);
+
+			//datePicker.click();
+            browser.actions().click(datePicker).perform();
+			element(by.xpath('//td[@data-month="' + future.getMonth() + '" and @data-year="' + future.getFullYear() + '"]/a[contains(text(),"' + future.getDate() + '")]')).click();
+
+			var editServices = editService.all(by.xpath("option[@value!='5']"));
+			temp = editServices.count().then(function (result) {
+				result--;
+				editServices.get(0).click();
+				return result;
+			});
+
+			fromZipInput.sendKeys(zipFrom);
+			toZipInput.sendKeys(zipTo);
+
+			movingSize.click();
+			browser.sleep(sleepTime * 2);
+			root.element(by.id("edit-size-move")).click();
+			browser.sleep(sleepTime * 2);
+			var movingSizes = root.element(by.id("edit-size-move")).all(by.tagName("option")).then(function (result) {
+				result[Math.floor(Math.random() * result.length - 2) + 2].click();
+			});
+
+			browser.sleep(sleepTime * 2);
+
+			//-------------------------------------������ �������
+			var checkBoxes = root.all(by.xpath("//div[@id='sf-rooms' and @style!='display:none;' and @style!='display: none;']/div"));
+			temp = checkBoxes.count().then(function (result) {
+				result--;
+				browser.actions().click(checkBoxes.get(Math.floor(Math.random() * result))).perform();
+				browser.actions().click(checkBoxes.get(Math.floor(Math.random() * result))).perform();
+				return result;
+			});
+
+			root.element(by.xpath("//ng-slide-push-menu[@id='slide_menu']/div[@class='toolbar']/button[1]")).click();
+			browser.sleep(sleepTime * 1);
+
+			temp = typeFrom.getAttribute("disabled").then(function (result) {
+				if (!result) {
+					var entranceFrom = typeFrom.all(by.tagName("option"));
+					temp = entranceFrom.count().then(function (result) {
+						result--;//������ ��� count() ������� � 1
+						entranceFrom.get(Math.floor(Math.random() * result + 1)).click();
+						return result;
+					});
+				}
+				return 1;
+			});
+
+			var entranceTo = typeTo.all(by.tagName("option"));
+			temp = entranceTo.count().then(function (result) {
+				result--;
+				entranceTo.get(Math.floor(Math.random() * result + 1)).click();
+				return result;
+			});
+			browser.sleep(sleepTime * 5);
+			submit.click();
+			browser.sleep(sleepTime * 7);
+			//----------------------------��������� ��������� ������ �����
+			//var temp = element(by.id('congrats_menu')).element(by.tagName('a')).click();
+			//browser.sleep(sleepTime*5);
+            element(by.css(".form-control.btn.submit_btn")).click();
+            browser.sleep(sleepTime * 4);
+            element(by.css(".btn.submit_btn.mobileform")).click();
+            browser.sleep(sleepTime * 2);
+		});
+	});
+/*
 	it('Get new quote now', function () {
 		browser.get(URL_Homepage);
 		//make change
@@ -86,6 +183,8 @@ describe('Local moving', function () {
 		element(by.css(".btn.submit_btn.mobileform")).click();
 		browser.sleep(sleepTime * 2);
 	});
+    */
+	/*
 	it('Save Inventory', function () {
 		browser.sleep(10 * sleepTime);
 		browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
@@ -621,7 +720,7 @@ describe('Local moving', function () {
 		//element(by.css(".confirm")).click();
 		browser.sleep(sleepTime * 2);
 	});
-
+*/
 	function NikolsanSign() {
 		var canvas = element(by.id("signatureCanvas"));
 		for (i = 100; i < 300; i++) {
@@ -702,6 +801,150 @@ describe('Local moving', function () {
 		element(by.xpath("//td[contains(text(),'" + r + "')]")).click();
 		browser.sleep(10 * sleepTime);
 	}
+
+	function xpathLookingFor(string) {
+		var a = element.all(by.xpath(string)).count().then(function (count) {
+			if (count === 0) {
+				expect('Not Found ' + string).toEqual('');
+			}
+		});
+	}
+
+	function TryToClickModel(string, next, count) {
+		if (next === undefined) {
+			next = function () {
+				browser.sleep(sleepTime);
+			};
+		}
+		busy = 'T';
+		browser.sleep(sleepTime * 2);
+		if (count === undefined) count = 0;
+		element(by.model(string)).click().then(function () {
+			console.log("Clicked!");
+			busy = 'F';
+			next();
+		}, function (err) {
+			if (count < repeats) {
+				console.log("Trying to click " + string + '...' + count);
+				TryToClickModel(string, next, count + 1);
+			} else {
+				expect('model ' + string + ' notClickable!!!').toEqual('');
+				throw err;
+			}
+		});
+	}
+
+	function TryToClickXpath(string, next, count) {
+		if (next === undefined) {
+			next = function () {
+				browser.sleep(sleepTime);
+			};
+		}
+		busy = 'T';
+		browser.sleep(sleepTime * 2);
+		if (count === undefined) count = 0;
+		element(by.xpath(string)).click().then(function () {
+			console.log("Clicked!");
+			busy = 'F';
+			next();
+		}, function (err) {
+			if (count < repeats) {
+				console.log("Trying to click " + string + '...' + count);
+				TryToClickXpath(string, next, count + 1);
+			} else {
+				expect('Xpath ' + string + ' notClickable!!!').toEqual('');
+				throw err;
+			}
+		});
+	}
+
+    function TryToSendXpath(string,keys, next, count) {
+        if (next === undefined) {
+            next = function () {
+                browser.sleep(sleepTime);
+            };
+        }
+        busy = 'T';
+        browser.sleep(sleepTime * 2);
+        if (count === undefined) count = 0;
+        element(by.xpath(string)).sendKeys(keys).then(function () {
+            console.log("Clicked!");
+            busy = 'F';
+            next();
+        }, function (err) {
+            if (count < repeats) {
+                console.log("Trying to click " + string + '...' + count);
+                TryToClickXpath(string, keys, next, count + 1);
+            } else {
+                expect('Xpath ' + string + ' notClickable!!!').toEqual('');
+                throw err;
+            }
+        });
+    }
+
+	function TryToClickId(string, next, count) {
+		if (next === undefined) {
+			next = function () {
+				browser.sleep(sleepTime);
+			};
+		}
+		busy = 'T';
+		browser.sleep(sleepTime * 2);
+		if (count === undefined) count = 0;
+		element(by.id(string)).click().then(function () {
+			console.log("Clicked!");
+			busy = 'F';
+			next();
+		}, function (err) {
+			if (count < repeats) {
+				console.log("Trying to click " + string + '...' + count);
+				TryToClickId(string, next, count + 1);
+			} else {
+				expect('Id ' + string + ' notClickable!!!').toEqual('');
+				throw err;
+			}
+		});
+	}
+
+	function TryToClickCss(string, next, count) {
+		if (next === undefined) {
+			next = function () {
+				browser.sleep(sleepTime);
+			};
+		}
+		busy = 'T';
+		browser.sleep(sleepTime * 2);
+		if (count === undefined) count = 0;
+		element(by.css(string)).click().then(function () {
+			console.log("Clicked!");
+			busy = 'F';
+			next();
+		}, function (err) {
+			if (count < repeats) {
+				console.log("Trying to click " + string + '...' + count);
+				TryToClickCss(string, next, count + 1);
+			} else {
+				expect('css ' + string + ' notClickable!!!').toEqual('');
+				throw err;
+			}
+		});
+	}
+
+    function randomBukva(length) {
+        var bukva = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        var s = "";
+        for (i = 0; i < length; i++) {
+            s += bukva.charAt(Math.floor(Math.random() * bukva.length));
+        }
+        return s;
+    }
+    function randomCifra(length) {
+        var s = "";
+        for (i = 0; i < length; i++) {
+            s += Math.floor(Math.random() * 10);
+        }
+        return s;
+    }
 
 
 });

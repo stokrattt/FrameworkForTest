@@ -755,27 +755,23 @@ describe('Protractor Demo App', function () {
 		}
 		element(by.xpath('//button[@ng-click="saveStep()"]')).click();
 	}
-
 	function openRequest(r) {
 		//element(by.xpath("//td[contains(text(),'" + r + "')]")).click();
 		element(by.xpath("//td[contains(text(),'" + r + "')]")).click();
 		//browser.sleep(sleepTime * 7);
 	}
-
 	function clientLogin(login, passwd) {
 		element(by.model('email')).sendKeys(login);
 		element(by.model('password')).sendKeys(passwd);
 		element(by.xpath("//button[contains(text(),'Login')]")).submit();
 		browser.sleep(sleepTime * 3);
 	}
-
 	function adminLogin() {
 		element(by.model('email')).sendKeys(Admin_EmailId);
 		element(by.model('password')).sendKeys(Admin_Password);
 		element(by.xpath("//button[contains(text(),'Login')]")).submit();
 		//browser.ignoreSynchronization = false;
 	}
-
 	function NikolsanLogin() {
 		browser.get(clientURL);
 		browser.ignoreSynchronization = true; //��� ����� ��������
@@ -786,14 +782,12 @@ describe('Protractor Demo App', function () {
 		//browser.ignoreSynchronization = false;
 		browser.sleep(20000);
 	}
-
 	function sweetConfirm() {
 		var confirmBtn = element.all(by.xpath('//div[@class="sweet-alert showSweetAlert visible"]/div/div/button'));
 		confirmBtn.count().then(function (result) {
 			if (result != 0) confirmBtn.get(0).click();
 		});
 	}
-
 	function adminLogout() {
 		//browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
 
@@ -831,7 +825,6 @@ describe('Protractor Demo App', function () {
 		TryToClick1(10);
 
 	}
-
 	function randomBukva(length) {
 		var bukva = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 		var s = "";
@@ -840,7 +833,6 @@ describe('Protractor Demo App', function () {
 		}
 		return s;
 	}
-
 	function randomCifra(length) {
 		var s = "";
 		for (i = 0; i < length; i++) {
@@ -848,13 +840,11 @@ describe('Protractor Demo App', function () {
 		}
 		return s;
 	}
-
 	function OpenRequest(r) {
 		element(by.xpath("//td[contains(text(),'" + r + "')]")).click();
 		//element(by.xpath("//td[contains(text(),'" + r + "')]")).click();
 		browser.sleep(sleepTime * 4);
 	}
-
 	function xpathLookingFor(string) {
 		var a = element.all(by.xpath(string)).count().then(function (count) {
 			if (count === 0) {
@@ -862,7 +852,6 @@ describe('Protractor Demo App', function () {
 			}
 		});
 	}
-
 	function TryToClickModel(string, next, count) {
 		if (next === undefined) {
 			next = function () {
@@ -886,7 +875,6 @@ describe('Protractor Demo App', function () {
 			}
 		});
 	}
-
 	function TryToClickXpath(string, next, count) {
 		if (next === undefined) {
 			next = function () {
@@ -910,7 +898,6 @@ describe('Protractor Demo App', function () {
 			}
 		});
 	}
-
 	function TryToClickId(string, next, count) {
 		if (next === undefined) {
 			next = function () {
@@ -934,7 +921,6 @@ describe('Protractor Demo App', function () {
 			}
 		});
 	}
-
 	function TryToClickCss(string, next, count) {
 		if (next === undefined) {
 			next = function () {

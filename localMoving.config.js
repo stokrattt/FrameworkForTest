@@ -1,7 +1,7 @@
 var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
 
 var reporter = new HtmlScreenshotReporter({
-    dest: './report/screenshots',
+    dest: './report/localMoving',
     filename: 'my-report.html'
 });
 
@@ -23,8 +23,9 @@ exports.config = {
             reporter.afterLaunch(resolve.bind(this, exitCode));
         });
     },
+    seleniumAddress: 'http://localhost:4444/wd/hub',
     specs: [
-        'e2e/TheMoveBoard.js'
+        'e2e/localMoving.js'
     ],
     framework: 'jasmine',
     // Assign the test reporter to each running instance
