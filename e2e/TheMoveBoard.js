@@ -705,4 +705,3 @@ describe('Local moving', function () {
 
 
 });
- 

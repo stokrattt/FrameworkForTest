@@ -1,6 +1,3 @@
-/**
- * Created by Ribka on 10.09.2016.
- */
 describe('Protractor Demo App', function () {
 
 	var adminURL = "http://stage.themoveboard.com/moveBoard/#/dashboard";
@@ -591,5 +588,4 @@ describe('Protractor Demo App', function () {
 		});
 	}
 
-})
-;
+});

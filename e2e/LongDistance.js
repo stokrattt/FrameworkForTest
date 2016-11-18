@@ -1,6 +1,3 @@
-/**
- * Created by Ribka on 10.09.2016.
- */
 describe('LongDistance test', function () {
 
 	var zipFrom = "02461";

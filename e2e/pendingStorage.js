@@ -1,6 +1,3 @@
-/**
- * Created by Ribka on 10.09.2016.
- */
 describe('Protractor Demo App', function () {
 
 	var pendingUrl = "http://stage.themoveboard.com/moveBoard/#/storages/pending";
@@ -344,5 +341,4 @@ describe('Protractor Demo App', function () {
 		}
 		return s;
 	}
-})
-;
+});
