@@ -1,6 +1,6 @@
 
 function goToLoginPage() {
-    browser.driver.get('https://moversboard.net:8083/account/#/login');
+    browser.driver.get('http://moversboard.net:8083/account/#/login');
 }
 function goToHomePage() {
     browser.driver.get('https://moversboard.net:8083/front_site/bostonbestrate/');

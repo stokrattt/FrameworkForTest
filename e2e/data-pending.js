@@ -3,9 +3,9 @@
  */
 describe('Protractor Demo App', function () {
 
-	var localDispatchURL = 'http://secure.themoveboard.com/moveBoard/#/dispatch/local';
-	var clientPage = 'http://secure.themoveboard.com/account/#/login';
-	var adminPage = 'http://secure.themoveboard.com/moveBoard/#/dashboard';
+	var localDispatchURL = 'http://stage.themoveboard.com/moveBoard/#/dispatch/local';
+	var clientPage = 'http://stage.themoveboard.com/account/#/login';
+	var adminPage = 'http://stage.themoveboard.com/moveBoard/#/dashboard';
 	var zipFrom = "02461";
 	var zipTo = "02111";
 	var temp, i, j, k;
@@ -21,8 +21,8 @@ describe('Protractor Demo App', function () {
 	var requestId3;
 	var now = new Date();
 	var msInDay = 86400000;
-	var future = new Date(now.getTime() + msInDay * 5);//4 дня вперёд
-	var farFuture = new Date(now.getTime() + msInDay * 6);//8 дня вперёд
+	var future = new Date(now.getTime() + msInDay * 5);//4 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	var farFuture = new Date(now.getTime() + msInDay * 6);//8 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	var moveDate = {month: 0, day: 0, year: 0};
 	var sleepTime = 1500;
 	var monthNumbers = {
@@ -48,7 +48,7 @@ describe('Protractor Demo App', function () {
 	it('creating Client', function () {
 		element(by.xpath('//a[@ng-click="vm.openEditModal()"]')).click();
 		browser.sleep(sleepTime * 2);
-		element(by.xpath('//select[@ng-options="service.id as service.title for service in services"]/option[1]')).click();//выбираем Moving & Storage
+		element(by.xpath('//select[@ng-options="service.id as service.title for service in services"]/option[1]')).click();//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Moving & Storage
 		element(by.id('edit-move-date-datepicker-popup-0')).click();
 		browser.sleep(sleepTime * 1);
 		element(by.xpath('//td[@data-month="' + future.getMonth() + '" and @data-year="' + future.getFullYear() + '"]/a[contains(text(),"' + future.getDate() + '")]')).click();
@@ -87,21 +87,21 @@ describe('Protractor Demo App', function () {
 		browser.sleep(sleepTime * 15);
 	});
 	it('select truck & confirm', function () {
-		//----------------------------выбираем грузовик
+		//----------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		var trucks = element.all(by.xpath('//div[@class="park_lot"]/div[@class="trucks"]/div'));
 		trucks.count().then(function (c) {
-			recurs = function (number, count, a, timeZone) { //передаём текущий номер, общее количество и массив строк и проход
-				if (number < count) {  //Если ещё не дошли до конца
+			recurs = function (number, count, a, timeZone) { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+				if (number < count) {  //пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 					trucks.get(number).getAttribute('class').then(function (css) {
-						a.get(number).all(by.xpath('td/div/span')).count().then(function (result) { //считаем спаны текущей строки
-							if ((css == "dhx_matrix_scell truckid ng-binding ng-scope") && (result < (2 + timeZone))) { //если спанов мало и грузовик виден, тогда тыкаем грузовик
+						a.get(number).all(by.xpath('td/div/span')).count().then(function (result) { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+							if ((css == "dhx_matrix_scell truckid ng-binding ng-scope") && (result < (2 + timeZone))) { //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 								browser.actions().click(trucks.get(number)).perform();
 								theTruck = number;
 								//expect('tiknuli' + number).toEqual('');
-								return true; //возвращаем true как подтверждение тыка
-							} else { //иначе идём дальше
+								return true; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ true пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+							} else { //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 								//expect('goNext:' + (number + 1)).toEqual('');
-								return recurs(number + 1, count, a, timeZone); //возвращаем то, что нам передадут позже
+								return recurs(number + 1, count, a, timeZone); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 							}
 						});
 					});
@@ -126,7 +126,7 @@ describe('Protractor Demo App', function () {
 			var vibrali = recurs(0, c, a, 0);
 		});
 		browser.sleep(sleepTime * 5);
-		//-------------------------ставим NOT Confirmed
+		//-------------------------пїЅпїЅпїЅпїЅпїЅпїЅ NOT Confirmed
 		var status = element(by.id('edit-status'));
 		status.click();
 		browser.sleep(sleepTime * 1);
@@ -144,7 +144,7 @@ describe('Protractor Demo App', function () {
 		browser.sleep(sleepTime * 6);
 		element(by.xpath("//div[contains(text(),'Update request and send emails')]")).click();
 		browser.sleep(sleepTime * 10);
-		//-----------------------------------идём во вкладку Client
+		//-----------------------------------пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Client
 		element(by.xpath('//li[@heading="Client"]/a')).click();
 		browser.sleep(sleepTime * 2);
 		element(by.model('client.password')).sendKeys('123');
@@ -157,7 +157,7 @@ describe('Protractor Demo App', function () {
 	it('creating Client2', function () {
 		element(by.xpath('//a[@ng-click="vm.openEditModal()"]')).click();
 		browser.sleep(sleepTime * 2);
-		element(by.xpath('//select[@ng-options="service.id as service.title for service in services"]/option[1]')).click();//выбираем Moving & Storage
+		element(by.xpath('//select[@ng-options="service.id as service.title for service in services"]/option[1]')).click();//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Moving & Storage
 		element(by.id('edit-move-date-datepicker-popup-0')).click();
 		browser.sleep(sleepTime * 1);
 		element(by.xpath('//td[@data-month="' + future.getMonth() + '" and @data-year="' + future.getFullYear() + '"]/a[contains(text(),"' + future.getDate() + '")]')).click();
@@ -196,7 +196,7 @@ describe('Protractor Demo App', function () {
 		browser.sleep(sleepTime * 15);
 	});
 	it('select truck & confirm 2', function () {
-		//----------------------------выбираем грузовик
+		//----------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		var trucks = element.all(by.xpath('//div[@class="park_lot"]/div[@class="trucks"]/div'));
 		if (theTime !== '') {
 			var truckTime = element(by.xpath('//input[@name="start_time"]'));
@@ -206,7 +206,7 @@ describe('Protractor Demo App', function () {
 		browser.actions().click(trucks.get(theTruck)).perform();
 		browser.sleep(sleepTime * 5);
 
-		//-------------------------ставим NOT Confirmed
+		//-------------------------пїЅпїЅпїЅпїЅпїЅпїЅ NOT Confirmed
 		var status = element(by.id('edit-status'));
 		status.click();
 		browser.sleep(sleepTime * 1);
@@ -224,7 +224,7 @@ describe('Protractor Demo App', function () {
 		browser.sleep(sleepTime * 6);
 		element(by.xpath("//div[contains(text(),'Update request and send emails')]")).click();
 		browser.sleep(sleepTime * 10);
-		//-----------------------------------идём во вкладку Client
+		//-----------------------------------пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Client
 		element(by.xpath('//li[@heading="Client"]/a')).click();
 		browser.sleep(sleepTime * 2);
 		element(by.model('client.password')).sendKeys('123');
@@ -238,7 +238,7 @@ describe('Protractor Demo App', function () {
 	it('creating Client3', function () {
 		element(by.xpath('//a[@ng-click="vm.openEditModal()"]')).click();
 		browser.sleep(sleepTime * 2);
-		element(by.xpath('//select[@ng-options="service.id as service.title for service in services"]/option[1]')).click();//выбираем Moving & Storage
+		element(by.xpath('//select[@ng-options="service.id as service.title for service in services"]/option[1]')).click();//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Moving & Storage
 		element(by.id('edit-move-date-datepicker-popup-0')).click();
 		browser.sleep(sleepTime * 1);
 		element(by.xpath('//td[@data-month="' + future.getMonth() + '" and @data-year="' + future.getFullYear() + '"]/a[contains(text(),"' + future.getDate() + '")]')).click();
@@ -277,7 +277,7 @@ describe('Protractor Demo App', function () {
 		browser.sleep(sleepTime * 15);
 	});
 	it('select truck & confirm 3', function () {
-		//----------------------------выбираем грузовик
+		//----------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		var trucks = element.all(by.xpath('//div[@class="park_lot"]/div[@class="trucks"]/div'));
 		if (theTime !== '') {
 			var truckTime = element(by.xpath('//input[@name="start_time"]'));
@@ -287,7 +287,7 @@ describe('Protractor Demo App', function () {
 		browser.actions().click(trucks.get(theTruck)).perform();
 		browser.sleep(sleepTime * 5);
 
-		//-------------------------ставим NOT Confirmed
+		//-------------------------пїЅпїЅпїЅпїЅпїЅпїЅ NOT Confirmed
 		var status = element(by.id('edit-status'));
 		status.click();
 		browser.sleep(sleepTime * 1);
@@ -304,7 +304,7 @@ describe('Protractor Demo App', function () {
 		browser.sleep(sleepTime * 6);
 		element(by.xpath("//div[contains(text(),'Update request and send emails')]")).click();
 		browser.sleep(sleepTime * 10);
-		//-----------------------------------идём во вкладку Client
+		//-----------------------------------пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Client
 		element(by.xpath('//li[@heading="Client"]/a')).click();
 		browser.sleep(sleepTime * 2);
 		element(by.model('client.password')).sendKeys('123');
@@ -411,7 +411,7 @@ describe('Protractor Demo App', function () {
 
 	function clientLogin(login, passwd) {
 		browser.get(clientPage);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(sleepTime * 2);
 		element(by.model('email')).sendKeys(login);
 		element(by.model('password')).sendKeys(passwd);
@@ -421,7 +421,7 @@ describe('Protractor Demo App', function () {
 
 	function adminLogin() {
 		browser.get(adminPage);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(sleepTime * 15);
 		element(by.model('email')).sendKeys(Admin_EmailId);
 		element(by.model('password')).sendKeys(Admin_Password);
@@ -432,7 +432,7 @@ describe('Protractor Demo App', function () {
 
 	function NikolsanLogin() {
 		browser.get('http://secure.themoveboard.com/account/#/login');
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(sleepTime * 15);
 		element(by.model('email')).sendKeys('nikolsan');
 		element(by.model('password')).sendKeys('123');

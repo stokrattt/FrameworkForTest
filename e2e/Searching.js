@@ -5,8 +5,8 @@ describe('Searching test', function () {
 
 	var zipFrom = "02461";
 	var zipTo = "02111";
-	var clientPage = 'http://secure.themoveboard.com/account/#/login';
-	var adminPage = 'http://secure.themoveboard.com/moveBoard/#/dashboard';
+	var clientPage = 'http://stage.themoveboard.com/account/#/login';
+	var adminPage = 'http://stage.themoveboard.com/moveBoard/#/dashboard';
 	var temp, i, j, k;
 	var Admin_EmailId = "roma4ke";
 	var Admin_Password = "root";
@@ -18,8 +18,8 @@ describe('Searching test', function () {
 	var requestId;
 	var now = new Date();
 	var msInDay = 86400000;
-	var future = new Date(now.getTime() + msInDay * 4);//4 дня вперёд
-	var farFuture = new Date(now.getTime() + msInDay * 8);//8 дня вперёд
+	var future = new Date(now.getTime() + msInDay * 4);//4 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	var farFuture = new Date(now.getTime() + msInDay * 8);//8 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	var moveDate = {month: 0, day: 0, year: 0};
 	var sleepTime=1500;
 	var monthNumbers = {
@@ -47,7 +47,7 @@ describe('Searching test', function () {
 	it('creating Client', function () {
 		element(by.xpath('//a[@ng-click="vm.openEditModal()"]')).click();
 		browser.sleep(sleepTime*2);
-		element(by.xpath('//select[@ng-options="service.id as service.title for service in services"]/option[1]')).click();//выбираем Moving & Storage
+		element(by.xpath('//select[@ng-options="service.id as service.title for service in services"]/option[1]')).click();//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Moving & Storage
 		element(by.id('edit-move-date-datepicker-popup-0')).click();
 		browser.sleep(sleepTime*1);
 		element(by.xpath('//td[@data-month="' + future.getMonth() + '" and @data-year="' + future.getFullYear() + '"]/a[contains(text(),"' + future.getDate() + '")]')).click();
@@ -157,7 +157,7 @@ describe('Searching test', function () {
 
 	function clientLogin(login, passwd) {
 		browser.get(clientPage);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(sleepTime*12);
 		element(by.model('email')).sendKeys(login);
 		element(by.model('password')).sendKeys(passwd);
@@ -167,7 +167,7 @@ describe('Searching test', function () {
 
 	function adminLogin() {
 		browser.get(adminPage);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(sleepTime*15);
 		element(by.model('email')).sendKeys(Admin_EmailId);
 		element(by.model('password')).sendKeys(Admin_Password);
@@ -178,7 +178,7 @@ describe('Searching test', function () {
 
 	function NikolsanLogin() {
 		browser.get(adminPage);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(sleepTime*15);
 		element(by.model('email')).sendKeys('nikolsan');
 		element(by.model('password')).sendKeys('123');

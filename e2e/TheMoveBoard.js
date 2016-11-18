@@ -8,9 +8,9 @@ describe('Local moving', function () {
 	var ZipTo = "02111";
 	var Address = "Indore";
 	var RequestId;
-	var URL_Homepage = "http://demo.themoveboard.com/";
-	var URL_Login = "http://secure.themoveboard.com/account/#/login";
-	var URL_Admin = "http://secure.themoveboard.com/moveBoard/#/login";
+	var URL_Homepage = "http://stage.themoveboard.com/";
+	var URL_Login = "http://stage.themoveboard.com/account/#/login";
+	var URL_Admin = "http://stage.themoveboard.com/moveBoard/#/login";
 	var Admin_EmailId = "roma4ke";
 	var Admin_Password = "root";
 	var Apt = "29";
@@ -266,20 +266,20 @@ describe('Local moving', function () {
 
 		openRequest(RequestId);
 
-		//----------------------------выбираем грузовик
+		//----------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		var trucks = element.all(by.xpath('//div[@class="park_lot"]/div[@class="trucks"]/div'));
 		trucks.count().then(function (c) {
-			recurs = function (number, count, a, timeZone) { //передаём текущий номер, общее количество и массив строк и проход
-				if (number < count) {  //Если ещё не дошли до конца
+			recurs = function (number, count, a, timeZone) { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+				if (number < count) {  //пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 					trucks.get(number).getAttribute('class').then(function (css) {
-						a.get(number).all(by.xpath('td/div/span')).count().then(function (result) { //считаем спаны текущей строки
-							if ((css == "dhx_matrix_scell truckid ng-binding ng-scope") && (result < (2 + timeZone))) { //если спанов мало и грузовик виден, тогда тыкаем грузовик
+						a.get(number).all(by.xpath('td/div/span')).count().then(function (result) { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+							if ((css == "dhx_matrix_scell truckid ng-binding ng-scope") && (result < (2 + timeZone))) { //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 								browser.actions().click(trucks.get(number)).perform();
 								//expect('tiknuli' + number).toEqual('');
-								return true; //возвращаем true как подтверждение тыка
-							} else { //иначе идём дальше
+								return true; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ true пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+							} else { //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 								//expect('goNext:' + (number + 1)).toEqual('');
-								return recurs(number + 1, count, a, timeZone); //возвращаем то, что нам передадут позже
+								return recurs(number + 1, count, a, timeZone); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 							}
 						});
 					});
@@ -302,7 +302,7 @@ describe('Local moving', function () {
 			var a = element.all(by.xpath('//tr[@ng-repeat="(tid,truck_name) in ::trucks"]'));
 			var vibrali = recurs(0, c, a, 0);
 		});
-		//-------------------------ставим Not Confirmed
+		//-------------------------пїЅпїЅпїЅпїЅпїЅпїЅ Not Confirmed
 		var status = element(by.id('edit-status'));
 		status.click();
 		browser.sleep(sleepTime * 1);
@@ -310,7 +310,7 @@ describe('Local moving', function () {
 			stats[1].click();
 		});
 		browser.sleep(sleepTime * 1);
-		//---------------------------------добавляем packing и additional services
+		//---------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ packing пїЅ additional services
 		element(by.xpath('//label[@ng-click="openAddPackingModal();"]')).click();
 		browser.sleep(sleepTime * 2);
 
@@ -447,7 +447,7 @@ describe('Local moving', function () {
 			});
 		};
 		findYear(after_2_day.getFullYear());
-		//ставим нужный месяц
+		//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 		var findMonth = function (target) {
 			browser.sleep(sleepTime * 3);
 			element(by.css(".ui-datepicker-month")).getText().then(function (result) {
@@ -487,7 +487,7 @@ describe('Local moving', function () {
 
 	function clientLogin(login, passwd) {
 		browser.get(URL_Login);
-		browser.ignoreSynchronization = true; //без этого зависает
+		browser.ignoreSynchronization = true; //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		browser.sleep(12 * sleepTime);
 		element(by.model('email')).sendKeys(login);
 		element(by.model('password')).sendKeys(passwd);
@@ -546,10 +546,10 @@ describe('Local moving', function () {
 		browser.sleep(sleepTime * 2);
 		NikolsanSign();
 		browser.sleep(5 * sleepTime);
-		//----------------------------------теперь надо проверить часы
+		//----------------------------------пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 		expect(element(by.xpath('//th[contains(text(),"Total hourly charge")]/../td[2]')).getText()).toEqual('6');
 
-		//----------------------------------теперь тыкаем циферки справа
+		//----------------------------------пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		element(by.model('p.name')).click();
 		browser.actions().sendKeys(protractor.Key.TAB).perform();
 		browser.actions().sendKeys(protractor.Key.ARROW_DOWN).perform();
@@ -575,7 +575,7 @@ describe('Local moving', function () {
 			services.get(Math.floor(Math.random() * count + 1)).click();
 		});
 
-		//---------------------------------и проверяем, как он посчитал
+		//---------------------------------пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		var summing = function (rows, count, current, sum, total, HowToLook) {
 			if (current < count) {
 				rows.get(current).getText().then(function (text) {
@@ -618,7 +618,7 @@ describe('Local moving', function () {
 		});
 
 
-		//-----------------------------------проверяем, чтобы Balance = 0
+		//-----------------------------------пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ Balance = 0
 		element(by.xpath('//p[contains(text(),"Total balance paid:")]/../../td[2]')).getText().then(function (text) {
 			//expect(text.substr(text.indexOf('$') + 1,5)).toEqual('Balance');
 			expect(Number(text.substr(text.indexOf('$') + 1, 5))).toEqual(0);
@@ -628,7 +628,7 @@ describe('Local moving', function () {
 		browser.sleep(5 * sleepTime);
 		element(by.xpath('//div[contains(text(),"SKIP")]')).click();
 		browser.sleep(sleepTime * 1);
-		//тут можно проверить последний раз сумму к оплате
+		//пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		element(by.xpath('//button[@ng-click="goStepTwo();"]')).click();
 		browser.sleep(sleepTime * 3);
 		element(by.id("card_number")).sendKeys("4111111111111111");
@@ -672,15 +672,15 @@ describe('Local moving', function () {
 	it('should upload a file', function () {
 
 		browser.sleep(5 * sleepTime);
-		var path = require('path');//тут мы просим у NodeJS зависимость path
+		var path = require('path');//пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ NodeJS пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ path
 		var slip_image = element(by.id("inputImage"));
-		var fileToUpload = "D:/git.jpg";//наш путь к файлу (от корня или от исполняемого чего-то)
+		var fileToUpload = "D:/git.jpg";//пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ-пїЅпїЅ)
 		browser.sleep(sleepTime * 3);
-		var absolutePath = path.resolve(__dirname, fileToUpload); //преобразуем относительный путь в абсолютный(в нашем случае просто разворачиваем слеши обратно)
+		var absolutePath = path.resolve(__dirname, fileToUpload); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ(пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 		browser.sleep(sleepTime * 3);
-		//slip_image.click();//этого, наверное, можно и не делать...
+		//slip_image.click();//пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ...
 		//browser.sleep(sleepTime*1);
-		//expect(absolutePath).toEqual('path.resolve'); //смотрим, чего он там наресолвил
+		//expect(absolutePath).toEqual('path.resolve'); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		slip_image.sendKeys(absolutePath);
 		browser.sleep(sleepTime * 3);
 		element(by.xpath('(//button[@ng-click="saveFile()"])')).click();
