@@ -1,8 +1,9 @@
 describe('Protractor Demo App', function () {
 
-    var localDispatchURL = 'http://stage.themoveboard.com/moveBoard/#/dispatch/local';
-    var clientPage = 'http://stage.themoveboard.com/account/#/login';
-    var adminPage = 'http://stage.themoveboard.com/moveBoard/#/dashboard';
+    browser.params
+    var localDispatchURL = browser.params.localDispatchURL;
+    var clientPage = browser.params.clientPage;
+    var adminPage = browser.params.adminPage;
     var zipFrom = "02461";
     var zipTo = "02111";
     var temp, i, j, k;

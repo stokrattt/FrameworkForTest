@@ -43,7 +43,7 @@ describe('Local moving', function () {
 	it('Fill 1st form', function () {
 		browser.get('http://stage.themoveboard.com/');
 		browser.sleep(sleepTime * 5);
-        element(by.model("moveDate")).click();
+        element(by.xpath('//select[@id="edit-service"]')).click();
         browser.sleep(sleepTime * 5);
 		TryToSendXpath('//small-desktop-form//input[@ng-model="request.first_name"]', firstName , function () {
 			var root = element(by.css('.sf-calculate-wrapper'));
@@ -868,15 +868,15 @@ describe('Local moving', function () {
         browser.sleep(sleepTime * 2);
         if (count === undefined) count = 0;
         element(by.xpath(string)).sendKeys(keys).then(function () {
-            console.log("Clicked!");
+            console.log("Sended!");
             busy = 'F';
             next();
         }, function (err) {
             if (count < repeats) {
-                console.log("Trying to click " + string + '...' + count);
+                console.log("Trying to send " + string + '...' + count);
                 TryToClickXpath(string, keys, next, count + 1);
             } else {
-                expect('Xpath ' + string + ' notClickable!!!').toEqual('');
+                expect('Xpath ' + string + ' notSendable!!!').toEqual('');
                 throw err;
             }
         });

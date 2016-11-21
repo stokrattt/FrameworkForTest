@@ -6,6 +6,26 @@ var reporter = new HtmlScreenshotReporter({
 });
 
 exports.config = {
+    /**
+     * The params object will be passed directly to the Protractor instance,
+     * and can be accessed from your test as browser.params. It is an arbitrary
+     * object and can contain anything you may need in your test.
+     * This can be changed via the command line as:
+     *   --params.login.user "Joe"
+     *
+     * Example:
+     * params: {
+   *   login: {
+   *     user: 'Jane',
+   *     password: '1234'
+   *   }
+   * }
+     */
+    params: {
+        localDispatchURL: 'http://stage.themoveboard.com/moveBoard/#/dispatch/local',
+        clientPage: 'http://stage.themoveboard.com/account/#/login',
+        adminPage: 'http://stage.themoveboard.com/moveBoard/#/dashboard'
+    },
     capabilities: {
         // You can use other browsers
         // like firefox, phantoms, safari, IE (-_-)
@@ -24,10 +44,18 @@ exports.config = {
         });
     },
     seleniumAddress: 'http://localhost:4444/wd/hub',
+    suites: {
+        dataPending: 'e2e/data-pending.js',
+        search: ['tests/e2e/contact_search/**/*Spec.js',
+            'tests/e2e/venue_search/**/*Spec.js']
+    },
+
+    /*
     specs: [
         //'e2e/TheMoveBoard.js',
         'e2e/data-pending.js'
     ],
+    */
     framework: 'jasmine',
     // Assign the test reporter to each running instance
     onPrepare: function() {
