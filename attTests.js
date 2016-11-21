@@ -23,8 +23,8 @@ exports.config = {
      */
     params: {
         localDispatchURL: 'http://stage.themoveboard.com/moveBoard/#/dispatch/local',
-        clientPage: 'http://stage.themoveboard.com/account/#/login',
-        adminPage: 'http://stage.themoveboard.com/moveBoard/#/dashboard'
+        accountURL: 'http://stage.themoveboard.com/account/#/login',
+        adminURL: 'http://stage.themoveboard.com/moveBoard/#/dashboard'
     },
     capabilities: {
         // You can use other browsers

@@ -2,8 +2,8 @@ describe('Protractor Demo App', function () {
 
     browser.params
     var localDispatchURL = browser.params.localDispatchURL;
-    var clientPage = browser.params.clientPage;
-    var adminPage = browser.params.adminPage;
+    var clientPage = browser.params.clientURL;
+    var adminPage = browser.params.adminURL;
     var zipFrom = "02461";
     var zipTo = "02111";
     var temp, i, j, k;
