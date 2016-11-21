@@ -37,6 +37,7 @@ describe('Protractor Demo App', function () {
 	var repeats = 20;
 
 	it('Fill 1st form', function () {
+		browser.ignoreSynchronization = true;
 		browser.get('http://stage.themoveboard.com/');
 		browser.sleep(sleepTime * 5);
 		TryToClickXpath('//small-desktop-form//input[@ng-model="request.first_name"]', function () {

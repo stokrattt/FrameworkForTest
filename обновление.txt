@@ -1,5 +1,5 @@
 один конфиг на все тесты:
-protractor allTests.config --suite имятеста
+protractor allTests.config -suite имятеста
 
 сейчас работают (вроде) тесты:
 dataPending

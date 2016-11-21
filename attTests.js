@@ -45,9 +45,9 @@ exports.config = {
     },
     seleniumAddress: 'http://localhost:4444/wd/hub',
     suites: {
-        dataPending: 'e2e/data-pending.js',
-        search: ['tests/e2e/contact_search/**/*Spec.js',
-            'tests/e2e/venue_search/**/*Spec.js']
+        localMoving: ['e2e/localMoving.js'],
+        longDistance: ['e2e/longDistance.js'],
+        dataPending: ['e2e/data-pending.js']
     },
 
     /*
