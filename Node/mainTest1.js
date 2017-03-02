@@ -1,4 +1,5 @@
-var boston = require("./bostonTestFunctions.js"),
+var Debug = require("./DebugWD.js"),
+    sleep = require('sleep'),
     webdriver = require('selenium-webdriver'),
     By = webdriver.By,
     until = webdriver.until;
@@ -15,7 +16,8 @@ driver = new webdriver.Builder()
     .withCapabilities({browserName: 'firefox'})
     .build();
 var V = {};
-boston.LookAtConsole(By,until,driver,V);
+var SF=require('./ShortFunctionsWD.js')(driver);
+Debug(By,until,driver,V,SF);
 
 function click(selector){
     driver.wait(until.elementLocated(selector), 10000).click();
@@ -26,15 +28,17 @@ function send(selector,text){
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 driver.get(URL);
-send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'),"02461");
-send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'),"02111");
+SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'),"02461");
+SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'),"02111");
+SF.click(By.xpath('//ultrasmall-form//input[@ng-model="moveDate"]'));
 
-driver.findElement(By.xpath('//ultrasmall-form//input[@ng-model="moveDate"]')).click();
 
-driver.findElements(By.css(".picker__day--infocus")).then(function(mas){mas[4].click();});
+//driver.findElement(By.xpath('//ultrasmall-form//input[@ng-model="moveDate"]')).click();
 
-try { driver.findElement(By.xpath('//ultrasmall-form//input[@ng-click="Continue1(\'step1\')"]')).click();}
-catch(e){console.error(e)}
+//driver.findElements(By.css(".picker__day--infocus")).then(function(mas){mas[4].click();});
+
+//try { driver.findElement(By.xpath('//ultrasmall-form//input[@ng-click="Continue1(\'step1\')"]')).click();}
+//catch(e){console.error(e)}
 
 
 //send(By.xpath('//ultrasmall-form//input[@ng-model="moveDate"]'),"March 3, 2017");
