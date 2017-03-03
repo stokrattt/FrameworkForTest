@@ -14,7 +14,7 @@ global.driver = new webdriver.Builder()
 
 global.busy = false;
 global.V={};
-var Debug = require("./DebugWD.js");
+global.Debug = require("./DebugWD.js");
 var SF = require('./ShortFunctionsWD.js');
 var JSs = require('./JSsteps');
 Debug.console();
@@ -25,11 +25,14 @@ var URL = 'http://stage.themoveboard.com/';
 driver.get(URL);
 SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
 SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
-//Debug.pause();
+Debug.pause();
 driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"moveDate\"]').focus();"));
+driver.sleep(2000);
 V.Future = null;
 driver.wait(driver.executeScript(Click4DaysNewCalendar).then(function (D) {
     V.Future = D;
 }));
 Debug.waitForDefined("Future");
 driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+
+JSclick('ultrasmall-form div[ng-click="openSlide();"]');

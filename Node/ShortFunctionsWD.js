@@ -4,4 +4,7 @@ global.SFclick = function (selector) {
 global.SFsend = function (selector, text) {
     driver.wait(driver.wait(until.elementLocated(selector), 10000).sendKeys(text));
 };
+global.JSclick = function(JQeurySelector){
+    driver.wait(driver.executeScript("$('"+JQeurySelector+"').click();"));
+};
 
