@@ -1,51 +1,35 @@
-var Debug = require("./DebugWD.js"),
-    sleep = require('sleep'),
-    webdriver = require('selenium-webdriver'),
-    By = webdriver.By,
-    until = webdriver.until;
+var webdriver = require('selenium-webdriver');
+global.By = webdriver.By;
+global.until = webdriver.until;
 
-/*webdriver.promise.controlFlow().on('uncaughtException', function(e) {
- console.log('Произошла ошибка: ', e);
- });
- */
+webdriver.promise.controlFlow().on('uncaughtException', function (e) {
+    console.log('Произошла ошибка: ', e);
+});
+
 var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
-var URL = 'http://stage.themoveboard.com/';
-var driver;
-driver = new webdriver.Builder()
+global.driver = new webdriver.Builder()
     .usingServer(SELENIUM_HOST)
-    .withCapabilities({browserName: 'firefox'})
+    .withCapabilities({browserName: 'chrome'})
     .build();
-var V = {};
-var SF=require('./ShortFunctionsWD.js')(driver);
-Debug(By,until,driver,V,SF);
 
-function click(selector){
-    driver.wait(until.elementLocated(selector), 10000).click();
-}
-function send(selector,text){
-    driver.wait(until.elementLocated(selector), 10000).sendKeys(text);
-}
+global.busy = false;
+global.V={};
+var Debug = require("./DebugWD.js");
+var SF = require('./ShortFunctionsWD.js');
+var JSs = require('./JSsteps');
+Debug.console();
+Debug.pauseWatcher();
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+var URL = 'http://stage.themoveboard.com/';
 driver.get(URL);
-SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'),"02461");
-SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'),"02111");
-SF.click(By.xpath('//ultrasmall-form//input[@ng-model="moveDate"]'));
-
-
-//driver.findElement(By.xpath('//ultrasmall-form//input[@ng-model="moveDate"]')).click();
-
-//driver.findElements(By.css(".picker__day--infocus")).then(function(mas){mas[4].click();});
-
-//try { driver.findElement(By.xpath('//ultrasmall-form//input[@ng-click="Continue1(\'step1\')"]')).click();}
-//catch(e){console.error(e)}
-
-
-//send(By.xpath('//ultrasmall-form//input[@ng-model="moveDate"]'),"March 3, 2017");
-
-
-/*driver.getTitle().then(function(title) {
- assert.ok(title.indexOf('test — Яндекс: нашлось') > -1, 'Ничего не нашлось :(');
- });
- */
-//driver.quit();
+SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
+SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
+//Debug.pause();
+driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"moveDate\"]').focus();"));
+V.Future = null;
+driver.wait(driver.executeScript(Click4DaysNewCalendar).then(function (D) {
+    V.Future = D;
+}));
+Debug.waitForDefined("Future");
+driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");

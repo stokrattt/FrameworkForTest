@@ -1,28 +1,91 @@
 sleep = require('sleep');
 
-module.exports = function (By, until, driver, V, SF) {
-    var recording = false;
-    var buffer = ' ';
-    process.stdin.setEncoding('utf8');
-    process.stdin.on('data', function (chunk) {
-        //var chunk = process.stdin.read();
-        if (chunk !== null) {
-            if ((chunk[0] === '>') && (chunk[1] === '>') && (chunk[2] === '>') && (!recording)) {
-                recording = true;
-            } else if ((chunk[0] === '<') && (chunk[1] === '<') && (chunk[2] === '<') && (recording)) {
-                try {
-                    recording = false;
-                    var newFunc = new Function('By,until,driver,V,SF', buffer);
-                    newFunc(By, until, driver, V, SF);
-                } catch (e) {
-                    console.log('ошибка ' + e);
+module.exports = {
+    console: function () {
+        var recording = false;
+        var buffer = ' ';
+        process.stdin.setEncoding('utf8');
+        process.stdin.on('data', function (chunk) {
+            //var chunk = process.stdin.read();
+            if (chunk !== null) {
+                if ((chunk[0] === '|') && (chunk[1] === '|') && (chunk[2] === '|') && (!recording)) {
+                    busy = !busy;
+                } else if ((chunk[0] === '>') && (chunk[1] === '>') && (chunk[2] === '>') && (!recording)) {
+                    recording = true;
+                } else if ((chunk[0] === '<') && (chunk[1] === '<') && (chunk[2] === '<') && (recording)) {
+                    try {
+                        recording = false;
+                        var newFunc = new Function('', buffer);
+                        newFunc();
+                    } catch (e) {
+                        console.log('ошибка ' + e);
+                    }
+                    buffer = ' ';
+                } else if (recording) {
+                    buffer += chunk;
                 }
-                buffer = ' ';
-            } else if (recording) {
-                buffer += chunk;
             }
-        }
-    });
-    return true;
-};
+        });
+        return true;
+    },
+    pauseWatcher: function () {
+        setInterval( function() {
+            if (busy) {
+                driver.wait(new Promise(function (resolve, reject) {
+                    var playTimer = setInterval(function () {
+                        // переведёт промис в состояние fulfilled с результатом "result"
+                        if (!busy) {
+                            resolve("result");
+                            clearInterval(playTimer);
+                        }
+                    }, 2000);
+                }))
+            }
+        }, 500);
+    },
+    pause: function(){
+        busy = true;
+        driver.wait(new Promise(function (resolve, reject) {
+            var playTimer = setInterval(function () {
+                if (!busy) {
+                    resolve("result");
+                    clearInterval(playTimer);
+                }
+            }, 2000);
+        }));
+    },
+    waitForDefined: function(VarName){
+        driver.wait(new Promise(function (resolve, reject) {
+            var playTimer = setInterval(function () {
+                if (V[VarName]!==null) {
+                    console.log(V[VarName]);
+                    resolve("result");
+                    clearInterval(playTimer);
+                }
+            }, 2000);
+        }));
+    },
+    waitWhileEqual: function(varName, mustBe){
+        driver.wait(new Promise(function (resolve, reject) {
+            var playTimer = setInterval(function () {
+                if (V[VarName]!==mustBe) {
+                    console.log(V[VarName]);
+                    resolve("result");
+                    clearInterval(playTimer);
+                }
+            }, 2000);
+        }));
+    },
+    waitWhileNotEqual: function(varName, mustNotBe){
+        driver.wait(new Promise(function (resolve, reject) {
+            var playTimer = setInterval(function () {
+                if (V[varName]==mustNotBe) {
+                    console.log(V[VarName]);
+                    resolve("result");
+                    clearInterval(playTimer);
+                }
+            }, 2000);
+        }));
+    }
+}
 
