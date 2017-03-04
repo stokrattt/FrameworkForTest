@@ -1,0 +1,372 @@
+18:56:38.266 INFO - Selenium build info: version: '3.1.0', revision: '86a5d70'
+18:56:38.267 INFO - Launching Selenium Grid hub
+2017-03-04 18:56:38.946:INFO::main: Logging initialized @1093ms
+18:56:38.960 INFO - Will listen on 4444
+2017-03-04 18:56:39.063:INFO:osjs.Server:main: jetty-9.2.15.v20160210
+2017-03-04 18:56:39.111:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@25bbf683{/,null,AVAILABLE}
+2017-03-04 18:56:39.125:WARN:osjuc.AbstractLifeCycle:main: FAILED ServerConnector@10a035a0{HTTP/1.1}{0.0.0.0:4444}: java.net.BindException: Адрес уже используется
+java.net.BindException: Адрес уже используется
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.seleniumhq.jetty9.server.ServerConnector.open(ServerConnector.java:321)
+	at org.seleniumhq.jetty9.server.AbstractNetworkConnector.doStart(AbstractNetworkConnector.java:80)
+	at org.seleniumhq.jetty9.server.ServerConnector.doStart(ServerConnector.java:236)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.seleniumhq.jetty9.server.Server.doStart(Server.java:366)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.openqa.grid.web.Hub.start(Hub.java:184)
+	at org.openqa.grid.selenium.GridLauncherV3$2.launch(GridLauncherV3.java:259)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:99)
+2017-03-04 18:56:39.127:WARN:osjuc.AbstractLifeCycle:main: FAILED org.seleniumhq.jetty9.server.Server@67b467e9: java.net.BindException: Адрес уже используется
+java.net.BindException: Адрес уже используется
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.seleniumhq.jetty9.server.ServerConnector.open(ServerConnector.java:321)
+	at org.seleniumhq.jetty9.server.AbstractNetworkConnector.doStart(AbstractNetworkConnector.java:80)
+	at org.seleniumhq.jetty9.server.ServerConnector.doStart(ServerConnector.java:236)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.seleniumhq.jetty9.server.Server.doStart(Server.java:366)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.openqa.grid.web.Hub.start(Hub.java:184)
+	at org.openqa.grid.selenium.GridLauncherV3$2.launch(GridLauncherV3.java:259)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:99)
+Usage: <main class> [options]
+  Options:
+    --version, -version
+       Displays the version and exits.
+       Default: false
+    -browserTimeout
+       <Integer> in seconds : number of seconds a browser session is allowed to
+       hang while a WebDriver command is running (example: driver.get(url)). If the
+       timeout is reached while a WebDriver command is still processing, the session
+       will quit. Minimum value is 60. An unspecified, zero, or negative value means
+       wait indefinitely.
+       Default: 0
+    -matcher, -capabilityMatcher
+       <String> class name : a class implementing the CapabilityMatcher
+       interface. Specifies the logic the hub will follow to define whether a request can
+       be assigned to a node. For example, if you want to have the matching process
+       use regular expressions instead of exact match when specifying browser
+       version. ALL nodes of a grid ecosystem would then use the same capabilityMatcher,
+       as defined here.
+       Default: org.openqa.grid.internal.utils.DefaultCapabilityMatcher@47db50c5
+    -cleanUpCycle
+       <Integer> in ms : specifies how often the hub will poll running proxies
+       for timed-out (i.e. hung) threads. Must also specify "timeout" option
+       Default: 5000
+    -custom
+       <String> : comma separated key=value pairs for custom grid extensions.
+       NOT RECOMMENDED -- may be deprecated in a future revision. Example: -custom
+       myParamA=Value1,myParamB=Value2
+       Default: {}
+    -debug
+       <Boolean> : enables LogLevel.FINE.
+       Default: false
+    -host
+       <String> IP or hostname : usually determined automatically. Most commonly
+       useful in exotic network configurations (e.g. network with VPN)
+       Default: 10.8.0.6
+    -hubConfig
+       <String> filename: a JSON file (following grid2 format), which defines
+       the hub properties
+    -jettyThreads, -jettyMaxThreads
+       <Integer> : max number of threads for Jetty. An unspecified, zero, or
+       negative value means the Jetty default value (200) will be used.
+    -log
+       <String> filename : the filename to use for logging. If omitted, will log
+       to STDOUT
+    -maxSession
+       <Integer> max number of tests that can run at the same time on the node,
+       irrespective of the browser used
+    -newSessionWaitTimeout
+       <Integer> in ms : The time after which a new test waiting for a node to
+       become available will time out. When that happens, the test will throw an
+       exception before attempting to start a browser. An unspecified, zero, or negative
+       value means wait indefinitely.
+       Default: -1
+    -port
+       <Integer> : the port number the server will use.
+       Default: 4444
+    -prioritizer
+       <String> class name : a class implementing the Prioritizer interface.
+       Specify a custom Prioritizer if you want to sort the order in which new session
+       requests are processed when there is a queue. Default to null ( no priority = FIFO
+       )
+    -role
+       <String> options are [hub], [node], or [standalone].
+       Default: hub
+    -servlet, -servlets
+       <String> : list of extra servlets the grid (hub or node) will make
+       available. Specify multiple on the command line: -servlet tld.company.ServletA
+       -servlet tld.company.ServletB. The servlet must exist in the path:
+       /grid/admin/ServletA /grid/admin/ServletB
+       Default: []
+    -timeout, -sessionTimeout
+       <Integer> in seconds : Specifies the timeout before the server
+       automatically kills a session that hasn't had any activity in the last X seconds. The
+       test slot will then be released for another test to use. This is typically
+       used to take care of client crashes. For grid hub/node roles, cleanUpCycle
+       must also be set.
+       Default: 1800
+    -throwOnCapabilityNotPresent
+       <Boolean> true or false : If true, the hub will reject all test requests
+       if no compatible proxy is currently registered. If set to false, the request
+       will queue until a node supporting the capability is registered with the grid.
+       Default: true
+    -withoutServlet, -withoutServlets
+       <String> : list of default (hub or node) servlets to disable. Advanced
+       use cases only. Not all default servlets can be disabled. Specify multiple on
+       the command line: -withoutServlet tld.company.ServletA -withoutServlet
+       tld.company.ServletB
+       Default: []
+
+java.net.BindException: Адрес уже используется
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.seleniumhq.jetty9.server.ServerConnector.open(ServerConnector.java:321)
+	at org.seleniumhq.jetty9.server.AbstractNetworkConnector.doStart(AbstractNetworkConnector.java:80)
+	at org.seleniumhq.jetty9.server.ServerConnector.doStart(ServerConnector.java:236)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.seleniumhq.jetty9.server.Server.doStart(Server.java:366)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.openqa.grid.web.Hub.start(Hub.java:184)
+	at org.openqa.grid.selenium.GridLauncherV3$2.launch(GridLauncherV3.java:259)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:99)
+18:56:49.525 INFO - Selenium build info: version: '3.1.0', revision: '86a5d70'
+18:56:49.527 INFO - Launching Selenium Grid hub
+2017-03-04 18:56:50.231:INFO::main: Logging initialized @1062ms
+18:56:50.246 INFO - Will listen on 4444
+2017-03-04 18:56:50.317:INFO:osjs.Server:main: jetty-9.2.15.v20160210
+2017-03-04 18:56:50.367:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@25bbf683{/,null,AVAILABLE}
+2017-03-04 18:56:50.377:WARN:osjuc.AbstractLifeCycle:main: FAILED ServerConnector@10a035a0{HTTP/1.1}{0.0.0.0:4444}: java.net.BindException: Адрес уже используется
+java.net.BindException: Адрес уже используется
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.seleniumhq.jetty9.server.ServerConnector.open(ServerConnector.java:321)
+	at org.seleniumhq.jetty9.server.AbstractNetworkConnector.doStart(AbstractNetworkConnector.java:80)
+	at org.seleniumhq.jetty9.server.ServerConnector.doStart(ServerConnector.java:236)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.seleniumhq.jetty9.server.Server.doStart(Server.java:366)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.openqa.grid.web.Hub.start(Hub.java:184)
+	at org.openqa.grid.selenium.GridLauncherV3$2.launch(GridLauncherV3.java:259)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:99)
+2017-03-04 18:56:50.379:WARN:osjuc.AbstractLifeCycle:main: FAILED org.seleniumhq.jetty9.server.Server@67b467e9: java.net.BindException: Адрес уже используется
+java.net.BindException: Адрес уже используется
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.seleniumhq.jetty9.server.ServerConnector.open(ServerConnector.java:321)
+	at org.seleniumhq.jetty9.server.AbstractNetworkConnector.doStart(AbstractNetworkConnector.java:80)
+	at org.seleniumhq.jetty9.server.ServerConnector.doStart(ServerConnector.java:236)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.seleniumhq.jetty9.server.Server.doStart(Server.java:366)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.openqa.grid.web.Hub.start(Hub.java:184)
+	at org.openqa.grid.selenium.GridLauncherV3$2.launch(GridLauncherV3.java:259)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:99)
+Usage: <main class> [options]
+  Options:
+    --version, -version
+       Displays the version and exits.
+       Default: false
+    -browserTimeout
+       <Integer> in seconds : number of seconds a browser session is allowed to
+       hang while a WebDriver command is running (example: driver.get(url)). If the
+       timeout is reached while a WebDriver command is still processing, the session
+       will quit. Minimum value is 60. An unspecified, zero, or negative value means
+       wait indefinitely.
+       Default: 0
+    -matcher, -capabilityMatcher
+       <String> class name : a class implementing the CapabilityMatcher
+       interface. Specifies the logic the hub will follow to define whether a request can
+       be assigned to a node. For example, if you want to have the matching process
+       use regular expressions instead of exact match when specifying browser
+       version. ALL nodes of a grid ecosystem would then use the same capabilityMatcher,
+       as defined here.
+       Default: org.openqa.grid.internal.utils.DefaultCapabilityMatcher@47db50c5
+    -cleanUpCycle
+       <Integer> in ms : specifies how often the hub will poll running proxies
+       for timed-out (i.e. hung) threads. Must also specify "timeout" option
+       Default: 5000
+    -custom
+       <String> : comma separated key=value pairs for custom grid extensions.
+       NOT RECOMMENDED -- may be deprecated in a future revision. Example: -custom
+       myParamA=Value1,myParamB=Value2
+       Default: {}
+    -debug
+       <Boolean> : enables LogLevel.FINE.
+       Default: false
+    -host
+       <String> IP or hostname : usually determined automatically. Most commonly
+       useful in exotic network configurations (e.g. network with VPN)
+       Default: 10.8.0.6
+    -hubConfig
+       <String> filename: a JSON file (following grid2 format), which defines
+       the hub properties
+    -jettyThreads, -jettyMaxThreads
+       <Integer> : max number of threads for Jetty. An unspecified, zero, or
+       negative value means the Jetty default value (200) will be used.
+    -log
+       <String> filename : the filename to use for logging. If omitted, will log
+       to STDOUT
+    -maxSession
+       <Integer> max number of tests that can run at the same time on the node,
+       irrespective of the browser used
+    -newSessionWaitTimeout
+       <Integer> in ms : The time after which a new test waiting for a node to
+       become available will time out. When that happens, the test will throw an
+       exception before attempting to start a browser. An unspecified, zero, or negative
+       value means wait indefinitely.
+       Default: -1
+    -port
+       <Integer> : the port number the server will use.
+       Default: 4444
+    -prioritizer
+       <String> class name : a class implementing the Prioritizer interface.
+       Specify a custom Prioritizer if you want to sort the order in which new session
+       requests are processed when there is a queue. Default to null ( no priority = FIFO
+       )
+    -role
+       <String> options are [hub], [node], or [standalone].
+       Default: hub
+    -servlet, -servlets
+       <String> : list of extra servlets the grid (hub or node) will make
+       available. Specify multiple on the command line: -servlet tld.company.ServletA
+       -servlet tld.company.ServletB. The servlet must exist in the path:
+       /grid/admin/ServletA /grid/admin/ServletB
+       Default: []
+    -timeout, -sessionTimeout
+       <Integer> in seconds : Specifies the timeout before the server
+       automatically kills a session that hasn't had any activity in the last X seconds. The
+       test slot will then be released for another test to use. This is typically
+       used to take care of client crashes. For grid hub/node roles, cleanUpCycle
+       must also be set.
+       Default: 1800
+    -throwOnCapabilityNotPresent
+       <Boolean> true or false : If true, the hub will reject all test requests
+       if no compatible proxy is currently registered. If set to false, the request
+       will queue until a node supporting the capability is registered with the grid.
+       Default: true
+    -withoutServlet, -withoutServlets
+       <String> : list of default (hub or node) servlets to disable. Advanced
+       use cases only. Not all default servlets can be disabled. Specify multiple on
+       the command line: -withoutServlet tld.company.ServletA -withoutServlet
+       tld.company.ServletB
+       Default: []
+
+java.net.BindException: Адрес уже используется
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.seleniumhq.jetty9.server.ServerConnector.open(ServerConnector.java:321)
+	at org.seleniumhq.jetty9.server.AbstractNetworkConnector.doStart(AbstractNetworkConnector.java:80)
+	at org.seleniumhq.jetty9.server.ServerConnector.doStart(ServerConnector.java:236)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.seleniumhq.jetty9.server.Server.doStart(Server.java:366)
+	at org.seleniumhq.jetty9.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68)
+	at org.openqa.grid.web.Hub.start(Hub.java:184)
+	at org.openqa.grid.selenium.GridLauncherV3$2.launch(GridLauncherV3.java:259)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:99)
+18:58:12.699 INFO - Selenium build info: version: '3.1.0', revision: '86a5d70'
+18:58:12.700 INFO - Launching Selenium Grid hub
+2017-03-04 18:58:13.852:INFO::main: Logging initialized @1484ms
+18:58:13.866 INFO - Will listen on 4444
+2017-03-04 18:58:13.925:INFO:osjs.Server:main: jetty-9.2.15.v20160210
+2017-03-04 18:58:13.971:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@25bbf683{/,null,AVAILABLE}
+2017-03-04 18:58:13.988:INFO:osjs.ServerConnector:main: Started ServerConnector@57a0d75f{HTTP/1.1}{0.0.0.0:4444}
+2017-03-04 18:58:13.989:INFO:osjs.Server:main: Started @1621ms
+18:58:13.989 INFO - Nodes should register to http://10.8.0.6:4444/grid/register/
+18:58:13.989 INFO - Selenium Grid hub is up and running
+Exception in thread "main" com.beust.jcommander.ParameterException: Unknown option: -Dwebdriver.chrome.driver=chromedriver
+	at com.beust.jcommander.JCommander.parseValues(JCommander.java:742)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:282)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:265)
+	at com.beust.jcommander.JCommander.<init>(JCommander.java:210)
+	at org.openqa.grid.selenium.GridLauncherV3$3.setConfiguration(GridLauncherV3.java:267)
+	at org.openqa.grid.selenium.GridLauncherV3.buildLauncher(GridLauncherV3.java:155)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:75)
+Exception in thread "main" com.beust.jcommander.ParameterException: Unknown option: -Dwebdriver.chrome.driver=chromedriver
+	at com.beust.jcommander.JCommander.parseValues(JCommander.java:742)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:282)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:265)
+	at com.beust.jcommander.JCommander.<init>(JCommander.java:210)
+	at org.openqa.grid.selenium.GridLauncherV3$3.setConfiguration(GridLauncherV3.java:267)
+	at org.openqa.grid.selenium.GridLauncherV3.buildLauncher(GridLauncherV3.java:155)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:75)
+Exception in thread "main" com.beust.jcommander.ParameterException: Unknown option: -Dwebdriver.chrome.driver=chromedriver
+	at com.beust.jcommander.JCommander.parseValues(JCommander.java:742)
+Exception in thread "main" 	at com.beust.jcommander.JCommander.parse(JCommander.java:282)com.beust.jcommander.ParameterException: Unknown option: -Dwebdriver.chrome.driver=chromedriver
+	at com.beust.jcommander.JCommander.parse(JCommander.java:265)
+	at com.beust.jcommander.JCommander.<init>(JCommander.java:210)
+	at org.openqa.grid.selenium.GridLauncherV3$3.setConfiguration(GridLauncherV3.java:267)
+	at org.openqa.grid.selenium.GridLauncherV3.buildLauncher(GridLauncherV3.java:155)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:75)
+
+	at com.beust.jcommander.JCommander.parseValues(JCommander.java:742)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:282)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:265)
+	at com.beust.jcommander.JCommander.<init>(JCommander.java:210)
+	at org.openqa.grid.selenium.GridLauncherV3$3.setConfiguration(GridLauncherV3.java:267)
+	at org.openqa.grid.selenium.GridLauncherV3.buildLauncher(GridLauncherV3.java:155)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:75)
+Exception in thread "main" com.beust.jcommander.ParameterException: Unknown option: -Dwebdriver.chrome.driver=chromedriver
+	at com.beust.jcommander.JCommander.parseValues(JCommander.java:742)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:282)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:265)
+	at com.beust.jcommander.JCommander.<init>(JCommander.java:210)
+	at org.openqa.grid.selenium.GridLauncherV3$3.setConfiguration(GridLauncherV3.java:267)
+	at org.openqa.grid.selenium.GridLauncherV3.buildLauncher(GridLauncherV3.java:155)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:75)
+Exception in thread "main" com.beust.jcommander.ParameterException: Unknown option: -Dwebdriver.chrome.driver=chromedriver
+	at com.beust.jcommander.JCommander.parseValues(JCommander.java:742)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:282)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:265)
+	at com.beust.jcommander.JCommander.<init>(JCommander.java:210)
+	at org.openqa.grid.selenium.GridLauncherV3$3.setConfiguration(GridLauncherV3.java:267)
+	at org.openqa.grid.selenium.GridLauncherV3.buildLauncher(GridLauncherV3.java:155)
+	at org.openqa.grid.selenium.GridLauncherV3.main(GridLauncherV3.java:75)
+19:00:19.005 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@f076473, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:21.908 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@73d07271, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:24.914 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@3f9145ef, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:27.032 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@5d00906e, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:29.996 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@3e112d65, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:32.996 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@6f26cfd8, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:35.137 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@53239d2a, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:38.205 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@708a1e1b, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:41.156 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@75351c86, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:43.299 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@3bcc1a17, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:46.325 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@2b7abc04, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:49.289 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@233b74b2, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:51.479 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@2fb5302a, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:54.450 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@62b9fea5, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:57.472 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@6b8ed32f, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:00:59.716 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@6c580acd, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:02.709 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@35d0ed48, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:05.686 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@49484cbe, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:07.558 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@2c92f9e, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:10.569 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@424a5150, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:13.552 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@592ee3f, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:15.742 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@57baca4e, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:18.731 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@5a6f27f, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:21.730 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@823df0e, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:23.841 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@52b78140, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:26.912 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@5e45affa, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:29.916 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@50457ab7, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]
+19:01:32.096 INFO - Got a request to create a new session: Capabilities [{rotatable=true, locationContextEnabled=true, loggingPrefs=org.openqa.selenium.logging.LoggingPreferences@5081437d, browserName=chrome, javascriptEnabled=true, chromeOptions={args=[--disable-popup-blocking, --ignore-gpu-blacklist], extensions=[UEsDBBQAAAgAAIeJXEoAAAAAAAAA...}, handlesAlerts=true, requestOrigins={name=webdriverio, version=4.0.9, url=http://webdriver.io}}]

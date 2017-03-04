@@ -1,0 +1,6 @@
+testim --project "roma4ke@gmail,com_a4c04ff8-bb38-4780-8f12-edaa4cf1fd4c" \
+       --label "Complete" \
+       --host "127.0.0.1" \
+       --port 4444 \
+       --report-file testim-report.xml \
+       --token "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InVpZCI6ImNpOnJvbWE0a2VAZ21haWwsY29tX2E0YzA0ZmY4LWJiMzgtNDc4MC04ZjEyLWVkYWE0Y2YxZmQ0YyIsImVtYWlsIjoicm9tYTRrZUBnbWFpbC5jb20ifSwiaWF0IjoxNDc5ODM2MzM2fQ.0it8TZQ1BETNsXdb20B_Qs6NfsZGflgH0RCN7CxmLAU"
