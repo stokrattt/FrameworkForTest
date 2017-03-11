@@ -1,3 +1,12 @@
+//======================check for debug mode=============================
+var attrs=2;
+global.D=false;
+if ('-d' == process.argv[attrs]){
+    console.log('debug enabled')
+    D=true;
+    attrs++;
+}
+//=====================set up bebDriver==================================
 var webdriver = require('selenium-webdriver');
 global.By = webdriver.By;
 global.until = webdriver.until;
@@ -12,27 +21,22 @@ global.driver = new webdriver.Builder()
     .withCapabilities({browserName: 'chrome'})
     .build();
 
+//========================set up global variables========================
 global.busy = false;
+global.Dtimeout = 10000;
 global.V={};
 global.Debug = require("./DebugWD.js");
 var SF = require('./ShortFunctionsWD.js');
 var JSs = require('./JSsteps');
-Debug.console();
-Debug.pauseWatcher();
-
+if (D) {
+    Debug.console();
+    Debug.pauseWatcher();
+}
+//=================reading parametres from CLI===========================
+for (attrs; attrs<process.argv.length; attrs++) {
+    if (process.argv[attrs].indexOf('=')!=-1){
+        global[process.argv[attrs].substring(0, process.argv[attrs].indexOf('='))]=process.argv[attrs].substring(process.argv[attrs].indexOf('=')+1);
+    }
+}
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-var URL = 'http://stage.themoveboard.com/';
-driver.get(URL);
-SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
-SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
-Debug.pause();
-driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"moveDate\"]').focus();"));
-driver.sleep(2000);
-V.Future = null;
-driver.wait(driver.executeScript(Click4DaysNewCalendar).then(function (D) {
-    V.Future = D;
-}));
-Debug.waitForDefined("Future");
-driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
-
-JSclick('ultrasmall-form div[ng-click="openSlide();"]');
+require('./tests/createLocalMoving.js')();

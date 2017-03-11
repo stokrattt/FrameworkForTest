@@ -53,39 +53,6 @@ module.exports = {
                 }
             }, 2000);
         }));
-    },
-    waitForDefined: function(VarName){
-        driver.wait(new Promise(function (resolve, reject) {
-            var playTimer = setInterval(function () {
-                if (V[VarName]!==null) {
-                    console.log(V[VarName]);
-                    resolve("result");
-                    clearInterval(playTimer);
-                }
-            }, 2000);
-        }));
-    },
-    waitWhileEqual: function(varName, mustBe){
-        driver.wait(new Promise(function (resolve, reject) {
-            var playTimer = setInterval(function () {
-                if (V[VarName]!==mustBe) {
-                    console.log(V[VarName]);
-                    resolve("result");
-                    clearInterval(playTimer);
-                }
-            }, 2000);
-        }));
-    },
-    waitWhileNotEqual: function(varName, mustNotBe){
-        driver.wait(new Promise(function (resolve, reject) {
-            var playTimer = setInterval(function () {
-                if (V[varName]==mustNotBe) {
-                    console.log(V[VarName]);
-                    resolve("result");
-                    clearInterval(playTimer);
-                }
-            }, 2000);
-        }));
     }
 }
 
