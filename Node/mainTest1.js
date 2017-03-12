@@ -22,6 +22,7 @@ global.driver = new webdriver.Builder()
     .build();
 
 //========================set up global variables========================
+global.Fiber = require('fibers');
 global.busy = false;
 global.Dtimeout = 10000;
 global.V={};
@@ -39,4 +40,4 @@ for (attrs; attrs<process.argv.length; attrs++) {
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-require('./tests/createLocalMoving.js')();
+Fiber(require('./tests/createLocalMoving.js')).run();

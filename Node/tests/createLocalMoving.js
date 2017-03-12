@@ -1,5 +1,6 @@
 module.exports = main;
 function main(){
+    global.fiber = Fiber.current;
     var URL = 'http://stage.themoveboard.com/';
     driver.get(URL);
     SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
@@ -26,6 +27,7 @@ function main(){
     JSclick('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
     JSwait('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     JSlink('ultrasmall-form a:contains("Proceed To View Your Quote")');
+    console.log('мы типа в конце');
 }
 
 
