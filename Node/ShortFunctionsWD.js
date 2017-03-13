@@ -1,3 +1,6 @@
+global.endOfTest = function(){
+    if (D) {Debug.pause();} else {myEmitter.emit('event');}
+};
 global.JSwaitForExist = function (selector) {
     console.log("return $('" + selector + "').length");
     driver.wait(new Promise(function (resolve, reject) {
@@ -15,6 +18,14 @@ global.JSwaitForExist = function (selector) {
         }, 500);
     }), Dtimeout);
     if (!busy) { Fiber.yield();}
+};
+global.SFwaitForVisible = function(selector){
+    console.log('ждём '+selector);
+    driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector)),10000)).then(function(){
+        if (!busy) {fiber.run();}
+        console.log('дождались '+selector);
+    });
+    if (!busy) {Fiber.yield();}
 };
 global.SFsleep = function(sec){
     setTimeout(function(){
@@ -35,7 +46,7 @@ global.waitForDefined = function (VarName) {
     }), Dtimeout);
     if (!busy) { Fiber.yield();}
 };
-global.waitWhileEqual = function (varName, mustBe) {
+global.waitWhileEqual = function (VarName, mustBe) {
     driver.wait(new Promise(function (resolve, reject) {
         var playTimer = setInterval(function () {
             if (V[VarName] !== mustBe) {
@@ -48,10 +59,10 @@ global.waitWhileEqual = function (varName, mustBe) {
     }));
     if (!busy) { Fiber.yield();}
 };
-global.waitWhileNotEqual = function (varName, mustNotBe) {
+global.waitWhileNotEqual = function (VarName, mustNotBe) {
     driver.wait(new Promise(function (resolve, reject) {
         var playTimer = setInterval(function () {
-            if (V[varName] == mustNotBe) {
+            if (V[VarName] == mustNotBe) {
                 console.log(V[VarName]);
                 resolve("result");
                 clearInterval(playTimer);
@@ -104,9 +115,17 @@ global.SFget = function (URL) {
     });
     if (!busy) { Fiber.yield()};
 };
-global.endOfTest = function(){
-    if (D) {Debug.pause();} else {myEmitter.emit('event');}
+global.SFselect = function(selector,value){
+    console.log('select '+selector+'->'+value);
+    driver.wait(until.elementLocated(selector)).findElement(selector)
+        .findElement(By.xpath('option[@value="'+value+'"]'))
+        .click()
+        .then(function () {
+            if (!busy) { fiber.run();}
+        });
+    if (!busy) { Fiber.yield();}
 };
+
 global.SFrandomBukva = function(count){
     var bukva = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     var s = "";
@@ -130,4 +149,14 @@ global.SFrandomCifra = function(count){
         s += bukva.charAt(Math.floor(Math.random() * bukva.length));
     }
     return s;
+};
+global.SFcleanPrice =  function(dirtyText){
+    let allow = ['0','1','2','3','4','5','6','7','8','9'];
+    let result = '';
+    for (let i=0; i<dirtyText.length; i++){
+        if (dirtyText[i] in allow) {
+            result+=dirtyText[i];
+        }
+    }
+    return Number(result);
 };

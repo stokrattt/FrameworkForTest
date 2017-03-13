@@ -61,5 +61,5 @@ module.exports = {
         }));
         Fiber.yield();
     },
-}
+};
 
