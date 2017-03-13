@@ -3,7 +3,9 @@ sleep = require('sleep');
 module.exports = {
     console: function () {
         var recording = false;
-        var buffer = ' ';
+        var bufferInit = "global.fiber = Fiber.current;";
+        var buffer = '';
+        var pauseFunc = new Function('', 'Fiber.yield();');
         process.stdin.setEncoding('utf8');
         process.stdin.on('data', function (chunk) {
             //var chunk = process.stdin.read();
@@ -20,7 +22,7 @@ module.exports = {
                     } catch (e) {
                         console.log('ошибка ' + e);
                     }
-                    buffer = ' ';
+                    buffer = '';
                 } else if (recording) {
                     buffer += chunk;
                 }
@@ -37,22 +39,27 @@ module.exports = {
                         if (!busy) {
                             resolve("result");
                             clearInterval(playTimer);
+                            fiber.run();
                         }
                     }, 2000);
-                }))
+                }));
             }
         }, 500);
     },
     pause: function(){
         busy = true;
+        console.log('пауза');
         driver.wait(new Promise(function (resolve, reject) {
             var playTimer = setInterval(function () {
                 if (!busy) {
                     resolve("result");
                     clearInterval(playTimer);
+                    fiber.run();
+                    console.log('играй...');
                 }
-            }, 2000);
+            }, 100);
         }));
-    }
+        Fiber.yield();
+    },
 }
 

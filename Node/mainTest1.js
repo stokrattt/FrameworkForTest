@@ -17,14 +17,17 @@ global.driver = new webdriver.Builder()
     .withCapabilities({browserName: 'chrome'})
     .build();
 
+global.readyForNext = true;
+
 webdriver.promise.controlFlow().on('uncaughtException', function (e) {
     driver.takeScreenshot().then(
-        function (image, err) {
+        function (image) {
             require('fs').writeFile('out.png', image, 'base64', function (err) {
                 console.log(err);
             });
             console.log('сделали скрин');
             console.log('Произошла ошибка: ', e);
+            myEmitter.emit('event');
         });
 });
 
@@ -48,4 +51,19 @@ for (attrs; attrs < process.argv.length; attrs++) {
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Fiber(require('./tests/createLocalMoving.js')).run();
+
+var suite = ['./tests/createLocalMoving.js'];
+global.testN = 0;
+var EventEmitter = require('events');
+class MyEmitter extends EventEmitter {}
+global.myEmitter = new MyEmitter();
+myEmitter.on('event', () => {
+    if (testN < suite.length) {
+        Fiber(require(suite[testN])).run();
+        testN++;
+    }
+});
+myEmitter.emit('event');
+
+
+
