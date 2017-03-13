@@ -1,4 +1,4 @@
-global.JSwait = function (selector) {
+global.JSwaitForExist = function (selector) {
     console.log("return $('" + selector + "').length");
     driver.wait(new Promise(function (resolve, reject) {
         var waitTimer = setInterval(function () {

@@ -22,6 +22,6 @@ global.FullSmallCalcAsLocal =  function(client){
     SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
     SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
     JSclick('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
-    JSwait('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
+    JSwaitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     JSlink('ultrasmall-form a:contains("Proceed To View Your Quote")');
 };
