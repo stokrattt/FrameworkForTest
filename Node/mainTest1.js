@@ -42,7 +42,7 @@ var JSs = require('./JSsteps');
 var LF = require('./LongFunctionsWD.js');
 if (D) {
     Debug.console();
-    Debug.pauseWatcher();
+    //Debug.pauseWatcher();
 }
 //=================reading parametres from CLI===========================
 for (attrs; attrs < process.argv.length; attrs++) {

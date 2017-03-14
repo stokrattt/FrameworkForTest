@@ -58,8 +58,6 @@ global.Click4DaysNewCalendar = function () {
         };
     }.toString().substring(12);
 
-
-
 global.Click4DaysCalendar = function () {
     var now = new Date();
     var msInDay = 86400000;
@@ -74,8 +72,6 @@ global.Click4DaysCalendar = function () {
     }
 
     console.log("tr>td[data-month='"+future.getMonth()+"'][data-year='" + future.getFullYear() + "']:contains('"+ date +"') > a:first");
-    console.log($("tr>td[data-month='"+future.getMonth()+"'][data-year='" + future.getFullYear() + "']:contains('"+ date +"') > a:first").length);
-
     $("tr>td[data-month='"+future.getMonth()+"'][data-year='" + future.getFullYear() + "']:contains('"+ date +"') > a:first").trigger('click');
 
     return {
@@ -84,6 +80,35 @@ global.Click4DaysCalendar = function () {
         futureDay: future.getDate()
     };
 
+}.toString().substring(12);
+
+global.selectTruck = function () {
+    var selected = false;
+    var trucks = 'div.truckid:visible';
+    var lines = 'div.dhx_matrix_line:visible';
+    var timeZone = 0;
+    for (var number = 0, count =  $(trucks).length; (number<count && !selected); number++){
+        var len = $(lines+':eq("'+number+'") > span').length;
+        if (len < (2 + timeZone)) {
+            $('#edit-moving-from').val('line '+number+' spans '+len);
+            $(trucks+':eq("'+number+'")').click();
+            selected = true;
+        }
+    }
+    if (!selected) {
+        $('[field="request.start_time1"]').val("07:00 PM");
+        $('[field="request.start_time1"]').trigger('change');
+        timeZone++;
+        for (var number = 0, count =  $(trucks).length; (number<count && !selected); number++){
+            var len = $(lines+':eq("'+number+'") > span').length;
+            if (len < (2 + timeZone)) {
+                $('#edit-moving-from').val('line '+number+' spans '+len);
+                $(trucks+':eq("'+number+'")').click();
+                selected = true;
+            }
+        }
+    }
+    return selected ? number : -1;
 }.toString().substring(12);
 
 

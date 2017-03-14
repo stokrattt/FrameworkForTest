@@ -94,7 +94,8 @@ global.JSclick = function (JQeurySelector) {
 };
 global.JSselect = function (JQuerySelector, OptionValue) {
     console.log('doing: ' + '$(\'' + JQuerySelector + ' option[value="' + OptionValue + '"]\').attr("selected","selected");');
-    driver.wait(driver.executeScript('$(\'' + JQuerySelector + ' option[value="' + OptionValue + '"]\').attr("selected","selected");'))
+    driver.wait(driver.executeScript('$(\'' + JQuerySelector + ' option[value="' + OptionValue + '"]\').attr("selected","selected");'+
+                                        '$(\'' + JQuerySelector + '\').change();'))
         .then(function () {
             if (!busy) { fiber.run();}
         });
