@@ -13,29 +13,19 @@ function main() {
     SFsend(By.id('password'), 'test');
     JSclick('.btn-primary');
 
-    SFclick(By.linkText('Create Request'));
-    driver.sleep(4000);
+    CreateLocalMovingFromBoard();
 
-    //SFselect(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]'),"number:3");
+    // пошла проверка fuel sercharge
 
-
-    SFclick (By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
-    SFclick(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
-    V.date=null;
-    driver.wait(driver.executeScript(Click4DaysCalendar)).then(function(calDate){
-        V.date = calDate;
+    V.boardNumbers={};
+    driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Quote:')]/following-sibling::div[1]")).getText().then(function(text){
+        V.boardNumbers.QuoteMin = SFcleanPrice(text.substring(0, text.indexOf('$',3)))/100;
+        V.boardNumbers.QuoteMax = SFcleanPrice(text.substring(text.indexOf('$',3)))/100;
+        console.log(V.boardNumbers);
     });
-    waitForDefined('date');
-    //SFsend (By.xpath('//div/input[@name="Move_Date"]'), 'Aug 16, 2017');
-    Debug.pause();
-    SFclick(By.xpath('//ul[@class="chosen-choices"]'));
-    SFclick(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
-
-    SFclick (By.xpath('//div/div[@class="chosen-drop"]/li[text()="living room"]'));
 
 
     endOfTest();
-
 }
 
 
