@@ -165,9 +165,10 @@ global.CreateLocalMovingFromBoard = function(){
     driver.sleep(4000);
     SFclick (By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
     SFclick(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
-    V.date=null;
+    V.request={};
     driver.wait(driver.executeScript(Click4DaysCalendar)).then(function(calDate){
-        V.date = calDate;
+        V.request.moveDate = calDate;
+        console.log(V.request);
     });
     SFsleep(2);
     SFclick(By.xpath('//ul[@class="chosen-choices"]'));
@@ -183,6 +184,6 @@ global.CreateLocalMovingFromBoard = function(){
     SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
     SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
     SFclick (By.xpath('//button[@ng-click="create()"]'));
-    SFsleep(4000);
+    SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     console.log ('создали реквест');
 }

@@ -1,4 +1,5 @@
 function main() {
+    global.fiber = Fiber.current;
     V.client = {};
     V.client.name = SFrandomBukva(6) + '_t';
     V.client.fam = SFrandomBukva(6) + '_t';
