@@ -1,13 +1,13 @@
 global.FullSmallCalcAsLocal = function (client) {
     SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
     SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
-    driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"moveDate\"]').focus();"));
+    driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
     SFsleep(2);
     V.request = {};
     driver.wait(driver.executeScript(Click4DaysNewCalendar).then(function (D) {
         V.request.moveDate = D;
     }));
-    SFsleep(1);
+    SFsleep(2);
     driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
     SFsleep(1);
     JSclick("ultrasmall-form div[ng-click='openSlide();']");

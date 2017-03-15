@@ -10,6 +10,7 @@ if ('-d' == process.argv[attrs]) {
 var webdriver = require('selenium-webdriver');
 global.By = webdriver.By;
 global.until = webdriver.until;
+global.MyError = webdriver.error;
 
 var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
 global.driver = new webdriver.Builder()
@@ -17,18 +18,41 @@ global.driver = new webdriver.Builder()
     .withCapabilities({browserName: 'chrome'})
     .build();
 
+driver.manage().window().setSize(1400, 800);
+
 global.readyForNext = true;
+global.errorNumber = 0;
+global.testName = '';
+global.fs = require('fs');
+global.deleteFolderRecursive = function(path) {
+    if( fs.existsSync(path) ) {
+        fs.readdirSync(path).forEach(function(file,index){
+            var curPath = path + "/" + file;
+            if(fs.lstatSync(curPath).isDirectory()) { // recurse
+                deleteFolderRecursive(curPath);
+            } else { // delete file
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(path);
+    }
+};
 
 webdriver.promise.controlFlow().on('uncaughtException', function (e) {
-    driver.takeScreenshot().then(
-        function (image) {
-            require('fs').writeFile('out.png', image, 'base64', function (err) {
+    driver.takeScreenshot().then(function (image) {
+            let exist = fs.existsSync(testName);
+            if (!exist) {fs.mkdirSync(testName);}
+            fs.writeFile(testName + '/' + errorNumber + '.png', image, 'base64', function (err) {
+                console.log(err);
+            });
+            fs.writeFile(testName + '/' + errorNumber + '.txt', e, function (err) {
                 console.log(err);
             });
             console.log('сделали скрин');
             console.log('Произошла ошибка: ', e);
             myEmitter.emit('event');
-        });
+
+    });
 });
 
 //========================set up global variables========================
@@ -40,6 +64,7 @@ global.Debug = require("./DebugWD.js");
 var SF = require('./ShortFunctionsWD.js');
 var JSs = require('./JSsteps');
 var LF = require('./LongFunctionsWD.js');
+var VD = require('./ValidationsWD');
 if (D) {
     Debug.console();
     //Debug.pauseWatcher();
@@ -52,18 +77,21 @@ for (attrs; attrs < process.argv.length; attrs++) {
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-var suite = ['./tests/createLocalMoving.js'];
+var suite = ['./tests/#createLocalMoving.js'];
 global.testN = 0;
 var EventEmitter = require('events');
-class MyEmitter extends EventEmitter {}
+class MyEmitter extends EventEmitter {
+}
 global.myEmitter = new MyEmitter();
 myEmitter.on('event', () => {
+    console.log('next...');
     if (testN < suite.length) {
+        testName = suite[testN].substring(suite[testN].indexOf('#')+1, suite[testN].indexOf('.js'));
+        let exist = fs.existsSync(testName);
+        if (exist) {deleteFolderRecursive(testName)}
+        errorNumber = 0;
         Fiber(require(suite[testN])).run();
         testN++;
     }
 });
 myEmitter.emit('event');
-
-
-
