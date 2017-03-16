@@ -76,7 +76,7 @@ global.AccountRememberInfoFirstTime = function () {
     V.account = {};
 
     driver.executeScript('return $("div:contains(\\"Hourly Rate :\\"):last").next().text()').then(function(text){
-        V.request.HourlyRate = text.indexOf('$', 4) ==-1 ?
+        V.account.HourlyRate = text.indexOf('$', 4) ==-1 ?
             SFcleanPrice(text) :
             SFcleanPrice(text.substring(text.indexOf('$', 4)));
     });

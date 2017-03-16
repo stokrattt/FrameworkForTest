@@ -109,6 +109,13 @@ global.JSlink = function (JQuerySelector) {
         }));
     if (!busy) { Fiber.yield();}
 };
+global.JSstep = function (JSString){
+    console.log('doing: JSStep');
+    driver.wait(driver.executeScript(JSString)).then(function(){
+        if (!busy) { fiber.run();}
+    });
+    if (!busy) { Fiber.yield();}
+};
 global.SFget = function (URL) {
     console.log('goto '+URL);
     driver.wait(driver.get(URL)).then(function(){
@@ -160,4 +167,11 @@ global.SFcleanPrice =  function(dirtyText){
         }
     }
     return Number(result);
+};
+global.SFFindMonthInString = function(str){
+    for (let i = 0; i<12; i++){
+        if (str.indexOf(monthNames[i])!=-1) {return i;}
+    }
+    VWant(VNotToEqual,i,12,'неверный месяц');
+    return 12;
 };
