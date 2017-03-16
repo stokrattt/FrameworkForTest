@@ -40,8 +40,8 @@ global.deleteFolderRecursive = function(path) {
 
 webdriver.promise.controlFlow().on('uncaughtException', function (e) {
     driver.takeScreenshot().then(function (image) {
-            let exist = fs.existsSync(testName);
-            if (!exist) {fs.mkdirSync(testName);}
+            let exist = fs.existsSync('reports/'+testName);
+            if (!exist) {fs.mkdirSync('reports/'+testName);}
             fs.writeFile('reports/'+testName + '/' + errorNumber + '.png', image, 'base64', function (err) {
                 console.log(err);
             });
@@ -78,7 +78,7 @@ for (attrs; attrs < process.argv.length; attrs++) {
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-var suite = ['./tests/#createLocalMoving.js'];
+var suite = ['./tests/#CheckFuelSurcharge.js'];
 global.testN = 0;
 var EventEmitter = require('events');
 class MyEmitter extends EventEmitter {

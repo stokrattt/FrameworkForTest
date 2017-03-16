@@ -1,5 +1,3 @@
-sleep = require('sleep');
-
 module.exports = {
     console: function () {
         var recording = false;

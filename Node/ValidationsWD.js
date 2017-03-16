@@ -3,8 +3,8 @@ global.VNotToEqual = function(value1, value2){return (value1!=value2);};
 global.VWant = function(func, value1, value2,e){
     if (!func(value1,value2)) {
         driver.takeScreenshot().then(function (image) {
-            let exist = fs.existsSync(testName);
-            if (!exist) {fs.mkdirSync(testName);}
+            let exist = fs.existsSync('reports/'+testName);
+            if (!exist) {fs.mkdirSync('reports/'+testName);}
             errorNumber++;
             var temp = 3;
             fs.writeFile('reports/'+testName + '/' + errorNumber + '.png', image, 'base64', function (err) {
