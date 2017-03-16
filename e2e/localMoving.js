@@ -134,7 +134,7 @@ describe('Local moving', function () {
             browser.sleep(sleepTime * 2);
 		});
 	});
-/*
+
 	it('Get new quote now', function () {
 		browser.get(URL_Homepage);
 		//make change
@@ -183,8 +183,7 @@ describe('Local moving', function () {
 		element(by.css(".btn.submit_btn.mobileform")).click();
 		browser.sleep(sleepTime * 2);
 	});
-    */
-	/*
+   
 	it('Save Inventory', function () {
 		browser.sleep(10 * sleepTime);
 		browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
@@ -355,6 +354,39 @@ describe('Local moving', function () {
 			var a = element.all(by.xpath('//tr[@ng-repeat="(tid,truck_name) in ::trucks"]'));
 			var vibrali = recurs(0, c, a, 0);
 		});
+		
+		
+		$('#edit-moving-from').val('вошли');
+var trucks = $('div.park_lot > div.trucks > div');
+var count = trucks.length;
+var recurs = function (number, count, lines, timeZone) {
+$('#edit-moving-from').val('вошли');
+	if (number < count) {
+		var css = trucks.get(number).attr('class');
+		var len lines.get(number).$('td > div > span').length;
+		if ((css == "dhx_matrix_scell truckid ng-binding ng-scope") && (len < (2 + timeZone))) {
+			trucks.get(number).trigger('click');			
+			return true;
+		} else {			
+			return recurs(number + 1, count, lines, timeZone);
+		}		
+	} else {
+		var count = $('input[value="8:00 AM"]').length;
+      	if (count > 0) {
+			var truckTime = $('input[name="start_time"]');
+			truckTime.val("2:00 PM");
+          	truckTime.trugger('change');
+			recurs(0, c, lines, timeZone + 1);
+		} else {		
+			return false;
+		}		
+	}
+};
+var lines = $('tr[ng-repeat="(tid,truck_name) in ::trucks"]');
+recurs(0, count, lines, 0);
+		
+		
+		
 		//-------------------------������ Not Confirmed
 		var status = element(by.id('edit-status'));
 		status.click();
@@ -720,7 +752,7 @@ describe('Local moving', function () {
 		//element(by.css(".confirm")).click();
 		browser.sleep(sleepTime * 2);
 	});
-*/
+
 	function NikolsanSign() {
 		var canvas = element(by.id("signatureCanvas"));
 		for (i = 100; i < 300; i++) {

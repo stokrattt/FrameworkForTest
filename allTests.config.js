@@ -23,8 +23,9 @@ exports.config = {
      */
     params: {
         localDispatchURL: 'http://stage.themoveboard.com/moveBoard/#/dispatch/local',
-        clientPage: 'http://stage.themoveboard.com/account/#/login',
-        adminPage: 'http://stage.themoveboard.com/moveBoard/#/dashboard'
+        clientURL: 'http://stage.themoveboard.com/account/#/login',
+        adminURL: 'http://stage.themoveboard.com/moveBoard/#/dashboard',
+        requestURL: 'http://stage.themoveboard.com/account/#/request/'
     },
     capabilities: {
         // You can use other browsers
@@ -46,8 +47,8 @@ exports.config = {
     seleniumAddress: 'http://localhost:4444/wd/hub',
     suites: {
         dataPending: 'e2e/data-pending.js',
-        search: ['tests/e2e/contact_search/**/*Spec.js',
-            'tests/e2e/venue_search/**/*Spec.js']
+        movingStorage: 'e2e/MovingWithStorage.js',
+        longDistance: 'e2e/LongDistance.js'
     },
 
     /*
