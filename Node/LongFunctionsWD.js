@@ -188,4 +188,57 @@ global.CreateLocalMovingFromBoard = function(){
     SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     SFsleep(4);
     console.log ('создали реквест');
-}
+};
+
+global.RememberDigitsRequest = function () {
+
+    // запомнили все цифры реквеста
+
+    V.boardNumbers={};
+    driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Quote:')]/following-sibling::div[1]")).getText().then(function(text){
+        V.boardNumbers.QuoteMin = SFcleanPrice(text.substring(0, text.indexOf('$',3)))/100;
+        V.boardNumbers.QuoteMax = SFcleanPrice(text.substring(text.indexOf('$',3)))/100;
+        V.summQuote = (parseFloat((V.boardNumbers.QuoteMin + V.boardNumbers.QuoteMax)/2)).toFixed(2);
+    });
+    driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]/following-sibling::div[1]")).getText().then(function(text) {
+        V.boardNumbers.Fuel = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
+    });
+    //*****************************************************************************
+    //считаем бензин
+
+    SFclick (By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]"));
+    SFsleep (3);
+    driver.findElement(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_avg"]')).getAttribute('value').then(function(value){
+        V.boardNumbers.FuelPerc = SFcleanPrice(value.replace('%', ''));
+    });
+    SFclick (By.xpath("//div[@class='modal-footer']/button[@ng-click='cancel()']"));
+    SFsleep (3);
+    V.calcFuel = (V.summQuote * V.boardNumbers.FuelPerc/100).toFixed(2);
+    VWant(VToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан правильно');
+//*******************************************************************************************
+    driver.findElement(By.xpath("//div/label[contains(text(), 'Valuation:')]/following-sibling::div[1]")).getText().then(function(text) {
+        V.boardNumbers.Valuation = SFcleanPrice (text.substring(text.indexOf('$')))/100;
+    });
+    driver.findElement(By.xpath("//div/label[contains(text(), 'Packing:')]/following-sibling::div[1]")).getText().then(function(text) {
+        V.boardNumbers.Packing = SFcleanPrice (text.substring(text.indexOf('$')))/100;
+    });
+    driver.findElement(By.xpath("//div/label[contains(text(), 'Additional Services:')]/following-sibling::div[2]")).getText().then(function(text) {
+        V.boardNumbers.AdServices = SFcleanPrice (text.substring(text.indexOf('$')))/100;
+    });
+    driver.findElement(By.xpath("//div/label[contains(text(), 'Discount:')]/following-sibling::div[1]")).getText().then(function(text) {
+        V.boardNumbers.Discount = SFcleanPrice (text.substring(text.indexOf('$')))/100;
+    });
+    driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Grand Total:')]/following-sibling::div[1]")).getText().then(function(text){
+        V.boardNumbers.GrandTotalMin = SFcleanPrice(text.substring(0, text.indexOf('$',3)))/100;
+        V.boardNumbers.GrandTotalMax = SFcleanPrice(text.substring(text.indexOf('$',3)))/100;
+    });
+    driver.findElement(By.xpath("//div/label[contains(text(), 'Payment:')]/following-sibling::div[1]")).getText().then(function(text) {
+        V.boardNumbers.Payment = SFcleanPrice (text.substring(text.indexOf('$')))/100;
+    });
+    driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Balance:')]/following-sibling::div[1]")).getText().then(function(text){
+        V.boardNumbers.BalanceMin = SFcleanPrice(text.substring(0, text.indexOf('$',3)))/100;
+        V.boardNumbers.BalanceMax = SFcleanPrice(text.substring(text.indexOf('$',3)))/100;
+    });
+    SFsleep(3);
+    console.log(V.boardNumbers);
+};
