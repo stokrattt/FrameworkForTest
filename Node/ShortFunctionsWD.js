@@ -166,7 +166,7 @@ global.SFcleanPrice =  function(dirtyText){
             result+=dirtyText[i];
         }
     }
-    return Number(result);
+    return parseFloat(result);
 };
 global.SFFindMonthInString = function(str){
     for (let i = 0; i<12; i++){

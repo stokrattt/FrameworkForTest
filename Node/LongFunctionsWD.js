@@ -185,5 +185,6 @@ global.CreateLocalMovingFromBoard = function(){
     SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
     SFclick (By.xpath('//button[@ng-click="create()"]'));
     SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+    SFsleep(4);
     console.log ('создали реквест');
 }
