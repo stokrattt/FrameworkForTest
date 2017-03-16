@@ -61,6 +61,7 @@ global.busy = false;
 global.Dtimeout = 10000;
 global.V = {};
 global.Debug = require("./DebugWD.js");
+var GB = require('./constants');
 var SF = require('./ShortFunctionsWD.js');
 var JSs = require('./JSsteps');
 var LF = require('./LongFunctionsWD.js');
@@ -77,7 +78,7 @@ for (attrs; attrs < process.argv.length; attrs++) {
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-var suite = ['./tests/CheckFuelSurcharge25%.js'];
+var suite = ['./tests/#createLocalMoving.js'];
 global.testN = 0;
 var EventEmitter = require('events');
 class MyEmitter extends EventEmitter {

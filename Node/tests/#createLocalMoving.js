@@ -4,7 +4,6 @@ function main() {
     V.client.fam = SFrandomBukva(6)+'_t';
     V.client.phone = SFrandomCifra(10);
     V.client.email = SFrandomBukvaSmall(6)+'@'+SFrandomBukvaSmall(4)+'.tes';
-    WDWantToEqual(5,6,'ошибочка');
 
     global.fiber = Fiber.current;
     var URL = 'http://stage.themoveboard.com/';
@@ -13,8 +12,6 @@ function main() {
     SFget(URL);
     FullSmallCalcAsLocal(V.client);
     console.log("заполнили форму");
-
-    WDMustBeEqual(5,6,'ошибища');
 
     SFclick(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
     SFsleep(2);
@@ -34,9 +31,15 @@ function main() {
     OpenRequest(V.request.Id);
 
     SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    driver.executeScript(selectTruck);
+    JSstep(selectTruck);
 
-
+    driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function(dateString){
+        dateString=dateString.toUpperCase();
+        V.boardNumbers={};
+        V.boardNumbers.moveDate={};
+        V.boardNumbers.moveDate.month = SFFindMonthInString(dateString);
+        console.log(V.boardNumbers.moveDate);
+    });
 
     endOfTest();
 }
