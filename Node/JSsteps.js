@@ -52,9 +52,9 @@ global.Click4DaysNewCalendar = function () {
         $("div.picker--opened table.picker__table>tbody>tr>td>div.picker__day--infocus:contains('" + future.getDate() + "'):first").click();
 
         return {
-            futureYear: future.getFullYear(),
-            futureMonth: future.getMonth(),
-            futureDay: future.getDate()
+            Year: future.getFullYear(),
+            Month: future.getMonth(),
+            Day: future.getDate()
         };
     }.toString().substring(12);
 
@@ -90,7 +90,7 @@ global.selectTruck = function () {
     for (var number = 0, count =  $(trucks).length; (number<count && !selected); number++){
         var len = $(lines+':eq("'+number+'") > span').length;
         if (len < (2 + timeZone)) {
-            $('#edit-moving-from').val('line '+number+' spans '+len);
+            //$('#edit-moving-from').val('line '+number+' spans '+len);
             $(trucks+':eq("'+number+'")').click();
             selected = true;
         }
@@ -102,7 +102,7 @@ global.selectTruck = function () {
         for (var number = 0, count =  $(trucks).length; (number<count && !selected); number++){
             var len = $(lines+':eq("'+number+'") > span').length;
             if (len < (2 + timeZone)) {
-                $('#edit-moving-from').val('line '+number+' spans '+len);
+                //$('#edit-moving-from').val('line '+number+' spans '+len);
                 $(trucks+':eq("'+number+'")').click();
                 selected = true;
             }

@@ -3,9 +3,10 @@ global.FullSmallCalcAsLocal = function (client) {
     SFsend(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
     driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
     SFsleep(2);
-    V.request = {};
+    V.frontNumbers = {};
     driver.wait(driver.executeScript(Click4DaysNewCalendar).then(function (D) {
-        V.request.moveDate = D;
+        V.frontNumbers.moveDate = D;
+        console.log(V.frontNumbers.moveDate);
     }));
     SFsleep(2);
     driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
