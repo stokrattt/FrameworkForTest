@@ -159,5 +159,5 @@ global.SFcleanPrice =  function(dirtyText){
             result+=dirtyText[i];
         }
     }
-    return Number(result);
+    return parseFloat(result);
 };
