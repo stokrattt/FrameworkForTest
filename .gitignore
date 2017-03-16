@@ -1,2 +1,5 @@
-report/*
-!.gitkeep
+/**/node_modules/
+/**/.idea/
+/Node/server/
+/**/chromedriver
+/**/geckodriver
