@@ -33,41 +33,6 @@ function main() {
     SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     JSstep(selectTruck);
 
-    V.boardNumbers={};
-    driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function(dateString){
-        dateString=dateString.toUpperCase();
-        V.boardNumbers.moveDate={};
-        V.boardNumbers.moveDate.Month = SFFindMonthInString(dateString);
-        V.boardNumbers.moveDate.Day = SFcleanPrice(dateString.substring(0,dateString.indexOf(',')));
-        V.boardNumbers.moveDate.Year = SFcleanPrice(dateString.substring(dateString.indexOf(',')));
-        console.log(V.boardNumbers.moveDate);
-    });
-    driver.findElement(By.xpath('//input[@ng-model="request.minimum_time.value"]')).getAttribute('value').then(function(value){
-        console.log(value);
-        V.boardNumbers.WorkTimeMin=SFcleanPrice(value.substring(0,value.indexOf(':')))*60
-            + SFcleanPrice(value.substring(value.indexOf(':')));
-    });
-    driver.findElement(By.xpath('//input[@ng-model="request.maximum_time.value"]')).getAttribute('value').then(function(value){
-        console.log(value);
-        V.boardNumbers.WorkTimeMax=SFcleanPrice(value.substring(0,value.indexOf(':')))*60
-            + SFcleanPrice(value.substring(value.indexOf(':')));
-    });
-    driver.findElement(By.xpath('//input[@ng-model="request.travel_time.value"]')).getAttribute('value').then(function(value){
-        console.log(value);
-        V.boardNumbers.TravelTime=SFcleanPrice(value.substring(0,value.indexOf(':')))*60
-            + SFcleanPrice(value.substring(value.indexOf(':')));
-    });
-    driver.findElement(By.xpath('//input[@id="edit-movers-crew"]')).getAttribute('value').then(function(value){
-        console.log(value);
-        V.boardNumbers.CrewSize=SFcleanPrice(value);
-    });
-    driver.findElement(By.xpath('//label[contains(text(),"Trucks:")]/following-sibling::div[1]')).getText('text').then(function(text){
-        console.log(text);
-        V.boardNumbers.Trucks=SFcleanPrice(text);
-        console.log(V.boardNumbers);
-    });
-
-
 
 
     endOfTest();

@@ -18,8 +18,26 @@ function main() {
     RememberDigitsRequest ();
 
 
+    //*****************************************************************************
+    //считаем бензин
 
-        endOfTest();
+    SFclick (By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]"));
+    SFsleep (3);
+    driver.findElement(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_avg"]')).getAttribute('value').then(function(value){
+        V.boardNumbers.FuelPerc = SFcleanPrice(value.replace('%', ''));
+    });
+    SFclick (By.xpath("//div[@class='modal-footer']/button[@ng-click='cancel()']"));
+    SFsleep (3);
+    V.summQuote = (parseFloat((V.boardNumbers.QuoteMin + V.boardNumbers.QuoteMax)/2)).toFixed(2);
+    V.calcFuel = (V.summQuote * V.boardNumbers.FuelPerc/100).toFixed(2);
+    VWant(VToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан правильно');
+//*******************************************************************************************
+
+
+
+
+
+    endOfTest();
 }
 
 
