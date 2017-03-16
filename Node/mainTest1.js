@@ -42,10 +42,10 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
     driver.takeScreenshot().then(function (image) {
             let exist = fs.existsSync(testName);
             if (!exist) {fs.mkdirSync(testName);}
-            fs.writeFile(testName + '/' + errorNumber + '.png', image, 'base64', function (err) {
+            fs.writeFile('reports/'+testName + '/' + errorNumber + '.png', image, 'base64', function (err) {
                 console.log(err);
             });
-            fs.writeFile(testName + '/' + errorNumber + '.txt', e, function (err) {
+            fs.writeFile('reports/'+testName + '/' + errorNumber + '.txt', e, function (err) {
                 console.log(err);
             });
             console.log('сделали скрин');
@@ -87,8 +87,8 @@ myEmitter.on('event', () => {
     console.log('next...');
     if (testN < suite.length) {
         testName = suite[testN].substring(suite[testN].indexOf('#')+1, suite[testN].indexOf('.js'));
-        let exist = fs.existsSync(testName);
-        if (exist) {deleteFolderRecursive(testName)}
+        let exist = fs.existsSync('reports/'+testName);
+        if (exist) {deleteFolderRecursive('reports/'+testName)}
         errorNumber = 0;
         Fiber(require(suite[testN])).run();
         testN++;

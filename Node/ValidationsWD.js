@@ -5,7 +5,7 @@ global.WDWantToEqual = function(value1, value2,e){
             if (!exist) {fs.mkdirSync(testName);}
             errorNumber++;
             var temp = 3;
-            require('fs').writeFile('./'+testName + '/' + errorNumber + '.png', image, 'base64', function (err) {
+            require('fs').writeFile('reports/'+testName + '/' + errorNumber + '.png', image, 'base64', function (err) {
                 console.log(err);
                 if (!busy) {
                     temp--;
@@ -14,7 +14,7 @@ global.WDWantToEqual = function(value1, value2,e){
                     }
                 }
             });
-            require('fs').writeFile('./'+testName + '/' + errorNumber + '.txt', e, function (err) {
+            require('fs').writeFile('reports/'+testName + '/' + errorNumber + '.txt', e, function (err) {
                 console.log(err);
                 if (!busy) {
                     temp--;
