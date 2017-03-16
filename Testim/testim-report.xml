@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<testsuites>
+  <testsuite name="selenium run" tests="1" failure="1" timestamp="2017-03-06T16:11:05.691Z">
+    <testcase name="Invoice &amp; Payment" classname="testim.io.test" time="177.308">
+      <failure message="Step Failed: Assertion failed  More info at: https://app.testim.io/#/project/roma4ke@gmail,com_a4c04ff8-bb38-4780-8f12-edaa4cf1fd4c/test/53e4f262-ddc4-8a73-330d-4c7f0b8fcb6d?branch=master&amp;result-id=6da96912-aefd-4f59-9d33-ec2002ab426d"/>
+      <system-out>https://app.testim.io/#/project/roma4ke@gmail,com_a4c04ff8-bb38-4780-8f12-edaa4cf1fd4c/test/53e4f262-ddc4-8a73-330d-4c7f0b8fcb6d?branch=master&amp;result-id=6da96912-aefd-4f59-9d33-ec2002ab426d</system-out>
+    </testcase>
+  </testsuite>
+</testsuites>

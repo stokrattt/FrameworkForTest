@@ -40,7 +40,7 @@ describe('Protractor Demo App', function () {
 		browser.ignoreSynchronization = true;
 		browser.get('http://stage.themoveboard.com/');
 		browser.sleep(sleepTime * 5);
-		TryToClickXpath('//small-desktop-form//input[@ng-model="request.first_name"]', function () {
+		TryToClickXpath('//div[@class="sf-calculate-wrapper"]//input[@ng-model="request.first_name"]', function () {
 			var root = element(by.css('.sf-calculate-wrapper'));
 			var firstNameField = root.element(by.model("request.first_name"));
 			var lastNameField = root.element(by.model("request.last_name"));

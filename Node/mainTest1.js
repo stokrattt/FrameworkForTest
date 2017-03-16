@@ -77,7 +77,7 @@ for (attrs; attrs < process.argv.length; attrs++) {
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-var suite = ['./tests/#createLocalMoving.js'];
+var suite = ['./tests/CheckFuelSurcharge25%.js'];
 global.testN = 0;
 var EventEmitter = require('events');
 class MyEmitter extends EventEmitter {

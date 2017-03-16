@@ -1,8 +1,7 @@
 describe('Protractor Demo App', function () {
 
-    browser.params
     var localDispatchURL = browser.params.localDispatchURL;
-    var clientPage = browser.params.clientURL;
+    var clientPage = browser.params.accountURL;
     var adminPage = browser.params.adminURL;
     var zipFrom = "02461";
     var zipTo = "02111";
@@ -41,6 +40,7 @@ describe('Protractor Demo App', function () {
     var theTime = '';
 
     it('admin Login', function () {
+        console.log(browser.params);
         adminLogin();
     });
     it('creating Client', function () {
