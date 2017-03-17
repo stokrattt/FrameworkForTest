@@ -45,7 +45,7 @@ module.exports = {
         }, 500);
     },
     pause: function(){
-        if (Debug) {
+        if (D) {
             busy = true;
             console.log('пауза');
             driver.wait(new Promise(function (resolve, reject) {

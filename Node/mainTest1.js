@@ -39,7 +39,6 @@ global.deleteFolderRecursive = function(path) {
 };
 
 webdriver.promise.controlFlow().on('uncaughtException', function (e) {
-    Debug.pause();
     driver.takeScreenshot().then(function (image) {
             let exist = fs.existsSync('reports/'+testName);
             if (!exist) {fs.mkdirSync('reports/'+testName);}
@@ -79,21 +78,21 @@ for (attrs; attrs < process.argv.length; attrs++) {
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-var suite = ['./tests/#CheckFuelSurcharge.js'];
+var suite = ['./tests/#createLocalMoving.js'];
 global.testN = 0;
 var EventEmitter = require('events');
 class MyEmitter extends EventEmitter {
 }
 global.myEmitter = new MyEmitter();
 myEmitter.on('event', () => {
-    console.log('next...');
     if (testN < suite.length) {
+        console.log('next...'+testN);
         testName = suite[testN].substring(suite[testN].indexOf('#')+1, suite[testN].indexOf('.js'));
         let exist = fs.existsSync('reports/'+testName);
         if (exist) {deleteFolderRecursive('reports/'+testName)}
         errorNumber = 0;
         Fiber(require(suite[testN])).run();
         testN++;
-    }
+    } else {console.log('end...');}
 });
 myEmitter.emit('event');

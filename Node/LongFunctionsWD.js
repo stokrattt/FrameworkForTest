@@ -147,6 +147,14 @@ global.LogoutFromAccount = function () {
     SFwaitForVisible(By.xpath('//form[@ng-submit="login()"]'));
     SFsleep(5);
 };
+global.LogoutFromBoard = function () {
+    driver.executeScript("$('a[ng-click=\"vm.Logout()\"]').get(0).scrollIntoView();");
+    SFclick(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
+    SFsleep(1);
+    SFclick(By.xpath('//a[@ng-click="vm.Logout()"]'));
+    SFwaitForVisible(By.xpath('//form[@ng-submit="login()"]'));
+    SFsleep(5);
+};
 global.LoginToBoardAsAdmin = function () {
     SFwaitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
     SFsend(By.xpath('//input[@id="email"]'), 'TestAdmin');
@@ -244,7 +252,7 @@ global.RememberDigitsRequestBoard = function () {
     driver.findElement(By.xpath("//div/label[contains(text(), 'Packing:')]/following-sibling::div[1]")).getText().then(function(text) {
         V.boardNumbers.Packing = SFcleanPrice (text.substring(text.indexOf('$')))/100;
     });
-    driver.findElement(By.xpath("//div/label[contains(text(), 'Additional AdServices:')]/following-sibling::div[2]")).getText().then(function(text) {
+    driver.findElement(By.xpath("//div/label[contains(text(), 'Additional Services:')]/following-sibling::div[2]")).getText().then(function(text) {
         V.boardNumbers.AdServices = SFcleanPrice (text.substring(text.indexOf('$')))/100;
     });
     driver.findElement(By.xpath("//div/label[contains(text(), 'Discount:')]/following-sibling::div[1]")).getText().then(function(text) {
@@ -274,9 +282,9 @@ global.Validation_Compare_Account_Admin = function(){
     IWant(VToEqual,V.accountNumbers.LaborTimeMax, V.boardNumbers.LaborTimeMax, 'не совпали LaborTimeMax аккаунта и борда');
     IWant(VToEqual,V.accountNumbers.TravelTime, V.boardNumbers.TravelTime, 'не совпали TravelTime аккаунта и борда');
     IWant(VToEqual,V.accountNumbers.Packing, V.boardNumbers.Packing, 'не совпали Packing аккаунта и борда');
-    IWant(VToEqual,V.accountNumbers.AdServices, V.boardNumbers.AdServices, 'не совпали Packing аккаунта и борда');
+    IWant(VToEqual,V.accountNumbers.AdServices, V.boardNumbers.AdServices, 'не совпали Services аккаунта и борда');
     IWant(VToEqual,V.accountNumbers.Trucks, V.boardNumbers.Trucks, 'не совпали Trucks аккаунта и борда');
-    IWant(VToEqual,V.accountNumbers.TotalMin, V.boardNumbers.TotalMin, 'не совпали QuoteMin аккаунта и борда');
-    IWant(VToEqual,V.accountNumbers.TotalMax, V.boardNumbers.TotalMax, 'не совпали QuoteMax аккаунта и борда');
+    IWant(VToEqual,V.accountNumbers.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin аккаунта и борда');
+    IWant(VToEqual,V.accountNumbers.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
     IWant(VToEqual,V.accountNumbers.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
 };

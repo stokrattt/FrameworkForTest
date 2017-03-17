@@ -180,6 +180,7 @@ global.SFget = function (URL) {
 };
 global.SFselect = function (selector, value) {
     console.log('select ' + selector + '->' + value);
+    driver.wait(until.elementLocated(selector)).click();
     driver.wait(until.elementLocated(selector)).findElement(selector)
         .findElement(By.xpath('option[@value="' + value + '"]'))
         .click()

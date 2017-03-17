@@ -36,6 +36,27 @@ function main() {
     RememberDigitsRequestBoard();
     Validation_Compare_Account_Admin();
 
+    SFclick(By.xpath('//a[@ng-click="select(tabs[7])"]'));
+    SFsleep(1);
+    SFclick(By.xpath('//button[contains(text(),"Set Sales")]'));
+    SFclick(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"SaleNode")]'));
+    SFsleep(1);
+    SFclick(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));
+    SFsleep(1);
+    SFclick(By.xpath('//a[@ng-click="select(tabs[4])"]'));
+    SFsend(By.xpath('//input[@ng-model="client.password"]'),123);
+    SFclick(By.xpath('//button[@ng-click="update(client)"]'));
+    SFsleep(3);
+    SFclick(By.xpath('//a[@ng-click="select(tabs[0])"]'));
+    SFsleep(1);
+    SFselect(By.xpath('//select[@id="edit-status"]'),2);
+    SFclick(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    SFclick(By.xpath('//button[@ng-click="update(request)"]'));
+    SFsleep(8);
+
+    SFclick(By.xpath('//button[@ng-click="cancel()"]'));
+    SFsleep(2);
+    LogoutFromBoard();
 
     endOfTest();
 }
