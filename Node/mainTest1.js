@@ -39,6 +39,7 @@ global.deleteFolderRecursive = function(path) {
 };
 
 webdriver.promise.controlFlow().on('uncaughtException', function (e) {
+    Debug.pause();
     driver.takeScreenshot().then(function (image) {
             let exist = fs.existsSync('reports/'+testName);
             if (!exist) {fs.mkdirSync('reports/'+testName);}
