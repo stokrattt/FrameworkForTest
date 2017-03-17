@@ -21,18 +21,20 @@ function main() {
     AccountLocalDetails();
     SFwaitForVisible(By.xpath('//li[@id="tab_Inventory"]//i[@class="icon-check"]'));
     SFwaitForVisible(By.xpath('//li[@id="tab_Details"]//i[@class="icon-check"]'));
-    AccountRememberInfoFirstTime();
+    RememberAccountNumbers();
 
     LogoutFromAccount();
     console.log('закончили с аккаунтом');
 
     SFget(adminURL);
     LoginToBoardAsAdmin();
-    OpenRequest(V.request.Id);
+    OpenRequest(V.accountNumbers.Id);
 
     SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     JSstep(selectTruck);
 
+    RememberDigitsRequestBoard();
+    Validation_Compare_Account_Admin();
 
 
     endOfTest();

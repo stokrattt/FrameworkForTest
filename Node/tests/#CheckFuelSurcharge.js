@@ -15,7 +15,7 @@ function main() {
     JSclick('.btn-primary');
 
     CreateLocalMovingFromBoard();
-    RememberDigitsRequest ();
+    RememberDigitsRequestBoard ();
 
 
     //*****************************************************************************
@@ -30,7 +30,7 @@ function main() {
     SFsleep (3);
     V.summQuote = (parseFloat((V.boardNumbers.QuoteMin + V.boardNumbers.QuoteMax)/2)).toFixed(2);
     V.calcFuel = (V.summQuote * V.boardNumbers.FuelPerc/100).toFixed(2);
-    VWant(VToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан правильно');
+    IWant(VToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан правильно');
 //*******************************************************************************************
 
 

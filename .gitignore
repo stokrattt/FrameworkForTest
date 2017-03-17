@@ -2,6 +2,6 @@
 /**/reports/
 /**/.idea/
 /**/*fuse_hidden*
-/Node/server/
+/**/Node/server/
 /**/chromedriver
 /**/geckodriver

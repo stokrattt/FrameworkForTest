@@ -233,6 +233,6 @@ global.SFFindMonthInString = function (str) {
             return i;
         }
     }
-    VWant(VNotToEqual, i, 12, 'неверный месяц');
+    IWant(VNotToEqual, i, 12, 'неверный месяц');
     return 12;
 };

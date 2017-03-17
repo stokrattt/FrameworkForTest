@@ -45,19 +45,21 @@ module.exports = {
         }, 500);
     },
     pause: function(){
-        busy = true;
-        console.log('пауза');
-        driver.wait(new Promise(function (resolve, reject) {
-            var playTimer = setInterval(function () {
-                if (!busy) {
-                    resolve("result");
-                    clearInterval(playTimer);
-                    fiber.run();
-                    console.log('играй...');
-                }
-            }, 100);
-        }));
-        Fiber.yield();
+        if (Debug) {
+            busy = true;
+            console.log('пауза');
+            driver.wait(new Promise(function (resolve, reject) {
+                var playTimer = setInterval(function () {
+                    if (!busy) {
+                        resolve("result");
+                        clearInterval(playTimer);
+                        fiber.run();
+                        console.log('играй...');
+                    }
+                }, 100);
+            }));
+            Fiber.yield();
+        }
     },
 };
 
