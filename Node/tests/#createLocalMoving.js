@@ -14,7 +14,6 @@ function main() {
     console.log("заполнили форму");
 
     SFclick(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
-    SFsleep(2);
     SFclick(By.xpath('//label[@for="partial"]/input[@ng-model="vm.packing_service"]'));
     AccountLocalEnterAddress();
     AccountLocalAddInventory();
@@ -38,15 +37,9 @@ function main() {
 
     SFclick(By.xpath('//a[@ng-click="select(tabs[7])"]'));
     SFsleep(1);
-    SFclick(By.xpath('//button[contains(text(),"Set Sales")]'));
-    SFclick(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"SaleNode")]'));
-    SFsleep(1);
-    SFclick(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));
-    SFsleep(1);
+    SetManager();
     SFclick(By.xpath('//a[@ng-click="select(tabs[4])"]'));
-    SFsend(By.xpath('//input[@ng-model="client.password"]'),123);
-    SFclick(By.xpath('//button[@ng-click="update(client)"]'));
-    SFsleep(3);
+    SetClientPasswd();
     SFclick(By.xpath('//a[@ng-click="select(tabs[0])"]'));
     SFsleep(1);
     SFselect(By.xpath('//select[@id="edit-status"]'),2);
@@ -57,6 +50,15 @@ function main() {
     SFclick(By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep(2);
     LogoutFromBoard();
+
+    SFget(accountURL);
+    LoginToAccountAsClient();
+    SFclick(By.xpath(''));
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
+        IWant(VToEqual,Status,'Not Confirmed');
+    }));
+    SFclick(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
+
 
     endOfTest();
 }
