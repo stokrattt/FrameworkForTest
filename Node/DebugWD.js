@@ -9,7 +9,7 @@ module.exports = {
             //var chunk = process.stdin.read();
             if (chunk !== null) {
                 if ((chunk[0] === '|') && (chunk[1] === '|') && (chunk[2] === '|') && (!recording)) {
-                    busy ? busy=false : Debug.pause();
+                    busy ? busy = false : Debug.pause();
                 } else if ((chunk[0] === '>') && (chunk[1] === '>') && (chunk[2] === '>') && (!recording)) {
                     recording = true;
                 } else if ((chunk[0] === '<') && (chunk[1] === '<') && (chunk[2] === '<') && (recording)) {
@@ -29,22 +29,21 @@ module.exports = {
         return true;
     },
     pauseWatcher: function () {
-        setInterval( function() {
-            if (busy) {
-                driver.wait(new Promise(function (resolve, reject) {
-                    var playTimer = setInterval(function () {
-                        // переведёт промис в состояние fulfilled с результатом "result"
-                        if (!busy) {
-                            resolve("result");
-                            clearInterval(playTimer);
-                            fiber.run();
-                        }
-                    }, 2000);
-                }));
-            }
-        }, 500);
+        if (busy) {
+            driver.wait(new Promise(function (resolve, reject) {
+                var playTimer = setInterval(function () {
+                    // переведёт промис в состояние fulfilled с результатом "result"
+                    if (!busy) {
+                        resolve("result");
+                        clearInterval(playTimer);
+                        fiber.run();
+                    }
+                }, 2000);
+            }));
+
+        }
     },
-    pause: function(){
+    pause: function () {
         if (D) {
             busy = true;
             console.log('пауза');
@@ -60,6 +59,8 @@ module.exports = {
             }));
             Fiber.yield();
         }
-    },
-};
+    }
+    ,
+}
+;
 
