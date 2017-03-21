@@ -39,7 +39,7 @@ global.deleteFolderRecursive = function(path) {
 };
 
 webdriver.promise.controlFlow().on('uncaughtException', function (e) {
-    driver.takeScreenshot().then(function (image) {
+    driver.wait(driver.takeScreenshot().then(function (image) {
             let exist = fs.existsSync('reports/'+testName);
             if (!exist) {fs.mkdirSync('reports/'+testName);}
             fs.writeFile('reports/'+testName + '/' + errorNumber + '.png', image, 'base64', function (err) {
@@ -52,7 +52,9 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
             console.log('Произошла ошибка: ', e);
             myEmitter.emit('event');
 
-    });
+    }));
+    busy=true;
+    Debug.pauseWatcher();
 });
 
 //========================set up global variables========================
@@ -68,7 +70,6 @@ var LF = require('./LongFunctionsWD.js');
 var VD = require('./ValidationsWD');
 if (D) {
     Debug.console();
-    //Debug.pauseWatcher();
 }
 //=================reading parametres from CLI===========================
 for (attrs; attrs < process.argv.length; attrs++) {
