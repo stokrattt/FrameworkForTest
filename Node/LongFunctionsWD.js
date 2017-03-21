@@ -282,6 +282,7 @@ global.RememberDigitsRequestBoard = function () {
     SFsleep(3);
     console.log(V.boardNumbers);
 };
+
 global.Validation_Compare_Account_Admin = function(){
     IWant(VToEqual,V.accountNumbers.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
     IWant(VToEqual,V.accountNumbers.moveDate.Month, V.boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
@@ -310,3 +311,34 @@ global.SetClientPasswd = function (){
     SFclick(By.xpath('//button[@ng-click="update(client)"]'));
     SFsleep(3);
 };
+
+//Permissions for Sales --- start
+global.PermissionsNull = function() {
+    driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').click()}");
+    driver.executeScript("if($('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').click()}");
+    driver.executeScript("if($('input[ng-model=\"request.permissions.canEditOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canEditOtherLeads\"]').click()}");
+    driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').click()}");
+    driver.executeScript("if($('input[ng-model=\"request.permissions.canSignedSales\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSignedSales\"]').click()}");
+
+};
+global.PermissionCanSeeOtherLeads = function() {
+    driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').click()}");
+
+};
+global.PermissionCanSearchOtherLeads = function() {
+    driver.executeScript("if($('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').click()}");
+
+};
+global.PermissionCanEditOtherLeads = function() {
+    driver.executeScript("if($('input[ng-model=\"request.permissions.canEditOtherLeads\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"request.permissions.canEditOtherLeads\"]').click()}");
+
+};
+global.PermissionCanSeeUnsignedLeads = function() {
+    driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').click()}");
+
+};
+global.PermissionCanSignedSales = function() {
+    driver.executeScript("if($('input[ng-model=\"request.permissions.canSignedSales\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSignedSales\"]').click()}");
+
+};
+//Permissions for Sales --- end
