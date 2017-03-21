@@ -34,6 +34,7 @@ global.FullSmallCalcAsLocal = function (client) {
 };
 global.AccountLocalEnterAddress = function () {
     JSclick('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
+    SFsleep(1);
     SFsend(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'Address From');
     SFsend(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Address To');
     SFclick(By.xpath('//button[@ng-click="update(client)"]'));
@@ -162,6 +163,15 @@ global.LoginToBoardAsAdmin = function () {
     SFclick(By.xpath('//button[@type="submit"]'));
     SFwaitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
 };
+global.LoginToAccountAsClient = function(){
+    SFsleep(1);
+    SFwaitForVisible(By.xpath('//form[@ng-submit="login()"]'));
+    SFsleep(1);
+    SFsend(By.xpath('//input[@id="email"]'), V.client.email);
+    SFsend(By.xpath('//input[@id="password"]'), 123);
+    SFclick(By.xpath('//button[@type="submit"]'));
+    SFsleep(2);
+};
 global.OpenRequest = function (request) {
 
     driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')),10000)
@@ -287,4 +297,16 @@ global.Validation_Compare_Account_Admin = function(){
     IWant(VToEqual,V.accountNumbers.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin аккаунта и борда');
     IWant(VToEqual,V.accountNumbers.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
     IWant(VToEqual,V.accountNumbers.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
+};
+global.SetManager = function (){
+    SFclick(By.xpath('//button[contains(text(),"Set Sales")]'));
+    SFclick(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"SaleNode")]'));
+    SFsleep(1);
+    SFclick(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));
+    SFsleep(1);
+};
+global.SetClientPasswd = function (){
+    SFsend(By.xpath('//input[@ng-model="client.password"]'),123);
+    SFclick(By.xpath('//button[@ng-click="update(client)"]'));
+    SFsleep(3);
 };
