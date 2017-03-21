@@ -3,7 +3,7 @@ global.VNotToEqual = function(value1, value2){return (value1!=value2);};
 global.IWant = function(func, value1, value2, e){
     if (!func(value1,value2)) {
         e+='\nvalue1 = '+value1+'\nvalue2 = '+value2;
-        driver.takeScreenshot().then(function (image) {
+        driver.wait(driver.takeScreenshot().then(function (image) {
             let exist = fs.existsSync('reports/'+testName);
             if (!exist) {fs.mkdirSync('reports/'+testName);}
             errorNumber++;
@@ -35,7 +35,7 @@ global.IWant = function(func, value1, value2, e){
                 }
             }
 
-        });
+        }));
         if (!busy) {
             Fiber.yield();
         }
