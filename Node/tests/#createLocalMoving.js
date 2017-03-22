@@ -60,9 +60,14 @@ function main() {
         IWant(VToEqual,Status,'Not Confirmed');
     }));
     SFclick(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
-
+    SFsleep(2);
     RememberAccountNumbers();
+    Validation_Compare_Account_Admin();
 
+    ConfirmRequestInAccount_WithReservation();
+
+    SFwaitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
+    LogoutFromAccount();
 
     endOfTest();
 }

@@ -76,40 +76,40 @@ global.AccountLocalDetails = function () {
 };
 global.RememberAccountNumbers = function () {
     V.accountNumbers = {};
-    driver.executeScript('return $("div:contains(\\"Move Date :\\"):last").next().text()').then(function(dateString){
+    driver.wait(driver.executeScript('return $("div:contains(\\"Move Date :\\"):last").next().text()').then(function(dateString){
         dateString=dateString.toUpperCase();
         V.accountNumbers.moveDate={};
         V.accountNumbers.moveDate.Month = SFFindMonthInString(dateString);
         V.accountNumbers.moveDate.Day = SFcleanPrice(dateString.substring(0,dateString.indexOf(',')));
         V.accountNumbers.moveDate.Year = SFcleanPrice(dateString.substring(dateString.indexOf(',')));
-    });
-    driver.executeScript('return $("div:contains(\\"Crew Size :\\"):last").next().text()').then(function(text){
+    }));
+    driver.wait(driver.executeScript('return $("div:contains(\\"Crew Size :\\"):last").next().text()').then(function(text){
         V.accountNumbers.CrewSize=SFcleanPrice(text);
-    });
-    driver.executeScript('return $("div:contains(\\"Truck :\\"):last").next().text()').then(function(text){
+    }));
+    driver.wait(driver.executeScript('return $("div:contains(\\"Truck :\\"):last").next().text()').then(function(text){
         V.accountNumbers.Trucks=SFcleanPrice(text);
-    });
-    driver.executeScript('return $("div:contains(\\"Hourly Rate :\\"):last").next().text()').then(function(text){
+    }));
+    driver.wait(driver.executeScript('return $("div:contains(\\"Hourly Rate :\\"):last").next().text()').then(function(text){
         V.accountNumbers.HourlyRate = text.indexOf('$', 4) ==-1 ?
             SFcleanPrice(text) :
             SFcleanPrice(text.substring(text.indexOf('$', 4)));
-    });
-    driver.findElement(By.xpath('//div[contains(text(),"Fuel Surcharge")]/../div[2]')).getText().then(function (text) {
+    }));
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Fuel Surcharge")]/../div[2]')).getText().then(function (text) {
         V.accountNumbers.Fuel = SFcleanPrice(text) / 100;
-    });
+    }));
     driver.wait(driver.executeScript(getServicesCostAccount),Dtimeout).then(function(ServicesText){
         V.accountNumbers.AdServices = SFcleanPrice(ServicesText) / 100;
     });
     driver.wait(driver.executeScript(getPackingsCostAccount),Dtimeout).then(function(ServicesText){
         V.accountNumbers.Packing = SFcleanPrice(ServicesText) / 100;
     });
-    driver.findElement(By.xpath('//span[contains(text(),"Estimated Travel Time")]/../../div[2]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Estimated Travel Time")]/../../div[2]')).getText().then(function (text) {
         let hours = text.indexOf('hrs')==-1 ? 0 : SFcleanPrice(text.substring(0,text.indexOf('hrs')));
         let minutes = text.indexOf('min')==-1 ? 0 : SFcleanPrice(text.substring((text.indexOf('hrs')+1), text.indexOf('min')));
         V.accountNumbers.TravelTime = hours*60 + minutes;
-    });
+    }));
 
-    driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/../div[2]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/../div[2]')).getText().then(function (text) {
         let textMin = text.substring(0,text.indexOf('-'));
         let textMax = text.substring(text.indexOf('-'));
         let hoursMin = textMin.indexOf('hrs')==-1 ? 0 : SFcleanPrice(textMin.substring(0,textMin.indexOf('hrs')));
@@ -118,9 +118,9 @@ global.RememberAccountNumbers = function () {
         let hoursMax = textMax.indexOf('hrs')==-1 ? 0 : SFcleanPrice(textMax.substring(0,textMax.indexOf('hrs')));
         let minutesMax = textMax.indexOf('min')==-1 ? 0 : SFcleanPrice(textMax.substring((textMax.indexOf('hrs')+1), textMax.indexOf('min')));
         V.accountNumbers.LaborTimeMax = hoursMax*60 + minutesMax;
-    });
+    }));
 
-    driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/../div[2]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/../div[2]')).getText().then(function (text) {
         let textMin = text.substring(0,text.indexOf('-'));
         let textMax = text.substring(text.indexOf('-'));
         let hoursMin = textMin.indexOf('hrs')==-1 ? 0 : SFcleanPrice(textMin.substring(0,textMin.indexOf('hrs')));
@@ -129,20 +129,20 @@ global.RememberAccountNumbers = function () {
         let hoursMax = textMax.indexOf('hrs')==-1 ? 0 : SFcleanPrice(textMax.substring(0,textMax.indexOf('hrs')));
         let minutesMax = textMax.indexOf('min')==-1 ? 0 : SFcleanPrice(textMax.substring((textMax.indexOf('hrs')+1), textMax.indexOf('min')));
         V.accountNumbers.LaborTimeMax = hoursMax*60 + minutesMax;
-    });
+    }));
 
-    driver.findElement(By.xpath('//div[contains(text(),"Estimated Quote")]/following-sibling::div[1]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Quote")]/following-sibling::div[1]')).getText().then(function(text){
         if (text.indexOf("You save")!== -1) {
             let t = text.substring(0,text.indexOf("You save"));
             t = t.substring(t.indexOf('$',t.indexOf('$',t.indexOf('$')+1)+1));
             V.accountNumbers.TotalMin = SFcleanPrice(t.substring(0, t.indexOf('-')))/100;
             V.accountNumbers.TotalMax = SFcleanPrice(t.substring(t.indexOf('-')))/100;
         } else {console.log('ещё не делали без скидок');}
-    });
-    driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
+    }));
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.accountNumbers.Id = SFcleanPrice(text);
-    });
-    SFsleep(3);
+    }));
+    SFsleep(2);
     console.log(V.accountNumbers);
 };
 global.LogoutFromAccount = function () {
@@ -152,7 +152,7 @@ global.LogoutFromAccount = function () {
     SFsleep(5);
 };
 global.LogoutFromBoard = function () {
-    driver.executeScript("$('a[ng-click=\"vm.Logout()\"]').get(0).scrollIntoView();");
+    JSscroll('a[ng-click=\"vm.Logout()\"]');
     SFclick(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
     SFsleep(1);
     SFclick(By.xpath('//a[@ng-click="vm.Logout()"]'));
@@ -320,6 +320,41 @@ global.SetClientPasswd = function (){
     SFsend(By.xpath('//input[@ng-model="client.password"]'),123);
     SFclick(By.xpath('//button[@ng-click="update(client)"]'));
     SFsleep(3);
+};
+global.FillCardPayModal = function(){
+    SFsend(By.xpath('//input[@ng-model="payment.card_num"]'),4111111111111111);
+    SFsend(By.xpath('//input[@ng-model="payment.exp_month"]'),11);
+    SFsend(By.xpath('//input[@ng-model="payment.exp_year"]'),20);
+    SFsend(By.xpath('//input[@ng-model="secure.cvc"]'),323);
+    SFclick(By.xpath('//input[@ng-click="applyPayment()"]'));
+};
+global.JSmakeSign = function (canvasID){
+    driver.executeScript(
+        "var canva = document.getElementById('"+canvasID+"');" +
+        "var width=canva.getAttribute('width');" +
+        "var height=canva.getAttribute('height');" +
+        "var w=width/100; var h=height/100;"  +
+        "cont = canva.getContext('2d');" +
+        "cont.beginPath();" +
+        "cont.moveTo(50*w, 50*h);" +
+        "cont.lineTo(80*w, 80*h);" +
+        "cont.lineTo(20*w, 70*h);" +
+        "cont.lineTo(80*w, 20*h);" +
+        "cont.lineTo(30*w, 30*h);" +
+        "cont.closePath();" +
+        "cont.stroke();");
+};
+global.ConfirmRequestInAccount_WithReservation = function(){
+    SFclick(By.xpath('//div[contains(@class,"notconfirmed")]'));
+    SFsleep(2);
+    JSscroll('div.confirm');
+    SFclick(By.xpath('//input[@ng-model="vm.checkCancel"]'));
+    SFclick(By.xpath('//input[@ng-model="vm.checkTerms"]'));
+    SFclick(By.xpath('//div[@ng-click="addReservationPayment()"]'));
+    FillCardPayModal();
+    SFwaitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+    JSmakeSign('signatureCanvasReserv');
+    SFclick(By.xpath('//button[@ng-click="saveReservSignature()"]'));
 };
 
 //Permissions for Sales --- start

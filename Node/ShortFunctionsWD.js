@@ -187,6 +187,16 @@ global.JSlink = function (JQuerySelector) {
         console.log('yield'); Fiber.yield();
     }
 };
+global.JSscroll = function(JQselector){
+    driver.wait(driver.executeScript("$('"+JQselector+"').get(0).scrollIntoView();"),Dtimeout).then(function(){
+        if (!busy) {
+            console.log('run'); global.fiber.run();
+        }
+    });
+    if (!busy) {
+        console.log('yield'); Fiber.yield();
+    }
+};
 global.JSstep = function (JSString) {
     console.log('doing: JSStep');
     driver.wait(driver.executeScript(JSString)).then(function () {
