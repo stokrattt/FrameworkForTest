@@ -55,11 +55,13 @@ function main() {
 
     SFget(accountURL);
     LoginToAccountAsClient();
-    SFclick(By.xpath(''));
+    SFwaitForVisible(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
         IWant(VToEqual,Status,'Not Confirmed');
     }));
     SFclick(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
+
+    RememberAccountNumbers();
 
 
     endOfTest();
