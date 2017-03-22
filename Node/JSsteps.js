@@ -119,3 +119,11 @@ global.getServicesCostAccount = function () {
         return $('div[ng-repeat="service in vm.extraServices"]:last').text();
     } else {return '$0'}
 }.toString().substring(12);
+global.getPackingsCostAccount = function () {
+    var a = $('div[ng-repeat="packing in vm.packingSettings"]').length;
+    if (a > 1) {
+        return $('div[ng-repeat="packing in vm.packingSettings"]:last').next().text();
+    } else if (a==1)  {
+        return $('div[ng-repeat="packing in vm.packingSettings"]:last div:last').text();
+    } else {return '$0'}
+}.toString().substring(12);
