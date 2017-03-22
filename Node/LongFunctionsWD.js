@@ -195,7 +195,7 @@ global.CreateLocalMovingFromBoard = function(){
         V.request.moveDate = calDate;
         console.log(V.request);
     });
-    SFsleep(2);
+    SFsleep(0.5);
     SFclick(By.xpath('//ul[@class="chosen-choices"]'));
     SFclick(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
     SFsend (By.id("edit-zip-code-from"), "02032");
@@ -313,7 +313,7 @@ global.SetClientPasswd = function (){
 };
 
 //Permissions for Sales --- start
-global.PermissionsNull = function() {
+global.PermissionsClear = function() {
     driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').click()}");
     driver.executeScript("if($('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').click()}");
     driver.executeScript("if($('input[ng-model=\"request.permissions.canEditOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canEditOtherLeads\"]').click()}");

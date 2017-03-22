@@ -5,6 +5,8 @@ function main() {
     V.client.fam = SFrandomBukva(6) + '_t';
     V.client.phone = SFrandomCifra(10);
     V.client.email = SFrandomBukvaSmall(6) + '@' + SFrandomBukvaSmall(4) + '.tes';
+    V.SalesLogin = ('jack2@ya.com');
+    V.SalesPass = ('123');
 
     global.fiber = Fiber.current;
     var URL = 'http://stage.themoveboard.com/moveBoard/#/login';
@@ -30,9 +32,18 @@ function main() {
     SFclick(By.xpath('//ul[@class="nav nav-tabs submenu_tab"]/li[@ng-click="activePermTab = 1"]'));
     SFwaitForVisible (By.xpath('//div[@ng-class="{\'active\': activePermTab === 1}"]')); //?
 
-    PermissionsNull ();
+    PermissionsClear ();
     PermissionCanSeeOtherLeads ();
+    PermissionCanSearchOtherLeads ();
     PermissionCanEditOtherLeads ();
+    PermissionCanSignedSales ();
+    SFclick(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
+    SFwaitForVisible (By.xpath('//button[@class="confirm"]'));
+    SFclick (By.xpath('//button[@class="confirm"]'));
+    SFwaitForVisible (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
+
+    CreateLocalMovingFromBoard();
+
 
 
 
