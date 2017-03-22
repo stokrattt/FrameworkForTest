@@ -70,11 +70,11 @@ global.SFwaitForNotVisible = function (selector) {
     }
 };
 global.SFsleep = function (sec) {
-    setTimeout(function () {
+    driver.sleep(sec*1000).then(function(){
         if (!busy) {
             console.log('run'); global.fiber.run();
         }
-    }, sec * 1000);
+    });
     if (!busy) {
         console.log('yield'); Fiber.yield();
     }
