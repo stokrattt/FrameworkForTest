@@ -100,6 +100,9 @@ global.RememberAccountNumbers = function () {
     driver.wait(driver.executeScript(getServicesCostAccount),Dtimeout).then(function(ServicesText){
         V.accountNumbers.AdServices = SFcleanPrice(ServicesText) / 100;
     });
+    driver.wait(driver.executeScript(getPackingsCostAccount),Dtimeout).then(function(ServicesText){
+        V.accountNumbers.Packing = SFcleanPrice(ServicesText) / 100;
+    });
     driver.findElement(By.xpath('//span[contains(text(),"Estimated Travel Time")]/../../div[2]')).getText().then(function (text) {
         let hours = text.indexOf('hrs')==-1 ? 0 : SFcleanPrice(text.substring(0,text.indexOf('hrs')));
         let minutes = text.indexOf('min')==-1 ? 0 : SFcleanPrice(text.substring((text.indexOf('hrs')+1), text.indexOf('min')));
