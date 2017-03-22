@@ -44,9 +44,13 @@ function main() {
 
     CreateLocalMovingFromBoard();
 
+    driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
+        V.request.Id = SFcleanPrice(text);
+    }));
 
+    OpenRequest(V.request.Id);
 
-
+    LoginToBoardAsCustom(V.SalesLogin,V.SalesPass);
 
     endOfTest();
 }
