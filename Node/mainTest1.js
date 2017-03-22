@@ -50,17 +50,21 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
             });
             console.log('сделали скрин');
             console.log('Произошла ошибка: ', e);
-            myEmitter.emit('event');
+            if (!D) {
+                myEmitter.emit('event');
+            }
 
     }));
-    busy=true;
-    Debug.pauseWatcher();
+    if (D) {
+        busy = true;
+        Debug.pauseWatcher();
+    }
 });
 
 //========================set up global variables========================
 global.Fiber = require('fibers');
 global.busy = false;
-global.Dtimeout = 10000;
+global.Dtimeout = 20000;
 global.V = {};
 global.Debug = require("./DebugWD.js");
 var GB = require('./constants');

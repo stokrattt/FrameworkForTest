@@ -13,7 +13,7 @@ global.IWant = function(func, value1, value2, e){
                 if (!busy) {
                     temp--;
                     if (temp == 0) {
-                        fiber.run();
+                        global.fiber.run();
                     }
                 }
             });
@@ -22,7 +22,7 @@ global.IWant = function(func, value1, value2, e){
                 if (!busy) {
                     temp--;
                     if (temp == 0) {
-                        fiber.run();
+                        global.fiber.run();
                     }
                 }
             });
@@ -31,7 +31,7 @@ global.IWant = function(func, value1, value2, e){
             if (!busy) {
                 temp--;
                 if (temp == 0) {
-                    fiber.run();
+                    global.fiber.run();
                 }
             }
 

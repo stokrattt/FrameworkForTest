@@ -15,36 +15,68 @@ global.JSwaitForExist = function (selector) {
                     resolve("result");
                     clearInterval(waitTimer);
                     if (!busy) {
-                        fiber.run();
+                        console.log('run'); global.fiber.run();
                     }
                 }
             }));
         }, 500);
     }), Dtimeout);
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
+    }
+};
+global.JSwaitForNotExist = function (selector) {
+    console.log("return $('" + selector + "').length");
+    driver.wait(new Promise(function (resolve, reject) {
+        var waitTimer = setInterval(function () {
+            driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
+                if (avai == 0) {
+                    console.log('появился ' + selector);
+                    resolve("result");
+                    clearInterval(waitTimer);
+                    if (!busy) {
+                        console.log('run'); global.fiber.run();
+                    }
+                }
+            }));
+        }, 500);
+    }), Dtimeout);
+    if (!busy) {
+        console.log('yield'); Fiber.yield();
     }
 };
 global.SFwaitForVisible = function (selector) {
     console.log('ждём ' + selector);
     driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector)), 10000)).then(function () {
-        if (!busy) {
-            fiber.run();
-        }
         console.log('дождались ' + selector);
+        if (!busy) {
+            console.log('run'); global.fiber.run();
+        }
     });
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
+    }
+};
+global.SFwaitForNotVisible = function (selector) {
+    console.log('ждём ' + selector);
+    driver.wait(until.elementIsNotVisible(driver.wait(until.elementLocated(selector)), 10000)).then(function () {
+        console.log('дождались ' + selector);
+        if (!busy) {
+            console.log('run'); global.fiber.run();
+        }
+    });
+    if (!busy) {
+        console.log('yield'); Fiber.yield();
     }
 };
 global.SFsleep = function (sec) {
     setTimeout(function () {
         if (!busy) {
-            fiber.run();
+            console.log('run'); global.fiber.run();
         }
     }, sec * 1000);
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 global.waitForDefined = function (VarName) {
@@ -55,13 +87,13 @@ global.waitForDefined = function (VarName) {
                 resolve("result");
                 clearInterval(playTimer);
                 if (!busy) {
-                    fiber.run();
+                    console.log('run'); global.fiber.run();
                 }
             }
         }, 2000);
     }), Dtimeout);
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 global.waitWhileEqual = function (VarName, mustBe) {
@@ -72,13 +104,13 @@ global.waitWhileEqual = function (VarName, mustBe) {
                 resolve("result");
                 clearInterval(playTimer);
                 if (!busy) {
-                    fiber.run();
+                    console.log('run'); global.fiber.run();
                 }
             }
         }, 2000);
     }));
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 global.waitWhileNotEqual = function (VarName, mustNotBe) {
@@ -89,45 +121,45 @@ global.waitWhileNotEqual = function (VarName, mustNotBe) {
                 resolve("result");
                 clearInterval(playTimer);
                 if (!busy) {
-                    fiber.run();
+                    console.log('run'); global.fiber.run();
                 }
             }
         }, 2000);
     }));
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 global.SFclick = function (selector) {
     driver.wait(driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), 10000))).click())
         .then(function () {
             if (!busy) {
-                fiber.run();
+                console.log('run'); global.fiber.run();
             }
         });
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 global.SFsend = function (selector, text) {
     driver.wait(driver.wait(until.elementLocated(selector), 10000).sendKeys(text)).then(function () {
         if (!busy) {
-            fiber.run();
+            console.log('run'); global.fiber.run();
         }
     });
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 global.JSclick = function (JQeurySelector) {
     console.log('doing: ' + "$(\"" + JQeurySelector + "\").click();");
     driver.wait(driver.executeScript("$(\"" + JQeurySelector + "\").click();")).then(function () {
         if (!busy) {
-            fiber.run();
+            console.log('run'); global.fiber.run();
         }
     });
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 global.JSselect = function (JQuerySelector, OptionValue) {
@@ -136,11 +168,11 @@ global.JSselect = function (JQuerySelector, OptionValue) {
         '$(\'' + JQuerySelector + '\').change();'))
         .then(function () {
             if (!busy) {
-                fiber.run();
+                console.log('run'); global.fiber.run();
             }
         });
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 global.JSlink = function (JQuerySelector) {
@@ -148,35 +180,35 @@ global.JSlink = function (JQuerySelector) {
     driver.wait(driver.executeScript("location.assign($('" + JQuerySelector + "').attr('href'));")
         .then(function () {
             if (!busy) {
-                fiber.run();
+                console.log('run'); global.fiber.run();
             }
         }));
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 global.JSstep = function (JSString) {
     console.log('doing: JSStep');
     driver.wait(driver.executeScript(JSString)).then(function () {
         if (!busy) {
-            fiber.run();
+            console.log('run'); global.fiber.run();
         }
     });
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 global.SFget = function (URL) {
     console.log('goto ' + URL);
     driver.wait(driver.get(URL)).then(function () {
         if (!busy) {
-            fiber.run();
+            console.log('run'); global.fiber.run();
         }
     });
     if (!busy) {
-        Fiber.yield()
+        console.log('yield'); Fiber.yield();
     }
-    ;
+
 };
 global.SFselect = function (selector, value) {
     console.log('select ' + selector + '->' + value);
@@ -186,11 +218,11 @@ global.SFselect = function (selector, value) {
         .click()
         .then(function () {
             if (!busy) {
-                fiber.run();
+                console.log('run'); global.fiber.run();
             }
         });
     if (!busy) {
-        Fiber.yield();
+        console.log('yield'); Fiber.yield();
     }
 };
 

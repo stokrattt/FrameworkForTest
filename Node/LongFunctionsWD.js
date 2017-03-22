@@ -180,7 +180,7 @@ global.OpenRequest = function (request) {
                 driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')).click();
             }
             driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')).click();
-            if (!busy) { fiber.run(); }
+            if (!busy) { global.fiber.run(); }
         }
     );
     if (!busy) { Fiber.yield(); }
