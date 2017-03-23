@@ -12,13 +12,15 @@ global.By = webdriver.By;
 global.until = webdriver.until;
 global.MyError = webdriver.error;
 
-var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
-global.driver = new webdriver.Builder()
-    .usingServer(SELENIUM_HOST)
-    .withCapabilities({browserName: 'chrome'})
-    .build();
+function getNewDriver(){
+    var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
+    global.driver = new webdriver.Builder()
+        .usingServer(SELENIUM_HOST)
+        .withCapabilities({browserName: 'chrome'})
+        .build();
 
-driver.manage().window().setSize(1400, 800);
+    driver.manage().window().setSize(1400, 800);
+}
 
 global.readyForNext = true;
 global.errorNumber = 0;
@@ -79,11 +81,12 @@ if (D) {
 for (attrs; attrs < process.argv.length; attrs++) {
     if (process.argv[attrs].indexOf('=') != -1) {
         global[process.argv[attrs].substring(0, process.argv[attrs].indexOf('='))] = process.argv[attrs].substring(process.argv[attrs].indexOf('=') + 1);
+    } else if (process.argv[attrs].indexOf('config:') != -1) {
+        global.config = require('./configs/'+process.argv[attrs].substring(process.argv[attrs].indexOf(':') + 1));
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-var suite = ['./tests/#createLocalMoving.js'];
 global.testN = 0;
 var EventEmitter = require('events');
 class MyEmitter extends EventEmitter {
@@ -93,11 +96,10 @@ myEmitter.on('event', () => {
     if (testN < suite.length) {
         console.log('next...'+testN);
         testName = suite[testN].substring(suite[testN].indexOf('#')+1, suite[testN].indexOf('.js'));
-        let exist = fs.existsSync('reports/'+testName);
-        if (exist) {deleteFolderRecursive('reports/'+testName)}
-        errorNumber = 0;
-        Fiber(require(suite[testN])).run();
+        deleteFolderRecursive('reports/'+testName);
+        getNewDriver();
         testN++;
+        Fiber(require(suite[testN-1])).run();
     } else {console.log('end...');}
 });
 myEmitter.emit('event');

@@ -15,7 +15,7 @@ function main() {
 
     SFclick(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
     JSwaitForNotExist('div.busyoverlay:not(.ng-hide)');
-    SFsleep(0.5);
+    SFsleep(1);
     SFclick(By.xpath('//label[@for="partial"]/input[@ng-model="vm.packing_service"]'));
     AccountLocalEnterAddress();
     AccountLocalAddInventory();

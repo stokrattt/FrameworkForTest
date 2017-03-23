@@ -31,7 +31,7 @@ global.JSwaitForNotExist = function (selector) {
         var waitTimer = setInterval(function () {
             driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                 if (avai == 0) {
-                    console.log('появился ' + selector);
+                    console.log('убрался ' + selector);
                     resolve("result");
                     clearInterval(waitTimer);
                     if (!busy) {
