@@ -359,31 +359,27 @@ global.ConfirmRequestInAccount_WithReservation = function(){
 
 //Permissions for Sales --- start
 global.PermissionsClear = function() {
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').click()}"));
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').click()}"));
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canEditOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canEditOtherLeads\"]').click()}"));
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').click()}"));
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSignedSales\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSignedSales\"]').click()}"));
+    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').parent().click()}"));
+    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').parent().click()}"));
+    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canEditOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canEditOtherLeads\"]').parent().click()}"));
+    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').parent().click()}"));
+    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSignedSales\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSignedSales\"]').parent().click()}"));
 
 };
 global.PermissionCanSeeOtherLeads = function() {
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').click()}"));
-
+    driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').parent().click()"));
+    SFclick(By.xpath('//input[@ng-model="request.permissions.canSeeOtherLeads"]/..'));
 };
 global.PermissionCanSearchOtherLeads = function() {
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').click()}"));
-
+    driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').click()"));
 };
 global.PermissionCanEditOtherLeads = function() {
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canEditOtherLeads\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"request.permissions.canEditOtherLeads\"]').click()}"));
-
+    driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canEditOtherLeads\"]').click()"));
 };
 global.PermissionCanSeeUnsignedLeads = function() {
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').click()}"));
-
+    driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').click()"));
 };
 global.PermissionCanSignedSales = function() {
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSignedSales\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSignedSales\"]').click()}"));
-
+    driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSignedSales\"]').click()"));
 };
 //Permissions for Sales --- end

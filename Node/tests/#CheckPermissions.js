@@ -31,24 +31,72 @@ function main() {
     SFwaitForVisible (By.xpath('//div[@ng-class="{\'active\': activePermTab === 1}"]')); //?
 
     PermissionsClear ();
-    PermissionCanSeeOtherLeads ();
-    PermissionCanSearchOtherLeads ();
-    PermissionCanEditOtherLeads ();
-    PermissionCanSignedSales ();
+    SFclick(By.xpath('//input[@ng-model="request.permissions.canSeeOtherLeads"]/..'));
+    SFclick(By.xpath('//input[@ng-model="request.permissions.canSearchOtherLeads"]/..'));
+    SFclick(By.xpath('//input[@ng-model="request.permissions.canEditOtherLeads"]/..'));
+    //SFclick(By.xpath('//input[@ng-model="request.permissions.canSeeUnsignedLeads"]/..'));
+    SFclick(By.xpath('//input[@ng-model="request.permissions.canSignedSales"]/..'));
     SFclick(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     SFwaitForVisible (By.xpath('//button[@class="confirm"]'));
+    SFsleep (1);
     SFclick (By.xpath('//button[@class="confirm"]'));
-    SFwaitForVisible (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
+    SFsleep (3);
 
     CreateLocalMovingFromBoard();
 
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SFcleanPrice(text);
     }));
+    SFclick (By.xpath('//a[@ng-click="select(tabs[7])"]'));
+    SFsleep (1);
+    driver.findElement(By.xpath('//span[@ng-show="currentManager"]')).getText().then (function (text){
+        V.SalesOnAdmin = text;
+        });
+    SFsleep (1);
+    SFclick (By.xpath('//button[@ng-click="cancel()"]'));
+    SFsleep (1);
 
-    OpenRequest(V.request.Id);
-
+    LogoutFromBoard ();
     LoginToBoardAsCustom(V.SalesLogin,V.SalesPass);
+    OpenRequest(V.request.Id);
+    SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+
+    SFclick (By.xpath('//a[@ng-click="select(tabs[7])"]'));
+    driver.findElement(By.xpath('//span[@ng-show="currentManager"]')).getText().then (function (text){
+        V.SalesOnSales = text;
+    });
+    IWant (VToEqual, V.SalesOnAdmin, V.SalesOnSales, 'Сейлсы не совпадают на админке и на менеджере');
+    SFclick (By.xpath('//button[contains(text(),"Set Sales")]'));
+    SFclick (By.xpath('//div[@ng-show="::PermissionsServices.hasPermission(\'canSignedSales\');"]//ul[@class="dropdown-menu"]/li[2]'));
+    SFwaitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SFsleep (1);
+    SFclick (By.xpath('//button[@class="confirm"]'));
+    SFsleep (3);
+    driver.findElement(By.xpath('//span[@ng-show="currentManager"]')).getText().then (function (text){
+        V.NewSalesOnSales = text;
+    });
+    IWant (VNotToEqual, V.NewSalesOnSales, V.SalesOnSales, 'пермишины не сработали, так как сейл не изменился');
+    SFclick (By.xpath('//a[@ng-click="select(tabs[0])"]'));
+    SFsleep (0.5);
+    SFclick (By.xpath('//select[@id="edit-size-move"]/option[8]'));
+    SFsleep (0.5);
+    SFclick (By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    SFwaitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
+    SFclick (By.xpath('//button[@ng-click="update(request)"]'));
+    SFsleep (6);
+    SFclick (By.xpath('//button[@ng-click="cancel()"]'));
+    SFsleep (1);
+    SFclick (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
+    SFsleep (2);
+    SFsend (By.id('gSearch'), V.request.Id);
+    SFwaitForVisible (By.xpath('//div[@ng-show="searchRequests.length"]'));
+    driver.findElement(By.xpath('//div[@class="requestsid ng-binding"]')).getText().then (function(text){
+       V.SearchRequest = text;
+       console.log(V.SearchRequest);
+    });
+    IWant (VToEqual, V.request.Id, V.SearchRequest, 'Поиск по другим пермишинам не работает');
+    LogoutFromBoard ();
+
 
     endOfTest();
 }

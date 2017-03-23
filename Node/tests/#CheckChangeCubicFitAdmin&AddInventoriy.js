@@ -26,14 +26,14 @@ function main() {
     SFclick(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="5"]'));
     SFclick(By.xpath('//ul[@class="chosen-choices"]'));
     SFclick(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="6"]'));
-    SFsleep (4);
+    SFsleep (2);
 
     driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFitChange = SFcleanPrice (text);
     });
     SFsleep (0.5);
-    VWant(VNotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitChange, 'Кубик фит не изменился, хотя должен был');
-    SFsleep (4);
+    IWant(VNotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitChange, 'Кубик фит не изменился, хотя должен был');
+    SFsleep (2);
 
 ///////////////////////////
     V.boardNumbersCubFit = {};
@@ -47,18 +47,18 @@ function main() {
     SFclick(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="2"]'));
     SFclick(By.xpath('//ul[@class="chosen-choices"]'));
     SFclick(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="7"]'));
-    SFsleep (4);
+    SFsleep (2);
 
     driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFitChange = SFcleanPrice (text);
     });
-    SFsleep (3);
-    VWant(VNotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitChange, 'Кубик фит не изменился, хотя должен был');
+    SFsleep (2);
+    IWant(VNotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitChange, 'Кубик фит не изменился, хотя должен был');
 
     SFclick(By.xpath('//div[@class="actions pull-right"]/span[@ng-click="switchCalc()"]')); // включили калькулятор
 //выбор инвентория
     SFclick(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
-    SFsleep (4);
+    SFsleep (2);
     SFclick (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
     SFclick (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
     SFclick (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
@@ -71,12 +71,12 @@ function main() {
         });
 
     SFclick(By.id("save-inventory"));
-    SFsleep (3);
+    SFsleep (2);
     driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SFcleanPrice (text);
     });
-    SFsleep (3);
-    VWant (VToEqual, V.InventoryCubicFit, V.boardNumbersCubFit, 'Кубик фит не совпадает с инвенторием, а должен');
+    SFsleep (2);
+    IWant (VToEqual, V.InventoryCubicFit, V.boardNumbersCubFit, 'Кубик фит не совпадает с инвенторием, а должен');
 
     endOfTest();
 }

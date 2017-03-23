@@ -110,7 +110,7 @@ global.waitWhileNotEqual = function (VarName, mustNotBe) {
     SFstop();
 };
 global.SFclick = function (selector) {
-    driver.wait(driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), 10000))).click())
+    driver.wait(driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), Dtimeout)),Dtimeout).click())
         .then(function () {
             SFgo();
         });

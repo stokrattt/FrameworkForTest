@@ -15,6 +15,7 @@ function main() {
     JSclick('.btn-primary');
 
     CreateLocalMovingFromBoard();
+    SFsleep (2);
     RememberDigitsRequestBoard ();
 
 
