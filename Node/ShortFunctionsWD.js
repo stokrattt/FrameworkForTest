@@ -2,6 +2,7 @@ global.endOfTest = function () {
     if (D) {
         Debug.pause();
     } else {
+        global.Success=true;
         myEmitter.emit('event');
     }
 };

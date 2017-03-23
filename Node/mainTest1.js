@@ -11,6 +11,7 @@ var webdriver = require('selenium-webdriver');
 global.By = webdriver.By;
 global.until = webdriver.until;
 global.MyError = webdriver.error;
+global.chainFail = false;
 
 function getNewDriver(){
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
@@ -93,7 +94,8 @@ class MyEmitter extends EventEmitter {
 }
 global.myEmitter = new MyEmitter();
 myEmitter.on('event', () => {
-    if (testN < suite.length) {
+    if ((testN < suite.length)&&(!(chainFail&&!Success))) {
+        global.Success = false;
         console.log('next...'+testN);
         testName = suite[testN].substring(suite[testN].indexOf('#')+1, suite[testN].indexOf('.js'));
         deleteFolderRecursive('reports/'+testName);
@@ -102,4 +104,5 @@ myEmitter.on('event', () => {
         Fiber(require(suite[testN-1])).run();
     } else {console.log('end...');}
 });
+global.Success = true;
 myEmitter.emit('event');
