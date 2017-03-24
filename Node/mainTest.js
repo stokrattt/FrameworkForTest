@@ -68,7 +68,7 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
 //========================set up global variables========================
 global.Fiber = require('fibers');
 global.busy = false;
-global.Dtimeout = 20000;
+global.Dtimeout = 25000;
 global.V = {};
 global.Debug = require("./DebugWD.js");
 var GB = require('./constants');
@@ -88,6 +88,7 @@ for (attrs; attrs < process.argv.length; attrs++) {
     }
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 global.testN = 0;
 var EventEmitter = require('events');

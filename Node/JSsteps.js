@@ -82,6 +82,30 @@ global.Click4DaysCalendar = function () {
 
 }.toString().substring(12);
 
+global.Click8DaysCalendar = function () {
+    var now = new Date();
+    var msInDay = 86400000;
+    var farFuture = new Date(now.getTime() + msInDay * 8);//8
+
+    var date = farFuture.getDate();
+    var i = 9;
+    while ($("tr>td[data-month='" + farFuture.getMonth() + "'][data-year='" + farFuture.getFullYear() + "'].Block:contains('" + date + "') > a:first").length !== 0) {
+        farFuture = new Date(now.getTime() + msInDay * i);
+        date = farFuture.getDate();
+        i++;
+    }
+
+    console.log("tr>td[data-month='" + farFuture.getMonth() + "'][data-year='" + farFuture.getFullYear() + "']:contains('" + date + "') > a:first");
+    $("tr>td[data-month='" + farFuture.getMonth() + "'][data-year='" + farFuture.getFullYear() + "']:contains('" + date + "') > a:first").trigger('click');
+
+    return {
+        farFutureYear: farFuture.getFullYear(),
+        farFutureMonth: farFuture.getMonth(),
+        farFutureDay: farFuture.getDate()
+    };
+
+}.toString().substring(12);
+
 global.selectTruck = function () {
     var selected = false;
     var trucks = 'div.truckid:visible';

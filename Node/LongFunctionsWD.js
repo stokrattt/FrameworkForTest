@@ -224,6 +224,70 @@ global.CreateLocalMovingFromBoard = function(){
     console.log ('создали реквест');
 };
 
+global.CreateMovAndStorFromBoard = function() {
+    SFclick(By.linkText('Create Request'));
+    SFsleep (2);
+    SFclick (By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:2"]'));
+    SFclick(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+    V.request={};
+    driver.wait(driver.executeScript(Click4DaysCalendar)).then(function(calDate){
+        V.request.moveDate = calDate;
+        console.log(V.request);
+    });
+    SFsleep (2);
+    SFclick(By.xpath('//input[@id="edit-date-storage-datepicker-popup-0"]'));
+    driver.wait(driver.executeScript(Click8DaysCalendar)).then(function(DelDate){
+        V.request.DeliveryDate = DelDate;
+        console.log(V.request.DeliveryDate);
+    });
+
+    SFsleep(0.5);
+    SFclick(By.xpath('//ul[@class="chosen-choices"]'));
+    SFclick(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+    SFsend (By.id("edit-zip-code-from"), "02032");
+    SFsend (By.id("edit-zip-code-to"), "02136");
+    SFsleep (4);
+    SFclick (By.xpath('//button[@ng-click="Calculate()"]'));
+    SFsleep (5);
+    SFclick (By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
+    SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
+    SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);
+    SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
+    SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
+    SFclick (By.xpath('//button[@ng-click="create()"]'));
+    SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+    SFsleep(4);
+    console.log ('создали реквест');
+};
+
+global.CreateLoadingHelpFromBoard = function() {
+    SFclick(By.linkText('Create Request'));
+    driver.sleep(4000);
+    SFclick (By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:3"]'));
+    SFclick(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+    V.request={};
+    driver.wait(driver.executeScript(Click4DaysCalendar)).then(function(calDate){
+        V.request.moveDate = calDate;
+        console.log(V.request);
+    });
+    SFsleep(0.5);
+    SFclick(By.xpath('//ul[@class="chosen-choices"]'));
+    SFclick(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+    SFsend (By.id("edit-zip-code-from"), "02032");
+    SFsleep (1);
+    SFclick (By.xpath('//button[@ng-click="Calculate()"]'));
+    SFsleep (4);
+    SFclick (By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
+    SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
+    SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);
+    SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
+    SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
+    SFclick (By.xpath('//button[@ng-click="create()"]'));
+    SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+    SFsleep(2);
+    console.log ('создали реквест');
+};
+
 global.RememberDigitsRequestBoard = function () {
 
     // запомнили все цифры реквеста
