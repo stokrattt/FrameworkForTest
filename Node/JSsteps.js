@@ -58,6 +58,66 @@ global.Click4DaysNewCalendar = function () {
     };
 }.toString().substring(12);
 
+global.Click8DaysNewCalendar = function () {
+    var monthNumbers = {
+        JANUARY: 0,
+        FEBRUARY: 1,
+        MARCH: 2,
+        APRIL: 3,
+        MAY: 4,
+        JUNE: 5,
+        JULY: 6,
+        AUGUST: 7,
+        SEPTEMBER: 8,
+        OCTOBER: 9,
+        NOVEMBER: 10,
+        DECEMBER: 11
+    };
+
+    function checkMonth() {
+        while (Number(($('div.picker--opened div.picker__year').get(0).innerHTML)) < farFuture.getFullYear()) {
+            console.log('current Year ' + $('div.picker--opened div.picker__year').get(0).innerHTML);
+            $('div.picker--opened div.picker__nav--next').click();
+        }
+
+        while (Number(($('div.picker--opened div.picker__year').get(0).innerHTML)) > farFuture.getFullYear()) {
+            console.log('current Year ' + $('div.picker--opened div.picker__year').get(0).innerHTML);
+            $('div.picker--opened div.picker__nav--prev').click();
+        }
+        console.log('current Year ' + $('div.picker--opened div.picker__year').get(0).innerHTML);
+
+        while (monthNumbers[$('div.picker--opened div.picker__month').get(0).innerHTML.toUpperCase()] < farFuture.getMonth()) {
+            console.log('current Month ' + $('div.picker--opened div.picker__month').get(0).innerHTML);
+            $('div.picker--opened div.picker__nav--next').click();
+        }
+        while (monthNumbers[$('div.picker--opened div.picker__month').get(0).innerHTML.toUpperCase()] > farFuture.getMonth()) {
+            console.log('current Month ' + $('div.picker--opened div.picker__month').get(0).innerHTML);
+            $('div.picker--opened div.picker__nav--prev').click();
+        }
+    }
+
+    var now = new Date();
+    var msInDay = 86400000;
+    var farFuture = new Date(now.getTime() + msInDay * 8);//8
+
+    var i = 9;
+    checkMonth();
+    while ($("div.picker--opened table.picker__table>tbody>tr>td>div.picker__day--infocus.calendarDay5:contains('" + farFuture.getDate() + "'):first").length !== 0) {
+        farFuture = new Date(now.getTime() + msInDay * i);
+        checkMonth();
+        i++;
+    }
+
+    console.log("div.picker--opened table.picker__table>tbody>tr>td>div.picker__day--infocus:contains('" + farFuture.getDate() + "'):first");
+    $("div.picker--opened table.picker__table>tbody>tr>td>div.picker__day--infocus:contains('" + farFuture.getDate() + "'):first").click();
+
+    return {
+        Year: farFuture.getFullYear(),
+        Month: farFuture.getMonth(),
+        Day: farFuture.getDate()
+    };
+}.toString().substring(12);
+
 global.Click4DaysCalendar = function () {
     var now = new Date();
     var msInDay = 86400000;

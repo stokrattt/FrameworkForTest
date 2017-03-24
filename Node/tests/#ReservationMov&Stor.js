@@ -22,8 +22,8 @@ function main() {
     SFclick (By.xpath('//a[@ui-sref="settings.schedule"]'));
     SFwaitForVisible (By.xpath('//a[@ui-sref="settings.schedule"]'));
     SFsleep(1);
-    V.ReservationPrice = {};
     V.ReservationPrice = 150;
+    SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
     SFsend (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), V.ReservationPrice);
     SFsleep(1);
     SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));

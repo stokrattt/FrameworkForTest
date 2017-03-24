@@ -24,6 +24,7 @@ function main() {
     SFsleep(1);
     JSselect ('select[ng-model="vm.scheduleSettings.localReservation"]', 1);
     V.ReservationPrice = 0;
+    SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
     SFsend (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), V.ReservationPrice);
     SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
     SFsleep(1);
