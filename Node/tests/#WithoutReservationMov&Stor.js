@@ -1,5 +1,6 @@
 function main() {
     global.fiber = Fiber.current;
+    V.ReservationPrice = {};
     V.client = {};
     V.client.name = SFrandomBukva(6) + '_t';
     V.client.fam = SFrandomBukva(6) + '_t';
@@ -22,7 +23,6 @@ function main() {
     SFwaitForVisible (By.xpath('//a[@ui-sref="settings.schedule"]'));
     SFsleep(1);
     JSselect ('select[ng-model="vm.scheduleSettings.localReservation"]', 1);
-    V.ReservationPrice = {};
     V.ReservationPrice = 0;
     SFsend (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), V.ReservationPrice);
     SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
