@@ -16,6 +16,7 @@ global.chainFail = false;
 function getNewDriver(){
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
     global.driver = new webdriver.Builder()
+
         .usingServer(SELENIUM_HOST)
         .withCapabilities({browserName: 'chrome'})
         .build();
