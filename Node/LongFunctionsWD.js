@@ -50,13 +50,13 @@ global.AccountLocalAddInventory = function () {
     JSwaitForExist('div[ng-repeat="filter in filters"]');
     SFsleep(5);
     SFclick(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-    SFsleep(0.5);
+    SFsleep(1);
     SFclick(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-    SFsleep(0.5);
+    SFsleep(1);
     SFclick(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-    SFsleep(0.5);
+    SFsleep(1);
     SFclick(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-    SFsleep(0.5);
+    SFsleep(1);
     JSclick('button#save-inventory.inventory__button');
     JSwaitForExist('button.confirm:contains("OK")');
     SFsleep(2);

@@ -1,2 +1,2 @@
-global.suite = ['./tests/#createLocalMoving.js', './tests/#CheckPermissions.js'];
+global.suite = ['./tests/#createLocalMoving.js'];
 global.chainFail = true;
