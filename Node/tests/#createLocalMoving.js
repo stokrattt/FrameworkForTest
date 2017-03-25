@@ -5,10 +5,7 @@ function main() {
     V.client.fam = SFrandomBukva(6)+'_t';
     V.client.phone = SFrandomCifra(10);
     V.client.email = SFrandomBukvaSmall(6)+'@'+SFrandomBukvaSmall(4)+'.tes';
-    var URL = 'http://stage.themoveboard.com/';
-    var accountURL = 'http://stage.themoveboard.com/account/#/login';
-    var adminURL = 'http://stage.themoveboard.com/moveBoard/#/login';
-    SFget(URL);
+    SFget(frontURL);
 
     FullSmallCalcAsLocal(V.client);
     console.log("заполнили форму");
@@ -48,7 +45,7 @@ function main() {
     SFclick(By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SFclick(By.xpath('//button[@ng-click="update(request)"]'));
     SFsleep(8);
-
+    JSwaitForNotExist('div.toast-success');
     SFclick(By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep(2);
     LogoutFromBoard();

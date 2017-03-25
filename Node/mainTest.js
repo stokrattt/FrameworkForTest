@@ -28,6 +28,12 @@ function getNewDriver(){
     driver.manage().window().setSize(1400, 800);
 }
 
+function getTestName(string){
+    let pos = 0;
+    for (let i=0; i<string.length; i++) {if (string[i]=='/') {pos=i;}};
+    return string.substring(pos, string.indexOf('.js'));
+}
+
 global.readyForNext = true;
 global.errorNumber = 0;
 global.testName = '';
@@ -104,7 +110,7 @@ myEmitter.on('event', () => {
     if ((testN < suite.length)&&(!(chainFail&&!Success))) {
         global.Success = false;
         console.log('next...'+testN);
-        testName = suite[testN].substring(suite[testN].indexOf('#')+1, suite[testN].indexOf('.js'));
+        testName = getTestName(suite[testN]);
         deleteFolderRecursive('reports/'+testName);
         getNewDriver();
         testN++;

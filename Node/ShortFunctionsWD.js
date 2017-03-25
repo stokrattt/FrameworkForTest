@@ -130,6 +130,12 @@ global.SFsend = function (selector, text) {
     });
     SFstop();
 };
+global.SFclear = function (selector) {
+    driver.wait(driver.wait(until.elementLocated(selector), 10000).clear()).then(function () {
+        SFgo();
+    });
+    SFstop();
+};
 global.JSclick = function (JQeurySelector) {
     console.log('doing: ' + "$(\"" + JQeurySelector + "\").click();");
     driver.wait(driver.executeScript("$(\"" + JQeurySelector + "\").click();")).then(function () {
