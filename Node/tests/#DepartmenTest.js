@@ -157,7 +157,7 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
     SFsleep (3);
-    JSstep ()
+    JSstep () // тутмы должны найти в диспатче и по сравнивать новосозданные фореманы и хелперы и так далее
 
 
 
