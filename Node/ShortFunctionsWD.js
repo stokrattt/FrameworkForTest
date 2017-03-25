@@ -50,7 +50,15 @@ global.JSwaitForNotExist = function (selector) {
 };
 global.SFwaitForVisible = function (selector) {
     console.log('ждём ' + selector);
-    driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector)), 10000)).then(function () {
+    driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector)), Dtimeout),Dtimeout).then(function () {
+        console.log('дождались ' + selector);
+        SFgo();
+    });
+    SFstop();
+};
+global.SFwaitForLocated = function (selector) {
+    console.log('ждём ' + selector);
+    driver.wait(until.elementLocated(selector), Dtimeout).then(function () {
         console.log('дождались ' + selector);
         SFgo();
     });
@@ -58,7 +66,7 @@ global.SFwaitForVisible = function (selector) {
 };
 global.SFwaitForNotVisible = function (selector) {
     console.log('ждём ' + selector);
-    driver.wait(until.elementIsNotVisible(driver.wait(until.elementLocated(selector)), 10000)).then(function () {
+    driver.wait(until.elementIsNotVisible(driver.wait(until.elementLocated(selector)), Dtimeout)).then(function () {
         console.log('дождались ' + selector);
         SFgo();
     });

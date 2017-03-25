@@ -1,3 +1,1 @@
-global.suite = ['./tests/#CreateAllRequestFromFront.js'];
-global.chainFail = true;
-
+global.suite = ['./tests/#CheckChangeCubicFitAdmin&AddInventoriy.js'];

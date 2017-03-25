@@ -16,7 +16,7 @@ function main() {
     JSclick('.btn-primary');
 
     SFclick (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SFwaitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
+    SFwaitForLocated (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SFwaitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SFclick (By.xpath('//a[@ui-sref="settings.schedule"]'));

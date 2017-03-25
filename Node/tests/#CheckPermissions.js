@@ -53,6 +53,7 @@ function main() {
         V.SalesOnAdmin = text;
         });
     SFsleep (1);
+    JSwaitForNotExist('div.toast-success');
     SFclick (By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep (1);
 

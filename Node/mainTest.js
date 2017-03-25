@@ -12,8 +12,12 @@ global.By = webdriver.By;
 global.until = webdriver.until;
 global.MyError = webdriver.error;
 global.chainFail = false;
+global.driver = 0;
 
 function getNewDriver(){
+    if (global.driver!==0){
+        global.driver.quit();
+    }
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
     global.driver = new webdriver.Builder()
 
@@ -89,13 +93,14 @@ for (attrs; attrs < process.argv.length; attrs++) {
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+global.testPassed=[];
 global.testN = 0;
 var EventEmitter = require('events');
 class MyEmitter extends EventEmitter {
 }
 global.myEmitter = new MyEmitter();
 myEmitter.on('event', () => {
+    if (testN>0) {if (!Success) {testPassed.push('Failed '+testName);} else {testPassed.push('Passed' + testName);}}
     if ((testN < suite.length)&&(!(chainFail&&!Success))) {
         global.Success = false;
         console.log('next...'+testN);
@@ -104,7 +109,13 @@ myEmitter.on('event', () => {
         getNewDriver();
         testN++;
         Fiber(require(suite[testN-1])).run();
-    } else {console.log('end...');}
+    } else {
+        if (global.driver!==0){
+            global.driver.quit();
+        }
+        console.log('end...');
+        for (let i=0; i<testPassed.length; i++){console.log(testPassed[i]);}
+    }
 });
 global.Success = true;
 myEmitter.emit('event');
