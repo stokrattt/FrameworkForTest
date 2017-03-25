@@ -45,8 +45,7 @@ function main() {
     SFclick(By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SFclick(By.xpath('//button[@ng-click="update(request)"]'));
     SFsleep(8);
-    JSwaitForNotExist('div.toast-success');
-    SFclick(By.xpath('//button[@ng-click="cancel()"]'));
+    closeEditRequest();
     SFsleep(2);
     LogoutFromBoard();
 

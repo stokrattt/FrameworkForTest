@@ -447,3 +447,7 @@ global.PermissionCanSignedSales = function() {
     driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSignedSales\"]').click()"));
 };
 //Permissions for Sales --- end
+global.closeEditRequest = function(){
+    JSwaitForNotExist('div.toast-success');
+    SFclick(By.xpath('//button[@ng-click="cancel()"]'));
+}
