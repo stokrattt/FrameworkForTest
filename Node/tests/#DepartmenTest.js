@@ -160,7 +160,7 @@ function main() {
     JSstep () // тутмы должны найти в диспатче и по сравнивать новосозданные фореманы и хелперы и так далее
 
 
-
+/********************************************************************************************************************
 
 
 
@@ -172,7 +172,7 @@ function main() {
     SFwaitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
     SFsleep(2);
 
-
+*/
 
 
     // V.ForemanName = SFrandomBukvaSmall(6);   ng-model="request."
