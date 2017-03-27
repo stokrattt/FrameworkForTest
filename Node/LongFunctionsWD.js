@@ -166,6 +166,13 @@ global.LoginToBoardAsAdmin = function () {
     SFclick(By.xpath('//button[@type="submit"]'));
     SFwaitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
 };
+global.LoginToBoardAsForeman = function () {
+    SFwaitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
+    SFsend(By.xpath('//input[@id="email"]'), 'TestForeman@gmail.com');
+    SFsend(By.xpath('//input[@id="password"]'), '123');
+    SFclick(By.xpath('//button[@type="submit"]'));
+    SFwaitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
+};
 global.LoginToBoardAsCustom = function (login, passwd) {
     SFwaitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
     SFsend(By.xpath('//input[@id="email"]'), login);
@@ -390,11 +397,13 @@ global.FillCardPayModal = function(){
     SFsend(By.xpath('//input[@ng-model="payment.exp_month"]'),11);
     SFsend(By.xpath('//input[@ng-model="payment.exp_year"]'),20);
     SFsend(By.xpath('//input[@ng-model="secure.cvc"]'),323);
+    SFsleep(1);
     SFclick(By.xpath('//input[@ng-click="applyPayment()"]'));
 };
 global.JSmakeSign = function (canvasID){
-    driver.executeScript(
-        "var canva = document.getElementById('"+canvasID+"');" +
+    JSwaitForExist('canvas#'+canvasID);
+    SFsleep(1);
+    JSstep("var canva = document.getElementById('"+canvasID+"');" +
         "var width=canva.getAttribute('width');" +
         "var height=canva.getAttribute('height');" +
         "var w=width/100; var h=height/100;"  +
@@ -407,6 +416,7 @@ global.JSmakeSign = function (canvasID){
         "cont.lineTo(30*w, 30*h);" +
         "cont.closePath();" +
         "cont.stroke();");
+    SFsleep(1);
 };
 global.ConfirmRequestInAccount_WithReservation = function(){
     SFclick(By.xpath('//div[contains(@class,"notconfirmed")]'));
@@ -482,12 +492,18 @@ global.selectCrew = function(){
     driver.wait(
     driver.findElements(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function(count){
         if (count.length>0) {
-            SFclick(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
-            SFclick(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper2')]"));
+            driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).click());
+            driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper2')]")).click());
         }
-    }));
+    }),Dtimeout);
     SFclick(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
     JSwaitForExist('div.toast-success');
     SFsleep(2);
     JSwaitForNotExist('div.toast-success');
+};
+global.MakeSignInContract = function(){
+    SFclick(By.xpath('//div[@class="empty-signature"]'));
+    JSmakeSign("signatureCanvas");
+    SFclick(By.xpath('//button[@ng-click="saveStep()"]'));
+    SFsleep(2);
 };

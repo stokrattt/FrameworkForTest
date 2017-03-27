@@ -19,32 +19,32 @@ global.endOfTest = function () {
 global.JSwaitForExist = function (selector) {
     console.log("return $('" + selector + "').length");
     driver.wait(new Promise(function (resolve, reject) {
-        var waitTimer = setInterval(function () {
+        let f = function () {
             driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                 if (avai != 0) {
                     console.log('появился ' + selector);
                     resolve("result");
-                    clearInterval(waitTimer);
                     SFgo();
-                }
+                } else {setTimeout(f, 500)}
             }));
-        }, 500);
+        };
+        setTimeout(f, 500);
     }), Dtimeout);
     SFstop();
 };
 global.JSwaitForNotExist = function (selector) {
     console.log("return $('" + selector + "').length");
     driver.wait(new Promise(function (resolve, reject) {
-        var waitTimer = setInterval(function () {
+        let f = function () {
             driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                 if (avai == 0) {
                     console.log('убрался ' + selector);
                     resolve("result");
-                    clearInterval(waitTimer);
                     SFgo();
-                }
+                } else {setTimeout(f, 500)}
             }));
-        }, 500);
+        };
+        setTimeout(f, 500);
     }), Dtimeout);
     SFstop();
 };
