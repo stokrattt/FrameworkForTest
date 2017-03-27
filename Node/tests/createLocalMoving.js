@@ -11,7 +11,7 @@ function main() {
     console.log("заполнили форму");
 
     SFclick(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
-    JSwaitForNotExist('div.busyoverlay:not(.ng-hide)');
+    JSwaitForNotExist('div.busyoverlay:visible');
     SFsleep(1);
     SFclick(By.xpath('//label[@for="partial"]/input[@ng-model="vm.packing_service"]'));
     AccountLocalEnterAddress();
@@ -68,9 +68,31 @@ function main() {
     SFclick(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
     SFwaitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
     JSstep(findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day));
+    JSwaitForNotExist('div.busyoverlay:visible');
     SFclick(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     SelectRequestDispatch(V.accountNumbers.Id);
     selectCrew();
+    LogoutFromBoard();
+
+    LoginToBoardAsForeman();
+    OpenRequestDispatch(V.accountNumbers.Id);
+    JSwaitForExist('h1:contains("Confirmation Page"):visible');
+    SFclick(By.xpath('//li[@id="tab_Bill of lading"]'));
+    SFsleep(1);
+    MakeSignInContract();
+    MakeSignInContract();
+    SFselect(By.xpath('//select[@ng-model="data.declarationValue.selected"]'),'a');
+    MakeSignInContract();
+
+    MakeSignInContract();
+    MakeSignInContract();
+    SFclick(By.xpath('//div[@ng-click="applyPayment(paymentButton())"]'));
+    SFclick(By.xpath('//div[@ng-click="tipsPercChange(10)"]'));
+    SFclick(By.xpath('//div[contains(text(),"ADD TIPS")]/parent::div[@ng-click="tipsSelected()"]'));
+    SFclick(By.xpath('//button[@ng-click="goStepTwo();"]'));
+    FillCardPayModal();
+    JSmakeSign('signatureCanvasPayment');
+    SFclick(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
 
     endOfTest();
 }
