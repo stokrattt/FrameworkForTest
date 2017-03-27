@@ -59,11 +59,18 @@ function main() {
     SFsleep(2);
     RememberAccountNumbers();
     Validation_Compare_Account_Admin();
-
     ConfirmRequestInAccount_WithReservation();
-
     SFwaitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     LogoutFromAccount();
+
+    SFget(adminURL);
+    LoginToBoardAsAdmin();
+    SFclick(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
+    SFwaitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
+    JSstep(findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day));
+    SFclick(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
+    SelectRequestDispatch(V.accountNumbers.Id);
+    selectCrew();
 
     endOfTest();
 }

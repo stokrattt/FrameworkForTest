@@ -451,3 +451,43 @@ global.closeEditRequest = function(){
     JSwaitForNotExist('div.toast-success');
     SFclick(By.xpath('//button[@ng-click="cancel()"]'));
 }
+global.SelectRequestDispatch = function(request){
+    driver.wait(until.elementLocated(By.xpath('//td[contains(text(),"' + request + '")]/..')),Dtimeout)
+        .getAttribute('class').then(function (classStr) {
+            if (classStr.indexOf('active_row') == -1) {
+                driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click();
+            }
+            if (!busy) { global.fiber.run(); }
+        }
+    );
+    if (!busy) { Fiber.yield(); }
+};
+global.OpenRequestDispatch = function(request){
+    driver.wait(until.elementLocated(By.xpath('//td[contains(text(),"' + request + '")]/..')),Dtimeout)
+        .getAttribute('class').then(function (classStr) {
+            if (classStr.indexOf('active_row') == -1) {
+                driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click();
+            }
+            driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click();
+            if (!busy) { global.fiber.run(); }
+        }
+    );
+    if (!busy) { Fiber.yield(); }
+};
+global.selectCrew = function(){
+    SFclick(By.xpath("//select[@ng-model='vm.data.foreman']"));
+    SFclick(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'Test Foreman')]"));
+    SFclick(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
+    SFclick(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
+    driver.wait(
+    driver.findElements(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function(count){
+        if (count.length>0) {
+            SFclick(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
+            SFclick(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper2')]"));
+        }
+    }));
+    SFclick(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
+    JSwaitForExist('div.toast-success');
+    SFsleep(2);
+    JSwaitForNotExist('div.toast-success');
+};

@@ -153,8 +153,8 @@ global.JSselect = function (JQuerySelector, OptionValue) {
     SFstop();
 };
 global.JSlink = function (JQuerySelector) {
-    console.log('doing: ' + 'return $(\'' + JQuerySelector + '\').attr("href");');
-    driver.wait(driver.executeScript("location.assign($('" + JQuerySelector + "').attr('href'));")
+    console.log("doing: " + "return $('" + JQuerySelector + "').attr(\"href\");");
+    driver.wait(driver.executeScript("location.assign($('" + JQuerySelector + "').attr(\"href\"));")
         .then(function () {
             SFgo();
         }));
