@@ -84,7 +84,9 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SFwaitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SFclick (By.xpath('//button[@ng-click="update(request)"]'));
-    SFsleep (6);
+    SFsleep (3);
+    JSwaitForNotExist('div.toast-success');
+
     SFclick (By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep (1);
     SFclick (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));

@@ -507,3 +507,17 @@ global.MakeSignInContract = function(){
     SFclick(By.xpath('//button[@ng-click="saveStep()"]'));
     SFsleep(2);
 };
+
+global.RememberDateFromRequest = function () {
+
+    // запомнили все цифры реквеста
+
+    V.boardNumbers = {};
+    driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
+        dateString = dateString.toUpperCase();
+        V.boardNumbers.moveDate = {};
+        V.boardNumbers.moveDate.Month = SFFindMonthInString(dateString);
+        V.boardNumbers.moveDate.Day = SFcleanPrice(dateString.substring(0, dateString.indexOf(',')));
+        V.boardNumbers.moveDate.Year = SFcleanPrice(dateString.substring(dateString.indexOf(',')));
+    });
+}

@@ -28,6 +28,9 @@ function main() {
     SFsleep(1);
     SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
     SFsleep(1);
+    driver.navigate().refresh();
+    SFwaitForLocated(By.linkText('Create Request'));
+    SFsleep (3);
 
     CreateMovAndStorFromBoard ();
 
@@ -46,6 +49,8 @@ function main() {
     SFsend (By.id('inputPassword3'), V.client.pass);
     SFclick (By.xpath('//button[@ng-click="update(client)"]'));
     SFsleep (3);
+    JSwaitForNotExist('div.toast-success');
+
     SFclick (By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep (5);
     LogoutFromBoard ();

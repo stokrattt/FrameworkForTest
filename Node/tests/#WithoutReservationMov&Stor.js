@@ -28,7 +28,9 @@ function main() {
     SFsend (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), V.ReservationPrice);
     SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
     SFsleep(1);
-
+    driver.navigate().refresh();
+    SFwaitForLocated(By.linkText('Create Request'));
+    SFsleep (3);
     CreateMovAndStorFromBoard ();
 
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
@@ -46,6 +48,8 @@ function main() {
     SFsend (By.id('inputPassword3'), V.client.pass);
     SFclick (By.xpath('//button[@ng-click="update(client)"]'));
     SFsleep (3);
+    JSwaitForNotExist('div.toast-success');
+
     SFclick (By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep (5);
     LogoutFromBoard ();
@@ -67,6 +71,7 @@ function main() {
     SFsleep (0.5);
     SFclick (By.id('terms'));
     SFclick (By.id('cancel_policy'));
+    SFsleep (2);
 
     SFclick (By.id('adminbutton'));
     SFwaitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
@@ -88,6 +93,34 @@ function main() {
         IWant (VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }));
     LogoutFromAccount ();
+
+    // возвращаем резервацию на 150
+
+    SFget(URL);
+
+    SFsend(By.id('email'), 'TestAdmin');
+    SFsend(By.id('password'), 'test');
+    JSclick('.btn-primary');
+
+    SFclick (By.xpath('//button[@ng-click="toggleLeft()"]'));
+    SFwaitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
+    SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    SFwaitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    SFclick (By.xpath('//a[@ui-sref="settings.schedule"]'));
+    SFwaitForVisible (By.xpath('//a[@ui-sref="settings.schedule"]'));
+    SFsleep(1);
+    JSselect ('select[ng-model="vm.scheduleSettings.localReservation"]', 1);
+    V.ReservationPrice = {};
+
+    V.ReservationPrice = 150;
+    SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
+    SFsend (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), V.ReservationPrice);
+    SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
+    SFsleep(1);
+    driver.navigate().refresh();
+    SFwaitForLocated(By.linkText('Create Request'));
+    SFsleep (3);
+    LogoutFromBoard ();
 
 
     endOfTest();

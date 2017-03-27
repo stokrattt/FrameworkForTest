@@ -102,6 +102,8 @@ function main() {
     SFsend (By.xpath('//input[@ng-model="request.email"]'), V.foremanAccount);
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "foremantest testforeman")]'));
+    JSwaitForNotExist('div.toast-success');
+
 // Создали форемана**************************************
 
     LogoutFromBoard ();
@@ -111,7 +113,8 @@ function main() {
     SFsend(By.xpath('//input[@id="email"]'), V.managerAccount);
     SFsend(By.xpath('//input[@id="password"]'), V.managerPass);
     SFclick(By.xpath('//button[@type="submit"]'));
-    SFwaitForVisible(By.id('main-content'));
+    SFwaitForLocated(By.id('main-content'));
+    SFsleep (3);
 
     LogoutFromBoard ();
 
@@ -121,7 +124,8 @@ function main() {
     SFsend(By.xpath('//input[@id="email"]'), V.salesAccount);
     SFsend(By.xpath('//input[@id="password"]'), V.salesPass);
     SFclick(By.xpath('//button[@type="submit"]'));
-    SFwaitForVisible(By.id('main-content'));
+    SFwaitForLocated(By.id('main-content'));
+    SFsleep (3);
 
     LogoutFromBoard ();
 
@@ -131,7 +135,8 @@ function main() {
     SFsend(By.xpath('//input[@id="email"]'), V.foremanAccount);
     SFsend(By.xpath('//input[@id="password"]'), V.foremanPass);
     SFclick(By.xpath('//button[@type="submit"]'));
-    SFwaitForVisible(By.id('datatable'));
+    SFwaitForLocated(By.id('datatable'));
+    SFsleep (3);
 
     LogoutFromBoard ();
 
@@ -140,6 +145,7 @@ function main() {
     JSclick('.btn-primary');
 
     CreateLocalMovingFromBoard ();
+    SFsleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SFcleanPrice(text);
     }));
@@ -147,40 +153,111 @@ function main() {
     SFsend (By.id('edit-moving-from'), 2342342342424);
     SFsend (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
     JSstep (selectTruck);
+    RememberDateFromRequest();
+
     SFclick (By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SFwaitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SFclick (By.xpath('//button[@ng-click="update(request)"]'));
     SFsleep (5);
+    JSwaitForNotExist ('div.busyoverlay:visible');
     JSwaitForNotExist('div.toast-success');
     SFclick (By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep (1);
     SFclick (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
     SFsleep (3);
-    JSstep () // тутмы должны найти в диспатче и по сравнивать новосозданные фореманы и хелперы и так далее
+    JSstep (findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day));
+    SFsleep (3);
+    SFclick (By.xpath('//i[@ng-click="view.grid = true; view.schedule = false; view.map = false; "]'));
+    SFsleep (3);
+    SelectRequestDispatch (V.request.Id);
 
-
-/********************************************************************************************************************
-
-
-
-    SFclick (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SFwaitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
+   // SFclick (By.xpath('//select[@ng-model="vm.data.foreman"]'));
+    driver.executeScript (
+        function () {
+            var a = $('option[ng-repeat="(uid, user) in vm.users.foreman | orderBy:\'name\'"]:contains("foremantest testforeman")').length;
+            var b = $('option[ng-repeat="helper in helpers   | orderBy:\'name\'"]:contains("helpertest testhelper")').length;
+            var c = $('option[ng-repeat="helper in helpers   | orderBy:\'name\'"]:contains("drivertest testdriver")').length;
+            return {
+                Foreman:a,
+                Helper:b,
+                Driver:c
+            };
+        }.toString().substring(12)
+        ).then(function(counts){
+            IWant(VNotToEqual, counts.Foreman, 0, 'не нашло имя форемана');
+            IWant(VNotToEqual, counts.Helper, 0, 'не нашло имя хелпера');
+            IWant(VNotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
+    });
+// зашли в настройки департмента
     SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SFwaitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SFclick (By.xpath('//a[@ui-sref="settings.department"]'));
     SFwaitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
     SFsleep(2);
 
-*/
+// идем удалять форемана
 
+    SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
+    SFsleep(2);
+    driver.executeScript("$('.mdDataTable tbody tr td:contains(\"foremantest testforeman\")').dblclick();");
+    SFsleep (2);
+    SFclick (By.xpath('//button[@ng-click="deleteWorker()"]'));
+    SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SFclick (By.xpath('//button[@class="confirm"]'));
+    JSwaitForNotExist('div.toast-success');
+    SFsleep (2);
 
-    // V.ForemanName = SFrandomBukvaSmall(6);   ng-model="request."
-    //V.ForemanPasswd = 123;
+// идем удалять хелпера
 
-//    $x('//option[@ng-repeat="(uid, user) in vm.users.foreman | orderBy:\'name\'"][contains(text(),"Test Foreman")]').length
+    SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
+    SFsleep(2);
+    driver.executeScript("$('.mdDataTable tbody tr td:contains(\"helpertest testhelper\")').dblclick();");
+    SFsleep (2);
+    SFclick (By.xpath('//button[@ng-click="deleteWorker()"]'));
+    SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SFclick (By.xpath('//button[@class="confirm"]'));
+    JSwaitForNotExist('div.toast-success');
+    SFsleep (2);
 
-  //  driver.executeScript('return ').then(function(count){IWant(VNotEqual, count, 0)})
+// идем удалять драйвера
+
+    SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
+    SFsleep(2);
+    driver.executeScript("$('.mdDataTable tbody tr td:contains(\"drivertest testdriver\")').dblclick();");
+    SFsleep (2);
+    SFclick (By.xpath('//button[@ng-click="deleteWorker()"]'));
+    SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SFclick (By.xpath('//button[@class="confirm"]'));
+    JSwaitForNotExist('div.toast-success');
+    SFsleep (2);
+
+// идем удалять сейлса
+
+    SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
+    SFsleep(2);
+    driver.executeScript("$('.mdDataTable tbody tr td:contains(\"salestest testsales\")').dblclick();");
+    SFsleep (2);
+    SFclick (By.xpath('//button[@ng-click="deleteWorker()"]'));
+    SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SFclick (By.xpath('//button[@class="confirm"]'));
+    JSwaitForNotExist('div.toast-success');
+    SFsleep (2);
+
+// идем удалять менеджера
+
+    SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[1]/a'));
+    SFsleep(2);
+    driver.executeScript("$('.mdDataTable tbody tr td:contains(\"mantest testman\")').dblclick();");
+    SFsleep (2);
+    SFclick (By.xpath('//button[@ng-click="deleteWorker()"]'));
+    SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SFclick (By.xpath('//button[@class="confirm"]'));
+    JSwaitForNotExist('div.toast-success');
+    SFsleep (5);
+
+    LogoutFromBoard ();
+
 
     endOfTest();
 }
