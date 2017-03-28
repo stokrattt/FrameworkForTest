@@ -255,7 +255,8 @@ function main() {
     SFclick (By.xpath('//button[@class="confirm"]'));
     JSwaitForNotExist('div.toast-success');
     SFsleep (5);
-
+    JSwaitForNotExist('div.toast-success');
+    SFsleep (3);
     LogoutFromBoard ();
 
 
