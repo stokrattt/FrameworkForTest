@@ -17,7 +17,7 @@ global.IWant = function(func, value1, value2, e){
                     }
                 }
             });
-            fs.writeFile('reports/'+testName + '/' + errorNumber + '.txt', e, function (err) {
+            fs.writeFile('reports/'+testName + '/' + errorNumber + '.txt', nowWeDoing+'\n'+e, function (err) {
                 console.log(err);
                 if (!busy) {
                     temp--;

@@ -57,7 +57,7 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep (1);
 
-    LogoutFromBoard ();
+    LogoutFromBoardAdmin ();
     LoginToBoardAsCustom(V.SalesLogin,V.SalesPass);
     OpenRequest(V.request.Id);
     SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
@@ -98,7 +98,7 @@ function main() {
        console.log(V.SearchRequest);
     });
     IWant (VToEqual, V.request.Id, V.SearchRequest, 'Поиск по другим пермишинам не работает');
-    LogoutFromBoard ();
+    LogoutFromBoardAdmin ();
 
 
     endOfTest();

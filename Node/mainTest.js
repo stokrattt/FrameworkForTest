@@ -8,6 +8,7 @@ if ('-d' == process.argv[attrs]) {
 }
 //=====================set up bebDriver==================================
 var webdriver = require('selenium-webdriver');
+global.FileDetector = webdriver.FileDetector;
 global.By = webdriver.By;
 global.until = webdriver.until;
 global.MyError = webdriver.error;
@@ -37,6 +38,7 @@ function getTestName(string){
 global.readyForNext = true;
 global.errorNumber = 0;
 global.testName = '';
+global.path = require('path');
 global.fs = require('fs');
 global.deleteFolderRecursive = function(path) {
     if( fs.existsSync(path) ) {
@@ -51,7 +53,7 @@ global.deleteFolderRecursive = function(path) {
         fs.rmdirSync(path);
     }
 };
-
+global.nowWeDoing = 'something';
 webdriver.promise.controlFlow().on('uncaughtException', function (e) {
     driver.wait(driver.takeScreenshot().then(function (image) {
             let exist = fs.existsSync('reports/'+testName);
@@ -59,7 +61,7 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
             fs.writeFile('reports/'+testName + '/' + errorNumber + '.png', image, 'base64', function (err) {
                 console.log(err);
             });
-            fs.writeFile('reports/'+testName + '/' + errorNumber + '.txt', e, function (err) {
+            fs.writeFile('reports/'+testName + '/' + errorNumber + '.txt', nowWeDoing+'\n'+e, function (err) {
                 console.log(err);
             });
             console.log('сделали скрин');

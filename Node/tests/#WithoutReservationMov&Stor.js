@@ -52,7 +52,7 @@ function main() {
 
     SFclick (By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep (5);
-    LogoutFromBoard ();
+    LogoutFromBoardAdmin ();
     SFget('http://stage.themoveboard.com/account/#/login');
 
     LoginToAccountAsClient ();

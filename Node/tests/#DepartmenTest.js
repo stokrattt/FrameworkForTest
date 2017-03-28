@@ -106,7 +106,7 @@ function main() {
 
 // Создали форемана**************************************
 
-    LogoutFromBoard ();
+    LogoutFromBoardAdmin ();
 
 //Заходим под созданным менеджером*************************************
     SFwaitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
@@ -116,7 +116,7 @@ function main() {
     SFwaitForLocated(By.id('main-content'));
     SFsleep (3);
 
-    LogoutFromBoard ();
+    LogoutFromBoardAdmin ();
 
 //Заходим под созданным sales*************************************
 
@@ -127,7 +127,7 @@ function main() {
     SFwaitForLocated(By.id('main-content'));
     SFsleep (3);
 
-    LogoutFromBoard ();
+    LogoutFromBoardAdmin ();
 
 //Заходим под созданным foreman*************************************
 
@@ -138,7 +138,7 @@ function main() {
     SFwaitForLocated(By.id('datatable'));
     SFsleep (3);
 
-    LogoutFromBoard ();
+    LogoutFromBoardAdmin ();
 
     SFsend(By.id('email'), 'roma4ke');
     SFsend(By.id('password'), 'root');

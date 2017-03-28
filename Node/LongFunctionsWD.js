@@ -151,13 +151,21 @@ global.LogoutFromAccount = function () {
     SFwaitForVisible(By.xpath('//form[@ng-submit="login()"]'));
     SFsleep(5);
 };
-global.LogoutFromBoard = function () {
+global.LogoutFromBoardAdmin = function () {
     JSscroll('a[ng-click=\"vm.Logout()\"]');
     SFclick(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
     SFsleep(1);
     SFclick(By.xpath('//a[@ng-click="vm.Logout()"]'));
     SFwaitForVisible(By.xpath('//form[@ng-submit="login()"]'));
     SFsleep(5);
+};
+global.LogoutFromBoardForeman = function () {
+    JSscroll('li.dropdown.profile:visible');
+    SFclick(By.xpath('//li[contains(@class,"dropdown") and contains(@class,"profile")]/a[contains(@class,"dropdown-toggle")]'));
+    SFsleep(1);
+    SFclick(By.xpath('//a[@ng-click="vm.Logout()"]'));
+    SFwaitForVisible(By.xpath('//form[@ng-submit="login()"]'));
+    SFsleep(2);
 };
 global.LoginToBoardAsAdmin = function () {
     SFwaitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
@@ -168,7 +176,7 @@ global.LoginToBoardAsAdmin = function () {
 };
 global.LoginToBoardAsForeman = function () {
     SFwaitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
-    SFsend(By.xpath('//input[@id="email"]'), 'TestForeman@gmail.com');
+    SFsend(By.xpath('//input[@id="email"]'), 'TestForeman');
     SFsend(By.xpath('//input[@id="password"]'), '123');
     SFclick(By.xpath('//button[@type="submit"]'));
     SFwaitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
@@ -380,9 +388,9 @@ global.Validation_Compare_Account_Admin = function(){
     IWant(VToEqual,V.accountNumbers.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
     IWant(VToEqual,V.accountNumbers.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
 };
-global.SetManager = function (){
+global.SetManager = function (name){
     SFclick(By.xpath('//button[contains(text(),"Set Sales")]'));
-    SFclick(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"SaleNode")]'));
+    SFclick(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"'+name+'")]'));
     SFsleep(1);
     SFclick(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));
     SFsleep(1);
@@ -393,6 +401,8 @@ global.SetClientPasswd = function (){
     SFsleep(3);
 };
 global.FillCardPayModal = function(){
+    JSwaitForExist('input[ng-model="payment.card_num"]');
+    SFsleep(1);
     SFsend(By.xpath('//input[@ng-model="payment.card_num"]'),4111111111111111);
     SFsend(By.xpath('//input[@ng-model="payment.exp_month"]'),11);
     SFsend(By.xpath('//input[@ng-model="payment.exp_year"]'),20);

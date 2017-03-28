@@ -12,7 +12,8 @@ function main() {
 
     SFclick(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
     JSwaitForNotExist('div.busyoverlay:visible');
-    SFsleep(1);
+    SFsleep(5);
+    JSwaitForNotExist('div.busyoverlay:visible');
     SFclick(By.xpath('//label[@for="partial"]/input[@ng-model="vm.packing_service"]'));
     AccountLocalEnterAddress();
     AccountLocalAddInventory();
@@ -36,7 +37,7 @@ function main() {
 
     SFclick(By.xpath('//a[@ng-click="select(tabs[7])"]'));
     SFsleep(1);
-    SetManager();
+    SetManager('emilia');
     SFclick(By.xpath('//a[@ng-click="select(tabs[4])"]'));
     SetClientPasswd();
     SFclick(By.xpath('//a[@ng-click="select(tabs[0])"]'));
@@ -47,7 +48,7 @@ function main() {
     SFsleep(8);
     closeEditRequest();
     SFsleep(2);
-    LogoutFromBoard();
+    LogoutFromBoardAdmin();
 
     SFget(accountURL);
     LoginToAccountAsClient();
@@ -57,6 +58,7 @@ function main() {
     }));
     SFclick(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
     SFsleep(2);
+    JSwaitForNotExist('div.busyoverlay:visible');
     RememberAccountNumbers();
     Validation_Compare_Account_Admin();
     ConfirmRequestInAccount_WithReservation();
@@ -72,7 +74,7 @@ function main() {
     SFclick(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     SelectRequestDispatch(V.accountNumbers.Id);
     selectCrew();
-    LogoutFromBoard();
+    LogoutFromBoardAdmin();
 
     LoginToBoardAsForeman();
     OpenRequestDispatch(V.accountNumbers.Id);
@@ -93,6 +95,27 @@ function main() {
     FillCardPayModal();
     JSmakeSign('signatureCanvasPayment');
     SFclick(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
+
+    new FileDetector().handleFile(driver,path.resolve ('./files/squirrel.jpg')).then(function(path){
+        console.log(path);
+        driver.findElement(By.xpath('//input[@id="inputImage"]').sendKeys(path);
+    });
+    new FileDetector().handleFile(driver,path.resolve ('./files/squirrel.jpg')).then(function(path){
+        console.log(path);
+        driver.findElement(By.xpath('//input[@id="inputImage"]').sendKeys(path);
+    });
+    SFclick(By.xpath('//button[@ng-click="saveFile()"]'));
+    JSwaitForExist('div.signature-box.error:visible');
+    MakeSignInContract();
+    MakeSignInContract();
+    SFclick(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
+    JSwaitForExist('div.sa-placeholder:visible');
+    SFsleep(1);
+    SFclick(By.xpath('//button[@class="confirm"]'));
+    JSscroll('a:contains("Return to foreman page")');
+    SFclick(By.xpath('//a[contains(text(),"Return to foreman page")]'));
+    JSwaitForExist('li.dropdown.profile:visible');
+    LogoutFromBoardForeman();
 
     endOfTest();
 }
