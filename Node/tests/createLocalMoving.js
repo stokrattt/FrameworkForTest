@@ -98,11 +98,11 @@ function main() {
 
     new FileDetector().handleFile(driver,path.resolve ('./files/squirrel.jpg')).then(function(path){
         console.log(path);
-        driver.findElement(By.xpath('//input[@id="inputImage"]').sendKeys(path);
+        driver.findElement(By.xpath('//input[@id="inputImage"]').sendKeys(path))
     });
     new FileDetector().handleFile(driver,path.resolve ('./files/squirrel.jpg')).then(function(path){
         console.log(path);
-        driver.findElement(By.xpath('//input[@id="inputImage"]').sendKeys(path);
+        driver.findElement(By.xpath('//input[@id="inputImage"]').sendKeys(path))
     });
     SFclick(By.xpath('//button[@ng-click="saveFile()"]'));
     JSwaitForExist('div.signature-box.error:visible');

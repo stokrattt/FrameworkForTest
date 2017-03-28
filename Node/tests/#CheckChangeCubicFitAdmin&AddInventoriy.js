@@ -58,7 +58,11 @@ function main() {
     SFclick(By.xpath('//div[@class="actions pull-right"]/span[@ng-click="switchCalc()"]')); // включили калькулятор
 //выбор инвентория
     SFclick(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
-    SFsleep (4);
+    JSwaitForExist('div.busyoverlay');
+    nowWeDoing = 'ждем инвентория';
+
+    //чтобы сначала ждал пока появится бизи, а потом пока свалит и плюс пару сек для анимаций
+    SFsleep (7);
     SFclick (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
     SFclick (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
     SFclick (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));

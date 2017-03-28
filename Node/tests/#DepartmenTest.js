@@ -36,9 +36,15 @@ function main() {
     SFsend (By.xpath('//input[@ng-model="request.password"]'), V.managerPass);
     SFsend (By.xpath('//input[@ng-model="request.email"]'), V.managerAccount);
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "mantest testman")]'));
+    JSwaitForNotExist ('div.busyoverlay:visible');
+    SFsleep(1);
+    JSwaitForExist('div.toast-success');
+    SFsleep(1);
+    //SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "mantest testman")]'));
+    //SFsleep (3);
 // Создали****************************************
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
+
     SFsleep(2);
 
 // Создаем сейлса**************************************
@@ -56,7 +62,11 @@ function main() {
     SFsend (By.xpath('//input[@ng-model="request.password"]'), V.salesPass);
     SFsend (By.xpath('//input[@ng-model="request.email"]'), V.salesAccount);
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "salestest testsales")]'));
+    JSwaitForNotExist ('div.busyoverlay:visible');
+    SFsleep(1);
+    JSwaitForExist('div.toast-success');
+    SFsleep(1);
+    //SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "salestest testsales")]'));
 // Создали сейлса**************************************
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SFsleep(2);
@@ -138,7 +148,7 @@ function main() {
     SFwaitForLocated(By.id('datatable'));
     SFsleep (3);
 
-    LogoutFromBoardAdmin ();
+    LogoutFromBoardForeman ();
 
     SFsend(By.id('email'), 'roma4ke');
     SFsend(By.id('password'), 'root');
@@ -165,6 +175,7 @@ function main() {
     SFsleep (1);
     SFclick (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
+    SFwaitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
     SFsleep (3);
     JSstep (findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day));
     SFsleep (3);
@@ -257,7 +268,7 @@ function main() {
     SFsleep (5);
     JSwaitForNotExist('div.toast-success');
     SFsleep (3);
-    LogoutFromBoard ();
+    LogoutFromBoardForeman ();
 
 
     endOfTest();

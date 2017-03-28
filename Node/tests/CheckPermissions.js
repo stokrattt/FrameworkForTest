@@ -92,12 +92,15 @@ function main() {
     SFclick (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
     SFsleep (2);
     SFsend (By.id('gSearch'), V.request.Id);
-    SFwaitForVisible (By.xpath('//div[@ng-show="searchRequests.length"]'));
-    driver.findElement(By.xpath('//div[@class="requestsid ng-binding"]')).getText().then (function(text){
+    SFsleep(5);
+    SFwaitForLocated (By.xpath('//div[@ng-show="searchRequests.length"]'));
+
+    driver.wait(driver.findElement(By.xpath('//div[@class="requestsid ng-binding"]')).getText().then (function(text){
        V.SearchRequest = text;
        console.log(V.SearchRequest);
-    });
-    IWant (VToEqual, V.request.Id, V.SearchRequest, 'Поиск по другим пермишинам не работает');
+    }));
+    SFsleep(0,1);
+    IWant (VToEqual, V.request.Id, V.SearchRequest, 'Поиск по другим пермишинам не работает'); //и пошёл дальше...
     LogoutFromBoardAdmin ();
 
 

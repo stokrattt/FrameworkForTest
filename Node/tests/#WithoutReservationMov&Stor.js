@@ -25,7 +25,7 @@ function main() {
     JSselect ('select[ng-model="vm.scheduleSettings.localReservation"]', 1);
     V.ReservationPrice = 0;
     SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
-    SFsend (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), V.ReservationPrice);
+    SFsend (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), 0);
     SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
     SFsleep(1);
     driver.navigate().refresh();
@@ -98,9 +98,7 @@ function main() {
 
     SFget(URL);
 
-    SFsend(By.id('email'), 'TestAdmin');
-    SFsend(By.id('password'), 'test');
-    JSclick('.btn-primary');
+    LoginToBoardAsAdmin();
 
     SFclick (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SFwaitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
@@ -120,7 +118,7 @@ function main() {
     driver.navigate().refresh();
     SFwaitForLocated(By.linkText('Create Request'));
     SFsleep (3);
-    LogoutFromBoard ();
+    LogoutFromBoardAdmin ();
 
 
     endOfTest();
