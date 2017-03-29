@@ -235,3 +235,16 @@ global.SFFindMonthInString = function (str) {
     IWant(VNotToEqual, i, 12, 'неверный месяц');
     return 12;
 };
+
+global.SFopenNewTab = function (numberTab) {
+    driver.wait(driver.getAllWindowHandles().then(function(handles){
+        console.log(handles);
+        driver.switchTo().window(handles[numberTab]);
+        driver.getWindowHandle().then(function(handle) {
+            console.log(handle);
+        });
+    })).then(function () {
+        SFgo();
+    });
+    SFstop();
+};

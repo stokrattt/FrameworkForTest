@@ -24,9 +24,9 @@ function main() {
 
     SFclick (By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]"));
     SFsleep (3);
-    driver.findElement(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_avg"]')).getAttribute('value').then(function(value){
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_avg"]')).getAttribute('value').then(function(value){
         V.boardNumbers.FuelPerc = SFcleanPrice(value.replace('%', ''));
-    });
+    }));
 
     SFclick (By.xpath("//div[@class='modal-footer']/button[@ng-click='cancel()']"));
     SFsleep (3);
