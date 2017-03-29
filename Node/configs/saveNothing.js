@@ -1,4 +1,4 @@
-global.suite = ['./tests/createLocalMoving.js'];
+global.suite = ['./tests/saveNothing.js'];
 global.chainFail = true;
 global.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
 global.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';

@@ -267,3 +267,47 @@ global.findDayInLocalDispatch = function (Year, Month, Day) {
     f=f.substring(0,f.indexOf('\'#\''))+Day+f.substring(f.indexOf('\'#\'')+3);
     return f;
 };
+global.CheckSumsInContract = function () {
+    var HowToLook = function (text) {
+        console.log('грязный текст:'+text);
+        var cifra='';
+        var index=text.indexOf('$');
+        if (index!==-1) {
+            var i=index+1;
+            while ( ( (!isNaN(text[i])) || (text[i]==='.') || (text[i]===',') || (text[i]===' ') ) && (i<text.length) ){
+                if (text[i]!==',') cifra+=text[i];
+                i++;
+            }
+            cifra=Number(cifra);
+        } else {
+            cifra=Number(text);
+        }
+        console.log('цифра:'+cifra);
+        return cifra;
+    };
+
+    var sumPacking=0;
+    var packingCost = 'tbody:has(tr>th>p:contains("packing and unpacking"))>tr[ng-repeat]>td:last-child';
+    console.log('нашли строк packing: '+$(packingCost).length);
+    var len=$(packingCost).length;
+    for (var i=0; i<len; i++){
+        var currentRow=HowToLook( $(packingCost).get(i).innerHTML );
+        sumPacking+=currentRow;
+    }
+
+    var sumServices=0;
+    var servicesCost = 'tbody:has(tr>th>p:contains("ADDITIONAL SERVICE CHARGE"))>tr[ng-repeat]>td:last-child>input';
+    len = $(servicesCost).length;
+    console.log('нашли строк services: '+len);
+    for (i=0; i<len; i++){
+        var currentRow=HowToLook( $(servicesCost).get(i).value );
+        sumServices+=currentRow;
+    }
+
+    var totalPacking = HowToLook($('tr:has(td>p:contains("total packing charges"))>td:last-child').text());
+    var totalServices = HowToLook($('tr:has(td>p:contains("total Extra charges")) td:last-child').text());
+
+    var totalCost = HowToLook($('tr:has(td>p:contains("total cost:")) td:last-child').text());
+
+    return {sumPacking:sumPacking, totalPacking:totalPacking, sumServices:sumServices, totalServices:totalServices};
+}.toString().substring(12);

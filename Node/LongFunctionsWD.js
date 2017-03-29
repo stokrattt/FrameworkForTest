@@ -308,66 +308,104 @@ global.RememberDigitsRequestBoard = function () {
     // запомнили все цифры реквеста
 
     V.boardNumbers={};
-    driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function(dateString){
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function(dateString){
         dateString=dateString.toUpperCase();
         V.boardNumbers.moveDate={};
         V.boardNumbers.moveDate.Month = SFFindMonthInString(dateString);
         V.boardNumbers.moveDate.Day = SFcleanPrice(dateString.substring(0,dateString.indexOf(',')));
         V.boardNumbers.moveDate.Year = SFcleanPrice(dateString.substring(dateString.indexOf(',')));
-    });
-    driver.findElement(By.xpath('//input[@ng-model="request.minimum_time.value"]')).getAttribute('value').then(function(value){
+    }));
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.minimum_time.value"]')).getAttribute('value').then(function(value){
         V.boardNumbers.LaborTimeMin=SFcleanPrice(value.substring(0,value.indexOf(':')))*60
             + SFcleanPrice(value.substring(value.indexOf(':')));
-    });
-    driver.findElement(By.xpath('//input[@ng-model="request.maximum_time.value"]')).getAttribute('value').then(function(value){
+    }));
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.maximum_time.value"]')).getAttribute('value').then(function(value){
         V.boardNumbers.LaborTimeMax=SFcleanPrice(value.substring(0,value.indexOf(':')))*60
             + SFcleanPrice(value.substring(value.indexOf(':')));
-    });
-    driver.findElement(By.xpath('//input[@ng-model="request.travel_time.value"]')).getAttribute('value').then(function(value){
+    }));
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.travel_time.value"]')).getAttribute('value').then(function(value){
         V.boardNumbers.TravelTime=SFcleanPrice(value.substring(0,value.indexOf(':')))*60
             + SFcleanPrice(value.substring(value.indexOf(':')));
-    });
-    driver.findElement(By.xpath('//input[@id="edit-movers-crew"]')).getAttribute('value').then(function(value){
+    }));
+    driver.wait(driver.findElement(By.xpath('//input[@id="edit-movers-crew"]')).getAttribute('value').then(function(value){
         V.boardNumbers.CrewSize=SFcleanPrice(value);
-    });
-    driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function(value){
+    }));
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function(value){
         V.boardNumbers.HourlyRate=SFcleanPrice(value);
-    });
-
-    driver.findElement(By.xpath('//label[contains(text(),"Trucks:")]/following-sibling::div[1]')).getText('text').then(function(text){
+    }));
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Trucks:")]/following-sibling::div[1]')).getText('text').then(function(text){
         V.boardNumbers.Trucks=SFcleanPrice(text);
-    });
+    }));
 
-    driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Quote:')]/following-sibling::div[1]")).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Quote:')]/following-sibling::div[1]")).getText().then(function(text){
         V.boardNumbers.QuoteMin = SFcleanPrice(text.substring(0, text.indexOf('$',3)))/100;
         V.boardNumbers.QuoteMax = SFcleanPrice(text.substring(text.indexOf('$',3)))/100;
-    });
-    driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]/following-sibling::div[1]")).getText().then(function(text) {
+    }));
+    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]/following-sibling::div[1]")).getText().then(function(text) {
         V.boardNumbers.Fuel = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
-    });
-    driver.findElement(By.xpath("//div/label[contains(text(), 'Valuation:')]/following-sibling::div[1]")).getText().then(function(text) {
+    }));
+    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Valuation:')]/following-sibling::div[1]")).getText().then(function(text) {
         V.boardNumbers.Valuation = SFcleanPrice (text.substring(text.indexOf('$')))/100;
-    });
-    driver.findElement(By.xpath("//div/label[contains(text(), 'Packing:')]/following-sibling::div[1]")).getText().then(function(text) {
+    }));
+    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Packing:')]/following-sibling::div[1]")).getText().then(function(text) {
         V.boardNumbers.Packing = SFcleanPrice (text.substring(text.indexOf('$')))/100;
-    });
-    driver.findElement(By.xpath("//div/label[contains(text(), 'Additional Services:')]/following-sibling::div[2]")).getText().then(function(text) {
+    }));
+    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Additional Services:')]/following-sibling::div[2]")).getText().then(function(text) {
         V.boardNumbers.AdServices = SFcleanPrice (text.substring(text.indexOf('$')))/100;
-    });
-    driver.findElement(By.xpath("//div/label[contains(text(), 'Discount:')]/following-sibling::div[1]")).getText().then(function(text) {
+    }));
+    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Discount:')]/following-sibling::div[1]")).getText().then(function(text) {
         V.boardNumbers.Discount = SFcleanPrice (text.substring(text.indexOf('$')))/100;
-    });
-    driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Grand Total:')]/following-sibling::div[1]")).getText().then(function(text){
+    }));
+    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Grand Total:')]/following-sibling::div[1]")).getText().then(function(text){
         V.boardNumbers.TotalMin = SFcleanPrice(text.substring(0, text.indexOf('$',3)))/100;
         V.boardNumbers.TotalMax = SFcleanPrice(text.substring(text.indexOf('$',3)))/100;
-    });
-    driver.findElement(By.xpath("//div/label[contains(text(), 'Payment:')]/following-sibling::div[1]")).getText().then(function(text) {
+    }));
+    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Payment:')]/following-sibling::div[1]")).getText().then(function(text) {
         V.boardNumbers.Payment = SFcleanPrice (text.substring(text.indexOf('$')))/100;
-    });
-    driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Balance:')]/following-sibling::div[1]")).getText().then(function(text){
+    }));
+    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Balance:')]/following-sibling::div[1]")).getText().then(function(text){
         V.boardNumbers.BalanceMin = SFcleanPrice(text.substring(0, text.indexOf('$',3)))/100;
         V.boardNumbers.BalanceMax = SFcleanPrice(text.substring(text.indexOf('$',3)))/100;
-    });
+    }));
+    SFsleep(3);
+    console.log(V.boardNumbers);
+};
+
+global.RememberDigitsRequestBoard_ClosedRequest = function () {
+
+    V.boardNumbersClosed={};
+
+    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Quote:')]/following-sibling::div[1]")).getText().then(function(text){
+        V.boardNumbers.QuoteMin = SFcleanPrice(text.substring(0, text.indexOf('$',3)))/100;
+        V.boardNumbers.QuoteMax = SFcleanPrice(text.substring(text.indexOf('$',3)))/100;
+        console.log(text);
+    }));
+    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]/following-sibling::div[1]")).getText().then(function(text) {
+        V.boardNumbers.Fuel = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
+    }));
+    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Valuation:')]/following-sibling::div[1]")).getText().then(function(text) {
+        V.boardNumbers.Valuation = SFcleanPrice (text.substring(text.indexOf('$')))/100;
+    }));
+    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Packing:')]/following-sibling::div[1]")).getText().then(function(text) {
+        V.boardNumbers.Packing = SFcleanPrice (text.substring(text.indexOf('$')))/100;
+    }));
+    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Additional Services:')]/following-sibling::div[2]")).getText().then(function(text) {
+        V.boardNumbers.AdServices = SFcleanPrice (text.substring(text.indexOf('$')))/100;
+    }));
+    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Discount:')]/following-sibling::div[1]")).getText().then(function(text) {
+        V.boardNumbers.Discount = SFcleanPrice (text.substring(text.indexOf('$')))/100;
+    }));
+    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Grand Total:')]/following-sibling::div[1]")).getText().then(function(text){
+        V.boardNumbers.TotalMin = SFcleanPrice(text.substring(0, text.indexOf('$',3)))/100;
+        V.boardNumbers.TotalMax = SFcleanPrice(text.substring(text.indexOf('$',3)))/100;
+    }));
+    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Payment:')]/following-sibling::div[1]")).getText().then(function(text) {
+        V.boardNumbers.Payment = SFcleanPrice (text.substring(text.indexOf('$')))/100;
+    }));
+    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Balance:')]/following-sibling::div[1]")).getText().then(function(text){
+        V.boardNumbers.BalanceMin = SFcleanPrice(text.substring(0, text.indexOf('$',3)))/100;
+        V.boardNumbers.BalanceMax = SFcleanPrice(text.substring(text.indexOf('$',3)))/100;
+    }));
     SFsleep(3);
     console.log(V.boardNumbers);
 };
@@ -468,8 +506,10 @@ global.PermissionCanSignedSales = function() {
 };
 //Permissions for Sales --- end
 global.closeEditRequest = function(){
-    JSwaitForNotExist('div.toast-success');
+    JSwaitForNotExist('div.toast-success:visible');
+    SFsleep(1);
     SFclick(By.xpath('//button[@ng-click="cancel()"]'));
+    SFsleep(2);
 }
 global.SelectRequestDispatch = function(request){
     driver.wait(until.elementLocated(By.xpath('//td[contains(text(),"' + request + '")]/..')),Dtimeout)

@@ -1,13 +1,13 @@
 function main() {
     global.fiber = Fiber.current;
-    V.client={};
-    V.client.name = SFrandomBukva(6)+'_t';
-    V.client.fam = SFrandomBukva(6)+'_t';
-    V.client.phone = SFrandomCifra(10);
-    V.client.email = SFrandomBukvaSmall(6)+'@'+SFrandomBukvaSmall(4)+'.tes';
+    V.front={};
+    V.front.name = SFrandomBukva(6)+'_t';
+    V.front.fam = SFrandomBukva(6)+'_t';
+    V.front.phone = SFrandomCifra(10);
+    V.front.email = SFrandomBukvaSmall(6)+'@'+SFrandomBukvaSmall(4)+'.tes';
     SFget(frontURL);
 
-    FullSmallCalcAsLocal(V.client);
+    FullSmallCalcAsLocal(V.front);
     console.log("заполнили форму");
 
     SFclick(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
@@ -44,8 +44,9 @@ function main() {
     SFsleep(1);
     SFselect(By.xpath('//select[@id="edit-status"]'),2);
     SFclick(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    JSwaitForExist('button[ng-click="update(request)"]:visible');
     SFclick(By.xpath('//button[@ng-click="update(request)"]'));
-    SFsleep(8);
+    JSwaitForExist("div.toast-success:visible");
     closeEditRequest();
     SFsleep(2);
     LogoutFromBoardAdmin();
@@ -71,6 +72,7 @@ function main() {
     SFwaitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
     JSstep(findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day));
     JSwaitForNotExist('div.busyoverlay:visible');
+    SFsleep(1);
     SFclick(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     SelectRequestDispatch(V.accountNumbers.Id);
     selectCrew();
@@ -81,6 +83,10 @@ function main() {
     JSwaitForExist('h1:contains("Confirmation Page"):visible');
     SFclick(By.xpath('//li[@id="tab_Bill of lading"]'));
     SFsleep(1);
+    driver.wait(driver.executeScript(CheckSumsInContract).then(function(costs){
+        IWant(VToEqual,costs.sumPacking, costs.totalPacking,'Не совпали суммы Packing');
+        IWant(VToEqual, costs.sumServices, costs.totalServices,'Не совпали суммы Services');
+    }));
     MakeSignInContract();
     MakeSignInContract();
     SFselect(By.xpath('//select[@ng-model="data.declarationValue.selected"]'),'a');
@@ -95,17 +101,15 @@ function main() {
     FillCardPayModal();
     JSmakeSign('signatureCanvasPayment');
     SFclick(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
-
+    JSwaitForExist('input#inputImage');
     new FileDetector().handleFile(driver,path.resolve ('./files/squirrel.jpg')).then(function(path){
         console.log(path);
-        driver.findElement(By.xpath('//input[@id="inputImage"]').sendKeys(path))
+        driver.wait(driver.findElement(By.xpath('//input[@id="inputImage"]')).sendKeys(path));
+        driver.wait(driver.findElement(By.xpath('//input[@id="inputImage"]')).sendKeys(path));
     });
-    new FileDetector().handleFile(driver,path.resolve ('./files/squirrel.jpg')).then(function(path){
-        console.log(path);
-        driver.findElement(By.xpath('//input[@id="inputImage"]').sendKeys(path))
-    });
+    SFsleep(1);
     SFclick(By.xpath('//button[@ng-click="saveFile()"]'));
-    JSwaitForExist('div.signature-box.error:visible');
+    JSwaitForNotExist("button[ng-click=\"saveFile()\"]");
     MakeSignInContract();
     MakeSignInContract();
     SFclick(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
@@ -113,9 +117,25 @@ function main() {
     SFsleep(1);
     SFclick(By.xpath('//button[@class="confirm"]'));
     JSscroll('a:contains("Return to foreman page")');
+    JSwaitForNotExist('div.busyoverlay:visible');
+    SFsleep(1);
     SFclick(By.xpath('//a[contains(text(),"Return to foreman page")]'));
     JSwaitForExist('li.dropdown.profile:visible');
     LogoutFromBoardForeman();
+
+    LoginToBoardAsAdmin();
+    SFclick(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
+    SFwaitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
+    JSstep(findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day));
+    JSwaitForNotExist('div.busyoverlay:visible');
+    SFsleep(1);
+    SFclick(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
+    SFselect(By.xpath('//select[@ng-model="vm.reqFilter.type"]'),0);
+    OpenRequestDispatch(V.accountNumbers.Id);
+    JSwaitForExist('label:contains("Balance:"):visible');
+
+    //RememberDigitsRequestBoard_ClosedRequest();
+
 
     endOfTest();
 }
