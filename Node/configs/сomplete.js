@@ -1,4 +1,6 @@
-global.suite = ['./tests/#ReservationMov&Stor.js', './tests/CheckPermissions.js', './tests/#WithoutReservationMov&Stor.js', './tests/#CheckChangeCubicFitAdmin&AddInventoriy.js', './tests/#CheckFuelSurcharge.js', './tests/#DepartmenTest.js'];
+global.suite = ['./tests/#ReservationMov&Stor.js', './tests/CheckPermissions.js', './tests/#WithoutReservationMov&Stor.js',
+    './tests/#CheckChangeCubicFitAdmin&AddInventoriy.js', './tests/#CheckFuelSurcharge.js', './tests/#DepartmenTest.js',
+    './tests/createLocalMoving.js'];
 global.chainFail = false;
 global.frontURL = 'http://stage.themoveboard.com/';
 global.accountURL = 'http://stage.themoveboard.com/account/#/login';
@@ -12,6 +14,8 @@ global.adminURL = 'http://stage.themoveboard.com/moveBoard/#/login';
  #ReservationMov&Stor
  #WithoutReservationMov&Stor
  #DepartmenTest
+ createLocalMoving
+ #TestNotes
 
 
  */

@@ -1,2 +1,2 @@
-global.suite = ['./tests/CheckBillOfLadding.js'];
+global.suite = ['./tests/#DepartmenTest.js'];
 global.chainFail = false;

@@ -212,7 +212,7 @@ global.OpenRequest = function (request) {
 };
 global.CreateLocalMovingFromBoard = function(){
     SFclick(By.linkText('Create Request'));
-    driver.sleep(4000);
+    SFsleep(5);
     SFclick (By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
     SFclick(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
     V.request={};
@@ -225,9 +225,9 @@ global.CreateLocalMovingFromBoard = function(){
     SFclick(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
     SFsend (By.id("edit-zip-code-from"), "02032");
     SFsend (By.id("edit-zip-code-to"), "02136");
-    driver.sleep(4000);
+    SFsleep(5);
     SFclick (By.xpath('//button[@ng-click="Calculate()"]'));
-    driver.sleep(4000);
+    SFsleep(5);
     SFclick (By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
     SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
     SFsend (By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);

@@ -13,14 +13,14 @@ function main() {
     SFsend(By.id('email'), 'roma4ke');
     SFsend(By.id('password'), 'root');
     JSclick('.btn-primary');
-
+    SFsleep (5);
     SFclick (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SFwaitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SFwaitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SFclick (By.xpath('//a[@ui-sref="settings.department"]'));
     SFwaitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
-    SFsleep(2);
+    SFsleep(3);
 //Создаем менеджера***********************************************
     SFclick (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SFwaitForVisible (By.xpath('//form[@name="createUserRequest"]'));
@@ -39,7 +39,7 @@ function main() {
     JSwaitForNotExist ('div.busyoverlay:visible');
     SFsleep(1);
     JSwaitForExist('div.toast-success');
-    SFsleep(1);
+    SFsleep(3);
     //SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "mantest testman")]'));
     //SFsleep (3);
 // Создали****************************************
@@ -65,7 +65,7 @@ function main() {
     JSwaitForNotExist ('div.busyoverlay:visible');
     SFsleep(1);
     JSwaitForExist('div.toast-success');
-    SFsleep(1);
+    SFsleep(3);
     //SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "salestest testsales")]'));
 // Создали сейлса**************************************
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
@@ -80,6 +80,7 @@ function main() {
     SFsend(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "drivertest testdriver")]'));
+    SFsleep(3);
 // Создали драйвера**************************************
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
     SFsleep(2);
@@ -93,6 +94,7 @@ function main() {
     SFsend(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "helpertest testhelper")]'));
+    SFsleep(3);
 // Создали хелпера**************************************
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
     SFsleep(2);
@@ -113,6 +115,7 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "foremantest testforeman")]'));
     JSwaitForNotExist('div.toast-success');
+    SFsleep(3);
 
 // Создали форемана**************************************
 
@@ -175,12 +178,13 @@ function main() {
     SFsleep (1);
     SFclick (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
+    SFsleep (7);
     SFwaitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
-    SFsleep (3);
+    SFsleep (7);
     JSstep (findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day));
-    SFsleep (3);
+    SFsleep (7);
     SFclick (By.xpath('//i[@ng-click="view.grid = true; view.schedule = false; view.map = false; "]'));
-    SFsleep (3);
+    SFsleep (5);
     SelectRequestDispatch (V.request.Id);
 
    // SFclick (By.xpath('//select[@ng-model="vm.data.foreman"]'));
