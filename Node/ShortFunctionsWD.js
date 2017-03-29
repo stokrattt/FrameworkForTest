@@ -236,7 +236,7 @@ global.SFFindMonthInString = function (str) {
     return 12;
 };
 
-global.SFopenNewTab = function (numberTab) {
+global.SFopenTab = function (numberTab) {
     driver.wait(driver.getAllWindowHandles().then(function(handles){
         console.log(handles);
         driver.switchTo().window(handles[numberTab]);
