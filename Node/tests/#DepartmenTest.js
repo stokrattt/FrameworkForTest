@@ -21,7 +21,7 @@ function main() {
     SFclick (By.xpath('//a[@ui-sref="settings.department"]'));
     SFwaitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
     SFsleep(3);
-//Создаем менеджера***********************************************
+nowWeDoing='Создаем менеджера***********************************************';
     SFclick (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SFwaitForVisible (By.xpath('//form[@name="createUserRequest"]'));
     V.managerFirstName = "mantest";
@@ -42,12 +42,12 @@ function main() {
     SFsleep(3);
     //SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "mantest testman")]'));
     //SFsleep (3);
-// Создали****************************************
+nowWeDoing='Создали менеджера****************************************';
+    JSwaitForExist('div.toast-message');
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
-
     SFsleep(2);
 
-// Создаем сейлса**************************************
+nowWeDoing='Создаем сейлса**************************************';
     SFclick (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SFwaitForVisible (By.xpath('//form[@name="createUserRequest"]'));
     V.salesFirstName = "salestest";
@@ -67,10 +67,11 @@ function main() {
     JSwaitForExist('div.toast-success');
     SFsleep(3);
     //SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "salestest testsales")]'));
-// Создали сейлса**************************************
+nowWeDoing='Создали сейлса**************************************';
+    JSwaitForExist('div.toast-message');
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SFsleep(2);
-// Создаем драйвера**************************************
+nowWeDoing='Создаем драйвера**************************************';
     SFclick (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SFwaitForVisible (By.xpath('//form[@name="createUserRequest"]'));
     V.driverFirstName = "drivertest";
@@ -81,10 +82,11 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "drivertest testdriver")]'));
     SFsleep(3);
-// Создали драйвера**************************************
+nowWeDoing='Создали драйвера**************************************';
+    JSwaitForExist('div.toast-message');
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
     SFsleep(2);
-// Создаем хелпера**************************************
+nowWeDoing='Создаем хелпера**************************************';
     SFclick (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SFwaitForVisible (By.xpath('//form[@name="createUserRequest"]'));
     V.helperFirstName = "helpertest";
@@ -95,10 +97,11 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "helpertest testhelper")]'));
     SFsleep(3);
-// Создали хелпера**************************************
+nowWeDoing='Создали хелпера**************************************';
+    JSwaitForExist('div.toast-message');
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
     SFsleep(2);
-// Создаем форемана**************************************
+nowWeDoing='Создаем форемана**************************************';
     SFclick (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SFwaitForVisible (By.xpath('//form[@name="createUserRequest"]'));
     V.foremanFirstName = "foremantest";
@@ -117,11 +120,11 @@ function main() {
     JSwaitForNotExist('div.toast-success');
     SFsleep(3);
 
-// Создали форемана**************************************
+nowWeDoing='Создали форемана**************************************';
 
     LogoutFromBoardAdmin ();
 
-//Заходим под созданным менеджером*************************************
+nowWeDoing='Заходим под созданным менеджером*************************************';
     SFwaitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
     SFsend(By.xpath('//input[@id="email"]'), V.managerAccount);
     SFsend(By.xpath('//input[@id="password"]'), V.managerPass);
@@ -131,7 +134,7 @@ function main() {
 
     LogoutFromBoardAdmin ();
 
-//Заходим под созданным sales*************************************
+nowWeDoing='Заходим под созданным sales*************************************';
 
     SFwaitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
     SFsend(By.xpath('//input[@id="email"]'), V.salesAccount);
@@ -142,7 +145,7 @@ function main() {
 
     LogoutFromBoardAdmin ();
 
-//Заходим под созданным foreman*************************************
+nowWeDoing='Заходим под созданным foreman*************************************';
 
     SFwaitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
     SFsend(By.xpath('//input[@id="email"]'), V.foremanAccount);
@@ -180,11 +183,10 @@ function main() {
     SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
     SFsleep (7);
     SFwaitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
-    SFsleep (7);
-    JSstep (findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day));
-    SFsleep (7);
-    SFclick (By.xpath('//i[@ng-click="view.grid = true; view.schedule = false; view.map = false; "]'));
-    SFsleep (5);
+    findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
+    JSwaitForNotExist('div.busyoverlay:visible');
+    SFsleep(1);
+    SFclick(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     SelectRequestDispatch (V.request.Id);
 
    // SFclick (By.xpath('//select[@ng-model="vm.data.foreman"]'));
@@ -204,14 +206,14 @@ function main() {
             IWant(VNotToEqual, counts.Helper, 0, 'не нашло имя хелпера');
             IWant(VNotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
     });
-// зашли в настройки департмента
+nowWeDoing='зашли в настройки департмента';
     SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SFwaitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SFclick (By.xpath('//a[@ui-sref="settings.department"]'));
     SFwaitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
     SFsleep(2);
 
-// идем удалять форемана
+nowWeDoing='идем удалять форемана';
 
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
     SFsleep(2);
@@ -220,10 +222,10 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="deleteWorker()"]'));
     SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SFclick (By.xpath('//button[@class="confirm"]'));
-    JSwaitForNotExist('div.toast-success');
+    JSwaitForNotExist('div.toast-message');
     SFsleep (2);
 
-// идем удалять хелпера
+nowWeDoing='идем удалять хелпера';
 
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
     SFsleep(2);
@@ -232,10 +234,10 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="deleteWorker()"]'));
     SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SFclick (By.xpath('//button[@class="confirm"]'));
-    JSwaitForNotExist('div.toast-success');
+    JSwaitForNotExist('div.toast-message');
     SFsleep (2);
 
-// идем удалять драйвера
+nowWeDoing='идем удалять драйвера';
 
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SFsleep(2);
@@ -244,10 +246,10 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="deleteWorker()"]'));
     SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SFclick (By.xpath('//button[@class="confirm"]'));
-    JSwaitForNotExist('div.toast-success');
+    JSwaitForNotExist('div.toast-message');
     SFsleep (2);
 
-// идем удалять сейлса
+nowWeDoing='идем удалять сейлса';
 
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
     SFsleep(2);
@@ -256,10 +258,10 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="deleteWorker()"]'));
     SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SFclick (By.xpath('//button[@class="confirm"]'));
-    JSwaitForNotExist('div.toast-success');
+    JSwaitForNotExist('div.toast-message');
     SFsleep (2);
 
-// идем удалять менеджера
+nowWeDoing='идем удалять менеджера';
 
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[1]/a'));
     SFsleep(2);
@@ -268,10 +270,7 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="deleteWorker()"]'));
     SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SFclick (By.xpath('//button[@class="confirm"]'));
-    JSwaitForNotExist('div.toast-success');
-    SFsleep (5);
-    JSwaitForNotExist('div.toast-success');
-    SFsleep (3);
+    SFsleep (1);    
     LogoutFromBoardForeman ();
 
 

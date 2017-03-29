@@ -211,56 +211,72 @@ global.getPackingsCostAccount = function () {
         return $('div[ng-repeat="packing in vm.packingSettings"]:last div:last').text();
     } else {return '$0'}
 }.toString().substring(12);
-global.findDayInLocalDispatch = function (Year, Month, Day) {
+global.findDayInLocalDispatch2 = function (Year, Month, Day) {
     let f = function() {
         var futureYear = '#';
         var futureMonth = '#';
         var futureDay = '#';
-
         var target = futureYear;
-        var current = Number($(".ui-datepicker-year:first").text());
+        current = Number($(".ui-datepicker-year:first").text());
         console.log('current year:' + current + ' tagret:' + target);
-        while (current !== target) {
-            if (current > target) {
-                $('a[data-handler="prev"] span').trigger('click');
+        var click3 = function(){
+            var EQ = futureDay - 1;
+            if ($('div#datePicker-block.disabled').length!=0) {
+                $('td[data-handler="selectDay"]:eq("' + EQ + '")').trigger('click');
             } else {
-                $('a[data-handler="next"] span').trigger('click');
+                setInterval(click3(),500)
             }
-            console.log('current year:' + current + ' tagret:' + target);
-            current = Number($(".ui-datepicker-year:first").text());
-        }
-        console.log('выбрали год');
-
-        var monthNumbers = {
-            JANUARY: 0,
-            FEBRUARY: 1,
-            MARCH: 2,
-            APRIL: 3,
-            MAY: 4,
-            JUNE: 5,
-            JULY: 6,
-            AUGUST: 7,
-            SEPTEMBER: 8,
-            OCTOBER: 9,
-            NOVEMBER: 10,
-            DECEMBER: 11
         };
-
-        var target = futureMonth;
-        var current = monthNumbers[$(".ui-datepicker-month:first").text().toUpperCase()];
-        console.log('current Month:' + current + ' tagret:' + target);
-        while (current !== target) {
-            if (current > target) {
-                $('a[data-handler="prev"] span').trigger('click');
-            } else {
-                $('a[data-handler="next"] span').trigger('click');
-            }
+        var click2 = function(target){
+            var monthNumbers = {
+                JANUARY: 0,
+                FEBRUARY: 1,
+                MARCH: 2,
+                APRIL: 3,
+                MAY: 4,
+                JUNE: 5,
+                JULY: 6,
+                AUGUST: 7,
+                SEPTEMBER: 8,
+                OCTOBER: 9,
+                NOVEMBER: 10,
+                DECEMBER: 11
+            };
+            var current = monthNumbers[$(".ui-datepicker-month:first").text().toUpperCase()];
             console.log('current Month:' + current + ' tagret:' + target);
-            current = monthNumbers[$(".ui-datepicker-month:first").text().toUpperCase()];
-        }
-        console.log('выбрали месяц');
-        var EQ = futureDay - 1;
-        $('td[data-handler="selectDay"]:eq("' + EQ + '")').trigger('click');
+            if (current !== target){
+                if ($('div#datePicker-block.disabled').length!=0) { //Если активно тогда кликай
+                    if (current > target) {
+                        $('a[data-handler="prev"] span').trigger('click');
+                    } else {
+                        $('a[data-handler="next"] span').trigger('click');
+                    }
+                }
+                setInterval(click2(target),500);
+            } else {
+                console.log('выбрали месяц');
+                setInterval(click3(),500);
+            }
+        };
+        var click=function(target){
+            current = Number($(".ui-datepicker-year:first").text());
+            console.log('current year:' + current + ' tagret:' + target);
+            if (current !== target) {
+                if ($('div#datePicker-block.disabled').length!=0) { //Если активно тогда кликай
+                    if (current > target) {
+                        $('a[data-handler="prev"] span').trigger('click');
+                    } else {
+                        $('a[data-handler="next"] span').trigger('click');
+                    }
+                }
+                setInterval(click(target),500);
+            } else {
+                console.log('выбрали год');
+                var target = futureMonth;
+                setInterval(click2(target),500);
+            }
+        };
+        click(target);
     }.toString().substring(12);
     f=f.substring(0,f.indexOf('\'#\''))+Year+f.substring(f.indexOf('\'#\'')+3);
     f=f.substring(0,f.indexOf('\'#\''))+Month+f.substring(f.indexOf('\'#\'')+3);
