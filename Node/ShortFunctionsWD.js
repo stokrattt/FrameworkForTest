@@ -221,7 +221,7 @@ global.SFcleanPrice = function (dirtyText) {
     let result = '';
     let minus=false;
     for (let i = 0; i < dirtyText.length; i++) {
-        if (dirtyText[i] in allow) {
+        if ((dirtyText[i] in allow)||(dirtyText[i]=='.')) {
             result += dirtyText[i];
         } else if (dirtyText[i]=='-') {minus=true;}
     }
