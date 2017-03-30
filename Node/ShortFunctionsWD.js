@@ -50,7 +50,7 @@ global.JSwaitForNotExist = function (selector) {
 };
 global.SFwaitForVisible = function (selector) {
     console.log('ждём ' + selector);
-    driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector)), Dtimeout),Dtimeout).then(function () {
+    driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), Dtimeout)),Dtimeout).then(function () {
         console.log('дождались ' + selector);
         SFgo();
     });
@@ -66,7 +66,7 @@ global.SFwaitForLocated = function (selector) {
 };
 global.SFwaitForNotVisible = function (selector) {
     console.log('ждём ' + selector);
-    driver.wait(until.elementIsNotVisible(driver.wait(until.elementLocated(selector)), Dtimeout)).then(function () {
+    driver.wait(until.elementIsNotVisible(driver.wait(until.elementLocated(selector),Dtimeout), Dtimeout)).then(function () {
         console.log('дождались ' + selector);
         SFgo();
     });
@@ -101,7 +101,7 @@ global.waitWhileEqual = function (VarName, mustBe) {
                 SFgo();
             }
         }, 2000);
-    }));
+    }),Dtimeout);
     SFstop();
 };
 global.waitWhileNotEqual = function (VarName, mustNotBe) {
@@ -114,31 +114,31 @@ global.waitWhileNotEqual = function (VarName, mustNotBe) {
                 SFgo();
             }
         }, 2000);
-    }));
+    }),Dtimeout);
     SFstop();
 };
 global.SFclick = function (selector) {
-    driver.wait(driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), Dtimeout)),Dtimeout).click())
+    driver.wait(driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), Dtimeout)),Dtimeout).click(),Dtimeout)
         .then(function () {
             SFgo();
         });
     SFstop();
 };
 global.SFsend = function (selector, text) {
-    driver.wait(driver.wait(until.elementLocated(selector), 10000).sendKeys(text)).then(function () {
+    driver.wait(driver.wait(until.elementLocated(selector), Dtimeout).sendKeys(text),Dtimeout).then(function () {
         SFgo();
     });
     SFstop();
 };
 global.SFclear = function (selector) {
-    driver.wait(driver.wait(until.elementLocated(selector), 10000).clear()).then(function () {
+    driver.wait(driver.wait(until.elementLocated(selector), Dtimeout).clear(),Dtimeout).then(function () {
         SFgo();
     });
     SFstop();
 };
 global.JSclick = function (JQeurySelector) {
     console.log('doing: ' + "$(\"" + JQeurySelector + "\").click();");
-    driver.wait(driver.executeScript("$(\"" + JQeurySelector + "\").click();")).then(function () {
+    driver.wait(driver.executeScript("$(\"" + JQeurySelector + "\").click();"),Dtimeout).then(function () {
         SFgo();
     });
     SFstop();
@@ -146,7 +146,7 @@ global.JSclick = function (JQeurySelector) {
 global.JSselect = function (JQuerySelector, OptionValue) {
     console.log('doing: ' + '$(\'' + JQuerySelector + ' option[value="' + OptionValue + '"]\').attr("selected","selected");');
     driver.wait(driver.executeScript('$(\'' + JQuerySelector + ' option[value="' + OptionValue + '"]\').attr("selected","selected");' +
-        '$(\'' + JQuerySelector + '\').change();'))
+        '$(\'' + JQuerySelector + '\').change();'),Dtimeout)
         .then(function () {
             SFgo();
         });
@@ -157,7 +157,7 @@ global.JSlink = function (JQuerySelector) {
     driver.wait(driver.executeScript("location.assign($('" + JQuerySelector + "').attr(\"href\"));")
         .then(function () {
             SFgo();
-        }));
+        }),Dtimeout);
     SFstop();
 };
 global.JSscroll = function(JQselector){
@@ -168,22 +168,22 @@ global.JSscroll = function(JQselector){
 };
 global.JSstep = function (JSString) {
     console.log('doing: JSStep');
-    driver.wait(driver.executeScript(JSString)).then(function () {
+    driver.wait(driver.executeScript(JSString),Dtimeout).then(function () {
         SFgo();
     });
     SFstop();
 };
 global.SFget = function (URL) {
     console.log('goto ' + URL);
-    driver.wait(driver.get(URL)).then(function () {
+    driver.wait(driver.get(URL),Dtimeout).then(function () {
         SFgo();
     });
     SFstop();
 };
 global.SFselect = function (selector, value) {
     console.log('select ' + selector + '->' + value);
-    driver.wait(until.elementLocated(selector)).click();
-    driver.wait(until.elementLocated(selector)).findElement(selector)
+    driver.wait(until.elementLocated(selector),Dtimeout).click();
+    driver.wait(until.elementLocated(selector),Dtimeout).findElement(selector)
         .findElement(By.xpath('option[@value="' + value + '"]'))
         .click()
         .then(function () {
@@ -219,12 +219,13 @@ global.SFrandomCifra = function (count) {
 global.SFcleanPrice = function (dirtyText) {
     let allow = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     let result = '';
+    let minus=false;
     for (let i = 0; i < dirtyText.length; i++) {
         if (dirtyText[i] in allow) {
             result += dirtyText[i];
-        }
+        } else if (dirtyText[i]=='-') {minus=true;}
     }
-    return parseFloat(result);
+    return minus ? 0-parseFloat(result) : parseFloat(result);
 };
 global.SFFindMonthInString = function (str) {
     for (let i = 0; i < 12; i++) {
@@ -243,7 +244,7 @@ global.SFopenTab = function (numberTab) {
         driver.getWindowHandle().then(function(handle) {
             console.log(handle);
         });
-    })).then(function () {
+    }),Dtimeout).then(function () {
         SFgo();
     });
     SFstop();

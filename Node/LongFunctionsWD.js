@@ -194,23 +194,23 @@ global.LoginToBoardAsCustom = function (login, passwd) {
     SFclick(By.xpath('//button[@type="submit"]'));
     SFwaitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
 };
-global.LoginToAccountAsClient = function () {
+global.LoginToAccountAsClient = function (client) {
     SFsleep(1);
     SFwaitForVisible(By.xpath('//form[@ng-submit="login()"]'));
     SFsleep(1);
-    SFsend(By.xpath('//input[@id="email"]'), V.client.email);
+    SFsend(By.xpath('//input[@id="email"]'), client.email);
     SFsend(By.xpath('//input[@id="password"]'), 123);
     SFclick(By.xpath('//button[@type="submit"]'));
     SFsleep(2);
 };
 global.OpenRequest = function (request) {
 
-    driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), 10000)
+    driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), Dtimeout)
         .getAttribute('class').then(function (classStr) {
-            if (classStr.indexOf('request ng-scope active_row') == -1) {
-                driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')).click();
+            if (classStr.indexOf('active_row') == -1) {
+                driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click();
             }
-            driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')).click();
+            driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click();
             if (!busy) {
                 global.fiber.run();
             }
@@ -315,11 +315,11 @@ global.CreateLoadingHelpFromBoard = function () {
     console.log('создали реквест');
 };
 
-global.RememberDigitsRequestBoard = function () {
+global.RememberDigitsRequestBoard_Up = function () {
 
-    // запомнили все цифры реквеста
-
-    V.boardNumbers = {};
+    if (V.boardNumbers == undefined) {
+        V.boardNumbers = {};
+    }
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
         dateString = dateString.toUpperCase();
         V.boardNumbers.moveDate = {};
@@ -348,78 +348,62 @@ global.RememberDigitsRequestBoard = function () {
     driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Trucks:")]/following-sibling::div[1]')).getText('text').then(function (text) {
         V.boardNumbers.Trucks = SFcleanPrice(text);
     }));
-
-    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Quote:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.QuoteMin = SFcleanPrice(text.substring(0, text.indexOf('$', 3))) / 100;
-        V.boardNumbers.QuoteMax = SFcleanPrice(text.substring(text.indexOf('$', 3))) / 100;
-    }));
-    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.Fuel = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
-    }));
-    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Valuation:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.Valuation = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
-    }));
-    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Packing:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.Packing = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
-    }));
-    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Additional Services:')]/following-sibling::div[2]")).getText().then(function (text) {
-        V.boardNumbers.AdServices = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
-    }));
-    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Discount:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.Discount = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
-    }));
-    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Grand Total:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.TotalMin = SFcleanPrice(text.substring(0, text.indexOf('$', 3))) / 100;
-        V.boardNumbers.TotalMax = SFcleanPrice(text.substring(text.indexOf('$', 3))) / 100;
-    }));
-    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Payment:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.Payment = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
-    }));
-    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Balance:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.BalanceMin = SFcleanPrice(text.substring(0, text.indexOf('$', 3))) / 100;
-        V.boardNumbers.BalanceMax = SFcleanPrice(text.substring(text.indexOf('$', 3))) / 100;
-    }));
-    SFsleep(3);
+    SFsleep(1);
     console.log(V.boardNumbers);
 };
+global.RememberDigitsRequestBoard_Down = function () {
 
-global.RememberDigitsRequestBoard_ClosedRequest = function () {
-
-    V.boardNumbersClosed = {};
-
-    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Quote:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.QuoteMin = SFcleanPrice(text.substring(0, text.indexOf('$', 3))) / 100;
-        V.boardNumbers.QuoteMax = SFcleanPrice(text.substring(text.indexOf('$', 3))) / 100;
-        console.log(text);
+    if (V.boardNumbers == undefined) {
+        V.boardNumbers = {};
+    }
+    driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
+        if (text.indexOf('$', text.indexOf('$')+3)!==-1) {
+            V.boardNumbers.QuoteMin = SFcleanPrice(text.substring(text.indexOf('$'), text.indexOf('$', text.indexOf('$')+3))) / 100;
+            V.boardNumbers.QuoteMax = SFcleanPrice(text.substring(text.indexOf('$', text.indexOf('$')+3))) / 100;
+        } else {
+            V.boardNumbers.Quote = SFcleanPrice(text) / 100;
+        }
     }));
-    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]/following-sibling::div[1]")).getText().then(function (text) {
+    driver.wait(driver.executeScript('return $(\'div.FuelCost:visible\').text()').then(function (text) {
         V.boardNumbers.Fuel = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
     }));
-    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Valuation:')]/following-sibling::div[1]")).getText().then(function (text) {
+    driver.wait(driver.executeScript('return $(\'div.ValuationCost:visible\').text()').then(function (text) {
         V.boardNumbers.Valuation = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
     }));
-    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Packing:')]/following-sibling::div[1]")).getText().then(function (text) {
+    driver.wait(driver.executeScript('return $(\'div.PackingCost:visible\').text()').then(function (text) {
         V.boardNumbers.Packing = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
     }));
-    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Additional Services:')]/following-sibling::div[2]")).getText().then(function (text) {
+    driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
         V.boardNumbers.AdServices = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
     }));
-    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Discount:')]/following-sibling::div[1]")).getText().then(function (text) {
+    driver.wait(driver.executeScript('return $(\'div.DiscountCost:visible\').text()').then(function (text) {
         V.boardNumbers.Discount = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
     }));
-    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-hide'))]/label[contains(text(), 'Grand Total:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.TotalMin = SFcleanPrice(text.substring(0, text.indexOf('$', 3))) / 100;
-        V.boardNumbers.TotalMax = SFcleanPrice(text.substring(text.indexOf('$', 3))) / 100;
+    driver.wait(driver.executeScript('return $(\'div.TotalCost:visible\').text()').then(function (text) {
+        if (text.indexOf('$', text.indexOf('$')+3)!==-1) {
+        V.boardNumbers.TotalMin = SFcleanPrice(text.substring(text.indexOf('$'), text.indexOf('$', text.indexOf('$')+3))) / 100;
+        V.boardNumbers.TotalMax = SFcleanPrice(text.substring(text.indexOf('$', text.indexOf('$')+3))) / 100;
+        } else {
+            V.boardNumbers.Total = SFcleanPrice(text) / 100;
+        }
     }));
-    driver.wait(driver.findElement(By.xpath("//div/label[contains(text(), 'Payment:')]/following-sibling::div[1]")).getText().then(function (text) {
+    driver.wait(driver.executeScript('return $(\'div.PaymentCost:visible\').text()').then(function (text) {
         V.boardNumbers.Payment = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
     }));
-    driver.wait(driver.findElement(By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Balance:')]/following-sibling::div[1]")).getText().then(function (text) {
-        V.boardNumbers.BalanceMin = SFcleanPrice(text.substring(0, text.indexOf('$', 3))) / 100;
-        V.boardNumbers.BalanceMax = SFcleanPrice(text.substring(text.indexOf('$', 3))) / 100;
+    driver.wait(driver.executeScript('return $(\'div.BalanceCost:visible\').text()').then(function (text) {
+        if (text.indexOf('$', text.indexOf('$')+3)!==-1) {
+        V.boardNumbers.BalanceMin = SFcleanPrice(text.substring(text.indexOf('$'), text.indexOf('$', text.indexOf('$')+3))) / 100;
+        V.boardNumbers.BalanceMax = SFcleanPrice(text.substring(text.indexOf('$', text.indexOf('$')+3))) / 100;
+        } else {
+            V.boardNumbers.Balance = SFcleanPrice(text) / 100;
+        }
     }));
-    SFsleep(3);
+    SFsleep(1);
     console.log(V.boardNumbers);
+};
+global.RememberDigitsRequestBoard = function (){
+    RememberDigitsRequestBoard_Up();
+    RememberDigitsRequestBoard_Down();
 };
 
 global.Validation_Compare_Account_Admin = function () {
@@ -446,7 +430,7 @@ global.SetManager = function (name) {
     SFsleep(1);
 };
 global.SetClientPasswd = function () {
-    SFsend(By.xpath('//input[@ng-model="client.password"]'), 123);
+    SFsend(By.xpath('//input[@ng-model="client.password"]'), V.client.passwd);
     SFclick(By.xpath('//button[@ng-click="update(client)"]'));
     SFsleep(3);
 };
@@ -518,8 +502,9 @@ global.PermissionCanSignedSales = function () {
 };
 //Permissions for Sales --- end
 global.closeEditRequest = function () {
-    JSwaitForNotExist('div.toast-success:visible');
-    SFsleep(1);
+    JSwaitForNotExist('div.toast-message');
+    JSwaitForNotExist('div.toast-success');
+    SFsleep(2);
     SFclick(By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep(2);
 }
@@ -596,10 +581,10 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
     var target = futureYear;
     var current='a';
     while (isNaN(current)){
-        driver.wait(driver.findElement(By.xpath('//*[contains(@class,"ui-datepicker-year")]')).getText().then(function(text){
+        driver.wait(driver.wait(until.elementLocated(By.xpath('//span[contains(@class,"ui-datepicker-year")]')),Dtimeout).getText().then(function(text){
             current = Number(text);
             console.log('получил год' + current);
-        }));
+        }),Dtimeout);
         SFsleep(1);
     }
     console.log('current year:' + current + ' tagret:' + target);
@@ -612,10 +597,10 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
         }
         var current='a';
         while (isNaN(current)){
-            driver.wait(driver.findElement(By.xpath('//*[contains(@class,"ui-datepicker-year")]')).getText().then(function(text){
+            driver.wait(driver.wait(until.elementLocated(By.xpath('//*[contains(@class,"ui-datepicker-year")]')),Dtimeout).getText().then(function(text){
                 current = Number(text);
                 console.log('получил год' + current);
-            }));
+            }),Dtimeout);
             SFsleep(1);
         }
         console.log('current year:' + current + ' tagret:' + target);
@@ -638,10 +623,10 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
     };
     var current='a';
     while (isNaN(current)){
-        driver.wait(driver.findElement(By.xpath('//span[@class="ui-datepicker-month"]')).getText().then(function(text){
+        driver.wait(driver.wait(until.elementLocated(By.xpath('//span[@class="ui-datepicker-month"]')),Dtimeout).getText().then(function(text){
             current = monthNumbers[text.toUpperCase()];
             console.log('получил месяц' + current);
-        }));
+        }),Dtimeout);
         SFsleep(1);
     }
     console.log('current Month:' + current + ' tagret:' + target);
@@ -654,10 +639,10 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
         }
         var current='a';
         while (isNaN(current)){
-            driver.wait(driver.findElement(By.xpath('//span[@class="ui-datepicker-month"]')).getText().then(function(text){
+            driver.wait(driver.wait(until.elementLocated(By.xpath('//span[@class="ui-datepicker-month"]')),Dtimeout).getText().then(function(text){
                 current = monthNumbers[text.toUpperCase()];
                 console.log('получил месяц' + current);
-            }));
+            }),Dtimeout);
             SFsleep(1);
         }
         console.log('current Month:' + current + ' tagret:' + target);
