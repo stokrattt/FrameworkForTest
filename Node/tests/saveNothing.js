@@ -26,8 +26,7 @@ function main(){
 
     nowWeDoing='ищем его в not Confirmed, открываем и пытаемся сохранить ничего не изменяя';
     SFclick(By.xpath('//div[@ng-click="vm.select(3)"]'));
-    SFsleep(1);
-    SFwaitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+    SFsleep (5);
     OpenRequest(V.boardNumbers.Id);
     SFclick(By.xpath('//button[@ng-click="UpdateRequest()"]'));
     nowWeDoing='сейчас должно появиться Nothing to Update!';

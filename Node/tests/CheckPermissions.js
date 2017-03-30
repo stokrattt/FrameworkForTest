@@ -63,6 +63,7 @@ function main() {
     SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
 
     SFclick (By.xpath('//a[@ng-click="select(tabs[7])"]'));
+    SFsleep (2);
     driver.findElement(By.xpath('//span[@ng-show="currentManager"]')).getText().then (function (text){
         V.SalesOnSales = text;
     });

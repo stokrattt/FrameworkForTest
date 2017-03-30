@@ -6,10 +6,8 @@ function main() {
     V.client.fam = SFrandomBukva(6) + '_t';
     V.client.phone = SFrandomCifra(10);
     V.client.email = SFrandomBukvaSmall(6) + '@' + SFrandomBukvaSmall(4) + '.tes';
-    var URL = 'http://stage.themoveboard.com/moveBoard/#/login';
-    var accountURL = 'http://stage.themoveboard.com/account/#/login';
-    var adminURL = 'http://stage.themoveboard.com/moveBoard/#/login';
-    SFget(URL);
+
+    SFget(adminURL);
 
     SFsend(By.id('email'), 'TestAdmin');
     SFsend(By.id('password'), 'test');
@@ -21,13 +19,14 @@ function main() {
     SFwaitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SFclick (By.xpath('//a[@ui-sref="settings.schedule"]'));
     SFwaitForVisible (By.xpath('//a[@ui-sref="settings.schedule"]'));
-    SFsleep(1);
+    SFsleep(3);
     V.ReservationPrice = 150;
     SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
+    SFsleep (2);
     SFsend (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), V.ReservationPrice);
-    SFsleep(1);
+    SFsleep(2);
     SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
-    SFsleep(1);
+    SFsleep(2);
     driver.navigate().refresh();
     SFwaitForLocated(By.linkText('Create Request'));
     SFsleep (3);
@@ -54,9 +53,9 @@ function main() {
     SFclick (By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep (5);
     LogoutFromBoardAdmin ();
-    SFget('http://stage.themoveboard.com/account/#/login');
+    SFget(accountURL);
 
-    LoginToAccountAsClient ();
+    LoginToAccountAsClient (V.client.email);
 
     SFwaitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){

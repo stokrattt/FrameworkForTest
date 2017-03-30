@@ -212,6 +212,7 @@ global.OpenRequest = function (request) {
     }
 };
 global.CreateLocalMovingFromBoard = function () {
+    JSwaitForNotExist ('div.busyoverlay:visible');
     SFclick(By.linkText('Create Request'));
     SFsleep(5);
     SFclick(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
@@ -496,9 +497,12 @@ global.closeEditRequest = function () {
     JSwaitForNotExist('div.toast-message');
     JSwaitForNotExist('div.toast-success');
     SFsleep(2);
+    JSwaitForNotExist('div.toast-success:visible');
+    JSwaitForNotExist('div.toast-success');
+    SFsleep(1);
     SFclick(By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep(2);
-}
+};
 global.SelectRequestDispatch = function (request) {
     driver.wait(until.elementLocated(By.xpath('//td[contains(text(),"' + request + '")]/..')), Dtimeout)
         .getAttribute('class').then(function (classStr) {
@@ -556,7 +560,6 @@ global.MakeSignInContract = function () {
 
 global.RememberDateFromRequest = function () {
 
-    // запомнили все цифры реквеста
 
     V.boardNumbers = {};
     driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {

@@ -7,7 +7,7 @@ function main(){
     V.client.email = SFrandomBukvaSmall(6) + '@' + SFrandomBukvaSmall(4) + '.tes';
     V.note = {};
 
-    SFget('http://movecalc.local/moveBoard/#/login');
+    SFget('http://stage.themoveboard.com:8001/moveBoard/#/login');
     LoginToBoardAsAdmin();
     CreateLocalMovingFromBoard();
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
@@ -20,6 +20,7 @@ function main(){
     JSstep(selectTruck);
     SFclick(By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SFwaitForVisible(By.xpath('//div[@class="modal-content"]'));
+    SFsleep (3);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="message.label == \'Notes\'"]')).getText().then(function(resolve) {
       IWant(VToEqual, resolve, 'Notes was update');
     }));
@@ -29,6 +30,7 @@ function main(){
     SFclick (By.xpath('//button[@ng-click="cancel()"]'));
     SFsleep(4);
     OpenRequest(V.request.Id);
+    SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     console.log(V.note);
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(resolve) {
       IWant(VToEqual, resolve, V.note, 'Не совпали заметочки.');

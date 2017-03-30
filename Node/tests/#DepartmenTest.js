@@ -80,8 +80,12 @@ nowWeDoing='Создаем драйвера*************************************
     SFsend (By.xpath('//input[@ng-model="request.lastName"]'), V.driverLastName);
     SFsend(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "drivertest testdriver")]'));
+    JSwaitForNotExist ('div.busyoverlay:visible');
+    SFsleep(1);
+    JSwaitForExist('div.toast-success');
     SFsleep(3);
+    //SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "drivertest testdriver")]'));
+    //SFsleep(3);
 nowWeDoing='Создали драйвера**************************************';
     JSwaitForExist('div.toast-message');
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
@@ -95,8 +99,12 @@ nowWeDoing='Создаем хелпера**************************************'
     SFsend (By.xpath('//input[@ng-model="request.lastName"]'), V.helperLastName);
     SFsend(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "helpertest testhelper")]'));
+    JSwaitForNotExist ('div.busyoverlay:visible');
+    SFsleep(1);
+    JSwaitForExist('div.toast-success');
     SFsleep(3);
+    //SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "helpertest testhelper")]'));
+    //SFsleep(3);
 nowWeDoing='Создали хелпера**************************************';
     JSwaitForExist('div.toast-message');
     SFclick (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
@@ -116,7 +124,9 @@ nowWeDoing='Создаем форемана*************************************
     SFsend (By.xpath('//input[@ng-model="request.password"]'), V.foremanPass);
     SFsend (By.xpath('//input[@ng-model="request.email"]'), V.foremanAccount);
     SFclick (By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "foremantest testforeman")]'));
+   // SFwaitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "foremantest testforeman")]'));
+    JSwaitForNotExist ('div.busyoverlay:visible');
+    SFsleep(1);
     JSwaitForNotExist('div.toast-success');
     SFsleep(3);
 
