@@ -70,7 +70,7 @@ function main() {
     LoginToBoardAsAdmin();
     SFclick(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
     SFwaitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
-    JSstep(findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day));
+    findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
     JSwaitForNotExist('div.busyoverlay:visible');
     SFsleep(1);
     SFclick(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
