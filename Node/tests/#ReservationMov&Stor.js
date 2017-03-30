@@ -35,7 +35,9 @@ function main() {
 
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SFcleanPrice(text);
+        V.arrayForCleaner.push(V.request.Id);
     }));
+
     JSselect ('#edit-status', 2);
     JSstep(selectTruck);
     SFclick (By.xpath('//button[@ng-click="UpdateRequest()"]'));
@@ -55,7 +57,7 @@ function main() {
     LogoutFromBoardAdmin ();
     SFget(accountURL);
 
-    LoginToAccountAsClient (V.client.email);
+    LoginToAccountAsClient (V.client);
 
     SFwaitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
@@ -100,17 +102,6 @@ function main() {
         IWant (VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }));
     LogoutFromAccount ();
-
-
-
-
-
-
-
-
-
-
-
 
     endOfTest();
 }

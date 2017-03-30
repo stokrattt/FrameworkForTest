@@ -212,6 +212,7 @@ global.OpenRequest = function (request) {
     }
 };
 global.CreateLocalMovingFromBoard = function () {
+    JSwaitForNotExist('div.toast-success');
     JSwaitForNotExist ('div.busyoverlay:visible');
     SFclick(By.linkText('Create Request'));
     SFsleep(5);

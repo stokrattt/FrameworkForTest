@@ -61,7 +61,7 @@ function main() {
     LogoutFromBoardAdmin ();
     SFget(accountURL);
 
-    LoginToAccountAsClient (V.client.email);
+    LoginToAccountAsClient (V.client);
 
     SFwaitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){

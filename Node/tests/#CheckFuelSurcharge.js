@@ -7,8 +7,7 @@ function main() {
     V.client.email = SFrandomBukvaSmall(6) + '@' + SFrandomBukvaSmall(4) + '.tes';
 
     global.fiber = Fiber.current;
-    var URL = 'http://stage.themoveboard.com/moveBoard/#/login';
-    SFget(URL);
+    SFget(adminURL);
 
     SFsend(By.id('email'), 'TestAdmin');
     SFsend(By.id('password'), 'test');

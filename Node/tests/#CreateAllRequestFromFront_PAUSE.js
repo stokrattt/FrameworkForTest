@@ -6,11 +6,8 @@ function main() {
     V.client.fam = SFrandomBukva(6) + '_t';
     V.client.phone = SFrandomCifra(10);
     V.client.email = SFrandomBukvaSmall(6) + '@' + SFrandomBukvaSmall(4) + '.tes';
-    var URL = 'http://stage.themoveboard.com/moveBoard/#/login';
-    var accountURL = 'http://stage.themoveboard.com/account/#/login';
-    var adminURL = 'http://stage.themoveboard.com/moveBoard/#/login';
 
-    SFget('http://stage.themoveboard.com');
+    SFget(frontURL);
 
     SFclick (By.xpath('//a[@href="#request"]'));
     SFsleep (2);
