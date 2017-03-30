@@ -36,6 +36,7 @@ function main() {
     JSstep(selectTruck);
 
     RememberDigitsRequestBoard();
+    Debug.pause();
     Validation_Compare_Account_Admin();
 
     SFclick(By.xpath('//a[@ng-click="select(tabs[7])"]'));
@@ -158,7 +159,7 @@ function main() {
         helpersForComission:[]
     };
     driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
-        V.boardNumbers.Payroll.managerForCommission.office = SFcleanPrice(text) / 1000;
+        V.boardNumbers.Payroll.managerForCommission.office = SFcleanPrice(text);
         IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.managerForCommission.office),
             Math.floor(V.boardNumbers.Total
                 - V.boardNumbers.AdServices - V.boardNumbers.Packing - V.boardNumbers.Fuel - V.boardNumbers.Valuation),
@@ -172,7 +173,7 @@ function main() {
     driver.wait(driver.executeScript('return ' +
         '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
     ).then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.Tips = SFcleanPrice(text) / 100;
+        V.boardNumbers.Payroll.foremanForCommission.Tips = SFcleanPrice(text);
         IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.Tips),
             Math.floor(V.boardNumbers.Tips),
             'Не совпал Tips формена');
@@ -180,7 +181,7 @@ function main() {
     driver.wait(driver.executeScript('return ' +
         '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
     ).then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.AdServices = SFcleanPrice(text) / 100;
+        V.boardNumbers.Payroll.foremanForCommission.AdServices = SFcleanPrice(text);
         IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.AdServices),
             Math.floor(V.boardNumbers.AdServices),
             'Не совпал Extras формена');
@@ -188,7 +189,7 @@ function main() {
     driver.wait(driver.executeScript('return ' +
         '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
     ).then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.Packing = SFcleanPrice(text) / 100;
+        V.boardNumbers.Payroll.foremanForCommission.Packing = SFcleanPrice(text);
         IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.Packing),
             Math.floor(V.boardNumbers.Packing),
             'Не совпал Extras формена');

@@ -95,13 +95,13 @@ global.RememberAccountNumbers = function () {
             SFcleanPrice(text.substring(text.indexOf('$', 4)));
     }));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Fuel Surcharge")]/../div[2]')).getText().then(function (text) {
-        V.accountNumbers.Fuel = SFcleanPrice(text) / 100;
+        V.accountNumbers.Fuel = SFcleanPrice(text);
     }));
     driver.wait(driver.executeScript(getServicesCostAccount), Dtimeout).then(function (ServicesText) {
-        V.accountNumbers.AdServices = SFcleanPrice(ServicesText) / 100;
+        V.accountNumbers.AdServices = SFcleanPrice(ServicesText);
     });
     driver.wait(driver.executeScript(getPackingsCostAccount), Dtimeout).then(function (ServicesText) {
-        V.accountNumbers.Packing = SFcleanPrice(ServicesText) / 100;
+        V.accountNumbers.Packing = SFcleanPrice(ServicesText);
     });
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Estimated Travel Time")]/../../div[2]')).getText().then(function (text) {
         let hours = text.indexOf('hrs') == -1 ? 0 : SFcleanPrice(text.substring(0, text.indexOf('hrs')));
@@ -111,18 +111,7 @@ global.RememberAccountNumbers = function () {
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/../div[2]')).getText().then(function (text) {
         let textMin = text.substring(0, text.indexOf('-'));
-        let textMax = text.substring(text.indexOf('-'));
-        let hoursMin = textMin.indexOf('hrs') == -1 ? 0 : SFcleanPrice(textMin.substring(0, textMin.indexOf('hrs')));
-        let minutesMin = textMin.indexOf('min') == -1 ? 0 : SFcleanPrice(textMin.substring((textMin.indexOf('hrs') + 1), textMin.indexOf('min')));
-        V.accountNumbers.LaborTimeMin = hoursMin * 60 + minutesMin;
-        let hoursMax = textMax.indexOf('hrs') == -1 ? 0 : SFcleanPrice(textMax.substring(0, textMax.indexOf('hrs')));
-        let minutesMax = textMax.indexOf('min') == -1 ? 0 : SFcleanPrice(textMax.substring((textMax.indexOf('hrs') + 1), textMax.indexOf('min')));
-        V.accountNumbers.LaborTimeMax = hoursMax * 60 + minutesMax;
-    }));
-
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/../div[2]')).getText().then(function (text) {
-        let textMin = text.substring(0, text.indexOf('-'));
-        let textMax = text.substring(text.indexOf('-'));
+        let textMax = text.substring(text.indexOf('-') + 1);
         let hoursMin = textMin.indexOf('hrs') == -1 ? 0 : SFcleanPrice(textMin.substring(0, textMin.indexOf('hrs')));
         let minutesMin = textMin.indexOf('min') == -1 ? 0 : SFcleanPrice(textMin.substring((textMin.indexOf('hrs') + 1), textMin.indexOf('min')));
         V.accountNumbers.LaborTimeMin = hoursMin * 60 + minutesMin;
@@ -135,8 +124,8 @@ global.RememberAccountNumbers = function () {
         if (text.indexOf("You save") !== -1) {
             let t = text.substring(0, text.indexOf("You save"));
             t = t.substring(t.indexOf('$', t.indexOf('$', t.indexOf('$') + 1) + 1));
-            V.accountNumbers.TotalMin = SFcleanPrice(t.substring(0, t.indexOf('-'))) / 100;
-            V.accountNumbers.TotalMax = SFcleanPrice(t.substring(t.indexOf('-'))) / 100;
+            V.accountNumbers.TotalMin = SFcleanPrice(t.substring(0, t.indexOf('-')));
+            V.accountNumbers.TotalMax = SFcleanPrice(t.substring(t.indexOf('-') + 1));
         } else {
             console.log('ещё не делали без скидок');
         }
@@ -205,17 +194,19 @@ global.LoginToAccountAsClient = function (client) {
 };
 global.OpenRequest = function (request) {
 
-    driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), Dtimeout)
+    driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), Dtimeout)
         .getAttribute('class').then(function (classStr) {
-            if (classStr.indexOf('active_row') == -1) {
-                driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click();
+                if (classStr.indexOf('active_row') == -1) {
+                    driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), Dtimeout);
+                    driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), Dtimeout);
+                } else {
+                    driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), Dtimeout);
+                }
+                if (!busy) {
+                    global.fiber.run();
+                }
             }
-            driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click();
-            if (!busy) {
-                global.fiber.run();
-            }
-        }
-    );
+        ), Dtimeout);
     if (!busy) {
         Fiber.yield();
     }
@@ -357,51 +348,51 @@ global.RememberDigitsRequestBoard_Down = function () {
         V.boardNumbers = {};
     }
     driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
-        if (text.indexOf('$', text.indexOf('$')+3)!==-1) {
-            V.boardNumbers.QuoteMin = SFcleanPrice(text.substring(text.indexOf('$'), text.indexOf('$', text.indexOf('$')+3))) / 100;
-            V.boardNumbers.QuoteMax = SFcleanPrice(text.substring(text.indexOf('$', text.indexOf('$')+3))) / 100;
+        if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
+            V.boardNumbers.QuoteMin = SFcleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+            V.boardNumbers.QuoteMax = SFcleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
         } else {
-            V.boardNumbers.Quote = SFcleanPrice(text) / 100;
+            V.boardNumbers.Quote = SFcleanPrice(text);
         }
     }));
     driver.wait(driver.executeScript('return $(\'div.FuelCost:visible\').text()').then(function (text) {
-        V.boardNumbers.Fuel = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
+        V.boardNumbers.Fuel = SFcleanPrice(text.substring(text.indexOf('$')));
     }));
     driver.wait(driver.executeScript('return $(\'div.ValuationCost:visible\').text()').then(function (text) {
-        V.boardNumbers.Valuation = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
+        V.boardNumbers.Valuation = SFcleanPrice(text.substring(text.indexOf('$')));
     }));
     driver.wait(driver.executeScript('return $(\'div.PackingCost:visible\').text()').then(function (text) {
-        V.boardNumbers.Packing = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
+        V.boardNumbers.Packing = SFcleanPrice(text.substring(text.indexOf('$')));
     }));
     driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
-        V.boardNumbers.AdServices = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
+        V.boardNumbers.AdServices = SFcleanPrice(text.substring(text.indexOf('$')));
     }));
     driver.wait(driver.executeScript('return $(\'div.DiscountCost:visible\').text()').then(function (text) {
-        V.boardNumbers.Discount = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
+        V.boardNumbers.Discount = SFcleanPrice(text.substring(text.indexOf('$')));
     }));
     driver.wait(driver.executeScript('return $(\'div.TotalCost:visible\').text()').then(function (text) {
-        if (text.indexOf('$', text.indexOf('$')+3)!==-1) {
-        V.boardNumbers.TotalMin = SFcleanPrice(text.substring(text.indexOf('$'), text.indexOf('$', text.indexOf('$')+3))) / 100;
-        V.boardNumbers.TotalMax = SFcleanPrice(text.substring(text.indexOf('$', text.indexOf('$')+3))) / 100;
+        if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
+            V.boardNumbers.TotalMin = SFcleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+            V.boardNumbers.TotalMax = SFcleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
         } else {
-            V.boardNumbers.Total = SFcleanPrice(text) / 100;
+            V.boardNumbers.Total = SFcleanPrice(text);
         }
     }));
     driver.wait(driver.executeScript('return $(\'div.PaymentCost:visible\').text()').then(function (text) {
-        V.boardNumbers.Payment = SFcleanPrice(text.substring(text.indexOf('$'))) / 100;
+        V.boardNumbers.Payment = SFcleanPrice(text.substring(text.indexOf('$')));
     }));
     driver.wait(driver.executeScript('return $(\'div.BalanceCost:visible\').text()').then(function (text) {
-        if (text.indexOf('$', text.indexOf('$')+3)!==-1) {
-        V.boardNumbers.BalanceMin = SFcleanPrice(text.substring(text.indexOf('$'), text.indexOf('$', text.indexOf('$')+3))) / 100;
-        V.boardNumbers.BalanceMax = SFcleanPrice(text.substring(text.indexOf('$', text.indexOf('$')+3))) / 100;
+        if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
+            V.boardNumbers.BalanceMin = SFcleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+            V.boardNumbers.BalanceMax = SFcleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
         } else {
-            V.boardNumbers.Balance = SFcleanPrice(text) / 100;
+            V.boardNumbers.Balance = SFcleanPrice(text);
         }
     }));
     SFsleep(1);
     console.log(V.boardNumbers);
 };
-global.RememberDigitsRequestBoard = function (){
+global.RememberDigitsRequestBoard = function () {
     RememberDigitsRequestBoard_Up();
     RememberDigitsRequestBoard_Down();
 };
@@ -579,12 +570,12 @@ global.RememberDateFromRequest = function () {
 
 global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
     var target = futureYear;
-    var current='a';
-    while (isNaN(current)){
-        driver.wait(driver.wait(until.elementLocated(By.xpath('//span[contains(@class,"ui-datepicker-year")]')),Dtimeout).getText().then(function(text){
+    var current = 'a';
+    while (isNaN(current)) {
+        driver.wait(driver.wait(until.elementLocated(By.xpath('//span[contains(@class,"ui-datepicker-year")]')), Dtimeout).getText().then(function (text) {
             current = Number(text);
             console.log('получил год' + current);
-        }),Dtimeout);
+        }), Dtimeout);
         SFsleep(1);
     }
     console.log('current year:' + current + ' tagret:' + target);
@@ -595,12 +586,12 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
         } else {
             SFclick(By.xpath('//a[@data-handler="next"]'));
         }
-        var current='a';
-        while (isNaN(current)){
-            driver.wait(driver.wait(until.elementLocated(By.xpath('//*[contains(@class,"ui-datepicker-year")]')),Dtimeout).getText().then(function(text){
+        var current = 'a';
+        while (isNaN(current)) {
+            driver.wait(driver.wait(until.elementLocated(By.xpath('//*[contains(@class,"ui-datepicker-year")]')), Dtimeout).getText().then(function (text) {
                 current = Number(text);
                 console.log('получил год' + current);
-            }),Dtimeout);
+            }), Dtimeout);
             SFsleep(1);
         }
         console.log('current year:' + current + ' tagret:' + target);
@@ -621,12 +612,12 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
         NOVEMBER: 10,
         DECEMBER: 11
     };
-    var current='a';
-    while (isNaN(current)){
-        driver.wait(driver.wait(until.elementLocated(By.xpath('//span[@class="ui-datepicker-month"]')),Dtimeout).getText().then(function(text){
+    var current = 'a';
+    while (isNaN(current)) {
+        driver.wait(driver.wait(until.elementLocated(By.xpath('//span[@class="ui-datepicker-month"]')), Dtimeout).getText().then(function (text) {
             current = monthNumbers[text.toUpperCase()];
             console.log('получил месяц' + current);
-        }),Dtimeout);
+        }), Dtimeout);
         SFsleep(1);
     }
     console.log('current Month:' + current + ' tagret:' + target);
@@ -637,12 +628,12 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
         } else {
             SFclick(By.xpath('//a[@data-handler="next"]'));
         }
-        var current='a';
-        while (isNaN(current)){
-            driver.wait(driver.wait(until.elementLocated(By.xpath('//span[@class="ui-datepicker-month"]')),Dtimeout).getText().then(function(text){
+        var current = 'a';
+        while (isNaN(current)) {
+            driver.wait(driver.wait(until.elementLocated(By.xpath('//span[@class="ui-datepicker-month"]')), Dtimeout).getText().then(function (text) {
                 current = monthNumbers[text.toUpperCase()];
                 console.log('получил месяц' + current);
-            }),Dtimeout);
+            }), Dtimeout);
             SFsleep(1);
         }
         console.log('current Month:' + current + ' tagret:' + target);

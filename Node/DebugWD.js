@@ -9,7 +9,10 @@ module.exports = {
             //var chunk = process.stdin.read();
             if (chunk !== null) {
                 if ((chunk[0] === '|') && (chunk[1] === '|') && (chunk[2] === '|') && (!recording)) {
-                    busy ? busy = false : Debug.pause();
+                    if (busy) {busy = false;} else {
+                        busy = true;
+                        Debug.pauseWatcher();
+                    }
                 } else if ((chunk[0] === '>') && (chunk[1] === '>') && (chunk[2] === '>') && (!recording)) {
                     recording = true;
                 } else if ((chunk[0] === '<') && (chunk[1] === '<') && (chunk[2] === '<') && (recording)) {
