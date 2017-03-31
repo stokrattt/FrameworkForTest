@@ -36,9 +36,13 @@ function main() {
     JSwaitForNotExist('div.toast-success');
     SFclick(By.xpath('//a[@ng-click="select(tabs[0])"]'));
     SFclick (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
+    JSwaitForNotExist ('div.busyoverlay:visible');
     SFsleep (0.5);
     SFclear (By.xpath('//input[@ng-model="invoice.work_time"]'));
+    JSwaitForNotExist ('div.busyoverlay:visible');
     SFsend (By.xpath('//input[@ng-model="invoice.work_time"]'), '01:00');
+    JSwaitForNotExist ('div.busyoverlay:visible');
+
     SFclick (By.xpath('//div[@ng-click="closeJob();"]'));
     SFsleep (6);
     JSwaitForNotExist ('div.busyoverlay:visible');

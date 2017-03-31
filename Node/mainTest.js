@@ -53,7 +53,7 @@ global.deleteFolderRecursive = function(path) {
         fs.rmdirSync(path);
     }
 };
-global.nowWeDoing = 'something';
+
 webdriver.promise.controlFlow().on('uncaughtException', function (e) {
     driver.wait(driver.takeScreenshot().then(function (image) {
             let exist = fs.existsSync('reports/'+testName);
@@ -111,6 +111,7 @@ myEmitter.on('event', () => {
     if (testN>0) {if (!Success) {testPassed.push('Failed '+testName);} else {testPassed.push('Passed' + testName);}}
     if ((testN < suite.length)&&(!(chainFail&&!Success))) {
         global.Success = false;
+        global.nowWeDoing = 'something';
         console.log('next...'+testN);
         testName = getTestName(suite[testN]);
         deleteFolderRecursive('reports/'+testName);

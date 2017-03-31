@@ -65,6 +65,8 @@ global.AccountLocalAddInventory = function () {
 };
 global.AccountLocalDetails = function () {
     JSclick('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
+    JSwaitForNotExist('div.busyoverlay:visible');
+    SFsleep (2);
     SFselect(By.xpath('//select[@id="current_door_to_parking"]'), 60);
     SFselect(By.xpath('//select[@id="new_door_to_parking"]'), 60);
     SFselect(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
@@ -234,6 +236,7 @@ global.CreateLocalMovingFromBoard = function () {
     JSwaitForNotExist('div.busyoverlay:visible');
     SFsleep(1);
     SFclick(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
+    SFsleep (2);
     SFsend(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
     SFsend(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);
     SFsend(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);

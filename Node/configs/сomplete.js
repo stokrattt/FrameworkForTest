@@ -1,4 +1,7 @@
-global.suite = ['./tests/#WithoutReservationMov&Stor.js',
+global.suite = [ './tests/CheckPermissions.js',
+
+    './tests/CheckBillOfLadding.js',
+
    ];
 global.chainFail = false;
 global.frontURL = 'http://stage.themoveboard.com:8001/front_site/';

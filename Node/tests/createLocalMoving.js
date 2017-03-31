@@ -80,6 +80,8 @@ function main() {
     JSwaitForNotExist('div.busyoverlay:visible');
     SFsleep(1);
     SFclick(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
+    JSwaitForNotExist('div.busyoverlay:visible');
+    SFsleep(1);
     SelectRequestDispatch(V.accountNumbers.Id);
     selectCrew();
     LogoutFromBoardAdmin();
@@ -142,6 +144,8 @@ function main() {
     SFsleep(1);
     SFclick(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     SFselect(By.xpath('//select[@ng-model="vm.reqFilter.type"]'), 0);
+    JSwaitForNotExist('div.busyoverlay:visible');
+    SFsleep(1);
     OpenRequestDispatch(V.accountNumbers.Id);
     JSwaitForExist('label:contains("Balance:"):visible');
 

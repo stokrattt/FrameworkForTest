@@ -35,7 +35,6 @@ function main() {
 
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SFcleanPrice(text);
-        V.arrayForCleaner.push(V.request.Id);
     }));
 
     JSselect ('#edit-status', 2);
