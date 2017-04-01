@@ -36,7 +36,6 @@ function main() {
     JSstep(selectTruck);
 
     RememberDigitsRequestBoard();
-    Debug.pause();
     Validation_Compare_Account_Admin();
 
     SFclick(By.xpath('//a[@ng-click="select(tabs[7])"]'));
