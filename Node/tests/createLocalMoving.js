@@ -156,50 +156,50 @@ function main() {
     SFclick(By.xpath('//div[@ng-click="openSalaryCommisionModal();"]'));
     SFwaitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     JSwaitForNotExist('div.busyoverlay:visible');
-    V.boardNumbers.Payroll = {
-        managerForCommission:{},
-        foremanForCommission:{},
-        helpersForComission:[]
-    };
-    driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
-        V.boardNumbers.Payroll.managerForCommission.office = SFcleanPrice(text);
-        IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.managerForCommission.office),
-            Math.floor(V.boardNumbers.Total
-                - V.boardNumbers.AdServices - V.boardNumbers.Packing - V.boardNumbers.Fuel - V.boardNumbers.Valuation),
-            'Не совпал ForCommission менеджера');
-    }));
-    driver.findElement(By.xpath('//label[@ng-init="calcEmployeesTotal()"]')).getText().then(function(text){
-        V.boardNumbers.Payroll.managerForCommission.total=SFcleanPrice(text);
-    });
-    SFclick(By.xpath('//li[@heading="Foremen"]/a'));
+
+    RememberAndValidatePayroll_In_EditRequest();
+
+    nowWeDoing = 'сейчас идём в пейролл';
+    SFclick(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
+    SFsleep(2);
+    closeEditRequest();
+    SFclick(By.xpath("//button[@ng-click=\"toggleLeft()\"]"));
+    SFclick(By.xpath("//a[@ng-click=\"vm.goToPage('dispatch.local', '')\"]"));
     SFsleep(1);
-    driver.wait(driver.executeScript('return ' +
-        '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
-    ).then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.Tips = SFcleanPrice(text);
-        IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.Tips),
-            Math.floor(V.boardNumbers.Tips),
-            'Не совпал Tips формена');
-    }));
-    driver.wait(driver.executeScript('return ' +
-        '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
-    ).then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.AdServices = SFcleanPrice(text);
-        IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.AdServices),
-            Math.floor(V.boardNumbers.AdServices),
-            'Не совпал Extras формена');
-    }));
-    driver.wait(driver.executeScript('return ' +
-        '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
-    ).then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.Packing = SFcleanPrice(text);
-        IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.Packing),
-            Math.floor(V.boardNumbers.Packing),
-            'Не совпал Extras формена');
-    }));
-    driver.findElement(By.xpath('//label[@ng-init="calcEmployeesTotal()"]')).getText().then(function(text){
-        V.boardNumbers.Payroll.foremanForCommission.total=SFcleanPrice(text);
-    });
+    SFclick(By.xpath("//a[@ui-sref=\"dispatch.payroll\"]"));
+    SFsleep(1);
+    JSwaitForNotExist('div.busyoverlay:visible');
+    findTestForemanInPayroll();
+    selectDateInPayroll(V.boardNumbers.moveDate);
+
+    nowWeDoing = 'выбираем цифры формена';
+    V.payrollNumbers = {
+        Foreman:{}, Sale:{}
+    };
+    driver.wait(driver.executeScript('return $("tr:has(td[ng-click=\\\"editRequest(\'a_job_misc\', id, \'request\')\\\"]:contains(\'' +
+        V.accountNumbers.Id + '\'))' +
+        ' td[ng-click=\\\"editRequest(\'total\', id, \'request\')\\\"]").text()').then(function (text) {
+        V.payrollNumbers.Foreman.Total = SFcleanPrice(text);
+        IWant(VToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
+            'id=' + V.accountNumbers.Id);
+    }), Dtimeout);
+    SFsleep(1);
+
+    SFclick(By.xpath('//a[@ng-click="dTable=\'departments\';employee=\'\'"]'));
+    SFsleep(1);
+    JSwaitForNotExist('div.busyoverlay:visible');
+
+    nowWeDoing = 'выбираем цифры менеджера';
+    findSaleInPayroll('emilia clark');
+    driver.wait(driver.executeScript('return $("tr:has(td[ng-click=\\\"editRequest(\'a_job_misc\', id, \'request\')\\\"]:contains(\'' +
+        V.accountNumbers.Id + '\'))' +
+    ' td[ng-click=\\\"editRequest(\'total\', id, \'request\')\\\"]").text()').then(function (text) {
+        V.payrollNumbers.Sale.Total = SFcleanPrice(text);
+    }), Dtimeout);
+    SFsleep(1);
+
+    IWant(VToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+        'id=' + V.accountNumbers.Id);
 
 
     endOfTest();

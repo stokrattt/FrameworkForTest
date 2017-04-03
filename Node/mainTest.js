@@ -108,9 +108,10 @@ class MyEmitter extends EventEmitter {
 }
 global.myEmitter = new MyEmitter();
 myEmitter.on('event', () => {
-    if (testN>0) {if (!Success) {testPassed.push('Failed '+testName);} else {testPassed.push('Passed' + testName);}}
+    if (testN>0) {if (!Success||NotValid) {testPassed.push('Failed '+testName);} else {testPassed.push('Passed' + testName);}}
     if ((testN < suite.length)&&(!(chainFail&&!Success))) {
         global.Success = false;
+        global.NotValid=false;
         global.nowWeDoing = 'something';
         console.log('next...'+testN);
         testName = getTestName(suite[testN]);

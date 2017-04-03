@@ -375,6 +375,11 @@ global.RememberDigitsRequestBoard_Down = function () {
     driver.wait(driver.executeScript('return $(\'div.DiscountCost:visible\').text()').then(function (text) {
         V.boardNumbers.Discount = SFcleanPrice(text.substring(text.indexOf('$')));
     }));
+    driver.wait(driver.executeScript('return $(\'div.TipsCost:visible input\').val()').then(function (text) {
+        if (text!=null) {
+            V.boardNumbers.Tips = SFcleanPrice(text.substring(text.indexOf('$')));
+        } else {V.boardNumbers.Tips = 0;}
+    }));
     driver.wait(driver.executeScript('return $(\'div.TotalCost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
             V.boardNumbers.TotalMin = SFcleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
@@ -579,7 +584,7 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
     var target = futureYear;
     var current = 'a';
     while (isNaN(current)) {
-        driver.wait(driver.wait(until.elementLocated(By.xpath('//span[contains(@class,"ui-datepicker-year")]')), Dtimeout).getText().then(function (text) {
+        driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-year\').text()'), Dtimeout).then(function (text) {
             current = Number(text);
             console.log('получил год' + current);
         }), Dtimeout);
@@ -595,7 +600,7 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
         }
         var current = 'a';
         while (isNaN(current)) {
-            driver.wait(driver.wait(until.elementLocated(By.xpath('//*[contains(@class,"ui-datepicker-year")]')), Dtimeout).getText().then(function (text) {
+            driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-year\').text()'), Dtimeout).then(function (text) {
                 current = Number(text);
                 console.log('получил год' + current);
             }), Dtimeout);
@@ -621,7 +626,7 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
     };
     var current = 'a';
     while (isNaN(current)) {
-        driver.wait(driver.wait(until.elementLocated(By.xpath('//span[@class="ui-datepicker-month"]')), Dtimeout).getText().then(function (text) {
+        driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-month\').text()'), Dtimeout).then(function (text) {
             current = monthNumbers[text.toUpperCase()];
             console.log('получил месяц' + current);
         }), Dtimeout);
@@ -629,7 +634,7 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
     }
     console.log('current Month:' + current + ' tagret:' + target);
     while (current !== target) {
-        JSwaitForNotExist('div#datePicker-block.disabled')
+        JSwaitForNotExist('div#datePicker-block.disabled');
         if (current > target) {
             SFclick(By.xpath('//a[@data-handler="prev"]'));
         } else {
@@ -637,7 +642,7 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
         }
         var current = 'a';
         while (isNaN(current)) {
-            driver.wait(driver.wait(until.elementLocated(By.xpath('//span[@class="ui-datepicker-month"]')), Dtimeout).getText().then(function (text) {
+            driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-month\').text()'), Dtimeout).then(function (text) {
                 current = monthNumbers[text.toUpperCase()];
                 console.log('получил месяц' + current);
             }), Dtimeout);
@@ -649,4 +654,92 @@ global.findDayInLocalDispatch = function (futureYear, futureMonth, futureDay) {
     var EQ = futureDay;
     JSwaitForNotExist('div#datePicker-block.disabled');
     SFclick(By.xpath('(//td[@data-handler="selectDay"])[' + EQ + ']'));
+};
+global.RememberAndValidatePayroll_In_EditRequest = function(){
+    V.boardNumbers.Payroll = {
+        managerForCommission:{},
+        foremanForCommission:{},
+        helpersForComission:[]
+    };
+    SFsleep(1);
+    driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
+        V.boardNumbers.Payroll.managerForCommission.office = SFcleanPrice(text);
+    }));
+    SFsleep(1);
+    IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.managerForCommission.office),
+        Math.floor(V.boardNumbers.Total
+            - V.boardNumbers.AdServices - V.boardNumbers.Packing - V.boardNumbers.Fuel - V.boardNumbers.Valuation - V.boardNumbers.Tips),
+        'Не совпал ForCommission менеджера');
+
+    driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function(text){
+        V.boardNumbers.Payroll.managerForCommission.total=SFcleanPrice(text);
+    });
+    SFclick(By.xpath('//li[@heading="Foremen"]/a'));
+    driver.wait(driver.executeScript('return ' +
+        '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
+    ).then(function (text) {
+        V.boardNumbers.Payroll.foremanForCommission.Tips = SFcleanPrice(text);
+    }));
+    SFsleep(1);
+    IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.Tips),
+        Math.floor(V.boardNumbers.Tips/V.boardNumbers.CrewSize),
+        'Не совпал Tips формена');
+
+    driver.wait(driver.executeScript('return ' +
+        '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
+    ).then(function (text) {
+        V.boardNumbers.Payroll.foremanForCommission.AdServices = SFcleanPrice(text);
+    }));
+    SFsleep(1);
+    IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.AdServices),
+        Math.floor(V.boardNumbers.AdServices),
+        'Не совпал Extras формена');
+
+    driver.wait(driver.executeScript('return ' +
+        '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
+    ).then(function (text) {
+        V.boardNumbers.Payroll.foremanForCommission.Packing = SFcleanPrice(text);
+    }));
+    SFsleep(1);
+    IWant(VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.Packing),
+        Math.floor(V.boardNumbers.Packing),
+        'Не совпал Packing формена');
+
+    driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function(text){
+        V.boardNumbers.Payroll.foremanForCommission.total=SFcleanPrice(text);
+    });
+};
+global.findTestForemanInPayroll = function(){
+    SFclick(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
+    SFclick(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
+    SFsleep(1);
+    JSwaitForNotExist('div.busyoverlay:visible');
+    SFclick(By.xpath('//table[@id="datatable"]//td[contains(text(),"Test Foreman")]'));
+    SFclick(By.xpath('//table[@id="datatable"]//td[contains(text(),"Test Foreman")]'));
+    SFsleep(1);
+    JSwaitForNotExist('div.busyoverlay:visible');
+    SFsleep(2);
+};
+global.findSaleInPayroll = function(name){
+    SFclick(By.xpath('//table[@id="datatable"]//td[contains(text(),"sales")]'));
+    SFclick(By.xpath('//table[@id="datatable"]//td[contains(text(),"sales")]'));
+    SFsleep(1);
+    JSwaitForNotExist('div.busyoverlay:visible');
+    SFclick(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+name+'")]'));
+    SFclick(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+name+'")]'));
+    SFsleep(1);
+    JSwaitForNotExist('div.busyoverlay:visible');
+    SFsleep(2);
+};
+global.selectDateInPayroll = function(date){
+
+    SFclear(By.xpath('//input[@ng-model="dateRange.from"]'));
+    SFsend(By.xpath('//input[@ng-model="dateRange.from"]'), monthNamesShort[date.Month] +
+        ' '+date.Day+', '+date.Year);
+    SFclear(By.xpath('//input[@ng-model="dateRange.to"]'));
+    SFsend(By.xpath('//input[@ng-model="dateRange.to"]'), monthNamesShort[date.Month] +
+        ' '+date.Day+', '+date.Year);
+    SFclick(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
+    SFsleep(1);
+    JSwaitForNotExist('div.busyoverlay:visible');
 };
