@@ -82,12 +82,12 @@ global.Fiber = require('fibers');
 global.busy = false;
 global.Dtimeout = 25000;
 global.V = {};
-global.Debug = require("./DebugWD.js");
+global.Debug = require("./system/DebugWD.js");
 var GB = require('./constants');
-var SF = require('./ShortFunctionsWD.js');
-var JSs = require('./JSsteps');
-var LF = require('./LongFunctionsWD.js');
-var VD = require('./ValidationsWD');
+var SF = require('./system/ShortFunctionsWD.js');
+var JSs = require('./common/JSsteps');
+var LF = require('./common/LongFunctionsWD.js');
+var VD = require('./system/ValidationsWD');
 if (D) {
     Debug.console();
 }

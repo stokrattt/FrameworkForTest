@@ -1,7 +1,7 @@
-global.suite = [ './tests/CheckPermissions.js',
-
-    './tests/CheckBillOfLadding.js',
-
+global.suite = [ './tests/#ReservationMov&Stor.js', './tests/CheckPermissions.js', './tests/#WithoutReservationMov&Stor.js',
+    './tests/#CheckChangeCubicFitAdmin&AddInventoriy.js', './tests/#CheckFuelSurcharge.js', './tests/#DepartmenTest.js',
+    './tests/createLocalMoving.js', './tests/CheckBillOfLadding.js', './tests/saveNothing.js',
+    './tests/#TestNotes.js'
    ];
 global.chainFail = false;
 global.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
