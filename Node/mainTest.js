@@ -25,15 +25,7 @@ condition.busy = false;
 condition.Success = false;
 condition.NotValid=false;
 condition.nowWeDoing = 'something';
-//condition.MyError = webdriver.error;
 
-//======================check for debug mode=============================
-var attrs = 2;
-if ('-d' == process.argv[attrs]) {
-    console.log('debug enabled')
-    config.D = true;
-    attrs++;
-}
 //=====================set up bebDriver==================================
 var webdriver = require('selenium-webdriver');
 var FileDetector = webdriver.FileDetector;
@@ -41,7 +33,7 @@ var By = webdriver.By;
 var until = webdriver.until;
 
 
-function getNewDriver(){
+function getNewDriver() {
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
     let driverNew = new webdriver.Builder()
 
@@ -50,28 +42,9 @@ function getNewDriver(){
         .build();
 
     driverNew.manage().window().setSize(1400, 800);
-    return driverNew;var constants = require('./common/constants');
-
-var system={};
-system.path = require('path');
-system.fs = require('fs');
-global.Fiber = require('fibers');
-
-var config={};
-config.chainFail = false;
-config.D = false;
-config.timeout = 25000;
-
-var condition={};
-condition.readyForNext = true;
-condition.errorNumber = 0;
-condition.testName = '';
-condition.busy = false;
-condition.Success = false;
-condition.NotValid=false;
-condition.nowWeDoing = 'something';
-//condition.MyError = webdriver.error;
+    return driverNew;
 }
+
 driver = getNewDriver();
 
 function getTestName(string){
@@ -99,6 +72,7 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
     driver.wait(driver.takeScreenshot().then(function (image) {
             let exist = system.fs.existsSync('reports/'+condition.testName);
             if (!exist) {system.fs.mkdirSync('reports/'+condition.testName);}
+        condition.errorNumber++;
         system.fs.writeFile('reports/'+condition.testName + '/' + condition.errorNumber + '.png', image, 'base64', function (err) {
                 console.log(err);
             });
@@ -119,6 +93,13 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
 });
 
 //=================set Up Debug==========================================
+//======================check for debug mode=============================
+var attrs = 2;
+if ('-d' == process.argv[attrs]) {
+    console.log('debug enabled')
+    config.D = true;
+    attrs++;
+}
 var Debug = require("./system/DebugWD.js")(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
 if (config.D) {
     Debug.console();
@@ -158,6 +139,7 @@ system.myEmitter.on('event', () => {
         condition.Success = false;
         condition.NotValid=false;
         condition.nowWeDoing = 'something';
+        condition.errorNumber = 0;
         condition.testName = getTestName(config.suite[condition.testN]);
         console.log('next...'+condition.testN + ' '+condition.testName);
         deleteFolderRecursive('reports/'+condition.testName);
