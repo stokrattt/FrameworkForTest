@@ -14,57 +14,59 @@ module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector,
 
         }
     }
-    return {
-        console: function () {
-            var recording = false;
-            var buffer = '';
-            var args='driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants';
-            process.stdin.setEncoding('utf8');
-            process.stdin.on('data', function (chunk) {
-                //var chunk = process.stdin.read();
-                if (chunk !== null) {
-                    if ((chunk[0] === '|') && (chunk[1] === '|') && (chunk[2] === '|') && (!recording)) {
-                        if (condition.busy) {
-                            condition.busy = false;
-                        } else {
-                            condition.busy = true;
-                            pauseWatcher();
-                        }
-                    } else if ((chunk[0] === '>') && (chunk[1] === '>') && (chunk[2] === '>') && (!recording)) {
-                        recording = true;
-                    } else if ((chunk[0] === '<') && (chunk[1] === '<') && (chunk[2] === '<') && (recording)) {
-                        try {
-                            recording = false;
-                            var newFunc = new Function(args, buffer);
-                            newFunc(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants);
-                        } catch (e) {
-                            console.log('ошибка ' + e);
-                        }
-                        buffer = '';
-                    } else if (recording) {
-                        buffer += chunk;
+    function console() {
+        var recording = false;
+        var buffer = '';
+        var args='driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants';
+        process.stdin.setEncoding('utf8');
+        process.stdin.on('data', function (chunk) {
+            //var chunk = process.stdin.read();
+            if (chunk !== null) {
+                if ((chunk[0] === '|') && (chunk[1] === '|') && (chunk[2] === '|') && (!recording)) {
+                    if (condition.busy) {
+                        condition.busy = false;
+                    } else {
+                        condition.busy = true;
+                        pauseWatcher();
                     }
+                } else if ((chunk[0] === '>') && (chunk[1] === '>') && (chunk[2] === '>') && (!recording)) {
+                    recording = true;
+                } else if ((chunk[0] === '<') && (chunk[1] === '<') && (chunk[2] === '<') && (recording)) {
+                    try {
+                        recording = false;
+                        var newFunc = new Function(args, buffer);
+                        newFunc(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants);
+                    } catch (e) {
+                        console.log('ошибка ' + e);
+                    }
+                    buffer = '';
+                } else if (recording) {
+                    buffer += chunk;
                 }
-            });
-            return true;
-        },
-        pauseWatcher: pauseWatcher,
-        pause: function () {
-            if (config.D) {
-                condition.busy = true;
-                console.log('пауза');
-                driver.wait(new Promise(function (resolve, reject) {
-                    var playTimer = setInterval(function () {
-                        if (!condition.busy) {
-                            resolve("result");
-                            clearInterval(playTimer);
-                            fiber.run();
-                            console.log('играй...');
-                        }
-                    }, 100);
-                }));
-                Fiber.yield();
             }
+        });
+        return true;
+    }
+    function pause() {
+        if (config.D) {
+            condition.busy = true;
+            console.log('пауза');
+            driver.wait(new Promise(function (resolve, reject) {
+                var playTimer = setInterval(function () {
+                    if (!condition.busy) {
+                        resolve("result");
+                        clearInterval(playTimer);
+                        fiber.run();
+                        console.log('играй...');
+                    }
+                }, 100);
+            }));
+            Fiber.yield();
         }
+    }
+    return {
+        console: console,
+        pauseWatcher: pauseWatcher,
+        pause: pause
     }
 };

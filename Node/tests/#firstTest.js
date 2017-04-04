@@ -1,20 +1,17 @@
-function main(){
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
     global.fiber = Fiber.current;
 
-    SFget('http://stage.themoveboard.com/moveBoard/#/login');
-    LoginToBoardAsAdmin();
-    OpenRequest(68251);
+    SF.get('http://stage.themoveboard.com/moveBoard/#/login');
+    LF.LoginToBoardAsAdmin();
+    LF.OpenRequest(68251);
     Debug.pause();
-    JSstep(selectTruck);
+    JS.step(JSstep.selectTruck);
 
-    RememberDigitsRequestBoard();
+    LF.RememberDigitsRequestBoard();
 
-    IWant(VToEqual,V.boardNumbers.Fuel, 82.6,'Фуель не совпал');
+    VD.IWant(VD.VToEqual,V.boardNumbers.Fuel, 82.6,'Фуель не совпал');
 
 
 
-    endOfTest();
-}
-
-//==================================================================================================
-module.exports = main;
+    SF.endOfTest();
+};

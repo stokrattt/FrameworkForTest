@@ -1,2 +1,4 @@
-global.suite = ['./tests/#TestNotes.js'];
-global.chainFail = false;
+module.exports = function(config,V) {
+    config.suite = ['./tests/#TestNotes.js'];
+    config.chainFail = false;
+};

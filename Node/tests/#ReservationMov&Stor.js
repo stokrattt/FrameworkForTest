@@ -1,112 +1,106 @@
-function main() {
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
     global.fiber = Fiber.current;
     V.ReservationPrice = {};
     V.client = {};
-    V.client.name = SFrandomBukva(6) + '_t';
-    V.client.fam = SFrandomBukva(6) + '_t';
-    V.client.phone = SFrandomCifra(10);
-    V.client.email = SFrandomBukvaSmall(6) + '@' + SFrandomBukvaSmall(4) + '.tes';
+    V.client.name = SF.randomBukva(6) + '_t';
+    V.client.fam = SF.randomBukva(6) + '_t';
+    V.client.phone = SF.randomCifra(10);
+    V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
-    SFget(adminURL);
+    SF.get(V.adminURL);
 
-    SFsend(By.id('email'), 'TestAdmin');
-    SFsend(By.id('password'), 'test');
-    JSclick('.btn-primary');
+    SF.send(By.id('email'), 'TestAdmin');
+    SF.send(By.id('password'), 'test');
+    JS.click('.btn-primary');
 
-    SFclick (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SFwaitForLocated (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SFclick (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SFwaitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SFclick (By.xpath('//a[@ui-sref="settings.schedule"]'));
-    SFwaitForVisible (By.xpath('//a[@ui-sref="settings.schedule"]'));
-    SFsleep(3);
+    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
+    SF.waitForLocated (By.xpath('//button[@ng-click="toggleLeft()"]'));
+    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    SF.click (By.xpath('//a[@ui-sref="settings.schedule"]'));
+    SF.waitForVisible (By.xpath('//a[@ui-sref="settings.schedule"]'));
+    SF.sleep(3);
     V.ReservationPrice = 150;
-    SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
-    SFsleep (2);
-    SFsend (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), V.ReservationPrice);
-    SFsleep(2);
-    SFclick (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
-    SFsleep(2);
+    SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
+    SF.sleep (2);
+    SF.send (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), V.ReservationPrice);
+    SF.sleep(2);
+    SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
+    SF.sleep(2);
     driver.navigate().refresh();
-    SFwaitForLocated(By.linkText('Create Request'));
-    SFsleep (3);
+    SF.waitForLocated(By.linkText('Create Request'));
+    SF.sleep (3);
 
-    CreateMovAndStorFromBoard ();
+    LF.CreateMovAndStorFromBoard ();
 
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
-        V.request.Id = SFcleanPrice(text);
+        V.request.Id = SF.cleanPrice(text);
     }));
 
-    JSselect ('#edit-status', 2);
-    JSstep(selectTruck);
-    SFclick (By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SFwaitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SFclick (By.xpath('//button[@ng-click="update(request)"]'));
-    SFsleep (5);
-    SFclick (By.xpath('//a[@ng-click="select(tabs[4])"]'));
-    SFsleep (0.5);
+    JS.select ('#edit-status', 2);
+    JS.step(JSstep.selectTruck);
+    SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
+    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
+    SF.sleep (5);
+    SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
+    SF.sleep (0.5);
     V.client.pass = 123;
-    SFsend (By.id('inputPassword3'), V.client.pass);
-    SFclick (By.xpath('//button[@ng-click="update(client)"]'));
-    SFsleep (3);
-    JSwaitForNotExist('div.toast-success');
+    SF.send (By.id('inputPassword3'), V.client.pass);
+    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    SF.sleep (3);
+    JS.waitForNotExist('div.toast-success');
 
-    SFclick (By.xpath('//button[@ng-click="cancel()"]'));
-    SFsleep (5);
-    LogoutFromBoardAdmin ();
-    SFget(accountURL);
+    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
+    SF.sleep (5);
+    LF.LogoutFromBoardAdmin ();
+    SF.get(accountURL);
 
-    LoginToAccountAsClient (V.client);
+    LF.LoginToAccountAsClient (V.client);
 
-    SFwaitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
+    SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
-        IWant(VToEqual,Status,'Not Confirmed');
+        VD.IWant(VD.VToEqual,Status,'Not Confirmed');
     }));
-    SFclick(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
-    SFsleep(2);
-    SFwaitForVisible (By.xpath('//div[@class="storagehelp"]'));
-    SFclick (By.xpath('//button[@ng-click="cancel()"]'));
-    SFsleep (0.5);
-    SFclick (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
-    SFclick (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
-    SFsleep (0.5);
-    SFclick (By.id('terms'));
-    SFclick (By.id('cancel_policy'));
+    SF.click(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
+    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//div[@class="storagehelp"]'));
+    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
+    SF.sleep (0.5);
+    SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
+    SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
+    SF.sleep (0.5);
+    SF.click (By.id('terms'));
+    SF.click (By.id('cancel_policy'));
     driver.wait(driver.findElement(By.xpath('//div[@class="confirm ng-scope"]')).getText().then(function(deposit){
-        V.DepositReservation = SFcleanPrice (deposit);
+        V.DepositReservation = SF.cleanPrice (deposit);
     }));
-    IWant (VToEqual, V.DepositReservation, V.ReservationPrice, 'Резервация которую мы выставили в настройках не совпадает');
-    SFclick (By.id('paybutton'));
-    SFwaitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SFclick (By.xpath('//button[@class="confirm"]'));
-    SFwaitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
-    SFsend (By.id('edit-moving-from'), 'otkuda edem');
-    SFsend (By.id('edit-moving-from-apt'), 324535);
-    SFclick (By.xpath('//button[@ng-click="update(client)"]'));
-    SFwaitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SFclick (By.xpath('//button[@class="confirm"]'));
-    SFsleep (0.5);
-    SFwaitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SFsleep (0.5);
-    SFclick (By.xpath('//button[@class="confirm"]'));
-    SFsleep (0.5);
+    VD.IWant (VD.VToEqual, V.DepositReservation, V.ReservationPrice, 'Резервация которую мы выставили в настройках не совпадает');
+    SF.click (By.id('paybutton'));
+    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SF.click (By.xpath('//button[@class="confirm"]'));
+    SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
+    SF.send (By.id('edit-moving-from'), 'otkuda edem');
+    SF.send (By.id('edit-moving-from-apt'), 324535);
+    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SF.click (By.xpath('//button[@class="confirm"]'));
+    SF.sleep (0.5);
+    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SF.sleep (0.5);
+    SF.click (By.xpath('//button[@class="confirm"]'));
+    SF.sleep (0.5);
 
-    FillCardPayModal ();
+    LF.FillCardPayModal ();
 
-    SFwaitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
-    JSmakeSign('signatureCanvasReserv');
-    SFclick(By.xpath('//button[@ng-click="saveReservSignature()"]'));
-    SFwaitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
+    SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+    LF.MakeSignJS('signatureCanvasReserv');
+    SF.click(By.xpath('//button[@ng-click="saveReservSignature()"]'));
+    SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-        IWant (VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }));
-    LogoutFromAccount ();
+    LF.LogoutFromAccount ();
 
-    endOfTest();
-}
-
-
-
-//==================================================================================================
-
-module.exports = main;
+    SF.endOfTest();
+};

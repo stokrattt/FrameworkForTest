@@ -1,7 +1,4 @@
-function main(){
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
     global.fiber = Fiber.current;
-    endOfTest();
-}
-
-//==================================================================================================
-module.exports = main;
+    SF.endOfTest();
+};

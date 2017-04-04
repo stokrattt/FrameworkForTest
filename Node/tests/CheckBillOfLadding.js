@@ -1,72 +1,66 @@
-function main() {
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
     global.fiber = Fiber.current;
     V.client = {};
-    V.client.name = SFrandomBukva(6) + '_t';
-    V.client.fam = SFrandomBukva(6) + '_t';
-    V.client.phone = SFrandomCifra(10);
-    V.client.email = SFrandomBukvaSmall(6) + '@' + SFrandomBukvaSmall(4) + '.tes';
+    V.client.name = SF.randomBukva(6) + '_t';
+    V.client.fam = SF.randomBukva(6) + '_t';
+    V.client.phone = SF.randomCifra(10);
+    V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     global.fiber = Fiber.current;
     var URL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
-    SFget(URL);
+    SF.get(URL);
 
-    SFsend(By.id('email'), 'TestAdmin');
-    SFsend(By.id('password'), 'test');
-    JSclick('.btn-primary');
-    SFsleep (3);
-    JSwaitForNotExist ('div.busyoverlay:visible');
-    CreateLocalMovingFromBoard();
-    SFsleep (2);
-    JSstep (selectTruck);
+    SF.send(By.id('email'), 'TestAdmin');
+    SF.send(By.id('password'), 'test');
+    JS.click('.btn-primary');
+    SF.sleep (3);
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    LF.CreateLocalMovingFromBoard();
+    SF.sleep (2);
+    JS.step (selectTruck);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
-        V.request.Id = SFcleanPrice(text);
+        V.request.Id = SF.cleanPrice(text);
     }));
-    JSselect ('#edit-status', 3); // выбор статуса конфермед
-    SFsend (By.id('edit-moving-from'), 2342342342424);
-    SFsend (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
-    SFclick (By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SFwaitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SFclick (By.xpath('//button[@ng-click="update(request)"]'));
-    SFsleep (3);
-    JSwaitForNotExist('div.toast-success');
-    JSwaitForNotExist ('div.busyoverlay:visible');
-    SFclick(By.xpath('//a[@ng-click="select(tabs[7])"]'));
-    SFsleep(1);
-    SetManager('Max');
-    JSwaitForNotExist('div.toast-success');
-    SFclick(By.xpath('//a[@ng-click="select(tabs[0])"]'));
-    SFclick (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-    JSwaitForNotExist ('div.busyoverlay:visible');
-    SFsleep (0.5);
-    SFclear (By.xpath('//input[@ng-model="invoice.work_time"]'));
-    JSwaitForNotExist ('div.busyoverlay:visible');
-    SFsend (By.xpath('//input[@ng-model="invoice.work_time"]'), '01:00');
-    JSwaitForNotExist ('div.busyoverlay:visible');
+    JS.select ('#edit-status', 3); // выбор статуса конфермед
+    SF.send (By.id('edit-moving-from'), 2342342342424);
+    SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
+    SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
+    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
+    SF.sleep (3);
+    JS.waitForNotExist('div.toast-success');
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
+    SF.sleep(1);
+    LF.SetManager('Max');
+    JS.waitForNotExist('div.toast-success');
+    SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
+    SF.click (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    SF.sleep (0.5);
+    SF.clear (By.xpath('//input[@ng-model="invoice.work_time"]'));
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    SF.send (By.xpath('//input[@ng-model="invoice.work_time"]'), '01:00');
+    JS.waitForNotExist ('div.busyoverlay:visible');
 
-    SFclick (By.xpath('//div[@ng-click="closeJob();"]'));
-    SFsleep (6);
-    JSwaitForNotExist ('div.busyoverlay:visible');
-    JSwaitForNotExist('div.toast-success');
+    SF.click (By.xpath('//div[@ng-click="closeJob();"]'));
+    SF.sleep (6);
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    JS.waitForNotExist('div.toast-success');
     driver.findElement(By.xpath('//a[contains(@class,"open_button_contract")]')).click();
-    SFsleep (3);
-    SFopenTab (1);
-    SFsleep (3);
-    JSwaitForNotExist ('div.busyoverlay:visible');
-    SFwaitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SFclick (By.xpath('//button[@class="confirm"]'));
-    SFsleep (0.5);
-    SFclick (By.linkText('Bill of lading'));
-    SFsleep (2);
+    SF.sleep (3);
+    SF.openTab (1);
+    SF.sleep (3);
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SF.click (By.xpath('//button[@class="confirm"]'));
+    SF.sleep (0.5);
+    SF.click (By.linkText('Bill of lading'));
+    SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         text;
-        IWant (VToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
+        VD.IWant (VD.VToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
     }));
 
-    endOfTest();
-}
-
-
-
-//==================================================================================================
-
-module.exports = main;
+    SF.endOfTest();
+};

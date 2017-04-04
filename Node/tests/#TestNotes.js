@@ -1,41 +1,39 @@
-function main(){
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
     global.fiber = Fiber.current;
     V.client = {};
-    V.client.name = SFrandomBukva(6) + '_t';
-    V.client.fam = SFrandomBukva(6) + '_t';
-    V.client.phone = SFrandomCifra(10);
-    V.client.email = SFrandomBukvaSmall(6) + '@' + SFrandomBukvaSmall(4) + '.tes';
+    V.client.name = SF.randomBukva(6) + '_t';
+    V.client.fam = SF.randomBukva(6) + '_t';
+    V.client.phone = SF.randomCifra(10);
+    V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.note = {};
 
-    SFget('http://stage.themoveboard.com:8001/moveBoard/#/login');
-    LoginToBoardAsAdmin();
-    CreateLocalMovingFromBoard();
+    SF.get('http://stage.themoveboard.com:8001/moveBoard/#/login');
+    LF.LoginToBoardAsAdmin();
+    LF.CreateLocalMovingFromBoard();
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
-        V.request.Id = SFcleanPrice(text);
+        V.request.Id = SF.cleanPrice(text);
     }));
-    SFclick(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
-    SFclear(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
-    V.note = SFrandomBukva(7);
-    SFsend(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'), V.note);
-    JSstep(selectTruck);
-    SFclick(By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SFwaitForVisible(By.xpath('//div[@class="modal-content"]'));
-    SFsleep (3);
+    SF.click(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
+    SF.clear(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
+    V.note = SF.randomBukva(7);
+    SF.send(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'), V.note);
+    JS.step(selectTruck);
+    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    SF.waitForVisible(By.xpath('//div[@class="modal-content"]'));
+    SF.sleep (3);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="message.label == \'Notes\'"]')).getText().then(function(resolve) {
-      IWant(VToEqual, resolve, 'Notes was update');
+      VD.IWant(VD.VToEqual, resolve, 'Notes was update');
     }));
-    SFclick(By.xpath('//button[@ng-click="update(request)"]'));
-    JSwaitForNotExist('div.toast-success');
-    SFsleep(4);
-    SFclick (By.xpath('//button[@ng-click="cancel()"]'));
-    SFsleep(4);
-    OpenRequest(V.request.Id);
-    SFwaitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    JS.waitForNotExist('div.toast-success');
+    SF.sleep(4);
+    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
+    SF.sleep(4);
+    LF.OpenRequest(V.request.Id);
+    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     console.log(V.note);
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(resolve) {
-      IWant(VToEqual, resolve, V.note, 'Не совпали заметочки.');
+      VD.IWant(VD.VToEqual, resolve, V.note, 'Не совпали заметочки.');
     }));
-    endOfTest();
-}
-//==================================================================================================
-module.exports = main;
+    SF.endOfTest();
+};
