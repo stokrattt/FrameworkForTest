@@ -159,7 +159,7 @@ system.myEmitter.on('event', () => {
         condition.NotValid=false;
         condition.nowWeDoing = 'something';
         condition.testName = getTestName(config.suite[condition.testN]);
-        console.log('next...'+condition.testN + ' '+config.suite[condition.testN-1]);
+        console.log('next...'+condition.testN + ' '+condition.testName);
         deleteFolderRecursive('reports/'+condition.testName);
         if (driver == null) {driver = getNewDriver();}
         condition.testN++;

@@ -1,44 +1,43 @@
-function main() {
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
     global.fiber = Fiber.current;
     V.client = {};
-    V.client.name = SFrandomBukva(6) + '_t';
-    V.client.fam = SFrandomBukva(6) + '_t';
-    V.client.phone = SFrandomCifra(10);
-    V.client.email = SFrandomBukvaSmall(6) + '@' + SFrandomBukvaSmall(4) + '.tes';
+    V.client.name = SF.randomBukva(6) + '_t';
+    V.client.fam = SF.randomBukva(6) + '_t';
+    V.client.phone = SF.randomCifra(10);
+    V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
-    global.fiber = Fiber.current;
-    SFget(adminURL);
+    SF.get(adminURL);
 
-    SFsend(By.id('email'), 'TestAdmin');
-    SFsend(By.id('password'), 'test');
-    JSclick('.btn-primary');
+    SF.send(By.id('email'), 'TestAdmin');
+    SF.send(By.id('password'), 'test');
+    JS.click('.btn-primary');
 
-    CreateLocalMovingFromBoard();
-    SFsleep (2);
-    RememberDigitsRequestBoard ();
+    LF.CreateLocalMovingFromBoard();
+    SF.sleep (2);
+    LF.RememberDigitsRequestBoard ();
 
 
     //*****************************************************************************
     //считаем бензин
 
-    SFclick (By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]"));
-    SFsleep (3);
+    SF.click (By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]"));
+    SF.sleep (3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_avg"]')).getAttribute('value').then(function(value){
-        V.boardNumbers.FuelPerc = SFcleanPrice(value.replace('%', ''));
+        V.boardNumbers.FuelPerc = SF.cleanPrice(value.replace('%', ''));
     }));
 
-    SFclick (By.xpath("//div[@class='modal-footer']/button[@ng-click='cancel()']"));
-    SFsleep (3);
+    SF.click (By.xpath("//div[@class='modal-footer']/button[@ng-click='cancel()']"));
+    SF.sleep (3);
     V.summQuote = (parseFloat((V.boardNumbers.QuoteMin + V.boardNumbers.QuoteMax)/2)).toFixed(2);
     V.calcFuel = (V.summQuote * V.boardNumbers.FuelPerc/100).toFixed(2);
-    IWant(VToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан неправильно');
+    VD.IWant(VD.VToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан неправильно');
 //*******************************************************************************************
 
 
 
 
 
-    endOfTest();
+    SF.endOfTest();
 }
 
 

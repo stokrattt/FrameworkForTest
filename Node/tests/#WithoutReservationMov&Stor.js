@@ -7,7 +7,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
-    SF.get(adminURL);
+    SF.get(V.adminURL);
 
     SF.send(By.id('email'), 'TestAdmin');
     SF.send(By.id('password'), 'test');
@@ -43,7 +43,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
         V.request.Id = SF.cleanPrice(text);
     }));
     JS.select ('#edit-status', 2);
-    JS.step(selectTruck);
+    JS.step(JSstep.selectTruck);
     SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));
@@ -59,7 +59,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep (5);
     LF.LogoutFromBoardAdmin ();
-    SF.get(accountURL);
+    SF.get(V.accountURL);
 
     LF.LoginToAccountAsClient (V.client);
 
@@ -102,7 +102,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
 
     // возвращаем резервацию на 150
 
-    SF.get(adminURL);
+    SF.get(V.adminURL);
 
     LF.LoginToBoardAsAdmin();
 

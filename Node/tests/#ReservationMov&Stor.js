@@ -54,7 +54,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep (5);
     LF.LogoutFromBoardAdmin ();
-    SF.get(accountURL);
+    SF.get(V.accountURL);
 
     LF.LoginToAccountAsClient (V.client);
 

@@ -6,12 +6,12 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
-    SF.get(frontURL);
-    nowWeDoing = 'заполняем калькулятор верхний';
+    SF.get(V.frontURL);
+    condition.nowWeDoing = 'заполняем калькулятор верхний';
     FullSmallCalcAsLocal(V.client);
 
     console.log("заполнили форму");
-    nowWeDoing = 'первый раз в аккаунте';
+    condition.nowWeDoing = 'первый раз в аккаунте';
     SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(5);
@@ -28,7 +28,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     console.log('закончили с аккаунтом');
 
     condition.nowWeDoing = 'первый раз в админке';
-    SF.get(adminURL);
+    SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbers.Id);
 
@@ -55,7 +55,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
-    SF.get(accountURL);
+    SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     SF.waitForVisible(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
@@ -71,7 +71,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'второй раз в админке, локал диспатч';
-    SF.get(adminURL);
+    SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
     SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));

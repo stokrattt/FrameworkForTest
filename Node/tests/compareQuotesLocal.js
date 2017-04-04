@@ -6,7 +6,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
-    SF.get(frontURL);
+    SF.get(V.frontURL);
     condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
@@ -20,7 +20,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'первый раз в админке';
-    SF.get(adminURL);
+    SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbers.Id);
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));

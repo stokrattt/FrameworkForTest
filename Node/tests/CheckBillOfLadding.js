@@ -17,7 +17,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     JS.waitForNotExist ('div.busyoverlay:visible');
     LF.CreateLocalMovingFromBoard();
     SF.sleep (2);
-    JS.step (selectTruck);
+    JS.step (JSstep.selectTruck);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
     }));
@@ -58,9 +58,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     SF.click (By.linkText('Bill of lading'));
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
-        text;
         VD.IWant (VD.VToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
     }));
-
     SF.endOfTest();
 };
