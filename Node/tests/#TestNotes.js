@@ -17,13 +17,13 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
     V.note = SF.randomBukva(7);
     SF.send(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'), V.note);
-    JS.step(selectTruck);
+    JS.step(JSstep.selectTruck);
     SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible(By.xpath('//div[@class="modal-content"]'));
     SF.sleep (3);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-if="message.label == \'Notes\'"]')).getText().then(function(resolve) {
-      VD.IWant(VD.VToEqual, resolve, 'Notes was update');
-    }));
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="message.label == \'Notes\'"]')).getText().then(function(text) {
+      VD.IWant(VD.VToEqual, text, 'Notes was update');
+    }),config.timeout);
     SF.click(By.xpath('//button[@ng-click="update(request)"]'));
     JS.waitForNotExist('div.toast-success');
     SF.sleep(4);
@@ -32,8 +32,8 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     LF.OpenRequest(V.request.Id);
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     console.log(V.note);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(resolve) {
-      VD.IWant(VD.VToEqual, resolve, V.note, 'Не совпали заметочки.');
-    }));
+    driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
+      VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');
+    }),config.timeout);
     SF.endOfTest();
 };

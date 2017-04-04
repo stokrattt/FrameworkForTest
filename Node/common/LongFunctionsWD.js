@@ -5,7 +5,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
         SF.sleep(2);
         V.frontNumbers = {};
-        driver.wait(driver.executeScript(Click4DaysNewCalendar).then(function (D) {
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
             V.frontNumbers.moveDate = D;
             console.log(V.frontNumbers.moveDate);
         }));
@@ -229,7 +229,6 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
         SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
         SF.send(By.id("edit-zip-code-from"), "02032");
-        Debug.pause();
         SF.send(By.id("edit-zip-code-to"), "02136");
         SF.sleep(5);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));

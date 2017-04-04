@@ -119,7 +119,7 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
 });
 
 //=================set Up Debug==========================================
-var Debug = require("./system/DebugWD.js")(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants);
+var Debug = require("./system/DebugWD.js")(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
 if (config.D) {
     Debug.console();
 }
@@ -136,8 +136,8 @@ for (attrs; attrs < process.argv.length; attrs++) {
 
 //=================================globals again=====================================
 
-var SF = require('./system/ShortFunctionsWD.js')(driver, system, config, By, until,constants);
-var JS = require('./system/JSshortFunctions.js')(driver, system, config, By, until,constants);
+var SF = require('./system/ShortFunctionsWD.js')(driver, system, config, By, until,constants, condition);
+var JS = require('./system/JSshortFunctions.js')(driver, system, config, By, until,constants, condition);
 var JSstep = require('./common/JSsteps');
 var VD = require('./system/ValidationsWD')(system, driver, condition);
 var LF = require('./common/LongFunctionsWD.js')(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,config,constants);

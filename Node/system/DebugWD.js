@@ -1,4 +1,4 @@
-module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants) {
+module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants) {
     function pauseWatcher() {
         if (condition.busy) {
             driver.wait(new Promise(function (resolve, reject) {

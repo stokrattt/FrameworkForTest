@@ -8,7 +8,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
     SF.get(V.frontURL);
     condition.nowWeDoing = 'заполняем калькулятор верхний';
-    FullSmallCalcAsLocal(V.client);
+    LF.FullSmallCalcAsLocal(V.client);
 
     console.log("заполнили форму");
     condition.nowWeDoing = 'первый раз в аккаунте';

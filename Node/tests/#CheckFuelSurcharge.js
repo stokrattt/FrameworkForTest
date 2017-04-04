@@ -32,16 +32,5 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     V.calcFuel = (V.summQuote * V.boardNumbers.FuelPerc/100).toFixed(2);
     VD.IWant(VD.VToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан неправильно');
 //*******************************************************************************************
-
-
-
-
-
     SF.endOfTest();
-}
-
-
-
-//==================================================================================================
-
-module.exports = main;
+};
