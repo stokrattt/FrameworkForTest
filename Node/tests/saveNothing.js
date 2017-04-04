@@ -1,42 +1,38 @@
-function main(){
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
     global.fiber = Fiber.current;
     V.client={};
-    V.client.name = SFrandomBukva(6)+'_t';
-    V.client.fam = SFrandomBukva(6)+'_t';
-    V.client.phone = SFrandomCifra(10);
-    V.client.email = SFrandomBukvaSmall(6)+'@'+SFrandomBukvaSmall(4)+'.tes';
+    V.client.name = SF.randomBukva(6)+'_t';
+    V.client.fam = SF.randomBukva(6)+'_t';
+    V.client.phone = SF.randomCifra(10);
+    V.client.email = SF.randomBukvaSmall(6)+'@'+SF.randomBukvaSmall(4)+'.tes';
     V.boardNumbers={};
 
-    nowWeDoing='создаём реквест';
-    SFget(adminURL);
-    LoginToBoardAsAdmin();
-    CreateLocalMovingFromBoard();
+    condition.nowWeDoing='создаём реквест';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsAdmin();
+    LF.CreateLocalMovingFromBoard();
 
-    nowWeDoing='получаем id, редактируем немного и сохраняем';
+    condition.nowWeDoing='получаем id, редактируем немного и сохраняем';
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
-        V.boardNumbers.Id = SFcleanPrice(text);
+        V.boardNumbers.Id = SF.cleanPrice(text);
     }));
-    JSstep(selectTruck);
-    SFselect(By.xpath('//select[@id="edit-status"]'),2);
-    SFclick(By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    JSwaitForExist('button[ng-click="update(request)"]:visible');
-    SFclick(By.xpath('//button[@ng-click="update(request)"]'));
-    JSwaitForExist("div.toast-success:visible");
-    closeEditRequest();
+    JS.step(JSstep.selectTruck);
+    SF.select(By.xpath('//select[@id="edit-status"]'),2);
+    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    JS.waitForExist('button[ng-click="update(request)"]:visible');
+    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    JS.waitForExist("div.toast-success:visible");
+    LF.closeEditRequest();
 
-    nowWeDoing='ищем его в not Confirmed, открываем и пытаемся сохранить ничего не изменяя';
-    SFclick(By.xpath('//div[@ng-click="vm.select(3)"]'));
-    SFsleep (5);
-    OpenRequest(V.boardNumbers.Id);
-    SFclick(By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    nowWeDoing='сейчас должно появиться Nothing to Update!';
-    JSwaitForExist("h2:contains(\"Nothing to Update!\")");
-    SFsleep(1);
-    SFclick(By.xpath('//button[@class="confirm"]'));
-    SFsleep(1);
-
-    endOfTest();
-}
-
-//==================================================================================================
-module.exports = main;
+    condition.nowWeDoing='ищем его в not Confirmed, открываем и пытаемся сохранить ничего не изменяя';
+    SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
+    SF.sleep (5);
+    LF.OpenRequest(V.boardNumbers.Id);
+    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    condition.nowWeDoing='сейчас должно появиться Nothing to Update!';
+    JS.waitForExist("h2:contains(\"Nothing to Update!\")");
+    SF.sleep(1);
+    SF.click(By.xpath('//button[@class="confirm"]'));
+    SF.sleep(1);
+    SF.endOfTest();
+};

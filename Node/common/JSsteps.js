@@ -1,4 +1,4 @@
-global.Click4DaysNewCalendar = function () {
+exports.Click4DaysNewCalendar = function () {
     var monthNumbers = {
         JANUARY: 0,
         FEBRUARY: 1,
@@ -58,7 +58,7 @@ global.Click4DaysNewCalendar = function () {
     };
 }.toString().substring(12);
 
-global.Click8DaysNewCalendar = function () {
+exports.Click8DaysNewCalendar = function () {
     var monthNumbers = {
         JANUARY: 0,
         FEBRUARY: 1,
@@ -118,7 +118,7 @@ global.Click8DaysNewCalendar = function () {
     };
 }.toString().substring(12);
 
-global.Click4DaysCalendar = function () {
+exports.Click4DaysCalendar = function () {
     var now = new Date();
     var msInDay = 86400000;
     var future = new Date(now.getTime() + msInDay * 4);//4
@@ -142,7 +142,7 @@ global.Click4DaysCalendar = function () {
 
 }.toString().substring(12);
 
-global.Click8DaysCalendar = function () {
+exports.Click8DaysCalendar = function () {
     var now = new Date();
     var msInDay = 86400000;
     var farFuture = new Date(now.getTime() + msInDay * 8);//8
@@ -166,7 +166,7 @@ global.Click8DaysCalendar = function () {
 
 }.toString().substring(12);
 
-global.selectTruck = function () {
+exports.selectTruck = function () {
     var selected = false;
     var trucks = 'div.truckid:visible';
     var lines = 'div.dhx_matrix_line:visible';
@@ -195,7 +195,7 @@ global.selectTruck = function () {
     return selected ? number : -1;
 }.toString().substring(12);
 
-global.getServicesCostAccount = function () {
+exports.getServicesCostAccount = function () {
     var a = $('div[ng-repeat="service in vm.extraServices"]').length;
     if (a > 1) {
         return $('div[ng-repeat="service in vm.extraServices"]:last').next().text();
@@ -203,7 +203,8 @@ global.getServicesCostAccount = function () {
         return $('div[ng-repeat="service in vm.extraServices"]:last').text();
     } else {return '$0'}
 }.toString().substring(12);
-global.getPackingsCostAccount = function () {
+
+exports.getPackingsCostAccount = function () {
     var a = $('div[ng-repeat="packing in vm.packingSettings"]').length;
     if (a > 1) {
         return $('div[ng-repeat="packing in vm.packingSettings"]:last').next().text();
@@ -211,7 +212,8 @@ global.getPackingsCostAccount = function () {
         return $('div[ng-repeat="packing in vm.packingSettings"]:last div:last').text();
     } else {return '$0'}
 }.toString().substring(12);
-global.CheckSumsInContract = function () {
+
+exports.CheckSumsInContract = function () {
     var HowToLook = function (text) {
         console.log('грязный текст:'+text);
         var cifra='';
