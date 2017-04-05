@@ -32,19 +32,16 @@ var FileDetector = webdriver.FileDetector;
 var By = webdriver.By;
 var until = webdriver.until;
 
-
-function getNewDriver(driver) {
+function getNewDriver() {
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
-    global.driver = new webdriver.Builder()
-
+    driver = new webdriver.Builder()
         .usingServer(SELENIUM_HOST)
         .withCapabilities({browserName: 'chrome'})
         .build();
-
-    global.driver.manage().window().setSize(1400, 800);
+    driver.manage().window().setSize(1400, 800);
+    return driver;
 }
-
-getNewDriver();
+global.driver=getNewDriver();
 
 function getTestName(string){
     let pos = 0;
@@ -73,14 +70,15 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
             if (!exist) {system.fs.mkdirSync('reports/'+condition.testName);}
         condition.errorNumber++;
         system.fs.writeFile('reports/'+condition.testName + '/' + condition.errorNumber + '.png', image, 'base64', function (err) {
-                console.log(err);
+                if (err!=null) {console.log(err)};
             });
         system.fs.writeFile('reports/'+condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing+'\n'+e.stack, function (err) {
-                console.log(err);
+                if (err!=null) {console.log(err)};
             });
             console.log('сделали скрин');
             console.log('Произошла ошибка: ', e);
             if (!config.D) {
+                driver.quit();
                 system.myEmitter.emit('event');
             }
 
@@ -139,7 +137,7 @@ system.myEmitter.on('event', () => {
         condition.testName = getTestName(config.suite[condition.testN]);
         console.log('next...'+condition.testN + ' '+condition.testName);
         deleteFolderRecursive('reports/'+condition.testName);
-        if (condition.testN>0) {getNewDriver();}
+        if (condition.testN>0) {driver=getNewDriver();}
         condition.testN++;
         Fiber(function(){require(config.suite[condition.testN-1])
         (SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF, config,constants);}).run();

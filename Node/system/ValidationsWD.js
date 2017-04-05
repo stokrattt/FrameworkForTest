@@ -18,10 +18,10 @@ module.exports = function (system, condition) {
                     condition.errorNumber++;
                     var temp = 3;
                     system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.png', image, 'base64', function (err) {
-                        console.log(err);
+                        if (err!=null) {console.log(err)};
                     });
                     system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing + '\n' + e.stack, function (err) {
-                        console.log(err);
+                        if (err!=null) {console.log(err)};
                     });
                     console.log('сделали скрин');
                     console.log('Ошибка валидации: ', e);
