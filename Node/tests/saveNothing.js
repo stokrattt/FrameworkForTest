@@ -1,4 +1,4 @@
-module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants){
     global.fiber = Fiber.current;
     V.client={};
     V.client.name = SF.randomBukva(6)+'_t';
@@ -28,7 +28,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
     SF.sleep (5);
     LF.OpenRequest(V.boardNumbers.Id);
-    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    JS.click('button[ng-click=\\"UpdateRequest()\\"]');
     condition.nowWeDoing='сейчас должно появиться Nothing to Update!';
     JS.waitForExist("h2:contains(\"Nothing to Update!\")");
     SF.sleep(1);

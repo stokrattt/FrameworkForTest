@@ -24,7 +24,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     JS.select ('#edit-status', 3); // выбор статуса конфермед
     SF.send (By.id('edit-moving-from'), 2342342342424);
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
-    SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    JS.click ('button[ng-click=\\"UpdateRequest()\\"]');
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));
     SF.sleep (3);

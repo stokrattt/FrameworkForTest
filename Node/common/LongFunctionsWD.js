@@ -156,8 +156,9 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.sleep(5);
     };
     function LogoutFromBoardForeman() {
-        JS.waitForNotExist('div.toast-success');
-        JS.waitForNotExist('div.toast-message');
+        JS.waitForNotExist('div.toast-success:visible');
+        JS.waitForNotExist('div.toast-message:visible');
+        SF.sleep(2);
         JS.scroll('li.dropdown.profile:visible');
         SF.click(By.xpath('//li[contains(@class,"dropdown") and contains(@class,"profile")]/a[contains(@class,"dropdown-toggle")]'));
         SF.sleep(1);
@@ -212,6 +213,8 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         if (!condition.busy) {
             Fiber.yield();
         }
+        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+        SF.sleep(2);
     };
     function CreateLocalMovingFromBoard() {
         JS.waitForNotExist('div.toast-success');
@@ -567,20 +570,21 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.sleep(2);
     };
     function RememberDateFromRequest() {
-        V.boardNumbers = {};
-        driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
+        if (V.boardNumbers==undefined) {V.boardNumbers = {};}
+        driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
             dateString = dateString.toUpperCase();
             V.boardNumbers.moveDate = {};
             V.boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);
             V.boardNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
             V.boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
-        });
+        }),config.timeout);
+        SF.sleep(1);
     };
     function findDayInLocalDispatch(futureYear, futureMonth, futureDay) {
         var target = futureYear;
         var current = 'a';
         while (isNaN(current)) {
-            driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-year\').text()'), config.timeout).then(function (text) {
+            driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-year:visible\').text()'), config.timeout).then(function (text) {
                 current = Number(text);
                 console.log('получил год' + current);
             }), config.timeout);
@@ -596,7 +600,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
             }
             var current = 'a';
             while (isNaN(current)) {
-                driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-year\').text()'), config.timeout).then(function (text) {
+                driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-year:visible\').text()'), config.timeout).then(function (text) {
                     current = Number(text);
                     console.log('получил год' + current);
                 }), config.timeout);
@@ -608,7 +612,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         target = futureMonth;
         var current = 'a';
         while (isNaN(current)) {
-            driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-month\').text()'), config.timeout).then(function (text) {
+            driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-month:visible\').text()'), config.timeout).then(function (text) {
                 current = constants.monthNumbers[text.toUpperCase()];
                 console.log('получил месяц' + current);
             }), config.timeout);
@@ -624,7 +628,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
             }
             var current = 'a';
             while (isNaN(current)) {
-                driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-month\').text()'), config.timeout).then(function (text) {
+                driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-month:visible\').text()'), config.timeout).then(function (text) {
                     current = constants.monthNumbers[text.toUpperCase()];
                     console.log('получил месяц' + current);
                 }), config.timeout);

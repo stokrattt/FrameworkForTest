@@ -1,13 +1,13 @@
 module.exports = function (driver, system, config, By, until, constants, condition, Debug) {
     var SFstop = function () {
         if (!condition.busy) {
-            //console.log('yield');
+            if (config.D) {console.log('yield');}
             Fiber.yield();
         }
     };
     var SFgo = function () {
         if (!condition.busy) {
-            //console.log('run');
+            if (config.D) {console.log('run');}
             fiber.run();
         }
     };

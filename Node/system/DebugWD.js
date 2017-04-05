@@ -1,6 +1,7 @@
 module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants) {
     function pauseWatcher() {
         if (condition.busy) {
+            console.log('пауза');
             driver.wait(new Promise(function (resolve, reject) {
                 var playTimer = setInterval(function () {
                     // переведёт промис в состояние fulfilled с результатом "result"
@@ -17,7 +18,7 @@ module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector,
     function WDconsole() {
         var recording = false;
         var buffer = '';
-        var args='driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants';
+        var args='driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition,LF,config,constants';
         process.stdin.setEncoding('utf8');
         process.stdin.on('data', function (chunk) {
             //var chunk = process.stdin.read();
@@ -35,7 +36,7 @@ module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector,
                     try {
                         recording = false;
                         var newFunc = new Function(args, buffer);
-                        newFunc(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants);
+                        newFunc(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition,LF,config,constants);
                     } catch (e) {
                         console.log('ошибка ' + e);
                     }

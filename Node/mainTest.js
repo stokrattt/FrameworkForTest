@@ -54,7 +54,7 @@ function getTestName(string){
 }
 
 
-global.deleteFolderRecursive = function(path) {
+var deleteFolderRecursive = function(path) {
     if( system.fs.existsSync(path) ) {
         system.fs.readdirSync(path).forEach(function(file,index){
             var curPath = path + "/" + file;
@@ -88,23 +88,31 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
     }));
     if (config.D) {
         condition.busy = true;
+        console.log('пауза');
         Debug.pauseWatcher();
     }
 });
+
+//=================================globals again=====================================
+
+SF = require('./system/ShortFunctionsWD.js')(driver, system, config, By, until,constants, condition);
+JS = require('./system/JSshortFunctions.js')(driver, system, config, By, until,constants, condition);
+JSstep = require('./common/JSsteps');
+VD = require('./system/ValidationsWD')(system, driver, condition);
+LF = require('./common/LongFunctionsWD.js')(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);
 
 //=================set Up Debug==========================================
 //======================check for debug mode=============================
 var attrs = 2;
 if ('-d' == process.argv[attrs]) {
-    console.log('debug enabled')
+    console.log('debug enabled');
     config.D = true;
     attrs++;
 }
-var Debug = require("./system/DebugWD.js")(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
+global.Debug = require("./system/DebugWD.js")(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
 if (config.D) {
     Debug.WDconsole();
 }
-
 
 //=================reading parametres from CLI===========================
 for (attrs; attrs < process.argv.length; attrs++) {
@@ -114,16 +122,6 @@ for (attrs; attrs < process.argv.length; attrs++) {
         require('./configs/'+process.argv[attrs].substring(process.argv[attrs].indexOf(':') + 1))(config,V);
     }
 }
-
-//=================================globals again=====================================
-
-var SF = require('./system/ShortFunctionsWD.js')(driver, system, config, By, until,constants, condition, Debug);
-var JS = require('./system/JSshortFunctions.js')(driver, system, config, By, until,constants, condition);
-var JSstep = require('./common/JSsteps');
-var VD = require('./system/ValidationsWD')(system, driver, condition);
-var LF = require('./common/LongFunctionsWD.js')(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,config,constants);
-
-
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 var testPassed=[];
@@ -146,7 +144,7 @@ system.myEmitter.on('event', () => {
         if (driver == null) {driver = getNewDriver();}
         condition.testN++;
         Fiber(function(){require(config.suite[condition.testN-1])
-        (driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants);}).run();
+        (driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);}).run();
     } else {
         if (driver!==null){
             driver.quit();

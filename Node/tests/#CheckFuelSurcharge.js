@@ -6,7 +6,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
-    SF.get(adminURL);
+    SF.get(V.adminURL);
 
     SF.send(By.id('email'), 'TestAdmin');
     SF.send(By.id('password'), 'test');

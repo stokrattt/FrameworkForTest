@@ -1,5 +1,6 @@
 module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
     global.fiber = Fiber.current;
+ //   V.boardNumbers={moveDate:{}};
     V.client = {};
     V.client.name = SF.randomBukva(6) + '_t';
     V.client.fam = SF.randomBukva(6) + '_t';
@@ -21,7 +22,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//a[@ui-sref="settings.department"]'));
     SF.waitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
     SF.sleep(3);
-    condition.busy='Создаем менеджера***********************************************';
+    condition.nowWeDoing='Создаем менеджера***********************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
     V.managerFirstName = "mantest";
@@ -164,6 +165,7 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     SF.waitForLocated(By.id('datatable'));
     SF.sleep (3);
 
+
     LF.LogoutFromBoardForeman ();
 
     SF.send(By.id('email'), 'roma4ke');
@@ -178,10 +180,11 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     JS.select ('#edit-status', 3);
     SF.send (By.id('edit-moving-from'), 2342342342424);
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
-    JS.step (selectTruck);
+    JS.step (JSstep.selectTruck);
+
     LF.RememberDateFromRequest();
 
-    SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    JS.click ("button[ng-click=\\\"UpdateRequest()\\\"]");
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));
     SF.sleep (5);
@@ -221,43 +224,78 @@ condition.nowWeDoing='зашли в настройки департмента';
     SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SF.click (By.xpath('//a[@ui-sref="settings.department"]'));
     SF.waitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(2);
 
 condition.nowWeDoing='идем удалять форемана';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
     SF.sleep(2);
-    driver.executeScript("$('.mdDataTable tbody tr td:contains(\"foremantest testforeman\")').dblclick();");
+    driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"foremantest testforeman\")').dblclick();"),config.timeout);
     SF.sleep (2);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
     JS.waitForNotExist('div.toast-message');
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep (2);
 
 condition.nowWeDoing='идем удалять хелпера';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
     SF.sleep(2);
-    driver.executeScript("$('.mdDataTable tbody tr td:contains(\"helpertest testhelper\")').dblclick();");
-    SF.sleep (2);
-    SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    JS.waitForNotExist('div.toast-message');
-    SF.sleep (2);
+    let count=0;
+    JS.waitForNotExist('div.busyoverlay:visible');
+    driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"helpertest testhelper\")').length;").then(function(c){
+        count=c;
+    }),config.timeout);
+    SF.sleep(0.5);
+    console.log(count);
+    while (count>0){
+        driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"helpertest testhelper\"):eq(0)').dblclick();"),config.timeout);
+        SF.sleep (2);
+        SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
+        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+        SF.click (By.xpath('//button[@class="confirm"]'));
+        JS.waitForNotExist('div.toast-message');
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep (2);
+        driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"helpertest testhelper\")').length;").then(function(c){
+            count=c;
+        }),config.timeout);
+        SF.sleep(1);
+        console.log(count);
+    }
+    JS.waitForNotExist('div.busyoverlay:visible');
+    SFsleep(1);
 
 condition.nowWeDoing='идем удалять драйвера';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SF.sleep(2);
-    driver.executeScript("$('.mdDataTable tbody tr td:contains(\"drivertest testdriver\")').dblclick();");
-    SF.sleep (2);
-    SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    JS.waitForNotExist('div.toast-message');
-    SF.sleep (2);
+    count=0;
+    JS.waitForNotExist('div.busyoverlay:visible');
+    driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"drivertest testdriver\")').length;").then(function(c){
+        count=c;
+    }),config.timeout);
+    SF.sleep(0.5);
+    console.log(count);
+    while (count>0){
+        driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"drivertest testdriver\"):eq(0)').dblclick();"),config.timeout);
+        SF.sleep (2);
+        SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
+        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+        SF.click (By.xpath('//button[@class="confirm"]'));
+        JS.waitForNotExist('div.toast-message');
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep (2);
+        driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"drivertest testdriver\")').length;").then(function(c){
+            count=c;
+        }),config.timeout);
+        SF.sleep(1);
+        console.log(count);
+    }
+    SFsleep(1);
 
 condition.nowWeDoing='идем удалять сейлса';
 
