@@ -1,4 +1,4 @@
-module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants){
     global.fiber = Fiber.current;
     V.ReservationPrice = {};
     V.client = {};
@@ -12,6 +12,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     SF.send(By.id('email'), 'TestAdmin');
     SF.send(By.id('password'), 'test');
     JS.click('.btn-primary');
+    SF.sleep(2);
 
     SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.waitForLocated (By.xpath('//button[@ng-click="toggleLeft()"]'));
@@ -83,9 +84,17 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     SF.send (By.id('edit-moving-from'), 'otkuda edem');
     SF.send (By.id('edit-moving-from-apt'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+
+    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SF.click (By.xpath('//button[@class="confirm"]'));
+
+    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SF.click (By.xpath('//button[@class="confirm"]'));
+
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
-    SF.click(By.xpath('//button[@ng-click="saveReservSignature()"]'));
+    SF.sleep(0.5)
+    SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();
     SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));

@@ -1,4 +1,4 @@
-module.exports = function (driver, system, config, By, until, constants, condition, Debug) {
+module.exports = function (driver, system, config, By, until, constants, condition) {
     var SFstop = function () {
         if (!condition.busy) {
             if (config.D) {console.log('yield');}

@@ -1,4 +1,4 @@
-module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants){
     global.fiber = Fiber.current;
     V.client = {};
     V.client.name = SF.randomBukva(6) + '_t';
@@ -7,7 +7,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.note = {};
 
-    SF.get('http://stage.themoveboard.com:8001/moveBoard/#/login');
+    SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     LF.CreateLocalMovingFromBoard();
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){

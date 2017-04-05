@@ -144,7 +144,7 @@ system.myEmitter.on('event', () => {
         if (driver == null) {driver = getNewDriver();}
         condition.testN++;
         Fiber(function(){require(config.suite[condition.testN-1])
-        (driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);}).run();
+        (driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF, config,constants);}).run();
     } else {
         if (driver!==null){
             driver.quit();

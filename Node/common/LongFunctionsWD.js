@@ -1,4 +1,4 @@
-module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,config, constants) {
+module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config, constants) {
     function FullSmallCalcAsLocal(client) {
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");

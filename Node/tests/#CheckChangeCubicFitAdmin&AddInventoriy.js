@@ -1,4 +1,4 @@
-module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants){
     global.fiber = Fiber.current;
     V.client = {};
     V.client.name = SF.randomBukva(6) + '_t';
@@ -6,8 +6,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
-    var URL = 'http://stage.themoveboard.com/moveBoard/#/login';
-    SF.get(URL);
+    SF.get(V.adminURL);
 
     SF.send(By.id('email'), 'TestAdmin');
     SF.send(By.id('password'), 'test');

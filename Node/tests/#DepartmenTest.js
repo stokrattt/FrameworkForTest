@@ -1,4 +1,4 @@
-module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config, constants){
     global.fiber = Fiber.current;
  //   V.boardNumbers={moveDate:{}};
     V.client = {};
@@ -6,10 +6,8 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    V.SalesLogin = ('jack2@ya.com');
-    V.SalesPass = ('123');
-    var URL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
-    SF.get(URL);
+
+    SF.get(V.adminURL);
 
     SF.send(By.id('email'), 'roma4ke');
     SF.send(By.id('password'), 'root');
@@ -267,7 +265,7 @@ condition.nowWeDoing='идем удалять хелпера';
         console.log(count);
     }
     JS.waitForNotExist('div.busyoverlay:visible');
-    SFsleep(1);
+    SF.sleep(1);
 
 condition.nowWeDoing='идем удалять драйвера';
 
@@ -295,7 +293,7 @@ condition.nowWeDoing='идем удалять драйвера';
         SF.sleep(1);
         console.log(count);
     }
-    SFsleep(1);
+    SF.sleep(1);
 
 condition.nowWeDoing='идем удалять сейлса';
 
