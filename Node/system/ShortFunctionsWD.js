@@ -1,4 +1,4 @@
-module.exports = function (driver, system, config, By, until, constants, condition) {
+module.exports = function (driver, system, config, By, until, constants, condition, Debug) {
     var SFstop = function () {
         if (!condition.busy) {
             //console.log('yield');
@@ -168,7 +168,7 @@ module.exports = function (driver, system, config, By, until, constants, conditi
         },
         FindMonthInString: function (str) {
             for (let i = 0; i < 12; i++) {
-                if (str.indexOf(monthNames[i]) != -1) {
+                if (str.indexOf(constants.monthNames[i]) != -1) {
                     return i;
                 }
             }

@@ -20,7 +20,7 @@ module.exports = function (system, driver, condition) {
                     system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.png', image, 'base64', function (err) {
                         console.log(err);
                     });
-                    system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing + '\n' + e, function (err) {
+                    system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing + '\n' + e.stack, function (err) {
                         console.log(err);
                     });
                     console.log('сделали скрин');

@@ -76,7 +76,7 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
         system.fs.writeFile('reports/'+condition.testName + '/' + condition.errorNumber + '.png', image, 'base64', function (err) {
                 console.log(err);
             });
-        system.fs.writeFile('reports/'+condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing+'\n'+e, function (err) {
+        system.fs.writeFile('reports/'+condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing+'\n'+e.stack, function (err) {
                 console.log(err);
             });
             console.log('сделали скрин');
@@ -102,7 +102,7 @@ if ('-d' == process.argv[attrs]) {
 }
 var Debug = require("./system/DebugWD.js")(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
 if (config.D) {
-    Debug.console();
+    Debug.WDconsole();
 }
 
 
@@ -117,7 +117,7 @@ for (attrs; attrs < process.argv.length; attrs++) {
 
 //=================================globals again=====================================
 
-var SF = require('./system/ShortFunctionsWD.js')(driver, system, config, By, until,constants, condition);
+var SF = require('./system/ShortFunctionsWD.js')(driver, system, config, By, until,constants, condition, Debug);
 var JS = require('./system/JSshortFunctions.js')(driver, system, config, By, until,constants, condition);
 var JSstep = require('./common/JSsteps');
 var VD = require('./system/ValidationsWD')(system, driver, condition);

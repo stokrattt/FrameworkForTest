@@ -606,24 +606,10 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         }
         console.log('выбрали год');
         target = futureMonth;
-        var monthNumbers = {
-            JANUARY: 0,
-            FEBRUARY: 1,
-            MARCH: 2,
-            APRIL: 3,
-            MAY: 4,
-            JUNE: 5,
-            JULY: 6,
-            AUGUST: 7,
-            SEPTEMBER: 8,
-            OCTOBER: 9,
-            NOVEMBER: 10,
-            DECEMBER: 11
-        };
         var current = 'a';
         while (isNaN(current)) {
             driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-month\').text()'), config.timeout).then(function (text) {
-                current = monthNumbers[text.toUpperCase()];
+                current = constants.monthNumbers[text.toUpperCase()];
                 console.log('получил месяц' + current);
             }), config.timeout);
             SF.sleep(1);
@@ -639,7 +625,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
             var current = 'a';
             while (isNaN(current)) {
                 driver.wait(driver.wait(driver.executeScript('return $(\'span.ui-datepicker-month\').text()'), config.timeout).then(function (text) {
-                    current = monthNumbers[text.toUpperCase()];
+                    current = constants.monthNumbers[text.toUpperCase()];
                     console.log('получил месяц' + current);
                 }), config.timeout);
                 SF.sleep(1);
@@ -730,10 +716,10 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
     function selectDateInPayroll(date) {
 
         SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));
-        SF.send(By.xpath('//input[@ng-model="dateRange.from"]'), monthNamesShort[date.Month] +
+        SF.send(By.xpath('//input[@ng-model="dateRange.from"]'), constants.monthNamesShort[date.Month] +
             ' ' + date.Day + ', ' + date.Year);
         SF.clear(By.xpath('//input[@ng-model="dateRange.to"]'));
-        SF.send(By.xpath('//input[@ng-model="dateRange.to"]'), monthNamesShort[date.Month] +
+        SF.send(By.xpath('//input[@ng-model="dateRange.to"]'), constants.monthNamesShort[date.Month] +
             ' ' + date.Day + ', ' + date.Year);
         SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
         SF.sleep(1);

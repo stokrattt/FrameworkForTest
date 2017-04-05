@@ -14,7 +14,7 @@ module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector,
 
         }
     }
-    function console() {
+    function WDconsole() {
         var recording = false;
         var buffer = '';
         var args='driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants';
@@ -65,7 +65,7 @@ module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector,
         }
     }
     return {
-        console: console,
+        WDconsole: WDconsole,
         pauseWatcher: pauseWatcher,
         pause: pause
     }
