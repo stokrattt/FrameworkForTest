@@ -140,7 +140,7 @@ system.myEmitter.on('event', () => {
         condition.testName = getTestName(config.suite[condition.testN]);
         console.log('next...'+condition.testN + ' '+condition.testName);
         deleteFolderRecursive('reports/'+condition.testName);
-        if (driver == null) {driver = getNewDriver();}
+        if (testN>0) {driver = getNewDriver();}
         condition.testN++;
         Fiber(function(){require(config.suite[condition.testN-1])
         (driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF, config,constants);}).run();
