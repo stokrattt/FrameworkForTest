@@ -1,4 +1,4 @@
-module.exports = function (driver, system, config, By, until, constants, condition) {
+module.exports = function (system, config, By, until, constants, condition) {
     function SFstop() {
         if (!condition.busy) {
             if (config.D) {

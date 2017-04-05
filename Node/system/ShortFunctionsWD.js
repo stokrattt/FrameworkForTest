@@ -1,4 +1,4 @@
-module.exports = function (driver, system, config, By, until, constants, condition) {
+module.exports = function (system, config, By, until, constants, condition) {
     var SFstop = function () {
         if (!condition.busy) {
             if (config.D) {console.log('yield');}
@@ -17,7 +17,6 @@ module.exports = function (driver, system, config, By, until, constants, conditi
                 Debug.pause();
             } else {
                 driver.quit();
-                driver=null;
                 condition.Success = true;
                 system.myEmitter.emit('event');
             }

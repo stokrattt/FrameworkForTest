@@ -33,19 +33,18 @@ var By = webdriver.By;
 var until = webdriver.until;
 
 
-function getNewDriver() {
+function getNewDriver(driver) {
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
-    let driverNew = new webdriver.Builder()
+    global.driver = new webdriver.Builder()
 
         .usingServer(SELENIUM_HOST)
         .withCapabilities({browserName: 'chrome'})
         .build();
 
-    driverNew.manage().window().setSize(1400, 800);
-    return driverNew;
+    global.driver.manage().window().setSize(1400, 800);
 }
 
-driver = getNewDriver();
+getNewDriver();
 
 function getTestName(string){
     let pos = 0;
@@ -94,11 +93,11 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
 
 //=================================globals again=====================================
 
-SF = require('./system/ShortFunctionsWD.js')(driver, system, config, By, until,constants, condition);
-JS = require('./system/JSshortFunctions.js')(driver, system, config, By, until,constants, condition);
+SF = require('./system/ShortFunctionsWD.js')(system, config, By, until,constants, condition);
+JS = require('./system/JSshortFunctions.js')(system, config, By, until,constants, condition);
 JSstep = require('./common/JSsteps');
-VD = require('./system/ValidationsWD')(system, driver, condition);
-LF = require('./common/LongFunctionsWD.js')(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);
+VD = require('./system/ValidationsWD')(system, condition);
+LF = require('./common/LongFunctionsWD.js')(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);
 
 //=================set Up Debug==========================================
 //======================check for debug mode=============================
@@ -108,7 +107,7 @@ if ('-d' == process.argv[attrs]) {
     config.D = true;
     attrs++;
 }
-global.Debug = require("./system/DebugWD.js")(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
+global.Debug = require("./system/DebugWD.js")(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
 if (config.D) {
     Debug.WDconsole();
 }
@@ -140,10 +139,10 @@ system.myEmitter.on('event', () => {
         condition.testName = getTestName(config.suite[condition.testN]);
         console.log('next...'+condition.testN + ' '+condition.testName);
         deleteFolderRecursive('reports/'+condition.testName);
-        if (testN>0) {driver = getNewDriver();}
+        if (condition.testN>0) {getNewDriver();}
         condition.testN++;
         Fiber(function(){require(config.suite[condition.testN-1])
-        (driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF, config,constants);}).run();
+        (SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF, config,constants);}).run();
     } else {
         if (driver!==null){
             driver.quit();

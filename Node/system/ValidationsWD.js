@@ -1,4 +1,4 @@
-module.exports = function (system, driver, condition) {
+module.exports = function (system, condition) {
     return {
         VToEqual: function (value1, value2) {
             return (value1 == value2);

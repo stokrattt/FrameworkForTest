@@ -1,4 +1,4 @@
-module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants) {
+module.exports = function(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants) {
     function pauseWatcher() {
         if (condition.busy) {
             console.log('пауза');
