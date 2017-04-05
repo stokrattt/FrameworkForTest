@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/#CheckChangeCubicFitAdmin&AddInventoriy.js', './tests/#CheckFuelSurcharge.js'
+        './tests/#CheckFuelSurcharge.js',  './tests/#CheckChangeCubicFitAdmin&AddInventoriy.js'
 
     ];
     config.chainFail = false;

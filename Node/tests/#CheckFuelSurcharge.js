@@ -11,6 +11,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     SF.send(By.id('email'), 'TestAdmin');
     SF.send(By.id('password'), 'test');
     JS.click('.btn-primary');
+    SF.sleep(3);
 
     LF.CreateLocalMovingFromBoard();
     SF.sleep (2);
