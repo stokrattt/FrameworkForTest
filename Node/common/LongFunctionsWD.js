@@ -32,7 +32,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
-    };
+    }
     function AccountLocalEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
         SF.sleep(1);
@@ -45,7 +45,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         JS.waitForExist('button.confirm:contains("OK")');
         SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
-    };
+    }
     function AccountLocalAddInventory() {
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
         JS.waitForExist('div[ng-repeat="filter in filters"]');
@@ -63,7 +63,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
         SF.sleep(2);
-    };
+    }
     function AccountLocalDetails() {
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
         JS.waitForNotExist('div.busyoverlay:visible');
@@ -76,7 +76,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(5);
-    };
+    }
     function RememberAccountNumbers() {
         V.accountNumbers = {};
         driver.wait(driver.executeScript('return $("div:contains(\\"Move Date :\\"):last").next().text()').then(function (dateString) {
@@ -138,13 +138,13 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         }));
         SF.sleep(2);
         console.log(V.accountNumbers);
-    };
+    }
     function LogoutFromAccount() {
         driver.executeScript("$('a[ng-click=\"vm.Logout()\"]').get(0).scrollIntoView();");
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
         SF.sleep(5);
-    };
+    }
     function LogoutFromBoardAdmin() {
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.toast-message');
@@ -154,7 +154,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
         SF.sleep(5);
-    };
+    }
     function LogoutFromBoardForeman() {
         JS.waitForNotExist('div.toast-success:visible');
         JS.waitForNotExist('div.toast-message:visible');
@@ -165,28 +165,28 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
         SF.sleep(2);
-    };
+    }
     function LoginToBoardAsAdmin() {
         SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
         SF.send(By.xpath('//input[@id="email"]'), 'TestAdmin');
         SF.send(By.xpath('//input[@id="password"]'), 'test');
         SF.click(By.xpath('//button[@type="submit"]'));
         SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
-    };
+    }
     function LoginToBoardAsForeman() {
         SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
         SF.send(By.xpath('//input[@id="email"]'), 'TestForeman');
         SF.send(By.xpath('//input[@id="password"]'), '123');
         SF.click(By.xpath('//button[@type="submit"]'));
         SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
-    };
+    }
     function LoginToBoardAsCustom(login, passwd) {
         SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
         SF.send(By.xpath('//input[@id="email"]'), login);
         SF.send(By.xpath('//input[@id="password"]'), passwd);
         SF.click(By.xpath('//button[@type="submit"]'));
         SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
-    };
+    }
     function LoginToAccountAsClient(client) {
         SF.sleep(1);
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
@@ -195,7 +195,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.send(By.xpath('//input[@id="password"]'), 123);
         SF.click(By.xpath('//button[@type="submit"]'));
         SF.sleep(2);
-    };
+    }
     function OpenRequest(request) {
         driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), config.timeout)
             .getAttribute('class').then(function (classStr) {
@@ -215,7 +215,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         }
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         SF.sleep(2);
-    };
+    }
     function CreateLocalMovingFromBoard() {
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.busyoverlay:visible');
@@ -248,7 +248,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         SF.sleep(4);
         console.log('создали реквест');
-    };
+    }
     function CreateMovAndStorFromBoard() {
         SF.click(By.linkText('Create Request'));
         SF.sleep(2);
@@ -283,7 +283,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         SF.sleep(4);
         console.log('создали реквест');
-    };
+    }
     function CreateLoadingHelpFromBoard() {
         SF.click(By.linkText('Create Request'));
         SF.sleep(4);
@@ -310,7 +310,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         SF.sleep(2);
         console.log('создали реквест');
-    };
+    }
     function RememberDigitsRequestBoard_Up() {
 
         if (V.boardNumbers == undefined) {
@@ -346,7 +346,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         }));
         SF.sleep(1);
         console.log(V.boardNumbers);
-    };
+    }
     function RememberDigitsRequestBoard_Down() {
 
         if (V.boardNumbers == undefined) {
@@ -403,11 +403,11 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         }));
         SF.sleep(1);
         console.log(V.boardNumbers);
-    };
+    }
     function RememberDigitsRequestBoard() {
         RememberDigitsRequestBoard_Up();
         RememberDigitsRequestBoard_Down();
-    };
+    }
 
     function Validation_Compare_Account_Admin() {
         VD.IWant(VD.VToEqual, V.accountNumbers.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
@@ -424,19 +424,19 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         VD.IWant(VD.VToEqual, V.accountNumbers.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin аккаунта и борда');
         VD.IWant(VD.VToEqual, V.accountNumbers.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
         VD.IWant(VD.VToEqual, V.accountNumbers.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
-    };
+    }
     function SetManager(name) {
         SF.click(By.xpath('//button[contains(text(),"Set Sales")]'));
         SF.click(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"' + name + '")]'));
         SF.sleep(1);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));
         SF.sleep(1);
-    };
+    }
     function SetClientPasswd() {
         SF.send(By.xpath('//input[@ng-model="client.password"]'), V.client.passwd);
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         SF.sleep(3);
-    };
+    }
     function FillCardPayModal() {
         JS.waitForExist('input[ng-model="payment.card_num"]');
         SF.sleep(1);
@@ -446,7 +446,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.send(By.xpath('//input[@ng-model="secure.cvc"]'), 323);
         SF.sleep(1);
         SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
-    };
+    }
     function MakeSignJS(canvasID) {
         JS.waitForExist('canvas#' + canvasID);
         SF.sleep(1);
@@ -464,7 +464,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
             "cont.closePath();" +
             "cont.stroke();");
         SF.sleep(1);
-    };
+    }
     function ConfirmRequestInAccount_WithReservation() {
         SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
         SF.sleep(2);
@@ -473,11 +473,11 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
         SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
         SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
-        LF.FillCardPayModal();
         SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
         MakeSignJS('signatureCanvasReserv');
-        SF.click(By.xpath('//button[@ng-click="saveReservSignature()"]'));
-    };
+        SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
+        FillCardPayModal();
+    }
 //Permissions for Sales --- start
     function PermissionsClear() {
         driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').parent().click()}"));
@@ -486,23 +486,23 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').parent().click()}"));
         driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSignedSales\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSignedSales\"]').parent().click()}"));
 
-    };
+    }
     function PermissionCanSeeOtherLeads() {
         driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').parent().click()"));
         SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeOtherLeads"]/..'));
-    };
+    }
     function PermissionCanSearchOtherLeads() {
         driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSearchOtherLeads\"]').click()"));
-    };
+    }
     function PermissionCanEditOtherLeads() {
         driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canEditOtherLeads\"]').click()"));
-    };
+    }
     function PermissionCanSeeUnsignedLeads() {
         driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSeeUnsignedLeads\"]').click()"));
-    };
+    }
     function PermissionCanSignedSales() {
         driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSignedSales\"]').click()"));
-    };
+    }
 //Permissions for Sales --- end
     function closeEditRequest() {
         JS.waitForNotExist('div.toast-message');
@@ -514,7 +514,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="cancel()"]'));
         SF.sleep(2);
-    };
+    }
     function SelectRequestDispatch(request) {
         driver.wait(until.elementLocated(By.xpath('//td[contains(text(),"' + request + '")]/..')), config.timeout)
             .getAttribute('class').then(function (classStr) {
@@ -529,7 +529,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         if (!condition.busy) {
             Fiber.yield();
         }
-    };
+    }
     function OpenRequestDispatch(request) {
         driver.wait(until.elementLocated(By.xpath('//td[contains(text(),"' + request + '")]/..')), config.timeout)
             .getAttribute('class').then(function (classStr) {
@@ -545,7 +545,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         if (!condition.busy) {
             Fiber.yield();
         }
-    };
+    }
     function selectCrew() {
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']"));
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'Test Foreman')]"));
@@ -562,13 +562,13 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         JS.waitForExist('div.toast-success');
         SF.sleep(2);
         JS.waitForNotExist('div.toast-success');
-    };
+    }
     function MakeSignInContract() {
         SF.click(By.xpath('//div[@class="empty-signature"]'));
         MakeSignJS("signatureCanvas");
         SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
         SF.sleep(2);
-    };
+    }
     function RememberDateFromRequest() {
         if (V.boardNumbers==undefined) {V.boardNumbers = {};}
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
@@ -579,7 +579,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
             V.boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
         }),config.timeout);
         SF.sleep(1);
-    };
+    }
     function findDayInLocalDispatch(futureYear, futureMonth, futureDay) {
         var target = futureYear;
         var current = 'a';
@@ -640,7 +640,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         var EQ = futureDay;
         JS.waitForNotExist('div#datePicker-block.disabled');
         SF.click(By.xpath('(//td[@data-handler="selectDay"])[' + EQ + ']'));
-    };
+    }
     function RememberAndValidatePayroll_In_EditRequest() {
         V.boardNumbers.Payroll = {
             managerForCommission: {},
@@ -694,7 +694,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
             V.boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
         });
-    };
+    }
     function findTestForemanInPayroll() {
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
@@ -705,7 +705,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
-    };
+    }
     function findSaleInPayroll(name) {
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"sales")]'));
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"sales")]'));
@@ -716,7 +716,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
-    };
+    }
     function selectDateInPayroll(date) {
 
         SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));
@@ -728,7 +728,7 @@ module.exports = function (driver, SF, JS, JSstep, VD, V, By, until,FileDetector
         SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
-    };
+    }
 
 
     return {

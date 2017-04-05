@@ -88,7 +88,6 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
     }));
     if (config.D) {
         condition.busy = true;
-        console.log('пауза');
         Debug.pauseWatcher();
     }
 });

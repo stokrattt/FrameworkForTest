@@ -3,14 +3,15 @@ module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector,
         if (condition.busy) {
             console.log('пауза');
             driver.wait(new Promise(function (resolve, reject) {
-                var playTimer = setInterval(function () {
-                    // переведёт промис в состояние fulfilled с результатом "result"
+                let f = function() {
                     if (!condition.busy) {
                         resolve("result");
-                        clearInterval(playTimer);
                         fiber.run();
+                    } else {
+                        setTimeout(f, 500);
                     }
-                }, 2000);
+                };
+                setTimeout(f, 1000);
             }));
 
         }
@@ -53,14 +54,15 @@ module.exports = function(driver, SF, JS, JSstep, VD, V, By, until,FileDetector,
             condition.busy = true;
             console.log('пауза');
             driver.wait(new Promise(function (resolve, reject) {
-                var playTimer = setInterval(function () {
+                let f = function() {
                     if (!condition.busy) {
                         resolve("result");
-                        clearInterval(playTimer);
                         fiber.run();
-                        console.log('играй...');
+                    } else {
+                        setTimeout(f, 500);
                     }
-                }, 100);
+                };
+                setTimeout(f, 1000);
             }));
             Fiber.yield();
         }

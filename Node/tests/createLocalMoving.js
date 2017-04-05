@@ -1,4 +1,4 @@
-module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, Debug,LF,config,constants){
+module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants){
     global.fiber = Fiber.current;
     V.client = {};
     V.client.name = SF.randomBukva(6) + '_t';
@@ -91,7 +91,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     JS.waitForExist('h1:contains("Confirmation Page"):visible');
     SF.click(By.xpath('//li[@id="tab_Bill of lading"]'));
     SF.sleep(1);
-    driver.wait(driver.executeScript(CheckSumsInContract).then(function (costs) {
+    driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.VToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }));
@@ -110,7 +110,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     LF.MakeSignJS('signatureCanvasPayment');
     SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
     JS.waitForExist('input#inputImage');
-    driver.wait(new FileDetector().handleFile(driver, path.resolve('./files/squirrel.jpg')).then(function (path) {
+    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
     SF.sleep(1);
@@ -119,7 +119,7 @@ module.exports = function main(driver, SF, JS, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     SF.send(By.xpath('//input[@id="inputImage"]'), V.path);
     SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="saveFile()"]'));
+    SF.click(By.xpath('//button[contains(@ng-click,"saveFile()")]'));
     JS.waitForNotExist("button[ng-click=\"saveFile()\"]");
     LF.MakeSignInContract();
     LF.MakeSignInContract();
