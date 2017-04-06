@@ -9,6 +9,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     SF.get(V.frontURL);
+    JS.waitForExist ('#loader');
 
     SF.click (By.xpath('//a[@href="#request"]'));
     SF.sleep (2);
@@ -51,7 +52,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
     SF.sleep(2);
     JS.waitForNotExist ('div[ng-if="loadingImg"]');
-    SF.sleep(2);
+    SF.sleep(4);
 
     //SF.waitForLocated(By.id('submitRequestButton'));
 
@@ -72,9 +73,13 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.to.travelTime"]/span')).getText().then(function (text) {
         V.frontNumbersDown.TravelTimeTo = SF.cleanPrice(text.substring(text.indexOf('min')));
     }), config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//h3[contains(text(), "Crew Size:")]/span')).getText().then(function (text) {
-        V.frontNumbersDown.CrewTo = text.replace('movers', '');
+    driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[4]/span')).getText().then(function (text) {
+        V.frontNumbersDown.CrewTo = text.replace('Movers', '');
         console.log(V.frontNumbersDown.CrewTo);
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
+        V.frontNumbersDown.RateTo = SF.cleanPrice(text.replace('$|/|hr,/gi', ''));
+        console.log(V.frontNumbersDown.RateTo);
     }), config.timeout);
 
 
