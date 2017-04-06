@@ -3,5 +3,5 @@
 /**/.idea/
 /**/*fuse_hidden*
 /**/Node/server/
-/**/chromedriver
+/**/chromedriver*
 /**/geckodriver
