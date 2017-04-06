@@ -46,8 +46,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (5);
     SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
     SF.sleep (0.5);
-    V.client.pass = 123;
-    SF.send (By.id('inputPassword3'), V.client.pass);
+    V.client.passwd = 123;
+    SF.send (By.id('inputPassword3'), V.client.passwd);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
     SF.sleep (3);
     JS.waitForNotExist('div.toast-success');
@@ -57,7 +57,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LogoutFromBoardAdmin ();
     SF.get(V.accountURL);
 
-    LF.LoginToAccountAsClient (V.client);
+    LF.LoginToAccountAsClient (V.client, V.client.passwd);
 
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){

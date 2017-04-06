@@ -223,14 +223,14 @@ condition.nowWeDoing='зашли в настройки департмента';
     SF.click (By.xpath('//a[@ui-sref="settings.department"]'));
     SF.waitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(2);
+    SF.sleep(3);
 
 condition.nowWeDoing='идем удалять форемана';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
-    SF.sleep(2);
+    SF.sleep(3);
     driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"foremantest testforeman\")').dblclick();"),config.timeout);
-    SF.sleep (2);
+    SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
@@ -316,7 +316,14 @@ condition.nowWeDoing='идем удалять менеджера';
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
-    SF.sleep (1);    
+    SF.sleep (1);
+    JS.waitForNotExist('div.toast-message');
+    JS.waitForExist('div.toast-message');
+
+    JS.waitForExist('div.toast-success');
+    JS.waitForNotExist('div.toast-success');
+
+
     LF.LogoutFromBoardForeman ();
 
 

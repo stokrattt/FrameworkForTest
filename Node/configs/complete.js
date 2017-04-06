@@ -1,6 +1,7 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/#CheckFuelSurcharge.js',  './tests/#CheckChangeCubicFitAdmin&AddInventoriy.js'
+        './tests/#DepartmenTest.js',
+        './tests/createLocalMoving.js',
 
     ];
     config.chainFail = false;
