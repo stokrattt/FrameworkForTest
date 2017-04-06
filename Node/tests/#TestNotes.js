@@ -35,5 +35,47 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
       VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');
     }),config.timeout);
+
+    SF.click(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
+    SF.clear(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
+    V.note = {};
+    V.note = SF.randomBukva(10);
+    SF.send(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'), V.note);
+
+    SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
+    JS.waitForExist('div.busyoverlay');
+    condition.nowWeDoing = 'ждем инвентория';
+
+    SF.sleep (7);
+    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+    SF.click(By.id("save-inventory"));
+    SF.sleep (3);
+    JS.select ('#edit-status', 2);
+
+    JS.click ('button[ng-click=\\"UpdateRequest()\\"]');
+    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
+    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
+    SF.sleep (5);
+    JS.waitForNotExist('div.toast-success');
+
+    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
+    SF.sleep(1);
+    SF.click (By.xpath('//div[@ng-click="vm.select(3)"]'));
+    SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
+    SF.sleep(2);
+    JS.waitForExist('div.busyoverlay');
+    LF.OpenRequest(V.request.Id);
+    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+    driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
+        VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');
+    }),config.timeout);
+
+
     SF.endOfTest();
 };
