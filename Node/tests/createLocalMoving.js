@@ -22,7 +22,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.AccountLocalDetails();
     SF.waitForVisible(By.xpath('//li[@id="tab_Inventory"]//i[@class="icon-check"]'));
     SF.waitForVisible(By.xpath('//li[@id="tab_Details"]//i[@class="icon-check"]'));
-    LF.RememberAccountNumbers();
+    V.accountNumbers={};
+    LF.RememberAccountNumbers(V.accountNumbers);
 
     LF.LogoutFromAccount();
     console.log('закончили с аккаунтом');
@@ -35,14 +36,15 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     JS.step(JSstep.selectTruck);
 
-    LF.RememberDigitsRequestBoard();
-    LF.Validation_Compare_Account_Admin();
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
 
     SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
     SF.sleep(1);
     LF.SetManager('emilia');
     SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
-    LF.SetClientPasswd();
+    LF.SetClientPasswd(V.client.passwd);
     SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
     SF.sleep(1);
     SF.select(By.xpath('//select[@id="edit-status"]'), 2);
@@ -60,12 +62,13 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
         VD.IWant(VD.VToEqual, Status, 'Not Confirmed');
-    }));
+    }),config.timeout);
     SF.click(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
     SF.sleep(2);
     JS.waitForNotExist('div.busyoverlay:visible');
-    LF.RememberAccountNumbers();
-    LF.Validation_Compare_Account_Admin();
+    V.accountNumbers={};
+    LF.RememberAccountNumbers(V.accountNumbers);
+    LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     LF.LogoutFromAccount();
@@ -148,7 +151,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     JS.waitForExist('label:contains("Balance:"):visible');
 
-    LF.RememberDigitsRequestBoard_Down();
+    LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     if (V.boardNumbers.Balance !== 0) {
         JS.scroll('div.BalanceCost:visible');
     }

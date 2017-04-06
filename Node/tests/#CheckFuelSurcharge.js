@@ -15,7 +15,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     LF.CreateLocalMovingFromBoard();
     SF.sleep (2);
-    LF.RememberDigitsRequestBoard ();
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
 
 
     //*****************************************************************************

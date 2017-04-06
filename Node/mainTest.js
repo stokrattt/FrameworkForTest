@@ -10,12 +10,13 @@ var LF={};
 var system={};
 system.path = require('path');
 system.fs = require('fs');
+
 global.Fiber = require('fibers');
 
 var config={};
 config.chainFail = false;
 config.D = false;
-config.timeout = 25000;
+config.timeout = 20000;
 
 var condition={};
 condition.readyForNext = true;

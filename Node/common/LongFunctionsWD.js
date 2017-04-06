@@ -33,6 +33,39 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
+    function FullSmallCalcAsUnloading(client){
+        JS.click("input#extra-service");
+        JS.select('select#edit-service',4);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
+        driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
+        SF.sleep(2);
+        V.frontNumbers = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
+            V.frontNumbers.moveDate = D;
+            console.log(V.frontNumbers.moveDate);
+        }),config.timeout);
+        SF.sleep(2);
+        driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+        SF.sleep(1);
+        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        SF.sleep(1);
+        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+        SF.sleep(1);
+        JS.click("button.pull-right:first");
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeFrom"]', 4);
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
+        SF.sleep(1);
+        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+        SF.sleep(2);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
+        SF.sleep(1);
+        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+    }
     function AccountLocalEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
         SF.sleep(1);
@@ -77,67 +110,66 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(5);
     }
-    function RememberAccountNumbers() {
-        V.accountNumbers = {};
+    function RememberAccountNumbers(accountNumbers) {
         driver.wait(driver.executeScript('return $("div:contains(\\"Move Date :\\"):last").next().text()').then(function (dateString) {
             dateString = dateString.toUpperCase();
-            V.accountNumbers.moveDate = {};
-            V.accountNumbers.moveDate.Month = SF.FindMonthInString(dateString);
-            V.accountNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
-            V.accountNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
+            accountNumbers.moveDate = {};
+            accountNumbers.moveDate.Month = SF.FindMonthInString(dateString);
+            accountNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
+            accountNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
         }));
         driver.wait(driver.executeScript('return $("div:contains(\\"Crew Size :\\"):last").next().text()').then(function (text) {
-            V.accountNumbers.CrewSize = SF.cleanPrice(text);
+            accountNumbers.CrewSize = SF.cleanPrice(text);
         }));
         driver.wait(driver.executeScript('return $("div:contains(\\"Truck :\\"):last").next().text()').then(function (text) {
-            V.accountNumbers.Trucks = SF.cleanPrice(text);
+            accountNumbers.Trucks = SF.cleanPrice(text);
         }));
         driver.wait(driver.executeScript('return $("div:contains(\\"Hourly Rate :\\"):last").next().text()').then(function (text) {
-            V.accountNumbers.HourlyRate = text.indexOf('$', 4) == -1 ?
+            accountNumbers.HourlyRate = text.indexOf('$', 4) == -1 ?
                 SF.cleanPrice(text) :
                 SF.cleanPrice(text.substring(text.indexOf('$', 4)));
         }));
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Fuel Surcharge")]/../div[2]')).getText().then(function (text) {
-            V.accountNumbers.Fuel = SF.cleanPrice(text);
+            accountNumbers.Fuel = SF.cleanPrice(text);
         }));
         driver.wait(driver.executeScript(JSstep.getServicesCostAccount), config.timeout).then(function (ServicesText) {
-            V.accountNumbers.AdServices = SF.cleanPrice(ServicesText);
+            accountNumbers.AdServices = SF.cleanPrice(ServicesText);
         });
         driver.wait(driver.executeScript(JSstep.getPackingsCostAccount), config.timeout).then(function (ServicesText) {
-            V.accountNumbers.Packing = SF.cleanPrice(ServicesText);
+            accountNumbers.Packing = SF.cleanPrice(ServicesText);
         });
         driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Estimated Travel Time")]/../../div[2]')).getText().then(function (text) {
-            let hours = text.indexOf('hrs') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('hrs')));
-            let minutes = text.indexOf('min') == -1 ? 0 : SF.cleanPrice(text.substring((text.indexOf('hrs') + 1), text.indexOf('min')));
-            V.accountNumbers.TravelTime = hours * 60 + minutes;
+            let hours = text.indexOf('hr') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('hr')));
+            let minutes = text.indexOf('min') == -1 ? 0 : SF.cleanPrice(text.substring((text.indexOf('hr') + 1), text.indexOf('min')));
+            accountNumbers.TravelTime = hours * 60 + minutes;
         }));
 
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/../div[2]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
             let textMax = text.substring(text.indexOf('-') + 1);
-            let hoursMin = textMin.indexOf('hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('hrs')));
-            let minutesMin = textMin.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('hrs') + 1), textMin.indexOf('min')));
-            V.accountNumbers.LaborTimeMin = hoursMin * 60 + minutesMin;
-            let hoursMax = textMax.indexOf('hrs') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('hrs')));
-            let minutesMax = textMax.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('hrs') + 1), textMax.indexOf('min')));
-            V.accountNumbers.LaborTimeMax = hoursMax * 60 + minutesMax;
+            let hoursMin = textMin.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('hr')));
+            let minutesMin = textMin.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('hr') + 1), textMin.indexOf('min')));
+            accountNumbers.LaborTimeMin = hoursMin * 60 + minutesMin;
+            let hoursMax = textMax.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('hr')));
+            let minutesMax = textMax.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('hr') + 1), textMax.indexOf('min')));
+            accountNumbers.LaborTimeMax = hoursMax * 60 + minutesMax;
         }));
 
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Quote")]/following-sibling::div[1]')).getText().then(function (text) {
             if (text.indexOf("You save") !== -1) {
                 let t = text.substring(0, text.indexOf("You save"));
                 t = t.substring(t.indexOf('$', t.indexOf('$', t.indexOf('$') + 1) + 1));
-                V.accountNumbers.TotalMin = SF.cleanPrice(t.substring(0, t.indexOf('-')));
-                V.accountNumbers.TotalMax = SF.cleanPrice(t.substring(t.indexOf('-') + 1));
+                accountNumbers.TotalMin = SF.cleanPrice(t.substring(0, t.indexOf('-')));
+                accountNumbers.TotalMax = SF.cleanPrice(t.substring(t.indexOf('-') + 1));
             } else {
                 console.log('ещё не делали без скидок');
             }
         }));
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
-            V.accountNumbers.Id = SF.cleanPrice(text);
+            accountNumbers.Id = SF.cleanPrice(text);
         }));
         SF.sleep(2);
-        console.log(V.accountNumbers);
+        console.log(accountNumbers);
     }
     function LogoutFromAccount() {
         driver.executeScript("$('a[ng-click=\"vm.Logout()\"]').get(0).scrollIntoView();");
@@ -192,7 +224,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
         SF.sleep(1);
         SF.send(By.xpath('//input[@id="email"]'), client.email);
-        SF.send(By.xpath('//input[@id="password"]'), 123);
+        SF.send(By.xpath('//input[@id="password"]'), client.passwd);
         SF.click(By.xpath('//button[@type="submit"]'));
         SF.sleep(2);
     }
@@ -224,10 +256,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
         SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
         V.request = {};
-        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar)).then(function (calDate) {
+        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
             V.request.moveDate = calDate;
             console.log(V.request);
-        });
+        }),config.timeout);
         SF.sleep(0.5);
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
         SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
@@ -255,16 +287,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:2"]'));
         SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
         V.request = {};
-        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar)).then(function (calDate) {
+        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
             V.request.moveDate = calDate;
             console.log(V.request);
-        });
+        }),config.timeout);
         SF.sleep(2);
         SF.click(By.xpath('//input[@id="edit-date-storage-datepicker-popup-0"]'));
-        driver.wait(driver.executeScript(JSstep.Click8DaysCalendar)).then(function (DelDate) {
+        driver.wait(driver.executeScript(JSstep.Click8DaysCalendar).then(function (DelDate) {
             V.request.DeliveryDate = DelDate;
             console.log(V.request.DeliveryDate);
-        });
+        }),config.timeout);
 
         SF.sleep(0.5);
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
@@ -290,10 +322,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:3"]'));
         SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
         V.request = {};
-        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar)).then(function (calDate) {
+        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
             V.request.moveDate = calDate;
             console.log(V.request);
-        });
+        }),config.timeout);
         SF.sleep(0.5);
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
         SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
@@ -311,119 +343,111 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         console.log('создали реквест');
     }
-    function RememberDigitsRequestBoard_Up() {
-
-        if (V.boardNumbers == undefined) {
-            V.boardNumbers = {};
-        }
+    function RememberDigitsRequestBoard_Up(boardNumbers) {
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
             dateString = dateString.toUpperCase();
-            V.boardNumbers.moveDate = {};
-            V.boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);
-            V.boardNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
-            V.boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
-        }));
+            boardNumbers.moveDate = {};
+            boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);
+            boardNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
+            boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
+        }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.minimum_time.value"]')).getAttribute('value').then(function (value) {
-            V.boardNumbers.LaborTimeMin = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
+            boardNumbers.LaborTimeMin = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
                 + SF.cleanPrice(value.substring(value.indexOf(':')));
-        }));
+        }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.maximum_time.value"]')).getAttribute('value').then(function (value) {
-            V.boardNumbers.LaborTimeMax = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
+            boardNumbers.LaborTimeMax = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
                 + SF.cleanPrice(value.substring(value.indexOf(':')));
-        }));
+        }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.travel_time.value"]')).getAttribute('value').then(function (value) {
-            V.boardNumbers.TravelTime = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
+            boardNumbers.TravelTime = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
                 + SF.cleanPrice(value.substring(value.indexOf(':')));
-        }));
+        }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//input[@id="edit-movers-crew"]')).getAttribute('value').then(function (value) {
-            V.boardNumbers.CrewSize = SF.cleanPrice(value);
-        }));
+            boardNumbers.CrewSize = SF.cleanPrice(value);
+        }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function (value) {
-            V.boardNumbers.HourlyRate = SF.cleanPrice(value);
-        }));
+            boardNumbers.HourlyRate = SF.cleanPrice(value);
+        }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Trucks:")]/following-sibling::div[1]')).getText('text').then(function (text) {
-            V.boardNumbers.Trucks = SF.cleanPrice(text);
-        }));
+            boardNumbers.Trucks = SF.cleanPrice(text);
+        }),config.timeout);
         SF.sleep(1);
-        console.log(V.boardNumbers);
+        console.log(boardNumbers);
     }
-    function RememberDigitsRequestBoard_Down() {
-
-        if (V.boardNumbers == undefined) {
-            V.boardNumbers = {};
-        }
+    function RememberDigitsRequestBoard_Down(boardNumbers) {
         driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
             if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
-                V.boardNumbers.QuoteMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
-                V.boardNumbers.QuoteMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
+                boardNumbers.QuoteMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+                boardNumbers.QuoteMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
             } else {
-                V.boardNumbers.Quote = SF.cleanPrice(text);
+                boardNumbers.Quote = SF.cleanPrice(text);
             }
-        }));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $(\'div.FuelCost:visible\').text()').then(function (text) {
-            V.boardNumbers.Fuel = SF.cleanPrice(text.substring(text.indexOf('$')));
-        }));
+            boardNumbers.Fuel = SF.cleanPrice(text.substring(text.indexOf('$')));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $(\'div.ValuationCost:visible\').text()').then(function (text) {
-            V.boardNumbers.Valuation = SF.cleanPrice(text.substring(text.indexOf('$')));
-        }));
+            boardNumbers.Valuation = SF.cleanPrice(text.substring(text.indexOf('$')));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $(\'div.PackingCost:visible\').text()').then(function (text) {
-            V.boardNumbers.Packing = SF.cleanPrice(text.substring(text.indexOf('$')));
-        }));
+            boardNumbers.Packing = SF.cleanPrice(text.substring(text.indexOf('$')));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
-            V.boardNumbers.AdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
-        }));
+            boardNumbers.AdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $(\'div.DiscountCost:visible\').text()').then(function (text) {
-            V.boardNumbers.Discount = SF.cleanPrice(text.substring(text.indexOf('$')));
-        }));
+            boardNumbers.Discount = SF.cleanPrice(text.substring(text.indexOf('$')));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $(\'div.TipsCost:visible input\').val()').then(function (text) {
             if (text != null) {
-                V.boardNumbers.Tips = SF.cleanPrice(text.substring(text.indexOf('$')));
+                boardNumbers.Tips = SF.cleanPrice(text.substring(text.indexOf('$')));
             } else {
-                V.boardNumbers.Tips = 0;
+                boardNumbers.Tips = 0;
             }
-        }));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $(\'div.TotalCost:visible\').text()').then(function (text) {
             if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
-                V.boardNumbers.TotalMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
-                V.boardNumbers.TotalMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
+                boardNumbers.TotalMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+                boardNumbers.TotalMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
             } else {
-                V.boardNumbers.Total = SF.cleanPrice(text);
+                boardNumbers.Total = SF.cleanPrice(text);
             }
-        }));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $(\'div.PaymentCost:visible\').text()').then(function (text) {
-            V.boardNumbers.Payment = SF.cleanPrice(text.substring(text.indexOf('$')));
-        }));
+            boardNumbers.Payment = SF.cleanPrice(text.substring(text.indexOf('$')));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $(\'div.BalanceCost:visible\').text()').then(function (text) {
             if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
-                V.boardNumbers.BalanceMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
-                V.boardNumbers.BalanceMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
+                boardNumbers.BalanceMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+                boardNumbers.BalanceMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
             } else {
-                V.boardNumbers.Balance = SF.cleanPrice(text);
+                boardNumbers.Balance = SF.cleanPrice(text);
             }
-        }));
+        }),config.timeout);
         SF.sleep(1);
-        console.log(V.boardNumbers);
+        console.log(boardNumbers);
     }
-    function RememberDigitsRequestBoard() {
-        RememberDigitsRequestBoard_Up();
-        RememberDigitsRequestBoard_Down();
+    function RememberDigitsRequestBoard(boardNumbers) {
+        RememberDigitsRequestBoard_Up(boardNumbers);
+        RememberDigitsRequestBoard_Down(boardNumbers);
     }
 
-    function Validation_Compare_Account_Admin() {
-        VD.IWant(VD.VToEqual, V.accountNumbers.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.moveDate.Month, V.boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.moveDate.Year, V.boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.CrewSize, V.boardNumbers.CrewSize, 'не совпали CrewSize аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.HourlyRate, V.boardNumbers.HourlyRate, 'не совпали HourlyRate аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.LaborTimeMin, V.boardNumbers.LaborTimeMin, 'не совпали LaborTimeMin аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.LaborTimeMax, V.boardNumbers.LaborTimeMax, 'не совпали LaborTimeMax аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.TravelTime, V.boardNumbers.TravelTime, 'не совпали TravelTime аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.Packing, V.boardNumbers.Packing, 'не совпали Packing аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.AdServices, V.boardNumbers.AdServices, 'не совпали Services аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.Trucks, V.boardNumbers.Trucks, 'не совпали Trucks аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
-        VD.IWant(VD.VToEqual, V.accountNumbers.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
+    function Validation_Compare_Account_Admin(accountNumbers,boardNumbers) {
+        VD.IWant(VD.VToEqual, accountNumbers.moveDate.Day, boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.moveDate.Month, boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.moveDate.Year, boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.CrewSize, boardNumbers.CrewSize, 'не совпали CrewSize аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.HourlyRate, boardNumbers.HourlyRate, 'не совпали HourlyRate аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.LaborTimeMin, boardNumbers.LaborTimeMin, 'не совпали LaborTimeMin аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.LaborTimeMax, boardNumbers.LaborTimeMax, 'не совпали LaborTimeMax аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.TravelTime, boardNumbers.TravelTime, 'не совпали TravelTime аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.Packing, boardNumbers.Packing, 'не совпали Packing аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.AdServices, boardNumbers.AdServices, 'не совпали Services аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.Trucks, boardNumbers.Trucks, 'не совпали Trucks аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.TotalMin, boardNumbers.TotalMin, 'не совпали TotalMin аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.TotalMax, boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.Fuel, boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     }
     function SetManager(name) {
         SF.click(By.xpath('//button[contains(text(),"Set Sales")]'));
@@ -432,8 +456,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));
         SF.sleep(1);
     }
-    function SetClientPasswd() {
-        SF.send(By.xpath('//input[@ng-model="client.password"]'), V.client.passwd);
+    function SetClientPasswd(passwd) {
+        SF.send(By.xpath('//input[@ng-model="client.password"]'), passwd);
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         SF.sleep(3);
     }
@@ -465,11 +489,19 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             "cont.stroke();");
         SF.sleep(1);
     }
-    function ConfirmRequestInAccount_WithReservation() {
+    function ConfirmRequestInAccount_WithReservation(ReservationPrice) {
         SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
         SF.sleep(2);
         JS.waitForExist('div.confirm');
         JS.scroll('div.confirm');
+        if (ReservationPrice!=undefined) {
+            let ReservationSee = 0;
+            driver.findElement(By.xpath('//h2[contains(text(),"Deposit:")]')).getText().then(function(text){
+                ReservationSee=SF.cleanPrice(text);
+            });
+            SF.sleep(1);
+            VD.IWant(VD.VToEqual, ReservationSee, ReservationPrice, 'Резервация на аккаунте не совпала');
+        }
         SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
         SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
         SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
@@ -733,6 +765,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
+        FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
         AccountLocalEnterAddress: AccountLocalEnterAddress,
         AccountLocalAddInventory: AccountLocalAddInventory,
         AccountLocalDetails: AccountLocalDetails,

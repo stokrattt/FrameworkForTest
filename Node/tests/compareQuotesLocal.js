@@ -16,7 +16,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep(5);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//label[@for="partial"]/input[@ng-model="vm.packing_service"]'));
-    LF.RememberAccountNumbers();
+    V.accountNumbers={};
+    LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'первый раз в админке';
@@ -24,8 +25,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbers.Id);
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    LF.RememberDigitsRequestBoard();
-    LF.Validation_Compare_Account_Admin();
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
 
     condition.nowWeDoing = 'идём в логи';
     SF.click(By.xpath('//a[@ng-click="select(tabs[5])"]'));
@@ -39,6 +41,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
             V.logNumbers.QuoteMin=SF.cleanPrice(text.substring(0,text.indexOf('-')));
             V.logNumbers.QuoteMax=SF.cleanPrice(text.substring(text.indexOf('-')+1));
             console.log(V.logNumbers);
+            VD.IWant(VD.VToEqual, V.logNumbers.QuoteMin, V.boardNumbers.QuoteMin);
+            VD.IWant(VD.VToEqual, V.logNumbers.QuoteMax, V.boardNumbers.QuoteMax);
     });
+    SF.sleep(1);
     SF.endOfTest();
 };
