@@ -150,7 +150,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.executeScript(JSstep.getPackingsCostAccount), config.timeout).then(function (ServicesText) {
             accountNumbers.Packing = SF.cleanPrice(ServicesText);
         });
-        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Travel Time")]/following-sibling::div[2]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Travel Time")]/following-sibling::div[1]')).getText().then(function (text) {
             let hours = text.indexOf('hr') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('hr')));
             let minutes = text.indexOf('min') == -1 ? 0 : SF.cleanPrice(text.substring((text.indexOf('hr') + 1), text.indexOf('min')));
             accountNumbers.TravelTime = hours * 60 + minutes;
