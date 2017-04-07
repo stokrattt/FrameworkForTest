@@ -144,6 +144,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep(2);
     JS.waitForNotExist('div.busyoverlay:visible');
     LF.ConfirmRequestInAccount_WithReservation(V.boardNumbersWithRes.ReservationPrice);
+    condition.nowWeDoing = 'подтвердили резервацию';
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     LF.LogoutFromAccount();
 
@@ -157,8 +158,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.click(By.xpath('//td[contains(text(),"' + V.accountNumbersNoRes.Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
     SF.sleep(2);
     JS.waitForNotExist('div.busyoverlay:visible');
-    Debug.pause();
-    LF.ConfirmRequestInAccount_WithReservation();
+    LF.ConfirmRequestInAccount_NoReservation();
+    condition.nowWeDoing = 'подтвердили резервацию';
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     LF.LogoutFromAccount();
 

@@ -156,7 +156,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             accountNumbers.TravelTime = hours * 60 + minutes;
         }),config.timeout);
 
-        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor Time")]/following-sibling::div[1]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/following-sibling::div[1]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
             let textMax = text.substring(text.indexOf('-') + 1);
             let hoursMin = textMin.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('hr')));
@@ -563,6 +563,21 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
         FillCardPayModal();
     }
+    function ConfirmRequestInAccount_NoReservation() {
+        SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
+        SF.sleep(2);
+        JS.waitForExist('div.confirm');
+        JS.scroll('div.confirm');
+        SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
+        SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
+        SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
+        SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReservation"]'));
+        MakeSignJS('signatureCanvasReservation');
+        SF.click(By.xpath('//button[@ng-click="saveSignature()"]'));
+        JS.waitForExist('button.confirm');
+        SF.sleep(1);
+        SF.click(By.xpath('//button[@class="confirm"]'));
+    }
 //Permissions for Sales --- start
     function PermissionsClear() {
         driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').hasClass('ng-empty')){return true;}else{$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').parent().click()}"));
@@ -968,6 +983,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         FillCardPayModal: FillCardPayModal,
         MakeSignJS: MakeSignJS,
         ConfirmRequestInAccount_WithReservation: ConfirmRequestInAccount_WithReservation,
+        ConfirmRequestInAccount_NoReservation: ConfirmRequestInAccount_NoReservation,
 //Permissions for Sales --- start
         PermissionsClear: PermissionsClear,
         PermissionCanSeeOtherLeads: PermissionCanSeeOtherLeads,
