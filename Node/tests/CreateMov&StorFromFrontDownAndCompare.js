@@ -20,7 +20,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     }), config.timeout);
 
     LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
-    console.log(V.frontNumbersDown);
 
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);

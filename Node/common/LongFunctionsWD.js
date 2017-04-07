@@ -158,11 +158,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Job Time")]/../div[2]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
             let textMax = text.substring(text.indexOf('-') + 1);
-            let hoursMin = textMin.indexOf('hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('hrs')));
-            let minutesMin = textMin.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('hrs') + 1), textMin.indexOf('min')));
+            let hoursMin = textMin.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('hr')));
+            let minutesMin = textMin.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('hr') + 1), textMin.indexOf('min')));
             accountNumbers.JobTimeMin = hoursMin * 60 + minutesMin;
-            let hoursMax = textMax.indexOf('hrs') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('hrs')));
-            let minutesMax = textMax.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('hrs') + 1), textMax.indexOf('min')));
+            let hoursMax = textMax.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('hr')));
+            let minutesMax = textMax.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('hr') + 1), textMax.indexOf('min')));
             accountNumbers.JobTimeMax = hoursMax * 60 + minutesMax;
         }),config.timeout);
 
@@ -920,6 +920,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             frontNumbersDown.MonthlyStorageMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
             frontNumbersDown.MonthlyStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
         }), config.timeout);
+        SF.sleep(1);
         console.log(frontNumbersDown);
     }
 
