@@ -79,6 +79,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
     }
+    function AccountUnloadingEnterAddress() {
+        JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Address To');
+        SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        JS.waitForExist('button.confirm:contains("Update")');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Update")]'));
+        JS.waitForExist('button.confirm:contains("OK")');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
+    }
     function AccountLocalAddInventory() {
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
         JS.waitForExist('div[ng-repeat="filter in filters"]');
@@ -144,7 +156,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             accountNumbers.TravelTime = hours * 60 + minutes;
         }),config.timeout);
 
-        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/../div[2]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Estimated Labor Time")]/following-sibling::div[1]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
             let textMax = text.substring(text.indexOf('-') + 1);
             let hoursMin = textMin.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('hr')));
@@ -154,8 +166,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             let minutesMax = textMax.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('hr') + 1), textMax.indexOf('min')));
             accountNumbers.LaborTimeMax = hoursMax * 60 + minutesMax;
         }),config.timeout);
-
-
 
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Job Time")]/../div[2]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
@@ -932,6 +942,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         AccountLocalEnterAddress: AccountLocalEnterAddress,
         AccountLocalAddInventory: AccountLocalAddInventory,
         AccountLocalDetails: AccountLocalDetails,
+        AccountUnloadingEnterAddress:AccountUnloadingEnterAddress,
         RememberAccountNumbers: RememberAccountNumbers,
         LogoutFromAccount: LogoutFromAccount,
         LogoutFromBoardAdmin: LogoutFromBoardAdmin,
