@@ -16,6 +16,7 @@ module.exports = function (system, config, By, until, constants, condition) {
             Debug.pause();
         } else {
             condition.Success = true;
+            driver.quit();
             system.myEmitter.emit('event');
         }
     }
