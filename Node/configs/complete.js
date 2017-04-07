@@ -22,11 +22,12 @@ module.exports = function(config,V) {
      CheckBillOfLadding
      saveNothing
      compareQuotesLocal
+     CreateMov&StorFromFrontDownAndCompare
 
      './tests/#ReservationMov&Stor.js', './tests/CheckPermissions.js', './tests/#WithoutReservationMov&Stor.js',
      './tests/#CheckChangeCubicFitAdmin&AddInventoriy.js', './tests/#CheckFuelSurcharge.js', './tests/#DepartmenTest.js',
      './tests/createLocalMoving.js', './tests/CheckBillOfLadding.js', './tests/saveNothing.js',
-     './tests/#TestNotes.js'
+     './tests/#TestNotes.js', './tests/compareQuotesLocal.js', './tests/CreateMov&StorFromFrontDownAndCompare.js'
 
      */
 };

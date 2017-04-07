@@ -169,7 +169,7 @@ module.exports = function (system, config, By, until, constants, condition) {
                 return i;
             }
         }
-        IWant(VNotToEqual, i, 12, 'неверный месяц');
+        VD.IWant(VD.VNotToEqual, i, 12, 'неверный месяц');
         return 12;
     }
 

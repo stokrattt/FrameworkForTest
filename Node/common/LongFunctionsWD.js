@@ -117,21 +117,21 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             accountNumbers.moveDate.Month = SF.FindMonthInString(dateString);
             accountNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
             accountNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
-        }));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $("div:contains(\\"Crew Size :\\"):last").next().text()').then(function (text) {
             accountNumbers.CrewSize = SF.cleanPrice(text);
-        }));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $("div:contains(\\"Truck :\\"):last").next().text()').then(function (text) {
             accountNumbers.Trucks = SF.cleanPrice(text);
-        }));
+        }),config.timeout);
         driver.wait(driver.executeScript('return $("div:contains(\\"Hourly Rate :\\"):last").next().text()').then(function (text) {
             accountNumbers.HourlyRate = text.indexOf('$', 4) == -1 ?
                 SF.cleanPrice(text) :
                 SF.cleanPrice(text.substring(text.indexOf('$', 4)));
-        }));
+        }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Fuel Surcharge")]/../div[2]')).getText().then(function (text) {
             accountNumbers.Fuel = SF.cleanPrice(text);
-        }));
+        }),config.timeout);
         driver.wait(driver.executeScript(JSstep.getServicesCostAccount), config.timeout).then(function (ServicesText) {
             accountNumbers.AdServices = SF.cleanPrice(ServicesText);
         });
@@ -142,9 +142,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             let hours = text.indexOf('hr') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('hr')));
             let minutes = text.indexOf('min') == -1 ? 0 : SF.cleanPrice(text.substring((text.indexOf('hr') + 1), text.indexOf('min')));
             accountNumbers.TravelTime = hours * 60 + minutes;
-        }));
+        }),config.timeout);
 
-        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/../div[2]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Estimated Labor Time")]/ancestor::div[1]/following-sibling::div[1]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
             let textMax = text.substring(text.indexOf('-') + 1);
             let hoursMin = textMin.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('hr')));
@@ -153,7 +153,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             let hoursMax = textMax.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('hr')));
             let minutesMax = textMax.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('hr') + 1), textMax.indexOf('min')));
             accountNumbers.LaborTimeMax = hoursMax * 60 + minutesMax;
-        }));
+        }),config.timeout);
+
+        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Job Time")]/../div[2]')).getText().then(function (text) {
+            let textMin = text.substring(0, text.indexOf('-'));
+            let textMax = text.substring(text.indexOf('-') + 1);
+            let hoursMin = textMin.indexOf('hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('hrs')));
+            let minutesMin = textMin.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('hrs') + 1), textMin.indexOf('min')));
+            accountNumbers.JobTimeMin = hoursMin * 60 + minutesMin;
+            let hoursMax = textMax.indexOf('hrs') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('hrs')));
+            let minutesMax = textMax.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('hrs') + 1), textMax.indexOf('min')));
+            accountNumbers.JobTimeMax = hoursMax * 60 + minutesMax;
+        }),config.timeout);
 
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Quote")]/following-sibling::div[1]')).getText().then(function (text) {
             if (text.indexOf("You save") !== -1) {
@@ -164,10 +175,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             } else {
                 console.log('ещё не делали без скидок');
             }
-        }));
+
+        }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
             accountNumbers.Id = SF.cleanPrice(text);
-        }));
+        }),config.timeout);
         SF.sleep(2);
         console.log(accountNumbers);
     }
@@ -449,6 +461,35 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         VD.IWant(VD.VToEqual, accountNumbers.TotalMax, boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
         VD.IWant(VD.VToEqual, accountNumbers.Fuel, boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     }
+
+    function Validation_Compare_Account_Front_MovStorTo(accountNumbers,frontNumbersDown) {
+
+        VD.IWant(VD.VToEqual, accountNumbers.CrewSize, frontNumbersDown.CrewTo, 'не совпали CrewSize аккаунта и фронта');
+        VD.IWant(VD.VToEqual, accountNumbers.HourlyRate, frontNumbersDown.RateTo, 'не совпали HourlyRate аккаунта и фронта');
+
+        VD.IWant(VD.VToEqual, accountNumbers.TravelTime, frontNumbersDown.TravelTimeTo, 'не совпали TravelTime аккаунта и фронта');
+
+        VD.IWant(VD.VToEqual, accountNumbers.TotalMin, frontNumbersDown.QuoteMinTo, 'не совпали TotalMin аккаунта и фронта');
+        VD.IWant(VD.VToEqual, accountNumbers.TotalMax, frontNumbersDown.QuoteMaxTo, 'не совпали TotalMax аккаунта и фронта');
+        VD.IWant(VD.VToEqual, accountNumbers.Fuel, frontNumbersDown.FuelTo, 'не совпали Fuel аккаунта и борда');
+        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinTo, 'не совпали TotalMax аккаунта и фронта');
+        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxTo, 'не совпали Fuel аккаунта и фронта');
+    }
+
+    function Validation_Compare_Account_Front_MovStorFrom(accountNumbers,frontNumbersDown) {
+
+        VD.IWant(VD.VToEqual, accountNumbers.CrewSize, frontNumbersDown.CrewFrom, 'не совпали CrewSize аккаунта и фронта From');
+        VD.IWant(VD.VToEqual, accountNumbers.HourlyRate, frontNumbersDown.RateFrom, 'не совпали HourlyRate аккаунта и фронта From');
+
+        VD.IWant(VD.VToEqual, accountNumbers.TravelTime, frontNumbersDown.TravelTimeFrom, 'не совпали TravelTime аккаунта и фронта From');
+
+        VD.IWant(VD.VToEqual, accountNumbers.TotalMin, frontNumbersDown.QuoteMinFrom, 'не совпали TotalMin аккаунта и фронта From');
+        VD.IWant(VD.VToEqual, accountNumbers.TotalMax, frontNumbersDown.QuoteMaxFrom, 'не совпали TotalMax аккаунта и фронта From');
+        VD.IWant(VD.VToEqual, accountNumbers.Fuel, frontNumbersDown.FuelFrom, 'не совпали Fuel аккаунта и борда From');
+        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinFrom, 'не совпали TotalMax аккаунта и фронта From');
+        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxFrom, 'не совпали Fuel аккаунта и фронта From');
+    }
+
     function SetManager(name) {
         SF.click(By.xpath('//button[contains(text(),"Set Sales")]'));
         SF.click(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"' + name + '")]'));
@@ -761,7 +802,126 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
     }
+    function CreateMovAndStorFromFrontDown() {
+        SF.click (By.xpath('//a[@href="#request"]'));
+        SF.sleep (2);
+        SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+        V.request={};
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
+            V.request.moveDate = MovDateFront;
+            console.log(V.request);
+        }), config.timeout);
+        SF.sleep (0.5);
+        SF.click (By.xpath('//label[contains(text(), "Service Type:")]/following-sibling::select/option[2]'));
+        SF.click (By.xpath('//label[contains(text(), "Desired Delivery Date:")]/following-sibling::input[1]'));
+        driver.wait(driver.executeScript(JSstep.Click8DaysNewCalendar).then(function(DelDateFront){
+            V.request.DelDate = DelDateFront;
+            console.log(V.request.DelDate);
+        }), config.timeout);
+        SF.send (By.id('edit-zip-code-from'), '02136');
+        SF.send (By.id('edit-zip-code-to'), '02032');
+        JS.select ('#edit-size-move', 10);
+        JS.select ('#edit-type-from', 2);
+        JS.select ('#edit-type-to', 5);
+        SF.sleep (0.5);
+        JS.click ('#calculate_btn');
+        SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
+        SF.sleep (4);
+        SF.send(By.id('edit-first-name'), V.client.name);
+        SF.send(By.id('edit-last-name'), V.client.fam);
+        SF.sleep(0.3);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), V.client.phone);
+        SF.sleep(0.3);
+        SF.send(By.id('edit-additional-phone'), V.client.phone);
+        SF.sleep(0.3);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), V.client.email);
+        SF.sleep(0.3);
+        SF.send(By.id('edit-confirmemail'), V.client.email);
+        SF.click(By.id('prefeefe'));
+        SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
+        SF.select(By.xpath('//select[@ng-model="request.prefDelivery"]'), 3);
+        SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
+        SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
+        SF.sleep(2);
+        JS.waitForNotExist ('div[ng-if="loadingImg"]');
+        SF.sleep(4);
+    }
 
+    function RememberFrontNumbersMovAndStorDown(frontNumbersDown){
+        condition.nowWeDoing = 'запоминаем данные с мувинг сторадж TУ';
+
+        driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[@ng-if="storageCalcResult.to.surcharge_fuel"]/span')).getText().then(function(text){
+            frontNumbersDown.FuelTo = SF.cleanPrice (text.replace('$', ''));
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[@ng-if="storageCalcResult.to.isMinHourLessThenMaxTime"]/span')).getText().then(function(text){
+            frontNumbersDown.QuoteMinTo = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+            frontNumbersDown.QuoteMaxTo = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.to.travelTime"]/span')).getText().then(function (text) {
+            frontNumbersDown.TravelTimeTo = SF.cleanPrice(text.substring(text.indexOf('min')));
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[4]/span')).getText().then(function (text) {
+            frontNumbersDown.CrewTo = text.replace('Movers', '');
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
+            frontNumbersDown.RateTo = text.indexOf('$', 4) == -1 ?
+                SF.cleanPrice(text) :
+                SF.cleanPrice(text.substring(text.indexOf('$', 4)));
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//span[@ng-if="storageCalcResult.to.isMinHourLessThenMaxTime"]')).getText().then(function (text) {
+            let textMin = text.substring(0, text.indexOf('-'));
+            let textMax = text.substring(text.indexOf('-') + 1);
+            let hoursMin = textMin.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('Hrs')));
+            let minutesMin = textMin.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('Hrs') + 1), textMin.indexOf('Min')));
+            frontNumbersDown.JobTimeMinTo = hoursMin * 60 + minutesMin;
+            let hoursMax = textMax.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('Hrs')));
+            let minutesMax = textMax.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('Hrs') + 1), textMax.indexOf('Min')));
+            frontNumbersDown.JobTimeMaxTo = hoursMax * 60 + minutesMax;
+        }), config.timeout);
+
+        condition.nowWeDoing = 'запоминаем данные с мувинг сторадж FROM';
+
+        driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[@ng-if="storageCalcResult.from.surcharge_fuel"]/span')).getText().then(function(text){
+            frontNumbersDown.FuelFrom = SF.cleanPrice (text.replace('$', ''));
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[@ng-if="storageCalcResult.from.isMinHourLessThenMaxTime"]/span')).getText().then(function(text){
+            frontNumbersDown.QuoteMinFrom = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+            frontNumbersDown.QuoteMaxFrom = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.from.travelTime"]/span')).getText().then(function (text) {
+            frontNumbersDown.TravelTimeFrom = SF.cleanPrice(text.substring(text.indexOf('min')));
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[4]/span')).getText().then(function (text) {
+            frontNumbersDown.CrewFrom = text.replace('Movers', '');
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[5]/span')).getText().then(function (text) {
+            frontNumbersDown.RateFrom = text.indexOf('$', 4) == -1 ?
+                SF.cleanPrice(text) :
+                SF.cleanPrice(text.substring(text.indexOf('$', 4)));
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//span[@ng-if="storageCalcResult.from.isMinHourLessThenMaxTime"]')).getText().then(function (text) {
+            let textMin = text.substring(0, text.indexOf('-'));
+            let textMax = text.substring(text.indexOf('-') + 1);
+            let hoursMin = textMin.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('Hrs')));
+            let minutesMin = textMin.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('Hrs') + 1), textMin.indexOf('Min')));
+            frontNumbersDown.JobTimeMinFrom = hoursMin * 60 + minutesMin;
+            let hoursMax = textMax.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('Hrs')));
+            let minutesMax = textMax.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('Hrs') + 1), textMax.indexOf('Min')));
+            frontNumbersDown.JobTimeMaxFrom = hoursMax * 60 + minutesMax;
+        }), config.timeout);
+
+        condition.nowWeDoing = 'запоминаем данные с мувинг сторадж Estimated Labor и Estimated Monthly Storage';
+
+        driver.wait(driver.findElement(By.xpath('//div[@class="box_info total storage"]//div/span')).getText().then(function(text){
+            frontNumbersDown.EstimatedLaborMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+            frontNumbersDown.EstimatedLaborMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@ng-if="!overnightMove"]/span')).getText().then(function(text){
+            frontNumbersDown.MonthlyStorageMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+            frontNumbersDown.MonthlyStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+        }), config.timeout);
+        console.log(frontNumbersDown);
+    }
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -778,13 +938,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         LoginToBoardAsCustom: LoginToBoardAsCustom,
         LoginToAccountAsClient: LoginToAccountAsClient,
         OpenRequest: OpenRequest,
+        CreateMovAndStorFromFrontDown: CreateMovAndStorFromFrontDown,
         CreateLocalMovingFromBoard: CreateLocalMovingFromBoard,
         CreateMovAndStorFromBoard: CreateMovAndStorFromBoard,
         CreateLoadingHelpFromBoard: CreateLoadingHelpFromBoard,
         RememberDigitsRequestBoard_Up: RememberDigitsRequestBoard_Up,
         RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
         RememberDigitsRequestBoard: RememberDigitsRequestBoard,
+        RememberFrontNumbersMovAndStorDown: RememberFrontNumbersMovAndStorDown,
         Validation_Compare_Account_Admin: Validation_Compare_Account_Admin,
+        Validation_Compare_Account_Front_MovStorTo: Validation_Compare_Account_Front_MovStorTo,
+        Validation_Compare_Account_Front_MovStorFrom: Validation_Compare_Account_Front_MovStorFrom,
         SetManager: SetManager,
         SetClientPasswd: SetClientPasswd,
         FillCardPayModal: FillCardPayModal,
