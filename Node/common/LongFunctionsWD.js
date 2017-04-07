@@ -144,7 +144,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             accountNumbers.TravelTime = hours * 60 + minutes;
         }),config.timeout);
 
-        driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Estimated Labor Time")]/ancestor::div[1]/following-sibling::div[1]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Labor time")]/../div[2]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
             let textMax = text.substring(text.indexOf('-') + 1);
             let hoursMin = textMin.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('hr')));
@@ -154,6 +154,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             let minutesMax = textMax.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('hr') + 1), textMax.indexOf('min')));
             accountNumbers.LaborTimeMax = hoursMax * 60 + minutesMax;
         }),config.timeout);
+
+
 
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Estimated Job Time")]/../div[2]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));

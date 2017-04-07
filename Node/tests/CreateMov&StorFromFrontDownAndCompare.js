@@ -11,6 +11,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     SF.get(V.frontURL);
     JS.waitForExist ('#loader');
+    SF.sleep (4);
 
     LF.CreateMovAndStorFromFrontDown ();
 

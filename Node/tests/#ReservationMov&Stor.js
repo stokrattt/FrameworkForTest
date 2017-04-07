@@ -73,9 +73,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (0.5);
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="confirm ng-scope"]')).getText().then(function(deposit){
+    driver.wait(driver.findElement(By.xpath('//div[@class="confirm ng-scope"]').getText().then(function(deposit){
         V.DepositReservation = SF.cleanPrice (deposit);
-    }));
+    })), config.timeout);
     VD.IWant (VD.VToEqual, V.DepositReservation, V.ReservationPrice, 'Резервация которую мы выставили в настройках не совпадает');
     SF.click (By.id('paybutton'));
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));

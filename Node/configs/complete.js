@@ -1,7 +1,9 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/#DepartmenTest.js',
-        './tests/createLocalMoving.js',
+
+
+
+       './tests/CreateMov&StorFromFrontDownAndCompare.js',
 
     ];
     config.chainFail = false;
@@ -23,11 +25,13 @@ module.exports = function(config,V) {
      saveNothing
      compareQuotesLocal
      CreateMov&StorFromFrontDownAndCompare
+     unloadingHelpTopForm
 
      './tests/#ReservationMov&Stor.js', './tests/CheckPermissions.js', './tests/#WithoutReservationMov&Stor.js',
      './tests/#CheckChangeCubicFitAdmin&AddInventoriy.js', './tests/#CheckFuelSurcharge.js', './tests/#DepartmenTest.js',
      './tests/createLocalMoving.js', './tests/CheckBillOfLadding.js', './tests/saveNothing.js',
      './tests/#TestNotes.js', './tests/compareQuotesLocal.js', './tests/CreateMov&StorFromFrontDownAndCompare.js'
+     './tests/unloadingHelpTopForm.js'
 
      */
 };

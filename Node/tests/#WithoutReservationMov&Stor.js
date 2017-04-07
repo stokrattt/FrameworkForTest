@@ -13,6 +13,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.send(By.id('password'), 'test');
     JS.click('.btn-primary');
     SF.sleep (2);
+    JS.waitForNotExist("div.busyoverlay:visible");
+
+
     SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
