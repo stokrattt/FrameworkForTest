@@ -19,7 +19,7 @@ module.exports = function (system, condition) {
                 system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.png', image, 'base64', function (err) {
                     if (err!=null) {console.log(err)};
                 });
-                system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing + '\n' + e.stack, function (err) {
+                system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing +'\n'+e+ '\n' + e.stack, function (err) {
                     if (err!=null) {console.log(err)};
                 });
                 console.log('сделали скрин');
