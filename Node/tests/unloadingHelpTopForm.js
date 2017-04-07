@@ -19,7 +19,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(5);
     JS.waitForNotExist('div.busyoverlay:visible');
-    LF.AccountLocalEnterAddress();
+    LF.AccountUnloadingEnterAddress();
     V.accountNumbersWithRes={};
     LF.RememberAccountNumbers(V.accountNumbersWithRes);
     LF.LogoutFromAccount();
@@ -85,8 +85,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(5);
-    JS.waitForNotExist('div.busyoverlay');
-    LF.AccountLocalEnterAddress();
+    JS.waitForNotExist('div.busyoverlay:visible');
+    LF.AccountUnloadingEnterAddress();
     V.accountNumbersNoRes={};
     LF.RememberAccountNumbers(V.accountNumbersNoRes);
     LF.LogoutFromAccount();
