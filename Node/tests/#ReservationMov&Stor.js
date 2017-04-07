@@ -93,14 +93,14 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
-    SF.sleep(0.5)
+    SF.sleep(0.5);
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();
     SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
         VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    }));
+    }), config.timeout);
     LF.LogoutFromAccount ();
 
     SF.endOfTest();
