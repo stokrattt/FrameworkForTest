@@ -12,44 +12,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.waitForExist ('#loader');
     SF.sleep (4);
 
-    SF.click (By.xpath('//a[@href="#request"]'));
-    SF.sleep (2);
-    SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
-    V.request={};
-    driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
-        V.request.moveDate = MovDateFront;
-        console.log(V.request);
-    }), config.timeout);
-    SF.sleep (0.5);
-    SF.click (By.xpath('//label[contains(text(), "Service Type:")]/following-sibling::select/option[6]'));
-condition.nowWeDoing = 'создаем овернайт реквест';
-    SF.send (By.id('edit-zip-code-from'), '02136');
-    SF.send (By.id('edit-zip-code-to'), '02032');
-    JS.select ('#edit-size-move', 10);
-    JS.select ('#edit-type-from', 2);
-    JS.select ('#edit-type-to', 5);
-    SF.sleep (0.5);
-    JS.click ('#calculate_btn');
-    SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-    SF.sleep (4);
-    SF.send(By.id('edit-first-name'), V.client.name);
-    SF.send(By.id('edit-last-name'), V.client.fam);
-    SF.sleep(0.3);
-    SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), V.client.phone);
-    SF.sleep(0.3);
-    SF.send(By.id('edit-additional-phone'), V.client.phone);
-    SF.sleep(0.3);
-    SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), V.client.email);
-    SF.sleep(0.3);
-    SF.send(By.id('edit-confirmemail'), V.client.email);
-    SF.click(By.id('prefeefe'));
-    SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
-    SF.select(By.xpath('//select[@ng-model="request.prefDelivery"]'), 3);
-    SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
-    SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-    SF.sleep(2);
-    JS.waitForNotExist ('div[ng-if="loadingImg"]');
-    SF.sleep(4);
+    LF.CreateOvernightDownForm ();
 
 condition.nowWeDoing = 'запоминаем данные калькулятора PICK UP';
 
