@@ -26,12 +26,18 @@ module.exports = function(config,V) {
      compareQuotesLocal
      CreateMov&StorFromFrontDownAndCompare
      unloadingHelpTopForm
+     unloadingHelpDownForm
+     LoadingHelpDownForm
+     OvernightDownForm
+
+
 
      './tests/#ReservationMov&Stor.js', './tests/CheckPermissions.js', './tests/#WithoutReservationMov&Stor.js',
      './tests/#CheckChangeCubicFitAdmin&AddInventoriy.js', './tests/#CheckFuelSurcharge.js', './tests/#DepartmenTest.js',
      './tests/createLocalMoving.js', './tests/CheckBillOfLadding.js', './tests/saveNothing.js',
      './tests/#TestNotes.js', './tests/compareQuotesLocal.js', './tests/CreateMov&StorFromFrontDownAndCompare.js'
-     './tests/unloadingHelpTopForm.js'
+     './tests/unloadingHelpTopForm.js', './tests/unloadingHelpDownForm.js', './tests/LoadingHelpDownForm.js',
+     './tests/OvernightDownForm.js'
 
      */
 };

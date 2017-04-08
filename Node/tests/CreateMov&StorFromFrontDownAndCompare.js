@@ -36,7 +36,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (0.5);
 
     LF.RememberAccountNumbers(V.accountNumbersTo);
-    Debug.pause();
     LF.Validation_Compare_Account_Front_MovStorTo(V.accountNumbersTo,V.frontNumbersDown);
 
     SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
@@ -53,8 +52,13 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     LF.OpenRequest(V.accountNumbersTo.Id); /********************************************************************/
 
-    JS.select ('#edit-status', 2);
     JS.step(JSstep.selectTruck);
+
+    V.boardNumbersTo = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersTo);
+    condition.nowWeDoing = 'сравниваем аккаунт и админку';
+    LF.Validation_Compare_Account_Admin(V.accountNumbersTo,V.boardNumbersTo);
+    JS.select ('#edit-status', 2);
     SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));
@@ -71,8 +75,13 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     LF.OpenRequest(V.accountNumbersFrom.Id); /********************************************************************/
 
-    JS.select ('#edit-status', 2);
     JS.step(JSstep.selectTruck);
+
+    V.boardNumbersFrom = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
+    condition.nowWeDoing = 'сравниваем аккаунт и админку';
+    LF.Validation_Compare_Account_Admin(V.accountNumbersFrom,V.boardNumbersFrom);
+    JS.select ('#edit-status', 2);
     SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));
@@ -107,8 +116,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
 
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    //SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    //SF.click (By.xpath('//button[@class="confirm"]'));
 
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
