@@ -209,20 +209,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function AccountLocalDetails() {
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
         JS.waitForNotExist('div.busyoverlay:visible');
-        SF.sleep(2);
-        SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 60);
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.select(By.xpath('//select[@id="new_door_to_parking"]'), 60);
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
-        JS.waitForNotExist('div.busyoverlay:visible');
-        driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
+        SF.sleep(5);
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(1);
+        SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 60);
+        SF.select(By.xpath('//select[@id="new_door_to_parking"]'), 60);
+        SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
+        SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
+        driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
+        SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
-        JS.waitForNotExist('div.busyoverlay:visible');
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(5);
     }
@@ -1176,6 +1172,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist ('div[ng-if="loadingImg"]');
         SF.sleep(4);
     }
+    function addToCleanerJob(Id){
+        if (V.cleanerJob==undefined) {V.cleanerJob=[];}
+        V.cleanerJob.push(V.accountNumbersTo.Id);
+    }
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -1235,6 +1235,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         RememberAndValidatePayroll_In_EditRequest: RememberAndValidatePayroll_In_EditRequest,
         findTestForemanInPayroll: findTestForemanInPayroll,
         findSaleInPayroll: findSaleInPayroll,
-        selectDateInPayroll: selectDateInPayroll
+        selectDateInPayroll: selectDateInPayroll,
+        addToCleanerJob: addToCleanerJob
     };
 };

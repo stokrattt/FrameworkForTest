@@ -26,6 +26,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible(By.xpath('//li[@id="tab_Details"]//i[@class="icon-check"]'));
     V.accountNumbersTo={};
     LF.RememberAccountNumbers(V.accountNumbersTo);
+    LF.addToCleanerJob(V.accountNumbersTo.Id);
     SF.sleep(1);
     condition.nowWeDoing='запомнили цифры ToStorage идём на From';
     SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
@@ -35,6 +36,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     //LF.AccountToStorageEnterAddress();
     V.accountNumbersFrom={};
     LF.RememberAccountNumbers(V.accountNumbersFrom);
+    LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.LogoutFromAccount();
 
     condition.nowWeDoing='Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
