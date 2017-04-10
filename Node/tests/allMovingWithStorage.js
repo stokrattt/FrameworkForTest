@@ -37,6 +37,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.accountNumbersFrom={};
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
+    Debug.pause();
     LF.LogoutFromAccount();
 
     condition.nowWeDoing='Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';

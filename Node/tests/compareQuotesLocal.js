@@ -41,8 +41,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
             V.logNumbers.QuoteMin=SF.cleanPrice(text.substring(0,text.indexOf('-')));
             V.logNumbers.QuoteMax=SF.cleanPrice(text.substring(text.indexOf('-')+1));
             console.log(V.logNumbers);
-            VD.IWant(VD.VToEqual, V.logNumbers.QuoteMin, V.boardNumbers.QuoteMin);
-            VD.IWant(VD.VToEqual, V.logNumbers.QuoteMax, V.boardNumbers.QuoteMax);
+            VD.IWant(VD.VToEqual, V.logNumbers.QuoteMin, V.boardNumbers.TotalMin);
+            VD.IWant(VD.VToEqual, V.logNumbers.QuoteMax, V.boardNumbers.TotalMax);
     });
     SF.sleep(1);
     SF.endOfTest();
