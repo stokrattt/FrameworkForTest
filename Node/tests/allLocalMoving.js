@@ -33,7 +33,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbers.Id);
 
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     JS.step(JSstep.selectTruck);
 
     V.boardNumbers = {};

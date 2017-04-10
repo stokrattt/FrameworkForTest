@@ -211,13 +211,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
         SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 60);
+        JS.waitForNotExist('div.busyoverlay:visible');
         SF.select(By.xpath('//select[@id="new_door_to_parking"]'), 60);
+        JS.waitForNotExist('div.busyoverlay:visible');
         SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
+        JS.waitForNotExist('div.busyoverlay:visible');
         SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
+        JS.waitForNotExist('div.busyoverlay:visible');
         driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
+        JS.waitForNotExist('div.busyoverlay:visible');
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(5);
     }
@@ -369,6 +374,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             Fiber.yield();
         }
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+        JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
     }
     function CreateLocalMovingFromBoard() {
@@ -704,12 +710,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 //Permissions for Sales --- end
     function closeEditRequest() {
-        JS.waitForNotExist('div.toast-message');
-        JS.waitForNotExist('div.toast-top-right');
-        JS.waitForNotExist('div.toast-success');
+        JS.waitForNotExist('div.toast-message:visible');
+        JS.waitForNotExist('div.toast-top-right:visible');
+        JS.waitForNotExist('div.toast-success:visible');
         SF.sleep(2);
         JS.waitForNotExist('div.toast-success:visible');
-        JS.waitForNotExist('div.toast-success');
+        JS.waitForNotExist('div.visible-overflow');
         SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="cancel()"]'));
         SF.sleep(2);

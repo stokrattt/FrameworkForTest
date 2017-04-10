@@ -24,8 +24,24 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.AccountLocalDetails();
     SF.waitForVisible(By.xpath('//li[@id="tab_Inventory"]//i[@class="icon-check"]'));
     SF.waitForVisible(By.xpath('//li[@id="tab_Details"]//i[@class="icon-check"]'));
-    V.accountNumbers={};
-    LF.RememberAccountNumbers(V.accountNumbers);
+    V.accountNumbersTo={};
+    LF.RememberAccountNumbers(V.accountNumbersTo);
+    SF.sleep(1);
+    condition.nowWeDoing='запомнили цифры ToStorage идём на From';
+    SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
+    JS.waitForNotExist('div.busyoverlay:visible');
+    SF.sleep(5);
+    JS.waitForNotExist('div.busyoverlay:visible');
+    //LF.AccountToStorageEnterAddress();
+    V.accountNumbersFrom={};
+    LF.RememberAccountNumbers(V.accountNumbersFrom);
+    LF.LogoutFromAccount();
+
+    condition.nowWeDoing='Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsAdmin();
+    LF.OpenRequest(V.accountNumbersTo.Id);
+    JS.step(JSstep.selectTruck);
 
 
     //=========================закончили писать тест=============================

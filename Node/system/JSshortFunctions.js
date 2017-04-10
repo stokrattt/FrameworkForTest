@@ -19,17 +19,22 @@ module.exports = function (system, config, By, until, constants, condition) {
 
     function waitForExist(selector) {
         console.log("return $('" + selector + "').length");
+        let times = config.timeout/500;
+        let time = 0;
         driver.wait(new Promise(function (resolve, reject) {
             let f = function () {
-                driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
-                    if (avai != 0) {
-                        console.log('появился ' + selector);
-                        resolve("result");
-                        SFgo();
-                    } else {
-                        setTimeout(f, 500);
-                    }
-                }));
+                time++;
+                if (time<=times) {
+                    driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
+                        if (avai != 0) {
+                            console.log('появился ' + selector);
+                            resolve("result");
+                            SFgo();
+                        } else {
+                            setTimeout(f, 500);
+                        }
+                    }), config.timeout);
+                }
             };
             setTimeout(f, 500);
         }), config.timeout);
@@ -38,17 +43,22 @@ module.exports = function (system, config, By, until, constants, condition) {
 
     function waitForNotExist(selector) {
         console.log("return $('" + selector + "').length");
+        let times = config.timeout/500;
+        let time = 0;
         driver.wait(new Promise(function (resolve, reject) {
             let f = function () {
-                driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
-                    if (avai == 0) {
-                        console.log('убрался ' + selector);
-                        resolve("result");
-                        SFgo();
-                    } else {
-                        setTimeout(f, 500);
-                    }
-                }));
+                time++;
+                if (time<=times) {
+                    driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
+                        if (avai == 0) {
+                            console.log('убрался ' + selector);
+                            resolve("result");
+                            SFgo();
+                        } else {
+                            setTimeout(f, 500);
+                        }
+                    }), config.timeout);
+                }
             };
             setTimeout(f, 500);
         }), config.timeout);
