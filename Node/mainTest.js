@@ -1,3 +1,4 @@
+
 //========================set up global variables========================
 var constants = require('./common/constants');
 var SF={};
@@ -18,6 +19,7 @@ var config={};
 config.chainFail = false;
 config.D = false;
 config.timeout = 20000;
+config.browser = 'chrome';
 
 var condition={};
 condition.readyForNext = true;
@@ -27,6 +29,23 @@ condition.busy = false;
 condition.Success = false;
 condition.NotValid=false;
 condition.nowWeDoing = 'something';
+
+//======================check for debug mode=============================
+var attrs = 2;
+if ('-d' == process.argv[attrs]) {
+    console.log('debug enabled');
+    config.D = true;
+    attrs++;
+}
+
+//=================reading parametres from CLI===========================
+for (attrs; attrs < process.argv.length; attrs++) {
+    if (process.argv[attrs].indexOf('=') != -1) {
+        V[process.argv[attrs].substring(0, process.argv[attrs].indexOf('='))] = process.argv[attrs].substring(process.argv[attrs].indexOf('=') + 1);
+    } else if (process.argv[attrs].indexOf('config:') != -1) {
+        require('./configs/'+process.argv[attrs].substring(process.argv[attrs].indexOf(':') + 1))(config,V);
+    }
+}
 
 //=====================set up bebDriver==================================
 var webdriver = require('selenium-webdriver');
@@ -39,7 +58,7 @@ function getNewDriver() {
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
     driver = new webdriver.Builder()
         .usingServer(SELENIUM_HOST)
-        .withCapabilities({browserName: 'chrome'})
+        .withCapabilities({browserName: config.browser})
         .build();
     driver.manage().window().setSize(1400, 800);
     return driver;
@@ -101,22 +120,7 @@ VD = require('./system/ValidationsWD')(system, condition);
 LF = require('./common/LongFunctionsWD.js')(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);
 
 //=================set Up Debug==========================================
-//======================check for debug mode=============================
-var attrs = 2;
-if ('-d' == process.argv[attrs]) {
-    console.log('debug enabled');
-    config.D = true;
-    attrs++;
-}
 
-//=================reading parametres from CLI===========================
-for (attrs; attrs < process.argv.length; attrs++) {
-    if (process.argv[attrs].indexOf('=') != -1) {
-        V[process.argv[attrs].substring(0, process.argv[attrs].indexOf('='))] = process.argv[attrs].substring(process.argv[attrs].indexOf('=') + 1);
-    } else if (process.argv[attrs].indexOf('config:') != -1) {
-        require('./configs/'+process.argv[attrs].substring(process.argv[attrs].indexOf(':') + 1))(config,V);
-    }
-}
 //=====================enable debug========================================
 global.Debug = require("./system/DebugWD.js")(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
 if (config.D) {
