@@ -10,6 +10,7 @@ var LF={};
 var system={};
 system.path = require('path');
 system.fs = require('fs');
+system.colors=require('colors');
 
 global.Fiber = require('fibers');
 
@@ -32,6 +33,7 @@ var webdriver = require('selenium-webdriver');
 var FileDetector = webdriver.FileDetector;
 var By = webdriver.By;
 var until = webdriver.until;
+global.MyError = webdriver.error;
 
 function getNewDriver() {
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
@@ -76,8 +78,8 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
         system.fs.writeFile('reports/'+condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing+'\n'+e+'\n'+e.stack, function (err) {
                 if (err!=null) {console.log(err)};
             });
-            console.log('сделали скрин');
-            console.log('Произошла ошибка: ', e);
+            console.log('сделали скрин'.yellow);
+            console.log('Произошла ошибка: '.red, e);
             if (!config.D) {
                 driver.quit();
                 system.myEmitter.emit('event');
@@ -106,10 +108,6 @@ if ('-d' == process.argv[attrs]) {
     config.D = true;
     attrs++;
 }
-global.Debug = require("./system/DebugWD.js")(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
-if (config.D) {
-    Debug.WDconsole();
-}
 
 //=================reading parametres from CLI===========================
 for (attrs; attrs < process.argv.length; attrs++) {
@@ -118,6 +116,11 @@ for (attrs; attrs < process.argv.length; attrs++) {
     } else if (process.argv[attrs].indexOf('config:') != -1) {
         require('./configs/'+process.argv[attrs].substring(process.argv[attrs].indexOf(':') + 1))(config,V);
     }
+}
+//=====================enable debug========================================
+global.Debug = require("./system/DebugWD.js")(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
+if (config.D) {
+    Debug.WDconsole();
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -128,26 +131,25 @@ class MyEmitter extends EventEmitter {
 }
 system.myEmitter = new MyEmitter();
 system.myEmitter.on('event', () => {
-    if (condition.testN>0) {if (!condition.Success||condition.NotValid) {testPassed.push('Failed '+condition.testName);}
-        else {testPassed.push('Passed' + condition.testName);}}
+    if (condition.testN>0) {if (!condition.Success||condition.NotValid) {testPassed.push('Failed '.red+condition.testName);}
+        else {testPassed.push('Passed'.green + condition.testName);}}
     if ((condition.testN < config.suite.length)&&(!(config.chainFail&&!condition.Success))) {
         condition.Success = false;
         condition.NotValid=false;
         condition.nowWeDoing = 'something';
         condition.errorNumber = 0;
         condition.testName = getTestName(config.suite[condition.testN]);
-        console.log('next...'+condition.testN + ' '+condition.testName);
+        console.log(('next...'+condition.testN + ' '+condition.testName).yellow);
         deleteFolderRecursive('reports/'+condition.testName);
         if (condition.testN>0) {driver=getNewDriver();}
         condition.testN++;
         Fiber(function(){require(config.suite[condition.testN-1])
         (SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF, config,constants);}).run();
     } else {
-        if (driver!==null){
-            driver.quit();
-        }
         console.log('end...');
         for (let i=0; i<testPassed.length; i++){console.log(testPassed[i]);}
+        system.myEmitter.removeAllListeners('event');
+
     }
 });
 condition.Success = true;

@@ -22,16 +22,17 @@ module.exports = function (system, condition) {
                 system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing +'\n'+e+ '\n' + e.stack, function (err) {
                     if (err!=null) {console.log(err)};
                 });
-                console.log('сделали скрин');
-                console.log('Ошибка валидации: ', e);
+                console.log('сделали скрин'.yellow);
+                console.log('Ошибка валидации: '.red, e);
 
             }));
         }
     }
-    function INeed (value1, value2, e) {
-        if (value1 !== value2) {
-            MyError.throwDecodedError({error: 404, message: e});
-            endOfTest();
+    function INeed (func, value1, value2, e) {
+        if (!func(value1, value2)) {
+            condition.NotValid = true;
+            e += '\nvalue1 = ' + value1 + '\nvalue2 = ' + value2;
+                throw e;
         }
     }
     return {

@@ -1,7 +1,7 @@
 module.exports = function(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants) {
     function pauseWatcher() {
         if (condition.busy) {
-            console.log('пауза');
+            console.log('пауза'.yellow);
             driver.wait(new Promise(function (resolve, reject) {
                 let f = function() {
                     if (!condition.busy) {
@@ -39,7 +39,7 @@ module.exports = function(SF, JS, JSstep, VD, V, By, until,FileDetector, system,
                         var newFunc = new Function(args, buffer);
                         newFunc(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition,LF,config,constants);
                     } catch (e) {
-                        console.log('ошибка ' + e);
+                        console.log('ошибка '.red + e);
                     }
                     buffer = '';
                 } else if (recording) {
@@ -47,12 +47,11 @@ module.exports = function(SF, JS, JSstep, VD, V, By, until,FileDetector, system,
                 }
             }
         });
-        return true;
     }
     function pause() {
         if (config.D) {
             condition.busy = true;
-            console.log('пауза');
+            console.log('пауза'.yellow);
             driver.wait(new Promise(function (resolve, reject) {
                 let f = function() {
                     if (!condition.busy) {

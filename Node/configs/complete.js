@@ -17,7 +17,7 @@ module.exports = function(config,V) {
      #ReservationMov&Stor
      #WithoutReservationMov&Stor
      #DepartmenTest
-     createLocalMoving
+     allLocalMoving
      #TestNotes
      CheckBillOfLadding
      saveNothing

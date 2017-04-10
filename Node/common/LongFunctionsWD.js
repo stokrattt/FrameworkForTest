@@ -66,6 +66,79 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
     }
+    function FullSmallCalcAsLoading(client){
+        JS.click("input#extra-service");
+        JS.select('select#edit-service',3);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
+        driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
+        SF.sleep(2);
+        V.frontNumbers = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
+            V.frontNumbers.moveDate = D;
+            console.log(V.frontNumbers.moveDate);
+        }),config.timeout);
+        SF.sleep(2);
+        driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+        SF.sleep(1);
+        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        SF.sleep(1);
+        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+        SF.sleep(1);
+        JS.click("button.pull-right:first");
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeFrom"]', 4);
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
+        SF.sleep(1);
+        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+        SF.sleep(2);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
+        SF.sleep(1);
+        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+    }
+    function FullSmallCalcAsMovingWithStorage(client){
+        JS.click("input#extra-service");
+        JS.select('select#edit-service',2);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02461");
+        driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
+        SF.sleep(2);
+        V.frontNumbers = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
+            V.frontNumbers.moveDate = D;
+            console.log(V.frontNumbers.moveDate);
+        }),config.timeout);
+        SF.sleep(2);
+        driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.deliveryDate\"]').focus();"),config.timeout);
+        SF.sleep(2);
+        driver.wait(driver.executeScript(JSstep.Click8DaysNewCalendar).then(function (D) {
+            V.frontNumbers.deliveryDate = D;
+            console.log(V.frontNumbers.deliveryDate);
+        }),config.timeout);
+        driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+        SF.sleep(1);
+        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        SF.sleep(1);
+        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+        SF.sleep(1);
+        JS.click("button.pull-right:first");
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeFrom"]', 4);
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
+        SF.sleep(1);
+        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+        SF.sleep(2);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
+        SF.sleep(1);
+        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+    }
     function AccountLocalEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
         SF.sleep(1);
@@ -83,6 +156,30 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
         SF.sleep(1);
         SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Address To');
+        SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        JS.waitForExist('button.confirm:contains("Update")');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Update")]'));
+        JS.waitForExist('button.confirm:contains("OK")');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
+    }
+    function AccountLoadingEnterAddress() {
+        JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'From Address');
+        SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        JS.waitForExist('button.confirm:contains("Update")');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Update")]'));
+        JS.waitForExist('button.confirm:contains("OK")');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
+    }
+    function AccountToStorageEnterAddress() {
+        JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'From Address');
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         JS.waitForExist('button.confirm:contains("Update")');
         SF.sleep(2);
@@ -118,6 +215,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
         SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
         driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(5);
@@ -1075,10 +1174,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
         FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
+        FullSmallCalcAsLoading: FullSmallCalcAsLoading,
+        FullSmallCalcAsMovingWithStorage: FullSmallCalcAsMovingWithStorage,
         AccountLocalEnterAddress: AccountLocalEnterAddress,
         AccountLocalAddInventory: AccountLocalAddInventory,
         AccountLocalDetails: AccountLocalDetails,
         AccountUnloadingEnterAddress:AccountUnloadingEnterAddress,
+        AccountLoadingEnterAddress: AccountLoadingEnterAddress,
+        AccountToStorageEnterAddress: AccountToStorageEnterAddress,
         RememberAccountNumbers: RememberAccountNumbers,
         LogoutFromAccount: LogoutFromAccount,
         LogoutFromBoardAdmin: LogoutFromBoardAdmin,

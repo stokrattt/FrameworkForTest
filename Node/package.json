@@ -11,6 +11,7 @@
   "dependencies": {
     "selenium-webdriver": "^3.1.0",
     "fibers": "^1.0.15",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "colors": "^1.1.2"
   }
 }
