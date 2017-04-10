@@ -48,7 +48,7 @@ condition.nowWeDoing = 'запоминаем данные калькулятор
         let minutesMax = textMax.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('Hrs') + 1), textMax.indexOf('Min')));
         V.frontNumbersOvernightDown.JobTimeMaxUP = hoursMax * 60 + minutesMax;
     }), config.timeout);
-    SF.sleep (1);
+    SF.sleep (2);
 
 condition.nowWeDoing = 'запоминаем данные с калькулятора DELIVERY';
 
@@ -95,7 +95,7 @@ condition.nowWeDoing = 'запоминаем данные Estimated Labor и Ove
         V.frontNumbersOvernightDown.OvernightStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
     }), config.timeout);
 */
-    SF.sleep(1);
+    SF.sleep(2);
     console.log(V.frontNumbersOvernightDown);
 
     SF.click(By.id('submitRequestButton'));
@@ -197,6 +197,8 @@ condition.nowWeDoing = 'запоминаем данные Estimated Labor и Ove
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
+    JS.waitForExist ('div[class="sweet-overlay"]:visible');
+    SF.click (By.xpath('//button[@class="confirm"]'));
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();

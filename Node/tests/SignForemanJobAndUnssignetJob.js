@@ -171,13 +171,13 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.sleep (3);
 
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.VNotToEqual, check, 0, 'фореман не удалился с реквеста');
+        VD.INeed(VD.VToEqual, check, 0, 'фореман не удалился с реквеста');
     }),config.timeout);
     SF.sleep (1);
     SF.click(By.xpath('//a[@ui-sref="foreman.done"]'));
     SF.sleep (5);
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.VNotToEqual, check, 0, 'фореман не удалился с реквеста');
+        VD.INeed(VD.VToEqual, check, 0, 'фореман не удалился с реквеста');
     }),config.timeout);
     SF.sleep (1);
     LF.LogoutFromBoardForeman();

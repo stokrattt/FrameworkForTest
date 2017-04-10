@@ -32,6 +32,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
+    SF.sleep (3);
     LF.OpenRequest(V.accountNumbers.Id);
 
     JS.step(JSstep.selectTruck);

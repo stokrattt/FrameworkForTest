@@ -73,9 +73,10 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (0.5);
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="confirm ng-scope"]').getText().then(function(deposit){
+    driver.wait(driver.findElement(By.xpath('//div[@class="confirm ng-scope"]')).getText().then(function(deposit){
         V.DepositReservation = SF.cleanPrice (deposit);
-    })), config.timeout);
+    }), config.timeout);
+    SF.sleep (2);
     VD.IWant (VD.VToEqual, V.DepositReservation, V.ReservationPrice, 'Резервация которую мы выставили в настройках не совпадает');
     SF.click (By.id('paybutton'));
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
@@ -88,12 +89,11 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
 
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
+    JS.waitForExist ('div[class="sweet-overlay"]:visible');
+    SF.click (By.xpath('//button[@class="confirm"]'));
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();

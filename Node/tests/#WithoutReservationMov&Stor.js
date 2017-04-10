@@ -49,6 +49,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.step(JSstep.selectTruck);
     SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
+    SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));
     JS.waitForNotExist("div.busyoverlay:visible");
     SF.sleep (5);
@@ -66,11 +67,12 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.get(V.accountURL);
 
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
-
+    SF.sleep (4);
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
         VD.IWant(VD.VToEqual,Status,'Not Confirmed');
     }));
+    SF.sleep (1);
     SF.click(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
     SF.sleep(2);
     SF.waitForVisible (By.xpath('//div[@class="storagehelp"]'));
@@ -91,6 +93,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.send (By.id('edit-moving-from-apt'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
     SF.sleep (0.5);
+
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReservation"]'));
     SF.sleep (0.5);
 
