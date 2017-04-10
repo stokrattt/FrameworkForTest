@@ -113,6 +113,7 @@ condition.nowWeDoing = 'запоминаем данные Estimated Labor и Ove
 
     V.accountNumbersUp = {};
     LF.RememberAccountNumbers (V.accountNumbersUp);
+    LF.addToCleanerJob(V.accountNumbersUp.Id);
     LF.Validation_Compare_Account_Front_MovStorTo(V.accountNumbersUp,V.frontNumbersOvernightDown);
 
     SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
@@ -121,6 +122,7 @@ condition.nowWeDoing = 'запоминаем данные Estimated Labor и Ove
     V.accountNumbersDelivery = {};
     SF.sleep (0.5);
     LF.RememberAccountNumbers(V.accountNumbersDelivery);
+    LF.addToCleanerJob(V.accountNumbersDelivery.Id);
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersDelivery,V.frontNumbersOvernightDown);
 
     LF.LogoutFromAccount ();

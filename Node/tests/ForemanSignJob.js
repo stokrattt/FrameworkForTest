@@ -35,6 +35,7 @@ condition.nowWeDoing = 'ждем инвентория';
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
         console.log (V.request.Id);
+        LF.addToCleanerJob(V.request.Id);
     }), config.timeout);
     JS.select ('#edit-status', 3);
     JS.step(JSstep.selectTruck);

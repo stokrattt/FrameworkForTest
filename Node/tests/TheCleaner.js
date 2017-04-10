@@ -34,11 +34,15 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
                 JS.waitForNotExist('div.busyoverlay:visible');
             }
             let Sales = 0;
-            driver.wait(driver.findElements(By.xpath('//div[contains(@class,"sales_type")][contains(@class,"active")]')).then(function (array) {
+            driver.wait(driver.findElements(By.xpath('//div[contains(@class,"sales_type")]')).then(function (array) {
                 Sales = array.length;
             }), config.timeout);
+            let SalesActive = 0;
+            driver.wait(driver.findElements(By.xpath('//div[contains(@class,"sales_type")][contains(@class,"active")]')).then(function (array) {
+                SalesActive = array.length;
+            }), config.timeout);
             SF.sleep(1);
-            if (Sales == 0) {
+            if ((Sales != 0)&&(SalesActive == 0)) {
                 SF.click(By.xpath('//div[contains(@class,"sales_type")]'));
                 SF.sleep(1);
                 JS.waitForNotExist('div.busyoverlay:visible');
@@ -52,6 +56,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
             LF.closeEditRequest();
             SF.sleep(2);
         }
+        V.cleanerJob=[];
     }
     //=========================закончили писать тест=============================
     SF.endOfTest();

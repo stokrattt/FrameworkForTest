@@ -1174,7 +1174,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function addToCleanerJob(Id){
         if (V.cleanerJob==undefined) {V.cleanerJob=[];}
-        V.cleanerJob.push(V.accountNumbersTo.Id);
+        V.cleanerJob.push(Id);
     }
 
     return {

@@ -52,6 +52,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (3.5);
 
     LF.RememberAccountNumbers (V.accountNumbers);
+    LF.addToCleanerJob(V.accountNumbers.Id);
 
     VD.IWant(VD.VToEqual, V.accountNumbers.CrewSize, V.frontNumbersUnloadingDown.Crew, 'не совпали CrewSize аккаунта и фронта');
     VD.IWant(VD.VToEqual, V.accountNumbers.HourlyRate, V.frontNumbersUnloadingDown.Rate, 'не совпали HourlyRate аккаунта и фронта');

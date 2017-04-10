@@ -15,6 +15,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     condition.nowWeDoing='получаем id, редактируем немного и сохраняем';
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.boardNumbers.Id = SF.cleanPrice(text);
+        LF.addToCleanerJob(V.boardNumbers.Id);
     }));
     JS.step(JSstep.selectTruck);
     SF.select(By.xpath('//select[@id="edit-status"]'),2);

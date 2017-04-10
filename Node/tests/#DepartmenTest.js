@@ -174,6 +174,7 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
+        LF.addToCleanerJob(V.request.Id);
     }));
     JS.select ('#edit-status', 3);
     SF.send (By.id('edit-moving-from'), 2342342342424);

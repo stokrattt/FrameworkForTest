@@ -22,6 +22,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.AccountUnloadingEnterAddress();
     V.accountNumbersWithRes={};
     LF.RememberAccountNumbers(V.accountNumbersWithRes);
+    LF.addToCleanerJob(V.accountNumbersWithRes.Id);
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'первый раз в админке, ищем первый реквест';
@@ -89,6 +90,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.AccountUnloadingEnterAddress();
     V.accountNumbersNoRes={};
     LF.RememberAccountNumbers(V.accountNumbersNoRes);
+    LF.addToCleanerJob(V.accountNumbersNoRes.Id);
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'первый раз в админке, ищем первый реквест NoRes';
