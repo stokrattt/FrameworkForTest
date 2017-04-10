@@ -171,59 +171,18 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.sleep (3);
 
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        if (check ==0){
-            console.log ('все гут');
-        } else {
-            console.log ('фореман не удалился с реквеста');
-            setTimeout(500);
-        }
+        VD.INeed(VD.VNotToEqual, check, 0, 'фореман не удалился с реквеста');
     }),config.timeout);
     SF.sleep (1);
     SF.click(By.xpath('//a[@ui-sref="foreman.done"]'));
     SF.sleep (5);
-    driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check1) {
-        if (check1 ==0){
-            console.log ('все гут');
-        } else {
-            console.log ('фореман не удалился с реквеста');
-            setTimeout(500);
-        }
+    driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
+        VD.INeed(VD.VNotToEqual, check, 0, 'фореман не удалился с реквеста');
     }),config.timeout);
     SF.sleep (1);
     LF.LogoutFromBoardForeman();
 
 
-    /*    driver.wait(driver.executeScript("if($('td:contains(5330)').length == 0){return true;}else{console.log('фореман не удалился с реквеста')}"), config.timeout);
-        Debug.pause ();
-
-        JS.waitForNotExist('td:contains(5330)');
-
-
-        if (driver.findElement(By.xpath('//td[contains(text(),"' + V.request.Id + '")]')) == 0) {
-            return true
-        } else {
-            console.log('фореман не удалился с реквеста')
-        }
-
-       // driver.findElement(By.xpath('//td[contains(text(),"' + V.request.Id + '")]')).size()==0;
-
-        driver.wait(driver.executeScript("if($('td:contains(5330)').length == 0){return true;}else{console.log('фореман не удалился с реквеста')}"), config.timeout);
-        console.log(driver.wait(driver.executeScript("if($('td:contains("+V.request.Id+")')){return false;}else{console.log('фореман не удалился с реквеста')}")));
-
-        driver.wait(driver.executeScript("return $('td:contains(5330)').length").then (function (check) {
-            if (check ==0){
-                console.log ('все гут');
-            } else {
-                console.log ('фореман не удалился с реквеста');
-                setTimeout(500);
-            }
-        }),config.timeout);
-
-        SF.click(By.xpath('//a[@ui-sref="foreman.done"]'));
-
-
-        Debug.pause ();
-    */
 
 
     //=========================закончили писать тест=============================
