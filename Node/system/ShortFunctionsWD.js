@@ -17,6 +17,7 @@ module.exports = function (system, config, By, until, constants, condition) {
         } else {
             condition.Success = true;
             driver.quit();
+            console.log('закрыли браузер'.blue);
             system.myEmitter.emit('event');
         }
     }

@@ -33,7 +33,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(5);
     JS.waitForNotExist('div.busyoverlay:visible');
-    //LF.AccountToStorageEnterAddress();
+    Debug.pause();
+    LF.AccountFromStorageEnterAddress();
     V.accountNumbersFrom={};
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);

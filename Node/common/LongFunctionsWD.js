@@ -222,6 +222,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
     }
+    function AccountFromStorageEnterAddress() {
+        JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'From Address');
+        SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        JS.waitForExist('button.confirm:contains("Update")');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Update")]'));
+        JS.waitForExist('button.confirm:contains("OK")');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
+    }
     function AccountLocalAddInventory() {
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
         JS.waitForExist('div[ng-repeat="filter in filters"]');
@@ -1189,6 +1201,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(4);
     }
     function CreateUnloadingHelpDownForm(){
+        JS.scroll('move-calculator');
         SF.click (By.xpath('//a[@href="#request"]'));
         SF.sleep (2);
         SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
@@ -1245,6 +1258,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         AccountUnloadingEnterAddress:AccountUnloadingEnterAddress,
         AccountLoadingEnterAddress: AccountLoadingEnterAddress,
         AccountToStorageEnterAddress: AccountToStorageEnterAddress,
+        AccountFromStorageEnterAddress: AccountFromStorageEnterAddress,
         RememberAccountNumbers: RememberAccountNumbers,
         LogoutFromAccount: LogoutFromAccount,
         LogoutFromBoardAdmin: LogoutFromBoardAdmin,

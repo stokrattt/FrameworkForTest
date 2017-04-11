@@ -18,7 +18,7 @@ global.Fiber = require('fibers');
 var config={};
 config.chainFail = false;
 config.D = false;
-config.timeout = 30000;
+config.timeout = 20000;
 config.browser = 'chrome';
 
 var condition={};
@@ -61,6 +61,7 @@ function getNewDriver() {
         .withCapabilities({browserName: config.browser})
         .build();
     driver.manage().window().setSize(1400, 800);
+    console.log('получили новый драйвер'.blue);
     return driver;
 }
 global.driver=getNewDriver();
