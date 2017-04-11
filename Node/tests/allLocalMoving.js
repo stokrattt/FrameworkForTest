@@ -52,7 +52,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
     JS.waitForExist('button[ng-click="update(request)"]:visible');
     SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    JS.waitForNotExist("div.busyoverlay:visible");
     LF.closeEditRequest();
     SF.sleep(2);
     LF.LogoutFromBoardAdmin();

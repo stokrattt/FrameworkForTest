@@ -33,12 +33,10 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(5);
     JS.waitForNotExist('div.busyoverlay:visible');
-    Debug.pause();
     LF.AccountFromStorageEnterAddress();
     V.accountNumbersFrom={};
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
-    Debug.pause();
     LF.LogoutFromAccount();
 
     condition.nowWeDoing='Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
@@ -46,8 +44,60 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbersTo.Id);
     JS.step(JSstep.selectTruck);
+    V.boardNumbersTo = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersTo);
+    JS.scroll('div.ServicesCost:visible');
+    LF.Validation_Compare_Account_Admin(V.accountNumbersTo, V.boardNumbersTo);
+    SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
+    SF.sleep(1);
+    LF.SetManager('emilia');
+    SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
+    LF.SetClientPasswd(V.client.passwd);
+    SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
+    SF.sleep(1);
+    SF.select(By.xpath('//select[@id="edit-status"]'), 2);
+    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    JS.waitForExist('button[ng-click="update(request)"]:visible');
+    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    LF.closeEditRequest();
+    SF.sleep(2);
+    condition.nowWeDoing='From storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
+    LF.OpenRequest(V.accountNumbersFrom.Id);
+    JS.step(JSstep.selectTruck);
+    V.boardNumbersFrom = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
+    JS.scroll('div.ServicesCost:visible');
+    LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
+    SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
+    SF.sleep(1);
+    LF.SetManager('emilia');
+    SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
+    LF.SetClientPasswd(V.client.passwd);
+    SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
+    SF.sleep(1);
+    SF.select(By.xpath('//select[@id="edit-status"]'), 2);
+    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    JS.waitForExist('button[ng-click="update(request)"]:visible');
+    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    LF.closeEditRequest();
+    SF.sleep(2);
+    LF.LogoutFromBoardAdmin();
 
-
+    condition.nowWeDoing='Зайти в аккаунт и подтвердить первый реквест. Можно ещё раз сравнить все цифры с админкой';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient(V.client);
+    SF.waitForVisible(By.xpath('//td[contains(text(),"' + V.accountNumbersTo.Id + '")]/following-sibling::td[1]'));
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + V.accountNumbersTo.Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
+        VD.IWant(VD.VToEqual, Status, 'Not Confirmed');
+    }),config.timeout);
+    SF.click(By.xpath('//td[contains(text(),"' + V.accountNumbersTo.Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
+    SF.sleep(2);
+    JS.waitForNotExist('div.busyoverlay:visible');
+    V.accountNumbersTo={};
+    LF.RememberAccountNumbers(V.accountNumbersTo);
+    LF.Validation_Compare_Account_Admin(V.accountNumbersTo, V.boardNumbersTo);
+    LF.ConfirmRequestInAccount_WithReservation();
+    SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

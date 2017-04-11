@@ -225,7 +225,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function AccountFromStorageEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
         SF.sleep(1);
-        SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'From Address');
+        SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'To Address');
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         JS.waitForExist('button.confirm:contains("Update")');
         SF.sleep(2);
@@ -243,22 +243,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
         SF.sleep(1);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-        SF.sleep(1);
-        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-        SF.sleep(1);
-        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-        SF.sleep(1);
-        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-        SF.sleep(1);
-        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-        SF.sleep(1);
-        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-        SF.sleep(1);
-        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-        SF.sleep(1);
-        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-        SF.sleep(1);
-        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
         SF.sleep(1);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
         SF.sleep(1);
@@ -440,6 +424,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
+        JS.waitForNotExist('div.busyoverlay:visible');
     }
     function CreateLocalMovingFromBoard() {
         JS.waitForNotExist('div.toast-success');
@@ -774,10 +759,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 //Permissions for Sales --- end
     function closeEditRequest() {
+        JS.waitForExist('div.toast-success:visible');
+        JS.waitForNotExist("div.busyoverlay:visible");
         JS.waitForNotExist('div.toast-message:visible');
         JS.waitForNotExist('div.toast-top-right:visible');
         JS.waitForNotExist('div.toast-success:visible');
+        JS.waitForNotExist('div.visible-overflow');
         SF.sleep(2);
+        JS.waitForNotExist("div.busyoverlay:visible");
+        JS.waitForNotExist('div.toast-message:visible');
+        JS.waitForNotExist('div.toast-top-right:visible');
         JS.waitForNotExist('div.toast-success:visible');
         JS.waitForNotExist('div.visible-overflow');
         SF.sleep(1);
@@ -825,6 +816,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
                 if (count.length > 0) {
                     driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).click());
                     driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper2')]")).click());
+                }
+            }), config.timeout);
+        driver.wait(
+            driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function (count) {
+                if (count.length > 0) {
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).click());
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
                 }
             }), config.timeout);
         SF.click(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
