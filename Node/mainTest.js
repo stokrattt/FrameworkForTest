@@ -18,7 +18,7 @@ global.Fiber = require('fibers');
 var config={};
 config.chainFail = false;
 config.D = false;
-config.timeout = 20000;
+config.timeout = 30000;
 config.browser = 'chrome';
 
 var condition={};
