@@ -11,8 +11,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     SF.get(V.frontURL);
-    JS.waitForExist ('#loader');
-    SF.sleep (4);
+    //JS.waitForExist ('#loader');
+    SF.sleep (6);
 
     LF.CreateUnloadingHelpDownForm ();
 

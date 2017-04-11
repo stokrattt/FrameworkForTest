@@ -124,6 +124,10 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
+    JS.waitForExist ('div[class="sweet-overlay"]:visible');
+    SF.click (By.xpath('//button[@class="confirm"]'));
+    SF.sleep (1);
+
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();
@@ -142,16 +146,29 @@ condition.nowWeDoing = 'букаем вторую работу мувинга и
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
 
+    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SF.click (By.xpath('//button[@class="confirm"]'));
+    SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
+    SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
+    SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
+    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SF.click (By.xpath('//button[@class="confirm"]'));
+    JS.waitForExist ('div[class="sweet-overlay"]:visible');
+    SF.click (By.xpath('//button[@class="confirm"]'));
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
-    SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
+
+    SF.click (By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();
     SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
         VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
+    JS.waitForNotExist('div.busyoverlay:visible');
+    LF.LogoutFromAccount ();
 
 
 

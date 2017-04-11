@@ -44,7 +44,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.waitForNotExist ('div.busyoverlay:visible');
 
     SF.click (By.xpath('//div[@ng-click="closeJob();"]'));
-    SF.sleep (6);
+    SF.sleep (8);
     JS.waitForNotExist ('div.busyoverlay:visible');
     JS.waitForNotExist('div.toast-success');
     driver.findElement(By.xpath('//a[contains(@class,"open_button_contract")]')).click();
