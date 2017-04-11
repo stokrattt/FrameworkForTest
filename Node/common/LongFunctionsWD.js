@@ -33,6 +33,40 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
+    function FullSmallCalcAsLD (client) {
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "90001");
+        driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
+        SF.sleep(2);
+        V.frontNumbers = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
+            V.frontNumbers.moveDate = D;
+            console.log(V.frontNumbers.moveDate);
+        }));
+        SF.sleep(2);
+        driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+        SF.sleep(1);
+        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        SF.sleep(1);
+        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+        SF.sleep(1);
+        JS.click("button.pull-right:first");
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeFrom"]', 4);
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
+        SF.sleep(1);
+        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+        SF.sleep(2);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), V.client.name);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), V.client.fam);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), V.client.email);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), V.client.phone);
+        SF.sleep(1);
+        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
+        JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
+    }
     function FullSmallCalcAsUnloading(client){
         JS.click("input#extra-service");
         JS.select('select#edit-service',4);
@@ -195,6 +229,28 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
         SF.sleep(1);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
         SF.sleep(1);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
         SF.sleep(1);
@@ -1182,6 +1238,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
         FullSmallCalcAsLoading: FullSmallCalcAsLoading,
         FullSmallCalcAsMovingWithStorage: FullSmallCalcAsMovingWithStorage,
+        FullSmallCalcAsLD: FullSmallCalcAsLD,
         AccountLocalEnterAddress: AccountLocalEnterAddress,
         AccountLocalAddInventory: AccountLocalAddInventory,
         AccountLocalDetails: AccountLocalDetails,

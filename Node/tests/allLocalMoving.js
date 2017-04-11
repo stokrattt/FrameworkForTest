@@ -24,7 +24,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible(By.xpath('//li[@id="tab_Details"]//i[@class="icon-check"]'));
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
-    V.cleanerJob.push(V.accountNumbers.Id);
+    LF.addToCleanerJob(V.accountNumbers.Id);
 
     LF.LogoutFromAccount();
     console.log('закончили с аккаунтом');

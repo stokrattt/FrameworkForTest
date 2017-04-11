@@ -170,7 +170,7 @@ module.exports = function (system, config, By, until, constants, condition) {
                 return i;
             }
         }
-        VD.IWant(VD.VNotToEqual, i, 12, 'неверный месяц');
+        console.log('не нашел месяц'.red);
         return 12;
     }
 

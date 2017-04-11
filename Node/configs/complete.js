@@ -6,6 +6,7 @@ module.exports = function(config,V) {
         './tests/#ReservationMov&Stor.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/#WithoutReservationMov&Stor.js',
+        './tests/SetReservationPrice.js',
         './tests/#TestNotes.js',
         './tests/allLocalMoving.js',
         './tests/CheckPermissions.js',
@@ -16,12 +17,15 @@ module.exports = function(config,V) {
         './tests/ForemanSignJob.js',
         './tests/LoadingHelpDownForm.js',
         './tests/LoadingHelpTopForm.js',
+        './tests/SetReservationPrice.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/OvernightDownForm.js',
         './tests/saveNothing.js',
         './tests/SignForemanJobAndUnssignetJob.js',
         './tests/unloadingHelpTopForm.js',
         './tests/unloadingHelpDownForm.js',
+        './tests/SetReservationPrice.js',
+        './tests/LDTopForm.js',
         './tests/TheCleaner.js'//==============================уборка=========================
     ];
     config.chainFail = false;
@@ -35,6 +39,7 @@ module.exports = function(config,V) {
  './tests/CheckPermissions.js',
  './tests/#ReservationMov&Stor.js',
  './tests/#WithoutReservationMov&Stor.js',
+ './tests/SetReservationPrice.js',
  './tests/#DepartmenTest.js',
  './tests/allLocalMoving.js',
  './tests/#TestNotes.js',
@@ -48,5 +53,7 @@ module.exports = function(config,V) {
  './tests/OvernightDownForm.js',
  './tests/ForemanSignJob.js',
  './tests/SignForemanJobAndUnssignetJob.js'
-     */
+ './tests/LDTopForm.js',
+
+ */
 };
