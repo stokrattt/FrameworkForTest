@@ -759,7 +759,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 //Permissions for Sales --- end
     function closeEditRequest() {
-        JS.waitForExist('div.toast-success:visible');
         JS.waitForNotExist("div.busyoverlay:visible");
         JS.waitForNotExist('div.toast-message:visible');
         JS.waitForNotExist('div.toast-top-right:visible');

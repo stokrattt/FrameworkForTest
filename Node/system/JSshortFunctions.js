@@ -24,15 +24,14 @@ module.exports = function (system, config, By, until, constants, condition) {
         driver.wait(new Promise(function (resolve, reject) {
             let f = function () {
                 time++;
-                if (time<times) {
-                    console.log(('осталось '+times-time).yellow);
+                if (time<times-1) {
                     driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                         if (avai != 0) {
                             console.log('появился ' + selector);
                             resolve("result");
                             SFgo();
                         } else {
-                            setTimeout(f, 1500);
+                            setTimeout(f, 500);
                         }
                     }), config.timeout);
                 }
@@ -49,8 +48,7 @@ module.exports = function (system, config, By, until, constants, condition) {
         driver.wait(new Promise(function (resolve, reject) {
             let f = function () {
                 time++;
-                if (time<times) {
-                    console.log(('осталось '+times-time).yellow);
+                if (time<times-1) {
                     driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                         if (avai == 0) {
                             console.log('убрался ' + selector);
