@@ -167,10 +167,10 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
         'following-sibling::td[1]//div')).getText().then(function(text){
         V.logNumbers.Quote = SF.cleanPrice(text);
-        SF.sleep(1);
-        console.log(V.logNumbers);
-        VD.IWant(VD.VToEqual, V.logNumbers.Quote, V.boardNumbersWithAddServices.Total, 'не совпал гранд тотал в письме и в реквесте');
     }),config.timeout);
+    SF.sleep(1);
+    console.log(V.logNumbers);
+    VD.IWant(VD.VToEqual, V.logNumbers.Quote, V.boardNumbersWithAddServices.Total, 'не совпал гранд тотал в письме и в реквесте');
     SF.sleep(1);
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
@@ -202,10 +202,10 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//div//h2[contains(text(),"Grand Total")]/..')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
-        SF.sleep(1);
-        console.log(V.ConfirmationTotal);
-        VD.IWant(VD.VToEqual, V.logNumbers.Quote, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
-    }),config.timeout);
+        }),config.timeout);
+    SF.sleep(1);
+    console.log(V.ConfirmationTotal);
+    VD.IWant(VD.VToEqual, V.logNumbers.Quote, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
