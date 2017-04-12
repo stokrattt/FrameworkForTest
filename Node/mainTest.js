@@ -102,6 +102,7 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
             console.log('Произошла ошибка: '.red, e);
             if (!config.D) {
                 driver.quit();
+                console.log('закрыли браузер'.blue);
                 system.myEmitter.emit('event');
             }
 
