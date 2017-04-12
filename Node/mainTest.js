@@ -18,7 +18,7 @@ global.Fiber = require('fibers');
 var config={};
 config.chainFail = false;
 config.D = false;
-config.timeout = 20000;
+config.timeout = 30000;
 config.browser = 'chrome';
 
 var condition={};
@@ -56,13 +56,13 @@ global.MyError = webdriver.error;
 
 function getNewDriver() {
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
-    driver = new webdriver.Builder()
+    newDriver = new webdriver.Builder()
         .usingServer(SELENIUM_HOST)
         .withCapabilities({browserName: config.browser})
         .build();
-    driver.manage().window().setSize(1400, 800);
+    newDriver.manage().window().setSize(1400, 800);
     console.log('получили новый драйвер'.blue);
-    return driver;
+    return newDriver;
 }
 global.driver=getNewDriver();
 
