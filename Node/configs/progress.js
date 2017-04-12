@@ -1,5 +1,8 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/allMovingWithStorage.js'];
+    config.suite = ['./tests/LDFromAdmin.js',  './tests/unloadingHelpDownForm.js',
+        './tests/SetReservationPrice.js',
+        './tests/LDTopForm.js',
+        './tests/TheCleaner.js'];
     config.chainFail = false;
     config.timeout = 30000;
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';

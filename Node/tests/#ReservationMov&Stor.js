@@ -37,7 +37,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id);
-    }));
+    }), config.timeout);
 
     JS.select ('#edit-status', 2);
     JS.step(JSstep.selectTruck);
