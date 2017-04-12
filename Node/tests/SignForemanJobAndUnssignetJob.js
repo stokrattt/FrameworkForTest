@@ -8,7 +8,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     V.boardNumbers = {};
 
     SF.get(V.adminURL);
-
+    condition.nowWeDoing = 'зашли в админку и создаем реквест';
     SF.send(By.id('email'), 'TestAdmin');
     SF.send(By.id('password'), 'test');
     JS.click('.btn-primary');
@@ -53,6 +53,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
         console.log (V.request.Id);
         LF.addToCleanerJob(V.request.Id);
     }), config.timeout);
+    condition.nowWeDoing = 'конфермим работу';
     JS.select ('#edit-status', 3);
     JS.step(JSstep.selectTruck);
 
@@ -76,7 +77,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew();
     LF.LogoutFromBoardAdmin();
-    condition.nowWeDoing = 'заходим под форменом, открываем контракт';
+    condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
     LF.LoginToBoardAsForeman();
     LF.OpenRequestDispatch(V.request.Id);
     JS.waitForExist('h1:contains("Confirmation Page"):visible');

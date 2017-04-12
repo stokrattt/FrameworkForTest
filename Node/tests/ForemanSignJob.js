@@ -30,6 +30,7 @@ condition.nowWeDoing = 'ждем инвентория';
     SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
     SF.click(By.id("save-inventory"));
     SF.sleep (3);
+    condition.nowWeDoing = 'запоминаем все данные';
 
     LF.RememberDateFromRequest ();
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){

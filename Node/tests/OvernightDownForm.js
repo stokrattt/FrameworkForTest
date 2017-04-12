@@ -129,6 +129,8 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
 
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
+    condition.nowWeDoing = 'зашли в админку';
+
     LF.LoginToBoardAsAdmin();
 
     LF.OpenRequest(V.accountNumbersUp.Id);
@@ -160,7 +162,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     JS.step(JSstep.selectTruck);
     V.boardNumbersDelivery = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersDelivery);
-    condition.nowWeDoing = 'сравниваем аккаунт и админку';
+    condition.nowWeDoing = 'сравниваем аккаунт и админку второй реквест';
     LF.Validation_Compare_Account_Admin(V.accountNumbersDelivery,V.boardNumbersDelivery);
     JS.select ('#edit-status', 2);
 
@@ -175,6 +177,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     LF.LogoutFromBoardAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
+    condition.nowWeDoing = 'зашли под клиентом букаем первую работу';
 
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.accountNumbersUp.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.accountNumbersUp.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){

@@ -92,7 +92,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
     LF.LogoutFromBoardAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
-
+    condition.nowWeDoing = 'зашли под клиентом букаем  работу';
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
         VD.IWant(VD.VToEqual,Status,'Not Confirmed');

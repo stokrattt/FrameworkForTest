@@ -14,6 +14,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.click('.btn-primary');
     SF.sleep (3);
     JS.waitForNotExist ('div.busyoverlay:visible');
+    condition.nowWeDoing = 'создаем реквест и конфермим его';
     LF.CreateLocalMovingFromBoard();
     SF.sleep (2);
     JS.step (JSstep.selectTruck);
@@ -35,6 +36,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.SetManager('Max');
     JS.waitForNotExist('div.toast-success');
     SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
+    condition.nowWeDoing = 'закрываем работу и переходим в на страницу bill of ladding';
+
     SF.click (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     JS.waitForNotExist ('div.busyoverlay:visible');
     SF.sleep (0.5);

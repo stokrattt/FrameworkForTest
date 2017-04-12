@@ -39,7 +39,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SF.cleanPrice (text);
     });
-
+condition.nowWeDoing = 'выключили калькулятор';
     SF.click(By.xpath('//div[@class="actions pull-right"]/span[@ng-click="switchCalc()"]')); //выключили калькулятор
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
     SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="2"]'));
@@ -52,14 +52,13 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     });
     SF.sleep (2);
     VD.IWant(VD.VNotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitChange, 'Кубик фит не изменился, хотя должен был');
-
+    condition.nowWeDoing = 'включили калькулятор';
     SF.click(By.xpath('//div[@class="actions pull-right"]/span[@ng-click="switchCalc()"]')); // включили калькулятор
 //выбор инвентория
     SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
     JS.waitForExist('div.busyoverlay');
     condition.nowWeDoing = 'ждем инвентория';
 
-    //чтобы сначала ждал пока появится бизи, а потом пока свалит и плюс пару сек для анимаций
     SF.sleep (7);
     SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
     SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));

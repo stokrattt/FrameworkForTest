@@ -20,8 +20,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
 
     //*****************************************************************************
-    //считаем бензин
-
+    condition.nowWeDoing = 'считаем бензин';
     SF.click (By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]"));
     SF.sleep (3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_avg"]')).getAttribute('value').then(function(value){

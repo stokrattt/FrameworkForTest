@@ -5,8 +5,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.frontNumbersLoadingDown ={};
     V.accountNumbers = {};
     V.boardNumbers = {};
-
-
     V.client.name = SF.randomBukva(6) + '_t';
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
@@ -15,6 +13,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.get(V.frontURL);
     JS.waitForExist ('#loader');
     SF.sleep (4);
+    condition.nowWeDoing = 'заполняем нижний кальк';
 
     LF.CreateLoadingHelpDownForm ();
     condition.nowWeDoing = 'запоминаем данные';
@@ -51,6 +50,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible (By.xpath('//div[@class="calc-confirm ng-binding"]'));
     SF.click (By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep (3.5);
+    condition.nowWeDoing = 'сравниваем данные калькулятора и акка';
 
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
@@ -63,6 +63,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsAdmin();
+    condition.nowWeDoing = 'зашли под админом и сравниваем данные акка и админки';
 
     LF.OpenRequest(V.accountNumbers.Id);
 
@@ -91,6 +92,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LogoutFromBoardAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
+    condition.nowWeDoing = 'зашли под клиенто и букаем работу';
 
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){

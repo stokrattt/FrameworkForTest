@@ -13,7 +13,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.send(By.id('password'), 'test');
     JS.click('.btn-primary');
     SF.sleep(2);
-
+    condition.nowWeDoing = 'идем в настройки и выставляем резервацию';
     SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.waitForLocated (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
@@ -31,7 +31,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.navigate().refresh();
     SF.waitForLocated(By.linkText('Create Request'));
     SF.sleep (3);
-
+    condition.nowWeDoing = 'создаем реквест';
     LF.CreateMovAndStorFromBoard ();
 
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
@@ -59,6 +59,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.get(V.accountURL);
 
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
+
+    condition.nowWeDoing = 'зашли под клиентом в акк';
 
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){

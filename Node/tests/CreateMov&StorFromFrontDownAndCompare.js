@@ -12,6 +12,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.get(V.frontURL);
     JS.waitForExist ('#loader');
     SF.sleep (4);
+    condition.nowWeDoing = 'заполняем нижний калькуоятор на фронте';
 
     LF.CreateMovAndStorFromFrontDown ();
 
@@ -19,6 +20,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
         V.nameRequest = text;
         VD.IWant(VD.VToEqual, V.nameRequest, 'Moving & Storage', 'тип реквеста не совпал с созданным');
     }), config.timeout);
+    condition.nowWeDoing = 'запоминаем данные которые спосчитал кальк';
 
     LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
 
@@ -34,6 +36,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible (By.xpath('//div[@class="storagehelp"]'));
     SF.click (By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep (0.5);
+    condition.nowWeDoing = 'запомнили данные в аке и сравниваем с калькулятором';
 
     LF.RememberAccountNumbers(V.accountNumbersTo);
     LF.addToCleanerJob(V.accountNumbersTo.Id);
@@ -51,6 +54,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsAdmin();
+    condition.nowWeDoing = 'зашли под админом заполнили данные и сравниваем с акком первый реквест';
 
     LF.OpenRequest(V.accountNumbersTo.Id); /********************************************************************/
 
@@ -74,6 +78,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.waitForNotExist('div.toast-success');
     SF.click (By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep (5);
+    condition.nowWeDoing = 'зашли под админом заполнили данные и сравниваем с акком второй реквест';
 
     LF.OpenRequest(V.accountNumbersFrom.Id); /********************************************************************/
 
@@ -93,6 +98,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     LF.LogoutFromBoardAdmin ();
     SF.get(V.accountURL);
+    condition.nowWeDoing = 'зашли под клиентом и букаем первую работу';
+
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
 
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.accountNumbersTo.Id+'")]/following-sibling::td[1]'));
@@ -135,6 +142,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
         VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
+    condition.nowWeDoing = 'зашли под клиентом и букаем вторую работу';
 
     SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
     SF.sleep (2);
@@ -169,9 +177,6 @@ condition.nowWeDoing = 'букаем вторую работу мувинга и
     }), config.timeout);
     JS.waitForNotExist('div.busyoverlay:visible');
     LF.LogoutFromAccount ();
-
-
-
 
 
     SF.endOfTest();

@@ -15,7 +15,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (2);
     JS.waitForNotExist("div.busyoverlay:visible");
 
-
+    condition.nowWeDoing = 'идем в настройки и отключаем резервацию в 0';
     SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
@@ -66,7 +66,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (5);
     LF.LogoutFromBoardAdmin ();
     SF.get(V.accountURL);
-
+    condition.nowWeDoing = 'идем в аккаунт букать работу без резервации';
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     SF.sleep (4);
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
@@ -108,8 +108,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     }));
     LF.LogoutFromAccount ();
 
-    // возвращаем резервацию на 150
 
+    condition.nowWeDoing = 'возвращаем резервацию на 150';
     SF.get(V.adminURL);
 
     LF.LoginToBoardAsAdmin();

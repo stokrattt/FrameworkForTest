@@ -13,6 +13,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.send(By.id('email'), 'TestAdmin');
     SF.send(By.id('password'), 'test');
     JS.click('.btn-primary');
+    condition.nowWeDoing = 'идем в настройки и ставим пермишины для сейлса';
 
     SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
@@ -43,6 +44,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (1);
     SF.click (By.xpath('//button[@class="confirm"]'));
     SF.sleep (3);
+    condition.nowWeDoing = 'создаем реквест из под админа';
 
     LF.CreateLocalMovingFromBoard();
 
@@ -60,6 +62,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (1);
 
     LF.LogoutFromBoardAdmin ();
+    condition.nowWeDoing = 'заходим под сейлсом и проверяем разные галочки';
+
     LF.LoginToBoardAsCustom(V.SalesLogin,V.SalesPass);
     LF.OpenRequest(V.request.Id);
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));

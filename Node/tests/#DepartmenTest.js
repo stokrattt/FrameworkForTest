@@ -169,7 +169,7 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     SF.send(By.id('email'), 'roma4ke');
     SF.send(By.id('password'), 'root');
     JS.click('.btn-primary');
-
+    condition.nowWeDoing = 'заходим под админом и создаем реквест';
     LF.CreateLocalMovingFromBoard ();
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
@@ -191,6 +191,7 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     JS.waitForNotExist('div.toast-success');
     SF.click (By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep (1);
+    condition.nowWeDoing = 'идем в локал диспач';
     SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
     SF.sleep (7);
@@ -201,7 +202,6 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     LF.SelectRequestDispatch (V.request.Id);
 
-   // SF.click (By.xpath('//select[@ng-model="vm.data.foreman"]'));
     driver.executeScript (
         function () {
             var a = $('option[ng-repeat="(uid, user) in vm.users.foreman | orderBy:\'name\'"]:contains("foremantest testforeman")').length;
