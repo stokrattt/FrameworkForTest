@@ -19,12 +19,13 @@ module.exports = function (system, config, By, until, constants, condition) {
 
     function waitForExist(selector) {
         console.log("return $('" + selector + "').length");
-        let times = config.timeout/500;
+        let times = config.timeout*1000/500;
         let time = 0;
         driver.wait(new Promise(function (resolve, reject) {
             let f = function () {
                 time++;
                 if (time<times) {
+                    console.log(('осталось '+times-time).yellow);
                     driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                         if (avai != 0) {
                             console.log('появился ' + selector);
@@ -43,12 +44,13 @@ module.exports = function (system, config, By, until, constants, condition) {
 
     function waitForNotExist(selector) {
         console.log("return $('" + selector + "').length");
-        let times = config.timeout/500;
+        let times = config.timeout*1000/500;
         let time = 0;
         driver.wait(new Promise(function (resolve, reject) {
             let f = function () {
                 time++;
                 if (time<times) {
+                    console.log(('осталось '+times-time).yellow);
                     driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                         if (avai == 0) {
                             console.log('убрался ' + selector);
