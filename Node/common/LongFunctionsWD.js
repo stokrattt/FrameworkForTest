@@ -1242,7 +1242,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         if (V.cleanerJob==undefined) {V.cleanerJob=[];}
         V.cleanerJob.push(Id);
     }
-
+    function gotoSetingsLD() {
+        SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
+        SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
+        SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+        SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+        SF.click(By.xpath('//a[@ui-sref="settings.longdistance"]'));
+        SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
+        SF.sleep (4);
+    }
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
         FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
@@ -1304,6 +1312,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         findTestForemanInPayroll: findTestForemanInPayroll,
         findSaleInPayroll: findSaleInPayroll,
         selectDateInPayroll: selectDateInPayroll,
-        addToCleanerJob: addToCleanerJob
+        addToCleanerJob: addToCleanerJob,
+        gotoSetingsLD: gotoSetingsLD
     };
 };
