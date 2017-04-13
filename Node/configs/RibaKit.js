@@ -1,7 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/unloadingHelpTopForm.js',
-        './tests/#test2.js',
+        './tests/saveNothing.js'
     ];
     config.chainFail = false;
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';

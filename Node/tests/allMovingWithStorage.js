@@ -123,7 +123,13 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
-    LF.SelectRequestDispatch(V.boardNumbersTo.Id);
+    LF.SelectRequestDispatch(V.accountNumbersTo.Id);
+    LF.selectCrew();
+    condition.nowWeDoing='Найти второй реквест, назначить команду и отправить работу.';
+    LF.findDayInLocalDispatch(V.boardNumbersFrom.moveDate.Year, V.boardNumbersFrom.moveDate.Month, V.boardNumbersFrom.moveDate.Day);
+    JS.waitForNotExist('div.busyoverlay:visible');
+    SF.sleep(1);
+    LF.SelectRequestDispatch(V.accountNumbersFrom.Id);
     LF.selectCrew();
 
     //=========================закончили писать тест=============================

@@ -13,11 +13,10 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.CreateLocalMovingFromBoard();
 
     condition.nowWeDoing='получаем id, редактируем немного и сохраняем';
-    driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
-        V.boardNumbers.Id = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.boardNumbers.Id);
-    }));
-    JS.step(JSstep.selectTruck);
+
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    LF.addToCleanerJob(V.boardNumbers.Id);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.select(By.xpath('//select[@id="edit-status"]'),2);
     SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
     JS.waitForExist('button[ng-click="update(request)"]:visible');

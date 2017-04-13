@@ -554,6 +554,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Trucks:")]/following-sibling::div[1]')).getText('text').then(function (text) {
             boardNumbers.Trucks = SF.cleanPrice(text);
         }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
+            boardNumbers.Id = SF.cleanPrice(text);
+        }),config.timeout);
         SF.sleep(1);
         console.log(boardNumbers);
     }

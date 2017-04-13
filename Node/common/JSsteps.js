@@ -166,34 +166,89 @@ exports.Click8DaysCalendar = function () {
 
 }.toString().substring(12);
 
-exports.selectTruck = function () {
-    var selected = false;
-    var trucks = 'div.truckid:visible';
-    var lines = 'div.dhx_matrix_line:visible';
-    var timeZone = 0;
-    for (var number = 0, count = $(trucks).length; (number < count && !selected); number++) {
-        var len = $(lines + ':eq("' + number + '") > span').length;
-        if (len < (2 + timeZone)) {
-            //$('#edit-moving-from').val('line '+number+' spans '+len);
-            $(trucks + ':eq("' + number + '")').click();
-            selected = true;
-        }
-    }
-    if (!selected) {
-        $('[field="request.start_time1"]').val("07:00 PM");
-        $('[field="request.start_time1"]').trigger('change');
-        timeZone++;
+exports.selectTruck = function (hours) {
+    var f = function () {
+        var hours = '##';
+        var onlyDig = function (str) {
+            var res = '';
+            for (var i = 0; i < str.length; i++) {
+                if ((!isNaN(str[i])) || (str[i] == '.')) {
+                    res += str[i]
+                }
+            }
+            return parseFloat(res);
+        };
+        var selected = false;
+        var trucks = 'div.truckid:visible';
+        var startDay = 7.5 * 50;
+        var endDay = 23 * 50;
+        var needWidth = hours * 50 + 100;
+        console.log('need ' + needWidth);
+
         for (var number = 0, count = $(trucks).length; (number < count && !selected); number++) {
-            var len = $(lines + ':eq("' + number + '") > span').length;
-            if (len < (2 + timeZone)) {
-                //$('#edit-moving-from').val('line '+number+' spans '+len);
-                $(trucks + ':eq("' + number + '")').click();
-                selected = true;
+            var arrayChaos = $('div.dhx_matrix_line:visible:eq("' + number + '") span[ng-repeat="current in parklot[tid]"],div.dhx_matrix_line:visible:eq("' + number + '") [ng-repeat="current in fpl[tid] track by $index"]');
+            var array=[];
+            var ChaosEnd=startDay;
+            for (var m=0; m<arrayChaos.length; m++){
+                var element={};
+                element.start = onlyDig(getComputedStyle(arrayChaos.get(m)).left);
+                element.end = element.start + onlyDig(getComputedStyle(arrayChaos.get(m)).width);
+                if (element.end > ChaosEnd){ChaosEnd=element.end;}
+                array.push(element);
+            }
+            console.log('энд '+ChaosEnd);
+            var intStart=startDay;
+            var intEnd=startDay;
+            var p = startDay;
+            var inChaos=false;
+            console.log('truck ' + number);
+            console.log(arrayChaos);
+            console.log(array);
+            while ((p <= endDay)&&(!selected)) {
+                console.log('свободно с '+p);
+                do {
+                    inChaos = false;
+                    for (var r = 0; r < array.length; r++) {
+                        if ((p >= array[r].start) && (p <= array[r].end)) {
+                            inChaos = true;
+                        }
+                    }
+                    p++;
+                } while ((!inChaos) && (p <= endDay));
+                console.log('до '+p);
+                if (p - intStart >= needWidth) {
+                    console.log('подошло');
+                    intStart += 25;
+                    var startH = Math.floor(intStart / 50);
+                    var startM = Math.floor(intStart % 50 / 5 * 6 / 30) * 30;
+                    var startTime = startH + ':' + startM;
+                    if (startH >= 12) {
+                        startTime += ' PM';
+                    } else {
+                        startTime += ' AM';
+                    }
+                    console.log('время ' + startTime);
+                    $('[field="request.start_time1"]').val(startTime);
+                    $('[field="request.start_time1"]').change();
+                    $(trucks + ':eq("' + number + '")').click();
+                    selected = true;
+                } else do {
+                    inChaos = false;
+                    for (var r = 0; r < array.length; r++) {
+                        if ((p >= array[r].start) && (p <= array[r].end)) {
+                            inChaos = true;
+                        }
+                    }
+                    p++;
+                } while ((inChaos) && (p <= endDay));
+                console.log('занято до'+p);
+                intStart=p;
             }
         }
-    }
-    return selected ? number : -1;
-}.toString().substring(12);
+        return selected ? number : -1;
+    }.toString().substring(12);
+    return f.substring(0,f.indexOf('##')-1)+hours+f.substring(f.indexOf('##')+3);
+};
 
 exports.getServicesCostAccount = function () {
     var a = $('div[ng-repeat="service in vm.extraServices"]').length;
