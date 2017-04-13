@@ -6,7 +6,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
-    global.fiber = Fiber.current;
     SF.get(V.adminURL);
 
     SF.send(By.id('email'), 'TestAdmin');
@@ -21,7 +20,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id);
-    }));
+    }),config.timeout);
     JS.select ('#edit-status', 3); // выбор статуса конфермед
     SF.send (By.id('edit-moving-from'), 2342342342424);
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
@@ -62,6 +61,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.VToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
-    }));
+    }),config.timeout);
     SF.endOfTest();
 };

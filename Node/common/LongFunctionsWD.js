@@ -430,7 +430,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.click(By.linkText('Create Request'));
-        SF.sleep(5);
+        SF.sleep(3);
         SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
         SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
         V.request = {};
@@ -441,6 +441,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(0.5);
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
         SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+        driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
+            V.request.mdate = (mdate);
+        }),config.timeout);
+        console.log (V.request.mdate);
         SF.send(By.id("edit-zip-code-from"), "02032");
         SF.send(By.id("edit-zip-code-to"), "02136");
         SF.sleep(5);
@@ -1251,6 +1255,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
         SF.sleep (4);
     }
+    function deletePendingRequest() {
+        SF.select(By.xpath('//select[@id="edit-status"]'), 14);
+        SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+        JS.waitForExist('button[ng-click="update(request)"]:visible');
+        SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+        JS.waitForNotExist("div.busyoverlay:visible");
+        closeEditRequest();
+        SF.sleep(2);
+    }
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
         FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
@@ -1313,6 +1326,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         findSaleInPayroll: findSaleInPayroll,
         selectDateInPayroll: selectDateInPayroll,
         addToCleanerJob: addToCleanerJob,
-        gotoSetingsLD: gotoSetingsLD
+        gotoSetingsLD: gotoSetingsLD,
+        deletePendingRequest: deletePendingRequest
     };
 };
