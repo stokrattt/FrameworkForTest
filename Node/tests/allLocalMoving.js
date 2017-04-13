@@ -35,11 +35,10 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (3);
     LF.OpenRequest(V.accountNumbers.Id);
 
-    JS.step(JSstep.selectTruck);
-
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 
     SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
     SF.sleep(1);

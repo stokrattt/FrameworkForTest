@@ -30,9 +30,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbersWithRes.Id);
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    JS.step(JSstep.selectTruck);
     V.boardNumbersWithRes = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersWithRes);
+    JS.step(JSstep.selectTruck((V.boardNumbersWithRes.LaborTimeMax + V.boardNumbersWithRes.TravelTime)/60));
     condition.nowWeDoing = 'сравниваем аккаунт и админку с резервацией';
     LF.Validation_Compare_Account_Admin(V.accountNumbersWithRes,V.boardNumbersWithRes);
     driver.wait(driver.executeScript('return $("input#reserv_price").val()').then(function(text){
@@ -98,9 +98,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbersNoRes.Id);
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    JS.step(JSstep.selectTruck);
     V.boardNumbersNoRes = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersNoRes);
+    JS.step(JSstep.selectTruck((V.boardNumbersNoRes.LaborTimeMax + V.boardNumbersNoRes.TravelTime)/60));
     condition.nowWeDoing = 'сравниваем аккаунт и админку без резервации';
     LF.Validation_Compare_Account_Admin(V.accountNumbersWithRes,V.boardNumbersNoRes);
     driver.wait(driver.executeScript('return $("input#reserv_price").val()').then(function(text){

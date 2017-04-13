@@ -43,9 +43,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbersTo.Id);
-    JS.step(JSstep.selectTruck);
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
+    JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime)/60));
     JS.scroll('div.ServicesCost:visible');
     LF.Validation_Compare_Account_Admin(V.accountNumbersTo, V.boardNumbersTo);
     SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
@@ -63,9 +63,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep(2);
     condition.nowWeDoing='From storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
     LF.OpenRequest(V.accountNumbersFrom.Id);
-    JS.step(JSstep.selectTruck);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
+    JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime)/60));
     JS.scroll('div.ServicesCost:visible');
     LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
     SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
