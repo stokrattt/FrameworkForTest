@@ -99,6 +99,33 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.Validation_Compare_Account_Admin(V.accountNumbersTo, V.boardNumbersTo);
     LF.ConfirmRequestInAccount_WithReservation();
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
+    SF.sleep(2);
+    JS.waitForNotExist('div.busyoverlay:visible');
+    condition.nowWeDoing='Подтвердить второй реквест. Можно ещё раз сравнить все цифры с админкой';
+    SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
+    SF.sleep(2);
+    JS.waitForNotExist('div.busyoverlay:visible');
+    V.accountNumbersFrom={};
+    LF.RememberAccountNumbers(V.accountNumbersFrom);
+    LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
+    LF.ConfirmRequestInAccount_WithReservation();
+    SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
+    LF.LogoutFromAccount();
+
+    condition.nowWeDoing='Зайти в local Dispatch, найти первый реквест, назначить команду и отправить работу.';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsAdmin();
+    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
+    SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
+    LF.findDayInLocalDispatch(V.boardNumbersTo.moveDate.Year, V.boardNumbersTo.moveDate.Month, V.boardNumbersTo.moveDate.Day);
+    JS.waitForNotExist('div.busyoverlay:visible');
+    SF.sleep(1);
+    SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
+    JS.waitForNotExist('div.busyoverlay:visible');
+    SF.sleep(1);
+    LF.SelectRequestDispatch(V.boardNumbersTo.Id);
+    LF.selectCrew();
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

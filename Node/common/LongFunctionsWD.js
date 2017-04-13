@@ -348,7 +348,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         console.log(accountNumbers);
     }
     function LogoutFromAccount() {
-        driver.executeScript("$('a[ng-click=\"vm.Logout()\"]').get(0).scrollIntoView();");
+        JS.scroll("a[ng-click=\"vm.Logout()\"]");
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
         SF.sleep(5);

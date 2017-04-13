@@ -15,7 +15,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(5);
     JS.waitForNotExist('div.busyoverlay:visible');
-    SF.click(By.xpath('//label[@for="partial"]/input[@ng-model="vm.packing_service"]'));
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();

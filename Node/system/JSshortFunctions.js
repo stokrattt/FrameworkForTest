@@ -93,6 +93,7 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
 
     function scroll(JQselector) {
+        console.log('JSscroll: '+"$('" + JQselector + "').get(0).scrollIntoView();");
         driver.wait(driver.executeScript("$('" + JQselector + "').get(0).scrollIntoView();"), config.timeout).then(function () {
             SFgo();
         });
