@@ -30,7 +30,10 @@ module.exports = function(config,V) {
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/WeDontMoveToThisState.js',
         './tests/FiltrationMoveDate.js',
-        './tests/FiltrationMoveDateCreateDate.js'
+        './tests/FiltrationMoveDateCreateDate.js',
+        './tests/ChangeDateDispatch.js',
+        './tests/TheCleaner.js',//==============================уборка=========================
+
     ];
     config.chainFail = false;
     config.browser = 'chrome';
@@ -60,9 +63,9 @@ module.exports = function(config,V) {
  './tests/LDTopForm.js',
  './tests/WeDontMoveToThisState.js',
  './tests/FiltrationMoveDate.js',
- './tests/FiltrationMoveDateCreateDate.js'
- LDFromAdmin
-
+ './tests/FiltrationMoveDateCreateDate.js',
+ './tests/ChangeDateDispatch.js',
+ './tests/LDFromAdmin.js'
 
  */
 };
