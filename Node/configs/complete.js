@@ -23,7 +23,7 @@ module.exports = function(config,V) {
         './tests/saveNothing.js',
         './tests/SignForemanJobAndUnssignetJob.js',
         './tests/unloadingHelpTopForm.js',
-        './tests/unloadingHelpDownForm.js',
+        './tests/UnloadHelpDownFront.js',
         './tests/SetReservationPrice.js',
         './tests/LDTopForm.js',
         './tests/TheCleaner.js',//==============================уборка=========================
