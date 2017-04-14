@@ -131,6 +131,56 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep(1);
     LF.SelectRequestDispatch(V.accountNumbersFrom.Id);
     LF.selectCrew();
+    LF.LogoutFromBoardAdmin();
+
+    condition.nowWeDoing='Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
+    LF.LoginToBoardAsForeman();
+    LF.OpenRequestDispatch(V.accountNumbersTo.Id);
+    JS.waitForExist('h1:contains("Confirmation Page"):visible');
+    SF.click(By.xpath('//li[@id="tab_Inventory"]'));
+    SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
+    SF.sleep(1);
+    JS.scroll("tr[ng-repeat=\"n in rangeArr\"]:eq(0)");
+
+    for (let i=1, invCount=1; i<=7; i++){
+        SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"]['+i+']//button[1]'));
+        SF.sleep(1);
+        /*driver.wait(driver.executeScript('return $("ul#inventory-dropdown:visible li[ng-repeat=\\\"articles in  inventoryList | toArray | orderBy: \'title\'  \\\"]:visible").length').then(function(len){
+            invCount=len-1;
+        }),config.timeout);*/
+        JS.click("ul#inventory-dropdown:visible li[ng-repeat=\\\"articles in  inventoryList | toArray | orderBy: 'title'  \\\"]:visible");
+        SF.select(By.xpath('//tr[@ng-repeat="n in rangeArr"]['+i+']//select[1]'),"CP");
+        SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"]['+i+']//button[@ng-click="openCondition(data[fieldName].inventory[n], n)"]'));
+        JS.waitForExist('button[ng-click=\\"addCondition(key)\\"]:has(div:contains(\\"burned\\")):visible');
+        SF.sleep(1);
+        JS.click('button[ng-click=\\"addCondition(key)\\"]:has(div:contains(\\"burned\\"))');
+        SF.click(By.xpath('//button[@ng-click="addLocation(symbol.key)"]/div[contains(text(),"veneer")]/..'));
+        SF.click(By.xpath('//button[@ng-click="SaveExit()"]'));
+        SF.sleep(2);
+    }
+    SF.clear(By.xpath('//input[@ng-model="data[fieldName].tapeNumbers"]'));
+    SF.send(By.xpath('//input[@ng-model="data[fieldName].tapeNumbers"]'),1);
+    SF.click(By.xpath('//button[@id="btn-append-to-body"]'));
+    JS.click('li[ng-click=\\"data[fieldName].tapeColor = \'Green\'; saveInventory()\\"]');
+    LF.MakeSignInInventory(0);
+    LF.MakeSignInInventory(1);
+    SF.click(By.xpath('//button[@ng-click="saveInventory(\'submit\')"]'));
+    JS.waitForExist('div.showSweetAlert button.cancel:visible');
+    JS.click('div.showSweetAlert button.cancel:visible');
+    SF.waitForVisible(By.xpath('//input[@ng-model="data.agreement.phone"]'));
+    SF.send(By.xpath('//input[@ng-model="data.agreement.phone"]'),V.client.phone);
+    SF.send(By.xpath('//input[@ng-model="data.agreement.address"]'),'Address To');
+    SF.send(By.xpath('//input[@ng-model="data.agreement.zipCode"]'),'02461');
+    MakeSignInRental();
+    payRentalInventory();
+    Debug.pause();
+
+    SF.click(By.xpath('//li[@id="tab_Bill of lading"]'));
+    SF.sleep(1);
+    driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
+        VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+        VD.IWant(VD.VToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
+    }));
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

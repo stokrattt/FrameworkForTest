@@ -205,7 +205,7 @@ exports.selectTruck = function (hours) {
         var selected = false;
         var trucks = 'div.truckid:visible';
         var startDay = 7.5 * 50;
-        var endDay = 23 * 50;
+        var endDay = 24 * 50;
         var needWidth = hours * 50 + 100;
         console.log('need ' + needWidth);
 

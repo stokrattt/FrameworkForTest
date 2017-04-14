@@ -842,6 +842,30 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
         SF.sleep(2);
     }
+    function MakeSignInInventory(step) {
+        SF.click(By.xpath('//div[@id="step_inventoryMoving_'+step+'"]/div[@class="empty-signature"]/..'));
+        MakeSignJS("signatureInventoryCanvas");
+        SF.click(By.xpath('//div[@id="signatureInventoryPad"]//button[@ng-click="saveStep()"]'));
+        SF.sleep(2);
+    }
+    function MakeSignInRental(){
+        SF.sleep(1);
+        SF.click(By.xpath('//span[contains(text(),"Tenant Signature:")]/following-sibling::div[1]/div[@ng-click="openService(\'monthly_storage_fee\', 1)"]'));
+        MakeSignJS("signatureCanvasService");
+        SF.click(By.xpath('//button[@ng-click="saveService()"]'));
+        SF.sleep(2);
+        JS.waitForNotExist('.busyoverlay:visible');
+        SF.sleep(1);
+        JS.waitForNotExist('.busyoverlay:visible');
+        SF.sleep(1);
+    }
+    function payRentalInventory(){
+        SF.click(By.xpath('//button[@ng-click="openPayment()"]'));
+        SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
+        FillCardPayModal();
+        MakeSignJS('signatureCanvasPayment');
+        SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
+    }
     function RememberDateFromRequest() {
         if (V.boardNumbers==undefined) {V.boardNumbers = {};}
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
@@ -1322,6 +1346,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         OpenRequestDispatch: OpenRequestDispatch,
         selectCrew: selectCrew,
         MakeSignInContract: MakeSignInContract,
+        MakeSignInInventory: MakeSignInInventory,
+        MakeSignInRental: MakeSignInRental,
+        payRentalInventory: payRentalInventory,
         RememberDateFromRequest: RememberDateFromRequest,
         findDayInLocalDispatch: findDayInLocalDispatch,
         RememberAndValidatePayroll_In_EditRequest: RememberAndValidatePayroll_In_EditRequest,
