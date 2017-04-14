@@ -1,13 +1,13 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/#CheckChangeCubicFitAdmin&AddInventory.js',
-        './tests/#CheckFuelSurcharge.js',
-        './tests/#DepartmenTest.js',
-        './tests/#ReservationMov&Stor.js',
+        './tests/CheckChangeCubicFitAdmin&AddInventory.js',
+        './tests/CheckFuelSurcharge.js',
+        './tests/DepartmenTest.js',
+        './tests/ReservationMov&Stor.js',
         './tests/TheCleaner.js',//==============================уборка=========================
-        './tests/#WithoutReservationMov&Stor.js',
+        './tests/WithoutReservationMov&Stor.js',
         './tests/SetReservationPrice.js',
-        './tests/#TestNotes.js',
+        './tests/TestNotes.js',
         './tests/allLocalMoving.js',
         './tests/CheckPermissions.js',
         './tests/CheckBillOfLadding.js',
@@ -37,15 +37,15 @@ module.exports = function(config,V) {
     V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
     V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
 /*список тестов  для вставки выше
- './tests/#CheckChangeCubicFitAdmin&AddInventory.js',
- './tests/#CheckFuelSurcharge.js',
+ './tests/CheckChangeCubicFitAdmin&AddInventory.js',
+ './tests/CheckFuelSurcharge.js',
  './tests/CheckPermissions.js',
- './tests/#ReservationMov&Stor.js',
- './tests/#WithoutReservationMov&Stor.js',
+ './tests/ReservationMov&Stor.js',
+ './tests/WithoutReservationMov&Stor.js',
  './tests/SetReservationPrice.js',
- './tests/#DepartmenTest.js',
+ './tests/DepartmenTest.js',
  './tests/allLocalMoving.js',
- './tests/#TestNotes.js',
+ './tests/TestNotes.js',
  './tests/CheckBillOfLadding.js',
  './tests/saveNothing.js',
  './tests/compareQuotesLocal.js',
