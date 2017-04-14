@@ -142,6 +142,30 @@ exports.Click4DaysCalendar = function () {
 
 }.toString().substring(12);
 
+exports.Click31DaysCalendar = function () {
+    var now = new Date();
+    var msInDay = 86400000;
+    var future = new Date(now.getTime() + msInDay * 31);//31
+
+    var date = future.getDate();
+    var i = 32;
+    while ($("tr>td[data-month='" + future.getMonth() + "'][data-year='" + future.getFullYear() + "'].Block:contains('" + date + "') > a:first").length !== 0) {
+        future = new Date(now.getTime() + msInDay * i);
+        date = future.getDate();
+        i++;
+    }
+
+    console.log("tr>td[data-month='" + future.getMonth() + "'][data-year='" + future.getFullYear() + "']:contains('" + date + "') > a:first");
+    $("tr>td[data-month='" + future.getMonth() + "'][data-year='" + future.getFullYear() + "']:contains('" + date + "') > a:first").trigger('click');
+
+    return {
+        futureYear: future.getFullYear(),
+        futureMonth: future.getMonth(),
+        futureDay: future.getDate()
+    };
+
+}.toString().substring(12);
+
 exports.Click8DaysCalendar = function () {
     var now = new Date();
     var msInDay = 86400000;

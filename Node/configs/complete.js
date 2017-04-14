@@ -26,7 +26,9 @@ module.exports = function(config,V) {
         './tests/unloadingHelpDownForm.js',
         './tests/SetReservationPrice.js',
         './tests/LDTopForm.js',
-        './tests/TheCleaner.js'//==============================уборка=========================
+        './tests/TheCleaner.js',//==============================уборка=========================
+        './tests/WeDontMoveToThisState.js',
+        './tests/FiltrationMoveDate.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';
@@ -54,6 +56,11 @@ module.exports = function(config,V) {
  './tests/ForemanSignJob.js',
  './tests/SignForemanJobAndUnssignetJob.js'
  './tests/LDTopForm.js',
+ './tests/WeDontMoveToThisState.js',
+ './tests/FiltrationMoveDate.js',
+ './tests/FiltrationMoveDateCreateDate.js'   -  пока не вставлять
+
+
 
  */
 };
