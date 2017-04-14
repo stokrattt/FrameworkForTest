@@ -139,7 +139,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (1);
     console.log(V.boardNumbersWithAddServices);
     JS.select ('#edit-status', 2);
-    JS.step(JSstep.selectTruck);
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));

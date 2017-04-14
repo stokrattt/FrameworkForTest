@@ -16,7 +16,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     condition.nowWeDoing = 'создаем реквест и конфермим его';
     LF.CreateLocalMovingFromBoard();
     SF.sleep (2);
-    JS.step (JSstep.selectTruck);
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id);

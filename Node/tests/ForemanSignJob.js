@@ -5,7 +5,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    V.boardNumbers = {};
 
     SF.get(V.adminURL);
 
@@ -32,14 +31,17 @@ condition.nowWeDoing = 'ждем инвентория';
     SF.sleep (3);
     condition.nowWeDoing = 'запоминаем все данные';
 
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     LF.RememberDateFromRequest ();
+
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
         console.log (V.request.Id);
         LF.addToCleanerJob(V.request.Id);
     }), config.timeout);
     JS.select ('#edit-status', 3);
-    JS.step(JSstep.selectTruck);
     SF.send (By.id('edit-moving-from'), 2342342342424);
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
     JS.click ('button[ng-click=\\"UpdateRequest()\\"]');

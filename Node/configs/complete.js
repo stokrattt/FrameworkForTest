@@ -59,7 +59,7 @@ module.exports = function(config,V) {
  './tests/LDTopForm.js',
  './tests/WeDontMoveToThisState.js',
  './tests/FiltrationMoveDate.js',
- './tests/FiltrationMoveDateCreateDate.js'   -  пока не вставлять
+ './tests/FiltrationMoveDateCreateDate.js'
 
 
 

@@ -54,8 +54,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
         LF.addToCleanerJob(V.request.Id);
     }), config.timeout);
     condition.nowWeDoing = 'конфермим работу';
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     JS.select ('#edit-status', 3);
-    JS.step(JSstep.selectTruck);
 
     SF.send (By.id('edit-moving-from'), 2342342342424);
     JS.click ('button[ng-click=\\"UpdateRequest()\\"]');

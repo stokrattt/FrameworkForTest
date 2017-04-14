@@ -18,7 +18,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.clear(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
     V.note = SF.randomBukva(7);
     SF.send(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'), V.note);
-    JS.step(JSstep.selectTruck);
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible(By.xpath('//div[@class="modal-content"]'));
     SF.sleep (3);

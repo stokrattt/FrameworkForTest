@@ -135,10 +135,9 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
 
     LF.OpenRequest(V.accountNumbersUp.Id);
 
-    JS.step(JSstep.selectTruck);
-
     V.boardNumbersUp = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersUp);
+    JS.step(JSstep.selectTruck((V.boardNumbersUp.LaborTimeMax + V.boardNumbersUp.TravelTime)/60));
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbersUp,V.boardNumbersUp);
     JS.select ('#edit-status', 2);
@@ -159,9 +158,9 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
 
     LF.OpenRequest(V.accountNumbersDelivery.Id); /********************************************************************/
 
-    JS.step(JSstep.selectTruck);
     V.boardNumbersDelivery = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersDelivery);
+    JS.step(JSstep.selectTruck((V.boardNumbersDelivery.LaborTimeMax + V.boardNumbersDelivery.TravelTime)/60));
     condition.nowWeDoing = 'сравниваем аккаунт и админку второй реквест';
     LF.Validation_Compare_Account_Admin(V.accountNumbersDelivery,V.boardNumbersDelivery);
     JS.select ('#edit-status', 2);

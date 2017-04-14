@@ -58,12 +58,11 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     LF.OpenRequest(V.accountNumbersTo.Id); /********************************************************************/
 
-    JS.step(JSstep.selectTruck);
-
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbersTo,V.boardNumbersTo);
+    JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime)/60));
     JS.select ('#edit-status', 2);
     SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
@@ -82,12 +81,11 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     LF.OpenRequest(V.accountNumbersFrom.Id); /********************************************************************/
 
-    JS.step(JSstep.selectTruck);
-
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbersFrom,V.boardNumbersFrom);
+    JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime)/60));
     JS.select ('#edit-status', 2);
     SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));

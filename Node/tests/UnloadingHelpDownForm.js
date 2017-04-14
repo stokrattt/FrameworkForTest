@@ -66,10 +66,10 @@ condition.nowWeDoing = 'пошли в аккаунт';
 
     LF.OpenRequest(V.accountNumbers.Id);
 
-    JS.step(JSstep.selectTruck);
 
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.sleep (1);
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);

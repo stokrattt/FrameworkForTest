@@ -179,7 +179,9 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     JS.select ('#edit-status', 3);
     SF.send (By.id('edit-moving-from'), 2342342342424);
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
-    JS.step (JSstep.selectTruck);
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 
     LF.RememberDateFromRequest();
 

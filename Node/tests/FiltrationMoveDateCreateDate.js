@@ -251,14 +251,6 @@ condition.nowWeDoing = 'идем удалять созданные реквес�
     LF.LogoutFromBoardAdmin ();
 
 
-
-    var d = new Date();
-    var options = { month: 'short', day: 'numeric', year: 'numeric' };
-    V.createdate = (d.toLocaleDateString('en-US', options));
-    console.log (V.createdate);
-
-
-
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
