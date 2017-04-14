@@ -28,7 +28,8 @@ module.exports = function(config,V) {
         './tests/LDTopForm.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/WeDontMoveToThisState.js',
-        './tests/FiltrationMoveDate.js'
+        './tests/FiltrationMoveDate.js',
+        './tests/FiltrationMoveDateCreateDate.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

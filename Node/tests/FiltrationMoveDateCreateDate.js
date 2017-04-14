@@ -236,6 +236,12 @@ condition.nowWeDoing = 'идем удалять созданные реквес�
     LF.deletePendingRequest ();
     SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 1);
     JS.waitForNotExist("div.busyoverlay:visible");
+    SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
+    SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.createdate);
+    SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
+    SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.createdate);
+    SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
+    JS.waitForNotExist("div.busyoverlay:visible");
     LF.OpenRequest (V.Id1);
     LF.deletePendingRequest ();
     LF.OpenRequest (V.Id2);
