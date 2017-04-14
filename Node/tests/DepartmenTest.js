@@ -169,7 +169,7 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     SF.send(By.id('email'), 'roma4ke');
     SF.send(By.id('password'), 'root');
     JS.click('.btn-primary');
-    condition.nowWeDoing = 'заходим под админом и создаем реквест';
+condition.nowWeDoing = 'заходим под админом и создаем реквест';
     LF.CreateLocalMovingFromBoard ();
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){

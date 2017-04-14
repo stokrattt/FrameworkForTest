@@ -4,6 +4,7 @@ module.exports = function(config,V) {
         './tests/CheckFuelSurcharge.js',
         './tests/DepartmenTest.js',
         './tests/ReservationMov&Stor.js',
+        '.tests/LDFromAdmin.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/WithoutReservationMov&Stor.js',
         './tests/SetReservationPrice.js',
@@ -60,7 +61,7 @@ module.exports = function(config,V) {
  './tests/WeDontMoveToThisState.js',
  './tests/FiltrationMoveDate.js',
  './tests/FiltrationMoveDateCreateDate.js'
-
+ LDFromAdmin
 
 
  */

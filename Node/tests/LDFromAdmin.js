@@ -37,7 +37,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (2);
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
     SF.sleep (2);
-    condition.nowWeDoing = 'создаем ЛД реквест';
+
+condition.nowWeDoing = 'создаем ЛД реквест';
 
     SF.click(By.linkText('Create Request'));
     SF.sleep(5);

@@ -10,7 +10,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     SF.sleep (3);
-    condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы только ассепт алл квотс';
+condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы только ассепт алл квотс';
     LF.gotoSetingsLD ();
     JS.click('#jqvmap1_ia');
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
@@ -34,6 +34,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (0.5);
     SF.clear (By.xpath('//td[contains(text(), "712")]/../td[2]/input[@ng-change="vm.saveSettings()"]'));
     SF.sleep (0.5);
+    JS.scroll('div.pageheader:visible');
+    SF.sleep (0.5);
     SF.select (By.xpath('//select[@ng-model="vm.longdistance.basedState"]'), 'MA');
     SF.sleep (2);
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
@@ -41,7 +43,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
 
-    condition.nowWeDoing = 'создаем реквест с фронтовой верхней формы с вкл галкой ассепт алл квотс должно пускать иначе ошибка';
+condition.nowWeDoing = 'создаем реквест с фронтовой верхней формы с вкл галкой ассепт алл квотс должно пускать иначе ошибка';
 
     SF.sleep (4);
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
@@ -61,7 +63,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.navigate().refresh();
     SF.sleep (4);
 
-    condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы с вкл галкой ассепт алл квотс должно пускать иначе ошибка';
+condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы с вкл галкой ассепт алл квотс должно пускать иначе ошибка';
 
     SF.sleep (3);
     SF.click (By.xpath('//a[@href="#request"]'));
@@ -81,7 +83,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (4);
     JS.click ('#calculate_btn');
     SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-    SF.sleep (4);
+    SF.sleep (6);
     SF.click(By.id('prefeefe'));
     SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
     SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
@@ -105,7 +107,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
 
-    condition.nowWeDoing = 'создаем реквест с фронтовой верхней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
+condition.nowWeDoing = 'создаем реквест с фронтовой верхней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
 
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "50201");
@@ -116,7 +118,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.navigate().refresh();
     SF.sleep (5);
 
-    condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
+condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
 
     SF.click (By.xpath('//a[@href="#request"]'));
     SF.sleep (2);
@@ -129,7 +131,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     SF.sleep (3);
-    condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем галку All acept quotes и ставим галочку Move to this state и выставить для всех area какую-нибудь цену';
+condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем галку All acept quotes и ставим галочку Move to this state и выставить для всех area какую-нибудь цену';
     LF.gotoSetingsLD ();
     JS.click('#jqvmap1_ia');
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
@@ -142,7 +144,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
     SF.sleep (2);
     SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), 10);
     SF.sleep (0.5);
     SF.clear (By.xpath('//td[contains(text(), "319")]/../td[2]/input[@ng-change="vm.saveSettings()"]'));
     SF.sleep (0.5);
@@ -164,12 +165,13 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (0.5);
     SF.send(By.xpath('//td[contains(text(), "712")]/../td[2]/input[@ng-change="vm.saveSettings()"]'), 15);
     SF.sleep (0.5);
+    JS.scroll('div.pageheader:visible');
+    SF.sleep (0.5);
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
     SF.sleep (2);
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
-    condition.nowWeDoing = 'создаем реквест с верхней формы третий раз, должно пускать, если нет то ошибка';
-
+condition.nowWeDoing = 'создаем реквест с верхней формы третий раз, должно пускать, если нет то ошибка';
     SF.sleep (4);
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "50201");
@@ -187,7 +189,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible(By.xpath('//input[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
 
-    condition.nowWeDoing = 'создаем реквест с нижней формы третий раз, должно пускать, если нет то ошибка';
+condition.nowWeDoing = 'создаем реквест с нижней формы третий раз, должно пускать, если нет то ошибка';
 
     SF.sleep (3);
     SF.click (By.xpath('//a[@href="#request"]'));
@@ -218,7 +220,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.get (V.adminURL);
     LF.LoginToBoardAsAdmin();
     SF.sleep (3);
-    condition.nowWeDoing = 'удаляем общую цену для всего штата и назначить одну цену на какую-то территорию';
+condition.nowWeDoing = 'удаляем общую цену для всего штата и назначить одну цену на какую-то территорию';
     LF.gotoSetingsLD ();
     JS.click('#jqvmap1_ia');
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
@@ -244,16 +246,18 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (0.5);
     SF.send(By.xpath('//td[contains(text(), "712")]/../td[2]/input[@ng-change="vm.saveSettings()"]'), 15);
     SF.sleep (0.5);
+    JS.scroll('div.pageheader:visible');
+    SF.sleep (0.5);
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
     SF.sleep (2);
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
-    condition.nowWeDoing = 'создаем реквест с верхней формы 4 раз, должно пускать, если нет то ошибка';
+condition.nowWeDoing = 'создаем реквест с верхней формы 4 раз в ту территорию в которую выставилу цену, должно пускать, если нет то ошибка';
 
     SF.sleep (4);
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "68776");
-    SF.sleep(8);
+    SF.sleep(6);
     driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
     SF.sleep(1);
     V.frontNumbers = {};
@@ -267,7 +271,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible(By.xpath('//input[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
 
-    condition.nowWeDoing = 'создаем реквест с нижней формы 4 раз, должно пускать, если нет то ошибка';
+condition.nowWeDoing = 'создаем реквест с нижней формы 4 раз в ту территорию в которую выставилу цену, должно пускать, если нет то ошибка';
 
     SF.sleep (4);
     SF.click (By.xpath('//a[@href="#request"]'));
@@ -281,7 +285,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (0.5);
     SF.send (By.id('edit-zip-code-from'), '02111');
     SF.send (By.id('edit-zip-code-to'), '68776');
-    SF.sleep(8);
+    SF.sleep(6);
     JS.select ('#edit-size-move', 10);
     JS.select ('#edit-type-from', 2);
     JS.select ('#edit-type-to', 5);
@@ -295,7 +299,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.navigate().refresh();
     SF.sleep (4);
 
-    condition.nowWeDoing = 'создаем реквест с верхней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
+condition.nowWeDoing = 'создаем реквест с верхней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
 
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "50701");
@@ -306,7 +310,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     driver.navigate().refresh();
     SF.sleep (5);
 
-    condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
+condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
 
     SF.click (By.xpath('//a[@href="#request"]'));
     SF.sleep (2);
@@ -320,7 +324,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.get (V.adminURL);
     LF.LoginToBoardAsAdmin();
     SF.sleep (3);
-    condition.nowWeDoing = 'заходим в админку и удаляем Move to this state при этом цена в один ареа код остается';
+condition.nowWeDoing = 'заходим в админку и удаляем Move to this state при этом цена в один ареа код остается';
     LF.gotoSetingsLD ();
     JS.click('#jqvmap1_ia');
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
