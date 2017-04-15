@@ -13,7 +13,7 @@ module.exports = function(config,V) {
         './tests/CheckPermissions.js',
         './tests/CheckBillOfLadding.js',
         './tests/TheCleaner.js',//==============================уборка=========================
-        './tests/CompareQuotesLocal.js',
+        './tests/compareQuotesLocal.js',
         './tests/CreateMov&StorFromFrontDownAndCompare.js',
         './tests/ForemanSignJob.js',
         './tests/LoadingHelpDownForm.js',
@@ -21,7 +21,7 @@ module.exports = function(config,V) {
         './tests/SetReservationPrice.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/OvernightDownForm.js',
-        './tests/SaveNothing.js',
+        './tests/saveNothing.js',
         './tests/SignForemanJobAndUnssignetJob.js',
         './tests/UnloadingHelpTopForm.js',
         './tests/UnloadHelpDownFront.js',
