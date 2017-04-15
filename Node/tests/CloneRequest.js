@@ -70,13 +70,13 @@ condition.nowWeDoing = 'идём в настройки клонировать р
     JS.waitForNotExist('div.busyoverlay:visible');
     JS.waitForNotExist('div.busy:visible');
     SF.sleep (10);
-    driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
-        V.IdClone = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.IdClone);
-        console.log(V.IdClone);
-    }),config.timeout);
 
-    f=function(){modals = $('div.requestModal');
+
+    driver.switchTo().window();
+    driver.getWindowHandle();
+
+   f = function  (){modals = driver.wait(driver.executeScript('$("div.requestModal")'.then (function (asd) {
+        V.zIndexBig = asd;
         var maxz=0;
         var curz;
         for (var i = 0; i<modals.length; i++){
@@ -84,12 +84,21 @@ condition.nowWeDoing = 'идём в настройки клонировать р
             if (curz>maxz) {maxz=curz;}
         }
         return maxz;
-    }
+   })))};
 
-  //  вот эта функция возвращает самый большой z-index из открытых модалок
+
+    console.log(V.zIndexBig);
+
+    //  вот эта функция возвращает самый большой z-index из открытых модалок
 
  //   сунь её в executeScript, потом полученный индекс вставь в xpath типа:
-        '//div[contains(@class,"requestModal")][contains(@style,"'+zIndexFromScript+'")]//и дальше нужный элемент активной модалки'
+   //     '//div[contains(@class,"requestModal")][contains(@style,"'+zIndexFromScript+'")]//и дальше нужный элемент активной модалки'
+
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal")][contains(@style,"'+V.zIndexBig+'")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
+        V.IdClone = SF.cleanPrice(text);
+        LF.addToCleanerJob(V.IdClone);
+        console.log(V.IdClone);
+    }),config.timeout);
 
 
     Debug.pause();
