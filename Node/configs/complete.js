@@ -33,6 +33,8 @@ module.exports = function(config,V) {
         './tests/FiltrationMoveDateCreateDate.js',
         './tests/ChangeDateDispatch.js',
         './tests/TheCleaner.js',//==============================уборка=========================
+        './tests/CloneRequest.js'
+
 
     ];
     config.chainFail = false;
@@ -40,6 +42,7 @@ module.exports = function(config,V) {
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
     V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
     V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
+
 /*список тестов  для вставки выше
  './tests/CheckChangeCubicFitAdmin&AddInventory.js',
  './tests/CheckFuelSurcharge.js',
@@ -65,7 +68,10 @@ module.exports = function(config,V) {
  './tests/FiltrationMoveDate.js',
  './tests/FiltrationMoveDateCreateDate.js',
  './tests/ChangeDateDispatch.js',
- './tests/LDFromAdmin.js'
+ './tests/LDFromAdmin.js',
+ './tests/CloneRequest.js'
+
+
 
  */
 };
