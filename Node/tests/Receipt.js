@@ -95,9 +95,10 @@ condition.nowWeDoing = 'зашли под клиентом в акк';
     LF.LogoutFromAccount ();
 
 
-
-
-    condition.nowWeDoing = 'идем в диспач первый раз';
+    SF.get (V.adminURL);
+    LF.LoginToBoardAsAdmin ();
+    SF.sleep (2);
+condition.nowWeDoing = 'идем в диспач первый раз';
     SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
     SF.sleep (7);
@@ -175,6 +176,10 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
         JS.scroll('div.BalanceCost:visible');
     }
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+
+    Debug.pause ();
+
+
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
 
