@@ -35,7 +35,9 @@ module.exports = function(config,V) {
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/26_CloneRequest.js',
         './tests/27_Receipt.js',
-        './tests/28_CalcWarnAndTurnOffWhenManual.js'
+        './tests/28_CalcWarnAndTurnOffWhenManual.js',
+        './tests/29_CheckFewMoverForUser.js'
+
         
 
 
@@ -75,6 +77,8 @@ module.exports = function(config,V) {
  './tests/21_LDFromAdmin.js',
  './tests/26_CloneRequest.js',
  './tests/27_Receipt.js'
+ './tests/28_CalcWarnAndTurnOffWhenManual.js',
+ './tests/29_CheckFewMoverForUser.js'
 
 
 
