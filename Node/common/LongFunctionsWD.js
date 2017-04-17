@@ -533,9 +533,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             boardNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
             boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
         }),config.timeout);
-        driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.minimum_time.value"]')).getAttribute('value').then(function (value) {
-            boardNumbers.LaborTimeMin = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
-                + SF.cleanPrice(value.substring(value.indexOf(':')));
+        driver.wait(driver.findElements(By.xpath('//input[@ng-model="request.minimum_time.value"]')).then(function(elements){
+            if (elements.length>0) {
+                elements[0].getAttribute('value').then(function (value) {
+                    boardNumbers.LaborTimeMin = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
+                        + SF.cleanPrice(value.substring(value.indexOf(':')));
+                });
+            } else {
+                boardNumbers.LaborTimeMin = 0;
+            }
         }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.maximum_time.value"]')).getAttribute('value').then(function (value) {
             boardNumbers.LaborTimeMax = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
@@ -548,9 +554,20 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElement(By.xpath('//input[@id="edit-movers-crew"]')).getAttribute('value').then(function (value) {
             boardNumbers.CrewSize = SF.cleanPrice(value);
         }),config.timeout);
-        driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function (value) {
+/* driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function (value) {
             boardNumbers.HourlyRate = SF.cleanPrice(value);
         }),config.timeout);
+*/
+        driver.wait(driver.findElements(By.xpath('//input[@ng-model="request.rate.value"]')).then(function(elements){
+            if (elements.length>0) {
+                elements[0].getAttribute('value').then(function (value) {
+                    boardNumbers.HourlyRate = SF.cleanPrice(value);
+                });
+            } else {
+                boardNumbers.HourlyRate = 0;
+            }
+        }),config.timeout);
+
         driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Trucks:")]/following-sibling::div[1]')).getText('text').then(function (text) {
             boardNumbers.Trucks = SF.cleanPrice(text);
         }),config.timeout);

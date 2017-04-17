@@ -49,14 +49,22 @@ condition.nowWeDoing = 'идем в локал диспач и меняем да
     JS.waitForExist('label:contains("Balance:"):visible');
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//input[@ng-model="moveDateInput"]'));
-    driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
-        V.request.moveDate = calDate;
-        console.log(V.request);
-    }),config.timeout);
-    SF.sleep(0.5);
-    JS.waitForExist('label:contains("Balance:"):visible');
+
+    var now = new Date();
+    var msInDay = 86400000;
+    var future = new Date(now.getTime() + msInDay * 8);
+    var options = { month: 'long', day: 'numeric', year: 'numeric' };
+    V.changedate = (future.toLocaleDateString('en-US', options));
+    SF.clear (By.xpath('//input[@ng-model="moveDateInput"]'));
+    SF.sleep (2);
+    SF.send (By.xpath('//input[@ng-model="moveDateInput"]'), V.changedate);
+    SF.sleep (2);
     LF.RememberDateFromRequest();
+    SF.sleep (2);
+    SF.click (By.xpath('//div[@id="ui-datepicker-div"]//td[@data-month="'+V.boardNumbers.moveDate.Month+'"]/a[contains(text(), "'+V.boardNumbers.moveDate.Day+'")]'));
+
+    SF.sleep(5);
+    JS.waitForExist('label:contains("Balance:"):visible');
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));

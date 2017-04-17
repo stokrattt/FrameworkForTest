@@ -84,6 +84,7 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     JS.click ('#calculate_btn');
     SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
     SF.sleep (6);
+    JS.waitForNotExist("div.overlay-loader:visible");
     SF.click(By.id('prefeefe'));
     SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
     SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
