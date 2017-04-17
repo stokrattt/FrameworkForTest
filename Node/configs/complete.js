@@ -34,7 +34,9 @@ module.exports = function(config,V) {
         './tests/ChangeDateDispatch.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/CloneRequest.js',
-        './tests/Receipt.js'
+        './tests/Receipt.js',
+        './tests/CalcWarnAndTurnOffWhenManual.js'
+        
 
 
 

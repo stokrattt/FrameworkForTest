@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/LoadingHelpTopForm.js'
+        './tests/CalcWarnAndTurnOffWhenManual.js'
     ];
     config.chainFail = false;
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
