@@ -33,7 +33,9 @@ module.exports = function(config,V) {
         './tests/FiltrationMoveDateCreateDate.js',
         './tests/ChangeDateDispatch.js',
         './tests/TheCleaner.js',//==============================уборка=========================
-        './tests/CloneRequest.js'
+        './tests/CloneRequest.js',
+        './tests/Receipt.js'
+
 
 
     ];
@@ -69,7 +71,9 @@ module.exports = function(config,V) {
  './tests/FiltrationMoveDateCreateDate.js',
  './tests/ChangeDateDispatch.js',
  './tests/LDFromAdmin.js',
- './tests/CloneRequest.js'
+ './tests/CloneRequest.js',
+ './tests/Receipt.js'
+
 
 
 

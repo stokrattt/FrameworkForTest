@@ -75,16 +75,15 @@ condition.nowWeDoing = 'зашли под клиентом в акк';
     SF.click (By.id('cancel_policy'));
     SF.sleep (2);
     SF.click (By.id('paybutton'));
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    /*SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
-
-    Debug.pause ();
+*/
 
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
-    JS.waitForExist ('div[class="sweet-overlay"]:visible');
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    /*JS.waitForExist ('div[class="sweet-overlay"]:visible');
+    SF.click (By.xpath('//button[@class="confirm"]'));*/
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();
@@ -159,6 +158,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.LogoutFromBoardForeman();
 condition.nowWeDoing = 'идем в админку в диспач второй раз, проверить что работа есть в done и что баланс равен 0 после подписания';
     LF.LoginToBoardAsAdmin();
+    SF.sleep (3);
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
     SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -176,10 +176,43 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
         JS.scroll('div.BalanceCost:visible');
     }
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+condition.nowWeDoing = 'идем в паймент и проверяем что данные оплаты совпадают с тем что написано в receipt';
+    JS.click('label[ng-click=\\"OpenPaymentModal();\\"]');
+    SF.waitForVisible (By.xpath('//div[@class="inside_box"]'));
+    SF.sleep (3);
+    driver.wait(driver.findElement(By.xpath('//tbody/tr[1][@ng-click="prepareToDelete($index, receipt.id)"]/td[4]')).getText().then(function(text){
+        V.payment1 = SF.cleanPrice (text);
+        console.log (V.payment1);
+    }),config.timeout);
+    driver.wait(driver.executeScript("$('tbody tr:nth-child(1)[ng-click=\\\"prepareToDelete($index, receipt.id)\\\"]').dblclick();"), config.timeout);
+    SF.sleep(3);
+    JS.waitForNotExist('div.busyoverlay:visible');
+    SF.waitForVisible (By.xpath('//span[contains(text(), "Amount: ")]'));
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount: ")]/following-sibling::span')).getText().then(function(text){
+        V.paymentAmount1 = SF.cleanPrice (text);
+        VD.IWant (VD.VToEqual, V.paymentAmount1, V.payment1, 'оплата не совпала')
+    }),config.timeout);
 
-    Debug.pause ();
+    SF.click (By.xpath('//h2[contains(text(), "Receipt ")]/../../..//button[@ng-click="cancel()"]'));
+    SF.sleep(3);
 
+    driver.wait(driver.findElement(By.xpath('//tbody/tr[2][@ng-click="prepareToDelete($index, receipt.id)"]/td[4]')).getText().then(function(text){
+        V.payment2 = SF.cleanPrice (text);
+        console.log (V.payment2);
+    }),config.timeout);
+    driver.wait(driver.executeScript("$('tbody tr:nth-child(2)[ng-click=\\\"prepareToDelete($index, receipt.id)\\\"]').dblclick();"), config.timeout);
+    SF.sleep(3);
+    JS.waitForNotExist('div.busyoverlay:visible');
+    SF.waitForVisible (By.xpath('//span[contains(text(), "Amount: ")]'));
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount: ")]/following-sibling::span')).getText().then(function(text){
+        V.paymentAmount2 = SF.cleanPrice (text);
+        VD.IWant (VD.VToEqual, V.paymentAmount2, V.payment2, 'оплата не совпала')
+    }),config.timeout);
 
+    SF.click (By.xpath('//h2[contains(text(), "Receipt ")]/../../..//button[@ng-click="cancel()"]'));
+    SF.sleep(1);
+    SF.click (By.xpath('//a[@ng-click="createInvoice()"]/../..//button[@ng-click="cancel()"]'));
+    SF.sleep(1);
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
 
