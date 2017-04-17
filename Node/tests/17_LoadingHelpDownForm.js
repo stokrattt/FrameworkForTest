@@ -15,7 +15,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (4);
     condition.nowWeDoing = 'заполняем нижний кальк';
 
-    LF.CreateLoadingHelpDownForm ();
+    LF.CreateLoadingHelpDownForm (V.client);
     condition.nowWeDoing = 'запоминаем данные';
 
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info detailsinfo ng-scope"]/div/span')).getText().then(function (text) {

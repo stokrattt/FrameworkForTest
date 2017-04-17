@@ -58,10 +58,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
         SF.sleep(2);
-        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), V.client.name);
-        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), V.client.fam);
-        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), V.client.email);
-        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), V.client.phone);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
         JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
@@ -426,7 +426,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         JS.waitForNotExist('div.busyoverlay:visible');
     }
-    function CreateLocalMovingFromBoard() {
+    function CreateLocalMovingFromBoard(client) {
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.click(By.linkText('Create Request'));
@@ -454,16 +454,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
         SF.sleep(2);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
         SF.click(By.xpath('//button[@ng-click="create()"]'));
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         SF.sleep(4);
         console.log('создали реквест');
     }
-    function CreateMovAndStorFromBoard() {
+    function CreateMovAndStorFromBoard(client) {
         SF.click(By.linkText('Create Request'));
         SF.sleep(2);
         SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:2"]'));
@@ -489,16 +489,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         SF.sleep(5);
         SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
         SF.click(By.xpath('//button[@ng-click="create()"]'));
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         SF.sleep(4);
         console.log('создали реквест');
     }
-    function CreateLoadingHelpFromBoard() {
+    function CreateLoadingHelpFromBoard(client) {
         SF.click(By.linkText('Create Request'));
         SF.sleep(4);
         SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:3"]'));
@@ -516,10 +516,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         SF.sleep(4);
         SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
         SF.click(By.xpath('//button[@ng-click="create()"]'));
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         SF.sleep(2);
@@ -1043,7 +1043,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
     }
-    function CreateMovAndStorFromFrontDown() {
+    function CreateMovAndStorFromFrontDown(client) {
         SF.click (By.xpath('//a[@href="#request"]'));
         SF.sleep (2);
         SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
@@ -1068,16 +1068,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (4);
-        SF.send(By.id('edit-first-name'), V.client.name);
-        SF.send(By.id('edit-last-name'), V.client.fam);
+        SF.send(By.id('edit-first-name'), client.name);
+        SF.send(By.id('edit-last-name'), client.fam);
         SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), V.client.phone);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(0.3);
-        SF.send(By.id('edit-additional-phone'), V.client.phone);
+        SF.send(By.id('edit-additional-phone'), client.phone);
         SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), V.client.email);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
         SF.sleep(0.3);
-        SF.send(By.id('edit-confirmemail'), V.client.email);
+        SF.send(By.id('edit-confirmemail'), client.email);
         SF.click(By.id('prefeefe'));
         SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
         SF.select(By.xpath('//select[@ng-model="request.prefDelivery"]'), 3);
@@ -1088,7 +1088,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(4);
     }
 
-    function CreateOvernightDownForm(){
+    function CreateOvernightDownForm(client){
         SF.click (By.xpath('//a[@href="#request"]'));
         SF.sleep (2);
         SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
@@ -1109,16 +1109,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (4);
-        SF.send(By.id('edit-first-name'), V.client.name);
-        SF.send(By.id('edit-last-name'), V.client.fam);
+        SF.send(By.id('edit-first-name'), client.name);
+        SF.send(By.id('edit-last-name'), client.fam);
         SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), V.client.phone);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(0.3);
-        SF.send(By.id('edit-additional-phone'), V.client.phone);
+        SF.send(By.id('edit-additional-phone'), client.phone);
         SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), V.client.email);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
         SF.sleep(0.3);
-        SF.send(By.id('edit-confirmemail'), V.client.email);
+        SF.send(By.id('edit-confirmemail'), client.email);
         SF.click(By.id('prefeefe'));
         SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
         SF.select(By.xpath('//select[@ng-model="request.prefDelivery"]'), 3);
@@ -1205,7 +1205,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         console.log(frontNumbersDown);
     }
-    function CreateLoadingHelpDownForm(){
+    function CreateLoadingHelpDownForm(client){
         SF.click (By.xpath('//a[@href="#request"]'));
         SF.sleep (2);
         SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
@@ -1226,17 +1226,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (4);
-        SF.send(By.id('edit-first-name'), V.client.name);
-        SF.send(By.id('edit-last-name'), V.client.fam);
+        SF.send(By.id('edit-first-name'), client.name);
+        SF.send(By.id('edit-last-name'), client.fam);
 
         SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), V.client.phone);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(0.3);
-        SF.send(By.id('edit-additional-phone'), V.client.phone);
+        SF.send(By.id('edit-additional-phone'), client.phone);
         SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), V.client.email);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
         SF.sleep(0.3);
-        SF.send(By.id('edit-confirmemail'), V.client.email);
+        SF.send(By.id('edit-confirmemail'), client.email);
         SF.click(By.id('prefeefe'));
         SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
         SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
@@ -1245,7 +1245,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist ('div[ng-if="loadingImg"]');
         SF.sleep(4);
     }
-    function CreateUnloadingHelpDownForm(){
+    function CreateUnloadingHelpDownForm(client){
         JS.scroll('move-calculator');
         SF.click (By.xpath('//a[@href="#request"]'));
         SF.sleep (2);
@@ -1267,17 +1267,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (4);
-        SF.send(By.id('edit-first-name'), V.client.name);
-        SF.send(By.id('edit-last-name'), V.client.fam);
+        SF.send(By.id('edit-first-name'), client.name);
+        SF.send(By.id('edit-last-name'), client.fam);
 
         SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), V.client.phone);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(0.3);
-        SF.send(By.id('edit-additional-phone'), V.client.phone);
+        SF.send(By.id('edit-additional-phone'), client.phone);
         SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), V.client.email);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
         SF.sleep(0.3);
-        SF.send(By.id('edit-confirmemail'), V.client.email);
+        SF.send(By.id('edit-confirmemail'), client.email);
         SF.click(By.id('prefeefe'));
         SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
         SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');

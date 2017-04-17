@@ -14,7 +14,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
 condition.nowWeDoing = 'создаем реквест ';
 
-    LF.CreateLocalMovingFromBoard ();
+    LF.CreateLocalMovingFromBoard (V.client);
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);

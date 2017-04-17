@@ -16,34 +16,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
 
     JS.waitForNotExist('div.toast-success');
     JS.waitForNotExist('div.busyoverlay:visible');
-    SF.click(By.linkText('Create Request'));
-    SF.sleep(5);
-    SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:3"]'));
-    SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
-    V.request = {};
-    driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
-        V.request.moveDate = calDate;
-        console.log(V.request);
-    }),config.timeout);
-    SF.sleep(0.5);
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
-    SF.send(By.id("edit-zip-code-from"), "02032");
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
-    SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-    SF.sleep(2);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
-    SF.click(By.xpath('//button[@ng-click="create()"]'));
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    SF.sleep(4);
-    console.log('создали реквест');
+    LF.CreateLoadingHelpFromBoard (V.client);
 
     SF.sleep (2);
 

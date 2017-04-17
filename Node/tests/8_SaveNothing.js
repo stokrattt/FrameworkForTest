@@ -10,7 +10,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     condition.nowWeDoing='создаём реквест';
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    LF.CreateLocalMovingFromBoard();
+    LF.CreateLocalMovingFromBoard(V.client);
 
     condition.nowWeDoing='получаем id, редактируем немного и сохраняем';
 

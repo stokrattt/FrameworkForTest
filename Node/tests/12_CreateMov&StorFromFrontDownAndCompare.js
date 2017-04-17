@@ -14,7 +14,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (4);
     condition.nowWeDoing = 'заполняем нижний калькуоятор на фронте';
 
-    LF.CreateMovAndStorFromFrontDown ();
+    LF.CreateMovAndStorFromFrontDown (V.client);
 
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info general"]/div/span')).getText().then(function(text){
         V.nameRequest = text;

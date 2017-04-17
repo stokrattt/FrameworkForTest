@@ -12,7 +12,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.send(By.id('password'), 'test');
     JS.click('.btn-primary');
     SF.sleep(3);
-    LF.CreateLocalMovingFromBoard();
+    LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);
 
     SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));

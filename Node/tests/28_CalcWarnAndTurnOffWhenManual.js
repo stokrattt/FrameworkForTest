@@ -10,7 +10,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.client.passwd = 123;
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    LF.CreateLocalMovingFromBoard();
+    LF.CreateLocalMovingFromBoard(V.client);
     V.boardNumbers={};
     LF.RememberDigitsRequestBoard_Up(V.boardNumbers);
     LF.addToCleanerJob(V.boardNumbers.Id);

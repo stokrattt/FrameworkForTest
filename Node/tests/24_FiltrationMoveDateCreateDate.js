@@ -11,7 +11,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LoginToBoardAsAdmin();
     JS.waitForNotExist ('div.busyoverlay:visible');
 condition.nowWeDoing = 'создаем реквест 1';
-    LF.CreateLocalMovingFromBoard();
+    LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id1 = SF.cleanPrice(text);
@@ -23,7 +23,7 @@ condition.nowWeDoing = 'создаем реквест 2';
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    LF.CreateLocalMovingFromBoard();
+    LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id2 = SF.cleanPrice(text);
@@ -35,7 +35,7 @@ condition.nowWeDoing = 'создаем реквест 3';
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    LF.CreateLocalMovingFromBoard();
+    LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id3 = SF.cleanPrice(text);

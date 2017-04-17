@@ -14,7 +14,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.waitForExist ('#loader');
     SF.sleep (4);
 
-    LF.CreateOvernightDownForm ();
+    LF.CreateOvernightDownForm (V.client);
 
 condition.nowWeDoing = 'запоминаем данные калькулятора PICK UP';
 

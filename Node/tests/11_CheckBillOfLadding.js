@@ -14,7 +14,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (3);
     JS.waitForNotExist ('div.busyoverlay:visible');
     condition.nowWeDoing = 'создаем реквест и конфермим его';
-    LF.CreateLocalMovingFromBoard();
+    LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);

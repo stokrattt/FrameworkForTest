@@ -39,7 +39,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (2);
     SF.waitForLocated(By.linkText('Create Request'));
     SF.sleep (3);
-    LF.CreateMovAndStorFromBoard ();
+    LF.CreateMovAndStorFromBoard (V.client);
 
 
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
