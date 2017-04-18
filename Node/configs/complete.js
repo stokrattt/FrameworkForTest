@@ -45,9 +45,9 @@ module.exports = function(config,V) {
     ];
     config.chainFail = false;
     config.browser = 'chrome';
-    V.frontURL = 'http://stage.themoveboard.com';
-    V.accountURL = 'http://stage.themoveboard.com/account/#/login';
-    V.adminURL = 'http://stage.themoveboard.com/moveBoard/#/login';
+    V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
+    V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
+    V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
 
 /*список тестов  для вставки выше
  './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',

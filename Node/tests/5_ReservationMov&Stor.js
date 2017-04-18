@@ -47,6 +47,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));
     SF.sleep (5);
+    JS.waitForNotExist("div.busyoverlay:visible");
+    JS.waitForNotExist('div.toast-message:visible');
+    JS.waitForNotExist('div.toast-success:visible');
     SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
     SF.sleep (0.5);
     V.client.passwd = 123;
@@ -67,7 +70,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
         VD.IWant(VD.VToEqual,Status,'Not Confirmed');
-    }));
+    }), config.timeout);
     SF.click(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
     SF.sleep(2);
     SF.waitForVisible (By.xpath('//div[@class="storagehelp"]'));

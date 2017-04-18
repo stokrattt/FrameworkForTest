@@ -5,12 +5,16 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    V.client.long = SF.randomBukva(6) + 'Name   ' + SF.randomBukva(6) + 'Fam';
+    V.client.long = SF.randomBukva(6) + 'Name ' + SF.randomBukva(6) + 'Fam';
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
     SF.get('http://stage.themoveboard.com/moveBoard/#/login');
-    LF.LoginToBoardAsAdmin();
+    SF.send(By.id('email'), 'WorkAdmin');
+    SF.send(By.id('password'), 'test');
+    JS.click('.btn-primary');
+    SF.sleep(3);
+   // LF.LoginToBoardAsAdmin();
 condition.nowWeDoing = 'идем в сторадж и создаем сторадж тенант';
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'pending\', \'\')"]'));
     JS.waitForNotExist ('div.busyoverlay:visible');

@@ -32,6 +32,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant (VD.VToEqual, length, '3', 'на вкладке клиент нету всех работ данного юзера');
         console.log (length);
     }),config.timeout);
+    LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
 
     //=========================закончили писать тест=============================

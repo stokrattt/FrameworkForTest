@@ -25,13 +25,14 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep (3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_avg"]')).getAttribute('value').then(function(value){
         V.boardNumbers.FuelPerc = SF.cleanPrice(value.replace('%', ''));
-    }));
+    }),config.timeout);
 
     SF.click (By.xpath("//div[@class='modal-footer']/button[@ng-click='cancel()']"));
     SF.sleep (3);
     V.summQuote = (parseFloat((V.boardNumbers.QuoteMin + V.boardNumbers.QuoteMax)/2)).toFixed(2);
     V.calcFuel = (V.summQuote * V.boardNumbers.FuelPerc/100).toFixed(2);
     VD.IWant(VD.VToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан неправильно');
+    SF.sleep (3);
 //*******************************************************************************************
     SF.endOfTest();
 };
