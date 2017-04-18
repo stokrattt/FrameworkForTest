@@ -77,6 +77,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));
+    JS.waitForNotExist('div.toast-success');
+    JS.waitForNotExist("div.busyoverlay:visible");
     SF.sleep (5);
     SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
     SF.sleep (0.5);
