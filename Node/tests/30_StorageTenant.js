@@ -9,8 +9,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
-    SF.get('http://stage.themoveboard.com/moveBoard/#/login');
-    SF.send(By.id('email'), 'WorkAdmin');
+    SF.get(V.adminURL);
+    SF.send(By.id('email'), 'TestAdmin');
     SF.send(By.id('password'), 'test');
     JS.click('.btn-primary');
     SF.sleep(3);
@@ -31,9 +31,19 @@ condition.nowWeDoing = 'идем в сторадж и создаем стора�
     var options = { month: 'short', day: 'numeric', year: 'numeric' };
     V.changedate = (future.toLocaleDateString('en-US', options));
     SF.send(By.xpath('//input[@ng-model="data.rentals.moved_in_date"]'), V.changedate);
+    var now = new Date();
+    var msInDay = 86400000;
+    var future = new Date(now.getTime() + msInDay * 8);
+    var options = { month: 'short', day: 'numeric', year: 'numeric' };
+    V.changedateOut = (future.toLocaleDateString('en-US', options));
+    SF.send(By.xpath('//input[@ng-model="data.rentals.moved_out_date"]'), V.changedateOut);
     SF.click(By.xpath('//input[@ng-model="data.user_info.phone2"]'));
     SF.click(By.xpath('//button[@ng-click="createNewStorageRequest()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
+    SF.sleep (2);
+    driver.wait(driver.findElement(By.xpath('//a[@ng-click="tabs.setTab(1)"]/span')).getText().then(function(text){
+        V.storageId = SF.cleanPrice(text);
+    }),config.timeout);
 condition.nowWeDoing = 'идем в леджер и создаем пайменты';
     SF.click(By.xpath('//a[@ng-click="tabs.setTab(4)"]'));
     JS.click('button[ng-click=\\"openPayment()\\"]:visible');
@@ -66,35 +76,117 @@ condition.nowWeDoing = 'идем в леджер и создаем паймен�
     JS.click('button[ng-click=\\"cancel()\\"]:visible');
     JS.click('button[ng-click=\\"openPayment()\\"]:visible');
     SF.sleep(2);
+    JS.click('button[ng-click=\\"cancel()\\"]:visible');
 condition.nowWeDoing = 'идем в леджер и создаем инвойс';
     JS.waitForNotExist ('.sweet-overlay:visible');
     SF.click(By.xpath('//button[@ng-click="createInvoice()"]'));
     SF.send (By.xpath('//input[@ng-model="charge.name"]'), 'Item for test');
+    SF.sleep(0.5);
     SF.send (By.xpath('//input[@ng-model="charge.description"]'), 'test');
+    SF.sleep(0.5);
     SF.clear (By.xpath('//input[@ng-model="charge.cost"]'));
-    SF.send (By.xpath('//input[@ng-model="charge.description"]'), 100);
+    SF.send (By.xpath('//input[@ng-model="charge.cost"]'), 100);
+    SF.sleep(0.5);
     SF.clear (By.xpath('//input[@ng-model="charge.qty"]'));
     SF.send (By.xpath('//input[@ng-model="charge.qty"]'), 10);
+    SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
         V.due = SF.cleanPrice (text);
         VD.IWant (VD.VToEqual, V.due, 1000, 'не совпал тотал с введенной суммой')
     }), config.timeout);
     SF.click (By.xpath('//input[@ng-model="invoice.discount"]'));
     SF.send (By.xpath('//input[@ng-model="invoice.discount"]'), 10);
+    SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
         V.discount = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.discount, 900, 'не посчитал дискаунт с введенной суммой')
+        VD.IWant (VD.VToEqual, V.discount, 900, 'не посчитал дискаунт с введенной суммы')
     }), config.timeout);
-
-
-
-
-
-
-
-    Debug.pause();
-
-
+    SF.click (By.xpath('//input[@ng-model="invoice.tax"]'));
+    SF.send (By.xpath('//input[@ng-model="invoice.tax"]'), 10);
+    SF.sleep(0.5);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
+        V.tax = SF.cleanPrice (text);
+        VD.IWant (VD.VToEqual, V.tax, 990, 'не посчитал tax с введенной суммы')
+    }), config.timeout);
+    SF.click(By.xpath('//textarea[@ng-model="invoice.notes"]'));
+    SF.click(By.xpath('//a[@ng-click="sendInvoice()"]'));
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    SF.waitForLocated (By.xpath('//h2[contains(text(), "Template preview")]'));
+    SF.click(By.xpath('//a[@ng-click="save()"]'));
+    JS.waitForNotExist('div.toast-message:visible');
+    SF.click(By.xpath('//button[@ng-click="proRate()"]'));
+condition.nowWeDoing = 'идем в леджер и создаем про рейт';
+    JS.waitForNotExist ('.sweet-overlay:visible');
+    SF.clear (By.xpath('//input[@ng-model="charge.name"]'));
+    SF.send (By.xpath('//input[@ng-model="charge.name"]'), 'StorageTest Pro-Rate');
+    SF.sleep(0.5);
+    SF.clear (By.xpath('//input[@ng-model="charge.description"]'));
+    SF.send (By.xpath('//input[@ng-model="charge.description"]'), 'test month');
+    SF.sleep(0.5);
+    SF.clear (By.xpath('//input[@ng-model="charge.cost"]'));
+    SF.send (By.xpath('//input[@ng-model="charge.cost"]'), 100);
+    SF.sleep(0.5);
+    SF.clear (By.xpath('//input[@ng-model="charge.qty"]'));
+    SF.send (By.xpath('//input[@ng-model="charge.qty"]'), 10);
+    SF.sleep(0.5);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
+        V.dueRate = SF.cleanPrice (text);
+        VD.IWant (VD.VToEqual, V.dueRate, 1000, 'не совпал тотал с введенной суммой')
+    }), config.timeout);
+    SF.click (By.xpath('//input[@ng-model="invoice.discount"]'));
+    SF.send (By.xpath('//input[@ng-model="invoice.discount"]'), 10);
+    SF.sleep(0.5);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
+        V.discountRate = SF.cleanPrice (text);
+        VD.IWant (VD.VToEqual, V.discountRate, 900, 'не посчитал дискаунт с введенной суммы')
+    }), config.timeout);
+    SF.click (By.xpath('//input[@ng-model="invoice.tax"]'));
+    SF.send (By.xpath('//input[@ng-model="invoice.tax"]'), 10);
+    SF.sleep(0.5);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
+        V.taxRate = SF.cleanPrice (text);
+        VD.IWant (VD.VToEqual, V.taxRate, 990, 'не посчитал tax с введенной суммы')
+    }), config.timeout);
+    SF.click(By.xpath('//textarea[@ng-model="invoice.notes"]'));
+    SF.click(By.xpath('//button[@ng-click="saveAsDraft()"]'));
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    JS.waitForNotExist('div.toast-message:visible');
+    SF.click(By.xpath('//button[@ng-click="updateStorageRequest(data)"]'));
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    JS.waitForNotExist('div.toast-message:visible');
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Balance :")]/span')).getText().then(function (text) {
+        V.balanceTenant = SF.cleanPrice (text);
+        VD.IWant (VD.VToEqual, V.balanceTenant, -780, 'баланс не совпадает с суммой оплаты')
+    }),config.timeout);
+condition.nowWeDoing = 'добавляем лот намберс';
+    SF.click(By.xpath('//a[@ng-click="tabs.setTab(6)"]'));
+    SF.click(By.xpath('//button[@id="addColor"]'));
+    SF.send(By.xpath('//input[@ng-model="lotNumber.number"]'), 'test');
+    SF.click(By.xpath('//button[@id="colorPick"]'));
+    SF.click(By.xpath('//button[@id="colorPick"]/following-sibling::ul/li[3]'));
+    SF.send(By.xpath('//input[@ng-model="lotNumber.from"]'), 111111);
+    SF.send(By.xpath('//input[@ng-model="lotNumber.to"]'), 222222);
+    SF.click(By.xpath('//button[@ng-click="updateStorageRequest(data)"]'));
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    JS.waitForNotExist('div.toast-message:visible');
+    SF.select (By.xpath('//select[@ng-model="data.rentals.status_flag"]'), 'string:2');
+condition.nowWeDoing = 'старт рекуринг';
+    SF.click(By.xpath('//a[@ng-click="tabs.setTab(5)"]'));
+    JS.click('span[ng-hide=\\"data.recurring.start\\"]');
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
+    SF.sleep (3);
+    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
+    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
+    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'pending\', \'\')"]'));
+    SF.click(By.xpath('//a[@ui-sref="tenants"]'));
+    JS.waitForNotExist ('div.busyoverlay:visible');
+condition.nowWeDoing = 'идем проверять что он есть в Move in';
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-click="openModal(request, id)"]/td[contains(text(),"' + V.storageId + '")]')).click(), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-click="openModal(request, id)"]/td[contains(text(),"' + V.storageId + '")]')).click(), config.timeout);
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
+    LF.LogoutFromBoardAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

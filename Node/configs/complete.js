@@ -36,9 +36,10 @@ module.exports = function(config,V) {
         './tests/26_CloneRequest.js',
         './tests/27_Receipt.js',
         './tests/28_CalcWarnAndTurnOffWhenManual.js',
-        './tests/29_CheckFewMoverForUser.js'
+        './tests/29_CheckFewMoverForUser.js',
+        './tests/30_StorageTenant.js'
 
-        
+
 
 
 
@@ -76,9 +77,11 @@ module.exports = function(config,V) {
  './tests/25_ChangeDateDispatch.js',
  './tests/21_LDFromAdmin.js',
  './tests/26_CloneRequest.js',
- './tests/27_Receipt.js'
+ './tests/27_Receipt.js',
  './tests/28_CalcWarnAndTurnOffWhenManual.js',
- './tests/29_CheckFewMoverForUser.js'
+ './tests/29_CheckFewMoverForUser.js',
+ './tests/30_StorageTenant.js'
+
 
 
 
