@@ -52,6 +52,7 @@ var webdriver = require('selenium-webdriver');
 var FileDetector = webdriver.FileDetector;
 var By = webdriver.By;
 var until = webdriver.until;
+global.Key = webdriver.Key;
 global.MyError = webdriver.error;
 
 function getNewDriver() {
