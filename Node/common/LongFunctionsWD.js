@@ -426,6 +426,28 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         JS.waitForNotExist('div.busyoverlay:visible');
     }
+    function OpenRequestFlatRate(request) {
+        driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), config.timeout)
+            .getAttribute('class').then(function (classStr) {
+                    if (classStr.indexOf('active_row') == -1) {
+                        driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), config.timeout);
+                        driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), config.timeout);
+                    } else {
+                        driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), config.timeout);
+                    }
+                    if (!condition.busy) {
+                        fiber.run();
+                    }
+                }
+            ), config.timeout);
+        if (!condition.busy) {
+            Fiber.yield();
+        }
+        SF.waitForVisible(By.xpath('//a[@ng-click="addOption()"]'));
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep(2);
+        JS.waitForNotExist('div.busyoverlay:visible');
+    }
     function CreateLocalMovingFromBoard(client) {
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.busyoverlay:visible');
@@ -1333,6 +1355,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         LoginToBoardAsCustom: LoginToBoardAsCustom,
         LoginToAccountAsClient: LoginToAccountAsClient,
         OpenRequest: OpenRequest,
+        OpenRequestFlatRate: OpenRequestFlatRate,
         CreateMovAndStorFromFrontDown: CreateMovAndStorFromFrontDown,
         CreateUnloadingHelpDownForm: CreateUnloadingHelpDownForm,
         CreateLoadingHelpDownForm: CreateLoadingHelpDownForm,

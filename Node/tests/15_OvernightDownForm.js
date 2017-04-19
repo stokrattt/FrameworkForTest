@@ -101,7 +101,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     console.log(V.frontNumbersOvernightDown_UP, V.frontNumbersOvernightDown_Del);
 
     SF.click(By.id('submitRequestButton'));
-    SF.sleep (2);
+    SF.sleep (4);
     SF.click(By.linkText('View Request Page'));
     SF.sleep(4);
     SF.openTab (1);
