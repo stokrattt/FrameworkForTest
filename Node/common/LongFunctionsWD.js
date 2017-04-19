@@ -817,12 +817,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(until.elementLocated(By.xpath('//td[contains(text(),"' + request + '")]/..')), config.timeout)
             .getAttribute('class').then(function (classStr) {
                 if (classStr.indexOf('active_row') == -1) {
-                    driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click();
+                    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click(), config.timeout);
                 }
-                driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click();
-                if (!condition.busy) {
-                    fiber.run();
-                }
+                driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click(), config.timeout).then(
+                    function(){
+                        if (!condition.busy) {
+                            fiber.run();
+                        }
+                    }
+                );
             }
         );
         if (!condition.busy) {
@@ -866,7 +869,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
     }
     function MakeSignInRental(){
-        SF.sleep(1);
+        SF.sleep(3);
         SF.click(By.xpath('//span[contains(text(),"Tenant Signature:")]/following-sibling::div[1]/div[@ng-click="openService(\'monthly_storage_fee\', 1)"]'));
         MakeSignJS("signatureCanvasService");
         SF.click(By.xpath('//button[@ng-click="saveService()"]'));
@@ -955,58 +958,58 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist('div#datePicker-block.disabled');
         SF.click(By.xpath('(//td[@data-handler="selectDay"])[' + EQ + ']'));
     }
-    function RememberAndValidatePayroll_In_EditRequest() {
-        V.boardNumbers.Payroll = {
+    function RememberAndValidatePayroll_In_EditRequest(boardNumbers) {
+        boardNumbers.Payroll = {
             managerForCommission: {},
             foremanForCommission: {},
             helpersForComission: []
         };
         SF.sleep(1);
         driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
-            V.boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
+            boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(V.boardNumbers.Payroll.managerForCommission.office),
-            Math.floor(V.boardNumbers.Total
-                - V.boardNumbers.AdServices - V.boardNumbers.Packing - V.boardNumbers.Fuel - V.boardNumbers.Valuation - V.boardNumbers.Tips),
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office),
+            Math.floor(boardNumbers.Total
+                - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
             'Не совпал ForCommission менеджера');
 
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
-            V.boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
+            boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
         SF.click(By.xpath('//li[@heading="Foremen"]/a'));
         driver.wait(driver.executeScript('return ' +
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
         ).then(function (text) {
-            V.boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
+            boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.Tips),
-            Math.floor(V.boardNumbers.Tips / V.boardNumbers.CrewSize),
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
+            Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
             'Не совпал Tips формена');
 
         driver.wait(driver.executeScript('return ' +
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
         ).then(function (text) {
-            V.boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
+            boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.AdServices),
-            Math.floor(V.boardNumbers.AdServices),
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
+            Math.floor(boardNumbers.AdServices),
             'Не совпал Extras формена');
 
         driver.wait(driver.executeScript('return ' +
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
         ).then(function (text) {
-            V.boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
+            boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.Packing),
-            Math.floor(V.boardNumbers.Packing),
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
+            Math.floor(boardNumbers.Packing),
             'Не совпал Packing формена');
 
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
-            V.boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
+            boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
         });
     }
     function findTestForemanInPayroll() {

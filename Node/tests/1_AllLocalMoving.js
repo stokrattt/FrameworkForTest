@@ -161,7 +161,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
 
-    LF.RememberAndValidatePayroll_In_EditRequest();
+    LF.RememberAndValidatePayroll_In_EditRequest(V.boardNumbers);
 
     condition.nowWeDoing = 'сейчас идём в пейролл';
     SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
