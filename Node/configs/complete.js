@@ -32,16 +32,14 @@ module.exports = function(config,V) {
         './tests/23_FiltrationMoveDate.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
         './tests/25_ChangeDateDispatch.js',
-        './tests/TheCleaner.js',//==============================уборка=========================
         './tests/26_CloneRequest.js',
         './tests/27_Receipt.js',
         './tests/28_CalcWarnAndTurnOffWhenManual.js',
         './tests/29_CheckFewMoverForUser.js',
-        './tests/30_StorageTenant.js'
+        './tests/30_StorageTenant.js',
 
-
-
-
+        './tests/32_AllMovingWithStorage.js',
+        './tests/TheCleaner.js',//==============================уборка=========================
 
     ];
     config.chainFail = false;
