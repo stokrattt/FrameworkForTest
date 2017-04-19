@@ -9,15 +9,15 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     //=========================начинаем писать тест=============================
 condition.nowWeDoing = 'идем в админку проверяем что стоит галка на флет рейт';
-  /*  SF.get(V.adminURL);
+    SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin ();
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SF.sleep (3);
     JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').parent().click()}"),config.timeout);
-  LF.LogoutFromBoardAdmin ();
- */ SF.get(V.frontURL);
+    LF.LogoutFromBoardAdmin ();
+    SF.get(V.frontURL);
     SF.sleep (4);
     JS.scroll('move-calculator');
     SF.click (By.xpath('//a[@href="#request"]'));
@@ -173,8 +173,9 @@ condition.nowWeDoing = 'заполняем опции 2';
     SF.sleep (1);
     JS.waitForNotExist('div.toast-message:visible');
     JS.waitForNotExist('div.toast-success:visible');
+    /**************************иногда выскакивает иногда нет************
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    SF.click (By.xpath('//button[@class="confirm"]'));  */
     SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
     SF.sleep (0.5);
     SF.send (By.id('inputPassword3'), V.client.passwd);
@@ -208,19 +209,27 @@ condition.nowWeDoing = 'идем в акк под клиентом';
     var now = new Date();
     var msInDay = 86400000;
     var future = new Date(now.getTime() + msInDay * 10);
-    var options = { day: 'numeric', month: 'short', year: 'numeric' };
-    V.changedateUpAdminDates = (future.toLocaleDateString('en-US', options));
+    var options2 = { day: 'numeric', month: 'short', year: 'numeric' };
+    V.changedateUpAdminDates = (future.toLocaleDateString('en-US', options2));
     SF.send(By.xpath('//div[contains(@class, "dateRange ")]/input'), V.changedateUpAdminDates );
     SF.sleep (0.5);
     var now = new Date();
     var msInDay = 86400000;
     var future = new Date(now.getTime() + msInDay * 13);
-    var options = { day: 'numeric', month: 'short', year: 'numeric' };
-    V.changedateDelAdminDates = (future.toLocaleDateString('en-US', options));
+    var options = { day:'numeric', month: 'short', year: 'numeric' };
+    V.changedateDelAdminDates = (future.toLocaleDateString('en-GB', options));
     SF.send(By.xpath('//div[contains(@class, "dateRange ")]/input'), ' - '  );
     SF.send(By.xpath('//div[contains(@class, "dateRange ")]/input'),  V.changedateDelAdminDates);
     SF.clear(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
+/********************************************************************************************************************************************************/
+
+    var now = new Date();
+    var msInDay = 86400000;
+    var future = new Date(now.getTime() + msInDay * 10);
+    V.changedateUpAdminDates = (future.toDateString("dd mmm, yyyy"));
+    SF.send(By.xpath('//div[contains(@class, "dateRange ")]/input'), V.changedateUpAdminDates );
+
 
 
 /**************************************************************************************************************/
@@ -292,20 +301,20 @@ condition.nowWeDoing = 'идем в админку проверять что р�
     JS.waitForNotExist('div.busyoverlay:visible');
 condition.nowWeDoing = 'идем в календарь проверять что трак есть на календаре';
     driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){
-        console.log (date);
+        V.current = date;
         var now = new Date();
         var msInDay = 86400000;
         var future = new Date(now.getTime() + msInDay * 9);
         var options = {  month: 'long', year: 'numeric' };
         V.Dates = (future.toLocaleDateString('en-US', options));
-        console.log (V.Dates);
-            if (date == V.Dates) {
+    }), config.timeout);
+            if (V.current == V.Dates) {
                 var now = new Date();
                 var msInDay = 86400000;
                 var future = new Date(now.getTime() + msInDay * 9);
                 var options = { day: 'numeric' };
                 V.datescedule = (future.toLocaleDateString('en-US', options));
-                SF.click(By.xpath('//span[contains(@class, "pull-right")] and [contains(text(), "' + V.datescedule + '")]'));
+                SF.click(By.xpath('//span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
                 driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (checkSchedule) {
                     VD.INeed(VD.VToEqual, checkSchedule, 1, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся ');
                 }),config.timeout);
@@ -313,10 +322,10 @@ condition.nowWeDoing = 'идем в календарь проверять что
                 SF.click(By.xpath('//i[@ng-click="vm.nextMonth()"]'));
                 SF.click(By.xpath('//span[contains(@class, "pull-right")] and [contains(text(), "' + V.datescedule + '")]'));
                 driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (checkSchedule) {
-                    VD.INeed(VD.VToEqual, checkSchedule, 1, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся');
+                    VD.INeed(VD.VToEqual, checkSchedule, 1, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся (вторая проверка)');
                 }),config.timeout);
             }
-    }), config.timeout);
+
     LF.LogoutFromBoardAdmin ();
     
     Debug.pause();
