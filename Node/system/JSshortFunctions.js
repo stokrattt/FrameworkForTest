@@ -24,7 +24,7 @@ module.exports = function (system, config, By, until, constants, condition) {
         driver.wait(new Promise(function (resolve, reject) {
             let f = function () {
                 time++;
-                if (time<times-4) {
+                if (time<times-8) {
                     driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                         if (avai != 0) {
                             console.log('появился ' + selector);
@@ -48,7 +48,7 @@ module.exports = function (system, config, By, until, constants, condition) {
         driver.wait(new Promise(function (resolve, reject) {
             let f = function () {
                 time++;
-                if (time<times-4) {
+                if (time<times-8) {
                     driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                         if (avai == 0) {
                             console.log('убрался ' + selector);
