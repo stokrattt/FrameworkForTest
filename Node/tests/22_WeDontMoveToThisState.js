@@ -211,7 +211,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     SF.sleep (2);
     JS.click ('#calculate_btn');
     SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-    SF.sleep (2);
+    SF.sleep (3.5);
     SF.click(By.id('prefeefe'));
     SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
     SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
@@ -257,15 +257,11 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
 
     SF.sleep (4);
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
-    SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "68776");
+    SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "50588");
     SF.sleep(6);
     driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
-    SF.sleep(1);
-    V.frontNumbers = {};
-    driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
-        V.frontNumbers.moveDate = D;
-        console.log(V.frontNumbers.moveDate);
-    }));
+    SF.sleep(2);
+    driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar),config.timeout);
     SF.sleep(2);
     driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
     SF.sleep(2);
@@ -285,7 +281,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     }), config.timeout);
     SF.sleep (0.5);
     SF.send (By.id('edit-zip-code-from'), '02111');
-    SF.send (By.id('edit-zip-code-to'), '68776');
+    SF.send (By.id('edit-zip-code-to'), '50588');
     SF.sleep(6);
     JS.select ('#edit-size-move', 10);
     JS.select ('#edit-type-from', 2);
@@ -340,7 +336,7 @@ condition.nowWeDoing = 'заходим в админку и удаляем Move 
     condition.nowWeDoing = 'создаем реквест с верхней формы 6 раз, в территорию с указанной ценой и выключеной галкой Move to this state, должно выкинуть';
 
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
-    SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "68776");
+    SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "50588");
     SF.sleep(3);
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
@@ -353,7 +349,7 @@ condition.nowWeDoing = 'заходим в админку и удаляем Move 
     SF.click (By.xpath('//a[@href="#request"]'));
     SF.sleep (2);
     SF.send (By.id('edit-zip-code-from'), '02111');
-    SF.send (By.id('edit-zip-code-to'), '50701');
+    SF.send (By.id('edit-zip-code-to'), '50588');
     SF.sleep(3);
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
