@@ -61,7 +61,7 @@ function getNewDriver() {
         .usingServer(SELENIUM_HOST)
         .withCapabilities({browserName: config.browser})
         .build();
-    newDriver.manage().window().setSize(1400, 800);
+    newDriver.manage().window().setSize(1500, 850);
     console.log('получили новый драйвер'.blue);
     return newDriver;
 }
