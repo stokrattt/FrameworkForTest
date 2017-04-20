@@ -210,7 +210,7 @@ condition.nowWeDoing = 'идем в акк под клиентом';
     var msInDay = 86400000;
     var future = new Date(now.getTime() + msInDay * 10);
     var options2 = { day: 'numeric', month: 'short', year: 'numeric' };
-    V.changedateUpAdminDates = (future.toLocaleDateString('en-US', options2));
+    V.changedateUpAdminDates = (future.toLocaleDateString('ca-CA', options2));
     SF.send(By.xpath('//div[contains(@class, "dateRange ")]/input'), V.changedateUpAdminDates );
     SF.sleep (0.5);
     var now = new Date();
@@ -227,12 +227,13 @@ condition.nowWeDoing = 'идем в акк под клиентом';
     var now = new Date();
     var msInDay = 86400000;
     var future = new Date(now.getTime() + msInDay * 10);
-    V.changedateUpAdminDates = (future.toDateString("dd mmm, yyyy"));
+    V.changedateUpAdminDates = (future.toString("dd mmm, yyyy"));
     SF.send(By.xpath('//div[contains(@class, "dateRange ")]/input'), V.changedateUpAdminDates );
 
 
 
-/**************************************************************************************************************/
+
+    /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     VD.IWant (VD.VToEqual, 5000, V.boardNumbers.Total, 'тотал не совпал с выбранной суммой' );
     JS.select ('#edit-status', 2);
