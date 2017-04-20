@@ -27,19 +27,7 @@ condition.nowWeDoing = 'создаем реквест и добавляем ра
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
     SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="6"]'));
     SF.sleep (2);
-    SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
-    JS.waitForExist('div.busyoverlay');
-condition.nowWeDoing = 'ждем инвентория';
-    SF.sleep (7);
-    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@ng-if="!myInventory.opened && !searchText && currentFilter"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click(By.id("save-inventory"));
-    SF.sleep (4);
+    LF.addInventoryBoard ();
     SF.click (By.xpath('//select[@id="edit-size-move"]/option[9]'));
 
     SF.send (By.id('edit-moving-from'), 'From Addres');

@@ -37,7 +37,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.click(By.xpath('//button[@ng-click="submitted=true; create()"]'));
     JS.waitForNotExist ('div.busyoverlay:visible');
     SF.sleep(1);
-    JS.waitForExist('div.toast-success');
+    JS.waitForExist('div.toast-success:visible');
     SF.sleep(3);
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "mantest testman")]'));
     //SF.sleep (3);

@@ -22,7 +22,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
         V.frontNumbersLoadingDown.Crew = text.replace('Movers', '');
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info detailsinfo ng-scope"]/div[2]/span')).getText().then(function (text) {
-        V.frontNumbersLoadingDown.Truck = text.replace('Truck', '');
+        V.frontNumbersLoadingDown.Truck = SF.cleanPrice (text);
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcsettings.travelTime"]/span')).getText().then(function (text) {
         V.frontNumbersLoadingDown.TravelTime = SF.cleanPrice(text.substring(text.indexOf('hr')))* 60;

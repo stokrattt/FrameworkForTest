@@ -22,7 +22,7 @@ condition.nowWeDoing = 'запоминаем данные';
         V.frontNumbersUnloadingDown.Crew = text.replace('Movers', '');
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info detailsinfo ng-scope"]/div[2]/span')).getText().then(function (text) {
-        V.frontNumbersUnloadingDown.Truck = text.replace('Truck', '');
+        V.frontNumbersUnloadingDown.Truck = SF.cleanPrice (text);
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcsettings.travelTime"]/span')).getText().then(function (text) {
         V.frontNumbersUnloadingDown.TravelTime = SF.cleanPrice(text.substring(text.indexOf('hr')))* 60;

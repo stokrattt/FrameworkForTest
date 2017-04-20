@@ -31,12 +31,12 @@ module.exports = function (system, config, By, until, constants, condition) {
                             resolve("result");
                             SFgo();
                         } else {
-                            setTimeout(f, 500);
+                            setTimeout(f, 1500);
                         }
                     }), config.timeout);
                 }
             };
-            setTimeout(f, 500);
+            setTimeout(f, 1500);
         }), config.timeout);
         SFstop();
     }

@@ -1086,7 +1086,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }), config.timeout);
         SF.send (By.id('edit-zip-code-from'), '02136');
         SF.send (By.id('edit-zip-code-to'), '02032');
-        JS.select ('#edit-size-move', 10);
+        JS.select ('#edit-size-move', 8);
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
         SF.sleep (0.5);
@@ -1127,7 +1127,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         condition.nowWeDoing = 'создаем овернайт реквест';
         SF.send (By.id('edit-zip-code-from'), '02136');
         SF.send (By.id('edit-zip-code-to'), '02032');
-        JS.select ('#edit-size-move', 10);
+        JS.select ('#edit-size-move', 8);
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
         SF.sleep (0.5);
@@ -1244,7 +1244,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         condition.nowWeDoing = 'создаем Loading реквест';
 
         SF.send (By.id('edit-zip-code-from'), '02032');
-        JS.select ('#edit-size-move', 10);
+        JS.select ('#edit-size-move', 8);
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
         SF.sleep (0.5);
@@ -1285,7 +1285,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         condition.nowWeDoing = 'создаем Unloading реквест';
 
         SF.send (By.id('edit-zip-code-to'), '02032');
-        JS.select ('#edit-size-move', 10);
+        JS.select ('#edit-size-move', 8);
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
         SF.sleep (0.5);
@@ -1332,6 +1332,24 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist("div.busyoverlay:visible");
         closeEditRequest();
         SF.sleep(2);
+    }
+    function addInventoryBoard() {
+        SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
+        JS.waitForExist('div.busyoverlay');
+        condition.nowWeDoing = 'ждем инвентория';
+        SF.sleep (5);
+        SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
+        driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcTotals.cfs > 0 && !isMobile"]')).getText().then(function(text) {
+            V.InventoryCubicFit = SF.cleanPrice (text.replace ('Total Estimated Cubic Feet: ', ''));
+        }),config.timeout);
+        SF.click(By.id("save-inventory"));
+        SF.sleep (4);
     }
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -1400,6 +1418,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         selectDateInPayroll: selectDateInPayroll,
         addToCleanerJob: addToCleanerJob,
         gotoSetingsLD: gotoSetingsLD,
-        deletePendingRequest: deletePendingRequest
+        deletePendingRequest: deletePendingRequest,
+        addInventoryBoard: addInventoryBoard
     };
 };
