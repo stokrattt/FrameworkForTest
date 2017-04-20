@@ -64,13 +64,13 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.from.travelTime"]/span')).getText().then(function (text) {
         V.frontNumbersOvernightDown_Del.TravelTimeFrom = SF.cleanPrice(text.substring(text.indexOf('min')));
     }), config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[4]/span')).getText().then(function (text) {
+    /*driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[4]/span')).getText().then(function (text) {
         V.frontNumbersOvernightDown_Del.OverStorFrom = SF.cleanPrice (text.replace('$', ''));
-    }), config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[5]/span')).getText().then(function (text) {
+    }), config.timeout);*/
+    driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[4]/span')).getText().then(function (text) {
         V.frontNumbersOvernightDown_Del.CrewFrom = text.replace('Movers', '');
     }), config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[6]/span')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[5]/span')).getText().then(function (text) {
         V.frontNumbersOvernightDown_Del.RateFrom = text.indexOf('$', 4) == -1 ?
             SF.cleanPrice(text) :
             SF.cleanPrice(text.substring(text.indexOf('$', 4)));

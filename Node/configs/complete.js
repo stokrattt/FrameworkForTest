@@ -37,9 +37,9 @@ module.exports = function(config,V) {
         './tests/28_CalcWarnAndTurnOffWhenManual.js',
         './tests/29_CheckFewMoverForUser.js',
         './tests/30_StorageTenant.js',
-
+        './tests/31_FlateRateBooking.js',
         './tests/32_AllMovingWithStorage.js',
-        './tests/TheCleaner.js',//==============================уборка=========================
+        './tests/TheCleaner.js'//==============================уборка=========================
 
     ];
     config.chainFail = false;
