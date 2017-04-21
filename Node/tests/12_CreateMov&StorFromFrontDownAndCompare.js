@@ -141,7 +141,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     condition.nowWeDoing = 'зашли под клиентом и букаем вторую работу';
-
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
     SF.sleep (2);
 condition.nowWeDoing = 'букаем вторую работу мувинга и стораджа';
