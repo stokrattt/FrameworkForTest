@@ -67,7 +67,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep(3);
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "salestest testsales")]'));
 condition.nowWeDoing='Создали сейлса**************************************';
-    JS.waitForExist('div.toast-message');
+    //JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SF.sleep(2);
 condition.nowWeDoing='Создаем драйвера**************************************';
@@ -86,7 +86,7 @@ condition.nowWeDoing='Создаем драйвера***************************
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "drivertest testdriver")]'));
     //SF.sleep(3);
 condition.nowWeDoing='Создали драйвера**************************************';
-    JS.waitForExist('div.toast-message');
+   // JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
     SF.sleep(2);
 condition.nowWeDoing='Создаем хелпера**************************************';
@@ -105,7 +105,7 @@ condition.nowWeDoing='Создаем хелпера*****************************
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "helpertest testhelper")]'));
     //SF.sleep(3);
 condition.nowWeDoing='Создали хелпера**************************************';
-    JS.waitForExist('div.toast-message');
+  //  JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
     SF.sleep(2);
 condition.nowWeDoing='Создаем форемана**************************************';
@@ -326,9 +326,7 @@ condition.nowWeDoing='идем удалять менеджера';
     JS.waitForExist('div.toast-success');
     JS.waitForNotExist('div.toast-success');
 
-
     LF.LogoutFromBoardForeman ();
-
 
     SF.endOfTest();
 };
