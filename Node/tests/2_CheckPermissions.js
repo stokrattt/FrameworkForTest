@@ -39,7 +39,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.click(By.xpath('//input[@ng-model="request.permissions.canEditOtherLeads"]/..'));
     //SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeUnsignedLeads"]/..'));
     SF.click(By.xpath('//input[@ng-model="request.permissions.canSignedSales"]/..'));
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create()"]'));
+    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     SF.waitForVisible (By.xpath('//button[@class="confirm"]'));
     SF.sleep (1);
     SF.click (By.xpath('//button[@class="confirm"]'));

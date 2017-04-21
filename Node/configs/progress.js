@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/13_UnloadingHelpTopForm.js'];
+    config.suite = ['./tests/5_ReservationMov&Stor.js'];
     config.chainFail = false;
     config.timeout = 30000;
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';

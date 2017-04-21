@@ -34,7 +34,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.send (By.xpath('//input[@ng-model="request.login"]'), V.managerAccount);
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.managerPass);
     SF.send (By.xpath('//input[@ng-model="request.email"]'), V.managerAccount);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create()"]'));
+    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     JS.waitForNotExist ('div.busyoverlay:visible');
     SF.sleep(1);
     JS.waitForExist('div.toast-success:visible');
@@ -60,7 +60,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.send (By.xpath('//input[@ng-model="request.login"]'), V.salesAccount);
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.salesPass);
     SF.send (By.xpath('//input[@ng-model="request.email"]'), V.salesAccount);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create()"]'));
+    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     JS.waitForNotExist ('div.busyoverlay:visible');
     SF.sleep(1);
     JS.waitForExist('div.toast-success');
@@ -78,7 +78,7 @@ condition.nowWeDoing='Создаем драйвера***************************
     SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.driverFirstName);
     SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.driverLastName);
     SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create()"]'));
+    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     JS.waitForNotExist ('div.busyoverlay:visible');
     SF.sleep(1);
     JS.waitForExist('div.toast-success');
@@ -97,7 +97,7 @@ condition.nowWeDoing='Создаем хелпера*****************************
     SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.helperFirstName);
     SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.helperLastName);
     SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create()"]'));
+    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     JS.waitForNotExist ('div.busyoverlay:visible');
     SF.sleep(1);
     JS.waitForExist('div.toast-success');
@@ -122,7 +122,7 @@ condition.nowWeDoing='Создаем форемана***************************
     SF.send (By.xpath('//input[@ng-model="request.login"]'), V.foremanAccount);
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.foremanPass);
     SF.send (By.xpath('//input[@ng-model="request.email"]'), V.foremanAccount);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create()"]'));
+    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
    // SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "foremantest testforeman")]'));
     JS.waitForNotExist ('div.busyoverlay:visible');
     SF.sleep(1);
