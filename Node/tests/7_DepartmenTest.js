@@ -163,7 +163,6 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     SF.waitForLocated(By.id('datatable'));
     SF.sleep (3);
 
-
     LF.LogoutFromBoardForeman ();
 
     SF.send(By.id('email'), 'roma4ke');

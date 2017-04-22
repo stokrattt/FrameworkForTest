@@ -1140,7 +1140,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }), config.timeout);
         SF.sleep (0.5);
         SF.click (By.xpath('//label[contains(text(), "Service Type:")]/following-sibling::select/option[6]'));
-        condition.nowWeDoing = 'создаем овернайт реквест';
         SF.send (By.id('edit-zip-code-from'), '02136');
         SF.send (By.id('edit-zip-code-to'), '02032');
         JS.select ('#edit-size-move', 8);
@@ -1257,8 +1256,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }), config.timeout);
         SF.sleep (0.5);
         SF.click (By.xpath('//label[contains(text(), "Service Type:")]/following-sibling::select/option[3]'));
-        condition.nowWeDoing = 'создаем Loading реквест';
-
         SF.send (By.id('edit-zip-code-from'), '02032');
         JS.select ('#edit-size-move', 8);
         JS.select ('#edit-type-from', 2);
@@ -1298,8 +1295,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }), config.timeout);
         SF.sleep (0.5);
         SF.click (By.xpath('//label[contains(text(), "Service Type:")]/following-sibling::select/option[4]'));
-        condition.nowWeDoing = 'создаем Unloading реквест';
-
         SF.send (By.id('edit-zip-code-to'), '02032');
         JS.select ('#edit-size-move', 8);
         JS.select ('#edit-type-from', 2);
