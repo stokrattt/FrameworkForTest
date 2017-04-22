@@ -55,7 +55,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
             JS.waitForNotExist("div.busyoverlay:visible");
             LF.closeEditRequest();
             SF.sleep(2);
-            console.log('удалили реквест '.green+V.cleanerJob[i].yellow);
+            console.log('удалили реквест '.green+(V.cleanerJob[i]+'').yellow);
         }
         V.cleanerJob=[];
     }

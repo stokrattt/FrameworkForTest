@@ -34,7 +34,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.waitForNotExist ('div.busyoverlay:visible');
     SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
     SF.sleep(1);
-    SF.click (By.xpath('//button[contains(text(),"Set Sales")]'));
+    SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
     SF.click (By.xpath('//div[@ng-show="::PermissionsServices.hasPermission(\'canSignedSales\');"]//ul[@class="dropdown-menu"]/li[2]'));
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.sleep (1);
