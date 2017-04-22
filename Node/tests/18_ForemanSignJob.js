@@ -14,11 +14,11 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep(3);
     LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);
-
-    LF.addInventoryBoard ();
+    V.boardNumbers = {};
+    LF.addInventoryBoard (V.boardNumbers);
     condition.nowWeDoing = 'запоминаем все данные';
 
-    V.boardNumbers = {};
+
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     LF.RememberDateFromRequest ();

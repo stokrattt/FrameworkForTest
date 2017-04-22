@@ -55,7 +55,7 @@ condition.nowWeDoing = 'выключили калькулятор';
     condition.nowWeDoing = 'включили калькулятор';
     SF.click(By.xpath('//div[@class="actions pull-right"]/span[@ng-click="switchCalc()"]')); // включили калькулятор
 //выбор инвентория
-    LF.addInventoryBoard ();
+    LF.addInventoryBoard (V);
     driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SF.cleanPrice (text);
     });

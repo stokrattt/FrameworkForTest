@@ -39,7 +39,8 @@ module.exports = function(config,V) {
         './tests/30_StorageTenant.js',
         './tests/31_FlateRateBooking.js',
         './tests/32_AllMovingWithStorage.js',
-        './tests/TheCleaner.js'//==============================уборка=========================
+        './tests/35_InventoryLocalMoving.js',
+        './tests/TheCleaner.js',//==============================уборка=========================
 
     ];
     config.chainFail = false;

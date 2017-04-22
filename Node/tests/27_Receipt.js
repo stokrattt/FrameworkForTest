@@ -13,21 +13,21 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     JS.click('.btn-primary');
     SF.sleep(3);
     LF.CreateLocalMovingFromBoard(V.client);
-    SF.sleep (2);
-
-   LF.addInventoryBoard ();
-condition.nowWeDoing = 'запоминаем все данные';
+    SF.sleep(2);
     V.boardNumbers = {};
-    LF.RememberDigitsRequestBoard(V.boardNumbers);
-    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    LF.RememberDateFromRequest ();
+    LF.addInventoryBoard(V.boardNumbers);
+    condition.nowWeDoing = 'запоминаем все данные';
 
-    driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime) / 60));
+    LF.RememberDateFromRequest();
+
+    driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function (text) {
         V.request.Id = SF.cleanPrice(text);
-        console.log (V.request.Id);
+        console.log(V.request.Id);
         LF.addToCleanerJob(V.request.Id);
     }), config.timeout);
-    JS.select ('#edit-status', 2);
+    JS.select('#edit-status', 2);
     SF.send (By.id('edit-moving-from'), 2342342342424);
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
     JS.click ('button[ng-click=\\"UpdateRequest()\\"]');

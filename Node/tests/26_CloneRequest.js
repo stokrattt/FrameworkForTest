@@ -27,12 +27,13 @@ condition.nowWeDoing = 'создаем реквест и добавляем ра
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
     SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="6"]'));
     SF.sleep (2);
-    LF.addInventoryBoard ();
+    V.boardNumbers = {};
+    LF.addInventoryBoard (V.boardNumbers);
     SF.click (By.xpath('//select[@id="edit-size-move"]/option[9]'));
 
     SF.send (By.id('edit-moving-from'), 'From Addres');
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'To Addres');
-    V.boardNumbers = {};
+
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     JS.select ('#edit-status', 2); // выбор статуса конфермед

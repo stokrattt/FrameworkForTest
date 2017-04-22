@@ -234,7 +234,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
     }
-    function AccountLocalAddInventory() {
+    function AccountLocalAddInventory(accountNumbers) {
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
         JS.waitForExist('div[ng-repeat="filter in filters"]');
         SF.sleep(5);
@@ -252,6 +252,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
         SF.sleep(1);
+        if (accountNumbers != undefined) {
+            driver.wait(driver.executeScript('return $(\'div.inventory__toolbar-item:contains("Total Estimated Cubic Feet:")\').text()').then(
+                function (text) {
+                    accountNumbers.InventoryCbf = SF.cleanPrice(text);
+                    console.log("cbf = " + accountNumbers.InventoryCbf);
+                }
+            ),config.timeout);
+        }
         JS.click('button#save-inventory.inventory__button');
         JS.waitForExist('button.confirm:contains("OK")');
         SF.sleep(2);
@@ -293,6 +301,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
                 SF.cleanPrice(text) :
                 SF.cleanPrice(text.substring(text.indexOf('$', 4)));
         }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[1]')).getText().then(
+            function(text){
+                accountNumbers.cbf = SF.cleanPrice(text.substring(text.indexOf('Inventory')+9, text.indexOf('c.f.')));
+            }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Fuel Surcharge")]/../div[2]')).getText().then(function (text) {
             accountNumbers.Fuel = SF.cleanPrice(text);
         }),config.timeout);
@@ -580,6 +592,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             boardNumbers.HourlyRate = SF.cleanPrice(value);
         }),config.timeout);
 */
+        driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
+            boardNumbers.cbf = SF.cleanPrice(text);
+        }),config.timeout);
+
         driver.wait(driver.findElements(By.xpath('//input[@ng-model="request.rate.value"]')).then(function(elements){
             if (elements.length>0) {
                 elements[0].getAttribute('value').then(function (value) {
@@ -1333,11 +1349,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         closeEditRequest();
         SF.sleep(2);
     }
-    function addInventoryBoard() {
+    function addInventoryBoard(boardNumbers) {
         SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
         JS.waitForExist('div.busyoverlay');
-        condition.nowWeDoing = 'ждем инвентория';
         SF.sleep (5);
+        JS.click('div[ng-repeat=\\"filter in filters\\"]:visible div:first');
         SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
         SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
         SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
@@ -1345,9 +1361,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
         SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
         SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-        driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcTotals.cfs > 0 && !isMobile"]')).getText().then(function(text) {
-            V.InventoryCubicFit = SF.cleanPrice (text.replace ('Total Estimated Cubic Feet: ', ''));
-        }),config.timeout);
+        if (boardNumbers!=undefined) {
+            driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcTotals.cfs > 0 && !isMobile"]')).getText().then(function (text) {
+                boardNumbers.InventoryCubicFit = SF.cleanPrice(text.replace('Total Estimated Cubic Feet: ', ''));
+            }), config.timeout);
+        }
         SF.click(By.id("save-inventory"));
         SF.sleep (4);
     }
