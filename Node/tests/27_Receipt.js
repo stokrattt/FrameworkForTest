@@ -172,8 +172,8 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
         V.payment1 = SF.cleanPrice (text);
         console.log (V.payment1);
     }),config.timeout);
-    driver.wait(driver.executeScript("$('tbody tr:nth-child(1)[ng-click=\\\"prepareToDelete($index, receipt.id)\\\"]').dblclick();"), config.timeout);
-    SF.sleep(3);
+    //driver.wait(driver.executeScript("$('tbody tr:nth-child(1)[ng-click=\"prepareToDelete($index, receipt.id)\"]:visible').dblclick();"), config.timeout);
+    driver.actions().mouseMove(driver.findElement(By.xpath('//tr[@ng-click="prepareToDelete($index, receipt.id)"]'))).doubleClick().perform();
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.waitForVisible (By.xpath('//span[contains(text(), "Amount: ")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount: ")]/following-sibling::span')).getText().then(function(text){
@@ -188,7 +188,7 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
         V.payment2 = SF.cleanPrice (text);
         console.log (V.payment2);
     }),config.timeout);
-    driver.wait(driver.executeScript("$('tbody tr:nth-child(2)[ng-click=\\\"prepareToDelete($index, receipt.id)\\\"]').dblclick();"), config.timeout);
+    driver.actions().mouseMove(driver.findElement(By.xpath('//tr[2][@ng-click="prepareToDelete($index, receipt.id)"]'))).doubleClick().perform();
     SF.sleep(3);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.waitForVisible (By.xpath('//span[contains(text(), "Amount: ")]'));
