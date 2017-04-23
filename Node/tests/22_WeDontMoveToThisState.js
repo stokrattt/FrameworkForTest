@@ -211,7 +211,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     SF.sleep (2);
     JS.click ('#calculate_btn');
     SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-    SF.sleep (3.5);
+    SF.sleep (5);
     SF.click(By.id('prefeefe'));
     SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
     SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
@@ -289,7 +289,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     SF.sleep (2);
     JS.click ('#calculate_btn');
     SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-    SF.sleep (2);
+    SF.sleep (5);
     SF.click(By.id('prefeefe'));
     SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
     SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');

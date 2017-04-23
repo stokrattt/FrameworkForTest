@@ -46,6 +46,7 @@ condition.nowWeDoing = 'идем в сторадж и создаем стора�
     }),config.timeout);
 condition.nowWeDoing = 'идем в леджер и создаем пайменты';
     SF.click(By.xpath('//a[@ng-click="tabs.setTab(4)"]'));
+    //driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="openPayment()"]'))).click();
     JS.click('button[ng-click=\\"openPayment()\\"]:visible');
     SF.sleep (1);
     JS.click('a[ng-click=\\"addCustomPayment()\\"]:visible');
@@ -57,6 +58,7 @@ condition.nowWeDoing = 'идем в леджер и создаем паймен�
         .sendKeys('1').sendKeys('5').sendKeys('0').sendKeys(Key.TAB).perform();
 */
     SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
+    SF.sleep (1);
     SF.click(By.xpath('//button[@ng-click="Save()"]'));
     SF.sleep (2);
     JS.waitForNotExist('div.toast-message:visible');

@@ -100,8 +100,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(3);
-    //JS.waitForExist ('div[class=\\"sweet-overlay\\"]:visible');
-    //SF.click (By.xpath('//button[@class="confirm"]'));
+    JS.waitForExist ('div[class=\\"sweet-overlay\\"]:visible');
+    SF.click (By.xpath('//button[@class="confirm"]'));
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();

@@ -180,7 +180,7 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
         V.paymentAmount1 = SF.cleanPrice (text);
         VD.IWant (VD.VToEqual, V.paymentAmount1, V.payment1, 'оплата не совпала')
     }),config.timeout);
-
+    SF.sleep (3);
     SF.click (By.xpath('//h2[contains(text(), "Receipt ")]/../../..//button[@ng-click="cancel()"]'));
     SF.sleep(3);
 
@@ -196,11 +196,11 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
         V.paymentAmount2 = SF.cleanPrice (text);
         VD.IWant (VD.VToEqual, V.paymentAmount2, V.payment2, 'оплата не совпала')
     }),config.timeout);
-
+    SF.sleep (3);
     SF.click (By.xpath('//h2[contains(text(), "Receipt ")]/../../..//button[@ng-click="cancel()"]'));
-    SF.sleep(1);
+    SF.sleep(3);
     SF.click (By.xpath('//a[@ng-click="createInvoice()"]/../..//button[@ng-click="cancel()"]'));
-    SF.sleep(1);
+    SF.sleep(2);
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
 

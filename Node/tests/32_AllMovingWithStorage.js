@@ -366,6 +366,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     }
     VD.IWant(VD.VToEqual, V.boardNumbersFrom.Balance, 0, 'Баланс после закрытия не равен 0');
     JS.waitForExist('div[ng-click=\\"openSalaryCommisionModal();\\"]:visible');
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal();"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
