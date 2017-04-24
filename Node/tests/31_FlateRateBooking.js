@@ -296,6 +296,9 @@ condition.nowWeDoing = 'идем в админку проверять что р�
     LF.OpenRequest (V.FRId);
     SF.sleep (3);
     LF.closeEditRequest ();
+    SF.sleep (2);
+    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
+    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.click(By.xpath('//li[@ng-show="vm.PermissionsServices.hasPermission(\'canSeeScheduleMenu\')"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
 condition.nowWeDoing = 'идем в календарь проверять что трак есть на календаре';

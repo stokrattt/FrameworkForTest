@@ -95,8 +95,11 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     SF.sleep (3);
     condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем все галки';
     LF.gotoSetingsLD ();
+    SF.sleep (2);
     JS.click('#jqvmap1_ia');
+    SF.sleep (2);
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
+    SF.sleep (2);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);

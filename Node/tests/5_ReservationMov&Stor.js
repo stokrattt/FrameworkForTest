@@ -44,7 +44,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
+    SF.waitForLocated (By.xpath('//button[@ng-click="update(request)"]'));
+    SF.sleep (2);
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));
     SF.sleep (5);
     JS.waitForNotExist("div.busyoverlay:visible");

@@ -42,7 +42,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "mantest testman")]'));
     //SF.sleep (3);
     condition.nowWeDoing='Создали менеджера****************************************';
-    JS.waitForExist('div.toast-message');
+    //JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
     SF.sleep(2);
 
