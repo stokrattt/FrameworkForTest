@@ -42,7 +42,8 @@ module.exports = function(config,V) {
         './tests/32_AllMovingWithStorage.js',
         './tests/34_ContractPageSettings.js',
         './tests/35_InventoryLocalMoving.js',
-        './tests/TheCleaner.js'//==============================уборка=========================
+        './tests/TheCleaner.js',//==============================уборка=========================
+        './tests/36_DatePending.js'
 
     ];
     config.chainFail = false;

@@ -464,7 +464,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.click(By.linkText('Create Request'));
-        SF.sleep(3);
+        SF.sleep(2);
         SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
         SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
         V.request = {};
@@ -481,7 +481,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         console.log (V.request.mdate);
         SF.send(By.id("edit-zip-code-from"), "02032");
         SF.send(By.id("edit-zip-code-to"), "02136");
-        SF.sleep(5);
+        SF.sleep(4);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');

@@ -181,7 +181,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
         VD.IWant(VD.VToEqual,Status,'Not Confirmed');
-    }));
+    }),config.timeout);
     SF.click(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="cancel()"]'));
     SF.click (By.xpath('//button[@ng-click="cancel()"]'));
