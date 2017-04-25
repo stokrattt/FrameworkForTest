@@ -14,8 +14,7 @@ condition.nowWeDoing = 'идем в админку проверяем что с�
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SF.sleep (3);
     JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
-        "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').parent().click()}"),config.timeout);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
     SF.sleep (4);

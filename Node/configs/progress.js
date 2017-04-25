@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/36_DatePending.js'];
+    config.suite = ['./tests/22_WeDontMoveToThisState.js'];
     config.chainFail = false;
     config.timeout = 30000;
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
