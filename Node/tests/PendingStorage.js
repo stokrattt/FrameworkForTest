@@ -253,25 +253,28 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.waitForVisible(By.xpath('//div[@ng-if="data.rentals.move_request_id"]'));
 
     V.storageNumbers={};
-    driver.wait(driver.findElement(By.xpath('//div[@ng-if="data.rentals.move_request_id"]')).getText().then(function(text){
-        V.storageNumbers.IdMoving = SF.cleanPrice(text);
+    RememberStorageNumbers(storageNumbers);
+    SF.sleep(1);
+    ValidatePendingStorageRequest(V.storageNumbers, V.boardNumbersTo, V.boardNumbersFrom);
+    SF.select(By.xpath('//select[@ng-model="data.rentals.status_flag"]'),'string:2');
+    SF.click(By.xpath('//button[@ng-click="updateStorageRequest(data)"]'));
+    SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
+    SF.sleep(1);
+    SF.click(By.xpath('//a[@ng-click="tabs.setTab(2)"]'));
+    driver.wait(driver.executeScript('return $(\'tr[ng-repeat="doc in data.user_info.documents track by $index"]\').length').then(function(count){
+        VD.IWant(VD.VNotToEqual, count,0,'нет документов');
     }),config.timeout);
     SF.sleep(1);
-    VD.INeed(VD.VToEqual, V.storageNumbers.IdMoving, V.boardNumbersTo.Id);
-
-    driver.wait(driver.executeScript('return $(\'input[ng-model="data.rentals.moved_in_date"]\').val()').then(function(text){
-        storageNumbers.inDate.Month = SF.FindShortMonthInString(text);
-        storageNumbers.inDate.Day = SF.cleanPrice(text.substring(0, text.indexOf(',')));
-        storageNumbers.inDate.Year = SF.cleanPrice(text.substring(text.indexOf(',')));
-    }),config.timeout);
-    driver.wait(driver.executeScript('return $(\'input[ng-model="data.rentals.moved_out_date"]\').val()').then(function(text){
-        storageNumbers.outDate.Month = SF.FindShortMonthInString(text);
-        storageNumbers.outDate.Day = SF.cleanPrice(text.substring(0, text.indexOf(',')));
-        storageNumbers.outDate.Year = SF.cleanPrice(text.substring(text.indexOf(',')));
-    }),config.timeout);
-    driver.wait(driver.executeScript('return $(\'input[ng-model="data.rentals.volume_cuft"]\').val()').then(function(text){
-        storageNumbers.cbf;
-    }),config.timeout);
+    SF.click(By.xpath('//a[@ng-click="tabs.setTab(4)"]'));
+    SF.click(By.xpath('//button[@ng-click="createInvoice()"]'));
+    SF.send(By.xpath('//input[@ng-model="charge.name"]'),'testChagre');
+    SF.send(By.xpath('//input[@ng-model="charge.description"]'),'testDesc');
+    SF.send(By.xpath('//input[@ng-model="charge.cost"]'),V.storageNumbers.prepaid);
+    SF.send(By.xpath('//input[@ng-model="charge.qty"]'),1);
+    SF.click(By.xpath('//a[@ng-click="sendInvoice()"]'));
+    SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
 
     //=========================закончили писать тест=============================

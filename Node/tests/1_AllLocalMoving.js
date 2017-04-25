@@ -173,8 +173,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.click(By.xpath("//a[@ui-sref=\"dispatch.payroll\"]"));
     SF.sleep(1);
     JS.waitForNotExist('div.busyoverlay:visible');
-    LF.findTestForemanInPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
+    LF.findTestForemanInPayroll();
 
     condition.nowWeDoing = 'выбираем цифры формена';
     V.payrollNumbers = {

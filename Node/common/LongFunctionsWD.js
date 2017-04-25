@@ -1366,6 +1366,43 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.id("save-inventory"));
         SF.sleep (4);
     }
+    function RememberStorageNumbers(storageNumbers) {
+        driver.wait(driver.findElement(By.xpath('//div[@ng-if="data.rentals.move_request_id"]')).getText().then(function(text){
+            storageNumbers.IdMoving = SF.cleanPrice(text);
+        }),config.timeout);
+        SF.sleep(1);
+        VD.INeed(VD.VToEqual, V.storageNumbers.IdMoving, V.boardNumbersTo.Id, 'номер реквеста не совпадает');
+
+        driver.wait(driver.executeScript('return $(\'input[ng-model="data.rentals.moved_in_date"]\').val()').then(function(text){
+            storageNumbers.inDate={};
+            storageNumbers.inDate.Month = SF.FindShortMonthInString(text);
+            storageNumbers.inDate.Day = SF.cleanPrice(text.substring(0, text.indexOf(',')));
+            storageNumbers.inDate.Year = SF.cleanPrice(text.substring(text.indexOf(',')));
+        }),config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="data.rentals.moved_out_date"]\').val()').then(function(text){
+            storageNumbers.outDate={};
+            storageNumbers.outDate.Month = SF.FindShortMonthInString(text);
+            storageNumbers.outDate.Day = SF.cleanPrice(text.substring(0, text.indexOf(',')));
+            storageNumbers.outDate.Year = SF.cleanPrice(text.substring(text.indexOf(',')));
+        }),config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="data.rentals.volume_cuft"]\').val()').then(function(text){
+            storageNumbers.cbf=SF.cleanPrice(text);
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//p[contains(text(),("Prepaid Credit"))]/following-sibling::p[1]')).getText().then(
+            function(text){
+                storageNumbers.prepaid = SF.cleanPrice(text);
+            }),config.timeout);
+    }
+    function ValidatePendingStorageRequest(storageNumbers, boardNumbersTo, boardNumbersFrom){
+        VD.IWant(VD.VToEqual, storageNumbers.inDate.Day, boardNumbersTo.moveDate.Day,'день въезда не совпал');
+        VD.IWant(VD.VToEqual, storageNumbers.inDate.Month, boardNumbersTo.moveDate.Month,'месяц въезда не совпал');
+        VD.IWant(VD.VToEqual, storageNumbers.inDate.Year, boardNumbersTo.moveDate.Year,'год въезда не совпал');
+        VD.IWant(VD.VToEqual, storageNumbers.outDate.Day, boardNumbersFrom.moveDate.Day,'день выезда не совпал');
+        VD.IWant(VD.VToEqual, storageNumbers.outDate.Month, boardNumbersFrom.moveDate.Month,'месяц выезда не совпал');
+        VD.IWant(VD.VToEqual, storageNumbers.outDate.Year, boardNumbersFrom.moveDate.Year,'год выезда не совпал');
+        VD.IWant(VD.VToEqual, storageNumbers.cbf, boardNumbersTo.cbf,'объём не совпал');
+        VD.IWant(VD.VToEqual, storageNumbers.prepaid, boardNumbersTo.prepaid,'предоплата не совпала');
+    }
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
         FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
@@ -1434,6 +1471,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         addToCleanerJob: addToCleanerJob,
         gotoSetingsLD: gotoSetingsLD,
         deletePendingRequest: deletePendingRequest,
-        addInventoryBoard: addInventoryBoard
+        addInventoryBoard: addInventoryBoard,
+        RememberStorageNumbers: RememberStorageNumbers,
+        ValidatePendingStorageRequest: ValidatePendingStorageRequest
     };
 };
