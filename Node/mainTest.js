@@ -30,6 +30,10 @@ condition.Success = false;
 condition.NotValid=false;
 condition.nowWeDoing = 'something';
 
+//=======================creating reports folder ============================
+let exist = system.fs.existsSync('reports');
+if (!exist) {system.fs.mkdirSync('reports');}
+
 //======================check for debug mode=============================
 var attrs = 2;
 if ('-d' == process.argv[attrs]) {
