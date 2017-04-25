@@ -175,6 +175,16 @@ module.exports = function (system, config, By, until, constants, condition) {
         return 12;
     }
 
+    function FindShortMonthInString (str) {
+        for (let i = 0; i < 12; i++) {
+            if (str.indexOf(constants.monthNamesShort[i]) != -1) {
+                return i;
+            }
+        }
+        console.log('не нашел месяц'.red);
+        return 12;
+    }
+
     function openTab (numberTab) {
         driver.wait(driver.getAllWindowHandles().then(function (handles) {
             console.log(handles);
@@ -206,6 +216,7 @@ module.exports = function (system, config, By, until, constants, condition) {
         randomCifra:randomCifra,
         cleanPrice:cleanPrice,
         FindMonthInString:FindMonthInString,
+        FindShortMonthInString: FindShortMonthInString,
         openTab:openTab
     };
 };

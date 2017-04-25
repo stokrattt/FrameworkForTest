@@ -130,6 +130,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     LF.MakeSignInInventory(0);
     LF.MakeSignInInventory(1);
     SF.click(By.xpath('//button[@ng-click="saveInventory(\'submit\')"]'));
+    SF.sleep(1);
     JS.waitForExist('div.showSweetAlert button.cancel:visible');
     JS.click('div.showSweetAlert button.cancel:visible');
     SF.waitForVisible(By.xpath('//input[@ng-model="data.agreement.phone"]'));
@@ -274,8 +275,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     LF.MakeSignInInventory(2);
     LF.MakeSignInInventory(3);
     SF.click(By.xpath('//button[@ng-click="saveInventory(\'submit\')"]'));
+    SF.sleep(1);
 
-    condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт';
+    condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
     SF.waitForVisible(By.xpath('//div[@class="empty-signature"]'));
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');

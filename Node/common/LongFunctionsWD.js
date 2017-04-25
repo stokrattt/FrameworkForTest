@@ -523,6 +523,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         SF.sleep(5);
         SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
+        SF.sleep(1);
+        JS.waitForNotExist("div.busyoverlay:visible");
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);

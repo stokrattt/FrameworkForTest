@@ -19,48 +19,44 @@ module.exports = function (system, config, By, until, constants, condition) {
 
     function waitForExist(selector) {
         console.log("return $('" + selector + "').length");
-        let times = config.timeout*1000/500;
-        let time = 0;
+        let timeStart = new Date().getTime();
         driver.wait(new Promise(function (resolve, reject) {
-            let f = function () {
-                time++;
-                if (time<times-8) {
+            let f = function (timeStart) {
+                if (timeStart+28000>new Date().getTime()) {
                     driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                         if (avai != 0) {
                             console.log('появился ' + selector);
                             resolve("result");
                             SFgo();
                         } else {
-                            setTimeout(f, 1500);
+                            setTimeout(f, 1000, timeStart);
                         }
                     }), config.timeout);
-                }
+                } else {console.log('хватит!'.red);}
             };
-            setTimeout(f, 1500);
+            f(timeStart);
         }), config.timeout);
         SFstop();
     }
 
     function waitForNotExist(selector) {
         console.log("return $('" + selector + "').length");
-        let times = config.timeout*1000/500;
-        let time = 0;
+        let timeStart = new Date().getTime();
         driver.wait(new Promise(function (resolve, reject) {
-            let f = function () {
-                time++;
-                if (time<times-8) {
+            let f = function (timeStart) {
+                if (timeStart+28000>new Date().getTime()) {
                     driver.wait(driver.executeScript("return $('" + selector + "').length;").then(function (avai) {
                         if (avai == 0) {
                             console.log('убрался ' + selector);
                             resolve("result");
                             SFgo();
                         } else {
-                            setTimeout(f, 500);
+                            setTimeout(f, 1000, timeStart);
                         }
                     }), config.timeout);
-                }
+                } else {console.log('хватит!'.red);}
             };
-            setTimeout(f, 500);
+            f(timeStart);
         }), config.timeout);
         SFstop();
     }

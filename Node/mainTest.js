@@ -1,4 +1,4 @@
-
+let startTests = new Date().getTime();
 //========================set up global variables========================
 var constants = require('./common/constants');
 var SF={};
@@ -155,6 +155,8 @@ system.myEmitter.on('event', () => {
     } else {
         console.log('end...');
         for (let i=0; i<testPassed.length; i++){console.log(testPassed[i]);}
+        let endTests = new Date().getTime();
+        console.log(('сделали за '+ Math.floor(endTests/60)+'мин '+endTests%60+'сек').green);
         system.myEmitter.removeAllListeners('event');
 
     }
