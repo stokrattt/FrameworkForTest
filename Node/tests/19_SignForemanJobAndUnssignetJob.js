@@ -20,7 +20,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
 
     SF.sleep (2);
 
-    LF.RememberDateFromRequest ();
+    V.boardNumbers={};
+    LF.RememberDateFromRequest (V.boardNumbers);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
         console.log (V.request.Id);

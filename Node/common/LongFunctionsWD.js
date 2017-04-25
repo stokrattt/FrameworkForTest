@@ -497,7 +497,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(4);
         console.log('создали реквест');
     }
-    function CreateMovAndStorFromBoard(client) {
+    function CreateMovAndStorFromBoard(client, period) {
         SF.click(By.linkText('Create Request'));
         SF.sleep(2);
         SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:2"]'));
@@ -509,10 +509,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }),config.timeout);
         SF.sleep(2);
         SF.click(By.xpath('//input[@id="edit-date-storage-datepicker-popup-0"]'));
-        driver.wait(driver.executeScript(JSstep.Click8DaysCalendar).then(function (DelDate) {
-            V.request.DeliveryDate = DelDate;
-            console.log(V.request.DeliveryDate);
-        }),config.timeout);
+        if (period==undefined) {
+            driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (DelDate) {
+                V.request.DeliveryDate = DelDate;
+                console.log(V.request.DeliveryDate);
+            }), config.timeout);
+        } else {
+            driver.wait(driver.executeScript(JSstep.ClickCustomDaysCalendar(period)).then(function (DelDate) {
+                V.request.DeliveryDate = DelDate;
+                console.log(V.request.DeliveryDate);
+            }), config.timeout);
+        }
 
         SF.sleep(0.5);
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
@@ -919,21 +926,27 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist('.busyoverlay:visible');
         SF.sleep(1);
     }
-    function payRentalInventory(){
+    function payRentalInventory(boardNumbers){
         SF.click(By.xpath('//button[@ng-click="openPayment()"]'));
+        JS.waitForExist('input[ng-model=\\"charge_value.value\\"]');
+        SF.sleep(1);
+        if(boardNumbers!=undefined) {
+            driver.wait(driver.executeScript('return $(\'input[ng-model="charge_value.value"]\').val()').then(function (text) {
+                boardNumbers.prepaid = SF.cleanPrice(text);
+            }), config.timeout);
+        }
         SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
         FillCardPayModal();
         MakeSignJS('signatureCanvasPayment');
         SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
     }
-    function RememberDateFromRequest() {
-        if (V.boardNumbers==undefined) {V.boardNumbers = {};}
+    function RememberDateFromRequest(boardNumbers) {
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
             dateString = dateString.toUpperCase();
-            V.boardNumbers.moveDate = {};
-            V.boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);
-            V.boardNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
-            V.boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
+            boardNumbers.moveDate = {};
+            boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);
+            boardNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
+            boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
         }),config.timeout);
         SF.sleep(1);
     }
@@ -1371,7 +1384,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             storageNumbers.IdMoving = SF.cleanPrice(text);
         }),config.timeout);
         SF.sleep(1);
-        VD.INeed(VD.VToEqual, V.storageNumbers.IdMoving, V.boardNumbersTo.Id, 'номер реквеста не совпадает');
 
         driver.wait(driver.executeScript('return $(\'input[ng-model="data.rentals.moved_in_date"]\').val()').then(function(text){
             storageNumbers.inDate={};

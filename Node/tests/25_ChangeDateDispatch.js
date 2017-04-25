@@ -26,7 +26,7 @@ condition.nowWeDoing = 'создаем реквест ';
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    LF.RememberDateFromRequest();
+    LF.RememberDateFromRequest(V.boardNumbers);
     JS.click ("button[ng-click=\\\"UpdateRequest()\\\"]");
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
     SF.click (By.xpath('//button[@ng-click="update(request)"]'));
@@ -53,7 +53,7 @@ condition.nowWeDoing = 'идем в локал диспач и меняем да
     SF.click (By.xpath('//input[@ng-model="moveDateInput"]'));
     driver.wait(driver.executeScript(JSstep.Click8DaysCalendar),config.timeout);
     SF.sleep (4);
-    LF.RememberDateFromRequest();
+    LF.RememberDateFromRequest(V.boardNumbers);
     SF.sleep(4);
     JS.waitForExist('label:contains("Balance:"):visible');
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));

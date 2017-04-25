@@ -190,6 +190,56 @@ exports.Click8DaysCalendar = function () {
 
 }.toString().substring(12);
 
+exports.ClickCustomDaysCalendar = function(period) {
+    var f=function() {
+        var period='##';
+        var now = new Date();
+        var msInDay = 86400000;
+        var farFuture = new Date(now.getTime() + msInDay * period);
+
+        var date = farFuture.getDate();
+        var i = period+1;
+        var monthNumbers = {
+            JANUARY: 0,
+            FEBRUARY: 1,
+            MARCH: 2,
+            APRIL: 3,
+            MAY: 4,
+            JUNE: 5,
+            JULY: 6,
+            AUGUST: 7,
+            SEPTEMBER: 8,
+            OCTOBER: 9,
+            NOVEMBER: 10,
+            DECEMBER: 11
+        };
+        var checkMonth = function(){
+            while (monthNumbers[$('span.ui-datepicker-month:first').text().toUpperCase()]<farFuture.getMonth()) {
+                $('a.ui-datepicker-next').click();}
+        };
+        checkMonth();
+        while ($("tr>td[data-month='" + farFuture.getMonth() + "'][data-year='" + farFuture.getFullYear() + "'].Block:contains('" + date + "') > a:first").length !== 0) {
+            console.log('смотрим '+farFuture);
+            checkMonth();
+            farFuture = new Date(now.getTime() + msInDay * i);
+            date = farFuture.getDate();
+            i++;
+        }
+        checkMonth();
+
+        console.log("tr>td[data-month='" + farFuture.getMonth() + "'][data-year='" + farFuture.getFullYear() + "']:contains('" + date + "') > a:first");
+        $("tr>td[data-month='" + farFuture.getMonth() + "'][data-year='" + farFuture.getFullYear() + "']:contains('" + date + "') > a:first").trigger('click');
+
+        return {
+            farFutureYear: farFuture.getFullYear(),
+            farFutureMonth: farFuture.getMonth(),
+            farFutureDay: farFuture.getDate()
+        };
+
+    }.toString().substring(12);
+    return f.substring(0,f.indexOf('##')-1)+period+f.substring(f.indexOf('##')+3);
+};
+
 exports.selectTruck = function (hours) {
     var f = function () {
         var hours = '##';

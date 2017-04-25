@@ -182,7 +182,7 @@ condition.nowWeDoing = 'заходим под админом и создаем �
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 
-    LF.RememberDateFromRequest();
+    LF.RememberDateFromRequest(V.boardNumbers);
 
     JS.click ("button[ng-click=\\\"UpdateRequest()\\\"]");
     SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));

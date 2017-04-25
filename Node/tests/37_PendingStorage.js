@@ -12,13 +12,15 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     condition.nowWeDoing = 'создаём с борда MovingWithStorage';
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    Debug.pause();
-    LF.CreateMovAndStorFromBoard(V.client);
+    //Debug.pause();
+    LF.CreateMovAndStorFromBoard(V.client, 40);
 
     condition.nowWeDoing = 'Законфёрмить сразу реквест';
     V.boardNumbersTo = {};
     LF.addInventoryBoard ();
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
+    LF.addToCleanerJob(V.boardNumbersTo.Id);
+    LF.addToCleanerJob(V.boardNumbersTo.Id+1);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime) / 60));
     JS.scroll('div.ServicesCost:visible');
     SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
@@ -88,7 +90,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.send(By.xpath('//input[@ng-model="data.agreement.address"]'), 'Address To');
     SF.send(By.xpath('//input[@ng-model="data.agreement.zipCode"]'), '02461');
     LF.MakeSignInRental();
-    LF.payRentalInventory();
+    LF.payRentalInventory(V.boardNumbersTo);
     JS.waitForExist('input#inputImage');
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
@@ -253,9 +255,10 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.waitForVisible(By.xpath('//div[@ng-if="data.rentals.move_request_id"]'));
 
     V.storageNumbers={};
-    RememberStorageNumbers(storageNumbers);
+    LF.RememberStorageNumbers(V.storageNumbers);
+    VD.INeed(VD.VToEqual, V.storageNumbers.IdMoving, V.boardNumbersTo.Id, 'номер реквеста не совпадает');
     SF.sleep(1);
-    ValidatePendingStorageRequest(V.storageNumbers, V.boardNumbersTo, V.boardNumbersFrom);
+    LF.ValidatePendingStorageRequest(V.storageNumbers, V.boardNumbersTo, V.boardNumbersFrom);
     SF.select(By.xpath('//select[@ng-model="data.rentals.status_flag"]'),'string:2');
     SF.click(By.xpath('//button[@ng-click="updateStorageRequest(data)"]'));
     SF.sleep(1);
@@ -276,6 +279,13 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.sleep(1);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    SF.click(By.xpath('//a[@ng-click="save()"]'));
+    SF.sleep(1);
+    driver.findElement(By.xpath('//span[contains(text(),"Balance :")]/span')).getText().then(function(text){
+        V.storageNumbers.balance = SF.cleanPrice(text);
+    });
+    SF.sleep(1);
+    VD.IWant(VD.VToEqual, V.storageNumbers.balance, 0, 'баланс не нулевой');
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
