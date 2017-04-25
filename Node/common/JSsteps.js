@@ -344,6 +344,20 @@ exports.getPackingsCostAccount = function () {
     } else {return '$0'}
 }.toString().substring(12);
 
+exports.sendRequestNoParam = function(type, url){
+    var f=function() {
+        var type='##';
+        var url='##';
+        var request = new XMLHttpRequest();
+        request.open(type, url, true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send();
+    }.toString().substring(12);
+    f=f.substring(0,f.indexOf('##')-1)+'"'+type+'"'+f.substring(f.indexOf('##')+3);
+    f=f.substring(0,f.indexOf('##')-1)+'"'+url+'"'+f.substring(f.indexOf('##')+3);
+    return f;
+};
+
 exports.CheckSumsInContract = function () {
     var HowToLook = function (text) {
         console.log('грязный текст:'+text);
