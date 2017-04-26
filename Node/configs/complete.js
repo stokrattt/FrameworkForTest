@@ -44,6 +44,7 @@ module.exports = function(config,V) {
         './tests/34_ContractPageSettings.js',
         './tests/35_InventoryLocalMoving.js',
         './tests/37_PendingStorage.js',
+        './tests/38_CustomPayrollInRequest.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/36_DatePending.js'
 
