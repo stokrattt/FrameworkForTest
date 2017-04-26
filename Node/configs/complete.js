@@ -40,6 +40,7 @@ module.exports = function(config,V) {
         './tests/30_StorageTenant.js',
         './tests/31_FlateRateBooking.js',
         './tests/32_AllMovingWithStorage.js',
+        './tests/33_AddCarrier.js',
         './tests/34_ContractPageSettings.js',
         './tests/35_InventoryLocalMoving.js',
         './tests/37_PendingStorage.js',

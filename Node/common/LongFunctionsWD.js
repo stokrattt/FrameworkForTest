@@ -1415,6 +1415,39 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         VD.IWant(VD.VToEqual, storageNumbers.cbf, boardNumbersTo.cbf,'объём не совпал');
         VD.IWant(VD.VToEqual, storageNumbers.prepaid, boardNumbersTo.prepaid,'предоплата не совпала');
     }
+    function RememberCarrier(carrierData){
+        driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.name"]\').val()').then(function (text) {
+            carrierData.name=text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.contact_person"]\').val()').then(function (text) {
+            carrierData.contactPerson = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'textarea[ng-model="agentModel.data.address"]\').val()').then(function (text) {
+            carrierData.address = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.zip_code"]\').val()').then(function (text) {
+            carrierData.zipCode = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.per_cf"]\').val()').then(function (text) {
+            carrierData.perCf = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.usdot_number"]\').val()').then(function (text) {
+            carrierData.usdot = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.web_site"]\').val()').then(function (text) {
+            carrierData.webSite = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.icc_mc_number"]\').val()').then(function (text) {
+            carrierData.iccMc = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.email"]\').val()').then(function (text) {
+            carrierData.eMail = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.phones[$index]"]\').val()').then(function (text) {
+            carrierData.phoneNumber1 = text;
+        }), config.timeout);
+        SF.sleep(2);
+    }
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
         FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
@@ -1485,6 +1518,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         deletePendingRequest: deletePendingRequest,
         addInventoryBoard: addInventoryBoard,
         RememberStorageNumbers: RememberStorageNumbers,
-        ValidatePendingStorageRequest: ValidatePendingStorageRequest
+        ValidatePendingStorageRequest: ValidatePendingStorageRequest,
+        RememberCarrier: RememberCarrier
     };
 };
