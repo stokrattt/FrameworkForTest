@@ -8,12 +8,10 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
-    SF.get(V.adminURL);
+    SF.get('http://stage.themoveboard.com:8090/moveBoard/#/login');
     SF.send(By.id('email'), 'TestAdmin');
     SF.send(By.id('password'), 'test');
     JS.click('.btn-primary');
-
-
 
     SF.click(By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.sleep(2);
@@ -24,7 +22,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.carrierNew={};
     V.carrierNew2={};
     V.carrierNew3={};
-    //SF.waitForLocated (By.xpath('//button[@ng-click="addCarrier()"]'));
+    condition.nowWeDoing = 'Создаем карьера';
     SF.click(By.xpath('//button[@ng-click="addCarrier()"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
     SF.sleep(1);
@@ -48,18 +46,12 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.send (By.xpath('//input[@ng-model="agentModel.data.email"]'), V.carrierNew.eMail);
     V.carrierNew.webSite = "fdsfd.com";
     V.carrierNew.phoneNumber1 = SF.randomCifra(10);
-    //V.carrierNew.phoneNumber2 = SF.randomCifra(10);
     SF.send (By.xpath('//input[@ng-model="agentModel.data.web_site"]'), V.carrierNew.webSite);
     SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierNew.phoneNumber1);
-    // SF.click(By.xpath('//button[@ng-click="addPhone()"]'));
-    // SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.phoneNumber2);
-    //Debug.pause ();
-    //RememberCarrier(V.carrierNew);
     JS.click('span:contains(\\"Save\\")');
 
-    //SF.click(By.xpath('//button[@ng-click="create(agentModel)"]'));
+    condition.nowWeDoing = 'Редактируем карьера';
     SF.sleep(3);
-    //SF.waitForLocated (By.xpath('//div[text()="'+ V.carrierNew.name +'"]'))
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
 
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
@@ -82,7 +74,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.send (By.xpath('//input[@ng-model="agentModel.data.zip_code"]'), V.carrierNew2.zipCode);
 
     SF.click (By.xpath('//md-checkbox[@ng-model="agentModel.data.company_carrier"]'));
-    //SF.click (By.xpath('//md-checkbox[@ng-model="agentModel.data.active"]'));
     V.carrierNew2.perCf = "4";
     V.carrierNew2.iccMc = SF.randomCifra(10);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.per_cf"]'));
@@ -101,20 +92,16 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     V.carrierNew2.webSite = "Starks.com";
     V.carrierNew2.phoneNumber1 = SF.randomCifra(10);
-    //V.carrierNew2.phoneNumber2 = SF.randomCifra(10);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.web_site"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.web_site"]'), V.carrierNew2.webSite);
 
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierNew2.phoneNumber1);
 
-    // SF.click(By.xpath('//button[@ng-click="addPhone()"]'));
-    // SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.phoneNumber2New);
-
-    //RememberCarrier(V.carrierNew2);
     SF.sleep(2);
     JS.click('span:contains(\\"Save\\")');
     SF.sleep(5);
+    condition.nowWeDoing = 'сравниваем сохранились ли изменения';
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
     SF.sleep(1);
@@ -145,12 +132,9 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     JS.click('span:contains(\\"Save\\")');
 
-    //SF.click(By.xpath('//button[@ng-click="create(agentModel)"]'));
-
-
+    condition.nowWeDoing = 'Проверяем есть ли карьер в списке при добалении трипа';
     SF.click(By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.sleep(2);
-    //SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'couriers\', \'\')"]'));
     SF.click(By.xpath('//a[@ng-class="{active:vm.isCurrent(\'trip planner\')}"]'));
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="toggleLeft()"]'));
@@ -165,6 +149,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     SF.sleep(3);
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
 
+    condition.nowWeDoing = 'удаляем карьера';
     driver.wait(driver.executeScript('return location.toString();').then(function(url){
         let c='a';
         for (let i=0; i<url.length; i++) {
