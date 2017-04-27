@@ -52,6 +52,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.click(By.xpath('//button[@class="confirm"]'));
     JS.waitForExist('div.sa-success:visible');
     SF.sleep(1);
+    SF.click(By.xpath('//button[@class="confirm"]'));
+    SF.sleep(1);
     SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
     SF.sleep(1);
     LF.closeEditRequest();
@@ -69,12 +71,14 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
         .then(function(count){
             V.countSales=count;
         }),config.timeout);
+    SF.sleep(1);
     VD.IWant(VD.VToEqual, V.countSales, 1,'не сохранился Sale');
     SF.click(By.xpath('//a[@ng-click="select(tabs[1])"][contains(text(),"Foremen")]'));
     driver.wait(driver.executeScript('return $(\'select[ng-model="selected.foreman[foremanIndex]"]:visible  option[selected="selected"]:contains("Test Foreman")\').length;')
         .then(function(count){
             V.countForeman=count;
         }),config.timeout);
+    SF.sleep(1);
     VD.IWant(VD.VToEqual, V.countForeman, 1,'не сохранился Foreman');
 
     //=========================закончили писать тест=============================
