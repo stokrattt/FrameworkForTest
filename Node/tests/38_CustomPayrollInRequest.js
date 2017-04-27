@@ -77,9 +77,6 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
         }),config.timeout);
     VD.IWant(VD.VToEqual, V.countForeman, 1,'не сохранился Foreman');
 
-    Debug.pause();
-    SF.sleep(2);
-
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

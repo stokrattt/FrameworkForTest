@@ -159,8 +159,8 @@ system.myEmitter.on('event', () => {
     } else {
         console.log('end...');
         for (let i=0; i<testPassed.length; i++){console.log(testPassed[i]);}
-        let endTests = new Date().getTime();
-        console.log(('сделали за '+ Math.floor((endTests-startTests)/60)+'мин '+(endTests-startTests)%60+'сек').green);
+        let endTests = Math.floor((new Date().getTime() - startTests)/1000);
+        console.log(('сделали за '+ Math.floor(endTests/60)+'мин '+endTests%60+'сек').green);
         system.myEmitter.removeAllListeners('event');
 
     }
