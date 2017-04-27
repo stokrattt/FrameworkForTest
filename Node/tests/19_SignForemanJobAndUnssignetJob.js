@@ -132,6 +132,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.click(By.xpath('//button[@class="confirm"]'));
     SF.sleep (2);
     JS.waitForNotExist('div.toast-success');
+    JS.waitForNotExist('div.busyoverlay:visible');
+    SF.sleep(3);
     SF.click (By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click(By.xpath('//button[@class="confirm"]'));

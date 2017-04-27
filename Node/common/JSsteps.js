@@ -357,6 +357,23 @@ exports.sendRequestNoParam = function(type, url){
     f=f.substring(0,f.indexOf('##')-1)+'"'+url+'"'+f.substring(f.indexOf('##')+3);
     return f;
 };
+exports.payrollTableSum = function () {
+    var clearText = function(dirtyText){return dirtyText.replace (/\$|,/gi,  ''); };
+    var css = '.IdForTests1';
+    var selector = css+' td:last-child';
+    var sum = 0;
+    var len =  $(selector).length-1;
+    console.log('len '+len);
+    for(var i=0; i<len; i++){
+        console.log(Number(clearText($(selector)[i].innerHTML)));
+        sum=sum+Number(clearText($(selector)[i].innerHTML));
+    }
+    sum = Math.round(sum*100)/100;
+    console.log('sum mus be '+Number(clearText($(selector)[len].innerHTML)));
+    b=Number(clearText($('div.total-payroll-panel  div.total-title:contains("Balance")').next().text()));
+    console.log('сверху написано '+b);
+    return (sum == Number(clearText($(selector)[len].innerHTML)))&&(b==sum);
+}.toString().substring(12);
 
 exports.CheckSumsInContract = function () {
     var HowToLook = function (text) {

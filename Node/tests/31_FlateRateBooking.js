@@ -144,7 +144,7 @@ condition.nowWeDoing = 'пошли в админку, открыли рекве�
     SF.send(By.xpath('//input[@ng-model="option.rate"]'), 5000);
     SF.sleep (0.5);
     SF.click (By.xpath('//a[@ng-click="addOption()"]'));
-    SF.sleep (2);
+    SF.sleep (4);
 condition.nowWeDoing = 'заполняем опции 2';
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
     SF.sleep (0.5);
@@ -171,12 +171,13 @@ condition.nowWeDoing = 'заполняем опции 2';
     SF.click (By.xpath('//a[@ng-click="addOption()"]'));
     SF.sleep (2);
     SF.click(By.xpath('//a[@ng-click="saveOptions()"]'));
-    SF.sleep (1);
+    SF.sleep (3);
     JS.waitForNotExist('div.toast-message:visible');
     JS.waitForNotExist('div.toast-success:visible');
     /**************************иногда выскакивает иногда нет************/
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
+    /*********************************************************************************************/
     SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
     SF.sleep (0.5);
     SF.send (By.id('inputPassword3'), V.client.passwd);
@@ -302,7 +303,7 @@ condition.nowWeDoing = 'идем в админку проверять что р�
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(5);
     JS.waitForNotExist('div.busyoverlay:visible');
-
+    SF.sleep(5);
     condition.nowWeDoing = 'идем в календарь проверять что трак есть на календаре';
     driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){
         V.current = date;
@@ -312,6 +313,7 @@ condition.nowWeDoing = 'идем в админку проверять что р�
          options = {  month: 'long', year: 'numeric' };
         V.Dates = (future.toLocaleDateString('en-US', options));
     }), config.timeout);
+    SF.sleep(5);
             if (V.current == V.Dates) {
                  now = new Date();
                  msInDay = 86400000;
@@ -319,14 +321,17 @@ condition.nowWeDoing = 'идем в админку проверять что р�
                  options = { day: 'numeric' };
                 V.datescedule = (future.toLocaleDateString('en-US', options));
                 SF.click(By.xpath('//span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
+                SF.sleep(5);
                 driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (checkSchedule) {
-                    VD.INeed(VD.VToEqual, checkSchedule, 1, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся ');
+                    VD.INeed(VD.VNotToEqual, checkSchedule, 0, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся ');
                 }),config.timeout);
             } else {
                 SF.click(By.xpath('//i[@ng-click="vm.nextMonth()"]'));
+                SF.sleep(5);
                 SF.click(By.xpath('//span[contains(@class, "pull-right")] and [contains(text(), "' + V.datescedule + '")]'));
+                SF.sleep(5);
                 driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (checkSchedule) {
-                    VD.INeed(VD.VToEqual, checkSchedule, 1, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся (вторая проверка)');
+                    VD.INeed(VD.VNotToEqual, checkSchedule, 0, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся (вторая проверка)');
                 }),config.timeout);
             }
 
