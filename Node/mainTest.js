@@ -160,7 +160,7 @@ system.myEmitter.on('event', () => {
         console.log('end...');
         for (let i=0; i<testPassed.length; i++){console.log(testPassed[i]);}
         let endTests = new Date().getTime();
-        console.log(('сделали за '+ Math.floor(endTests/60)+'мин '+endTests%60+'сек').green);
+        console.log(('сделали за '+ Math.floor((endTests-startTests)/60)+'мин '+(endTests-startTests)%60+'сек').green);
         system.myEmitter.removeAllListeners('event');
 
     }

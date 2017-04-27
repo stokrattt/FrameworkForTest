@@ -77,6 +77,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.LoginToBoardAsAdmin();
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
     SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
+    JS.waitForNotExist('div.busyoverlay:visible');
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
