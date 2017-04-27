@@ -3,5 +3,6 @@
 /**/.idea/
 /**/*fuse_hidden*
 /**/Node/server/
+/**/Node/server.jar
 /**/chromedriver*
 /**/geckodriver*
