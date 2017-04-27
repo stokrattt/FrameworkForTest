@@ -300,7 +300,10 @@ condition.nowWeDoing = 'идем в админку проверять что р�
     SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.click(By.xpath('//li[@ng-show="vm.PermissionsServices.hasPermission(\'canSeeScheduleMenu\')"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
-condition.nowWeDoing = 'идем в календарь проверять что трак есть на календаре';
+    SF.sleep(5);
+    JS.waitForNotExist('div.busyoverlay:visible');
+
+    condition.nowWeDoing = 'идем в календарь проверять что трак есть на календаре';
     driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){
         V.current = date;
          now = new Date();

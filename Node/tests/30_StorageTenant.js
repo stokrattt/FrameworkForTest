@@ -41,7 +41,7 @@ condition.nowWeDoing = 'идем в сторадж и создаем стора�
     SF.click(By.xpath('//input[@ng-model="data.user_info.phone2"]'));
     SF.click(By.xpath('//button[@ng-click="createNewStorageRequest()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep (2);
+    SF.sleep (3);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="tabs.setTab(1)"]/span')).getText().then(function(text){
         V.storageId = SF.cleanPrice(text);
     }),config.timeout);
