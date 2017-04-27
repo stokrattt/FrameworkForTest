@@ -45,6 +45,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.sleep(1);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(2);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
@@ -178,6 +179,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.sleep(1);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(2);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);

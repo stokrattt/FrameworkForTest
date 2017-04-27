@@ -44,6 +44,7 @@ condition.nowWeDoing = 'идем в локал диспач и меняем да
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     LF.OpenRequestDispatch (V.request.Id);
     JS.waitForExist('label:contains("Balance:"):visible');
@@ -75,6 +76,7 @@ condition.nowWeDoing = 'ищем второй раз в диспатче рек�
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     LF.OpenRequestDispatch (V.request.Id);
     JS.waitForExist('label:contains("Balance:"):visible');

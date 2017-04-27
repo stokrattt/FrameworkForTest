@@ -20,6 +20,7 @@ condition.nowWeDoing = 'идем в сторадж и создаем стора�
     JS.waitForNotExist ('div.busyoverlay:visible');
     SF.click(By.xpath('//button[@ng-click="pending.createModal()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
+    SF.sleep (3);
     SF.send(By.xpath('//input[@ng-model="data.user_info.name"]'), V.client.long);
 
     SF.send(By.xpath('//input[@ng-model="data.user_info.zip"]'), '02136');
@@ -81,6 +82,7 @@ condition.nowWeDoing = 'идем в леджер и создаем паймен�
     JS.click('button[ng-click=\\"cancel()\\"]:visible');
 condition.nowWeDoing = 'идем в леджер и создаем инвойс';
     JS.waitForNotExist ('.sweet-overlay:visible');
+    SF.sleep (3);
     SF.click(By.xpath('//button[@ng-click="createInvoice()"]'));
     SF.send (By.xpath('//input[@ng-model="charge.name"]'), 'Item for test');
     SF.sleep(0.5);

@@ -48,6 +48,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew();
@@ -108,6 +109,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     SF.select(By.xpath('//select[@ng-model="vm.reqFilter.type"]'), 0);
     JS.waitForNotExist('div.busyoverlay:visible');

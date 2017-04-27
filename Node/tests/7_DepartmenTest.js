@@ -200,6 +200,7 @@ condition.nowWeDoing = 'заходим под админом и создаем �
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     LF.SelectRequestDispatch (V.request.Id);
 

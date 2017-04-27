@@ -14,6 +14,7 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     LF.gotoSetingsLD ();
     JS.click('#jqvmap1_ia');
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
+    SF.sleep (3);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
@@ -139,6 +140,7 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     LF.gotoSetingsLD ();
     JS.click('#jqvmap1_ia');
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
+    SF.sleep (3);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
@@ -228,6 +230,7 @@ condition.nowWeDoing = 'удаляем общую цену для всего ш�
     LF.gotoSetingsLD ();
     JS.click('#jqvmap1_ia');
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
+    SF.sleep (3);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
@@ -328,6 +331,7 @@ condition.nowWeDoing = 'заходим в админку и удаляем Move 
     LF.gotoSetingsLD ();
     JS.click('#jqvmap1_ia');
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
+    SF.sleep (3);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);

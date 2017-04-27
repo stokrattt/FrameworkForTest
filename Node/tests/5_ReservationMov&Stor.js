@@ -74,7 +74,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     }), config.timeout);
     SF.click(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
     SF.sleep(2);
-    SF.waitForVisible (By.xpath('//div[@class="storagehelp"]'));
+    SF.waitForVisible (By.xpath('//button[@ng-click="cancel()"]'));
     SF.click (By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep (0.5);
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));

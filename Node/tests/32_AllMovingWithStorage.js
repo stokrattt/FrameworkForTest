@@ -90,6 +90,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     LF.findDayInLocalDispatch(V.boardNumbersTo.moveDate.Year, V.boardNumbersTo.moveDate.Month, V.boardNumbersTo.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
@@ -254,6 +255,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     LF.findDayInLocalDispatch(V.boardNumbersFrom.moveDate.Year, V.boardNumbersFrom.moveDate.Month, V.boardNumbersFrom.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
@@ -331,6 +333,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     LF.findDayInLocalDispatch(V.boardNumbersTo.moveDate.Year, V.boardNumbersTo.moveDate.Month, V.boardNumbersTo.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     SF.select(By.xpath('//select[@ng-model="vm.reqFilter.type"]'), 0);
     JS.waitForNotExist('div.busyoverlay:visible');
@@ -356,6 +359,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     LF.findDayInLocalDispatch(V.boardNumbersFrom.moveDate.Year, V.boardNumbersFrom.moveDate.Month, V.boardNumbersFrom.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     SF.select(By.xpath('//select[@ng-model="vm.reqFilter.type"]'), 0);
     JS.waitForNotExist('div.busyoverlay:visible');

@@ -20,6 +20,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime) / 60));
+    SF.sleep (3);
     LF.RememberDateFromRequest(V.boardNumbers);
 
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function (text) {
@@ -93,6 +94,7 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew();
@@ -152,6 +154,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+    JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
     SF.select(By.xpath('//select[@ng-model="vm.reqFilter.type"]'), 0);
     JS.waitForNotExist('div.busyoverlay:visible');
