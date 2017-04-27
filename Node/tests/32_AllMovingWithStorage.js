@@ -186,7 +186,7 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.click(By.xpath('//button[contains(@ng-click,"saveFile()")]'));
     JS.waitForNotExist("button[ng-click=\"saveFile()\"]");
     JS.waitForNotExist('div.busyoverlay:visible');
-
+    SF.sleep(2);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
