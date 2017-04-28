@@ -50,14 +50,21 @@ condition.nowWeDoing = 'идем в локал диспач и меняем да
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
     SF.sleep(2);
 
+    SF.clear (By.xpath('//input[@ng-model="moveDateInput"]'));
     SF.click (By.xpath('//input[@ng-model="moveDateInput"]'));
-    driver.wait(driver.executeScript(JSstep.Click8DaysCalendar),config.timeout);
+    let now = new Date();
+    let msInDay = 86400000;
+    let future = new Date(now.getTime() + msInDay * 8);
+    let options = { day: 'numeric', month: 'long', year: 'numeric' };
+    V.dateDispach = (future.toLocaleDateString('en-US', options));
+    SF.send (By.xpath('//input[@ng-model="moveDateInput"]'), V.dateDispach);
+    driver.actions().sendKeys(Key.ENTER).perform();
+    SF.click (By.xpath('//button[contains(@class, "ui-datepicker-close")]'));
     SF.sleep (6);
     LF.RememberDateFromRequest(V.boardNumbers);
     SF.sleep(4);
     JS.waitForExist('label:contains("Balance:"):visible');
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    Debug.pause();
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
     JS.click ("button[ng-click=\\\"UpdateRequest()\\\"]");

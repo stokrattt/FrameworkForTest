@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     //=========================начинаем писать тест=============================
-    SF.get('http://stage.themoveboard.com/moveBoard/#/login');
+    SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     LF.CreateMovAndStorFromBoard(V.client);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){

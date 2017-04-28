@@ -237,7 +237,8 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
-
+    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    SF.click (By.xpath('//button[@class="confirm"]'));
     SF.click (By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();

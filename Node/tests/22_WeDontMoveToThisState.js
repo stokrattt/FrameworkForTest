@@ -227,6 +227,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     SF.sleep (3);
 condition.nowWeDoing = 'удаляем общую цену для всего штата и назначить одну цену на какую-то территорию';
     LF.gotoSetingsLD ();
+    SF.sleep(2);
     JS.click('#jqvmap1_ia');
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
     SF.sleep (3);

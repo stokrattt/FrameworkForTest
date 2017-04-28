@@ -190,6 +190,8 @@ condition.nowWeDoing = 'старт рекуринг';
     SF.click(By.xpath('//a[@ui-sref="tenants"]'));
     JS.waitForNotExist ('div.busyoverlay:visible');
 condition.nowWeDoing = 'идем проверять что он есть в Move in';
+    JS.waitForNotExist ('div.busyoverlay:visible');
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-click="openModal(request, id)"]/td[contains(text(),"' + V.storageId + '")]')).click(), config.timeout);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-click="openModal(request, id)"]/td[contains(text(),"' + V.storageId + '")]')).click(), config.timeout);
     JS.waitForNotExist ('div.busyoverlay:visible');
