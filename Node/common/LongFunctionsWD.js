@@ -732,6 +732,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"' + name + '")]'));
         SF.sleep(1);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));
+        JS.waitForExist('div.toast-success:visible');
         SF.sleep(1);
     }
     function SetClientPasswd(passwd) {
@@ -1448,6 +1449,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }), config.timeout);
         SF.sleep(2);
     }
+    function WaitWhileBusy(){
+        SF.sleep(1);
+        JS.waitForNotExist('.busyoverlay:visible');
+        SF.sleep(1);
+    }
+    function SweetConfirm(){
+        JS.waitForExist('button.confirm');
+        SF.sleep(1);
+        SF.click(By.xpath('//button[@class="confirm"]'));
+    }
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
         FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
@@ -1519,6 +1530,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         addInventoryBoard: addInventoryBoard,
         RememberStorageNumbers: RememberStorageNumbers,
         ValidatePendingStorageRequest: ValidatePendingStorageRequest,
-        RememberCarrier: RememberCarrier
+        RememberCarrier: RememberCarrier,
+        WaitWhileBusy: WaitWhileBusy,
+        SweetConfirm: SweetConfirm
     };
 };
