@@ -1,4 +1,4 @@
-module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, system, condition, LF, config, constants) {
+module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
     global.fiber = Fiber.current;
 
     //=========================начинаем писать тест=============================
@@ -47,6 +47,8 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until, FileDetector, s
     SF.sleep(2);
     V.boardNumbers2 = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers2);
+    V.boardNumbers2.AdServices = V.boardNumbers.AdServices;
+    V.boardNumbers2.Packing = V.boardNumbers.Packing;
     LF.Validation_Compare_Account_Admin(V.boardNumbers,V.boardNumbers2);
 
     //=========================закончили писать тест=============================

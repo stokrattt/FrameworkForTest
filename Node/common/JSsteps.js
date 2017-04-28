@@ -419,3 +419,15 @@ exports.CheckSumsInContract = function () {
 
     return {sumPacking:sumPacking, totalPacking:totalPacking, sumServices:sumServices, totalServices:totalServices};
 }.toString().substring(12);
+
+exports.Payroll_GetForemanTotalForRequest = function(Id){
+    return 'return $("tr:has(td[ng-click=\\\"editRequest(\'a_job_misc\', id, \'request\')\\\"]:contains(\'' +
+    Id + '\'))' +
+    ' td[ng-click=\\\"editRequest(\'total\', id, \'request\')\\\"]").text()';
+};
+
+exports.Payroll_GetSaleTotalForRequest = function (Id){
+    return 'return $("tr:has(td[ng-click=\\\"editRequest(\'a_job_misc\', id, \'request\')\\\"]:contains(\'' +
+    Id + '\'))' +
+    ' td[ng-click=\\\"editRequest(\'total\', id, \'request\')\\\"]").text()';
+};

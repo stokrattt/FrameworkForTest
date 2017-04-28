@@ -1,4 +1,4 @@
-module.exports = function(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants) {
+module.exports = function(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
     function pauseWatcher() {
         if (condition.busy) {
             console.log('пауза'.yellow);
@@ -19,7 +19,7 @@ module.exports = function(SF, JS, JSstep, VD, V, By, until,FileDetector, system,
     function WDconsole() {
         var recording = false;
         var buffer = '';
-        var args='driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition,LF,config,constants';
+        var args='SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants';
         process.stdin.setEncoding('utf8');
         process.stdin.on('data', function (chunk) {
             //var chunk = process.stdin.read();

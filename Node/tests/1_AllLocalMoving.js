@@ -1,4 +1,4 @@
-module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants){
+module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants){
     global.fiber = Fiber.current;
     V.client = {};
     V.client.name = SF.randomBukva(6) + '_t';
@@ -7,21 +7,22 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.frontURL);
+    VD.IWant(VD.VToEqual,4,1,'sjdfasbf');
     condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
     console.log("заполнили форму");
     condition.nowWeDoing = 'первый раз в аккаунте';
-    SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Account_ClickViewRequest();
+    MF.WaitWhileBusy();
     SF.sleep(5);
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.click(By.xpath('//label[@for="partial"]/input[@ng-model="vm.packing_service"]'));
+    MF.WaitWhileBusy();
+    MF.Account_ClickPartialPacking();
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
     LF.AccountLocalDetails();
-    SF.waitForVisible(By.xpath('//li[@id="tab_Inventory"]//i[@class="icon-check"]'));
-    SF.waitForVisible(By.xpath('//li[@id="tab_Details"]//i[@class="icon-check"]'));
+    MF.Account_WaitForInventoryCheck();
+    MF.Account_WaitForDetailsCheck();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
@@ -40,17 +41,13 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 
-    SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
-    SF.sleep(1);
+    MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
-    SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
+    MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
-    SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
-    SF.sleep(1);
-    SF.select(By.xpath('//select[@id="edit-status"]'), 2);
-    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    JS.waitForExist('button[ng-click="update(request)"]:visible');
-    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    MF.EditRequest_OpenRequest();
+    MF.EditRequest_SetToNotConfirmed();
+    MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
     SF.sleep(2);
     LF.LogoutFromBoardAdmin();
@@ -58,33 +55,27 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
-    SF.waitForVisible(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td[1]'));
-    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
-        VD.IWant(VD.VToEqual, Status, 'Not Confirmed');
-    }),config.timeout);
-    SF.click(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
+    MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
+    MF.Account_OpenRequest(V.accountNumbers.Id);
     SF.sleep(2);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
-    SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
+    MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'второй раз в админке, локал диспатч';
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
-    SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Board_OpenLocalDispatch();
+    MF.WaitWhileBusy();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(1);
+    MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
+    MF.Dispatch_GridView();
+    MF.WaitWhileBusy();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew();
     LF.LogoutFromBoardAdmin();
@@ -92,90 +83,59 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     LF.LoginToBoardAsForeman();
     LF.OpenRequestDispatch(V.accountNumbers.Id);
-    JS.waitForExist('h1:contains("Confirmation Page"):visible');
-    SF.click(By.xpath('//li[@id="tab_Bill of lading"]'));
+    MF.Contract_WaitConfirmationPage();
+    MF.Contract_OpenBillOfLading();
     SF.sleep(1);
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.VToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
-    }));
+    }),config.timeout);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    SF.select(By.xpath('//select[@ng-model="data.declarationValue.selected"]'), 'a');
+    MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
 
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    SF.click(By.xpath('//div[@ng-click="applyPayment(paymentButton())"]'));
-    SF.click(By.xpath('//div[@ng-click="tipsPercChange(10)"]'));
-    SF.click(By.xpath('//div[contains(text(),"ADD TIPS")]/parent::div[@ng-click="tipsSelected()"]'));
-    SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
+    MF.Contract_ClickPay();
+    MF.Contract_ClickTips10();
+    MF.Contract_ClickAddTips();
+    MF.Contract_ClickPaymentInfo();
     LF.FillCardPayModal();
-    LF.MakeSignJS('signatureCanvasPayment');
-    SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
-    JS.waitForExist('input#inputImage');
+    LF.Contract_SignMainPayment();
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
     SF.sleep(1);
-    console.log(V.path);
-    SF.send(By.xpath('//input[@id="inputImage"]'), V.path);
-    SF.sleep(1);
-    SF.send(By.xpath('//input[@id="inputImage"]'), V.path);
-    SF.sleep(1);
-    SF.click(By.xpath('//button[contains(@ng-click,"saveFile()")]'));
-    JS.waitForNotExist("button[ng-click=\"saveFile()\"]");
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(2);
+    MF.Contract_UploadImage(V.path);
+    MF.Contract_UploadImage(V.path);
+    MF.Contract_SaveImages();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
-    JS.waitForExist('div.sa-placeholder:visible');
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@class="confirm"]'));
-    JS.scroll('a:contains("Return to foreman page")');
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(1);
-    SF.click(By.xpath('//a[contains(text(),"Return to foreman page")]'));
-    JS.waitForExist('li.dropdown.profile:visible');
+    MF.Contract_Submit();
+    MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
     condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
     LF.LoginToBoardAsAdmin();
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
-    SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
+    MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
-    SF.select(By.xpath('//select[@ng-model="vm.reqFilter.type"]'), 0);
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(1);
+    MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
+    MF.Dispatch_GridView();
+    MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.accountNumbers.Id);
-    JS.waitForExist('label:contains("Balance:"):visible');
-
+    MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
-    if (V.boardNumbers.Balance !== 0) {
-        JS.scroll('div.BalanceCost:visible');
-    }
+    MF.EditRequest_ScrollDown();
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
-    SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal();"]'));
-    SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-
+    MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.boardNumbers);
 
     condition.nowWeDoing = 'сейчас идём в пейролл';
-    SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
-    SF.sleep(2);
+    MF.EditRequest_CloseEditRequest();
     LF.closeEditRequest();
-    SF.click(By.xpath("//button[@ng-click=\"toggleLeft()\"]"));
-    SF.click(By.xpath("//a[@ng-click=\"vm.goToPage('dispatch.local', '')\"]"));
-    SF.sleep(1);
-    SF.click(By.xpath("//a[@ui-sref=\"dispatch.payroll\"]"));
-    SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll();
 
@@ -183,30 +143,25 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
     V.payrollNumbers = {
         Foreman:{}, Sale:{}
     };
-    driver.wait(driver.executeScript('return $("tr:has(td[ng-click=\\\"editRequest(\'a_job_misc\', id, \'request\')\\\"]:contains(\'' +
-        V.accountNumbers.Id + '\'))' +
-        ' td[ng-click=\\\"editRequest(\'total\', id, \'request\')\\\"]").text()').then(function (text) {
+    driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.boardNumbers.Id)).then(function (text) {
         V.payrollNumbers.Foreman.Total = SF.cleanPrice(text);
         VD.IWant(VD.VToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
-            'id=' + V.accountNumbers.Id);
+            'id=' + V.boardNumbers.Id);
     }), config.timeout);
     SF.sleep(1);
 
-    SF.click(By.xpath('//a[@ng-click="dTable=\'departments\';employee=\'\'"]'));
-    SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Payroll_ClickAllDepartment();
+    MF.WaitWhileBusy();
 
     condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('emilia clark');
-    driver.wait(driver.executeScript('return $("tr:has(td[ng-click=\\\"editRequest(\'a_job_misc\', id, \'request\')\\\"]:contains(\'' +
-        V.accountNumbers.Id + '\'))' +
-    ' td[ng-click=\\\"editRequest(\'total\', id, \'request\')\\\"]").text()').then(function (text) {
+    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.boardNumbers.Id)).then(function (text) {
         V.payrollNumbers.Sale.Total = SF.cleanPrice(text);
     }), config.timeout);
     SF.sleep(1);
 
     VD.IWant(VD.VToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
-        'id=' + V.accountNumbers.Id);
+        'id=' + V.boardNumbers.Id);
 
 
     SF.endOfTest();

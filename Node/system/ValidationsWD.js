@@ -8,7 +8,7 @@ module.exports = function (system, condition) {
     function IWant (func, value1, value2, e) {
         if (!func(value1, value2)) {
             condition.NotValid = true;
-            e += '\nvalue1 = ' + value1 + '\nvalue2 = ' + value2;
+            e += '\nvalue1 = ' + value1 + '\nvalue2 = ' + value2 + '\n' + new Error().stack;
             driver.wait(driver.takeScreenshot().then(function (image) {
                 let exist = system.fs.existsSync('reports/' + condition.testName);
                 if (!exist) {
@@ -19,7 +19,7 @@ module.exports = function (system, condition) {
                 system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.png', image, 'base64', function (err) {
                     if (err!=null) {console.log(err)};
                 });
-                system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing +'\n'+e+ '\n' + e.stack, function (err) {
+                system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing +'\n'+e, function (err) {
                     if (err!=null) {console.log(err)};
                 });
                 console.log('сделали скрин'.yellow);

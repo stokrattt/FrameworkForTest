@@ -6,7 +6,9 @@ var JS={};
 var JSstep={};
 var VD={};
 var V={};
+var MF={};
 var LF={};
+
 
 var system={};
 system.path = require('path');
@@ -124,12 +126,13 @@ SF = require('./system/ShortFunctionsWD.js')(system, config, By, until,constants
 JS = require('./system/JSshortFunctions.js')(system, config, By, until,constants, condition);
 JSstep = require('./common/JSsteps');
 VD = require('./system/ValidationsWD')(system, condition);
-LF = require('./common/LongFunctionsWD.js')(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);
+MF = require('./common/MediumFunctionWD.js')(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);
+LF = require('./common/LongFunctionsWD.js')(SF, JS, MF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);
 
 //=================set Up Debug==========================================
 
 //=====================enable debug========================================
-global.Debug = require("./system/DebugWD.js")(SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants);
+global.Debug = require("./system/DebugWD.js")(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);
 if (config.D) {
     Debug.WDconsole();
 }
@@ -155,7 +158,7 @@ system.myEmitter.on('event', () => {
         if (condition.testN>0) {driver=getNewDriver();}
         condition.testN++;
         Fiber(function(){require(config.suite[condition.testN-1])
-        (SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF, config,constants);}).run();
+        (SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);}).run();
     } else {
         console.log('end...');
         for (let i=0; i<testPassed.length; i++){console.log(testPassed[i]);}

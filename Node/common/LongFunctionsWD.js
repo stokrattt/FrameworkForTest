@@ -1,4 +1,4 @@
-module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config, constants) {
+module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
     function FullSmallCalcAsLocal(client) {
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
@@ -1416,9 +1416,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         VD.IWant(VD.VToEqual, storageNumbers.cbf, boardNumbersTo.cbf,'объём не совпал');
         VD.IWant(VD.VToEqual, storageNumbers.prepaid, boardNumbersTo.prepaid,'предоплата не совпала');
     }
-    function RememberCarrier(carrierData){
+    function RememberCarrier(carrierData) {
         driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.name"]\').val()').then(function (text) {
-            carrierData.name=text;
+            carrierData.name = text;
         }), config.timeout);
         driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.contact_person"]\').val()').then(function (text) {
             carrierData.contactPerson = text;
@@ -1449,16 +1449,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }), config.timeout);
         SF.sleep(2);
     }
-    function WaitWhileBusy(){
-        SF.sleep(1);
-        JS.waitForNotExist('.busyoverlay:visible');
-        SF.sleep(1);
+    function Contract_SignMainPayment(){
+        MakeSignJS('signatureCanvasPayment');
+        SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
     }
-    function SweetConfirm(){
-        JS.waitForExist('button.confirm');
-        SF.sleep(1);
-        SF.click(By.xpath('//button[@class="confirm"]'));
-    }
+
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
         FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
@@ -1531,7 +1526,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         RememberStorageNumbers: RememberStorageNumbers,
         ValidatePendingStorageRequest: ValidatePendingStorageRequest,
         RememberCarrier: RememberCarrier,
-        WaitWhileBusy: WaitWhileBusy,
-        SweetConfirm: SweetConfirm
+        Contract_SignMainPayment:Contract_SignMainPayment
     };
 };
