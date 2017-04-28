@@ -1,5 +1,5 @@
-module.exports = function main(SF, MF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, LF,config,constants){
-    global.fiber = Fiber.current;
+module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
+        global.fiber = Fiber.current;
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
@@ -51,6 +51,7 @@ module.exports = function main(SF, MF, JS, JSstep, VD, V, By, until,FileDetector
         "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Long Distance\")):first span:last').click()}"),config.timeout);
     SF.sleep(1);
     SF.click(By.linkText('Travel Time'));
+    SF.sleep(2);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.travelTime\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.calcSettings.travelTime\"] ~span').click()}"),config.timeout);
     SF.click(By.linkText('Form Style'));
