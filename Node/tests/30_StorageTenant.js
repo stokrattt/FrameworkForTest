@@ -18,9 +18,11 @@ module.exports = function main(SF, JS, JSstep, VD, V, By, until,FileDetector, sy
 condition.nowWeDoing = 'идем в сторадж и создаем сторадж тенант';
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'pending\', \'\')"]'));
     JS.waitForNotExist ('div.busyoverlay:visible');
+    SF.sleep (4);
+    JS.waitForNotExist ('div.busyoverlay:visible');
     SF.click(By.xpath('//button[@ng-click="pending.createModal()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep (3);
+    SF.sleep (2);
     SF.send(By.xpath('//input[@ng-model="data.user_info.name"]'), V.client.long);
 
     SF.send(By.xpath('//input[@ng-model="data.user_info.zip"]'), '02136');
@@ -45,7 +47,9 @@ condition.nowWeDoing = 'идем в сторадж и создаем стора�
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="tabs.setTab(1)"]/span')).getText().then(function(text){
         V.storageId = SF.cleanPrice(text);
     }),config.timeout);
+    SF.sleep(1);
 condition.nowWeDoing = 'идем в леджер и создаем пайменты';
+Debug.pause();
     SF.click(By.xpath('//a[@ng-click="tabs.setTab(4)"]'));
     //driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="openPayment()"]'))).click();
     JS.click('button[ng-click=\\"openPayment()\\"]:visible');

@@ -53,11 +53,12 @@ condition.nowWeDoing = 'идем в локал диспач и меняем да
 
     SF.click (By.xpath('//input[@ng-model="moveDateInput"]'));
     driver.wait(driver.executeScript(JSstep.Click8DaysCalendar),config.timeout);
-    SF.sleep (4);
+    SF.sleep (6);
     LF.RememberDateFromRequest(V.boardNumbers);
     SF.sleep(4);
     JS.waitForExist('label:contains("Balance:"):visible');
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    Debug.pause();
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
     JS.click ("button[ng-click=\\\"UpdateRequest()\\\"]");
