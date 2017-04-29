@@ -10,10 +10,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.FullSmallCalcAsLocal(V.client);
 
     condition.nowWeDoing = 'первый раз в аккаунте';
-    SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Account_ClickViewRequest();
+    MF.WaitWhileBusy();
     SF.sleep(5);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
@@ -22,18 +22,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbers.Id);
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
 
     condition.nowWeDoing = 'идём в логи';
-    SF.click(By.xpath('//a[@ng-click="select(tabs[5])"]'));
-    SF.sleep(2);
-    JS.waitForNotExist('div.busyoverlay:visible');
-
+    MF.EditRequest_OpenLogs();
     V.logNumbers={};
-    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Quote (Pending Status)")][contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
+    MF.EditRequest_ExpandPendingEmail(V.client.email);
     driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
         'following-sibling::td[1]//div/div/div')).getText().then(function(text){
             V.logNumbers.QuoteMin=SF.cleanPrice(text.substring(0,text.indexOf('-')));

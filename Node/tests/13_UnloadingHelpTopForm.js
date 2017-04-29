@@ -11,13 +11,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing='заполняем верхнюю форму как UnloadingHelp';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsUnloading(V.clientWithRes);
-    JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
-    JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
+    MF.FrontSite_GoToAccount();
     condition.nowWeDoing='зашли первый раз в аккаунт';
-    SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Account_ClickViewRequest();
+    MF.WaitWhileBusy();
     SF.sleep(5);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy();
     LF.AccountUnloadingEnterAddress();
     V.accountNumbersWithRes={};
     LF.RememberAccountNumbers(V.accountNumbersWithRes);
@@ -28,7 +27,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbersWithRes.Id);
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     V.boardNumbersWithRes = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersWithRes);
     JS.step(JSstep.selectTruck((V.boardNumbersWithRes.LaborTimeMax + V.boardNumbersWithRes.TravelTime)/60));
@@ -39,31 +37,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.VToEqual,V.boardNumbersWithRes.ReservationPrice, 150,'Резервация не равно 150');
-    SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
-    SF.sleep(1);
+    MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
-    SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
+    MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.clientWithRes.passwd);
-    SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
-    SF.sleep(1);
-    SF.select(By.xpath('//select[@id="edit-status"]'), 2);
-    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    JS.waitForExist('button[ng-click="update(request)"]:visible');
-    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    JS.waitForNotExist("div.busyoverlay:visible");
+    MF.EditRequest_OpenRequest();
+    MF.EditRequest_SetToNotConfirmed();
+    MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
-    SF.sleep(2);
 
     condition.nowWeDoing = 'лезем в настройки и ставим резервацию 0';
-    SF.click(By.xpath('//button[@id="toggle-left"]'));
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//a[@ui-sref="settings.schedule"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'),0);
-    SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
-    SF.sleep(2);
+    MF.Board_OpenSchedule();
+    MF.Settings_SetReservationLocalTo(0);
     LF.LogoutFromBoardAdmin();
 
     //================================второй реквест без резервации==================================================
@@ -78,8 +63,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.frontURL);
     LF.FullSmallCalcAsUnloading(V.clientNoRes);
-    JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
-    JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
+    MF.FrontSite_GoToAccount();
 
     condition.nowWeDoing='зашли первый раз в аккаунт NoRes';
     SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
@@ -96,10 +80,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbersNoRes.Id);
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     V.boardNumbersNoRes = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersNoRes);
     JS.step(JSstep.selectTruck((V.boardNumbersNoRes.LaborTimeMax + V.boardNumbersNoRes.TravelTime)/60));
+
     condition.nowWeDoing = 'сравниваем аккаунт и админку без резервации';
     LF.Validation_Compare_Account_Admin(V.accountNumbersWithRes,V.boardNumbersNoRes);
     driver.wait(driver.executeScript('return $("input#reserv_price").val()').then(function(text){
@@ -107,43 +91,25 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.VToEqual,V.boardNumbersNoRes.ReservationPrice, 0,'Резервация не равно 0');
-    SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
-    SF.sleep(1);
+    MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
-    SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
+    MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.clientNoRes.passwd);
-    SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
-    SF.sleep(1);
-    SF.select(By.xpath('//select[@id="edit-status"]'), 2);
-    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    JS.waitForExist('button[ng-click="update(request)"]:visible');
-    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    JS.waitForNotExist("div.busyoverlay:visible");
+    MF.EditRequest_OpenRequest();
+    MF.EditRequest_SetToNotConfirmed();
+    MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
-    SF.sleep(2);
 
     condition.nowWeDoing = 'лезем в настройки и возвращаем резервацию в 150';
-    SF.click(By.xpath('//button[@id="toggle-left"]'));
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//a[@ui-sref="settings.schedule"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'),150);
-    SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
-    SF.sleep(2);
+    MF.Board_OpenSchedule();
+    MF.Settings_SetReservationLocalTo(150);
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'заходим в аккаунт под первым клиентом, должны спросить деньгу';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.clientWithRes);
-    SF.waitForVisible(By.xpath('//td[contains(text(),"' + V.accountNumbersWithRes.Id + '")]/following-sibling::td[1]'));
-    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + V.accountNumbersWithRes.Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
-        VD.IWant(VD.VToEqual, Status, 'Not Confirmed');
-    }),config.timeout);
-    SF.click(By.xpath('//td[contains(text(),"' + V.accountNumbersWithRes.Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
-    SF.sleep(2);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbersWithRes.Id);
+    MF.Account_OpenRequest(V.accountNumbersWithRes.Id);
     LF.ConfirmRequestInAccount_WithReservation(V.boardNumbersWithRes.ReservationPrice);
     condition.nowWeDoing = 'подтвердили резервацию';
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
@@ -152,13 +118,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'заходим в аккаунт под вторый клиентом, не должны просить деньгу';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.clientNoRes);
-    SF.waitForVisible(By.xpath('//td[contains(text(),"' + V.accountNumbersNoRes.Id + '")]/following-sibling::td[1]'));
-    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + V.accountNumbersNoRes.Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
-        VD.IWant(VD.VToEqual, Status, 'Not Confirmed');
-    }),config.timeout);
-    SF.click(By.xpath('//td[contains(text(),"' + V.accountNumbersNoRes.Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
-    SF.sleep(2);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbersNoRes.Id);
+    MF.Account_OpenRequest(V.accountNumbersNoRes.Id);
     LF.ConfirmRequestInAccount_NoReservation();
     condition.nowWeDoing = 'подтвердили резервацию';
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));

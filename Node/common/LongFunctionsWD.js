@@ -99,6 +99,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
         JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     }
     function FullSmallCalcAsLoading(client){
         JS.click("input#extra-service");
@@ -132,6 +133,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
         JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     }
     function FullSmallCalcAsMovingWithStorage(client){
         JS.click("input#extra-service");
@@ -172,6 +174,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
         JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     }
     function AccountLocalEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
@@ -434,9 +437,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             Fiber.yield();
         }
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        JS.waitForNotExist('div.busyoverlay:visible');
+        MF.WaitWhileBusy();
         SF.sleep(2);
-        JS.waitForNotExist('div.busyoverlay:visible');
+        MF.WaitWhileBusy();
     }
     function OpenRequestFlatRate(request) {
         driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), config.timeout)
@@ -903,6 +906,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForExist('div.toast-success');
         SF.sleep(2);
         JS.waitForNotExist('div.toast-success');
+        SF.sleep(2);
     }
     function MakeSignInContract() {
         SF.click(By.xpath('//div[@class="empty-signature"]'));
@@ -940,6 +944,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         FillCardPayModal();
         MakeSignJS('signatureCanvasPayment');
         SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
+        JS.waitForExist('input#inputImage');
     }
     function RememberDateFromRequest(boardNumbers) {
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
@@ -1453,6 +1458,22 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MakeSignJS('signatureCanvasPayment');
         SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
     }
+    function Contract_AddInventory(count){
+        JS.scroll("tr[ng-repeat=\"n in rangeArr\"]:eq(0)");
+        for (let i = 1, invCount = 1; i <= count; i++) {
+            SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//button[1]'));
+            SF.sleep(1);
+            JS.click("ul#inventory-dropdown:visible li[ng-repeat=\\\"articles in  inventoryList | toArray | orderBy: 'title'  \\\"]:visible");
+            SF.select(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//select[1]'), "CP");
+            SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//button[@ng-click="openCondition(data[fieldName].inventory[n], n)"]'));
+            JS.waitForExist('button[ng-click=\\"addCondition(key)\\"]:has(div:contains(\\"burned\\")):visible');
+            SF.sleep(1);
+            JS.click('button[ng-click=\\"addCondition(key)\\"]:has(div:contains(\\"burned\\"))');
+            SF.click(By.xpath('//button[@ng-click="addLocation(symbol.key)"]/div[contains(text(),"veneer")]/..'));
+            SF.click(By.xpath('//button[@ng-click="SaveExit()"]'));
+            SF.sleep(2);
+        }
+    }
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -1526,6 +1547,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberStorageNumbers: RememberStorageNumbers,
         ValidatePendingStorageRequest: ValidatePendingStorageRequest,
         RememberCarrier: RememberCarrier,
-        Contract_SignMainPayment:Contract_SignMainPayment
+        Contract_SignMainPayment:Contract_SignMainPayment,
+        Contract_AddInventory:Contract_AddInventory
     };
 };

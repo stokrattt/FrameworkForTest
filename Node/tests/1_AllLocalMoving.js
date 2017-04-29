@@ -7,7 +7,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.frontURL);
-    VD.IWant(VD.VToEqual,4,1,'sjdfasbf');
     condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
@@ -57,8 +56,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
-    SF.sleep(2);
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
@@ -70,12 +67,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     MF.Board_OpenLocalDispatch();
-    MF.WaitWhileBusy();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
-    MF.WaitWhileBusy();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew();
     LF.LogoutFromBoardAdmin();
@@ -94,7 +89,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
-
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_ClickPay();
@@ -131,10 +125,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.boardNumbers);
+    MF.EditRequest_ClosePayroll();
+    LF.closeEditRequest();
 
     condition.nowWeDoing = 'сейчас идём в пейролл';
-    MF.EditRequest_CloseEditRequest();
-    LF.closeEditRequest();
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll();

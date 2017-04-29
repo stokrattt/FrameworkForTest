@@ -37,7 +37,7 @@ module.exports = function(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector,
                     try {
                         recording = false;
                         var newFunc = new Function(args, buffer);
-                        newFunc(driver, SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition,LF,config,constants);
+                        newFunc(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);
                     } catch (e) {
                         console.log('ошибка '.red + e);
                     }

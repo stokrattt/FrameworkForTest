@@ -25,7 +25,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.sleep(1);
-    LF.WaitWhileBusy();
+    MF.WaitWhileBusy();
     SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
     SF.waitForVisible(By.xpath('//li[@ng-repeat="extra_charge in extra_charges"]'));
     SF.sleep(1);
@@ -33,7 +33,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//li[@ng-repeat="extra_charge in extra_charges"][5]'));
     SF.click(By.xpath('//li[@ng-repeat="extra_charge in extra_charges"][6]'));
     SF.click(By.xpath('//button[@ng-click="save()"]'));
-    LF.WaitWhileBusy();
+    MF.WaitWhileBusy();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));

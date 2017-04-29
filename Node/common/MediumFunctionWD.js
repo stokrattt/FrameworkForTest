@@ -9,6 +9,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         SF.click(By.xpath('//button[@class="confirm"]'));
     }
+    function SweetCancel(){
+        JS.waitForExist('div.showSweetAlert button.cancel:visible');
+        SF.sleep(1);
+        JS.click('div.showSweetAlert button.cancel:visible');
+    }
 
     ///===============================BOARD=========================================
     function Board_OpenSideBar(){
@@ -20,6 +25,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         SF.click(By.xpath("//a[@ui-sref=\"dispatch.payroll\"]"));
         WaitWhileBusy();
+    }
+    function Board_OpenConfirmed(){
+        SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
+        SF.sleep (5);
+    }
+    function Board_OpenSchedule(){
+        SF.click(By.xpath('//button[@id="toggle-left"]'));
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+        SF.sleep(2);
+        SF.click(By.xpath('//a[@ui-sref="settings.schedule"]'));
+        SF.sleep(2);
     }
 
     //==============================ACCOUNT=======================================
@@ -38,6 +54,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_OpenRequest(Id){
         SF.click(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
+        SF.sleep(2);
+        WaitWhileBusy();
     }
     function Account_WaitForGreenTextAfterConfirm(){
         SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
@@ -48,11 +66,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_WaitForDetailsCheck(){
         SF.waitForVisible(By.xpath('//li[@id="tab_Details"]//i[@class="icon-check"]'));
     }
+    function Account_ClickFromStorage(){
+        SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
+    }
 
     //===================================CONTRACT===================================
 
     function Contract_WaitConfirmationPage(){
         JS.waitForExist('h1:contains("Confirmation Page"):visible');
+    }
+    function Contract_WaitBillOfLading(){
+        SF.waitForVisible(By.xpath('//div[@class="empty-signature"]'));
     }
     function Contract_OpenBillOfLading(){
         SF.click(By.xpath('//li[@id="tab_Bill of lading"]'));
@@ -97,6 +121,35 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[contains(text(),"Return to foreman page")]'));
         JS.waitForExist('li.dropdown.profile:visible');
     }
+    function Contract_OpenInventory(){
+        SF.click(By.xpath('//li[@id="tab_Inventory"]'));
+        SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
+        SF.sleep(1);
+    }
+    function Contract_SetTapeNumber(num){
+        SF.clear(By.xpath('//input[@ng-model="data[fieldName].tapeNumbers"]'));
+        SF.send(By.xpath('//input[@ng-model="data[fieldName].tapeNumbers"]'), num);
+    }
+    function Contract_SetTapeColorGreen(color){
+        SF.click(By.xpath('//button[@id="btn-append-to-body"]'));
+        JS.click('li[ng-click=\\"data[fieldName].tapeColor = \''+color+'\'; saveInventory()\\"]');
+    }
+    function Contract_SubmitInventory(){
+        SF.click(By.xpath('//button[@ng-click="saveInventory(\'submit\')"]'));
+        SF.sleep(1);
+    }
+    function Contract_WaitForRental(){
+        SF.waitForVisible(By.xpath('//input[@ng-model="data.agreement.phone"]'));
+    }
+    function Contract_SetRentalPhone(phone){
+        SF.send(By.xpath('//input[@ng-model="data.agreement.phone"]'), phone);
+    }
+    function Contract_SetRentalAddress(address){
+        SF.send(By.xpath('//input[@ng-model="data.agreement.address"]'), address);
+    }
+    function Contract_SetRentalZip(zip){
+        SF.send(By.xpath('//input[@ng-model="data.agreement.zipCode"]'), zip);
+    }
 
     //================================EDIT REQUEST====================================
 
@@ -118,6 +171,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
         JS.waitForExist('button[ng-click="update(request)"]:visible');
         SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+        JS.waitForExist("div.toast-success:visible");
     }
     function EditRequest_WaitForBalanceVisible(){
         JS.waitForExist('label:contains("Balance:"):visible');
@@ -134,19 +188,36 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
         SF.sleep(2);
     }
+    function EditRequest_ClosePayroll(){
+        SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
+        SF.sleep(2);
+    }
+    function EditRequest_OpenLogs(){
+        SF.click(By.xpath('//a[@ng-click="select(tabs[5])"]'));
+        SF.sleep(2);
+        JS.waitForNotExist('div.busyoverlay:visible');
+    }
+    function EditRequest_ExpandPendingEmail(email){
+        SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Quote (Pending Status)")][contains(text(),"'+email+'")]/../../../following-sibling::div[1]'));
+    }
 
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch(){
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
         SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
+        WaitWhileBusy();
     }
     function Dispatch_GridView(){
         SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
+        WaitWhileBusy();
     }
     function Dispatch_ShowDoneJobs(){
         SF.select(By.xpath('//select[@ng-model="vm.reqFilter.type"]'), 0);
         WaitWhileBusy();
+    }
+    function Dispatch_WaitForCalendar(){
+        SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
     }
 
     //===================================PAYROLL=====================================
@@ -154,14 +225,33 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="dTable=\'departments\';employee=\'\'"]'));
     }
 
+    //================================FRONT SITE======================================
+    function FrontSite_GoToAccount(){
+        JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
+    }
+
+    //================================SETTINGS========================================
+    function Settings_SetReservationLocalTo(price){
+        SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
+        SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'),price);
+        SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
+        SF.sleep(2);
+    }
+
+
     return {
+        WaitWhileBusy: WaitWhileBusy,
+        SweetConfirm: SweetConfirm,
+        SweetCancel:SweetCancel,
+        //==================================FRONT SITE======================================
+        FrontSite_GoToAccount:FrontSite_GoToAccount,
         //------------------------------------BOARD=========================================
         Board_OpenSideBar:Board_OpenSideBar,
         Board_OpenLocalDispatch:Board_OpenLocalDispatch,
         Board_OpenPayroll:Board_OpenPayroll,
+        Board_OpenConfirmed:Board_OpenConfirmed,
+        Board_OpenSchedule:Board_OpenSchedule,
         //====================================ACCOUNT=======================================
-        WaitWhileBusy: WaitWhileBusy,
-        SweetConfirm: SweetConfirm,
         Account_ClickViewRequest:Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,
         Account_CheckRequestStatus_NotConfirmed: Account_CheckRequestStatus_NotConfirmed,
@@ -169,8 +259,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_WaitForGreenTextAfterConfirm: Account_WaitForGreenTextAfterConfirm,
         Account_WaitForInventoryCheck:Account_WaitForInventoryCheck,
         Account_WaitForDetailsCheck:Account_WaitForDetailsCheck,
+        Account_ClickFromStorage:Account_ClickFromStorage,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage:Contract_WaitConfirmationPage,
+        Contract_WaitBillOfLading:Contract_WaitBillOfLading,
         Contract_OpenBillOfLading:Contract_OpenBillOfLading,
         Contract_DeclarationValueA:Contract_DeclarationValueA,
         Contract_ClickPay:Contract_ClickPay,
@@ -182,8 +274,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_SaveImages:Contract_SaveImages,
         Contract_Submit: Contract_Submit,
         Contract_ReturnToForeman:Contract_ReturnToForeman,
+        Contract_OpenInventory:Contract_OpenInventory,
+        Contract_SetTapeNumber:Contract_SetTapeNumber,
+        Contract_SetTapeColorGreen:Contract_SetTapeColorGreen,
+        Contract_SubmitInventory:Contract_SubmitInventory,
+        Contract_WaitForRental:Contract_WaitForRental,
+        Contract_SetRentalPhone:Contract_SetRentalPhone,
+        Contract_SetRentalAddress:Contract_SetRentalAddress,
+        Contract_SetRentalZip:Contract_SetRentalZip,
         //=================================EDIT REQUEST=====================================
         EditRequest_OpenSettings: EditRequest_OpenSettings,
+        EditRequest_OpenLogs:EditRequest_OpenLogs,
         EditRequest_OpenClient: EditRequest_OpenClient,
         EditRequest_OpenRequest: EditRequest_OpenRequest,
         EditRequest_SetToNotConfirmed: EditRequest_SetToNotConfirmed,
@@ -192,10 +293,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ScrollDown:EditRequest_ScrollDown,
         EditRequest_OpenPayroll:EditRequest_OpenPayroll,
         EditRequest_CloseEditRequest:EditRequest_CloseEditRequest,
+        EditRequest_ClosePayroll:EditRequest_ClosePayroll,
+        EditRequest_ExpandPendingEmail:EditRequest_ExpandPendingEmail,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView:Dispatch_GridView,
         Dispatch_ShowDoneJobs:Dispatch_ShowDoneJobs,
+        Dispatch_WaitForCalendar:Dispatch_WaitForCalendar,
         //===================================PAYROLL========================================
-        Payroll_ClickAllDepartment:Payroll_ClickAllDepartment
+        Payroll_ClickAllDepartment:Payroll_ClickAllDepartment,
+        //==================================SETTINGS========================================
+        Settings_SetReservationLocalTo:Settings_SetReservationLocalTo
     };
 };
