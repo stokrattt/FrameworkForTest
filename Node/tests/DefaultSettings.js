@@ -61,12 +61,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         console.log(V.lengthCalc);
     }),config.timeout);
     SF.sleep(1);
+    driver.actions().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]'))).mouseDown().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]'))).mouseUp().perform();
+
+    Debug.pause();
+
+    driver.wait(driver.executeScript())
+
     if (V.lengthCalc = 0) {
-        driver.wait(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]/div[3]')).then(function (start) {
+        driver.wait(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]')).then(function (start) {
             V.q = start;
         }),config.timeout);
         SF.sleep(0.5);
-        driver.wait(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]/div[3]')).then(function (end) {
+        driver.wait(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]')).then(function (end) {
             V.t = end;
         }),config.timeout);
         driver.actions().dragAndDrop(V.q, V.t).perform();
@@ -75,7 +81,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         LF.LogoutFromBoardAdmin ();
     }
 
-    //driver.actions().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]/div[3]'))).mouseDown().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]/div[3]'))).mouseUp().perform();
+    driver.actions().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]'))).mouseDown().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]'))).mouseUp().perform();
     //driver.findElements();
     //driver.actions().dragAndDrop(driver.findElement(By.xpath('//tr[@ng-click="prepareToDelete($index, receipt.id)"]')), By.xpath()).perform();
 

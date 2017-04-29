@@ -223,6 +223,7 @@ condition.nowWeDoing='зашли в настройки департмента';
     SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SF.click (By.xpath('//a[@ui-sref="settings.department"]'));
+    SF.sleep(2);
     SF.waitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(3);
