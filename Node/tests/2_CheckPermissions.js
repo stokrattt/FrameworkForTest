@@ -14,44 +14,25 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('.btn-primary');
     condition.nowWeDoing = 'идем в настройки и ставим пермишины для сейлса';
 
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.click (By.xpath('//a[@ui-sref="settings.department"]'));
-    SF.waitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
-    SF.sleep(3);
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
-    SF.sleep(3);
-    SF.waitForVisible (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
-    SF.sleep(2);
-    driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"JackSales do not delete\")').dblclick();"), config.timeout);
-    SF.waitForLocated (By.linkText("Permissions"));
-    SF.click(By.linkText("Permissions"));
-    SF.sleep (1);
-    SF.click(By.xpath('//ul[@class="nav nav-tabs submenu_tab"]/li[@ng-click="activePermTab = 1"]'));
-    SF.waitForVisible (By.xpath('//div[@ng-class="{\'active\': activePermTab === 1}"]')); //?
-
+    MF.Board_OpenSettingsGeneral();
+    MF.Board_OpenSettingsDepartment();
+    MF.Department_OpenSales();
+    MF.Department_OpenHuman("JackSales do not delete");
+    MF.Department_OpenMansPermissions();
+    MF.Department_ClickPermissionsRequests();
     LF.PermissionsClear ();
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeOtherLeads"]/..'));
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canSearchOtherLeads"]/..'));
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canEditOtherLeads"]/..'));
+    Department_ClickCanSeeOtherLeads();
+    Department_ClickCanSearchOtherLeads();
+    Department_ClickCanEditOtherLeads();
+    Department_ClickCanAssignToOther();
     //SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeUnsignedLeads"]/..'));
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canSignedSales"]/..'));
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    SF.waitForVisible (By.xpath('//button[@class="confirm"]'));
-    SF.sleep (1);
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    SF.sleep (3);
+    MF.Department_SaveUser();
+
     condition.nowWeDoing = 'создаем реквест из под админа';
-
     LF.CreateLocalMovingFromBoard(V.client);
-
-    driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
-        V.request.Id = SF.cleanPrice(text);
-    }), config.timeout);
-    SF.click (By.xpath('//a[@ng-click="select(tabs[7])"]'));
-    SF.sleep (1);
+    V.request={};
+    MF.EditRequest_RememberId(V.request);
+    MF.EditRequest_OpenSettings();
     driver.wait(driver.findElement(By.xpath('//span[@ng-show="currentManager"]')).getText().then (function (text){
         V.SalesOnAdmin = text;
         }), config.timeout);
