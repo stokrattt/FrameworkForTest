@@ -8,6 +8,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
     SF.get(V.frontURL);
     condition.nowWeDoing = 'заполняем калькулятор верхний';
+    Debug.pause();
     LF.FullSmallCalcAsLocal(V.client);
 
     console.log("заполнили форму");

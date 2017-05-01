@@ -14,13 +14,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.FullSmallCalcAsLocal(V.client);
 
     condition.nowWeDoing = 'Зайти на аккаунт, добавить инвентарь, запомнить cbf';
-    SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Account_ClickViewRequest();
+    MF.WaitWhileBusy();
     SF.sleep(5);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.AccountLocalAddInventory(V.accountNumbers);
-    SF.waitForVisible(By.xpath('//li[@id="tab_Inventory"]//i[@class="icon-check"]'));
+    MF.Account_WaitForInventoryCheck();
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
 
@@ -33,13 +33,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     VD.IWant(VD.VToEqual, V.accountNumbers.InventoryCbf, V.boardNumbers.cbf,'Не совпали cbf аккаунта и борда');
     LF.addInventoryBoard (V.boardNumbers);
-    SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
+    MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
-    SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    JS.waitForExist('button[ng-click="update(request)"]:visible');
-    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    MF.EditRequest_OpenRequest();
+    MF.EditRequest_SaveChanges();
+    LF.closeEditRequest();
     LF.closeEditRequest();
     SF.sleep(2);
     LF.LogoutFromBoardAdmin();
@@ -47,13 +45,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'второй раз в аккаунте';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
-    SF.waitForVisible(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td[1]'));
-    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
-        VD.IWant(VD.VToEqual, Status, 'Pending');
-    }),config.timeout);
-    SF.click(By.xpath('//td[contains(text(),"' + V.accountNumbers.Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
-    SF.sleep(2);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
+    MF.Account_OpenRequest(V.accountNumbers.Id);
     LF.RememberAccountNumbers(V.accountNumbers);
     VD.IWant(VD.VToEqual, V.accountNumbers.cbf, V.boardNumbers.InventoryCubicFit);
 
