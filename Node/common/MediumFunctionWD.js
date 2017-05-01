@@ -56,6 +56,21 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//a[@ui-sref="settings.department"]'));
         SF.sleep(3);
     }
+    function Board_RefreshDashboard(){
+        SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
+        SF.sleep (3);
+    }
+    function Board_SearchRequest(selector){
+        SF.send (By.id('gSearch'), selector);
+        SF.waitForLocated (By.xpath('//div[@ng-show="searchRequests.length"]'));
+    }
+    function Board_GetFirstFoundedId(request){
+        SF.waitForVisible(By.xpath('//div[@class="requestsid ng-binding"]'));
+        driver.wait(driver.findElement(By.xpath('//div[@class="requestsid ng-binding"]')).getText().then (function(text){
+            request.Id = text;
+        }), config.timeout);
+        SF.sleep(1);
+    }
 
     //==============================ACCOUNT=======================================
 
@@ -218,10 +233,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function EditRequest_SaveChanges() {
-        SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+        JS.click('button[ng-click=\\"UpdateRequest()\\"]');
         JS.waitForExist('button[ng-click="update(request)"]:visible');
         SF.click(By.xpath('//button[@ng-click="update(request)"]'));
         JS.waitForExist("div.toast-success:visible");
+        WaitWhileBusy();
     }
 
     function EditRequest_WaitForBalanceVisible() {
@@ -239,7 +255,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function EditRequest_CloseEditRequest() {
-        SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
+        SF.click(By.xpath('//button[@ng-click="cancel()"]'));
         SF.sleep(2);
     }
 
@@ -262,6 +278,21 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
             request.Id = SF.cleanPrice(text);
         }), config.timeout);
+    }
+    function EditRequest_RememberSale(request){
+        driver.wait(driver.findElement(By.xpath('//span[@ng-show="currentManager"]')).getText().then (function (text){
+            request.SaleName = text;
+        }), config.timeout);
+        SF.sleep (1);
+    }
+    function EditRequest_SetSaleNumber(number) {
+        SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
+        SF.click (By.xpath('//div[@ng-show="::PermissionsServices.hasPermission(\'canSignedSales\');"]//ul[@class="dropdown-menu"]/li['+number+']'));
+        SweetConfirm();
+    }
+    function EditRequest_SetSizeOfMoveNumber(number){
+        SF.select(By.xpath('//select[@id="edit-size-move"]'),number);
+        SF.sleep(1);
     }
 
     //=================================LOCAL DISPATCH============================
@@ -364,6 +395,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSchedule: Board_OpenSchedule,
         Board_OpenSettingsGeneral: Board_OpenSettingsGeneral,
         Board_OpenSettingsDepartment: Board_OpenSettingsDepartment,
+        Board_RefreshDashboard:Board_RefreshDashboard,
+        Board_SearchRequest:Board_SearchRequest,
+        Board_GetFirstFoundedId:Board_GetFirstFoundedId,
         //====================================ACCOUNT=======================================
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,
@@ -409,6 +443,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ClosePayroll: EditRequest_ClosePayroll,
         EditRequest_ExpandPendingEmail: EditRequest_ExpandPendingEmail,
         EditRequest_RememberId:EditRequest_RememberId,
+        EditRequest_RememberSale:EditRequest_RememberSale,
+        EditRequest_SetSaleNumber:EditRequest_SetSaleNumber,
+        EditRequest_SetSizeOfMoveNumber:EditRequest_SetSizeOfMoveNumber,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

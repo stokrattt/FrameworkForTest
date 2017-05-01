@@ -395,6 +395,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//input[@id="password"]'), 'test');
         SF.click(By.xpath('//button[@type="submit"]'));
         SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+        SF.sleep (3);
     }
     function LoginToBoardAsForeman() {
         SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));

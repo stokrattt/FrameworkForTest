@@ -8,7 +8,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
     SF.get(V.frontURL);
     condition.nowWeDoing = 'заполняем калькулятор верхний';
-    Debug.pause();
     LF.FullSmallCalcAsLocal(V.client);
 
     console.log("заполнили форму");
@@ -33,7 +32,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    SF.sleep (3);
     LF.OpenRequest(V.accountNumbers.Id);
 
     V.boardNumbers = {};
