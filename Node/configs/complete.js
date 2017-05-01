@@ -4,6 +4,7 @@ module.exports = function(config,V) {
         './tests/4_CheckFuelSurcharge.js',
         './tests/7_DepartmenTest.js',
         './tests/5_ReservationMov&Stor.js',
+        './tests/DefaultSettings.js',
         './tests/21_LDFromAdmin.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/6_WithoutReservationMov&Stor.js',
@@ -13,6 +14,7 @@ module.exports = function(config,V) {
         './tests/2_CheckPermissions.js',
         './tests/11_CheckBillOfLadding.js',
         './tests/TheCleaner.js',//==============================уборка=========================
+        './tests/DefaultSettings.js',
         './tests/10_CompareQuotesLocal.js',
         './tests/12_CreateMov&StorFromFrontDownAndCompare.js',
         './tests/18_ForemanSignJob.js',
@@ -26,6 +28,7 @@ module.exports = function(config,V) {
         './tests/13_UnloadingHelpTopForm.js',
         './tests/16_UnloadHelpDownFront.js',
         './tests/SetReservationPrice.js',
+        './tests/DefaultSettings.js',
         './tests/20_LDTopForm.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/22_WeDontMoveToThisState.js',
@@ -99,7 +102,7 @@ module.exports = function(config,V) {
  './tests/32_AllMovingWithStorage.js',
  './tests/34_ContractPageSettings.js',
  './tests/35_InventoryLocalMoving.js',
- './tests/TheCleaner.js'//==============================уборка=========================
+ './tests/DefaultSettings.js',
 
 
 

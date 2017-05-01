@@ -54,39 +54,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.travelTime\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.calcSettings.travelTime\"] ~span').click()}"),config.timeout);
-    SF.click(By.linkText('Form Style'));
-    SF.sleep(2);
-    driver.wait(driver.executeScript("return $('div[ng-if=\"isSecondStepFirst()\"]').length").then(function (length) {
-        V.lengthCalc = length;
-        console.log(V.lengthCalc);
-    }),config.timeout);
     SF.sleep(1);
-    driver.actions().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]'))).mouseDown().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]'))).mouseUp().perform();
+    // SF.click(By.linkText('Form Style'));
+    // SF.sleep(2);
+    // driver.wait(driver.executeScript("return $('div[ng-if=\"isSecondStepFirst()\"]').length").then(function (length) {
+    //     V.lengthCalc = length;
+    //     console.log(V.lengthCalc);
+    // }),config.timeout);
+    // SF.sleep(1);
+    // driver.actions().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]'))).mouseDown().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]'))).mouseUp().perform();
+    // from = driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]/div[3]'));
+    // to = driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]/div[3]'));
+    // driver.actions().dragAndDrop(from, to).perform();
+    // driver.actions().dragAndDrop(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]')),{x:300,y:0}).perform();
+    // driver.actions().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]/..')),{x:640,y:70}).mouseDown()
+    //     .mouseUp().perform();
+    //
+    // if (V.lengthCalc = 0) {
+    //     SF.sleep(2);
+    // } else {
+    //     LF.LogoutFromBoardAdmin ();
+    // }
+    // driver.actions().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]'))).mouseDown().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]'))).mouseUp().perform();
+    // //driver.findElements();
+    // //driver.actions().dragAndDrop(driver.findElement(By.xpath('//tr[@ng-click="prepareToDelete($index, receipt.id)"]')), By.xpath()).perform();
 
-    Debug.pause();
-
-    driver.wait(driver.executeScript())
-
-    if (V.lengthCalc = 0) {
-        driver.wait(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]')).then(function (start) {
-            V.q = start;
-        }),config.timeout);
-        SF.sleep(0.5);
-        driver.wait(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]')).then(function (end) {
-            V.t = end;
-        }),config.timeout);
-        driver.actions().dragAndDrop(V.q, V.t).perform();
-        SF.sleep(2);
-    } else {
-        LF.LogoutFromBoardAdmin ();
-    }
-
-    driver.actions().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'second\')"]'))).mouseDown().mouseMove(driver.findElement(By.xpath('//li[@ng-click="selectStep(\'third\')"]'))).mouseUp().perform();
-    //driver.findElements();
-    //driver.actions().dragAndDrop(driver.findElement(By.xpath('//tr[@ng-click="prepareToDelete($index, receipt.id)"]')), By.xpath()).perform();
-
-
-    Debug.pause();
     LF.LogoutFromBoardAdmin ();
 
     //=========================закончили писать тест=============================
