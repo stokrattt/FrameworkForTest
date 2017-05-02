@@ -33,7 +33,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Board_OpenConfirmed() {
         SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
-        SF.sleep(5);
+        SF.sleep(3);
     }
 
     function Board_OpenSchedule() {
@@ -48,6 +48,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSideBar();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
         SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    }
+
+    function Board_OpenSetAdressToFrom() {
+        SF.send (By.id('edit-moving-from'), 2342342342424);
+        SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
     }
 
     function Board_OpenSettingsDepartment() {
@@ -413,6 +418,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenLocalDispatch: Board_OpenLocalDispatch,
         Board_OpenPayroll: Board_OpenPayroll,
         Board_OpenConfirmed: Board_OpenConfirmed,
+        Board_OpenSetAdressToFrom: Board_OpenSetAdressToFrom,
         Board_OpenSchedule: Board_OpenSchedule,
         Board_OpenSettingsGeneral: Board_OpenSettingsGeneral,
         Board_OpenSettingsDepartment: Board_OpenSettingsDepartment,

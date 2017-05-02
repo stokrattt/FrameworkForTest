@@ -7,40 +7,23 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
 
-    SF.send(By.id('email'), 'TestAdmin');
-    SF.send(By.id('password'), 'test');
-    JS.click('.btn-primary');
-    SF.sleep (3);
-    JS.waitForNotExist ('div.busyoverlay:visible');
+    LF.LoginToBoardAsAdmin ();
     condition.nowWeDoing = 'создаем реквест и конфермим его';
     LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
-        V.request.Id = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id);
-    }),config.timeout);
-    JS.select ('#edit-status', 3); // выбор статуса конфермед
-    SF.send (By.id('edit-moving-from'), 2342342342424);
-    SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
-    JS.click ('button[ng-click=\\"UpdateRequest()\\"]');
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep (3);
-    JS.waitForNotExist('div.toast-success');
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
-    SF.click (By.xpath('//div[@ng-show="::PermissionsServices.hasPermission(\'canSignedSales\');"]//ul[@class="dropdown-menu"]/li[2]'));
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.sleep (1);
-    SF.click (By.xpath('//button[@class="confirm"]'));    JS.waitForNotExist('div.toast-success');
-    SF.sleep (1);
+    MF.EditRequest_RememberId(V.request);
 
-    SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
+    LF.addToCleanerJob(V.request.Id);
+    MF.Board_OpenConfirmed ();
+    MF.Board_OpenSetAdressToFrom ();
+    MF.EditRequest_SaveChanges ();
+    MF.EditRequest_OpenSettings();
+    MF.EditRequest_SetSaleNumber(2);
+
+    MF.EditRequest_OpenRequest();
     condition.nowWeDoing = 'закрываем работу и переходим в на страницу bill of ladding';
 
     SF.click (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));

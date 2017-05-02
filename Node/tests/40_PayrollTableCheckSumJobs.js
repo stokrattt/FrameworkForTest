@@ -92,9 +92,6 @@ condition.nowWeDoing = 'тут заходим в конкретного мужи
         JS.waitForNotExist('div.busyoverlay:visible');
     }
 
-
-    Debug.pause();
-
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
