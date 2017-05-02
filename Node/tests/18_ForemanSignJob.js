@@ -119,10 +119,8 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
         JS.scroll('div.BalanceCost:visible');
     }
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
-    LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
-
-
+    // LF.closeEditRequest ();
+    // LF.LogoutFromBoardAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

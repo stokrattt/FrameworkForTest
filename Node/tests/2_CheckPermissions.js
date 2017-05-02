@@ -11,7 +11,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToBoardAsAdmin();
 
     condition.nowWeDoing = 'идем в настройки и ставим пермишины для сейлса';
-    //MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSettingsDepartment();
     MF.Department_OpenSales();
     MF.Department_OpenHuman("JackSales do not delete");
