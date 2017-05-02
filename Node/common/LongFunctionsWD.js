@@ -601,14 +601,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.wait(driver.findElement(By.xpath('//input[@id="edit-movers-crew"]')).getAttribute('value').then(function (value) {
             boardNumbers.CrewSize = SF.cleanPrice(value);
         }),config.timeout);
-/* driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function (value) {
-            boardNumbers.HourlyRate = SF.cleanPrice(value);
-        }),config.timeout);
-*/
-        driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
-            boardNumbers.cbf = SF.cleanPrice(text);
-        }),config.timeout);
-
+        MF.EditRequest_RememberCbf(boardNumbers);
         driver.wait(driver.findElements(By.xpath('//input[@ng-model="request.rate.value"]')).then(function(elements){
             if (elements.length>0) {
                 elements[0].getAttribute('value').then(function (value) {
@@ -618,8 +611,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                 boardNumbers.HourlyRate = 0;
             }
         }),config.timeout);
-
-        driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Trucks:")]/following-sibling::div[1]')).getText('text').then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Trucks:")]/following-sibling::div[1]')).getText().then(function (text) {
             boardNumbers.Trucks = SF.cleanPrice(text);
         }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){

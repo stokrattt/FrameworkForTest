@@ -6,60 +6,37 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     SF.get(V.adminURL);
-
-    SF.send(By.id('email'), 'TestAdmin');
-    SF.send(By.id('password'), 'test');
-    JS.click('.btn-primary');
-
+    LF.LoginToBoardAsAdmin();
     LF.CreateLocalMovingFromBoard(V.client);
 
-    driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
-        V.boardNumbersCubFit = SF.cleanPrice (text);
-
-    });
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="4"]'));
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="5"]'));
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="6"]'));
+    V.boardNumbers={};
+    MF.EditRequest_RememberCbf(V.boardNumbers);
+    MF.EditRequest_AddRoomNumber(4);
+    MF.EditRequest_AddRoomNumber(5);
+    MF.EditRequest_AddRoomNumber(6);
     SF.sleep (2);
 
-    driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
-        V.boardNumbersCubFitChange = SF.cleanPrice (text);
-    });
-    SF.sleep (0.5);
-    VD.IWant(VD.VNotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitChange, 'Кубик фит не изменился, хотя должен был');
-    SF.sleep (2);
+    V.boardNumbersNew={};
+    MF.EditRequest_RememberCbf(V.boardNumbersNew);
+    VD.IWant(VD.VNotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
+    V.boardNumbers = {};
+    V.boardNumbersNew = {};
+    MF.EditRequest_RememberCbf(V.boardNumbers);
 
-///////////////////////////
-    V.boardNumbersCubFit = {};
-    V.boardNumbersCubFitChange = {};
-    driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
-        V.boardNumbersCubFit = SF.cleanPrice (text);
-    });
-condition.nowWeDoing = 'выключили калькулятор';
-    SF.click(By.xpath('//div[@class="actions pull-right"]/span[@ng-click="switchCalc()"]')); //выключили калькулятор
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="2"]'));
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="7"]'));
+    condition.nowWeDoing = 'выключили калькулятор';
+    MF.EditRequest_SwitchCalculator();
+    MF.EditRequest_AddRoomNumber(2);
+    MF.EditRequest_AddRoomNumber(7);
     SF.sleep (2);
+    MF.EditRequest_RememberCbf(V.boardNumbersNew);
+    VD.IWant(VD.VNotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
 
-    driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
-        V.boardNumbersCubFitChange = SF.cleanPrice (text);
-    });
-    SF.sleep (2);
-    VD.IWant(VD.VNotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitChange, 'Кубик фит не изменился, хотя должен был');
     condition.nowWeDoing = 'включили калькулятор';
-    SF.click(By.xpath('//div[@class="actions pull-right"]/span[@ng-click="switchCalc()"]')); // включили калькулятор
-//выбор инвентория
-    LF.addInventoryBoard (V);
-    driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
-        V.boardNumbersCubFit = SF.cleanPrice (text);
-    });
-    SF.sleep (3);
-    VD.IWant (VD.VToEqual, V.InventoryCubicFit, V.boardNumbersCubFit, 'Кубик фит не совпадает с инвенторием, а должен');
+    MF.EditRequest_SwitchCalculator();
+    LF.addInventoryBoard (V.boardNumbers);
+    MF.EditRequest_RememberCbf(V.boardNumbers);
+    SF.sleep (2);
+    VD.IWant (VD.VToEqual, V.boardNumbers.cbf, V.boardNumbers.InventoryCubicFit, 'Кубик фит не совпадает с инвенторием, а должен');
 
     SF.endOfTest();
 };

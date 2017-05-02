@@ -294,6 +294,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.select(By.xpath('//select[@id="edit-size-move"]'),number);
         SF.sleep(1);
     }
+    function EditRequest_RememberCbf(boardNumbers){
+        driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
+            boardNumbers.cbf = SF.cleanPrice(text);
+        }),config.timeout);
+    }
+    function EditRequest_SwitchCalculator(){
+        SF.click(By.xpath('//div[@class="actions pull-right"]/span[@ng-click="switchCalc()"]'));
+    }
+    function EditRequest_AddRoomNumber(number){
+        SF.click(By.xpath('//ul[@class="chosen-choices"]'));
+        SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="'+number+'"]'));
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -446,6 +458,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_RememberSale:EditRequest_RememberSale,
         EditRequest_SetSaleNumber:EditRequest_SetSaleNumber,
         EditRequest_SetSizeOfMoveNumber:EditRequest_SetSizeOfMoveNumber,
+        EditRequest_RememberCbf:EditRequest_RememberCbf,
+        EditRequest_SwitchCalculator:EditRequest_SwitchCalculator,
+        EditRequest_AddRoomNumber:EditRequest_AddRoomNumber,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
