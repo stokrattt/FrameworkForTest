@@ -50,11 +50,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     }
 
-    function Board_OpenSetAdressToFrom() {
-        SF.send (By.id('edit-moving-from'), 2342342342424);
-        SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
-    }
-
     function Board_OpenSettingsDepartment() {
         Board_OpenSettingsGeneral();
         SF.click(By.xpath('//a[@ui-sref="settings.department"]'));
@@ -236,6 +231,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_SetToNotConfirmed() {
         SF.select(By.xpath('//select[@id="edit-status"]'), 2);
     }
+    function EditRequest_SetToConfirmed() {
+        SF.select(By.xpath('//select[@id="edit-status"]'), 3);
+    }
 
     function EditRequest_SaveChanges() {
         JS.click('button[ng-click=\\"UpdateRequest()\\"]');
@@ -319,6 +317,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_avg"]')).getAttribute('value').then(function(value){
             boardNumbers.FuelPerc = SF.cleanPrice(value.replace('%', ''));
         }),config.timeout);
+    }
+    function EditRequest_SetAdressToFrom() {
+        SF.send (By.id('edit-moving-from'), 2342342342424);
+        SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
+    }
+    function EditRequest_CloseConfirmWork() {
+        SF.click (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
+        JS.waitForNotExist ('div.busyoverlay:visible');
+        SF.sleep (0.5);
     }
 
     //=================================LOCAL DISPATCH============================
@@ -418,7 +425,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenLocalDispatch: Board_OpenLocalDispatch,
         Board_OpenPayroll: Board_OpenPayroll,
         Board_OpenConfirmed: Board_OpenConfirmed,
-        Board_OpenSetAdressToFrom: Board_OpenSetAdressToFrom,
         Board_OpenSchedule: Board_OpenSchedule,
         Board_OpenSettingsGeneral: Board_OpenSettingsGeneral,
         Board_OpenSettingsDepartment: Board_OpenSettingsDepartment,
@@ -478,6 +484,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_AddRoomNumber:EditRequest_AddRoomNumber,
         EditRequest_OpenFuel:EditRequest_OpenFuel,
         EditRequest_GetValueFromFuelModal:EditRequest_GetValueFromFuelModal,
+        EditRequest_CloseConfirmWork: EditRequest_CloseConfirmWork,
+        EditRequest_SetAdressToFrom: EditRequest_SetAdressToFrom,
+        EditRequest_SetToConfirmed: EditRequest_SetToConfirmed,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
@@ -497,4 +506,4 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Department_ClickCanAssignToOther: Department_ClickCanAssignToOther,
         Department_SaveUser: Department_SaveUser
     };
-}
+};

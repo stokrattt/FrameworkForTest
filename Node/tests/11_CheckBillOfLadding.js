@@ -17,8 +17,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_RememberId(V.request);
 
     LF.addToCleanerJob(V.request.Id);
-    MF.Board_OpenConfirmed ();
-    MF.Board_OpenSetAdressToFrom ();
+    MF.EditRequest_SetToConfirmed ();
+    MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenSettings();
     MF.EditRequest_SetSaleNumber(2);
@@ -26,9 +26,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenRequest();
     condition.nowWeDoing = 'закрываем работу и переходим в на страницу bill of ladding';
 
-    SF.click (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    SF.sleep (0.5);
+    MF.EditRequest_CloseConfirmWork();
     SF.clear (By.xpath('//input[@ng-model="invoice.work_time"]'));
     JS.waitForNotExist ('div.busyoverlay:visible');
     SF.send (By.xpath('//input[@ng-model="invoice.work_time"]'), '01:00');
