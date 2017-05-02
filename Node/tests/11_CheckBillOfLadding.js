@@ -27,27 +27,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'закрываем работу и переходим в на страницу bill of ladding';
 
     MF.EditRequest_CloseConfirmWork();
-    SF.clear (By.xpath('//input[@ng-model="invoice.work_time"]'));
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    SF.send (By.xpath('//input[@ng-model="invoice.work_time"]'), '01:00');
-    JS.waitForNotExist ('div.busyoverlay:visible');
+    MF.EditRequest_SetLaborTimeCloseJob();
 
-    SF.click (By.xpath('//div[@ng-click="closeJob();"]'));
-    SF.sleep (8);
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    JS.waitForNotExist('div.toast-success');
-    driver.findElement(By.xpath('//a[contains(@class,"open_button_contract")]')).click();
-    SF.sleep (3);
+    MF.EditRequest_CloseJob();
+    MF.EditRequest_OpenContractCloseJob();
     SF.openTab (1);
     SF.sleep (3);
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    SF.sleep (0.5);
-    SF.click (By.linkText('Bill of lading'));
-    SF.sleep (2);
-    driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
-        VD.IWant (VD.VToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
-    }),config.timeout);
+    MF.WaitWhileBusy();
+    MF.SweetConfirm();
+    MF.Contract_OpenBillOfLading();
+    MF.Contract_WaitBillOfLading ();
+    MF.Contract_CheckLoadBillOfLadding();
     SF.endOfTest();
 };

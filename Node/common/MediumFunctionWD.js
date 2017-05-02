@@ -211,6 +211,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_SetRentalZip(zip) {
         SF.send(By.xpath('//input[@ng-model="data.agreement.zipCode"]'), zip);
     }
+    function Contract_CheckLoadBillOfLadding() {
+        driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
+            VD.IWant (VD.VToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
+        }),config.timeout);
+    }
 
     //================================EDIT REQUEST====================================
 
@@ -327,7 +332,22 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist ('div.busyoverlay:visible');
         SF.sleep (0.5);
     }
-
+    function EditRequest_SetLaborTimeCloseJob() {
+        SF.clear (By.xpath('//input[@ng-model="invoice.work_time"]'));
+        JS.waitForNotExist ('div.busyoverlay:visible');
+        SF.send (By.xpath('//input[@ng-model="invoice.work_time"]'), '01:00');
+        JS.waitForNotExist ('div.busyoverlay:visible');
+    }
+    function EditRequest_CloseJob() {
+        SF.click (By.xpath('//div[@ng-click="closeJob();"]'));
+        SF.sleep (2);
+        JS.waitForNotExist ('div.busyoverlay:visible');
+        JS.waitForNotExist('div.toast-success');
+    }
+    function EditRequest_OpenContractCloseJob() {
+        driver.findElement(By.xpath('//a[contains(@class,"open_button_contract")]')).click();
+        SF.sleep (3);
+    }
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
@@ -462,6 +482,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_SetRentalPhone: Contract_SetRentalPhone,
         Contract_SetRentalAddress: Contract_SetRentalAddress,
         Contract_SetRentalZip: Contract_SetRentalZip,
+        Contract_CheckLoadBillOfLadding: Contract_CheckLoadBillOfLadding,
         //=================================EDIT REQUEST=====================================
         EditRequest_OpenSettings: EditRequest_OpenSettings,
         EditRequest_OpenLogs: EditRequest_OpenLogs,
@@ -487,6 +508,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_CloseConfirmWork: EditRequest_CloseConfirmWork,
         EditRequest_SetAdressToFrom: EditRequest_SetAdressToFrom,
         EditRequest_SetToConfirmed: EditRequest_SetToConfirmed,
+        EditRequest_SetLaborTimeCloseJob: EditRequest_SetLaborTimeCloseJob,
+        EditRequest_CloseJob: EditRequest_CloseJob,
+        EditRequest_OpenContractCloseJob: EditRequest_OpenContractCloseJob,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
