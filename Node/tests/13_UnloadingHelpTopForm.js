@@ -47,8 +47,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
 
     condition.nowWeDoing = 'лезем в настройки и ставим резервацию 0';
-    MF.Board_OpenSchedule();
-    MF.Settings_SetReservationLocalTo(0);
+    MF.Board_OpenSettingsSchedule();
+    MF.Schedule_SetReservationLocalTo(0);
     LF.LogoutFromBoardAdmin();
 
     //================================второй реквест без резервации==================================================
@@ -101,8 +101,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
 
     condition.nowWeDoing = 'лезем в настройки и возвращаем резервацию в 150';
-    MF.Board_OpenSchedule();
-    MF.Settings_SetReservationLocalTo(150);
+    MF.Board_OpenSettingsSchedule();
+    MF.Schedule_SetReservationLocalTo(150);
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'заходим в аккаунт под первым клиентом, должны спросить деньгу';

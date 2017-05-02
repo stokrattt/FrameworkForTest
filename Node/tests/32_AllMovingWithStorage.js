@@ -95,10 +95,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.MakeSignInInventory(1);
     MF.Contract_SubmitInventory();
     MF.SweetCancel();
-    Contract_WaitForRental();
-    Contract_SetRentalPhone(V.client.phone);
-    Contract_SetRentalAddress('Address To');
-    Contract_SetRentalZip('02461');
+    MF.Contract_WaitForRental();
+    MF.Contract_SetRentalPhone(V.client.phone);
+    MF.Contract_SetRentalAddress('Address To');
+    MF.Contract_SetRentalZip('02461');
     LF.MakeSignInRental();
     LF.payRentalInventory();
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {

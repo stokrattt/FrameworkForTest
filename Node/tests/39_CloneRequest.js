@@ -40,7 +40,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     LF.SetManager('emilia');
     SF.click(By.xpath('//button[@ng-click="cloneRequest(request)"]'));
-    LF.SweetConfirm();
+    MF.SweetConfirm();
     JS.waitForExist('div.requestModal:eq(1)');
     SF.sleep(1);
     SF.waitForVisible(By.xpath('(//div[@class="trucks"])[2]/div[@ng-click="chooseTruck(tid)"]'));

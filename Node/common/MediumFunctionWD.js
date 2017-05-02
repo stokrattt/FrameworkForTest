@@ -36,7 +36,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(3);
     }
 
-    function Board_OpenSchedule() {
+    function Board_OpenSettingsSchedule() {
         Board_OpenSideBar();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
         SF.sleep(2);
@@ -70,6 +70,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             request.Id = text;
         }), config.timeout);
         SF.sleep(1);
+    }
+    function Board_Refresh(){
+        driver.navigate().refresh();
+        SF.waitForLocated(By.linkText('Create Request'));
+        SF.sleep (3);
     }
 
     //==============================ACCOUNT=======================================
@@ -382,7 +387,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     //================================SETTINGS========================================
-    function Settings_SetReservationLocalTo(price) {
+    function Schedule_SetReservationLocalTo(price) {
         SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
         SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), price);
         SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
@@ -446,12 +451,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenLocalDispatch: Board_OpenLocalDispatch,
         Board_OpenPayroll: Board_OpenPayroll,
         Board_OpenConfirmed: Board_OpenConfirmed,
-        Board_OpenSchedule: Board_OpenSchedule,
+        Board_OpenSettingsSchedule: Board_OpenSettingsSchedule,
         Board_OpenSettingsGeneral: Board_OpenSettingsGeneral,
         Board_OpenSettingsDepartment: Board_OpenSettingsDepartment,
         Board_RefreshDashboard:Board_RefreshDashboard,
         Board_SearchRequest:Board_SearchRequest,
         Board_GetFirstFoundedId:Board_GetFirstFoundedId,
+        Board_Refresh:Board_Refresh,
         //====================================ACCOUNT=======================================
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,
@@ -518,8 +524,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Dispatch_WaitForCalendar: Dispatch_WaitForCalendar,
         //===================================PAYROLL========================================
         Payroll_ClickAllDepartment: Payroll_ClickAllDepartment,
-        //==================================SETTINGS========================================
-        Settings_SetReservationLocalTo: Settings_SetReservationLocalTo,
+        //==================================SCHEDULE========================================
+        Schedule_SetReservationLocalTo: Schedule_SetReservationLocalTo,
         //==================================DEPARTMENT======================================
         Department_OpenSales: Department_OpenSales,
         Department_OpenHuman: Department_OpenHuman,
