@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/3_CheckChangeCubicFitAdmin&AddInventory.js'
+        './tests/4_CheckFuelSurcharge.js'
     ];
     config.chainFail = false;
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';

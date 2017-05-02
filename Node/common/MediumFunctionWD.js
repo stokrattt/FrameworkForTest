@@ -259,8 +259,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
     }
 
-    function EditRequest_ClosePayroll() {
-        SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
+    function EditRequest_CloseModal() {
+        SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
         SF.sleep(2);
     }
 
@@ -305,6 +305,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_AddRoomNumber(number){
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
         SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="'+number+'"]'));
+    }
+    function EditRequest_OpenFuel(){
+        SF.click (By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]"));
+        SF.sleep (3);
+    }
+    function EditRequest_GetValueFromFuelModal(boardNumbers){
+        driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_avg"]')).getAttribute('value').then(function(value){
+            boardNumbers.FuelPerc = SF.cleanPrice(value.replace('%', ''));
+        }),config.timeout);
     }
 
     //=================================LOCAL DISPATCH============================
@@ -452,7 +461,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ScrollDown: EditRequest_ScrollDown,
         EditRequest_OpenPayroll: EditRequest_OpenPayroll,
         EditRequest_CloseEditRequest: EditRequest_CloseEditRequest,
-        EditRequest_ClosePayroll: EditRequest_ClosePayroll,
+        EditRequest_CloseModal: EditRequest_CloseModal,
         EditRequest_ExpandPendingEmail: EditRequest_ExpandPendingEmail,
         EditRequest_RememberId:EditRequest_RememberId,
         EditRequest_RememberSale:EditRequest_RememberSale,
@@ -461,6 +470,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_RememberCbf:EditRequest_RememberCbf,
         EditRequest_SwitchCalculator:EditRequest_SwitchCalculator,
         EditRequest_AddRoomNumber:EditRequest_AddRoomNumber,
+        EditRequest_OpenFuel:EditRequest_OpenFuel,
+        EditRequest_GetValueFromFuelModal:EditRequest_GetValueFromFuelModal,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
