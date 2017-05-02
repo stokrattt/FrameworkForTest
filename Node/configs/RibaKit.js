@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/5_ReservationMov&Stor.js'
+        './tests/6_WithoutReservationMov&Stor.js'
     ];
     config.chainFail = false;
     V.adminURL = 'localhost:8080/moveBoard/#/dashboard';

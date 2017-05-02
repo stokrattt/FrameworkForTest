@@ -34,11 +34,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);
     MF.Account_OpenRequest(V.boardNumbers.Id);
-    Debug.pause();
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
     SF.sleep(5);
     MF.WaitWhileBusy();
+    LF.AccountToStorageEnterAddress();
     LF.ConfirmRequestInAccount_WithReservation();
     LF.LogoutFromAccount ();
     SF.endOfTest();

@@ -7,133 +7,39 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     SF.get(V.adminURL);
-
-    SF.send(By.id('email'), 'TestAdmin');
-    SF.send(By.id('password'), 'test');
-    JS.click('.btn-primary');
-    SF.sleep (2);
-    JS.waitForNotExist("div.busyoverlay:visible");
-
-    condition.nowWeDoing = 'идем в настройки и отключаем резервацию в 0';
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.click (By.xpath('//a[@ui-sref="settings.schedule"]'));
-    SF.waitForVisible (By.xpath('//a[@ui-sref="settings.schedule"]'));
-    SF.sleep(6);
-    JS.select ('select[ng-model="vm.scheduleSettings.localReservation"]', 0);
-    SF.sleep (2);
-
-    V.ReservationPrice = 0;
-    SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
-    SF.sleep (2);
-    SF.send (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), 0);
-    SF.sleep (2);
-    SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
-    SF.sleep(2);
-    driver.navigate().refresh();
-    SF.sleep(6);
-    JS.select ('select[ng-model="vm.scheduleSettings.localReservation"]', 0);
-    SF.sleep (2);
-    SF.waitForLocated(By.linkText('Create Request'));
-    SF.sleep (3);
-    LF.CreateMovAndStorFromBoard (V.client);
-
-
-    driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
-        V.request.Id = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id);
-    }));
-    JS.select ('#edit-status', 2);
-    V.boardNumbers = {};
-    LF.RememberDigitsRequestBoard(V.boardNumbers);
-    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep (3);
-    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
-    JS.waitForNotExist("div.busyoverlay:visible");
-    SF.sleep (5);
-    SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
-    SF.sleep (0.5);
-    V.client.passwd = 123;
-    SF.send (By.id('inputPassword3'), V.client.passwd);
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep (3);
-    JS.waitForNotExist('div.toast-success');
-
-    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep (5);
-    LF.LogoutFromBoardAdmin ();
-    SF.get(V.accountURL);
-    condition.nowWeDoing = 'идем в аккаунт букать работу без резервации';
-    LF.LoginToAccountAsClient (V.client, V.client.passwd);
-    SF.sleep (4);
-    SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
-    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
-        VD.IWant(VD.VToEqual,Status,'Not Confirmed');
-    }));
-    SF.sleep (1);
-    SF.click(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
-    SF.sleep(2);
-    SF.waitForVisible (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep (0.5);
-    SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
-    SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
-    SF.sleep (0.5);
-    SF.click (By.id('terms'));
-    SF.click (By.id('cancel_policy'));
-    SF.sleep (2);
-
-    SF.click (By.id('adminbutton'));
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
-    SF.send (By.id('edit-moving-from'), 'otkuda edem');
-    SF.send (By.id('edit-moving-from-apt'), 324535);
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep (0.5);
-
-    SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReservation"]'));
-    SF.sleep (0.5);
-
-    LF.MakeSignJS('signatureCanvasReservation');
-    SF.click(By.xpath('//button[@ng-click="saveSignature()"]'));
-    SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-
-    driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    }));
-    LF.LogoutFromAccount ();
-
-
-    condition.nowWeDoing = 'возвращаем резервацию на 150';
-    SF.get(V.adminURL);
-
     LF.LoginToBoardAsAdmin();
 
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.click (By.xpath('//a[@ui-sref="settings.schedule"]'));
-    SF.waitForVisible (By.xpath('//a[@ui-sref="settings.schedule"]'));
-    SF.sleep(3);
+    condition.nowWeDoing = 'идем в настройки и отключаем резервацию в 0';
+    MF.Board_OpenSettingsSchedule();
+    V.ReservationPrice = 0;
+    MF.Schedule_SetReservationLocalTo(V.ReservationPrice);
+    MF.Board_Refresh();
 
-    SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
-    SF.sleep (2);
-    SF.send (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), 150);
-    SF.sleep (2);
-    SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
-    SF.sleep(2);
-    driver.navigate().refresh();
-    SF.waitForLocated(By.linkText('Create Request'));
-    SF.sleep (3);
+    condition.nowWeDoing = 'создаем реквест';
+    LF.CreateMovAndStorFromBoard (V.client);
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    LF.addToCleanerJob(V.boardNumbers.Id);
+    MF.EditRequest_SetToNotConfirmed();
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.EditRequest_SaveChanges();
+    MF.EditRequest_OpenClient();
+    V.client.passwd = 123;
+    LF.SetClientPasswd(V.client.passwd);
+    MF.EditRequest_CloseEditRequest();
     LF.LogoutFromBoardAdmin ();
 
-
+    condition.nowWeDoing = 'идем в аккаунт букать работу без резервации';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient (V.client, V.client.passwd);
+    MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);
+    MF.Account_OpenRequest(V.boardNumbers.Id);
+    MF.Account_ClickViewRequest();
+    MF.WaitWhileBusy();
+    SF.sleep(5);
+    MF.WaitWhileBusy();
+    LF.AccountToStorageEnterAddress();
+    LF.ConfirmRequestInAccount_NoReservation();
+    LF.LogoutFromAccount ();
     SF.endOfTest();
 };
