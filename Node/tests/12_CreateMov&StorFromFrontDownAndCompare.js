@@ -9,17 +9,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     SF.get(V.frontURL);
-    JS.waitForExist ('#loader');
     SF.sleep (4);
-    condition.nowWeDoing = 'заполняем нижний калькуоятор на фронте';
-
+    condition.nowWeDoing = 'заполняем нижний калькулятор на фронте';
     LF.CreateMovAndStorFromFrontDown (V.client);
 
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info general"]/div/span')).getText().then(function(text){
         V.nameRequest = text;
         VD.IWant(VD.VToEqual, V.nameRequest, 'Moving & Storage', 'тип реквеста не совпал с созданным');
     }), config.timeout);
-    condition.nowWeDoing = 'запоминаем данные которые спосчитал кальк';
+    condition.nowWeDoing = 'запоминаем данные которые посчитал кальк';
 
     LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
 

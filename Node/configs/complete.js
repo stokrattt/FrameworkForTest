@@ -51,6 +51,8 @@ module.exports = function(config,V) {
         './tests/38_CustomPayrollInRequest.js',
         './tests/39_CloneRequest.js',
         './tests/TheCleaner.js',//==============================уборка=========================
+        './tests/40_PayrollTableCheckSumJobs.js'
+
 
     ];
     config.chainFail = false;

@@ -8,6 +8,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForLocated (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    SF.click(By.linkText('Contract page'));
+    SF.sleep (2);
+    Debug.pause ();
     SF.click(By.xpath('//a[@ui-sref="settings.calculator"]'));
     SF.sleep(2);
     SF.click(By.linkText('Basic Settings'));

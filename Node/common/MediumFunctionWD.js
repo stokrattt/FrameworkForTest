@@ -297,6 +297,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
         SF.click (By.xpath('//div[@ng-show="::PermissionsServices.hasPermission(\'canSignedSales\');"]//ul[@class="dropdown-menu"]/li['+number+']'));
         SweetConfirm();
+        SF.sleep (5);
     }
     function EditRequest_SetSizeOfMoveNumber(number){
         SF.select(By.xpath('//select[@id="edit-size-move"]'),number);
