@@ -12,13 +12,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (4);
     condition.nowWeDoing = 'заполняем нижний калькулятор на фронте';
     LF.CreateMovAndStorFromFrontDown (V.client);
-
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info general"]/div/span')).getText().then(function(text){
         V.nameRequest = text;
         VD.IWant(VD.VToEqual, V.nameRequest, 'Moving & Storage', 'тип реквеста не совпал с созданным');
     }), config.timeout);
-    condition.nowWeDoing = 'запоминаем данные которые посчитал кальк';
 
+    condition.nowWeDoing = 'запоминаем данные которые посчитал кальк';
     LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
 
     SF.click(By.id('submitRequestButton'));
@@ -28,9 +27,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.openTab (1);
 
     condition.nowWeDoing = 'пошли в аккаунт';
-
     SF.sleep (3);
-    SF.waitForVisible (By.xpath('//div[@class="storagehelp"]'));
+    SF.waitForVisible (By.xpath('//button[@ng-click="cancel()"]'));
     SF.click (By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep (0.5);
     condition.nowWeDoing = 'запомнили данные в аке и сравниваем с калькулятором';

@@ -10,7 +10,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SF.click(By.linkText('Contract page'));
     SF.sleep (2);
-    Debug.pause ();
+    driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.pushTips\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"contract_page.pushTips\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.lessInitialContract\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[ng-model=\"contract_page.lessInitialContract\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+    SF.click (By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep (5); //сохранялка
     SF.click(By.xpath('//a[@ui-sref="settings.calculator"]'));
     SF.sleep(2);
     SF.click(By.linkText('Basic Settings'));
