@@ -17,6 +17,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'создаем реквест';
     LF.CreateMovAndStorFromBoard (V.client);
+    MF.WaitWhileBusy();
+
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.addToCleanerJob(V.boardNumbers.Id);

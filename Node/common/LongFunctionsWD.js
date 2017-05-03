@@ -514,7 +514,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
         SF.click(By.xpath('//input[@id="edit-date-storage-datepicker-popup-0"]'));
         if (period==undefined) {
-            driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (DelDate) {
+            driver.wait(driver.executeScript(JSstep.Click8DaysCalendar).then(function (DelDate) {
                 V.request.DeliveryDate = DelDate;
                 console.log(V.request.DeliveryDate);
             }), config.timeout);
@@ -783,6 +783,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MakeSignJS('signatureCanvasReserv');
         SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
         FillCardPayModal();
+        SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
+        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
+            VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        }), config.timeout);
     }
     function ConfirmRequestInAccount_NoReservation() {
         SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
@@ -798,6 +802,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForExist('button.confirm');
         SF.sleep(1);
         SF.click(By.xpath('//button[@class="confirm"]'));
+        SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
+        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
+            VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        }), config.timeout);
     }
 //Permissions for Sales --- start
     function PermissionsClear() {
