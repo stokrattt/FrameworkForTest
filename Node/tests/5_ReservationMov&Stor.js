@@ -38,8 +38,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.sleep(5);
     MF.WaitWhileBusy();
+    Debug.pause();
     LF.AccountToStorageEnterAddress();
     LF.ConfirmRequestInAccount_WithReservation();
+    MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount ();
     SF.endOfTest();
 };
