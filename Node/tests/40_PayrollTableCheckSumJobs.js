@@ -39,7 +39,8 @@ condition.nowWeDoing = 'тут запускаем цикл на перебор �
         JS.waitForNotExist('div.busyoverlay:visible');
 
 condition.nowWeDoing = 'тут заходим в должность';
-
+        SF.sleep (3);
+        JS.waitForNotExist('div.busyoverlay:visible');
         driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(idUser, dataObj) in workersTbl\"]').length").then(function (worker) {
             V.worker = worker;
         }), config.timeout);
