@@ -136,6 +136,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     }
     function FullSmallCalcAsMovingWithStorage(client){
+        SF.sleep(3);
         JS.click("input#extra-service");
         JS.select('select#edit-service',2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
@@ -154,6 +155,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             V.frontNumbers.deliveryDate = D;
             console.log(V.frontNumbers.deliveryDate);
         }),config.timeout);
+        SF.sleep(2);
         driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
         SF.sleep(1);
         JS.click("ultrasmall-form div[ng-click='openSlide();']");

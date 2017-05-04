@@ -44,7 +44,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'второй раз в аккаунте';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
-    MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
+    MF.Account_CheckRequestStatus_Pending(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
     LF.RememberAccountNumbers(V.accountNumbers);
     VD.IWant(VD.VToEqual, V.accountNumbers.cbf, V.boardNumbers.InventoryCubicFit);

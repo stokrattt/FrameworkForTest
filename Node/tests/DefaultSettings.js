@@ -74,11 +74,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     if (V.lengthCalc == 0) {
         SF.click(By.xpath('//span[@ng-click="changeStepsOrder()"]/i[2]'));
-        SF.sleep(2);
+        SF.sleep(3);
+        LF.LogoutFromBoardAdmin ();
     } else {
          LF.LogoutFromBoardAdmin ();
     }
-    LF.LogoutFromBoardAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

@@ -51,7 +51,8 @@ module.exports = function(config,V) {
         './tests/38_CustomPayrollInRequest.js',
         './tests/39_CloneRequest.js',
         './tests/TheCleaner.js',//==============================уборка=========================
-        './tests/40_PayrollTableCheckSumJobs.js'
+        './tests/40_PayrollTableCheckSumJobs.js',
+        './tests/41_ContractPageSettings.js'
 
 
     ];

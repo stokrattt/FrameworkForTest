@@ -24,6 +24,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
     V.accountNumbersTo = {};
+
     LF.RememberAccountNumbers(V.accountNumbersTo);
     LF.addToCleanerJob(V.accountNumbersTo.Id);
     SF.sleep(1);
@@ -35,8 +36,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     LF.AccountFromStorageEnterAddress();
     V.accountNumbersFrom = {};
+
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
+
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
@@ -146,6 +149,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToBoardAsAdmin();
     LF.OpenRequest(V.accountNumbersFrom.Id);
     V.boardNumbersFrom = {};
+
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime) / 60));
     MF.EditRequest_ScrollDown();

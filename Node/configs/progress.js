@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/ContractPageSettings.js'];
+    config.suite = ['./tests/39_CloneRequest.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

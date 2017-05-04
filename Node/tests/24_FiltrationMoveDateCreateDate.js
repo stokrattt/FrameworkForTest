@@ -49,6 +49,7 @@ condition.nowWeDoing = 'создаем реквест 4';
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     JS.waitForNotExist('div.toast-success');
     JS.waitForNotExist('div.busyoverlay:visible');
+    SF.sleep(2);
     SF.click(By.linkText('Create Request'));
     SF.sleep(3);
     SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));

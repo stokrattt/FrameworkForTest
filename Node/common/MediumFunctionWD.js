@@ -93,6 +93,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             VD.IWant(VD.VToEqual, Status, 'Not Confirmed');
         }), config.timeout);
     }
+    function Account_CheckRequestStatus_Pending(Id) {
+        SF.waitForVisible(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td[1]'));
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
+            VD.IWant(VD.VToEqual, Status, 'Pending');
+        }), config.timeout);
+    }
 
     function Account_OpenRequest(Id) {
         SF.click(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
@@ -262,6 +268,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function EditRequest_OpenPayroll() {
+        JS.waitForNotExist('div.busyoverlay:visible');
         SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal();"]'));
         SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
         JS.waitForNotExist('div.busyoverlay:visible');
@@ -462,6 +469,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,
         Account_CheckRequestStatus_NotConfirmed: Account_CheckRequestStatus_NotConfirmed,
+        Account_CheckRequestStatus_Pending: Account_CheckRequestStatus_Pending,
         Account_OpenRequest: Account_OpenRequest,
         Account_WaitForGreenTextAfterConfirm: Account_WaitForGreenTextAfterConfirm,
         Account_WaitForInventoryCheck: Account_WaitForInventoryCheck,
