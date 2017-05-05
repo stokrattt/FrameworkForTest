@@ -25,7 +25,6 @@ condition.nowWeDoing = 'запоминаем данные';
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcsettings.travelTime"]/span')).getText().then(function (text) {
         V.frontNumbersUnloadingDown.TravelTime = SF.cleanPrice(text.substring(text.indexOf('hr')))* 60;
-
     }), config.timeout);
     SF.sleep (1);
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info detailsinfo ng-scope"]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
@@ -33,7 +32,6 @@ condition.nowWeDoing = 'запоминаем данные';
             SF.cleanPrice(text) :
             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
     }), config.timeout);
-
     SF.sleep(1);
     console.log(V.frontNumbersUnloadingDown);
 

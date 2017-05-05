@@ -678,6 +678,19 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberDigitsRequestBoard_Up(boardNumbers);
         RememberDigitsRequestBoard_Down(boardNumbers);
     }
+    function Validation_Compare_CalcLocalMove_Admin(LocalMoveAdminCalc, boardNumbers) {
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.CrewSize, boardNumbers.CrewSize, 'не совпали CrewSize калькулятора и борда');
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.HourlyRate, boardNumbers.HourlyRate, 'не совпали HourlyRate калькулятора и борда');
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.WorkTimeMin, boardNumbers.LaborTimeMin, 'не совпали LaborTimeMin калькулятора и борда');
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.WorkTimeMax, boardNumbers.LaborTimeMax, 'не совпали LaborTimeMax калькулятора и борда');
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.TravelTime, boardNumbers.TravelTime, 'не совпали TravelTime калькулятора и борда');
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.QuoteMin, boardNumbers.QuoteMin, 'не совпали QuoteMin калькулятора и борда');
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.QuoteMax, boardNumbers.QuoteMax, 'не совпали QuoteMax калькулятора и борда');
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.Trucks, boardNumbers.Trucks, 'не совпали Trucks калькулятора и борда');
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.TotalMin, boardNumbers.TotalMin, 'не совпали TotalMin калькулятора и борда');
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.TotalMax, boardNumbers.TotalMax, 'не совпали TotalMax калькулятора и борда');
+        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.Fuel, boardNumbers.Fuel, 'не совпали Fuel калькулятора и борда');
+    }
 
     function Validation_Compare_Account_Admin(accountNumbers,boardNumbers) {
         VD.IWant(VD.VToEqual, accountNumbers.moveDate.Day, boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
@@ -1476,6 +1489,59 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             SF.sleep(2);
         }
     }
+    function RememberLocalMoveDigitsCalc(LocalMoveAdminCalc) {
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Rate:")]/following-sibling::td[1]')).getText().then(function(rate){
+            LocalMoveAdminCalc.HourlyRate = rate.indexOf('$', 4) == -1 ?
+                SF.cleanPrice(rate) :
+                SF.cleanPrice(rate.substring(rate.indexOf('$', 4)));
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Service Type:")]/following-sibling::td[1]')).getText().then(function(type){
+            LocalMoveAdminCalc.Type = type;
+            VD.IWant (VD.VToEqual, type, "Moving", "Сервис тайп не совпал, должен быть Moving");
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "TRUCK:")]/following-sibling::td[1]')).getText().then(function(truck){
+            LocalMoveAdminCalc.Trucks = truck;
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "MOVERS:")]/following-sibling::td[1]')).getText().then(function(crew){
+            LocalMoveAdminCalc.CrewSize = SF.cleanPrice (crew);
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "TRAVEL TIME:")]/following-sibling::td[1]')).getText().then(function(text){
+            let hours = text.indexOf('hr') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('hr')));
+            let minutes = text.indexOf('min') == -1 ? 0 : SF.cleanPrice(text.substring((text.indexOf('hr') + 1), text.indexOf('min')));
+            LocalMoveAdminCalc.TravelTime = hours * 60 + minutes;
+        }),config.timeout);
+        SF.sleep (1);
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Work Time")]/following-sibling::td[1]')).getText().then(function(text){
+            let textMin = text.substring(0, text.indexOf('-'));
+            let textMax = text.substring(text.indexOf('-') + 1);
+            let hoursMin = textMin.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('hr')));
+            let minutesMin = textMin.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('hr') + 1), textMin.indexOf('min')));
+            LocalMoveAdminCalc.WorkTimeMin = hoursMin * 60 + minutesMin;
+            let hoursMax = textMax.indexOf('hr') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('hr')));
+            let minutesMax = textMax.indexOf('min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('hr') + 1), textMax.indexOf('min')));
+            LocalMoveAdminCalc.WorkTimeMax = hoursMax * 60 + minutesMax;
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Move Quote")]/following-sibling::td[1]')).getText().then(function(text){
+            if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
+                LocalMoveAdminCalc.QuoteMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+                LocalMoveAdminCalc.QuoteMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
+            } else {
+                LocalMoveAdminCalc.Quote = SF.cleanPrice(text);
+            }
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Fuel Surcharge:")]/following-sibling::td[1]')).getText().then(function(text){
+            LocalMoveAdminCalc.Fuel = SF.cleanPrice (text);
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Grand Total")]/following-sibling::td[1]')).getText().then(function(text){
+            if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
+                LocalMoveAdminCalc.TotalMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+                LocalMoveAdminCalc.TotalMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
+            } else {
+                LocalMoveAdminCalc.Total = SF.cleanPrice(text);
+            }
+        }),config.timeout);
+        console.log (LocalMoveAdminCalc);
+    }
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -1511,9 +1577,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
         RememberDigitsRequestBoard: RememberDigitsRequestBoard,
         RememberFrontNumbersMovAndStorDown: RememberFrontNumbersMovAndStorDown,
+        RememberLocalMoveDigitsCalc: RememberLocalMoveDigitsCalc,
         Validation_Compare_Account_Admin: Validation_Compare_Account_Admin,
         Validation_Compare_Account_Front_MovStorTo: Validation_Compare_Account_Front_MovStorTo,
         Validation_Compare_Account_Front_MovStorFrom: Validation_Compare_Account_Front_MovStorFrom,
+        Validation_Compare_CalcLocalMove_Admin: Validation_Compare_CalcLocalMove_Admin,
         SetManager: SetManager,
         SetClientPasswd: SetClientPasswd,
         FillCardPayModal: FillCardPayModal,

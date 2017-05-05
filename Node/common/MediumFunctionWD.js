@@ -31,7 +31,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy();
     }
 
-    function Board_OpenConfirmed() {
+    function Board_OpenNotConfirmed() {
         SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
         SF.sleep(3);
     }
@@ -457,7 +457,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSideBar: Board_OpenSideBar,
         Board_OpenLocalDispatch: Board_OpenLocalDispatch,
         Board_OpenPayroll: Board_OpenPayroll,
-        Board_OpenConfirmed: Board_OpenConfirmed,
+        Board_OpenNotConfirmed: Board_OpenNotConfirmed,
         Board_OpenSettingsSchedule: Board_OpenSettingsSchedule,
         Board_OpenSettingsGeneral: Board_OpenSettingsGeneral,
         Board_OpenSettingsDepartment: Board_OpenSettingsDepartment,
