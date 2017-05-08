@@ -1,4 +1,4 @@
-module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
+module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config, constants) {
     function WaitWhileBusy() {
         SF.sleep(1);
         JS.waitForNotExist('.busyoverlay:visible');
@@ -414,9 +414,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     //=================================DEPARTMENT=========================================
     function Department_OpenSales() {
-        SF.click(By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
+        SF.click(By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
         SF.sleep(3);
-        SF.waitForVisible(By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
+        SF.waitForVisible(By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
         SF.sleep(2);
     }
 

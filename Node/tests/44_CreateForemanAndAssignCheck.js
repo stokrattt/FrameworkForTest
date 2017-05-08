@@ -16,7 +16,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
     SF.sleep (3);condition.nowWeDoing = 'создаем форемана, и ставим ему комиссию hourly rate';
     MF.Board_OpenSettingsDepartment ();
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(2);
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
@@ -143,7 +143,7 @@ condition.nowWeDoing = 'идем в пейрол ищем форемана и п
     SF.sleep(1);
     MF.Board_OpenSettingsDepartment ();
 condition.nowWeDoing='идем удалять форемана';
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(2);
     JS.waitForNotExist('div.busyoverlay:visible');
     driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(" + V.foremanFirstName + ")').dblclick();"),config.timeout);

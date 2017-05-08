@@ -20,6 +20,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
     SF.sleep(3);
     condition.nowWeDoing='Создаем менеджера***********************************************';
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
+    SF.sleep(2);
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
     V.managerFirstName = "mantest";
@@ -42,7 +44,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //SF.sleep (3);
     condition.nowWeDoing='Создали менеджера****************************************';
     //JS.waitForExist('div.toast-message');
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SF.sleep(2);
 
     condition.nowWeDoing='Создаем сейлса**************************************';
@@ -67,7 +69,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "salestest testsales")]'));
 condition.nowWeDoing='Создали сейлса**************************************';
     //JS.waitForExist('div.toast-message');
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
     SF.sleep(2);
 condition.nowWeDoing='Создаем драйвера**************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
@@ -86,7 +88,7 @@ condition.nowWeDoing='Создаем драйвера***************************
     //SF.sleep(3);
 condition.nowWeDoing='Создали драйвера**************************************';
    // JS.waitForExist('div.toast-message');
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
     SF.sleep(2);
 condition.nowWeDoing='Создаем хелпера**************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
@@ -105,7 +107,7 @@ condition.nowWeDoing='Создаем хелпера*****************************
     //SF.sleep(3);
 condition.nowWeDoing='Создали хелпера**************************************';
   //  JS.waitForExist('div.toast-message');
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(2);
 condition.nowWeDoing='Создаем форемана**************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
@@ -230,7 +232,7 @@ condition.nowWeDoing='зашли в настройки департмента';
 
 condition.nowWeDoing='идем удалять форемана';
 
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(3);
     driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"foremantest testforeman\")').dblclick();"),config.timeout);
     SF.sleep (3);
@@ -243,7 +245,7 @@ condition.nowWeDoing='идем удалять форемана';
 
 condition.nowWeDoing='идем удалять хелпера';
 
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
     SF.sleep(2);
     let count=0;
     JS.waitForNotExist('div.busyoverlay:visible');
@@ -272,7 +274,7 @@ condition.nowWeDoing='идем удалять хелпера';
 
 condition.nowWeDoing='идем удалять драйвера';
 
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
     SF.sleep(2);
     count=0;
     JS.waitForNotExist('div.busyoverlay:visible');
@@ -300,7 +302,7 @@ condition.nowWeDoing='идем удалять драйвера';
 
 condition.nowWeDoing='идем удалять сейлса';
 
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SF.sleep(2);
     driver.executeScript("$('.mdDataTable tbody tr td:contains(\"salestest testsales\")').dblclick();");
     SF.sleep (2);
@@ -312,7 +314,7 @@ condition.nowWeDoing='идем удалять сейлса';
 
 condition.nowWeDoing='идем удалять менеджера';
 
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[1]/a'));
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
     SF.sleep(2);
     driver.executeScript("$('.mdDataTable tbody tr td:contains(\"mantest testman\")').dblclick();");
     SF.sleep (2);
