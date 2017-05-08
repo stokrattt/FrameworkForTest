@@ -55,7 +55,8 @@ module.exports = function(config,V) {
         './tests/41_ContractPageSettings.js',
         './tests/42_DrivingTimeLocalMove.js',
         './tests/43_WeightType.js',
-        './tests/44_CreateForemanAndAssignCheck.js'
+        './tests/44_CreateForemanAndAssignCheck.js',
+        './tests/45_MovStorAddInventConfirmClient.js'
 
 
     ];

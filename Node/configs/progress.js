@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/15_OvernightDownForm.js'];
+    config.suite = ['./tests/45_MovStorAddInventConfirmClient.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

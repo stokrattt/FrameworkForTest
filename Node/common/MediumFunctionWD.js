@@ -344,6 +344,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send (By.id('edit-moving-from'), 2342342342424);
         SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
     }
+    function EditRequest_SetAdressFrom() {
+        SF.send (By.id('edit-moving-from'), 2342342342424);
+    }
+    function EditRequest_SetAdressTo() {
+        SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
+    }
+
     function EditRequest_CloseConfirmWork() {
         SF.click (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
         JS.waitForNotExist ('div.busyoverlay:visible');
@@ -527,6 +534,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_GetValueFromFuelModal:EditRequest_GetValueFromFuelModal,
         EditRequest_CloseConfirmWork: EditRequest_CloseConfirmWork,
         EditRequest_SetAdressToFrom: EditRequest_SetAdressToFrom,
+        EditRequest_SetAdressFrom: EditRequest_SetAdressFrom,
+        EditRequest_SetAdressTo: EditRequest_SetAdressTo,
         EditRequest_SetToConfirmed: EditRequest_SetToConfirmed,
         EditRequest_SetLaborTimeCloseJob: EditRequest_SetLaborTimeCloseJob,
         EditRequest_CloseJob: EditRequest_CloseJob,
