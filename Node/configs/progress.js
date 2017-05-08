@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/42_DrivingTimeLocalMove.js'];
+    config.suite = ['./tests/43_WeightType.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

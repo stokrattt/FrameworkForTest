@@ -53,7 +53,8 @@ module.exports = function(config,V) {
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/40_PayrollTableCheckSumJobs.js',
         './tests/41_ContractPageSettings.js',
-        './tests/42_DrivingTimeLocalMove.js'
+        './tests/42_DrivingTimeLocalMove.js',
+        './tests/43_WeightType.js'
 
 
     ];
