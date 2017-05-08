@@ -35,6 +35,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
         SF.sleep(3);
     }
+    function Board_OpenConfirmed() {
+        SF.click(By.xpath('//div[@ng-click="vm.select(2)"]'));
+        SF.sleep(3);
+    }
 
     function Board_OpenSettingsSchedule() {
         Board_OpenSideBar();
@@ -458,6 +462,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenLocalDispatch: Board_OpenLocalDispatch,
         Board_OpenPayroll: Board_OpenPayroll,
         Board_OpenNotConfirmed: Board_OpenNotConfirmed,
+        Board_OpenConfirmed: Board_OpenConfirmed,
         Board_OpenSettingsSchedule: Board_OpenSettingsSchedule,
         Board_OpenSettingsGeneral: Board_OpenSettingsGeneral,
         Board_OpenSettingsDepartment: Board_OpenSettingsDepartment,

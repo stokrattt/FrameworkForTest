@@ -21,7 +21,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
 
     condition.nowWeDoing='ищем его в not Confirmed, открываем и пытаемся сохранить ничего не изменяя';
-    MF.Board_OpenConfirmed();
+    MF.Board_OpenNotConfirmed();
     LF.OpenRequest(V.boardNumbers.Id);
     JS.click('button[ng-click=\\"UpdateRequest()\\"]');
     condition.nowWeDoing='сейчас должно появиться Nothing to Update!';
