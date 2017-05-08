@@ -50,6 +50,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbers2.AdServices = V.boardNumbers.AdServices;
     V.boardNumbers2.Packing = V.boardNumbers.Packing;
     LF.Validation_Compare_Account_Admin(V.boardNumbers,V.boardNumbers2);
+    SF.sleep (4);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
