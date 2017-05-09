@@ -501,6 +501,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@ng-click="create()"]'));
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         SF.sleep(4);
+        JS.waitForNotExist('div.busyoverlay:visible');
         console.log('создали реквест');
     }
     function CreateMovAndStorFromBoard(client, period) {

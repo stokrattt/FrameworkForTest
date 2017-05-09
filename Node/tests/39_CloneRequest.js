@@ -44,9 +44,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.waitForExist('div.requestModal:eq(1)');
     SF.sleep(1);
     SF.waitForVisible(By.xpath('(//div[@class="trucks"])[2]/div[@ng-click="chooseTruck(tid)"]'));
-    SF.sleep(2);
+    SF.sleep(5);
     V.boardNumbers2 = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers2);
+    SF.sleep(1);
     V.boardNumbers2.AdServices = V.boardNumbers.AdServices;
     V.boardNumbers2.Packing = V.boardNumbers.Packing;
     LF.Validation_Compare_Account_Admin(V.boardNumbers,V.boardNumbers2);

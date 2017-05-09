@@ -49,6 +49,7 @@ condition.nowWeDoing = 'возвращаемся в настройки на му
     SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SF.click(By.linkText('Contract page'));
     SF.sleep (2);
+    JS.scroll('.pageheader');
     SF.click (By.xpath('//a[@href="/account/#/request/contract"]'));
     SF.openTab (2);
     SF.sleep (4);
@@ -71,6 +72,7 @@ condition.nowWeDoing = 'проверяем настройку Credit Card proces
         SF.sleep(3);
         MF.Contract_WaitConfirmationPage ();
         MF.Contract_OpenBillOfLading ();
+        SF.sleep(2);
         MF.Contract_WaitBillOfLading ();
         driver.wait(driver.executeScript("return $('td p:contains(\"Credit Card processing fee:\")').length").then(function (check) {
             VD.IWant (VD.VToEqual, check, 0, 'настройка Credit Card processing fee не отключилась');

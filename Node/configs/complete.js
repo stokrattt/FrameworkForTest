@@ -49,7 +49,7 @@ module.exports = function(config,V) {
         './tests/36_DatePending.js',
         './tests/37_PendingStorage.js',
         './tests/38_CustomPayrollInRequest.js',
-        './tests/39_CloneRequest.js',
+        // './tests/39_CloneRequest.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/40_PayrollTableCheckSumJobs.js',
         './tests/41_ContractPageSettings.js',

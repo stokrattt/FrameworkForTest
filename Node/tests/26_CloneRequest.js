@@ -22,8 +22,10 @@ condition.nowWeDoing = 'создаем реквест и добавляем ра
 
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
     SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="4"]'));
+    SF.sleep (0.5);
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
     SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="5"]'));
+    SF.sleep (0.5);
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
     SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="6"]'));
     SF.sleep (2);

@@ -41,8 +41,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'добавить в пейролл людей и закрыть';
     SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal();"]'));
     JS.waitForExist('button[ng-click="reSubmitPayroll()"]');
+    MF.WaitWhileBusy ();
     SF.click(By.xpath('//div[@ng-click="addWorker(\'salesPerson\')"]'));
     SF.select(By.xpath('//select[@ng-model="selected.salesPerson[salesPersonIndex]"]'),6070);
+    MF.WaitWhileBusy ();
     SF.click(By.xpath('//a[@ng-click="select(tabs[1])"][contains(text(),"Foremen")]'));
     SF.click(By.xpath('//div[@ng-click="addWorker(\'foreman\')"]'));
     SF.select(By.xpath('//select[@ng-model="selected.foreman[foremanIndex]"]'),6204);

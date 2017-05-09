@@ -206,38 +206,22 @@ condition.nowWeDoing = 'идем в акк под клиентом';
     LF.OpenRequest (V.FRId);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
-/************************************************************************************************************/
-/*  SF.clear(By.xpath('//div[contains(@class, "dateRange ")]/input'));
-    SF.sleep (0.5);
-     now = new Date();
-     msInDay = 86400000;
-     future = new Date(now.getTime() + msInDay * 8);
-    options2 = { day: 'numeric', month: 'short', year: 'numeric' };
-    V.changedateUpAdminDates = future.getDate()+" "+constants.monthNamesShort[future.getMonth()]+", "+future.getFullYear();
-    SF.send(By.xpath('//div[contains(@class, "dateRange ")]/input'), V.changedateUpAdminDates );
-    SF.sleep (0.5);
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 13);
-    options = { day:'numeric', month: 'short', year: 'numeric' };
-    V.changedateDelAdminDates = future.getDate()+" "+constants.monthNamesShort[future.getMonth()]+", "+future.getFullYear();
-    SF.send(By.xpath('//div[contains(@class, "dateRange ")]/input'), ' - '  );
-   SF.send(By.xpath('//div[contains(@class, "dateRange ")]/input'),  V.changedateDelAdminDates);
-*/
-
+    SF.sleep (1);
     SF.click(By.xpath('//div[contains(@class, "dateRange ")]/input'));
     driver.executeScript(JSstep.Click8DaysCalendar);
+    SF.sleep (1);
     SF.clear(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
-
-
+    SF.sleep (1);
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    SF.sleep (1);
     VD.IWant (VD.VToEqual, 5000, V.boardNumbers.Total, 'тотал не совпал с выбранной суммой' );
     JS.select ('#edit-status', 2);
     SF.click (By.xpath('//button[@ng-click="DeliveryDay()"]'));
     JS.waitForNotExist("div.busyoverlay:visible");
-    SF.sleep (6);
+    Debug.pause ();
+    SF.sleep (7);
     driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (check) {
         VD.INeed(VD.VToEqual, check, 1, 'трак (желтая линия, реквест) на таблице траков в реквесте не нашелся в деливери дейт');
         console.log(check);

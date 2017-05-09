@@ -24,7 +24,9 @@ condition.nowWeDoing = 'запоминаем данные';
         V.frontNumbersUnloadingDown.Truck = SF.cleanPrice (text);
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcsettings.travelTime"]/span')).getText().then(function (text) {
-        V.frontNumbersUnloadingDown.TravelTime = SF.cleanPrice(text.substring(text.indexOf('hr')))* 60;
+        let hours = text.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('Hrs')));
+        let minutes = text.indexOf('Min') == -1 ? 0 : SF.cleanPrice(text.substring((text.indexOf('Hrs') + 1), text.indexOf('Min')));
+        V.frontNumbersUnloadingDown.TravelTime = hours * 60 + minutes;
     }), config.timeout);
     SF.sleep (1);
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info detailsinfo ng-scope"]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
@@ -34,7 +36,7 @@ condition.nowWeDoing = 'запоминаем данные';
     }), config.timeout);
     SF.sleep(1);
     console.log(V.frontNumbersUnloadingDown);
-
+Debug.pause();
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);
     SF.click(By.linkText('View Request Page'));

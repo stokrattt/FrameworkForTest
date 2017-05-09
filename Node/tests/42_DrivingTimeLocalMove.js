@@ -140,6 +140,7 @@ condition.nowWeDoing = 'второй раз в аккаунте, сравнив�
     V.accountNumbersNotConfirm = {};
     LF.RememberAccountNumbers (V.accountNumbersNotConfirm);
     LF.Validation_Compare_Account_Admin (V.accountNumbersNotConfirm, V.boardNumbersNotConfirmed);
+    SF.sleep(1);
     SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
     SF.sleep(2);
 condition.nowWeDoing = 'перешли на конфирмейшн пейдж и сравним данные с бордом';
@@ -152,12 +153,15 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
             V.ConfirmationPage.Total = SF.cleanPrice(text);
         }
     }),config.timeout);
+    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){
         V.ConfirmationPage.Fuel = SF.cleanPrice(text.substring(text.indexOf('$')));
     }),config.timeout);
+    SF.sleep(1);
     VD.IWant(VD.VToEqual, V.ConfirmationPage.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда');
     VD.IWant(VD.VToEqual, V.ConfirmationPage.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда');
     VD.IWant(VD.VToEqual, V.ConfirmationPage.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда');
+    Debug.pause ();
     LF.LogoutFromAccount ();
 
     //=========================закончили писать тест=============================
