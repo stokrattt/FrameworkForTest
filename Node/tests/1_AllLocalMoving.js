@@ -123,7 +123,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
+    SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.boardNumbers);
+    SF.sleep (2);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
