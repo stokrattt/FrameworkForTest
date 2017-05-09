@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/38_CustomPayrollInRequest.js'];
+    config.suite = ['./tests/37_PendingStorage.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

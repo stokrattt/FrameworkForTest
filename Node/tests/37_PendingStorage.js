@@ -285,9 +285,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     driver.findElement(By.xpath('//span[contains(text(),"Balance :")]/span')).getText().then(function(text){
         V.storageNumbers.balance = SF.cleanPrice(text);
+        console.log(V.storageNumbers.balance);
     });
-    SF.sleep(1);
+    SF.sleep(2);
     VD.IWant(VD.VToEqual, V.storageNumbers.balance, 0, 'баланс не нулевой');
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
