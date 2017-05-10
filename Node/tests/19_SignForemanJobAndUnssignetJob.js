@@ -90,6 +90,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (3);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
+    Debug.pause();
     SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
     JS.waitForExist('div.sa-placeholder:visible');
     SF.sleep(1);
@@ -133,6 +134,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.waitForNotExist('div.toast-success');
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(3);
+    Debug.pause ();
     SF.click (By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click(By.xpath('//button[@class="confirm"]'));

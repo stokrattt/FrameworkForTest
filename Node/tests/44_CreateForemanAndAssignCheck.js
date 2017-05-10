@@ -16,6 +16,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
     SF.sleep (3);condition.nowWeDoing = 'создаем форемана, и ставим ему комиссию hourly rate';
     MF.Board_OpenSettingsDepartment ();
+    SF.sleep(3);
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(2);
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
@@ -103,7 +104,11 @@ condition.nowWeDoing = 'зашли  под созданным фореманом
     MF.Contract_Submit();
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
-    LF.LoginToBoardAsAdmin ();
+    SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
+    SF.send(By.xpath('//input[@id="email"]'), 'roma4ke');
+    SF.send(By.xpath('//input[@id="password"]'), 'root');
+    SF.click(By.xpath('//button[@type="submit"]'));
+    SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
     /*********************************************************************************/
 condition.nowWeDoing = 'идем в диспач ищем работу, проверяем баланс = 0, открываем в реквесте пейролл, проверяем комиссию = 150 за час';
     MF.Board_OpenLocalDispatch();
@@ -114,7 +119,11 @@ condition.nowWeDoing = 'идем в диспач ищем работу, пров
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.boardNumbers.Id);
     MF.EditRequest_WaitForBalanceVisible();
-    MF.EditRequest_ScrollDown();
+    LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
+    SF.sleep (2);
+    if (V.boardNumbers.Balance !== 0) {
+        JS.scroll('div.BalanceCost:visible');
+    }
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     SF.click(By.xpath('//div[@id="invoice"]//a[@ng-click="select(tabs[1])"]'));
@@ -141,8 +150,11 @@ condition.nowWeDoing = 'идем в пейрол ищем форемана и п
         VD.IWant(VD.VToEqual, V.payrollNumbersTotal, V.RequestPayrollTotal, 'не совпали цифры новосозданного форемана в Payroll foreman' + V.boardNumbers.Id);
     }), config.timeout);
     SF.sleep(1);
-    MF.Board_OpenSettingsDepartment ();
 condition.nowWeDoing='идем удалять форемана';
+    MF.Board_OpenSideBar ();
+    SF.sleep(1);
+    MF.Board_OpenSettingsDepartment ();
+    SF.sleep(2);
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(2);
     JS.waitForNotExist('div.busyoverlay:visible');

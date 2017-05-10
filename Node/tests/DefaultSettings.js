@@ -4,11 +4,26 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.waitForLocated (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    MF.Board_OpenSettingsGeneral();
+    SF.click(By.linkText('Fuel Surcharge'));
+    SF.sleep (2);
+    SF.clear (By.xpath('//input[@ng-model="vm.fuel_surcharge.def_local"]'));
+    SF.send (By.xpath('//input[@ng-model="vm.fuel_surcharge.def_local"]'), 10);
+    driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index, amount) in vm.surcharge\"]').length").then(function (check) {
+        V.FuelMileage = check;
+        console.log(V.FuelMileage);
+    }),config.timeout);
+    SF.sleep(1);
+    if (V.FuelMileage != 0) {
+        for (let i=0; i < V.FuelMileage; i++) {
+            SF.click (By.xpath('//div[@ng-click="vm.removeSurcharge(index)"]/i'));
+            MF.SweetConfirm ();
+            SF.sleep(1);
+        }
+    }
     SF.click(By.linkText('Contract page'));
+    Debug.pause ();
+
     SF.sleep (2);
     driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.pushTips\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"contract_page.pushTips\"]').click()}"),config.timeout);
