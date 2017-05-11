@@ -15,6 +15,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.FrontSite_GoToAccount();
     condition.nowWeDoing = 'зашли первый раз в аккаунт';
     MF.Account_ClickViewRequest();
+    Debug.pause ();
+
     MF.WaitWhileBusy();
     SF.sleep(5);
     MF.WaitWhileBusy();
@@ -24,6 +26,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
     V.accountNumbersTo = {};
+    Debug.pause ();
 
     LF.RememberAccountNumbers(V.accountNumbersTo);
     LF.addToCleanerJob(V.accountNumbersTo.Id);
@@ -39,7 +42,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
-
+Debug.pause ();
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
