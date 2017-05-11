@@ -94,8 +94,7 @@ condition.nowWeDoing = 'меняем зип код в реквесте, чтоб
     Debug.pause();
     LF.closeEditRequest ();
 condition.nowWeDoing = 'идем на дашборд, открываем реквест и проверяем что там осталось 800 дол';
-    SF.click(By.xpath('//a[@ui-sref="dashboard"]'));
-    SF.sleep(5);
+    MF.Board_OpenDashboard ();
     JS.scroll ('div[ng-click=\"vm.select(0)\"]');
     SF.sleep(0.5);
     LF.OpenRequest (V.boardNumbers60_100.Id);

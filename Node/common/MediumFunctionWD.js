@@ -16,6 +16,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         JS.click('div.showSweetAlert button.cancel:visible');
     }
+    function BoardAccount_SendMessage(text) {
+        SF.send (By.xpath('//div[@ng-model="html"]'), text);
+        SF.sleep(0.5);
+        SF.click (By.xpath('//button[@ng-click="addMessage()"]'));
+        SF.sleep(2);
+    }
 
     ///===============================BOARD=========================================
     function Board_OpenSideBar() {
@@ -59,6 +65,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ui-sref="settings.department"]'));
         SF.waitForVisible(By.xpath('//a[@ui-sref="settings.department"]'));
         SF.sleep(3);
+    }
+    function Board_OpenDashboard() {
+        SF.click(By.xpath('//a[@ui-sref="dashboard"]'));
+        SF.sleep(5);
     }
     function Board_RefreshDashboard(){
         SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
@@ -106,6 +116,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Account_OpenRequest(Id) {
         SF.click(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
+        SF.sleep(2);
+        WaitWhileBusy();
+    }
+    function Account_OpenMessage() {
+        SF.click (By.id('tab_Messages'));
         SF.sleep(2);
         WaitWhileBusy();
     }
@@ -242,7 +257,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_OpenClient() {
         SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
     }
-
+    function EditRequest_OpenMessages() {
+        SF.click(By.xpath('//a[@ng-click="select(tabs[3])"]'));
+        SF.sleep (2);
+        WaitWhileBusy ();
+    }
     function EditRequest_OpenRequest() {
         SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
         SF.sleep(1);
@@ -379,6 +398,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
         WaitWhileBusy();
     }
+    function Board_OpenMessage() {
+        SF.click(By.xpath('//a[@ui-sref="messages"]'));
+        SF.sleep(2);
+        WaitWhileBusy ();
+    }
 
     function Dispatch_GridView() {
         SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
@@ -462,10 +486,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy: WaitWhileBusy,
         SweetConfirm: SweetConfirm,
         SweetCancel: SweetCancel,
+        BoardAccount_SendMessage: BoardAccount_SendMessage,
         //==================================FRONT SITE======================================
         FrontSite_GoToAccount: FrontSite_GoToAccount,
         //------------------------------------BOARD=========================================
         Board_OpenSideBar: Board_OpenSideBar,
+        Board_OpenDashboard: Board_OpenDashboard,
         Board_OpenLocalDispatch: Board_OpenLocalDispatch,
         Board_OpenPayroll: Board_OpenPayroll,
         Board_OpenNotConfirmed: Board_OpenNotConfirmed,
@@ -477,6 +503,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_SearchRequest:Board_SearchRequest,
         Board_GetFirstFoundedId:Board_GetFirstFoundedId,
         Board_Refresh:Board_Refresh,
+        Board_OpenMessage: Board_OpenMessage,
         //====================================ACCOUNT=======================================
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,
@@ -487,6 +514,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_WaitForInventoryCheck: Account_WaitForInventoryCheck,
         Account_WaitForDetailsCheck: Account_WaitForDetailsCheck,
         Account_ClickFromStorage: Account_ClickFromStorage,
+        Account_OpenMessage: Account_OpenMessage,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -512,6 +540,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_CheckLoadBillOfLadding: Contract_CheckLoadBillOfLadding,
         //=================================EDIT REQUEST=====================================
         EditRequest_OpenSettings: EditRequest_OpenSettings,
+        EditRequest_OpenMessages: EditRequest_OpenMessages,
         EditRequest_OpenLogs: EditRequest_OpenLogs,
         EditRequest_OpenClient: EditRequest_OpenClient,
         EditRequest_OpenRequest: EditRequest_OpenRequest,

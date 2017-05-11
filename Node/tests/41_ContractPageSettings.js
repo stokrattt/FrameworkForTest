@@ -47,6 +47,7 @@ condition.nowWeDoing = 'возвращаемся в настройки на му
     SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    JS.scroll('.pageheader');
     SF.click(By.linkText('Contract page'));
     SF.sleep (2);
     JS.scroll('.pageheader');

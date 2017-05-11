@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/DefaultSettings.js'];
+    config.suite = ['./tests/SendMessage.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 
