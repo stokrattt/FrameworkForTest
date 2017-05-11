@@ -47,13 +47,32 @@ Debug.pause ();
 
     condition.nowWeDoing = 'Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequest(V.accountNumbersTo.Id);
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime) / 60));
     JS.scroll('div.ServicesCost:visible');
     LF.Validation_Compare_Account_Admin(V.accountNumbersTo, V.boardNumbersTo);
+    MF.EditRequest_OpenSettings();
+    LF.SetManager('emilia');
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd(V.client.passwd);
+    MF.EditRequest_OpenLogs();
+    Debug.pause();
+    EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
+    Debug.pause();
+    MF.EditRequest_OpenRequest();
+    MF.EditRequest_SetToNotConfirmed();
+    MF.EditRequest_SaveChanges();
+    LF.closeEditRequest();
+
+    LF.OpenRequest(V.accountNumbersFrom.Id);
+    V.boardNumbersFrom = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
+    JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime) / 60));
+    MF.EditRequest_ScrollDown();
+    LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();
@@ -76,9 +95,20 @@ Debug.pause ();
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount();
 
+    condition.nowWeDoing = 'Зайти в аккаунт и подтвердить второй реквест. Можно ещё раз сравнить все цифры с админкой';
+    LF.LoginToAccountAsClient(V.client);
+    MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbersFrom.Id);
+    MF.Account_OpenRequest(V.accountNumbersFrom.Id);
+    V.accountNumbersFrom = {};
+    LF.RememberAccountNumbers(V.accountNumbersFrom);
+    LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
+    LF.ConfirmRequestInAccount_WithReservation();
+    SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
+    LF.LogoutFromAccount();
+
     condition.nowWeDoing = 'Зайти в local Dispatch, найти первый реквест, назначить команду и отправить работу.';
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbersTo.moveDate.Year, V.boardNumbersTo.moveDate.Month, V.boardNumbersTo.moveDate.Day);
     MF.WaitWhileBusy();
@@ -149,39 +179,17 @@ Debug.pause ();
 
     condition.nowWeDoing = 'From storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequest(V.accountNumbersFrom.Id);
-    V.boardNumbersFrom = {};
-
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
-    JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime) / 60));
-    MF.EditRequest_ScrollDown();
-    LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
-    MF.EditRequest_OpenSettings();
-    LF.SetManager('emilia');
-    MF.EditRequest_OpenClient();
-    LF.SetClientPasswd(V.client.passwd);
-    MF.EditRequest_OpenRequest();
-    MF.EditRequest_SetToNotConfirmed();
+    MF.EditRequest_SetToConfirmed();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
     LF.LogoutFromBoardAdmin();
 
-    condition.nowWeDoing = 'Подтвердить второй реквест. Можно ещё раз сравнить все цифры с админкой';
-    SF.get(V.accountURL);
-    LF.LoginToAccountAsClient(V.client);
-    MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbersFrom.Id);
-    MF.Account_OpenRequest(V.accountNumbersFrom.Id);
-    V.accountNumbersFrom = {};
-    LF.RememberAccountNumbers(V.accountNumbersFrom);
-    LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
-    LF.ConfirmRequestInAccount_WithReservation();
-    SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
-    LF.LogoutFromAccount();
-
     condition.nowWeDoing = 'Найти второй реквест, назначить команду и отправить работу.';
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbersFrom.moveDate.Year, V.boardNumbersFrom.moveDate.Month, V.boardNumbersFrom.moveDate.Day);
     MF.WaitWhileBusy();
@@ -198,6 +206,7 @@ Debug.pause ();
     MF.Contract_OpenInventory();
 
     //тут нужно будет вставить валидацию инвентаря на контракте from storage
+    Debug.pause();
 
     LF.MakeSignInInventory(2);
     LF.MakeSignInInventory(3);
@@ -236,7 +245,7 @@ Debug.pause ();
     LF.LogoutFromBoardForeman();
 
     condition.nowWeDoing="Вернуться в localDispatch, найти первый реквест, проверить и запомнить Payroll";
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbersTo.moveDate.Year, V.boardNumbersTo.moveDate.Month, V.boardNumbersTo.moveDate.Day);
     MF.WaitWhileBusy();

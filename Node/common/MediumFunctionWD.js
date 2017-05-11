@@ -391,6 +391,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.findElement(By.xpath('//a[contains(@class,"open_button_contract")]')).click();
         SF.sleep (3);
     }
+    function EditRequest_Check1EmailExist(receiver, Subject) {
+        driver.wait(driver.findElements(By.xpath('//div[@ng-show="tabs[0].selected"]//span[' +
+            'contains(text(),\'Mail was send to "'+receiver+'".\') and ' +
+            'contains(text(),\'Subject: "'+Subject+'\')]')).then(function(array){
+            VD.IWant(VD.VToEqual, array.length,1,'имейл Thank you for submitting a quote не был отправлен или отправлен несколько раз');
+        }), config.timeout);
+    }
+
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
@@ -569,6 +577,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SetLaborTimeCloseJob: EditRequest_SetLaborTimeCloseJob,
         EditRequest_CloseJob: EditRequest_CloseJob,
         EditRequest_OpenContractCloseJob: EditRequest_OpenContractCloseJob,
+        EditRequest_Check1EmailExist:EditRequest_Check1EmailExist,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
