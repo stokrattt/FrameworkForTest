@@ -8,7 +8,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    JS.waitForNotExist ('div.busyoverlay:visible');
 condition.nowWeDoing = 'создаем реквест 1';
     LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);
@@ -65,19 +64,15 @@ condition.nowWeDoing = 'создаем реквест 5';
     }),config.timeout);
     LF.closeEditRequest ();
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию';
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'all_requests\', \'\')"]'));
-    JS.waitForNotExist("div.busyoverlay:visible");
+    MF.Board_OpenAllRequest();
     SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 2);
-    JS.waitForNotExist("div.busyoverlay:visible");
-
+    MF.WaitWhileBusy ();
     SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
     SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.request.mdate);
     SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
     SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.request.mdate);
     SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
-    JS.waitForNotExist("div.busyoverlay:visible");
+    MF.WaitWhileBusy ();
 
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]')).getText().then(function (id1) {
         VD.IWant (VD.VToEqual, V.Id1, id1, 'не нашел реквест по фильтрации1')
@@ -106,7 +101,6 @@ condition.nowWeDoing = 'идем удалять созданные реквес�
     LF.OpenRequest (V.Id5);
     LF.deletePendingRequest ();
     LF.LogoutFromBoardAdmin ();
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

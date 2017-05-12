@@ -10,6 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     LF.CreateMovAndStorFromBoard(V.client);
+    MF.EditRequest_OpenClient ();
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id1 = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id1);
@@ -26,7 +27,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.request.Id2 = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id2);
     }), config.timeout);
-    SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
+    MF.EditRequest_OpenClient ();
     SF.sleep (3);
     driver.wait(driver.executeScript('return $("div:contains(\\"All Moves\\") tbody.ng-scope tr").length').then(function (length) {
         VD.IWant (VD.VToEqual, length, '3', 'на вкладке клиент нету всех работ данного юзера');

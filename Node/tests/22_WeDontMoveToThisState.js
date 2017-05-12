@@ -43,9 +43,7 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     SF.sleep (2);
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
-
 condition.nowWeDoing = 'создаем реквест с фронтовой верхней формы с вкл галкой ассепт алл квотс должно пускать иначе ошибка';
-
     SF.sleep (4);
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "50201");
@@ -63,9 +61,7 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ве
     SF.waitForVisible(By.xpath('//input[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
     SF.sleep (4);
-
 condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы с вкл галкой ассепт алл квотс должно пускать иначе ошибка';
-
     SF.sleep (3);
     SF.click (By.xpath('//a[@href="#request"]'));
     SF.sleep (2);
@@ -85,7 +81,6 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     JS.click ('#calculate_btn');
     SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
     SF.sleep (6);
-    //JS.waitForNotExist("div.overlay-loader:visible");
     SF.click(By.id('prefeefe'));
     SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
     SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
@@ -94,7 +89,7 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     SF.sleep (3);
-    condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем все галки';
+condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем все галки';
     LF.gotoSetingsLD ();
     SF.sleep (2);
     JS.click('#jqvmap1_ia');
@@ -111,27 +106,21 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     SF.sleep (2);
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
-
 condition.nowWeDoing = 'создаем реквест второй раз с фронтовой верхней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
-
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "50201");
     SF.sleep(2);
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.SweetConfirm();
     SF.sleep (2);
     driver.navigate().refresh();
     SF.sleep (5);
-
 condition.nowWeDoing = 'создаем реквест второй раз с фронтовой нижней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
-
     SF.click (By.xpath('//a[@href="#request"]'));
     SF.sleep (2);
     SF.send (By.id('edit-zip-code-from'), '02111');
     SF.send (By.id('edit-zip-code-to'), '50201');
     SF.sleep(2);
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.SweetConfirm();
 
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
@@ -189,15 +178,13 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
         V.frontNumbers.moveDate = D;
         console.log(V.frontNumbers.moveDate);
-    }));
+    }),config.timeout);
     SF.sleep(1);
     driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
     SF.sleep(3);
     SF.waitForVisible(By.xpath('//input[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
-
 condition.nowWeDoing = 'создаем реквест с нижней формы третий раз, должно пускать, если нет то ошибка';
-
     SF.sleep (3);
     SF.click (By.xpath('//a[@href="#request"]'));
     SF.sleep (2);
@@ -263,7 +250,6 @@ condition.nowWeDoing = 'удаляем общую цену для всего ш�
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
 condition.nowWeDoing = 'создаем реквест с верхней формы 4 раз в ту территорию в которую выставилу цену, должно пускать, если нет то ошибка';
-
     SF.sleep (4);
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "50588");
@@ -276,9 +262,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     SF.sleep(2);
     SF.waitForVisible(By.xpath('//input[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
-
 condition.nowWeDoing = 'создаем реквест с нижней формы 4 раз в ту территорию в которую выставилу цену, должно пускать, если нет то ошибка';
-
     SF.sleep (4);
     SF.click (By.xpath('//a[@href="#request"]'));
     SF.sleep (2);
@@ -304,27 +288,21 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
     driver.navigate().refresh();
     SF.sleep (4);
-
 condition.nowWeDoing = 'создаем реквест с верхней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
-
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "50701");
     SF.sleep(3);
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.SweetConfirm();
     SF.sleep (2);
     driver.navigate().refresh();
     SF.sleep (5);
-
 condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
-
     SF.click (By.xpath('//a[@href="#request"]'));
     SF.sleep (2);
     SF.send (By.id('edit-zip-code-from'), '02111');
     SF.send (By.id('edit-zip-code-to'), '50701');
     SF.sleep(3);
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.SweetConfirm();
     SF.sleep (3);
 
     SF.get (V.adminURL);
@@ -340,32 +318,24 @@ condition.nowWeDoing = 'заходим в админку и удаляем Move 
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
     SF.sleep (2);
-
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
-
-    condition.nowWeDoing = 'создаем реквест с верхней формы 6 раз, в территорию с указанной ценой и выключеной галкой Move to this state, должно выкинуть';
-
+condition.nowWeDoing = 'создаем реквест с верхней формы 6 раз, в территорию с указанной ценой и выключеной галкой Move to this state, должно выкинуть';
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
     SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "50588");
     SF.sleep(3);
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.SweetConfirm();
     SF.sleep (2);
     driver.navigate().refresh();
     SF.sleep (5);
-
-    condition.nowWeDoing = 'создаем реквест с нижней формы 6 раз, в территорию с указанной ценой и выключеной галкой Move to this state, должно выкинуть';
-
+condition.nowWeDoing = 'создаем реквест с нижней формы 6 раз, в территорию с указанной ценой и выключеной галкой Move to this state, должно выкинуть';
     SF.click (By.xpath('//a[@href="#request"]'));
     SF.sleep (2);
     SF.send (By.id('edit-zip-code-from'), '02111');
     SF.send (By.id('edit-zip-code-to'), '50588');
     SF.sleep(3);
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    SF.sleep (3);
-
+    MF.SweetConfirm();
+    SF.sleep (1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

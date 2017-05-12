@@ -4,12 +4,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
+
 condition.nowWeDoing = 'идем в пейролл и віставляем дату в промежутке месяц';
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//a[@ui-sref="dispatch.payroll"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Board_OpenPayroll ();
     let now = new Date();
     let msInDay = 86400000;
     let future = new Date(now.getTime() - msInDay *15);
@@ -26,7 +23,8 @@ condition.nowWeDoing = 'идем в пейролл и віставляем да�
     SF.send(By.xpath('//input[@ng-model="dateRange.to"]'), V.payrollDateTo);
     SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
     SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
+
 condition.nowWeDoing = 'тут запускаем цикл на перебор всех категорий и всех юзеров';
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(id, dataObj) in dataTbl track by $index\"]').length").then(function (depart) {
         V.department = depart;
@@ -36,11 +34,11 @@ condition.nowWeDoing = 'тут запускаем цикл на перебор �
         SF.click(By.xpath('//tr[@ng-repeat="(id, dataObj) in dataTbl track by $index"][' + i + ']'));
         SF.click(By.xpath('//tr[@ng-repeat="(id, dataObj) in dataTbl track by $index"][' + i + ']'));
 
-        JS.waitForNotExist('div.busyoverlay:visible');
+        MF.WaitWhileBusy ();
 
 condition.nowWeDoing = 'тут заходим в должность';
         SF.sleep (3);
-        JS.waitForNotExist('div.busyoverlay:visible');
+        MF.WaitWhileBusy ();
         driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(idUser, dataObj) in workersTbl\"]').length").then(function (worker) {
             V.worker = worker;
         }), config.timeout);
@@ -60,11 +58,11 @@ condition.nowWeDoing = 'тут заходим в должность';
             SF.sleep(1);
             SF.click(By.xpath('//tr[@ng-click="selectUser(idUser, dataObj)"][' + m + ']'));
             SF.click(By.xpath('//tr[@ng-click="selectUser(idUser, dataObj)"][' + m + ']'));
-            JS.waitForNotExist('div.busyoverlay:visible');
+            MF.WaitWhileBusy ();
 
 condition.nowWeDoing = 'тут заходим в конкретного мужика и сравниваем циферки и запоминаем и смотрим';
             SF.sleep (3);
-            JS.waitForNotExist('div.busyoverlay:visible');
+            MF.WaitWhileBusy ();
             driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(id, dataObj) in userCurrentTbl.jobs\"]').length").then(function (jobs) {
                 console.log(jobs);
                 VD.IWant(VD.VToEqual, V.jobsUser, jobs, 'работы чувака не совпали снаружи и внутри "' + V.jobsName +'"')
@@ -86,11 +84,11 @@ condition.nowWeDoing = 'тут заходим в конкретного мужи
             VD.IWant(VD.VToEqual, V.balanceTop, V.balanceDown, 'сумма сврехру на балансе не совпала с суммой снизу ИТОГО  "' + V.jobsName +'"');
            // driver.wait(driver.executeScript(JSstep.payrollTableSum));
             JS.click('a[ng-click=\\"dTable=\'workers\';employee=\'\'\\"]:visible');
-            JS.waitForNotExist('div.busyoverlay:visible');
+            MF.WaitWhileBusy ();
 
         }
         JS.click('a[ng-click=\\"dTable=\'departments\';employee=\'\'\\"]:visible');
-        JS.waitForNotExist('div.busyoverlay:visible');
+        MF.WaitWhileBusy ();
     }
 
     //=========================закончили писать тест=============================

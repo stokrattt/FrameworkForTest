@@ -3,16 +3,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
+
 condition.nowWeDoing = 'идем в настройки контракт пейдж';
-    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    MF.Board_OpenSettingsGeneral ();
     SF.click(By.linkText('Contract page'));
     SF.sleep (2);
     SF.click (By.xpath('//a[@href="/account/#/request/contract"]'));
     SF.openTab (1);
     SF.waitForLocated (By.id('contract-page'));
+
 condition.nowWeDoing = 'заполняем верхние и средние кастомные contract page блоки';
     V.content = '+' + SF.randomBukva(4) + '+';
     SF.click (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.header"]//div[@ng-model="html"]/p'));
@@ -26,20 +25,7 @@ condition.nowWeDoing = 'заполняем верхние и средние ка
     V.longrate = '+' + SF.randomBukva(4) + '+';
     SF.click (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.longRates"]//div[@ng-model="html"]/p'));
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.longRates"]//div[@ng-model="html"]'), V.longrate );
-//condition.nowWeDoing = 'выставляем время и всякие сервисы, проценты';
-/*    SF.clear (By.id('edit-start-time'));
-    SF.send(By.id('edit-start-time'), "02:00 AM");
-    SF.clear (By.id('edit-time-off'));
-    SF.send (By.id('edit-time-off'), "01:00");
-    SF.clear (By.id('edit-end-time'));
-    SF.send (By.id('edit-end-time'), "03:00 AM");
-    SF.clear (By.xpath('//input[@class="large"]'));
-    V.packing = SF.randomBukva(10);
-    SF.send (By.xpath('//input[@class="large"]'), V.packing);
-    SF.select(By.xpath('//select[@id="quantity"]'), 3);
-    SF.clear (By.xpath('//input[@class="small"]'));
-    SF.send(By.xpath('//input[@class="small"]'), 20);
-*/  V.declaration = '+' + SF.randomBukva(4) + '+';
+    V.declaration = '+' + SF.randomBukva(4) + '+';
     SF.send (By.xpath('//textarea[@ng-model="vm.contract_page.textContent.declarUp"]'),  V.declaration);
     V.declarationA = '+' + SF.randomBukva(4) + '+';
     SF.send (By.xpath('//span[contains (text(), "a")]/following-sibling::textarea[@ng-model="declarObj.description"]'),  V.declarationA);
@@ -51,6 +37,7 @@ condition.nowWeDoing = 'заполняем верхние и средние ка
     SF.send (By.xpath('//textarea[@ng-model="vm.contract_page.textContent.declarDown"]'),  V.declarationDown);
     V.declarationCustomer = '+' + SF.randomBukva(4) + '+';
     SF.send (By.xpath('//textarea[@ng-model="vm.contract_page.textContent.declarCustomer"]'),  V.declarationCustomer);
+
 condition.nowWeDoing = 'заполняем блок storage transit и футер';
     V.storage1 = '+' + SF.randomBukva(4) + '+';
     SF.send (By.xpath('//textarea[@ng-model="sf.text"]'),  V.storage1);
@@ -60,13 +47,14 @@ condition.nowWeDoing = 'заполняем блок storage transit и футе�
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.last"]/div[2]/div[3]'),  V.textContent);
     V.footer = '+' + SF.randomBukva(4) + '+';
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.footer"]/div[2]/div[3]'),  V.footer);
+
 condition.nowWeDoing = 'сохраняем все в контракте';
     SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.WaitWhileBusy ();
+    MF.SweetConfirm ();
     SF.click (By.xpath('//li[@ng-click="vm.selectTab(id)"][contains(text(), "Release Form")]'));
     SF.sleep (1);
+
 condition.nowWeDoing = 'перешли на вкладку релейз тоже вводим текст';
     V.releaseHeader = '+' + SF.randomBukva(4) + '+';
     SF.send (By.xpath('//text-angular[@ng-model="releaseSettings.releaseForm.header"]/div[2]/div[3]'),  V.releaseHeader);
@@ -79,29 +67,28 @@ condition.nowWeDoing = 'перешли на вкладку релейз тоже
     V.releaseFooter = '+' + SF.randomBukva(4) + '+';
     SF.send (By.xpath('//text-angular[@ng-model="releaseSettings.releaseForm.footer"]/div[2]/div[3]'),  V.releaseFooter);
     SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.WaitWhileBusy ();
+    MF.SweetConfirm ();
     SF.click (By.xpath('//li[@ng-click="vm.selectTab(id)"][contains(text(), "Storage Agreement")]'));
     SF.sleep (1);
+
 condition.nowWeDoing = 'перешли на вкладку Storage Agreement тоже вводим текст';
     V.storageAgreement = '+' + SF.randomBukva(3) + '+';
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.rentalAgreement.noticeOfLien"]/div[2]/div[3]'), V.storageAgreement);
     SF.sleep (3);
     SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.WaitWhileBusy ();
+    MF.SweetConfirm ();
     SF.click (By.xpath('//li[@ng-click="vm.selectTab(id)"][contains(text(), "Terms and Conditions")]'));
     SF.sleep (1);
+
 condition.nowWeDoing = 'перешли на вкладку Terms and Conditions тоже вводим текст';
     V.termsCondition = '+' + SF.randomBukva(4) + '+';
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.terms"]/div[2]/div[3]'), V.termsCondition);
     SF.sleep (3);
     SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.WaitWhileBusy ();
+    MF.SweetConfirm ();
     SF.sleep (1);
     driver.close();
     SF.sleep (2);
@@ -116,6 +103,7 @@ condition.nowWeDoing = 'перешли на вкладку Terms and Conditions 
     SF.openTab (1);
     SF.waitForLocated (By.id('contract-page'));
     SF.sleep (1);
+
 condition.nowWeDoing = 'ищем в contract page текст который мы вводили, потом удаляем его';
     driver.wait(driver.findElement(By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.header"]//div[@ng-model="html"]')).getText().then(function (text) {
         q = text.indexOf(V.content);
@@ -208,9 +196,6 @@ condition.nowWeDoing = 'ищем в contract page текст который мы
     SF.clear (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.last"]/div[2]/div[3]'));
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.last"]/div[2]/div[3]'), V.textContentClear );
     driver.wait(driver.findElement(By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.footer"]/div[2]/div[3]')).getText().then(function (text) {
-       //let firstPlus = text.indexOf('+');
-      //  let secondPlus = text.indexOf( '+',firstPlus+1 );
-      //  let t = text.substring( firstPlus, secondPlus+1);
         q = text.indexOf(V.footer);
         VD.IWant(VD.VNotToEqual, q, -1, 'не нашло текст футера');
         V.footerClear = text.replace(V.footer, '');
@@ -219,11 +204,11 @@ condition.nowWeDoing = 'ищем в contract page текст который мы
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.footer"]/div[2]/div[3]'), V.footerClear );
     SF.sleep (2);
     SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.WaitWhileBusy ();
+    MF.SweetConfirm ();
     SF.click (By.xpath('//li[@ng-click="vm.selectTab(id)"][contains(text(), "Release Form")]'));
     SF.sleep (2);
+
 condition.nowWeDoing = 'ищем в Release Form текст который мы вводили, потом удаляем его';
     driver.wait(driver.findElement(By.xpath('//text-angular[@ng-model="releaseSettings.releaseForm.header"]/div[2]/div[3]')).getText().then(function (text) {
         q = text.indexOf(V.releaseHeader);
@@ -249,11 +234,11 @@ condition.nowWeDoing = 'ищем в Release Form текст который мы 
     SF.send (By.xpath('//text-angular[@ng-model="releaseSettings.releaseForm.footer"]/div[2]/div[3]'), V.releaseFooterClear );
     SF.sleep (2);
     SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.WaitWhileBusy ();
+    MF.SweetConfirm ();
     SF.click (By.xpath('//li[@ng-click="vm.selectTab(id)"][contains(text(), "Storage Agreement")]'));
     SF.sleep (2);
+
 condition.nowWeDoing = 'ищем в Storage Agreement текст который мы вводили, потом удаляем его';
     driver.wait(driver.findElement(By.xpath('//text-angular[@ng-model="vm.contract_page.rentalAgreement.noticeOfLien"]/div[2]/div[3]')).getText().then(function (text) {
         q = text.indexOf(V.storageAgreement);
@@ -264,11 +249,11 @@ condition.nowWeDoing = 'ищем в Storage Agreement текст который 
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.rentalAgreement.noticeOfLien"]/div[2]/div[3]'), V.storageAgreementClear );
     SF.sleep (2);
     SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.WaitWhileBusy ();
+    MF.SweetConfirm ();
     SF.click (By.xpath('//li[@ng-click="vm.selectTab(id)"][contains(text(), "Terms and Conditions")]'));
     SF.sleep (2);
+
 condition.nowWeDoing = 'ищем в Terms and Conditions текст который мы вводили, потом удаляем его';
     driver.wait(driver.findElement(By.xpath('//text-angular[@ng-model="vm.contract_page.terms"]/div[2]/div[3]')).getText().then(function (text) {
         q = text.indexOf(V.termsCondition);
@@ -279,9 +264,8 @@ condition.nowWeDoing = 'ищем в Terms and Conditions текст которы
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.terms"]/div[2]/div[3]'), V.termsConditionClear );
     SF.sleep (2);
     SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.WaitWhileBusy ();
+    MF.SweetConfirm ();
     SF.sleep (1);
     driver.close();
     SF.sleep (2);
@@ -290,6 +274,7 @@ condition.nowWeDoing = 'ищем в Terms and Conditions текст которы
     SF.sleep (5);
     SF.click(By.linkText('Contract page'));
     SF.sleep (2);
+
 condition.nowWeDoing = 'проверяем на главной странице настроек контракт пейдж А, В, С  на отсутствие текста';
     driver.wait(driver.findElement(By.xpath('//h1[contains(text(), "a")]/../../following-sibling::td/div/p')).getText().then(function (text) {
         q = text.indexOf(V.declarationA);
@@ -303,6 +288,7 @@ condition.nowWeDoing = 'проверяем на главной странице 
         q = text.indexOf(V.declarationC);
         VD.IWant(VD.VToEqual, q, -1, 'текст declarationB остался, а не должен был');
     }),config.timeout);
+    SF.sleep(1);
     LF.LogoutFromBoardAdmin ();
 
     //=========================закончили писать тест=============================

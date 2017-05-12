@@ -10,6 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
+
 condition.nowWeDoing = 'создаем локал мув, конфермим его';
     LF.CreateLocalMovingFromBoard(V.client);
     MF.EditRequest_SetAdressToFrom ();
@@ -21,6 +22,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest ();
+
 condition.nowWeDoing = 'идем в диспач назначем команду';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -29,6 +31,7 @@ condition.nowWeDoing = 'идем в диспач назначем команду
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.request.Id);
     LF.selectCrew();
+
 condition.nowWeDoing = 'переходим сразу с диспача на контракт и подписываем его не до конца ';
     driver.wait(driver.executeScript("window.open('http://stage.themoveboard.com:8001'+$('a:contains(\"View Contract\")').attr('href'));"),config.timeout);
     SF.openTab (1);
@@ -42,11 +45,9 @@ condition.nowWeDoing = 'переходим сразу с диспача на к�
     LF.MakeSignInContract ();
     LF.MakeSignInContract ();
     SF.openTab (0);
+
 condition.nowWeDoing = 'возвращаемся в настройки на мувборд и переходим в настройки контракта, проверять галочки';
-    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    MF.Board_OpenSettingsGeneral ();
     JS.scroll('.pageheader');
     SF.click(By.linkText('Contract page'));
     SF.sleep (2);
@@ -55,6 +56,7 @@ condition.nowWeDoing = 'возвращаемся в настройки на му
     SF.openTab (2);
     SF.sleep (4);
     SF.openTab (1);
+
 condition.nowWeDoing = 'проверяем настройку Credit Card processing fee';
     driver.wait(driver.executeScript("return $('td p:contains(\"Credit Card processing fee:\")').length").then(function (check) {
         V.CreditCardFee = check;
@@ -65,9 +67,8 @@ condition.nowWeDoing = 'проверяем настройку Credit Card proces
         SF.sleep(3);
         SF.click(By.xpath('//input[@ng-model="vm.contract_page.paymentTax.creditCharge.state"]/following-sibling::span[1]'));
         SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-        SF.click (By.xpath('//button[@class="confirm"]'));
+        MF.WaitWhileBusy ();
+        MF.SweetConfirm ();
         SF.openTab (1);
         driver.navigate().refresh();
         SF.sleep(3);
@@ -84,9 +85,8 @@ condition.nowWeDoing = 'проверяем настройку Credit Card proces
         SF.sleep(3);
         SF.click(By.xpath('//input[@ng-model="vm.contract_page.paymentTax.creditCharge.state"]/following-sibling::span[1]'));
         SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-        SF.click (By.xpath('//button[@class="confirm"]'));
+        MF.WaitWhileBusy ();
+        MF.SweetConfirm ();
         SF.openTab (1);
         driver.navigate().refresh();
         SF.sleep(3);
@@ -108,9 +108,8 @@ condition.nowWeDoing = 'проверяем настройку Custom';
         SF.sleep(3);
         SF.click(By.xpath('//input[@ng-model="vm.contract_page.paymentTax.customTax.state"]/following-sibling::span[1]'));
         SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-        SF.click (By.xpath('//button[@class="confirm"]'));
+        MF.WaitWhileBusy ();
+        MF.SweetConfirm ();
         SF.openTab (1);
         driver.navigate().refresh();
         SF.sleep(3);
@@ -126,9 +125,8 @@ condition.nowWeDoing = 'проверяем настройку Custom';
         SF.sleep(3);
         SF.click(By.xpath('//input[@ng-model="vm.contract_page.paymentTax.customTax.state"]/following-sibling::span[1]'));
         SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-        SF.click (By.xpath('//button[@class="confirm"]'));
+        MF.WaitWhileBusy ();
+        MF.SweetConfirm ();
         SF.openTab (1);
         driver.navigate().refresh();
         SF.sleep(3);
@@ -150,9 +148,8 @@ condition.nowWeDoing = 'проверяем настройку CASH (DISCOUNT)';
         SF.sleep(3);
         SF.click(By.xpath('//input[@ng-model="vm.contract_page.paymentTax.cashCharge.state"]/following-sibling::span[1]'));
         SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-        SF.click (By.xpath('//button[@class="confirm"]'));
+        MF.WaitWhileBusy ();
+        MF.SweetConfirm ();
         SF.openTab (1);
         driver.navigate().refresh();
         SF.sleep(3);
@@ -168,9 +165,8 @@ condition.nowWeDoing = 'проверяем настройку CASH (DISCOUNT)';
         SF.sleep(3);
         SF.click(By.xpath('//input[@ng-model="vm.contract_page.paymentTax.cashCharge.state"]/following-sibling::span[1]'));
         SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-        SF.click (By.xpath('//button[@class="confirm"]'));
+        MF.WaitWhileBusy ();
+        MF.SweetConfirm ();
         SF.openTab (1);
         driver.navigate().refresh();
         SF.sleep(3);
@@ -195,12 +191,10 @@ condition.nowWeDoing = 'идем обратно в настройки контр
         "return true;}else{$('input[ng-model=\"vm.contract_page.paymentTax.customTax.state\"] ~span').click()}"),config.timeout);
     SF.sleep(0.5);
     SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.WaitWhileBusy ();
+    MF.SweetConfirm ();
     SF.sleep (2);
 
-    Debug.pause();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

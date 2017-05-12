@@ -10,16 +10,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToBoardAsAdmin();
     SF.sleep (3);
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.click(By.xpath('//a[@ui-sref="settings.longdistance"]'));
-    SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
-    SF.sleep (4);
-    JS.click('#jqvmap1_ca');
-    SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
-    SF.sleep (3);
+    MF.Board_OpenSettingsGeneral();
+    MF.Board_OpenSettingsLongDistance ();
+    MF.LongDistanceSettings_ClickOnMapCaliforniya();
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
@@ -33,22 +26,18 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
     SF.sleep (2);
-    SF.select (By.xpath('//select[@ng-model="vm.longdistance.basedState"]'), 'MA');
-    SF.sleep (2);
+    MF.LongDistanceSettings_SelectMABasedState();
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
     LF.LogoutFromBoardAdmin ();
-
     SF.get(V.frontURL);
     SF.sleep (4);
 condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLD (V.client);
-
     console.log("заполнили форму");
     condition.nowWeDoing = 'первый раз в аккаунте';
-    SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(5);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Account_ClickViewRequest();
+    MF.WaitWhileBusy ();
+    MF.WaitWhileBusy ();
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу';
     V.accountNumbersLD={};
     driver.wait(driver.executeScript('return $("div:contains(\\"Move Date (Pick Up Day):\\"):last").next().text()').then(function (dateString) {
@@ -73,14 +62,13 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.accountNumbersLD.Id = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(2);
-    console.log(V.accountNumbersLD);
+    SF.sleep(1);
     LF.addToCleanerJob(V.accountNumbersLD.Id);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin ();
-    condition.nowWeDoing = 'зашли на админку для сравнения';
-    SF.sleep (3);
+condition.nowWeDoing = 'зашли на админку для сравнения';
+    SF.sleep (2);
     LF.OpenRequest (V.accountNumbersLD.Id);
     V.boardNumbers = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
@@ -93,36 +81,25 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     SF.sleep (2);
     console.log(V.boardNumbers);
-
     VD.IWant(VD.VToEqual, V.accountNumbersLD.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
     VD.IWant(VD.VToEqual, V.accountNumbersLD.moveDate.Month, V.boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
     VD.IWant(VD.VToEqual, V.accountNumbersLD.moveDate.Year, V.boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
     VD.IWant(VD.VToEqual, V.accountNumbersLD.Total, V.boardNumbers.Total, 'не совпали Total аккаунта и борда');
     VD.IWant(VD.VToEqual, V.accountNumbersLD.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     SF.sleep (2);
-    SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep (5);
-    JS.waitForNotExist('div.toast-success');
-    SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
-    SF.sleep (0.5);
+    MF.EditRequest_SaveChanges ();
+    MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
-    SF.send (By.id('inputPassword3'), V.client.passwd);
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep (3);
+    LF.SetClientPasswd (V.client.passwd);
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
-    condition.nowWeDoing = 'зашли в аккаунт и добавляем инвентори';
-
-    SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.accountNumbersLD.Id+'")]/following-sibling::td[1]'));
-    SF.click(By.xpath('//td[contains(text(),"'+V.accountNumbersLD.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
-    SF.sleep(2);
+condition.nowWeDoing = 'зашли в аккаунт и добавляем инвентори';
+    MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbersLD.Id);
+    MF.Account_OpenRequest (V.accountNumbersLD.Id);
     LF.AccountLocalAddInventory();
-
-    condition.nowWeDoing = 'запоминаем данные по лонг дистансу после добавления инвентори на аккаунте';
+condition.nowWeDoing = 'запоминаем данные по лонг дистансу после добавления инвентори на аккаунте';
     V.accountNumbersLDWithInvent={};
     driver.wait(driver.executeScript('return $("div:contains(\\"Move Date (Pick Up Day):\\"):last").next().text()').then(function (dateString) {
         dateString = dateString.toUpperCase();
@@ -152,10 +129,9 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin ();
-    condition.nowWeDoing = 'зашли на админку второй раз для сравнения с инвенторием';
-    SF.sleep (3);
-    LF.OpenRequest (V.accountNumbersLD.Id);
+condition.nowWeDoing = 'зашли на админку второй раз для сравнения с инвенторием';
     SF.sleep (2);
+    LF.OpenRequest (V.accountNumbersLD.Id);
     V.boardNumbersCubFit = {};
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SF.cleanPrice (text);
@@ -180,16 +156,10 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.moveDate.Year, V.boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
     VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.Total, V.boardNumbers.Total, 'не совпали Total аккаунта и борда');
     VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
-    SF.sleep (2);
-    SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep (5);
-    JS.waitForNotExist('div.toast-success');
+    SF.sleep (1);
+    MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
-    SF.sleep (3);
     LF.LogoutFromBoardAdmin ();
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

@@ -8,10 +8,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
 
-    SF.send(By.id('email'), 'roma4ke');
-    SF.send(By.id('password'), 'root');
-    JS.click('.btn-primary');
-    SF.sleep (5);
+    LF.LoginToBoardAs_Roma4ke_Admin();
     SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));

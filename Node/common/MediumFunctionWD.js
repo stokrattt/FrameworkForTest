@@ -1,4 +1,8 @@
 module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config, constants) {
+    function WaitToastExit() {
+        JS.waitForNotExist('div.toast-message:visible');
+        JS.waitForNotExist('div.toast-success:visible');
+    }
     function WaitWhileBusy() {
         SF.sleep(1);
         JS.waitForNotExist('.busyoverlay:visible');
@@ -28,7 +32,25 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath("//button[@ng-click=\"toggleLeft()\"]"));
         SF.waitForVisible(By.xpath('//button[@ng-click="toggleLeft()"]'));
     }
-
+    function Board_OpenAllRequest() {
+        Board_OpenSideBar();
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'all_requests\', \'\')"]'));
+        WaitWhileBusy ();
+    }
+    function Board_OpenStorages() {
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'pending\', \'\')"]'));
+        WaitWhileBusy ();
+        SF.sleep (3);
+        WaitWhileBusy ();
+    }
+    function Board_OpenStoragesTenant() {
+        Board_OpenSideBar ();
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'pending\', \'\')"]'));
+        SF.click(By.xpath('//a[@ui-sref="tenants"]'));
+        WaitWhileBusy ();
+        SF.sleep (3);
+        WaitWhileBusy ();
+    }
     function Board_OpenPayroll() {
         Board_OpenSideBar();
         SF.click(By.xpath("//a[@ng-click=\"vm.goToPage('dispatch.local', '')\"]"));
@@ -73,6 +95,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
         SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     }
+    function Board_OpenSettingsLongDistance() {
+        SF.click(By.xpath('//a[@ui-sref="settings.longdistance"]'));
+        SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
+        SF.sleep (4);
+    }
 
     function Board_OpenSettingsDepartment() {
         Board_OpenSettingsGeneral();
@@ -87,6 +114,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Board_RefreshDashboard(){
         SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
         SF.sleep (3);
+        WaitWhileBusy ();
     }
     function Board_SearchRequest(selector){
         SF.send (By.id('gSearch'), selector);
@@ -103,6 +131,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.navigate().refresh();
         SF.waitForLocated(By.linkText('Create Request'));
         SF.sleep (3);
+    }
+    function Board_OpenCourier() {
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'couriers\', \'\')"]'));
+        SF.sleep(2);
+    }
+    function Board_OpenTripPlanner() {
+        SF.click(By.xpath('//a[@ng-class="{active:vm.isCurrent(\'trip planner\')}"]'));
+        SF.sleep(2);
+    }
+    function Board_OpenCarriersAndAgents() {
+        SF.click(By.xpath('//a[@ng-class="{active:vm.isCurrent(\'carriers and agents\')}"]'));
     }
 
     //==============================ACCOUNT=======================================
@@ -277,11 +316,74 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             VD.IWant (VD.VToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
         }),config.timeout);
     }
+    //=================================EDIT STORAGE REQUEST=====================================
 
+    function EditStorage_RememberId(storage) {
+        driver.wait(driver.findElement(By.xpath('//a[@ng-click="tabs.setTab(1)"]/span')).getText().then(function(text){
+            storage.Id = SF.cleanPrice(text);
+        }),config.timeout);
+        SF.sleep(1);
+    }
+    function EditStorage_OpenLedger() {
+        SF.click(By.xpath('//a[@ng-click="tabs.setTab(4)"]'));
+        SF.sleep(1);
+    }
+    function EditStorage_OpenLotNumbers() {
+        SF.click(By.xpath('//a[@ng-click="tabs.setTab(6)"]'));
+        SF.sleep(1);
+    }
+    function EditStorage_AddLotNumber() {
+        SF.click(By.xpath('//button[@id="addColor"]'));
+        SF.send(By.xpath('//input[@ng-model="lotNumber.number"]'), 'test');
+        SF.click(By.xpath('//button[@id="colorPick"]'));
+        SF.click(By.xpath('//button[@id="colorPick"]/following-sibling::ul/li[3]'));
+        SF.send(By.xpath('//input[@ng-model="lotNumber.from"]'), 111111);
+        SF.send(By.xpath('//input[@ng-model="lotNumber.to"]'), 222222);
+        EditStorage_UpdateStorage ();
+    }
+    function EditStorage_UpdateStorage() {
+        SF.click(By.xpath('//button[@ng-click="updateStorageRequest(data)"]'));
+        WaitWhileBusy ();
+        JS.waitForNotExist('div.toast-message:visible');
+    }
+    function EditStorage_SelectMoveIn() {
+        SF.select (By.xpath('//select[@ng-model="data.rentals.status_flag"]'), 'string:2');
+    }
+    function EditStorage_OpenReccuring() {
+        SF.click(By.xpath('//a[@ng-click="tabs.setTab(5)"]'));
+        SF.sleep(1);
+    }
+    function EditStorage_StartReccuring() {
+        JS.click('span[ng-hide=\\"data.recurring.start\\"]');
+        JS.waitForNotExist ('div.busyoverlay:visible');
+    }
+    function EditStorage_CloseOpenModal() {
+        SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
+        SF.sleep (3);
+    }
+    function StorageTenant_OpenStorages(Id) {
+        driver.wait(driver.findElement(By.xpath('//tr[@ng-click="openModal(request, id)"]/td[contains(text(),"' + Id + '")]')).click(), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//tr[@ng-click="openModal(request, id)"]/td[contains(text(),"' + Id + '")]')).click(), config.timeout);
+        WaitWhileBusy ();
+    }
+    function EditStorage_OpenDocuments() {
+        SF.click(By.xpath('//a[@ng-click="tabs.setTab(2)"]'));
+    }
     //================================EDIT REQUEST====================================
 
     function EditRequest_OpenSettings() {
         SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
+        SF.sleep(1);
+    }
+    function EditRequest_ClickCloneRequest() {
+        SF.click(By.xpath('//button[@ng-click="cloneRequest(request)"]'));
+        SweetConfirm ();
+        WaitWhileBusy ();
+        JS.waitForNotExist('div.busy:visible');
+        SF.sleep (15);
+    }
+    function EditRequest_WaitForVisibleCloneRequest() {
+        SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
         SF.sleep(1);
     }
 
@@ -296,6 +398,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_OpenRequest() {
         SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
         SF.sleep(1);
+    }
+    function EditRequest_OpenPayment() {
+        JS.click('label[ng-click=\\"OpenPaymentModal();\\"]');
+        SF.waitForVisible (By.xpath('//div[@class="inside_box"]'));
+        SF.sleep (3);
     }
 
     function EditRequest_SetToNotConfirmed() {
@@ -381,6 +488,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_AddRoomNumber(number){
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
         SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="'+number+'"]'));
+        SF.sleep(1);
     }
     function EditRequest_OpenFuel(){
         SF.click (By.xpath("//div[not(contains(@class,'ng-if'))]/label[contains(text(), 'Fuel Surcharge:')]"));
@@ -406,6 +514,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
         JS.waitForNotExist ('div.busyoverlay:visible');
         SF.sleep (0.5);
+    }
+    function EditRequest_OpenConfirmWork() {
+        SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
+        SF.sleep(3);
     }
     function EditRequest_SetLaborTimeCloseJob() {
         SF.clear (By.xpath('//input[@ng-model="invoice.work_time"]'));
@@ -522,13 +634,30 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
     }
 
+    //==================================LONG DISTANCE SETTINGS==========================
+
+    function LongDistanceSettings_ClickOnMapCaliforniya() {
+        JS.click('#jqvmap1_ca');
+        SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
+        SF.sleep (3);
+    }
+    function LongDistanceSettings_SelectMABasedState() {
+        SF.select (By.xpath('//select[@ng-model="vm.longdistance.basedState"]'), 'MA');
+        SF.sleep (2);
+    }
+
     return {
+        WaitToastExit: WaitToastExit,
         WaitWhileBusy: WaitWhileBusy,
         SweetConfirm: SweetConfirm,
         SweetCancel: SweetCancel,
         BoardAccount_SendMessage: BoardAccount_SendMessage,
         //==================================FRONT SITE======================================
         FrontSite_GoToAccount: FrontSite_GoToAccount,
+        //==================================LONG DISTANCE SETTINGS==========================
+        LongDistanceSettings_ClickOnMapCaliforniya: LongDistanceSettings_ClickOnMapCaliforniya,
+        LongDistanceSettings_SelectMABasedState: LongDistanceSettings_SelectMABasedState,
+
         //------------------------------------BOARD=========================================
         Board_OpenSideBar: Board_OpenSideBar,
         Board_OpenDashboard: Board_OpenDashboard,
@@ -546,6 +675,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenMessage: Board_OpenMessage,
         Board_OpenSchedule: Board_OpenSchedule,
         Board_OpenReviewSttings: Board_OpenReviewSttings,
+        Board_OpenSettingsLongDistance: Board_OpenSettingsLongDistance,
+        Board_OpenAllRequest: Board_OpenAllRequest,
+        Board_OpenStorages: Board_OpenStorages,
+        Board_OpenStoragesTenant: Board_OpenStoragesTenant,
+        Board_OpenCourier : Board_OpenCourier,
+        Board_OpenTripPlanner: Board_OpenTripPlanner,
+        Board_OpenCarriersAndAgents: Board_OpenCarriersAndAgents,
         //====================================ACCOUNT=======================================
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,
@@ -582,6 +718,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_SetRentalAddress: Contract_SetRentalAddress,
         Contract_SetRentalZip: Contract_SetRentalZip,
         Contract_CheckLoadBillOfLadding: Contract_CheckLoadBillOfLadding,
+        //=================================EDIT STORAGE REQUEST=====================================
+        EditStorage_RememberId: EditStorage_RememberId,
+        EditStorage_OpenLedger: EditStorage_OpenLedger,
+        EditStorage_OpenLotNumbers: EditStorage_OpenLotNumbers,
+        EditStorage_AddLotNumber: EditStorage_AddLotNumber,
+        EditStorage_SelectMoveIn:EditStorage_SelectMoveIn,
+        EditStorage_OpenReccuring: EditStorage_OpenReccuring,
+        EditStorage_StartReccuring: EditStorage_StartReccuring,
+        EditStorage_CloseOpenModal: EditStorage_CloseOpenModal,
+        StorageTenant_OpenStorages: StorageTenant_OpenStorages,
+        EditStorage_UpdateStorage: EditStorage_UpdateStorage,
+        EditStorage_OpenDocuments: EditStorage_OpenDocuments,
         //=================================EDIT REQUEST=====================================
         EditRequest_OpenSettings: EditRequest_OpenSettings,
         EditRequest_OpenMessages: EditRequest_OpenMessages,
@@ -614,6 +762,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_CloseJob: EditRequest_CloseJob,
         EditRequest_OpenContractCloseJob: EditRequest_OpenContractCloseJob,
         EditRequest_Check1EmailExist:EditRequest_Check1EmailExist,
+        EditRequest_OpenConfirmWork: EditRequest_OpenConfirmWork,
+        EditRequest_ClickCloneRequest: EditRequest_ClickCloneRequest,
+        EditRequest_WaitForVisibleCloneRequest: EditRequest_WaitForVisibleCloneRequest,
+        EditRequest_OpenPayment: EditRequest_OpenPayment,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

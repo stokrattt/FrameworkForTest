@@ -454,6 +454,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
         SF.sleep (3);
     }
+    function LoginToBoardAs_Roma4ke_Admin() {
+        SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
+        SF.send(By.xpath('//input[@id="email"]'), 'roma4ke');
+        SF.send(By.xpath('//input[@id="password"]'), 'root');
+        SF.click(By.xpath('//button[@type="submit"]'));
+        SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+        SF.sleep (3);
+    }
     function LoginToBoardAsForeman() {
         SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
         SF.send(By.xpath('//input[@id="email"]'), 'TestForeman');
@@ -871,6 +879,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
             VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
         }), config.timeout);
+        SF.sleep(1);
     }
     function ConfirmRequestInAccount_WithReservation(ReservationPrice) {
         SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
@@ -1714,7 +1723,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(0.3);
         SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(0.3);
-        SF.send(By.id('edit-additional-phone'), V.client.phone);
+        SF.send(By.id('edit-additional-phone'), client.phone);
         SF.sleep(0.3);
         SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
         SF.sleep(0.3);
@@ -1730,6 +1739,31 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep (2);
         SF.click(By.linkText('View Request Page'));
         SF.sleep(4);
+    }
+    function CreateStorageTenant(client) {
+        SF.click(By.xpath('//button[@ng-click="pending.createModal()"]'));
+        MF.WaitWhileBusy ();
+        SF.sleep (2);
+        SF.send(By.xpath('//input[@ng-model="data.user_info.name"]'), client.long);
+        SF.send(By.xpath('//input[@ng-model="data.user_info.zip"]'), '02136');
+        SF.send(By.xpath('//input[@ng-model="data.user_info.phone1"]'), client.phone);
+        SF.send(By.xpath('//input[@ng-model="data.user_info.email"]'), client.email);
+        var now = new Date();
+        var msInDay = 86400000;
+        var future = new Date(now.getTime() + msInDay * 4);
+        var options = { month: 'short', day: 'numeric', year: 'numeric' };
+        V.changedate = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//input[@ng-model="data.rentals.moved_in_date"]'), V.changedate);
+        var now = new Date();
+        var msInDay = 86400000;
+        var future = new Date(now.getTime() + msInDay * 8);
+        var options = { month: 'short', day: 'numeric', year: 'numeric' };
+        V.changedateOut = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//input[@ng-model="data.rentals.moved_out_date"]'), V.changedateOut);
+        SF.click(By.xpath('//input[@ng-model="data.user_info.phone2"]'));
+        SF.click(By.xpath('//button[@ng-click="createNewStorageRequest()"]'));
+        MF.WaitWhileBusy ();
+        SF.sleep (3);
     }
 
     return {
@@ -1756,6 +1790,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         LoginToBoardAsForemanDeliveryFlatRate: LoginToBoardAsForemanDeliveryFlatRate,
         LoginToBoardAsCustom: LoginToBoardAsCustom,
         LoginToAccountAsClient: LoginToAccountAsClient,
+        LoginToBoardAs_Roma4ke_Admin: LoginToBoardAs_Roma4ke_Admin,
         OpenRequest: OpenRequest,
         OpenRequestFlatRate: OpenRequestFlatRate,
         CreateMovAndStorFromFrontDown: CreateMovAndStorFromFrontDown,
@@ -1766,6 +1801,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         CreateMovAndStorFromBoard: CreateMovAndStorFromBoard,
         CreateLoadingHelpFromBoard: CreateLoadingHelpFromBoard,
         CreateFlatRateDownForm: CreateFlatRateDownForm,
+        CreateStorageTenant: CreateStorageTenant,
         RememberDigitsRequestBoard_Up: RememberDigitsRequestBoard_Up,
         RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
         RememberDigitsRequestBoard: RememberDigitsRequestBoard,

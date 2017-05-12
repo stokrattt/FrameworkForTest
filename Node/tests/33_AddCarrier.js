@@ -9,20 +9,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get('http://stage.themoveboard.com:8090/moveBoard/#/login');
-    SF.send(By.id('email'), 'TestAdmin');
-    SF.send(By.id('password'), 'test');
-    JS.click('.btn-primary');
-
-    SF.click(By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'couriers\', \'\')"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="toggleLeft()"]'));
+    LF.LoginToBoardAsAdmin ();
+    MF.Board_OpenSideBar ();
+    MF.Board_OpenCourier ();
+    MF.Board_OpenSideBar ();
     SF.sleep(2);
     V.carrierNew={};
     V.carrierNew2={};
     V.carrierNew3={};
-    condition.nowWeDoing = 'Создаем карьера';
+
+condition.nowWeDoing = 'Создаем карьера';
     SF.click(By.xpath('//button[@ng-click="addCarrier()"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
     SF.sleep(1);
@@ -50,18 +46,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierNew.phoneNumber1);
     JS.click('span:contains(\\"Save\\")');
 
-    condition.nowWeDoing = 'Редактируем карьера';
+condition.nowWeDoing = 'Редактируем карьера';
     SF.sleep(3);
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
-
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
     SF.sleep(1);
     V.carrierNew2.name = SF.randomBukva(6) + '_t';
     V.carrierNew2.contactPerson = SF.randomBukva(6) + '_t';
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.name"]'));
-
     SF.send (By.xpath('//input[@ng-model="agentModel.data.name"]'), V.carrierNew2.name);
-
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.contact_person"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.contact_person"]'), V.carrierNew2.contactPerson);
 
@@ -69,16 +62,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.carrierNew2.zipCode = "32142";
     SF.clear (By.xpath('//textarea[@ng-model="agentModel.data.address"]'));
     SF.send (By.xpath('//textarea[@ng-model="agentModel.data.address"]'), V.carrierNew2.address);
-
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.zip_code"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.zip_code"]'), V.carrierNew2.zipCode);
-
     SF.click (By.xpath('//md-checkbox[@ng-model="agentModel.data.company_carrier"]'));
+
     V.carrierNew2.perCf = "4";
     V.carrierNew2.iccMc = SF.randomCifra(10);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.per_cf"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.per_cf"]'), V.carrierNew2.perCf);
-
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.icc_mc_number"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.icc_mc_number"]'), V.carrierNew2.iccMc);
 
@@ -86,7 +77,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.carrierNew2.eMail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.usdot_number"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.usdot_number"]'), V.carrierNew2.usdot);
-
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.email"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.email"]'), V.carrierNew2.eMail);
 
@@ -94,14 +84,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.carrierNew2.phoneNumber1 = SF.randomCifra(10);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.web_site"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.web_site"]'), V.carrierNew2.webSite);
-
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierNew2.phoneNumber1);
-
     SF.sleep(2);
     JS.click('span:contains(\\"Save\\")');
     SF.sleep(5);
-    condition.nowWeDoing = 'сравниваем сохранились ли изменения';
+
+condition.nowWeDoing = 'сравниваем сохранились ли изменения';
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
     SF.sleep(1);
@@ -132,24 +121,21 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     JS.click('span:contains(\\"Save\\")');
 
-    condition.nowWeDoing = 'Проверяем есть ли карьер в списке при добалении трипа';
-    SF.click(By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//a[@ng-class="{active:vm.isCurrent(\'trip planner\')}"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.sleep(2);
+condition.nowWeDoing = 'Проверяем есть ли карьер в списке при добалении трипа';
+    MF.Board_OpenSideBar ();
+    MF.Board_OpenTripPlanner ();
+    MF.Board_OpenSideBar ();
     SF.click(By.xpath('//button[@ng-click="addTrip()"]'));
     SF.sleep(2);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.carrier_id"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
-    SF.click(By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click(By.xpath('//a[@ng-class="{active:vm.isCurrent(\'carriers and agents\')}"]'));
-    SF.click(By.xpath('//button[@ng-click="toggleLeft()"]'));
+    MF.Board_OpenSideBar ();
+    MF.Board_OpenCarriersAndAgents ();
+    MF.Board_OpenSideBar ();
     SF.sleep(3);
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
 
-    condition.nowWeDoing = 'удаляем карьера';
+condition.nowWeDoing = 'удаляем карьера';
     driver.wait(driver.executeScript('return location.toString();').then(function(url){
         let c='a';
         for (let i=0; i<url.length; i++) {

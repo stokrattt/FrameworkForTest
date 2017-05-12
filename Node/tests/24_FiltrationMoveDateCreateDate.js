@@ -9,7 +9,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    JS.waitForNotExist ('div.busyoverlay:visible');
 condition.nowWeDoing = 'создаем реквест 1';
     LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);
@@ -47,9 +46,7 @@ condition.nowWeDoing = 'создаем реквест 4';
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    JS.waitForNotExist('div.toast-success');
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(2);
+    MF.WaitWhileBusy ();
     SF.click(By.linkText('Create Request'));
     SF.sleep(3);
     SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
@@ -70,7 +67,7 @@ condition.nowWeDoing = 'создаем реквест 4';
     SF.sleep(5);
     SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
     SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
     SF.sleep(2);
@@ -92,8 +89,7 @@ condition.nowWeDoing = 'создаем реквест 5';
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    JS.waitForNotExist('div.toast-success');
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.click(By.linkText('Create Request'));
     SF.sleep(3);
     SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
@@ -114,7 +110,7 @@ condition.nowWeDoing = 'создаем реквест 5';
     SF.sleep(5);
     SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
     SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
     SF.sleep(2);
@@ -137,10 +133,7 @@ condition.nowWeDoing = 'создаем реквест 6';
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    JS.waitForNotExist('div.toast-success');
-    JS.waitForNotExist('div.busyoverlay:visible');
-    JS.waitForNotExist('div.toast-success');
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.click(By.linkText('Create Request'));
     SF.sleep(3);
     SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
@@ -161,7 +154,7 @@ condition.nowWeDoing = 'создаем реквест 6';
     SF.sleep(5);
     SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
     SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
     SF.sleep(2);
@@ -183,16 +176,13 @@ condition.nowWeDoing = 'получаем текущую дату';
     V.createdate = (d.toLocaleDateString('en-US', options));
     console.log (V.createdate);
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по create date';
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'all_requests\', \'\')"]'));
-    JS.waitForNotExist("div.busyoverlay:visible");
+    MF.Board_OpenAllRequest();
     SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
     SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.createdate);
     SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
     SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.createdate);
     SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
-    JS.waitForNotExist("div.busyoverlay:visible");
+    MF.WaitWhileBusy ();
 
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]')).getText().then(function (id1) {
         VD.IWant (VD.VToEqual, V.Id1, id1, 'не нашел реквест1 по фильтрации create date')
@@ -204,19 +194,15 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
         VD.IWant (VD.VToEqual, V.Id3, id3, 'не нашел реквест3 по фильтрации create date')
     }),config.timeout);
     SF.sleep (2);
-
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по Move date';
-
     SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 2);
-    JS.waitForNotExist("div.busyoverlay:visible");
-
+    MF.WaitWhileBusy ();
     SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
     SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.mdateLong);
     SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
     SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.mdateLong);
     SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
-    JS.waitForNotExist("div.busyoverlay:visible");
-
+    MF.WaitWhileBusy ();
 
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id4Long + '")]')).getText().then(function (id4Long) {
         VD.IWant (VD.VToEqual, V.Id4Long, id4Long, 'не нашел реквест4 по фильтрации по Move date')
@@ -228,7 +214,6 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
         VD.IWant (VD.VToEqual, V.Id6Long, id6Long, 'не нашел реквест6 по фильтрации по Move date')
     }),config.timeout);
 condition.nowWeDoing = 'идем удалять созданные реквесты';
-
     LF.OpenRequest (V.Id4Long);
     LF.deletePendingRequest ();
     LF.OpenRequest (V.Id5Long);
@@ -236,13 +221,13 @@ condition.nowWeDoing = 'идем удалять созданные реквес�
     LF.OpenRequest (V.Id6Long);
     LF.deletePendingRequest ();
     SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 1);
-    JS.waitForNotExist("div.busyoverlay:visible");
+    MF.WaitWhileBusy ();
     SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
     SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.createdate);
     SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
     SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.createdate);
     SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
-    JS.waitForNotExist("div.busyoverlay:visible");
+    MF.WaitWhileBusy ();
     LF.OpenRequest (V.Id1);
     LF.deletePendingRequest ();
     LF.OpenRequest (V.Id2);

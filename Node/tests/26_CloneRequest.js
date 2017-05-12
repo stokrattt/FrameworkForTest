@@ -9,59 +9,34 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    JS.waitForNotExist ('div.busyoverlay:visible');
-
 condition.nowWeDoing = 'создаем реквест и добавляем разного';
-
     LF.CreateLocalMovingFromBoard (V.client);
     SF.sleep (2);
-    driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
-        V.request.Id = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id);
-    }),config.timeout);
-
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="4"]'));
-    SF.sleep (0.5);
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="5"]'));
-    SF.sleep (0.5);
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="6"]'));
-    SF.sleep (2);
+    MF.EditRequest_RememberId (V.request);
+    LF.addToCleanerJob(V.request.Id);
+    MF.EditRequest_AddRoomNumber (4);
+    MF.EditRequest_AddRoomNumber (5);
+    MF.EditRequest_AddRoomNumber (6);
     V.boardNumbers = {};
     LF.addInventoryBoard (V.boardNumbers);
-    SF.click (By.xpath('//select[@id="edit-size-move"]/option[9]'));
-
-    SF.send (By.id('edit-moving-from'), 'From Addres');
-    SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'To Addres');
+    MF.EditRequest_SetSizeOfMoveNumber (9);
+    MF.EditRequest_SetAdressToFrom ();
 
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    JS.select ('#edit-status', 2); // выбор статуса конфермед
+    MF.EditRequest_SetToNotConfirmed ();
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SF.cleanPrice (text);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//select[@id="edit-size-move"]')).getAttribute("value").then(function (text){
         V.sizemove = (text);
     }),config.timeout);
-    JS.click ("button[ng-click=\\\"UpdateRequest()\\\"]");
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep (2);
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    JS.waitForNotExist('div.toast-success');
+    MF.EditRequest_SaveChanges ();
 condition.nowWeDoing = 'идём в настройки клонировать реквест';
-    SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="cloneRequest(request)"]'));
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    JS.waitForNotExist('div.busy:visible');
-    SF.sleep (20);
+    MF.EditRequest_OpenSettings();
+    MF.EditRequest_ClickCloneRequest();
 
-    SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
+    MF.EditRequest_WaitForVisibleCloneRequest();
     driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.IdClone = SF.cleanPrice(text);
         LF.addToCleanerJob(V.IdClone);
@@ -72,8 +47,7 @@ condition.nowWeDoing = 'идём в настройки клонировать р
     SF.sleep (2);
     LF.closeEditRequest ();
 condition.nowWeDoing = 'проверяем что клон в пендинге и открываем его';
-    SF.click(By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
-    SF.sleep (4);
+    MF.Board_RefreshDashboard();
     LF.OpenRequest (V.IdClone);
     SF.sleep (2);
     SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
@@ -89,7 +63,7 @@ condition.nowWeDoing = 'ждем и добавляем инвентория';
     SF.click (By.xpath('//button[@ng-click="changeValue(1, item)"]'));
     SF.click(By.id("save-inventory"));
     SF.sleep (5);
-    SF.click (By.xpath('//select[@id="edit-size-move"]/option[6]'));
+    MF.EditRequest_SetSizeOfMoveNumber (6);
     SF.clear (By.id('edit-moving-from'));
     SF.send (By.id('edit-moving-from'), 'From Addres Clone');
     SF.clear (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
@@ -102,19 +76,10 @@ condition.nowWeDoing = 'ждем и добавляем инвентория';
     }),config.timeout);
     V.boardNumbersClone = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersClone);
-    SF.click(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
-    SF.clear(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
-    V.note = SF.randomBukva(7);
-    SF.send(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'), V.note);
-    JS.click ("button[ng-click=\\\"UpdateRequest()\\\"]");
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep (2);
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    JS.waitForNotExist('div.toast-success');
+    MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
 condition.nowWeDoing = 'идем открывать первый реквест и проверять что клон не затер данные первого';
-    SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
+    MF.Board_OpenNotConfirmed();
     LF.OpenRequest (V.request.Id);
     VD.IWant (VD.VNotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitClone, 'клон затер cubic fit первого реквеста');
     VD.IWant (VD.VNotToEqual, V.sizemove, V.sizemoveClone, 'клон затер sizemove первого реквеста');

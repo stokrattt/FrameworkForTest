@@ -9,39 +9,27 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
 
-    condition.nowWeDoing = 'создать local Moving реквест с борда';
+condition.nowWeDoing = 'создать local Moving реквест с борда';
     SF.get(V.adminURL);
-
     LF.LoginToBoardAsAdmin();
     LF.CreateLocalMovingFromBoard(V.client);
 
-    condition.nowWeDoing = 'Законфёрмить сразу реквест';
+condition.nowWeDoing = 'Законфёрмить сразу реквест';
     V.boardNumbers = {};
     LF.addInventoryBoard ();
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.addToCleanerJob(V.boardNumbers.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime) / 60));
     JS.scroll('div.ServicesCost:visible');
+    MF.EditRequest_SetToConfirmed ();
+    MF.EditRequest_SetAdressToFrom ();
+    MF.EditRequest_SaveChanges ();
+    MF.EditRequest_CloseConfirmWork ();
+    MF.EditRequest_SetLaborTimeCloseJob ();
+    MF.EditRequest_CloseJob ();
 
-    SF.select(By.xpath('//select[@id="edit-status"]'), 3);
-    SF.send(By.xpath('//input[@ng-model="request.field_moving_from.thoroughfare"]'),'Address From');
-    SF.send(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'),'Address To');
-    JS.click('button[ng-click=\\"UpdateRequest()\\"]');
-    JS.waitForExist('button[ng-click="update(request)"]:visible');
-    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    JS.waitForExist('div.toast-success:visible');
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-    SF.clear(By.xpath('//input[@ng-model="invoice.work_time"]'));
-    SF.send(By.xpath('//input[@ng-model="invoice.work_time"]'),'02:00');
-    SF.click(By.xpath('//div[@ng-click="closeJob();"]'));
-    JS.waitForExist('div.toast-success:visible');
-    JS.waitForNotExist('div.busyoverlay:visible');
-
-    condition.nowWeDoing = 'добавить в пейролл людей и закрыть';
-    SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal();"]'));
-    JS.waitForExist('button[ng-click="reSubmitPayroll()"]');
-    MF.WaitWhileBusy ();
+condition.nowWeDoing = 'добавить в пейролл людей и закрыть';
+    MF.EditRequest_OpenPayroll ();
     SF.click(By.xpath('//div[@ng-click="addWorker(\'salesPerson\')"]'));
     SF.select(By.xpath('//select[@ng-model="selected.salesPerson[salesPersonIndex]"]'),6070);
     MF.WaitWhileBusy ();
@@ -60,15 +48,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'снова открыть и найти людей';
-    SF.click(By.xpath('//div[@ng-click="vm.select(2)"]'));
-    SF.click(By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
-    SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(1);
+condition.nowWeDoing = 'снова открыть и найти людей';
+    MF.Board_OpenConfirmed ();
+    MF.Board_RefreshDashboard ();
     LF.OpenRequest(V.boardNumbers.Id);
-    SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal();"]'));
-    JS.waitForExist('button[ng-click="reSubmitPayroll()"]');
+    MF.EditRequest_OpenPayroll();
     driver.wait(driver.executeScript('return $(\'select[ng-model="selected.salesPerson[salesPersonIndex]"]:visible  option[selected="selected"]:contains("emilia")\').length;')
         .then(function(count){
             V.countSales=count;
@@ -82,6 +66,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.VToEqual, V.countForeman, 1,'не сохранился Foreman');
+    SF.sleep(2);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

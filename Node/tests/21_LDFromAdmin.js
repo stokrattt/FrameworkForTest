@@ -10,16 +10,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToBoardAsAdmin();
     SF.sleep (3);
     condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.click(By.xpath('//a[@ui-sref="settings.longdistance"]'));
-    SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
-    SF.sleep (4);
-    JS.click('#jqvmap1_ca');
-    SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
-    SF.sleep (3);
+    MF.Board_OpenSettingsGeneral();
+    MF.Board_OpenSettingsLongDistance ();
+    MF.LongDistanceSettings_ClickOnMapCaliforniya();
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
@@ -33,8 +26,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
     SF.sleep (2);
-    SF.select (By.xpath('//select[@ng-model="vm.longdistance.basedState"]'), 'MA');
-    SF.sleep (2);
+    MF.LongDistanceSettings_SelectMABasedState();
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
     SF.sleep (2);
 
@@ -57,10 +49,9 @@ condition.nowWeDoing = 'создаем ЛД реквест';
     SF.sleep(4);
     SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
     SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.sleep(1);
-
-    condition.nowWeDoing = 'запоминаем данные с калькулятора при создании реквеста';
+condition.nowWeDoing = 'запоминаем данные с калькулятора при создании реквеста';
     V.LDAdminCalc = {};
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Long Distance Quote ")]/following-sibling::td[1]')).getText().then(function(quote){
         V.LDAdminCalc.Quote = SF.cleanPrice (quote);
@@ -93,14 +84,14 @@ condition.nowWeDoing = 'создаем ЛД реквест';
         V.request.Id = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id);
     }), config.timeout);
-    condition.nowWeDoing = 'сравниваем данные калькулятора и реквеста';
+condition.nowWeDoing = 'сравниваем данные калькулятора и реквеста';
     VD.IWant(VD.VToEqual, V.LDAdminCalc.Total, V.boardNumbers.Total, 'не совпали Total калькулятора и борда');
     VD.IWant(VD.VToEqual, V.LDAdminCalc.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel калькулятора и борда');
     VD.IWant(VD.VToEqual, V.LDAdminCalc.Quote, V.boardNumbers.Quote, 'не совпали Quote калькулятора и борда');
     SF.sleep (2);
     SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
-    JS.waitForExist('div.busyoverlay');
-    condition.nowWeDoing = 'ждем инвентория';
+    MF.WaitWhileBusy ();
+condition.nowWeDoing = 'ждем инвентория';
     SF.sleep (7);
     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
@@ -133,36 +124,25 @@ condition.nowWeDoing = 'создаем ЛД реквест';
     SF.sleep (0.5);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.sleep (5);
-    condition.nowWeDoing = 'запоминаем данные после добавления всех сервисов ';
+condition.nowWeDoing = 'запоминаем данные после добавления всех сервисов ';
     V.boardNumbersWithAddServices = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersWithAddServices);
     SF.sleep (1);
     console.log(V.boardNumbersWithAddServices);
-    JS.select ('#edit-status', 2);
+    MF.EditRequest_SetToNotConfirmed();
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep (5);
-    SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
-    SF.sleep (0.5);
+    MF.EditRequest_SaveChanges ();
+    MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
-    SF.send (By.id('inputPassword3'), V.client.passwd);
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep (3);
-    JS.waitForNotExist('div.toast-success');
+    LF.SetClientPasswd (V.client.passwd);
     LF.closeEditRequest ();
-    SF.sleep (1);
-    SF.click (By.xpath('//a[@ui-sref="dashboard"]'));
-    SF.waitForVisible (By.xpath('//div[@ng-click="vm.select(3)"]'));
-    SF.click (By.xpath('//div[@ng-click="vm.select(3)"]'));
-    SF.sleep (3);
+    MF.Board_OpenDashboard();
+    MF.Board_OpenNotConfirmed();
     LF.OpenRequest(V.request.Id);
-    condition.nowWeDoing = 'идём в логи';
+condition.nowWeDoing = 'идём в логи';
+    MF.EditRequest_OpenLogs();
     SF.click(By.xpath('//a[@ng-click="select(tabs[5])"]'));
-    SF.sleep(2);
-    JS.waitForNotExist('div.busyoverlay:visible');
     V.logNumbers={};
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Long Distance Quote (Not Confirmed Status)")][contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
@@ -178,14 +158,10 @@ condition.nowWeDoing = 'создаем ЛД реквест';
     SF.get(V.accountURL);
 condition.nowWeDoing = 'идем в аккаунт букать работу и сравнивать данные';
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
-    SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]'));
-    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
-        VD.IWant(VD.VToEqual,Status,'Not Confirmed');
-    }),config.timeout);
-    SF.click(By.xpath('//td[contains(text(),"'+V.request.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep (2);
+    MF.Account_CheckRequestStatus_NotConfirmed (V.request.Id);
+    MF.Account_OpenRequest (V.request.Id);
+    MF.SweetCancel ();
+    MF.WaitWhileBusy ();
     V.accountNumbersLD = {};
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Long Distance Grand Total")]/following-sibling::div[1]')).getText().then(function (text) {
         if (text.indexOf("You save") !== -1) {
