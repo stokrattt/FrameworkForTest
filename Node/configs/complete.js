@@ -59,7 +59,8 @@ module.exports = function(config,V) {
         './tests/44_CreateForemanAndAssignCheck.js',
         './tests/45_MovStorAddInventConfirmClient.js',
         './tests/46_FuelByMileage.js',
-        './tests/47_SendMessage.js'
+        './tests/47_SendMessage.js',
+        './tests/48_Review.js'
 
 
     ];

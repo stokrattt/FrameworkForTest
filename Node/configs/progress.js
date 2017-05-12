@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/Review.js'];
+    config.suite = ['./tests/48_Review.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 
