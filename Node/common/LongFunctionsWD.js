@@ -406,6 +406,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@type="submit"]'));
         SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
     }
+    function LoginToBoardAsForemanDeliveryFlatRate() {
+        SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
+        SF.send(By.xpath('//input[@id="email"]'), 'FlatRateForeman');
+        SF.send(By.xpath('//input[@id="password"]'), '123');
+        SF.click(By.xpath('//button[@type="submit"]'));
+        SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
+    }
     function LoginToBoardAsCustom(login, passwd) {
         SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
         SF.send(By.xpath('//input[@id="email"]'), login);
@@ -919,6 +926,58 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                 }
             }), config.timeout);
         SF.click(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
+        JS.waitForExist('div.toast-success');
+        SF.sleep(2);
+        JS.waitForNotExist('div.toast-success');
+        SF.sleep(2);
+    }
+    function selectCrewFlatRatePickUp() {
+        SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']"));
+        SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']/option[contains(text(),'Test Foreman')]"));
+        SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']"));
+        SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
+        driver.wait(
+            driver.findElements(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']")).then(function (count) {
+                if (count.length > 0) {
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']")).click());
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper2')]")).click());
+                }
+            }), config.timeout);
+        driver.wait(
+            driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']")).then(function (count) {
+                if (count.length > 0) {
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']")).click());
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
+                }
+            }), config.timeout);
+        SF.click(By.xpath("//a[@ng-click=\"super.vm.assignTeam()\"]"));
+        MF.WaitWhileBusy ();
+        JS.waitForExist('div.toast-success');
+        SF.sleep(2);
+        JS.waitForNotExist('div.toast-success');
+        SF.sleep(2);
+    }
+    function selectCrewFlatRateDelivery() {
+        SF.click(By.xpath("//select[@ng-model='super.vm.data.deliveryCrew.foreman']"));
+        SF.click(By.xpath("//select[@ng-model='super.vm.data.deliveryCrew.foreman']/option[contains(text(),'FlatRate Foreman')]"));
+        SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']"));
+        SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
+        driver.wait(
+            driver.findElements(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']")).then(function (count) {
+                if (count.length > 0) {
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']")).click());
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']//option[contains(text(),'Test Helper2')]")).click());
+                }
+            }), config.timeout);
+        driver.wait(
+            driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']")).then(function (count) {
+                if (count.length > 0) {
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']")).click());
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
+                }
+            }), config.timeout);
+        JS.click('a[ng-click=\\"super.vm.assignTeam()\\"]:visible');
+        MF.WaitWhileBusy ();
         JS.waitForExist('div.toast-success');
         SF.sleep(2);
         JS.waitForNotExist('div.toast-success');
@@ -1563,6 +1622,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         LogoutFromBoardForeman: LogoutFromBoardForeman,
         LoginToBoardAsAdmin: LoginToBoardAsAdmin,
         LoginToBoardAsForeman: LoginToBoardAsForeman,
+        LoginToBoardAsForemanDeliveryFlatRate: LoginToBoardAsForemanDeliveryFlatRate,
         LoginToBoardAsCustom: LoginToBoardAsCustom,
         LoginToAccountAsClient: LoginToAccountAsClient,
         OpenRequest: OpenRequest,
@@ -1601,6 +1661,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SelectRequestDispatch: SelectRequestDispatch,
         OpenRequestDispatch: OpenRequestDispatch,
         selectCrew: selectCrew,
+        selectCrewFlatRatePickUp: selectCrewFlatRatePickUp,
+        selectCrewFlatRateDelivery: selectCrewFlatRateDelivery,
         MakeSignInContract: MakeSignInContract,
         MakeSignInInventory: MakeSignInInventory,
         MakeSignInRental: MakeSignInRental,

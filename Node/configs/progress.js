@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/32_AllMovingWithStorage.js'];
+    config.suite = ['./tests/Review.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 
