@@ -101,6 +101,41 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     }
+    function FullSmallCalcAsFlateRate(client) {
+        SF.sleep (4);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "07304");
+        driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
+        SF.sleep(2);
+        V.frontNumbers = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
+            V.frontNumbers.moveDate = D;
+            console.log(V.frontNumbers.moveDate);
+        }),config.timeout);
+        SF.sleep(2);
+        driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+        SF.sleep(1);
+        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        SF.sleep(1);
+        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+        SF.sleep(1);
+        JS.click("button.pull-right:first");
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeFrom"]', 4);
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
+        SF.sleep(1);
+        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+        SF.sleep(2);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
+        SF.sleep(1);
+        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
+        JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
+    }
     function FullSmallCalcAsLoading(client){
         JS.click("input#extra-service");
         JS.select('select#edit-service',3);
@@ -238,6 +273,26 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForExist('button.confirm:contains("OK")');
         SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
+    }
+    function AccountFlatRateAddInventory() {
+        JS.waitForExist('div[ng-repeat="filter in filters"]');
+        SF.sleep(5);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click (By.xpath('//button[@ng-click="vm.saveListInventories()"]/span[contains(text(), "Next To Overview")]'));
+        SF.sleep (3);
     }
     function AccountLocalAddInventory(accountNumbers) {
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
@@ -785,6 +840,37 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             "cont.closePath();" +
             "cont.stroke();");
         SF.sleep(1);
+    }
+    function ConfirmRequestInAccount_WithReservationWithAdress() {
+        SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
+        SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
+        SF.sleep (0.5);
+        SF.click (By.id('terms'));
+        SF.click (By.id('cancel_policy'));
+        SF.click (By.id('paybutton'));
+        SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+        SF.click (By.xpath('//button[@class="confirm"]'));
+        SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
+        SF.send (By.id('edit-moving-from'), 'otkuda edem');
+        SF.send (By.id('edit-moving-from-apt'), 324535);
+        SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'kuda edem');
+        SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
+        SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+        SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+        SF.click (By.xpath('//button[@class="confirm"]'));
+        SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+        SF.click (By.xpath('//button[@class="confirm"]'));
+        SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+        MakeSignJS('signatureCanvasReserv');
+        SF.sleep(0.5);
+        SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
+        SF.sleep (1);
+        FillCardPayModal ();
+        SF.sleep (5);
+        SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
+        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
+            VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        }), config.timeout);
     }
     function ConfirmRequestInAccount_WithReservation(ReservationPrice) {
         SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
@@ -1602,6 +1688,49 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }),config.timeout);
         console.log (LocalMoveAdminCalc);
     }
+    function CreateFlatRateDownForm(client) {
+        SF.sleep (4);
+        JS.scroll('move-calculator');
+        SF.click (By.xpath('//a[@href="#request"]'));
+        SF.sleep (2);
+        SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+        V.request={};
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
+            V.request.moveDate = MovDateFront;
+            console.log(V.request);
+        }), config.timeout);
+        SF.sleep (0.5);
+        SF.send (By.id('edit-zip-code-from'), '02461');
+        SF.send (By.id('edit-zip-code-to'), '07304');
+        JS.select ('#edit-size-move', 10);
+        JS.select ('#edit-type-from', 2);
+        JS.select ('#edit-type-to', 5);
+        SF.sleep (0.5);
+        JS.click ('#calculate_btn');
+        SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
+        SF.sleep (4);
+        SF.send(By.id('edit-first-name'), client.name);
+        SF.send(By.id('edit-last-name'), client.fam);
+        SF.sleep(0.3);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
+        SF.sleep(0.3);
+        SF.send(By.id('edit-additional-phone'), V.client.phone);
+        SF.sleep(0.3);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
+        SF.sleep(0.3);
+        SF.send(By.id('edit-confirmemail'), client.email);
+        SF.click(By.id('prefeefe'));
+        SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
+        SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
+        SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
+        SF.sleep(2);
+        JS.waitForNotExist ('div[ng-if="loadingImg"]');
+        SF.sleep(4);
+        SF.click(By.id('submitRequestButton'));
+        SF.sleep (2);
+        SF.click(By.linkText('View Request Page'));
+        SF.sleep(4);
+    }
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -1609,8 +1738,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         FullSmallCalcAsLoading: FullSmallCalcAsLoading,
         FullSmallCalcAsMovingWithStorage: FullSmallCalcAsMovingWithStorage,
         FullSmallCalcAsLD: FullSmallCalcAsLD,
+        FullSmallCalcAsFlateRate: FullSmallCalcAsFlateRate,
         AccountLocalEnterAddress: AccountLocalEnterAddress,
         AccountLocalAddInventory: AccountLocalAddInventory,
+        AccountFlatRateAddInventory: AccountFlatRateAddInventory,
         AccountLocalDetails: AccountLocalDetails,
         AccountUnloadingEnterAddress:AccountUnloadingEnterAddress,
         AccountLoadingEnterAddress: AccountLoadingEnterAddress,
@@ -1634,6 +1765,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         CreateLocalMovingFromBoard: CreateLocalMovingFromBoard,
         CreateMovAndStorFromBoard: CreateMovAndStorFromBoard,
         CreateLoadingHelpFromBoard: CreateLoadingHelpFromBoard,
+        CreateFlatRateDownForm: CreateFlatRateDownForm,
         RememberDigitsRequestBoard_Up: RememberDigitsRequestBoard_Up,
         RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
         RememberDigitsRequestBoard: RememberDigitsRequestBoard,
@@ -1649,6 +1781,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MakeSignJS: MakeSignJS,
         ConfirmRequestInAccount_WithReservation: ConfirmRequestInAccount_WithReservation,
         ConfirmRequestInAccount_NoReservation: ConfirmRequestInAccount_NoReservation,
+        ConfirmRequestInAccount_WithReservationWithAdress: ConfirmRequestInAccount_WithReservationWithAdress,
 //Permissions for Sales --- start
         PermissionsClear: PermissionsClear,
         PermissionCanSeeOtherLeads: PermissionCanSeeOtherLeads,

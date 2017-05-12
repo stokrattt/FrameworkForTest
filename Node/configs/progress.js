@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/40_PayrollTableCheckSumJobs.js'];
+    config.suite = ['./tests/31_FlateRateBooking.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

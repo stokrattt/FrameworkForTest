@@ -11,10 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что они включены';
-    MF.Board_OpenSideBar ();
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'statistics.byrole\', \'\')"]'));
-    SF.click(By.xpath('//a[@ui-sref="statistics.reviews"]'));
-    SF.sleep(3);
+    MF.Board_OpenReviewSttings();
     SF.click(By.xpath('//button[@ng-click="openReviewSettings()"]'));
     SF.waitForLocated (By.id('template-container'));
     driver.wait(driver.executeScript("if($('input[ng-model=\"autoSend\"]').hasClass('ng-not-empty')){" +
@@ -67,7 +64,7 @@ condition.nowWeDoing = 'идем в админку, открываем рекв�
     MF.EditRequest_Check1EmailExist (V.client.email, "Review");
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Review")][contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     SF.click(By.xpath('//a[contains(text(), "Give us review")]'));
-condition.nowWeDoing = 'переходим с логово по ссылке в акк и ставим 5 звезд, подтверждаем';
+condition.nowWeDoing = 'переходим с логов по ссылке в акк и ставим 5 звезд, подтверждаем';
     SF.openTab (1);
     SF.waitForLocated (By.id('reviews-moveboard'));
     SF.sleep(2);
@@ -83,10 +80,7 @@ condition.nowWeDoing = 'переходим с логово по ссылке в 
     SF.get(V.adminURL);
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что появились наши 5 звезд и текст';
-    MF.Board_OpenSideBar ();
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'statistics.byrole\', \'\')"]'));
-    SF.click(By.xpath('//a[@ui-sref="statistics.reviews"]'));
-    SF.sleep(5);
+    MF.Board_OpenReviewSttings ();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.client.name+'")]/following-sibling::div[1]/p/p[1]')).getText().then(function (text) {
         VD.IWant(VD.VToEqual, text, 'five stars it is good', 'не нашло наш текст для звезд, а может и звезды');
     }),config.timeout);

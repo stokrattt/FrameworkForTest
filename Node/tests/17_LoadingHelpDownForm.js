@@ -12,11 +12,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.frontURL);
     JS.waitForExist ('#loader');
     SF.sleep (4);
-    condition.nowWeDoing = 'заполняем нижний кальк';
-
+condition.nowWeDoing = 'заполняем нижний кальк';
     LF.CreateLoadingHelpDownForm (V.client);
-    condition.nowWeDoing = 'запоминаем данные';
-
+condition.nowWeDoing = 'запоминаем данные';
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info detailsinfo ng-scope"]/div/span')).getText().then(function (text) {
         V.frontNumbersLoadingDown.Crew = text.replace('Movers', '');
     }), config.timeout);
@@ -37,24 +35,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.sleep(1);
     console.log(V.frontNumbersLoadingDown);
-
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);
     SF.click(By.linkText('View Request Page'));
     SF.sleep(4);
     SF.openTab (1);
-
-    condition.nowWeDoing = 'пошли в аккаунт';
-
+condition.nowWeDoing = 'пошли в аккаунт';
+    SF.sleep (2);
+    MF.SweetCancel ();
     SF.sleep (3);
-    SF.waitForVisible (By.xpath('//div[@class="calc-confirm ng-binding"]'));
-    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep (3.5);
-    condition.nowWeDoing = 'сравниваем данные калькулятора и акка';
-
+condition.nowWeDoing = 'сравниваем данные калькулятора и акка';
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
-
     VD.IWant(VD.VToEqual, V.accountNumbers.CrewSize, V.frontNumbersLoadingDown.Crew, 'не совпали CrewSize аккаунта и фронта');
     VD.IWant(VD.VToEqual, V.accountNumbers.HourlyRate, V.frontNumbersLoadingDown.Rate, 'не совпали HourlyRate аккаунта и фронта');
     VD.IWant(VD.VToEqual, V.accountNumbers.TravelTime, V.frontNumbersLoadingDown.TravelTime, 'не совпали TravelTime аккаунта и фронта');
@@ -63,64 +55,38 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsAdmin();
-    condition.nowWeDoing = 'зашли под админом и сравниваем данные акка и админки';
-
+condition.nowWeDoing = 'зашли под админом и сравниваем данные акка и админки';
     LF.OpenRequest(V.accountNumbers.Id);
-
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.sleep (1);
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
-
-    JS.select ('#edit-status', 2);
-    SF.click (By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
-    JS.waitForNotExist('div.toast-success');
-    JS.waitForNotExist("div.busyoverlay:visible");
-    SF.sleep (5);
-    SF.click (By.xpath('//a[@ng-click="select(tabs[4])"]'));
-    SF.sleep (0.5);
+    MF.EditRequest_SetToNotConfirmed ();
+    MF.EditRequest_SaveChanges ();
+    MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
-    SF.send (By.id('inputPassword3'), V.client.passwd);
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep (3);
-    JS.waitForNotExist('div.toast-success');
-    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep (5);
-
+    LF.SetClientPasswd (V.client.passwd);
+    LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
-    condition.nowWeDoing = 'зашли под клиенто и букаем работу';
-
-    SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td[1]'));
-    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
-        VD.IWant(VD.VToEqual,Status,'Not Confirmed');
-    }), config.timeout);
-    SF.sleep (1);
-    SF.click(By.xpath('//td[contains(text(),"'+V.accountNumbers.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
-    SF.sleep(3);
-
+condition.nowWeDoing = 'зашли под клиенто и букаем работу';
+    MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
+    MF.Account_OpenRequest (V.accountNumbers.Id);
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.SweetConfirm();
     SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
     SF.send (By.id('edit-moving-from'), 'otkuda edem');
     SF.send (By.id('edit-moving-from-apt'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-
+    MF.SweetConfirm();
+    MF.SweetConfirm();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
@@ -132,8 +98,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     LF.LogoutFromAccount ();
-
-
 
     SF.endOfTest();
 };

@@ -36,6 +36,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath("//a[@ui-sref=\"dispatch.payroll\"]"));
         WaitWhileBusy();
     }
+    function Board_OpenReviewSttings() {
+        Board_OpenSideBar ();
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'statistics.byrole\', \'\')"]'));
+        SF.click(By.xpath('//a[@ui-sref="statistics.reviews"]'));
+        SF.sleep(3);
+    }
 
     function Board_OpenNotConfirmed() {
         SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
@@ -52,6 +58,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         SF.click(By.xpath('//a[@ui-sref="settings.schedule"]'));
         SF.sleep(2);
+    }
+    function Board_OpenSchedule() {
+        Board_OpenSideBar ();
+        SF.click(By.xpath('//li[@ng-show="vm.PermissionsServices.hasPermission(\'canSeeScheduleMenu\')"]'));
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep(3);
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep(4);
     }
 
     function Board_OpenSettingsGeneral() {
@@ -93,6 +107,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     //==============================ACCOUNT=======================================
 
+    function Account_SubmitFlatRateAfterAddInventory() {
+        JS.scroll ('#conf_block:visible');
+        SF.sleep (2);
+        SF.click (By.xpath('//button[@ng-click="submitFlatRate()"]'));
+        JS.waitForExist('button.confirm:contains("OK")');
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
+    }
+
     function Account_ClickViewRequest() {
         SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
     }
@@ -112,6 +134,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
             VD.IWant(VD.VToEqual, Status, 'Pending');
         }), config.timeout);
+    }
+
+    function Account_ChooseOptionFlatRate() {
+        SF.click(By.xpath('//button[@ng-click="vm.chooseOption(option)"]'));
+        SF.waitForVisible(By.xpath('//button[@ng-click="update()"]'));
+        SF.click(By.xpath('//button[@ng-click="update()"]'));
+        WaitWhileBusy ();
+        SweetConfirm ();
+        SF.sleep(3);
     }
 
     function Account_OpenRequest(Id) {
@@ -513,6 +544,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_GetFirstFoundedId:Board_GetFirstFoundedId,
         Board_Refresh:Board_Refresh,
         Board_OpenMessage: Board_OpenMessage,
+        Board_OpenSchedule: Board_OpenSchedule,
+        Board_OpenReviewSttings: Board_OpenReviewSttings,
         //====================================ACCOUNT=======================================
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,
@@ -524,6 +557,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_WaitForDetailsCheck: Account_WaitForDetailsCheck,
         Account_ClickFromStorage: Account_ClickFromStorage,
         Account_OpenMessage: Account_OpenMessage,
+        Account_SubmitFlatRateAfterAddInventory: Account_SubmitFlatRateAfterAddInventory,
+        Account_ChooseOptionFlatRate: Account_ChooseOptionFlatRate,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,

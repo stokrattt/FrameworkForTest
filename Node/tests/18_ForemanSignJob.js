@@ -7,10 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
 
-    SF.send(By.id('email'), 'TestAdmin');
-    SF.send(By.id('password'), 'test');
-    JS.click('.btn-primary');
-    SF.sleep(3);
+    LF.LoginToBoardAsAdmin ();
     LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);
     V.boardNumbers = {};
