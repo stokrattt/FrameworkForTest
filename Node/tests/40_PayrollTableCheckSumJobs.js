@@ -65,11 +65,9 @@ condition.nowWeDoing = 'тут заходим в должность';
 condition.nowWeDoing = 'тут заходим в конкретного мужика и сравниваем циферки и запоминаем и смотрим';
             SF.sleep (3);
             JS.waitForNotExist('div.busyoverlay:visible');
-            driver.wait(driver.executeScript("return $('div[class=\"dataTables_info\"]').text()").then(function (jobs) {
-                let t = jobs.substring(jobs.indexOf('of'), jobs.indexOf(' ent', jobs.indexOf(' ent')));
-                let numberjobs = t.replace('of ', '');
-                console.log(numberjobs);
-                VD.IWant(VD.VToEqual, V.jobsUser, numberjobs, 'работы чувака не совпали снаружи и внутри "' + V.jobsName +'"')
+            driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(id, dataObj) in userCurrentTbl.jobs\"]').length").then(function (jobs) {
+                console.log(jobs);
+                VD.IWant(VD.VToEqual, V.jobsUser, jobs, 'работы чувака не совпали снаружи и внутри "' + V.jobsName +'"')
             }),config.timeout);
             SF.sleep(1);
             driver.wait(driver.executeScript("return $('div.total-payroll-panel div.total-title:contains(\"Paid\")').next().text()").then(function (paid) {
