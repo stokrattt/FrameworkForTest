@@ -15,7 +15,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.FrontSite_GoToAccount();
     condition.nowWeDoing = 'зашли первый раз в аккаунт';
     MF.Account_ClickViewRequest();
-    Debug.pause ();
 
     MF.WaitWhileBusy();
     SF.sleep(5);
@@ -26,7 +25,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
     V.accountNumbersTo = {};
-    Debug.pause ();
 
     LF.RememberAccountNumbers(V.accountNumbersTo);
     LF.addToCleanerJob(V.accountNumbersTo.Id);
@@ -42,7 +40,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
-Debug.pause ();
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
@@ -59,12 +56,15 @@ Debug.pause ();
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenLogs();
-    Debug.pause();
-    EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
-    Debug.pause();
+    MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving and Storage Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
+    MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.client.email, "Change status to Not Confirmed");
     LF.closeEditRequest();
 
     LF.OpenRequest(V.accountNumbersFrom.Id);

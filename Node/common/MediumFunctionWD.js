@@ -311,6 +311,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="select(tabs[5])"]'));
         SF.sleep(2);
         JS.waitForNotExist('div.busyoverlay:visible');
+        JS.waitForExist('div[ng-repeat="log in allLogs | orderBy: \\\'-date\\\' track by $index "]:eq(3)');
     }
 
     function EditRequest_ExpandPendingEmail(email) {
@@ -395,7 +396,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElements(By.xpath('//div[@ng-show="tabs[0].selected"]//span[' +
             'contains(text(),\'Mail was send to "'+receiver+'".\') and ' +
             'contains(text(),\'Subject: "'+Subject+'\')]')).then(function(array){
-            VD.IWant(VD.VToEqual, array.length,1,'имейл Thank you for submitting a quote не был отправлен или отправлен несколько раз');
+            VD.IWant(VD.VToEqual, array.length,1,'имейл '+Subject+' не был отправлен или отправлен несколько раз');
         }), config.timeout);
     }
 

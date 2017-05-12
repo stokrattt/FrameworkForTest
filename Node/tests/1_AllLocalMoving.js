@@ -22,6 +22,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.AccountLocalDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
+    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
@@ -43,9 +44,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
+    MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Request Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
+    Debug.pause();
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
+    MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     LF.closeEditRequest();
     SF.sleep(2);
     LF.LogoutFromBoardAdmin();
@@ -72,6 +81,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew();
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.client.email, "Request Local Quote (Confirmed)");
+    MF.EditRequest_Check1EmailExist(V.client.email, "YOUR MOVE IS CONFIRMED AND SCHEDULED!");
+    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
+    MF.EditRequest_Check1EmailExist("TestForeman@mail.com", "Send TO Foreman");
+    Debug.pause();
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'заходим под форменом, открываем контракт';
