@@ -133,8 +133,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (3);
     }
     function Board_OpenCourier() {
-        SF.sleep(2);
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'couriers\', \'\')"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'trip\', \'\')"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ui-sref="couriers"]'));
         SF.sleep(2);
     }
     function Board_OpenTripPlanner() {
