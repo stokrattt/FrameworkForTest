@@ -38,6 +38,7 @@ condition.nowWeDoing = 'заполняем калькулятор верхний
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy ();
     MF.WaitWhileBusy ();
+    SF.sleep(3);
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу';
     V.accountNumbersLD={};
     driver.wait(driver.executeScript('return $("div:contains(\\"Move Date (Pick Up Day):\\"):last").next().text()').then(function (dateString) {
@@ -96,7 +97,7 @@ condition.nowWeDoing = 'зашли на админку для сравнения
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
 condition.nowWeDoing = 'зашли в аккаунт и добавляем инвентори';
-    MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbersLD.Id);
+    MF.Account_CheckRequestStatus_Pending (V.accountNumbersLD.Id);
     MF.Account_OpenRequest (V.accountNumbersLD.Id);
     LF.AccountLocalAddInventory();
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу после добавления инвентори на аккаунте';

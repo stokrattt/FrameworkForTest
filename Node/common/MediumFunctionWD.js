@@ -11,7 +11,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function SweetConfirm() {
         JS.waitForExist('button.confirm');
-        SF.sleep(1);
+        SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"]'));
     }
 
@@ -133,6 +133,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (3);
     }
     function Board_OpenCourier() {
+        SF.sleep(2);
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'couriers\', \'\')"]'));
         SF.sleep(2);
     }
@@ -177,9 +178,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Account_ChooseOptionFlatRate() {
         SF.click(By.xpath('//button[@ng-click="vm.chooseOption(option)"]'));
-        SF.waitForVisible(By.xpath('//button[@ng-click="update()"]'));
+        SF.sleep(2);
+        SF.waitForLocated(By.xpath('//button[@ng-click="update()"]'));
+        SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="update()"]'));
         WaitWhileBusy ();
+        SF.sleep(1);
         SweetConfirm ();
         SF.sleep(3);
     }

@@ -84,7 +84,7 @@ condition.nowWeDoing = 'идем в аккаунт букать третью р�
         VD.IWant(VD.VToEqual,Status,'Not Confirmed');
     }),config.timeout);
     SF.click(By.xpath('//td[contains(text(),"'+V.Id3+'")]/following-sibling::td/button[contains(text(),"View")]'));
-    MF.SweetCancel ();
+    MF.Account_ClickViewRequest ();
     SF.sleep (2);
     LF.ConfirmRequestInAccount_WithReservationWithAdress ();
     LF.LogoutFromAccount ();

@@ -42,7 +42,7 @@ condition.nowWeDoing = 'запоминаем данные';
     SF.openTab (1);
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (2);
-    MF.SweetCancel ();
+    MF.Account_ClickViewRequest ();
     SF.sleep (3);
 condition.nowWeDoing = 'сравниваем данные калькулятора и акка';
     LF.RememberAccountNumbers (V.accountNumbers);
@@ -85,6 +85,7 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
     SF.send (By.id('edit-moving-from'), 'otkuda edem');
     SF.send (By.id('edit-moving-from-apt'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    SF.sleep(2);
     MF.SweetConfirm();
     MF.SweetConfirm();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));

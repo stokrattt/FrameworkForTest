@@ -20,7 +20,7 @@ condition.nowWeDoing = 'идем в админку проверяем что с�
 condition.nowWeDoing = 'создаем Flat Rate реквест';
     LF.CreateFlatRateDownForm(V.client);
 condition.nowWeDoing = 'перешли в аккаунт добавляем опции';
-    MF.SweetCancel();
+    MF.Account_ClickViewRequest();
     let now = new Date();
     let msInDay = 86400000;
     let future = new Date(now.getTime() + msInDay * 2);
@@ -33,6 +33,7 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
      options = { day: 'numeric', month: 'short', year: 'numeric' };
     V.changedateDelivery = (future.toLocaleDateString('en-US', options));
     SF.send(By.xpath('//div[contains(@class, "dateRange delivery")]/input'), V.changedateDelivery);
+    MF.WaitWhileBusy ();
     SF.click(By.xpath('//div[contains(@class, "ng-pristine")]'));
     SF.select (By.xpath('//select[@ng-model="details.current_door"]'), 30);
     SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);

@@ -38,7 +38,7 @@ condition.nowWeDoing = 'запоминаем данные';
     SF.openTab (1);
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (3);
-    MF.SweetConfirm ();
+    MF.Account_ClickViewRequest();
     SF.sleep (3.5);
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
@@ -80,6 +80,7 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
     SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    SF.sleep(2);
     MF.SweetConfirm();
     MF.SweetConfirm();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));

@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/19_SignForemanJobAndUnssignetJob.js'];
+    config.suite = ['./tests/1_AllLocalMoving.js', './tests/32_AllMovingWithStorage.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

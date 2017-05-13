@@ -93,9 +93,9 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     LF.gotoSetingsLD ();
     SF.sleep (2);
     JS.click('#jqvmap1_ia');
-    SF.sleep (2);
+    SF.sleep (3);
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
-    SF.sleep (2);
+    SF.sleep (3);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
@@ -103,7 +103,7 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
-    SF.sleep (2);
+    SF.sleep (3);
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
 condition.nowWeDoing = 'создаем реквест второй раз с фронтовой верхней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';

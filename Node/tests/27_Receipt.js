@@ -36,7 +36,7 @@ condition.nowWeDoing = 'зашли под клиентом в акк';
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     MF.Account_CheckRequestStatus_NotConfirmed(V.request.Id);
     MF.Account_OpenRequest(V.request.Id);
-    MF.SweetConfirm();
+    MF.Account_ClickViewRequest();
     SF.sleep (0.5);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
@@ -93,6 +93,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
+    MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);

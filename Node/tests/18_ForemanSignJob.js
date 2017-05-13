@@ -61,6 +61,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
+    MF.WaitWhileBusy ();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_Submit();

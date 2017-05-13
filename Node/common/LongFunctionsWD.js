@@ -1315,7 +1315,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.select(By.xpath('//select[@ng-model="request.prefDelivery"]'), 3);
         SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
         SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(2);
+        SF.sleep(5);
         JS.waitForNotExist ('div[ng-if="loadingImg"]');
         SF.sleep(4);
     }

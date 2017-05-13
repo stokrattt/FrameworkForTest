@@ -160,7 +160,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     MF.Account_CheckRequestStatus_NotConfirmed (V.request.Id);
     MF.Account_OpenRequest (V.request.Id);
-    MF.SweetCancel ();
+    MF.Account_ClickViewRequest ();
     MF.WaitWhileBusy ();
     V.accountNumbersLD = {};
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Long Distance Grand Total")]/following-sibling::div[1]')).getText().then(function (text) {
