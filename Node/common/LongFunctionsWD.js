@@ -1252,6 +1252,17 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
     }
+    function findFlatRateDeliveryForemanInPayroll() {
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
+        SF.sleep(1);
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"FlatRate Foreman")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"FlatRate Foreman")]'));
+        SF.sleep(1);
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep(2);
+    }
     function findSaleInPayroll(name) {
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"sales")]'));
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"sales")]'));
@@ -1840,6 +1851,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         findDayInLocalDispatch: findDayInLocalDispatch,
         RememberAndValidatePayroll_In_EditRequest: RememberAndValidatePayroll_In_EditRequest,
         findTestForemanInPayroll: findTestForemanInPayroll,
+        findFlatRateDeliveryForemanInPayroll: findFlatRateDeliveryForemanInPayroll,
         findSaleInPayroll: findSaleInPayroll,
         selectDateInPayroll: selectDateInPayroll,
         addToCleanerJob: addToCleanerJob,

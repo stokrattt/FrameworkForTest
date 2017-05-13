@@ -439,6 +439,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
         JS.waitForNotExist('div.busyoverlay:visible');
     }
+    function EditRequest_OpenPayrollPickupFlatRate() {
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal(\'pickedUpCrew\');"]'));
+        SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
+        JS.waitForNotExist('div.busyoverlay:visible');
+    }
+    function EditRequest_OpenPayrollDeliveryFlatRate() {
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal(\'deliveryCrew\');"]'));
+        SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
+        JS.waitForNotExist('div.busyoverlay:visible');
+    }
 
     function EditRequest_CloseEditRequest() {
         SF.click(By.xpath('//button[@ng-click="cancel()"]'));
@@ -771,6 +783,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ClickCloneRequest: EditRequest_ClickCloneRequest,
         EditRequest_WaitForVisibleCloneRequest: EditRequest_WaitForVisibleCloneRequest,
         EditRequest_OpenPayment: EditRequest_OpenPayment,
+        EditRequest_OpenPayrollPickupFlatRate: EditRequest_OpenPayrollPickupFlatRate,
+        EditRequest_OpenPayrollDeliveryFlatRate: EditRequest_OpenPayrollDeliveryFlatRate,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
