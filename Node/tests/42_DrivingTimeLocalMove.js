@@ -34,11 +34,9 @@ condition.nowWeDoing = 'идем в настройки и выставляем �
     SF.send (By.xpath('//input[@ng-model="vm.basicSettings.local_flat_miles"]'), "350");
     SF.click (By.xpath('//input[@ng-model="vm.calcSettings.flatTravelTime.radius"]'));
     SF.sleep(3);
-    SF.click(By.xpath('//a[@ui-sref="dashboard"]'));
-    SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
-    SF.sleep (3);
+    MF.Board_OpenDashboard ();
 condition.nowWeDoing = 'создаем локал мув с требуемыми зип кодами';
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.click(By.linkText('Create Request'));
     SF.sleep(2);
     SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));

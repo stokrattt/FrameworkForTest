@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/AllFlatRate.js'];
+    config.suite = ['./tests/49_FlatRateLocalMove.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

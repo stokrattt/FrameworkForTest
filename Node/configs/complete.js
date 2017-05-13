@@ -43,6 +43,7 @@ module.exports = function(config,V) {
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/30_StorageTenant.js',
         './tests/31_FlateRateBooking.js',
+        './tests/49_FlatRateLocalMove.js',
         './tests/32_AllMovingWithStorage.js',
         './tests/33_AddCarrier.js',
         './tests/34_ContractPageCustomBlock.js',
