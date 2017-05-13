@@ -37,7 +37,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     LF.AccountFromStorageEnterAddress();
     V.accountNumbersFrom = {};
-
+    MF.WaitWhileBusy();
+    SF.sleep(5);
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.LogoutFromAccount();

@@ -1193,7 +1193,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             foremanForCommission: {},
             helpersForComission: []
         };
-        SF.sleep(1);
+        SF.sleep(3);
         driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
             boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
         }));
