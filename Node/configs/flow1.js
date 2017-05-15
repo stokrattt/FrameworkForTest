@@ -12,6 +12,7 @@ module.exports = function(config,V) {
         './tests/9_TestNotes.js',
         './tests/2_CheckPermissions.js',
         './tests/11_CheckBillOfLadding.js',
+        './tests/44_CreateForemanAndAssignCheck.js',
         './tests/TheCleaner.js',//==============================уборка=========================
     ];
     config.chainFail = false;
