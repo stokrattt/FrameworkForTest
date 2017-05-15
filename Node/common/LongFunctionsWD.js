@@ -483,6 +483,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@type="submit"]'));
         SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
     }
+    function LoginToBoardAsCustomForeman(login, passwd) {
+        SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
+        SF.send(By.xpath('//input[@id="email"]'), login);
+        SF.send(By.xpath('//input[@id="password"]'), passwd);
+        SF.click(By.xpath('//button[@type="submit"]'));
+        SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
+    }
     function LoginToAccountAsClient(client) {
         SF.sleep(1);
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
@@ -1041,7 +1048,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
     function selectCrew(ForemanName) {
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']"));
-        SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),"+ForemanName+")]"));
+        SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'"+ForemanName+"')]"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
         driver.wait(
@@ -1066,7 +1073,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
     function selectCrewFlatRatePickUp(ForemanName) {
         SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']"));
-        SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']/option[contains(text(),"+ForemanName+")]"));
+        SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']/option[contains(text(),'"+ForemanName+"')]"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
         driver.wait(
@@ -1838,6 +1845,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         LoginToBoardAsForeman: LoginToBoardAsForeman,
         LoginToBoardAsForemanDeliveryFlatRate: LoginToBoardAsForemanDeliveryFlatRate,
         LoginToBoardAsCustom: LoginToBoardAsCustom,
+        LoginToBoardAsCustomForeman: LoginToBoardAsCustomForeman,
         LoginToAccountAsClient: LoginToAccountAsClient,
         LoginToBoardAs_Roma4ke_Admin: LoginToBoardAs_Roma4ke_Admin,
         OpenRequest: OpenRequest,

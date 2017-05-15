@@ -31,10 +31,10 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     MF.WaitWhileBusy ();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
-    LF.selectCrew(V.ForemanName);
+    LF.selectCrew(V.foremanName);
     LF.LogoutFromBoardAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
-    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
@@ -105,7 +105,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     SF.sleep(2);
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin();
-    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
 condition.nowWeDoing = 'идем на форемана проверить что он удалился с  работы';
     SF.sleep (3);
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {

@@ -79,7 +79,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
-    LF.selectCrew(V.ForemanName);
+    LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Local Quote (Confirmed)");
@@ -90,7 +90,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'заходим под форменом, открываем контракт';
-    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
@@ -148,7 +148,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'сейчас идём в пейролл';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
-    LF.findTestForemanInPayroll(V.ForemanName);
+    LF.findTestForemanInPayroll(V.foremanName);
 
     condition.nowWeDoing = 'выбираем цифры формена';
     V.payrollNumbers = {
