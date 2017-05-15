@@ -120,6 +120,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SelectRequestDispatch(V.accountNumbersTo.Id);
     LF.selectCrew();
     SF.sleep(2);
+    LF.OpenRequestDispatch(V.accountNumbersTo.Id);
+    MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving With Storage Quote (Confirmed)");
+    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
+    MF.EditRequest_Check1EmailExist("TestForeman@mail.com", "Send TO Foreman");
+    LF.closeEditRequest();
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
