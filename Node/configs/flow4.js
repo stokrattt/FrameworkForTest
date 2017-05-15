@@ -1,11 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/30_StorageTenant.js',
-        './tests/31_FlateRateBooking.js',
-        './tests/49_FlatRateLocalMove.js',
-        './tests/1_AllLocalMoving.js',
-        './tests/32_AllMovingWithStorage.js',
-        './tests/TheCleaner.js',//==============================уборка=========================
+
     ];
     config.chainFail = false;
     config.browser = 'chrome';
