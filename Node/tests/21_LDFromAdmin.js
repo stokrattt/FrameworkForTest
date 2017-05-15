@@ -9,7 +9,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     SF.sleep (3);
-    condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
+
+condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSettingsLongDistance ();
     MF.LongDistanceSettings_ClickOnMapCaliforniya();
@@ -136,13 +137,20 @@ condition.nowWeDoing = 'запоминаем данные после добав�
     MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
+
     LF.closeEditRequest ();
     MF.Board_OpenDashboard();
     MF.Board_OpenNotConfirmed();
     LF.OpenRequest(V.request.Id);
 condition.nowWeDoing = 'идём в логи';
     MF.EditRequest_OpenLogs();
-    SF.click(By.xpath('//a[@ng-click="select(tabs[5])"]'));
+
+    MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
+    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Long Distance Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Request Long Distance Quote (Not Confirmed Status)");
+
     V.logNumbers={};
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Long Distance Quote (Not Confirmed Status)")][contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
@@ -212,6 +220,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
         VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
+    SF.sleep(1);
     LF.LogoutFromAccount ();
 
 

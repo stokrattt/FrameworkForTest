@@ -85,8 +85,9 @@ condition.nowWeDoing = 'меняем зип код в реквесте, чтоб
     SF.clear(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
     SF.sleep(0.3);
     SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");
-    SF.sleep(0.5);
+    SF.sleep(6);
     MF.EditRequest_SetAdressToFrom ();
+    SF.sleep(4);
     MF.EditRequest_SaveChanges ();
     SF.sleep(5);
     V.boardNumbers100_140 = {};
@@ -94,6 +95,7 @@ condition.nowWeDoing = 'меняем зип код в реквесте, чтоб
     SF.sleep(0.5);
     VD.IWant (VD.VToEqual, V.boardNumbers100_140.Fuel, 800, 'не совпал фуел с выставленными настройками на 100 - 140 миль');
     SF.sleep(0.5);
+    Debug.pause();
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'идем на дашборд, открываем реквест и проверяем что там осталось 800 дол';

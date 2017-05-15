@@ -67,6 +67,13 @@ condition.nowWeDoing = 'зашли под админом и сравниваем
     MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
+
+    MF.EditRequest_OpenLogs();
+
+    MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
+    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
+
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
     SF.get(V.accountURL);

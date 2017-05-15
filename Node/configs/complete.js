@@ -1,6 +1,7 @@
 module.exports = function(config,V) {
     config.suite = [
         './tests/DefaultSettings.js',
+        './tests/48_Review.js',
         './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',
         './tests/4_CheckFuelSurcharge.js',
         './tests/7_DepartmenTest.js',
@@ -60,8 +61,8 @@ module.exports = function(config,V) {
         './tests/44_CreateForemanAndAssignCheck.js',
         './tests/45_MovStorAddInventConfirmClient.js',
         './tests/46_FuelByMileage.js',
-        './tests/47_SendMessage.js',
-        './tests/48_Review.js'
+        './tests/47_SendMessage.js'
+
 
 
     ];

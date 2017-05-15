@@ -60,7 +60,6 @@ condition.nowWeDoing = 'ищем второй раз в диспатче рек�
     MF.WaitWhileBusy ();
     SF.sleep(1);
     MF.WaitWhileBusy ();
-    MF.Dispatch_GridView();
     LF.OpenRequestDispatch (V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
     LF.closeEditRequest();

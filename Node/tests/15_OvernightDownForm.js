@@ -101,6 +101,8 @@ condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (3);
     MF.WaitWhileBusy ();
     MF.Account_ClickViewRequest();
+    MF.WaitWhileBusy ();
+    SF.sleep(2);
     V.accountNumbersUp = {};
     LF.RememberAccountNumbers (V.accountNumbersUp);
     LF.addToCleanerJob(V.accountNumbersUp.Id);
@@ -108,6 +110,8 @@ condition.nowWeDoing = 'пошли в аккаунт';
     MF.Account_ClickFromStorage ();
     V.accountNumbersDelivery = {};
     SF.sleep (0.5);
+    MF.WaitWhileBusy ();
+    SF.sleep(3);
     LF.RememberAccountNumbers(V.accountNumbersDelivery);
     LF.addToCleanerJob(V.accountNumbersDelivery.Id);
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersDelivery,V.frontNumbersOvernightDown_Del);
@@ -127,6 +131,8 @@ condition.nowWeDoing = 'зашли в админку';
     SF.sleep (0.5);
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
+
+
     LF.closeEditRequest ();
     LF.OpenRequest(V.accountNumbersDelivery.Id); /********************************************************************/
     V.boardNumbersDelivery = {};

@@ -37,6 +37,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     MF.EditRequest_CloseConfirmWork ();
     MF.EditRequest_SetLaborTimeCloseJob ();
     MF.EditRequest_CloseJob();
+    SF.sleep(3);
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
 condition.nowWeDoing = 'Идем на апи и дергаем крон';

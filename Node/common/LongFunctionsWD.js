@@ -1423,7 +1423,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             frontNumbersDown.TravelTimeTo = SF.cleanPrice(text.substring(text.indexOf('min')));
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[4]/span')).getText().then(function (text) {
-            frontNumbersDown.CrewTo = text.replace('Movers', '');
+            frontNumbersDown.CrewTo = SF.cleanPrice (text);
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
             frontNumbersDown.RateTo = text.indexOf('$', 4) == -1 ?
@@ -1454,7 +1454,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             frontNumbersDown.TravelTimeFrom = SF.cleanPrice(text.substring(text.indexOf('min')));
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[4]/span')).getText().then(function (text) {
-            frontNumbersDown.CrewFrom = text.replace('Movers', '');
+            frontNumbersDown.CrewFrom = SF.cleanPrice (text);
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[5]/span')).getText().then(function (text) {
             frontNumbersDown.RateFrom = text.indexOf('$', 4) == -1 ?
