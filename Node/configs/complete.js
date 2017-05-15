@@ -60,7 +60,8 @@ module.exports = function(config,V) {
         './tests/45_MovStorAddInventConfirmClient.js',
         './tests/46_FuelByMileage.js',
         './tests/47_SendMessage.js',
-        './tests/48_Review.js'
+        './tests/48_Review.js',
+        './tests/49_AddJobToTrip.js'
 
 
     ];

@@ -646,6 +646,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (2);
     }
 
+    //==================================TRIPS============================================
+
+
     return {
         WaitToastExit: WaitToastExit,
         WaitWhileBusy: WaitWhileBusy,
@@ -784,5 +787,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Department_ClickCanEditOtherLeads: Department_ClickCanEditOtherLeads,
         Department_ClickCanAssignToOther: Department_ClickCanAssignToOther,
         Department_SaveUser: Department_SaveUser
+        //====================================TRIPS==========================================
+
     };
 };
