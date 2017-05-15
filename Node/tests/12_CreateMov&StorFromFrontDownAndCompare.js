@@ -26,7 +26,7 @@ condition.nowWeDoing = 'запоминаем данные которые пос�
     SF.openTab (1);
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (3);
-    MF.SweetCancel ();
+    MF.Account_ClickViewRequest ();
 condition.nowWeDoing = 'запомнили данные в аке и сравниваем с калькулятором';
     LF.RememberAccountNumbers(V.accountNumbersTo);
     LF.addToCleanerJob(V.accountNumbersTo.Id);
@@ -73,7 +73,7 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
         VD.IWant(VD.VToEqual,Status,'Not Confirmed');
     }), config.timeout);
     //*******************************************************************************
-    MF.Account_OpenRequest (V.FRId);
+    MF.Account_OpenRequest (V.accountNumbersTo.Id);
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
