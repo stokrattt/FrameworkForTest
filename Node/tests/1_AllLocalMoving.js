@@ -49,7 +49,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Quote (Pending Status)");
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
-    Debug.pause();
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
@@ -87,8 +86,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_Check1EmailExist(V.client.email, "YOUR MOVE IS CONFIRMED AND SCHEDULED!");
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
     MF.EditRequest_Check1EmailExist("TestForeman@mail.com", "Send TO Foreman");
-    LF.closeEditRequest ();
-    Debug.pause();
+    LF.closeEditRequest();
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'заходим под форменом, открываем контракт';
@@ -135,6 +133,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.accountNumbers.Id);
+    Debug.pause();
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
