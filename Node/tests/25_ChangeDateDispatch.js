@@ -8,7 +8,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
 
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.WaitWhileBusy ();
 condition.nowWeDoing = 'создаем реквест ';
     LF.CreateLocalMovingFromBoard (V.client);
@@ -60,7 +60,6 @@ condition.nowWeDoing = 'ищем второй раз в диспатче рек�
     MF.WaitWhileBusy ();
     SF.sleep(1);
     MF.WaitWhileBusy ();
-    MF.Dispatch_GridView();
     LF.OpenRequestDispatch (V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
     LF.closeEditRequest();

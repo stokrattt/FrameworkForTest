@@ -25,7 +25,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'первый раз в админке, ищем первый реквест';
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequest(V.accountNumbersWithRes.Id);
     V.boardNumbersWithRes = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersWithRes);
@@ -78,7 +78,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'первый раз в админке, ищем первый реквест NoRes';
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequest(V.accountNumbersNoRes.Id);
     V.boardNumbersNoRes = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersNoRes);

@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в настройки и выставляем настройки для драйвинг тайма и травел тайма';
     MF.Board_OpenSettingsGeneral ();
     SF.sleep(2);
@@ -34,11 +34,9 @@ condition.nowWeDoing = 'идем в настройки и выставляем �
     SF.send (By.xpath('//input[@ng-model="vm.basicSettings.local_flat_miles"]'), "350");
     SF.click (By.xpath('//input[@ng-model="vm.calcSettings.flatTravelTime.radius"]'));
     SF.sleep(3);
-    SF.click(By.xpath('//a[@ui-sref="dashboard"]'));
-    SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
-    SF.sleep (3);
+    MF.Board_OpenDashboard ();
 condition.nowWeDoing = 'создаем локал мув с требуемыми зип кодами';
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.click(By.linkText('Create Request'));
     SF.sleep(2);
     SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
@@ -97,7 +95,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, сравнив�
     LF.Validation_Compare_Account_Admin (V.accountNumbersClean, V.boardNumbersClean);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'защли а админку второй раз, ставим нот конфем, трак, сохраняем, закрываем, открываем и сравниваем данные которые были первый раз в реквесте с данными после того как изменили статус';
     LF.OpenRequest (V.request.Id);
     JS.step(JSstep.selectTruck((V.boardNumbersClean.LaborTimeMax + V.boardNumbersClean.TravelTime)/60));

@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
 condition.nowWeDoing = 'создаем первый реквест';
     LF.CreateLocalMovingFromBoard(V.client);
@@ -84,12 +84,12 @@ condition.nowWeDoing = 'идем в аккаунт букать третью р�
         VD.IWant(VD.VToEqual,Status,'Not Confirmed');
     }),config.timeout);
     SF.click(By.xpath('//td[contains(text(),"'+V.Id3+'")]/following-sibling::td/button[contains(text(),"View")]'));
-    MF.SweetCancel ();
+    MF.Account_ClickViewRequest ();
     SF.sleep (2);
     LF.ConfirmRequestInAccount_WithReservationWithAdress ();
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку проверять или два реквеста ушли в дата пендинг';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.VToEqual, text, 'Date Pending', 'первый реквест не ушел в дата пендинг а должен был');

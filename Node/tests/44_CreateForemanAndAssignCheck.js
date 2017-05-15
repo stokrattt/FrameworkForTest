@@ -9,12 +9,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
-    SF.send(By.xpath('//input[@id="email"]'), 'roma4ke');
-    SF.send(By.xpath('//input[@id="password"]'), 'root');
-    SF.click(By.xpath('//button[@type="submit"]'));
-    SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
-    SF.sleep (3);condition.nowWeDoing = 'создаем форемана, и ставим ему комиссию hourly rate';
+    LF.LoginToBoardAs_Roma4ke_Admin ();
+
+condition.nowWeDoing = 'создаем форемана, и ставим ему комиссию hourly rate';
     MF.Board_OpenSettingsDepartment ();
     SF.sleep(3);
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
@@ -37,10 +34,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear (By.xpath('//input[@ng-model="rateCommission[$index].input"]'));
     SF.send (By.xpath('//input[@ng-model="rateCommission[$index].input"]'), "150");
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    JS.waitForNotExist ('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.sleep(1);
-    JS.waitForNotExist('div.toast-success');
+    MF.WaitWhileBusy ();
     SF.sleep(3);
+
 condition.nowWeDoing = 'создаем реквест, конфермим его';
     LF.CreateLocalMovingFromBoard(V.client);
     V.boardNumbers = {};
@@ -51,6 +49,7 @@ condition.nowWeDoing = 'создаем реквест, конфермим его
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
+
 condition.nowWeDoing = 'идем в диспач ищем работу и назначем ей созданного форемана';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch (V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
@@ -64,11 +63,12 @@ condition.nowWeDoing = 'идем в диспач ищем работу и наз
     SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
     SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
     SF.click(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
-    JS.waitForExist('div.toast-success');
+    MF.WaitToastExit ();
     SF.sleep(2);
-    JS.waitForNotExist('div.toast-success');
+    MF.WaitToastExit ();
     SF.sleep(2);
     LF.LogoutFromBoardAdmin ();
+
 condition.nowWeDoing = 'зашли  под созданным фореманом и подписываем работу';
     SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
     SF.send(By.xpath('//input[@id="email"]'), V.foremanAccount);
@@ -76,12 +76,12 @@ condition.nowWeDoing = 'зашли  под созданным фореманом
     SF.click(By.xpath('//button[@type="submit"]'));
     SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
     LF.OpenRequestDispatch(V.boardNumbers.Id);
-    JS.waitForExist('h1:contains("Confirmation Page"):visible');
-    SF.click(By.xpath('//li[@id="tab_Bill of lading"]'));
+    MF.Contract_WaitConfirmationPage();
+    MF.Contract_OpenBillOfLading ();
     SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    SF.select(By.xpath('//select[@ng-model="data.declarationValue.selected"]'), 'a');
+    MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
@@ -104,11 +104,7 @@ condition.nowWeDoing = 'зашли  под созданным фореманом
     MF.Contract_Submit();
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
-    SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
-    SF.send(By.xpath('//input[@id="email"]'), 'roma4ke');
-    SF.send(By.xpath('//input[@id="password"]'), 'root');
-    SF.click(By.xpath('//button[@type="submit"]'));
-    SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+    LF.LoginToBoardAs_Roma4ke_Admin ();
     /*********************************************************************************/
 condition.nowWeDoing = 'идем в диспач ищем работу, проверяем баланс = 0, открываем в реквесте пейролл, проверяем комиссию = 150 за час';
     MF.Board_OpenLocalDispatch();
@@ -133,23 +129,25 @@ condition.nowWeDoing = 'идем в диспач ищем работу, пров
     SF.sleep(1);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
+
 condition.nowWeDoing = 'идем в пейрол ищем форемана и проверяем комиссию';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
     SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
     SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+V.foremanFirstName+'")]'));
     SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+V.foremanFirstName+'")]'));
     SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.sleep(2);
     driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.boardNumbers.Id)).then(function (text) {
         V.payrollNumbersTotal = SF.cleanPrice(text);
         VD.IWant(VD.VToEqual, V.payrollNumbersTotal, V.RequestPayrollTotal, 'не совпали цифры новосозданного форемана в Payroll foreman' + V.boardNumbers.Id);
     }), config.timeout);
     SF.sleep(1);
+
 condition.nowWeDoing='идем удалять форемана';
     MF.Board_OpenSideBar ();
     SF.sleep(1);
@@ -157,14 +155,13 @@ condition.nowWeDoing='идем удалять форемана';
     SF.sleep(2);
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(2);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(" + V.foremanFirstName + ")').dblclick();"),config.timeout);
     SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    JS.waitForNotExist('div.toast-message');
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.SweetConfirm ();
+    MF.WaitToastExit ();
+    MF.WaitWhileBusy ();
     SF.sleep (2);
     LF.LogoutFromBoardAdmin ();
 

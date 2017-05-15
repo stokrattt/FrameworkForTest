@@ -99,7 +99,10 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     SF.openTab (1);
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (3);
-    MF.SweetCancel();
+    MF.WaitWhileBusy ();
+    MF.Account_ClickViewRequest();
+    MF.WaitWhileBusy ();
+    SF.sleep(2);
     V.accountNumbersUp = {};
     LF.RememberAccountNumbers (V.accountNumbersUp);
     LF.addToCleanerJob(V.accountNumbersUp.Id);
@@ -107,13 +110,15 @@ condition.nowWeDoing = 'пошли в аккаунт';
     MF.Account_ClickFromStorage ();
     V.accountNumbersDelivery = {};
     SF.sleep (0.5);
+    MF.WaitWhileBusy ();
+    SF.sleep(3);
     LF.RememberAccountNumbers(V.accountNumbersDelivery);
     LF.addToCleanerJob(V.accountNumbersDelivery.Id);
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersDelivery,V.frontNumbersOvernightDown_Del);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
 condition.nowWeDoing = 'зашли в админку';
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequest(V.accountNumbersUp.Id);
     V.boardNumbersUp = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersUp);
@@ -126,6 +131,8 @@ condition.nowWeDoing = 'зашли в админку';
     SF.sleep (0.5);
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
+
+
     LF.closeEditRequest ();
     LF.OpenRequest(V.accountNumbersDelivery.Id); /********************************************************************/
     V.boardNumbersDelivery = {};
@@ -158,6 +165,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     SF.send (By.id('edit-moving-from'), 'otkuda edem');
     SF.send (By.id('edit-moving-from-apt'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    SF.sleep (2);
     MF.SweetConfirm ();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
@@ -185,6 +193,7 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
     SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    SF.sleep(2);
     //SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     //SF.click (By.xpath('//button[@class="confirm"]'));
     MF.SweetConfirm ();

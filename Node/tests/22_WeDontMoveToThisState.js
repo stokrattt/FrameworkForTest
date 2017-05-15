@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы только ассепт алл квотс';
     LF.gotoSetingsLD ();
@@ -87,15 +87,15 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     SF.sleep (2);
 
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем все галки';
     LF.gotoSetingsLD ();
     SF.sleep (2);
     JS.click('#jqvmap1_ia');
-    SF.sleep (2);
+    SF.sleep (3);
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
-    SF.sleep (2);
+    SF.sleep (3);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
@@ -103,7 +103,7 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
-    SF.sleep (2);
+    SF.sleep (3);
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
 condition.nowWeDoing = 'создаем реквест второй раз с фронтовой верхней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
@@ -123,7 +123,7 @@ condition.nowWeDoing = 'создаем реквест второй раз с ф�
     MF.SweetConfirm();
 
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем галку All acept quotes и ставим галочку Move to this state и выставить для всех area какую-нибудь цену';
     LF.gotoSetingsLD ();
@@ -212,7 +212,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     driver.navigate().refresh();
     SF.sleep (3);
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'удаляем общую цену для всего штата и назначить одну цену на какую-то территорию';
     LF.gotoSetingsLD ();
@@ -306,7 +306,7 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     SF.sleep (3);
 
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'заходим в админку и удаляем Move to this state при этом цена в один ареа код остается';
     LF.gotoSetingsLD ();

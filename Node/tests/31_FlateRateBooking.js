@@ -10,7 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
 condition.nowWeDoing = 'идем в админку проверяем что стоит галка на флет рейт';
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsGeneral ();
     SF.sleep (3);
     JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
@@ -20,7 +20,7 @@ condition.nowWeDoing = 'идем в админку проверяем что с�
 condition.nowWeDoing = 'создаем Flat Rate реквест';
     LF.CreateFlatRateDownForm(V.client);
 condition.nowWeDoing = 'перешли в аккаунт добавляем опции';
-    MF.SweetCancel();
+    MF.Account_ClickViewRequest();
     let now = new Date();
     let msInDay = 86400000;
     let future = new Date(now.getTime() + msInDay * 2);
@@ -33,6 +33,7 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
      options = { day: 'numeric', month: 'short', year: 'numeric' };
     V.changedateDelivery = (future.toLocaleDateString('en-US', options));
     SF.send(By.xpath('//div[contains(@class, "dateRange delivery")]/input'), V.changedateDelivery);
+    MF.WaitWhileBusy ();
     SF.click(By.xpath('//div[contains(@class, "ng-pristine")]'));
     SF.select (By.xpath('//select[@ng-model="details.current_door"]'), 30);
     SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
@@ -54,7 +55,7 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции 1';
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequestFlatRate (V.FRId);
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
     SF.sleep (0.5);
@@ -124,7 +125,7 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     condition.nowWeDoing = 'пошли в админку 2 раз, ставить трак, нот конферм';
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
     LF.OpenRequest (V.FRId);
     V.boardNumbers = {};
@@ -150,6 +151,13 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     }),config.timeout);
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();
+
+    MF.EditRequest_OpenLogs();
+
+    MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
+    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
+
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
     SF.get (V.accountURL);
@@ -160,7 +168,7 @@ condition.nowWeDoing = 'идем в акк под клиентом 2 раз бу
     LF.ConfirmRequestInAccount_WithReservationWithAdress();
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку проверять что работа конферм';
     MF.Board_OpenConfirmed ();
     LF.OpenRequest (V.FRId);

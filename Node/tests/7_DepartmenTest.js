@@ -163,9 +163,7 @@ condition.nowWeDoing='Заходим под созданным foreman**********
 
     LF.LogoutFromBoardForeman ();
 
-    SF.send(By.id('email'), 'roma4ke');
-    SF.send(By.id('password'), 'root');
-    JS.click('.btn-primary');
+    LF.LoginToBoardAs_Roma4ke_Admin ();
 condition.nowWeDoing = 'заходим под админом и создаем реквест';
     LF.CreateLocalMovingFromBoard (V.client);
     SF.sleep (2);

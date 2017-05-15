@@ -3,7 +3,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
 condition.nowWeDoing = 'идем в пейролл и віставляем дату в промежутке месяц';
     MF.Board_OpenPayroll ();
@@ -24,7 +24,7 @@ condition.nowWeDoing = 'идем в пейролл и віставляем да�
     SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
     SF.sleep(1);
     MF.WaitWhileBusy ();
-
+Debug.pause();
 condition.nowWeDoing = 'тут запускаем цикл на перебор всех категорий и всех юзеров';
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(id, dataObj) in dataTbl track by $index\"]').length").then(function (depart) {
         V.department = depart;
@@ -85,7 +85,6 @@ condition.nowWeDoing = 'тут заходим в конкретного мужи
            // driver.wait(driver.executeScript(JSstep.payrollTableSum));
             JS.click('a[ng-click=\\"dTable=\'workers\';employee=\'\'\\"]:visible');
             MF.WaitWhileBusy ();
-
         }
         JS.click('a[ng-click=\\"dTable=\'departments\';employee=\'\'\\"]:visible');
         MF.WaitWhileBusy ();

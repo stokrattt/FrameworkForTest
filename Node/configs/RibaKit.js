@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/1_AllLocalMoving.js'
+        './tests/32_AllMovingWithStorage.js'
     ];
     config.chainFail = false;
     /*V.adminURL = 'localhost:8080/moveBoard/#/dashboard';

@@ -9,7 +9,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'идем в настройки фуела и добавляем две строки fuel by mileage';
     MF.Board_OpenSettingsGeneral();
     SF.click(By.linkText('Fuel Surcharge'));
@@ -40,6 +41,7 @@ condition.nowWeDoing = 'идем в настройки фуела и добав�
     SF.send (By.xpath('//tr[@ng-if="vm.addSurcharge"]//input[@ng-model="vm.newSurcharge.amount"]'), 800);
     SF.click(By.xpath('//button[@ng-click="vm.saveNewSurcharge(); "]'));
     SF.sleep(3);
+
 condition.nowWeDoing = 'создаем локал мув где расстояние будет от 60 до 100 миль';
     SF.click(By.linkText('Create Request'));
     SF.sleep(2);
@@ -62,7 +64,7 @@ condition.nowWeDoing = 'создаем локал мув где расстоян
     SF.sleep(4);
     SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
     SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
     SF.sleep(2);
     SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
@@ -78,12 +80,14 @@ condition.nowWeDoing = 'создаем локал мув где расстоян
     SF.sleep(1);
     VD.IWant (VD.VToEqual, V.boardNumbers60_100.Fuel, 500, 'не совпал фуел с выставленными настройками на 60 - 100 миль');
     SF.sleep (2);
+
 condition.nowWeDoing = 'меняем зип код в реквесте, чтобы расстояние было в промежутке 100 - 140 миль и проверяем фуель';
     SF.clear(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
     SF.sleep(0.3);
     SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");
-    SF.sleep(0.5);
+    SF.sleep(6);
     MF.EditRequest_SetAdressToFrom ();
+    SF.sleep(4);
     MF.EditRequest_SaveChanges ();
     SF.sleep(5);
     V.boardNumbers100_140 = {};
@@ -93,6 +97,7 @@ condition.nowWeDoing = 'меняем зип код в реквесте, чтоб
     SF.sleep(0.5);
     Debug.pause();
     LF.closeEditRequest ();
+
 condition.nowWeDoing = 'идем на дашборд, открываем реквест и проверяем что там осталось 800 дол';
     MF.Board_OpenDashboard ();
     JS.scroll ('div[ng-click=\"vm.select(0)\"]');

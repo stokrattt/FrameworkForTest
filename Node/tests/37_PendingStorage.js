@@ -11,7 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'создаём с борда MovingWithStorage';
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateMovAndStorFromBoard(V.client, 40);
 
 condition.nowWeDoing = 'Законфёрмить сразу реквест';
@@ -44,12 +44,12 @@ condition.nowWeDoing = 'Зайти в local Dispatch, найти первый р
     MF.Dispatch_GridView ();
     SF.sleep(1);
     LF.SelectRequestDispatch(V.boardNumbersTo.Id);
-    LF.selectCrew();
+    LF.selectCrew(V.ForemanName);
     SF.sleep(2);
     LF.LogoutFromBoardAdmin();
 
 condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
-    LF.LoginToBoardAsForeman();
+    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.boardNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
     SF.click(By.xpath('//li[@id="tab_Inventory"]'));
@@ -131,7 +131,7 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
 
 condition.nowWeDoing = 'From storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequest(V.boardNumbersTo.Id+1);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
@@ -152,12 +152,12 @@ condition.nowWeDoing = 'Найти второй реквест, назначит
     MF.WaitWhileBusy ();
     MF.Dispatch_GridView ();
     LF.SelectRequestDispatch(V.boardNumbersFrom.Id);
-    LF.selectCrew();
+    LF.selectCrew(V.ForemanName);
     SF.sleep(2);
     LF.LogoutFromBoardAdmin();
 
 condition.nowWeDoing = 'Найти вторую работу, зайти в Inventory, подтвердить состояния предметов, запомнить их';
-    LF.LoginToBoardAsForeman();
+    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.boardNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage ();
     SF.click(By.xpath('//li[@id="tab_Inventory"]'));
@@ -203,7 +203,7 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
     LF.LogoutFromBoardForeman();
 
 condition.nowWeDoing="Зайти в Storsge pending, найти реквест";
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSideBar ();
     MF.Board_OpenStorages ();
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.client.name+' '+V.client.fam+'")]'));

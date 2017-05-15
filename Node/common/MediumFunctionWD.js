@@ -11,7 +11,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function SweetConfirm() {
         JS.waitForExist('button.confirm');
-        SF.sleep(1);
+        SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"]'));
     }
 
@@ -133,7 +133,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (3);
     }
     function Board_OpenCourier() {
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'couriers\', \'\')"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'trip\', \'\')"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ui-sref="couriers"]'));
         SF.sleep(2);
     }
     function Board_OpenTripPlanner() {
@@ -177,9 +180,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Account_ChooseOptionFlatRate() {
         SF.click(By.xpath('//button[@ng-click="vm.chooseOption(option)"]'));
-        SF.waitForVisible(By.xpath('//button[@ng-click="update()"]'));
+        SF.sleep(2);
+        SF.waitForLocated(By.xpath('//button[@ng-click="update()"]'));
+        SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="update()"]'));
         WaitWhileBusy ();
+        SF.sleep(1);
         SweetConfirm ();
         SF.sleep(3);
     }
@@ -264,6 +270,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Contract_Submit() {
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
+        SF.sleep(2);
         SweetConfirm();
     }
 
@@ -431,6 +438,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_OpenPayroll() {
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal();"]'));
+        SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
+        JS.waitForNotExist('div.busyoverlay:visible');
+    }
+    function EditRequest_OpenPayrollPickupFlatRate() {
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal(\'pickedUpCrew\');"]'));
+        SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
+        JS.waitForNotExist('div.busyoverlay:visible');
+    }
+    function EditRequest_OpenPayrollDeliveryFlatRate() {
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal(\'deliveryCrew\');"]'));
         SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
         JS.waitForNotExist('div.busyoverlay:visible');
     }
@@ -769,6 +788,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ClickCloneRequest: EditRequest_ClickCloneRequest,
         EditRequest_WaitForVisibleCloneRequest: EditRequest_WaitForVisibleCloneRequest,
         EditRequest_OpenPayment: EditRequest_OpenPayment,
+        EditRequest_OpenPayrollPickupFlatRate: EditRequest_OpenPayrollPickupFlatRate,
+        EditRequest_OpenPayrollDeliveryFlatRate: EditRequest_OpenPayrollDeliveryFlatRate,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

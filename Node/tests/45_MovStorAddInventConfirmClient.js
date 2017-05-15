@@ -33,7 +33,7 @@ condition.nowWeDoing = 'Идём на From запоминаем данные';
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'зашли в админку To storage ставим нот конферм, адрес и пароль клиенту, сравниваем данные с аккаунтом';
     LF.OpenRequest(V.accountNumbersTo.Id);
     V.boardNumbersTo = {};

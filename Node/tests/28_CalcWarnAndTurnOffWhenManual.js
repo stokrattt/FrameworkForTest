@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
     V.boardNumbers={};
     LF.RememberDigitsRequestBoard_Up(V.boardNumbers);

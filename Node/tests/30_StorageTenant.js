@@ -1,6 +1,7 @@
 module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
     global.fiber = Fiber.current;
     V.client = {};
+    V.storage = {};
     V.client.name = SF.randomBukva(6) + '_t';
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
@@ -10,7 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
 condition.nowWeDoing = 'идем в сторадж и создаем сторадж тенант';
     MF.Board_OpenStorages();

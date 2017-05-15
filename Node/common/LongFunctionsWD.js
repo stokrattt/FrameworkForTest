@@ -574,6 +574,44 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForNotExist('div.busyoverlay:visible');
         console.log('создали реквест');
     }
+    function CreateFlatRateFromBoard(client) {
+        JS.waitForNotExist('div.toast-success');
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.click(By.linkText('Create Request'));
+        SF.sleep(2);
+        SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:5"]'));
+        SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+        V.request = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
+            V.request.moveDate = calDate;
+            console.log(V.request);
+        }),config.timeout);
+        SF.sleep(0.5);
+        SF.click(By.xpath('//ul[@class="chosen-choices"]'));
+        SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+        driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
+            V.request.mdate = (mdate);
+        }),config.timeout);
+        console.log (V.request.mdate);
+        SF.send(By.id("edit-zip-code-from"), "02461");
+        SF.send(By.id("edit-zip-code-to"), "07304");
+        SF.sleep(4);
+        SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
+        SF.sleep(1);
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep(1);
+        SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
+        SF.sleep(2);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
+        SF.click(By.xpath('//button[@ng-click="create()"]'));
+        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+        SF.sleep(4);
+        JS.waitForNotExist('div.busyoverlay:visible');
+        console.log('создали реквест');
+    }
     function CreateMovAndStorFromBoard(client, period) {
         SF.click(By.linkText('Create Request'));
         SF.sleep(2);
@@ -1001,9 +1039,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             Fiber.yield();
         }
     }
-    function selectCrew() {
+    function selectCrew(ForemanName) {
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']"));
-        SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'Test Foreman')]"));
+        SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),"+ForemanName+")]"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
         driver.wait(
@@ -1026,9 +1064,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForNotExist('div.toast-success');
         SF.sleep(2);
     }
-    function selectCrewFlatRatePickUp() {
+    function selectCrewFlatRatePickUp(ForemanName) {
         SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']"));
-        SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']/option[contains(text(),'Test Foreman')]"));
+        SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']/option[contains(text(),"+ForemanName+")]"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
         driver.wait(
@@ -1193,7 +1231,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             foremanForCommission: {},
             helpersForComission: []
         };
-        SF.sleep(1);
+        SF.sleep(3);
         driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
             boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
         }));
@@ -1241,13 +1279,24 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
         });
     }
-    function findTestForemanInPayroll() {
+    function findTestForemanInPayroll(ForemanName) {
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"Test Foreman")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"Test Foreman")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+ ForemanName +'")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+ ForemanName +'")]'));
+        SF.sleep(1);
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep(2);
+    }
+    function findFlatRateDeliveryForemanInPayroll() {
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
+        SF.sleep(1);
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"FlatRate Foreman")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"FlatRate Foreman")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
@@ -1315,7 +1364,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.select(By.xpath('//select[@ng-model="request.prefDelivery"]'), 3);
         SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
         SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(2);
+        SF.sleep(5);
         JS.waitForNotExist ('div[ng-if="loadingImg"]');
         SF.sleep(4);
     }
@@ -1374,7 +1423,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             frontNumbersDown.TravelTimeTo = SF.cleanPrice(text.substring(text.indexOf('min')));
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[4]/span')).getText().then(function (text) {
-            frontNumbersDown.CrewTo = text.replace('Movers', '');
+            frontNumbersDown.CrewTo = SF.cleanPrice (text);
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
             frontNumbersDown.RateTo = text.indexOf('$', 4) == -1 ?
@@ -1405,7 +1454,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             frontNumbersDown.TravelTimeFrom = SF.cleanPrice(text.substring(text.indexOf('min')));
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[4]/span')).getText().then(function (text) {
-            frontNumbersDown.CrewFrom = text.replace('Movers', '');
+            frontNumbersDown.CrewFrom = SF.cleanPrice (text);
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[5]/span')).getText().then(function (text) {
             frontNumbersDown.RateFrom = text.indexOf('$', 4) == -1 ?
@@ -1802,6 +1851,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         CreateLoadingHelpFromBoard: CreateLoadingHelpFromBoard,
         CreateFlatRateDownForm: CreateFlatRateDownForm,
         CreateStorageTenant: CreateStorageTenant,
+        CreateFlatRateFromBoard: CreateFlatRateFromBoard,
         RememberDigitsRequestBoard_Up: RememberDigitsRequestBoard_Up,
         RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
         RememberDigitsRequestBoard: RememberDigitsRequestBoard,
@@ -1840,6 +1890,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         findDayInLocalDispatch: findDayInLocalDispatch,
         RememberAndValidatePayroll_In_EditRequest: RememberAndValidatePayroll_In_EditRequest,
         findTestForemanInPayroll: findTestForemanInPayroll,
+        findFlatRateDeliveryForemanInPayroll: findFlatRateDeliveryForemanInPayroll,
         findSaleInPayroll: findSaleInPayroll,
         selectDateInPayroll: selectDateInPayroll,
         addToCleanerJob: addToCleanerJob,

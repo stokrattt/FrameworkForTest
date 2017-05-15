@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
     MF.Board_OpenSettingsGeneral();
@@ -38,6 +38,7 @@ condition.nowWeDoing = 'заполняем калькулятор верхний
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy ();
     MF.WaitWhileBusy ();
+    SF.sleep(3);
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу';
     V.accountNumbersLD={};
     driver.wait(driver.executeScript('return $("div:contains(\\"Move Date (Pick Up Day):\\"):last").next().text()').then(function (dateString) {
@@ -66,7 +67,7 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     LF.addToCleanerJob(V.accountNumbersLD.Id);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'зашли на админку для сравнения';
     SF.sleep (2);
     LF.OpenRequest (V.accountNumbersLD.Id);
@@ -96,7 +97,7 @@ condition.nowWeDoing = 'зашли на админку для сравнения
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
 condition.nowWeDoing = 'зашли в аккаунт и добавляем инвентори';
-    MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbersLD.Id);
+    MF.Account_CheckRequestStatus_Pending (V.accountNumbersLD.Id);
     MF.Account_OpenRequest (V.accountNumbersLD.Id);
     LF.AccountLocalAddInventory();
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу после добавления инвентори на аккаунте';
@@ -128,7 +129,7 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     console.log(V.accountNumbersLDWithInvent);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'зашли на админку второй раз для сравнения с инвенторием';
     SF.sleep (2);
     LF.OpenRequest (V.accountNumbersLD.Id);

@@ -37,13 +37,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     LF.AccountFromStorageEnterAddress();
     V.accountNumbersFrom = {};
-
+    MF.WaitWhileBusy();
+    SF.sleep(5);
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
     SF.get(V.adminURL);
+    V.adminLogin = "TestAdmin";
+    V.adminPassword = "test";
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequest(V.accountNumbersTo.Id);
     V.boardNumbersTo = {};
@@ -115,12 +118,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbersTo.Id);
-    LF.selectCrew();
+    LF.selectCrew(V.ForemanName);
     SF.sleep(2);
+    LF.OpenRequestDispatch(V.accountNumbersTo.Id);
+    MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving With Storage Quote (Confirmed)");
+    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
+    MF.EditRequest_Check1EmailExist("TestForeman@mail.com", "Send TO Foreman");
+    LF.closeEditRequest();
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
-    LF.LoginToBoardAsForeman();
+    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.accountNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
@@ -196,11 +205,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbersFrom.Id);
-    LF.selectCrew();
+    LF.selectCrew(V.ForemanName);
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'Найти вторую работу у формена, зайти в Inventory, подтвердить состояния предметов, запомнить их';
-    LF.LoginToBoardAsForeman();
+    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.accountNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
@@ -282,7 +291,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'сейчас идём в пейролл и проверяем первую работы';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbersTo.moveDate);
-    LF.findTestForemanInPayroll();
+    LF.findTestForemanInPayroll(V.ForemanName);
     V.payrollNumbersTo = {
         Foreman:{}, Sale:{}
     };

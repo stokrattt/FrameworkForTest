@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get('http://stage.themoveboard.com:8090/moveBoard/#/login');
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSideBar ();
     MF.Board_OpenCourier ();
     MF.Board_OpenSideBar ();
@@ -118,9 +118,9 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     VD.IWant(VD.VToEqual,V.carrierNew3.eMail, V.carrierNew2.eMail,'Поля не совпадают');
     VD.IWant(VD.VToEqual,V.carrierNew3.webSite, V.carrierNew2.webSite,'Поля не совпадают');
     VD.IWant(VD.VToEqual,-SF.cleanPrice(V.carrierNew3.phoneNumber1), V.carrierNew2.phoneNumber1,'Поля не совпадают');
-
+    SF.sleep(1);
     JS.click('span:contains(\\"Save\\")');
-
+    SF.sleep(3);
 condition.nowWeDoing = 'Проверяем есть ли карьер в списке при добалении трипа';
     MF.Board_OpenSideBar ();
     MF.Board_OpenTripPlanner ();

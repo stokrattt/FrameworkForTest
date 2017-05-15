@@ -3,7 +3,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));

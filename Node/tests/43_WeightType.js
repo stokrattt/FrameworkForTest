@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'создаем реквест локал мув, запоминаем данные, добавляем инвентори, запоминаем данные, потом меняем кубик фит на дефолтный' +
     'и сравниваем данные, должны быть одинаковые';
     LF.CreateLocalMovingFromBoard(V.client);

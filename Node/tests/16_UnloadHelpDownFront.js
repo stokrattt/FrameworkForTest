@@ -38,7 +38,7 @@ condition.nowWeDoing = 'запоминаем данные';
     SF.openTab (1);
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (3);
-    MF.SweetConfirm ();
+    MF.Account_ClickViewRequest();
     SF.sleep (3.5);
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
@@ -49,7 +49,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
 
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequest(V.accountNumbers.Id);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -62,6 +62,13 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
     MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
+
+    MF.EditRequest_OpenLogs();
+
+    MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
+    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
+
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
     SF.get(V.accountURL);
@@ -80,6 +87,7 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
     SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    SF.sleep(2);
     MF.SweetConfirm();
     MF.SweetConfirm();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));

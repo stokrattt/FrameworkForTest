@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что они включены';
     MF.Board_OpenReviewSttings();
     SF.click(By.xpath('//button[@ng-click="openReviewSettings()"]'));
@@ -50,11 +50,15 @@ condition.nowWeDoing = 'Идем на апи и дергаем крон';
     SF.click(By.xpath('//b[contains(text(), "move_reviews")]/../following-sibling::td/a[contains(text(), "Force run")]'));
     SF.sleep(2);
     driver.switchTo().alert().accept();
-    SF.sleep(25);
+    SF.sleep(15);
+    SF.click(By.xpath('//b[contains(text(), "move_reviews")]/../following-sibling::td/a[contains(text(), "Force run")]'));
+    SF.sleep(2);
+    driver.switchTo().alert().accept();
+    SF.sleep (20);
     SF.click(By.xpath('//li[@class="admin-menu-action"]/a[contains(text(), "Log out")]'));
-    SF.sleep (1);
+    SF.sleep (5);
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку, открываем реквест и идем в логи, проверять что отправилась клиенту ревьюха';
     MF.Board_OpenConfirmed ();
     LF.OpenRequest (V.boardNumbers.Id);
@@ -72,7 +76,7 @@ condition.nowWeDoing = 'переходим с логов по ссылке в а
     SF.send(By.xpath('//div[@ng-model="html"]'), 'five stars it is good');
     SF.click(By.xpath('//button[@ng-click="apply()"]'));
     MF.SweetConfirm ();
-    JS.waitForNotExist('div.toast-success:visible');
+    MF.WaitToastExit ();
     SF.sleep(3);
     MF.Account_ClickViewRequest ();
     SF.sleep(3);
