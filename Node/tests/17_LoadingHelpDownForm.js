@@ -54,7 +54,7 @@ condition.nowWeDoing = 'сравниваем данные калькулятор
 
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'зашли под админом и сравниваем данные акка и админки';
     LF.OpenRequest(V.accountNumbers.Id);
     LF.RememberDigitsRequestBoard(V.boardNumbers);

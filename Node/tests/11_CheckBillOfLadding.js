@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
 
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     condition.nowWeDoing = 'создаем реквест и конфермим его';
     LF.CreateLocalMovingFromBoard(V.client);
     SF.sleep (2);

@@ -40,7 +40,7 @@ condition.nowWeDoing = 'запомнили данные в аке и сравн�
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersFrom,V.frontNumbersDown);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'зашли под админом заполнили данные и сравниваем с акком первый реквест';
     LF.OpenRequest(V.accountNumbersTo.Id); /********************************************************************/
     V.boardNumbersTo = {};

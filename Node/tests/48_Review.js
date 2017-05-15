@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что они включены';
     MF.Board_OpenReviewSttings();
     SF.click(By.xpath('//button[@ng-click="openReviewSettings()"]'));
@@ -37,7 +37,6 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     MF.EditRequest_CloseConfirmWork ();
     MF.EditRequest_SetLaborTimeCloseJob ();
     MF.EditRequest_CloseJob();
-    SF.sleep(3);
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin ();
 condition.nowWeDoing = 'Идем на апи и дергаем крон';
@@ -59,7 +58,7 @@ condition.nowWeDoing = 'Идем на апи и дергаем крон';
     SF.click(By.xpath('//li[@class="admin-menu-action"]/a[contains(text(), "Log out")]'));
     SF.sleep (5);
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку, открываем реквест и идем в логи, проверять что отправилась клиенту ревьюха';
     MF.Board_OpenConfirmed ();
     LF.OpenRequest (V.boardNumbers.Id);

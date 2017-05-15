@@ -8,7 +8,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.SalesLogin = ('jack2@ya.com');
     V.SalesPass = ('123');
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
     condition.nowWeDoing = 'идем в настройки и ставим пермишины для сейлса';
     MF.Board_OpenSettingsDepartment();

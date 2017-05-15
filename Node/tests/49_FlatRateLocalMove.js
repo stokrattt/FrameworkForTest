@@ -10,7 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
 
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateFlatRateFromBoard (V.client);
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.localMove"]/..'));
     SF.clear (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'));
@@ -53,18 +53,18 @@ condition.nowWeDoing = 'идем в акк букаем работу';
     MF.WaitWhileBusy();
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.request.Id);
-    LF.selectCrewFlatRatePickUp();
+    LF.selectCrewFlatRatePickUp(V.ForemanName);
     LF.LogoutFromBoardAdmin();
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
-    LF.LoginToBoardAsForeman();
+    LF.LoginToBoardAsCustom (V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
@@ -95,7 +95,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.LogoutFromBoardForeman ();
 
 condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.WaitWhileBusy();
@@ -117,7 +117,7 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
 condition.nowWeDoing = 'сейчас идём в пейролл';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
-    LF.findTestForemanInPayroll();
+    LF.findTestForemanInPayroll(V.ForemanName);
 
 condition.nowWeDoing = 'выбираем цифры формена';
     V.payrollNumbers = {

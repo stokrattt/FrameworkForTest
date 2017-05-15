@@ -8,7 +8,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
 condition.nowWeDoing = 'зашли в админку и создаем реквест';
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLoadingHelpFromBoard (V.client);
     SF.sleep (2);
     V.boardNumbers={};
@@ -31,10 +31,10 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     MF.WaitWhileBusy ();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
-    LF.selectCrew();
+    LF.selectCrew(V.ForemanName);
     LF.LogoutFromBoardAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
-    LF.LoginToBoardAsForeman();
+    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
@@ -67,7 +67,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 condition.nowWeDoing = 'идем в админку в диспач второй раз, удалить форемана';
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.WaitWhileBusy ();
@@ -105,7 +105,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     SF.sleep(2);
     LF.closeEditRequest ();
     LF.LogoutFromBoardAdmin();
-    LF.LoginToBoardAsForeman ();
+    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
 condition.nowWeDoing = 'идем на форемана проверить что он удалился с  работы';
     SF.sleep (3);
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {

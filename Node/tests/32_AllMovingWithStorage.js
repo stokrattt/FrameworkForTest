@@ -118,7 +118,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbersTo.Id);
-    LF.selectCrew();
+    LF.selectCrew(V.ForemanName);
     SF.sleep(2);
     LF.OpenRequestDispatch(V.accountNumbersTo.Id);
     MF.EditRequest_OpenLogs();
@@ -129,7 +129,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
-    LF.LoginToBoardAsForeman();
+    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.accountNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
@@ -205,11 +205,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbersFrom.Id);
-    LF.selectCrew();
+    LF.selectCrew(V.ForemanName);
     LF.LogoutFromBoardAdmin();
 
     condition.nowWeDoing = 'Найти вторую работу у формена, зайти в Inventory, подтвердить состояния предметов, запомнить их';
-    LF.LoginToBoardAsForeman();
+    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.accountNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
@@ -291,7 +291,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'сейчас идём в пейролл и проверяем первую работы';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbersTo.moveDate);
-    LF.findTestForemanInPayroll();
+    LF.findTestForemanInPayroll(V.ForemanName);
     V.payrollNumbersTo = {
         Foreman:{}, Sale:{}
     };

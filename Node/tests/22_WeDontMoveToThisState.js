@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы только ассепт алл квотс';
     LF.gotoSetingsLD ();
@@ -87,7 +87,7 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     SF.sleep (2);
 
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем все галки';
     LF.gotoSetingsLD ();
@@ -123,7 +123,7 @@ condition.nowWeDoing = 'создаем реквест второй раз с ф�
     MF.SweetConfirm();
 
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем галку All acept quotes и ставим галочку Move to this state и выставить для всех area какую-нибудь цену';
     LF.gotoSetingsLD ();
@@ -212,7 +212,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     driver.navigate().refresh();
     SF.sleep (3);
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'удаляем общую цену для всего штата и назначить одну цену на какую-то территорию';
     LF.gotoSetingsLD ();
@@ -306,7 +306,7 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     SF.sleep (3);
 
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
 condition.nowWeDoing = 'заходим в админку и удаляем Move to this state при этом цена в один ареа код остается';
     LF.gotoSetingsLD ();

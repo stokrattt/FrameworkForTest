@@ -1039,9 +1039,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             Fiber.yield();
         }
     }
-    function selectCrew() {
+    function selectCrew(ForemanName) {
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']"));
-        SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'Test Foreman')]"));
+        SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),"+ForemanName+")]"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
         driver.wait(
@@ -1064,9 +1064,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForNotExist('div.toast-success');
         SF.sleep(2);
     }
-    function selectCrewFlatRatePickUp() {
+    function selectCrewFlatRatePickUp(ForemanName) {
         SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']"));
-        SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']/option[contains(text(),'Test Foreman')]"));
+        SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']/option[contains(text(),"+ForemanName+")]"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
         driver.wait(
@@ -1279,13 +1279,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
         });
     }
-    function findTestForemanInPayroll() {
+    function findTestForemanInPayroll(ForemanName) {
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"Test Foreman")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"Test Foreman")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+ ForemanName +'")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+ ForemanName +'")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);

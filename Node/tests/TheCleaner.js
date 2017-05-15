@@ -3,7 +3,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     if (V.cleanerJob.length!=0) {
         SF.get(V.adminURL);
-        LF.LoginToBoardAsAdmin();
+        LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
         for (let i = 0; i < V.cleanerJob.length; i++) {
             SF.clear(By.xpath('//input[@ng-model="search"]'));
             SF.send(By.xpath('//input[@ng-model="search"]'), V.cleanerJob[i]);

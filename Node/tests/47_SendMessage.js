@@ -28,7 +28,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, отправл�
     MF.BoardAccount_SendMessage(V.toAdmin);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'зашли в админку идем в раздел сообщения на дашборде и смотрим что смс есть от клиента админу';
     MF.Board_OpenSideBar ();
     MF.Board_OpenMessage ();

@@ -10,7 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
 condition.nowWeDoing = 'идем в админку проверяем что стоит галка на флет рейт';
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsGeneral ();
     SF.sleep (3);
     JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
@@ -55,7 +55,7 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции 1';
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequestFlatRate (V.FRId);
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
     SF.sleep (0.5);
@@ -125,7 +125,7 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     condition.nowWeDoing = 'пошли в админку 2 раз, ставить трак, нот конферм';
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
     LF.OpenRequest (V.FRId);
     V.boardNumbers = {};
@@ -168,7 +168,7 @@ condition.nowWeDoing = 'идем в акк под клиентом 2 раз бу
     LF.ConfirmRequestInAccount_WithReservationWithAdress();
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку проверять что работа конферм';
     MF.Board_OpenConfirmed ();
     LF.OpenRequest (V.FRId);

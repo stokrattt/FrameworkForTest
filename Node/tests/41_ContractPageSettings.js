@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
 condition.nowWeDoing = 'создаем локал мув, конфермим его';
     LF.CreateLocalMovingFromBoard(V.client);
@@ -30,7 +30,7 @@ condition.nowWeDoing = 'идем в диспач назначем команду
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.request.Id);
-    LF.selectCrew();
+    LF.selectCrew(V.ForemanName);
 
 condition.nowWeDoing = 'переходим сразу с диспача на контракт и подписываем его не до конца ';
     driver.wait(driver.executeScript("window.open('http://stage.themoveboard.com:8001'+$('a:contains(\"View Contract\")').attr('href'));"),config.timeout);

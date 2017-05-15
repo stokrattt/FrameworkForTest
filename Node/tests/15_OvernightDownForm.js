@@ -118,7 +118,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
 condition.nowWeDoing = 'зашли в админку';
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequest(V.accountNumbersUp.Id);
     V.boardNumbersUp = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersUp);

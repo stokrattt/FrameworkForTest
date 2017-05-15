@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в настройки и выставляем настройки для драйвинг тайма и травел тайма';
     MF.Board_OpenSettingsGeneral ();
     SF.sleep(2);
@@ -95,7 +95,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, сравнив�
     LF.Validation_Compare_Account_Admin (V.accountNumbersClean, V.boardNumbersClean);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'защли а админку второй раз, ставим нот конфем, трак, сохраняем, закрываем, открываем и сравниваем данные которые были первый раз в реквесте с данными после того как изменили статус';
     LF.OpenRequest (V.request.Id);
     JS.step(JSstep.selectTruck((V.boardNumbersClean.LaborTimeMax + V.boardNumbersClean.TravelTime)/60));
