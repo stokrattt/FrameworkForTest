@@ -1,11 +1,16 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/ManualClosingWork.js'];
+    config.suite = ['./tests/18_ForemanSignJob.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
     V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
     V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
+    V.adminLogin = 'TEstAdmin';
+    V.adminPassword = 'test';
+    V.foremanLogin = 'TestForeman';
+    V.foremanPassword = '123';
+    V.foremanName = 'Test Foreman';
 };
 
 

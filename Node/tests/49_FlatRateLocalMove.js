@@ -60,7 +60,7 @@ condition.nowWeDoing = 'идем в акк букаем работу';
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.request.Id);
-    LF.selectCrewFlatRatePickUp(V.ForemanName);
+    LF.selectCrewFlatRatePickUp(V.foremanName);
     LF.LogoutFromBoardAdmin();
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
