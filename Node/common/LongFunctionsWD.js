@@ -425,16 +425,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
         SF.sleep(5);
     }
-    function LogoutFromBoardAdmin() {
-        JS.waitForNotExist('div.toast-success');
-        JS.waitForNotExist('div.toast-message');
-        JS.scroll('a[ng-click=\"vm.Logout()\"]');
-        SF.click(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
-        SF.sleep(1);
-        SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
-        SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
-        SF.sleep(5);
-    }
     function LogoutFromBoardForeman() {
         JS.waitForNotExist('div.toast-success:visible');
         JS.waitForNotExist('div.toast-message:visible');
@@ -1914,7 +1904,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         AccountFromStorageEnterAddress: AccountFromStorageEnterAddress,
         RememberAccountNumbers: RememberAccountNumbers,
         LogoutFromAccount: LogoutFromAccount,
-        LogoutFromBoardAdmin: LogoutFromBoardAdmin,
         LogoutFromBoardForeman: LogoutFromBoardForeman,
         LoginToBoardAsAdmin: LoginToBoardAsAdmin,
         LoginToBoardAsForeman: LoginToBoardAsForeman,

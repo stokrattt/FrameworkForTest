@@ -22,7 +22,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.navigate().refresh();
     SF.waitForLocated(By.linkText('Create Request'));
     SF.sleep (3);
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
 
     //=========================закончили писать тест=============================

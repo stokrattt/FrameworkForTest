@@ -64,7 +64,7 @@ condition.nowWeDoing = 'To storage ставим нот конферм, адре�
     MF. EditRequest_SetAdressTo ();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
 condition.nowWeDoing = 'идем в акк букаем первую работу';

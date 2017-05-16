@@ -75,7 +75,7 @@ condition.nowWeDoing = 'зашли под админом и сравниваем
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
 
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
 condition.nowWeDoing = 'зашли под клиенто и букаем работу';

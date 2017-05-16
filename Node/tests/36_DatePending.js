@@ -74,7 +74,7 @@ condition.nowWeDoing = 'создаем третий реквест, ставим
     V.client3.passwd = 123;
     LF.SetClientPasswd (V.client3.passwd);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
 
 condition.nowWeDoing = 'идем в аккаунт букать третью работу';
@@ -99,7 +99,7 @@ condition.nowWeDoing = 'идем в админку проверять или д�
         VD.IWant (VD.VToEqual, text, 'Date Pending', 'второй реквест не ушел в дата пендинг а должен был');
     }), config.timeout);
     SF.sleep(1);
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

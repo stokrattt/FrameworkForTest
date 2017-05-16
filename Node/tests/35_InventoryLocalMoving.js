@@ -39,7 +39,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
     SF.sleep(2);
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'второй раз в аккаунте';
     SF.get(V.accountURL);

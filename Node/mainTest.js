@@ -49,7 +49,8 @@ for (attrs; attrs < process.argv.length; attrs++) {
     if (process.argv[attrs].indexOf('=') != -1) {
         V[process.argv[attrs].substring(0, process.argv[attrs].indexOf('='))] = process.argv[attrs].substring(process.argv[attrs].indexOf('=') + 1);
     } else if (process.argv[attrs].indexOf('config:') != -1) {
-        require('./configs/'+process.argv[attrs].substring(process.argv[attrs].indexOf(':') + 1))(config,V);
+        config.fileName = process.argv[attrs].substring(process.argv[attrs].indexOf(':') + 1);
+        require('./configs/'+config.fileName)(config,V);
     }
 }
 
@@ -164,6 +165,10 @@ system.myEmitter.on('event', () => {
         for (let i=0; i<testPassed.length; i++){console.log(testPassed[i]);}
         let endTests = Math.floor((new Date().getTime() - startTests)/1000);
         console.log(('сделали за '+ Math.floor(endTests/60)+'мин '+endTests%60+'сек').green);
+        system.fs.writeFile('reports/'+config.fileName+ '.txt', testPassed+'\n'+
+            'сделали за '+ Math.floor(endTests/60)+'мин '+endTests%60+'сек',
+            function (err) { if (err!=null) {console.log(err)}; }
+        );
         system.myEmitter.removeAllListeners('event');
 
     }

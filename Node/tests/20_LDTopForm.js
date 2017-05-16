@@ -28,7 +28,7 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     SF.sleep (2);
     MF.LongDistanceSettings_SelectMABasedState();
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
     SF.sleep (4);
 condition.nowWeDoing = 'заполняем калькулятор верхний';
@@ -93,7 +93,7 @@ condition.nowWeDoing = 'зашли на админку для сравнения
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
 condition.nowWeDoing = 'зашли в аккаунт и добавляем инвентори';
@@ -160,7 +160,7 @@ condition.nowWeDoing = 'зашли на админку второй раз дл�
     SF.sleep (1);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

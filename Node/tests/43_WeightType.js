@@ -90,7 +90,7 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     driver.close();
     SF.openTab (0);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

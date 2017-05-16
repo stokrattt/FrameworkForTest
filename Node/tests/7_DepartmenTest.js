@@ -129,7 +129,7 @@ condition.nowWeDoing='Создаем форемана***************************
 
 condition.nowWeDoing='Создали форемана**************************************';
 
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing='Заходим под созданным менеджером*************************************';
     SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
@@ -139,7 +139,7 @@ condition.nowWeDoing='Заходим под созданным менеджер�
     SF.waitForLocated(By.id('main-content'));
     SF.sleep (3);
 
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing='Заходим под созданным sales*************************************';
 
@@ -150,7 +150,7 @@ condition.nowWeDoing='Заходим под созданным sales************
     SF.waitForLocated(By.id('main-content'));
     SF.sleep (3);
 
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing='Заходим под созданным foreman*************************************';
 

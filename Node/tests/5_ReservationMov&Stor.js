@@ -29,7 +29,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_CloseEditRequest();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
     condition.nowWeDoing = 'зашли под клиентом в акк';
     SF.get(V.accountURL);

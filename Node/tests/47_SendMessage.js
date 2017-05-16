@@ -53,7 +53,7 @@ condition.nowWeDoing = 'зашли в реквест';
     MF.SweetConfirm();
     SF.sleep (5);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest (V.accountNumbers.Id);

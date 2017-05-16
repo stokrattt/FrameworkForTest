@@ -143,7 +143,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     condition.nowWeDoing = 'зашли под клиентом букаем первую работу';

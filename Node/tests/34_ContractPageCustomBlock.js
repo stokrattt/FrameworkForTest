@@ -291,7 +291,7 @@ condition.nowWeDoing = 'проверяем на главной странице 
         VD.IWant(VD.VToEqual, q, -1, 'текст declarationB остался, а не должен был');
     }),config.timeout);
     SF.sleep(1);
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

@@ -147,7 +147,7 @@ condition.nowWeDoing = 'идём в логи';
     VD.IWant(VD.VToEqual, V.logNumbers.Quote, V.boardNumbersWithAddServices.Total, 'не совпал гранд тотал в письме и в реквесте');
     SF.sleep(1);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
 condition.nowWeDoing = 'идем в аккаунт букать работу и сравнивать данные';
     LF.LoginToAccountAsClient (V.client, V.client.passwd);

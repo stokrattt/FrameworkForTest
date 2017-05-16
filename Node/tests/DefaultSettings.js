@@ -90,11 +90,40 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (V.lengthCalc == 0) {
         SF.click(By.xpath('//span[@ng-click="changeStepsOrder()"]/i[2]'));
         SF.sleep(3);
-        LF.LogoutFromBoardAdmin ();
-    } else {
-         LF.LogoutFromBoardAdmin ();
     }
-
+    MF.Board_OpenCompanyServices();
+    V.CompanyServices={};
+    driver.wait(driver.findElements(By.xpath(V.localSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
+        V.CompanyServices.Local=(arr.length==1);
+    }),config.timeout);
+    driver.wait(driver.findElements(By.xpath(V.overnightSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
+        V.CompanyServices.Overnight=(arr.length==1);
+    }),config.timeout);
+    driver.wait(driver.findElements(By.xpath(V.loadingSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
+        V.CompanyServices.Loading=(arr.length==1);
+    }),config.timeout);
+    driver.wait(driver.findElements(By.xpath(V.unloadingSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
+        V.CompanyServices.Unloading=(arr.length==1);
+    }),config.timeout);
+    driver.wait(driver.findElements(By.xpath(V.storageSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
+        V.CompanyServices.Storage=(arr.length==1);
+    }),config.timeout);
+    driver.wait(driver.findElements(By.xpath(V.flatSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
+        V.CompanyServices.Flat=(arr.length==1);
+    }),config.timeout);
+    driver.wait(driver.findElements(By.xpath(V.longSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
+        V.CompanyServices.Long=(arr.length==1);
+    }),config.timeout);
+    SF.sleep(1);
+    console.log(V.CompanyServices);
+    if (!V.CompanyServices.Local) {SF.click(By.xpath(V.localSelector+'/..'));}
+    if (!V.CompanyServices.Overnight) {SF.click(By.xpath(V.overnightSelector+'/..'));}
+    if (!V.CompanyServices.Loading) {SF.click(By.xpath(V.loadingSelector+'/..'));}
+    if (!V.CompanyServices.Unloading) {SF.click(By.xpath(V.unloadingSelector+'/..'));}
+    if (!V.CompanyServices.Storage) {SF.click(By.xpath(V.storageSelector+'/..'));}
+    if (!V.CompanyServices.Flat) {SF.click(By.xpath(V.flatSelector+'/..'));}
+    if (!V.CompanyServices.Long) {SF.click(By.xpath(V.longSelector+'/..'));}
+    MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

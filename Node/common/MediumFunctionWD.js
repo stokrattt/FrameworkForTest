@@ -28,6 +28,22 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     ///===============================BOARD=========================================
+    function Board_LogoutAdmin() {
+        JS.waitForNotExist('div.toast-success');
+        JS.waitForNotExist('div.toast-message');
+        JS.scroll('a[ng-click=\"vm.Logout()\"]');
+        SF.click(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
+        SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
+        SF.sleep(5);
+    }
+    function Board_ClickCreate(){
+        SF.click(By.linkText('Create Request'));
+        JS.waitForExist('select[ng-model=\\"editrequest.data.field_move_service_type\\"]');
+        SF.sleep(2);
+    }
+
     function Board_OpenSideBar() {
         SF.click(By.xpath("//button[@ng-click=\"toggleLeft()\"]"));
         SF.waitForVisible(By.xpath('//button[@ng-click="toggleLeft()"]'));
@@ -58,7 +74,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath("//a[@ui-sref=\"dispatch.payroll\"]"));
         WaitWhileBusy();
     }
-    function Board_OpenReviewSttings() {
+    function Board_OpenReviewSettings() {
         Board_OpenSideBar ();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'statistics.byrole\', \'\')"]'));
         SF.click(By.xpath('//a[@ui-sref="statistics.reviews"]'));
@@ -81,6 +97,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ui-sref="settings.schedule"]'));
         SF.sleep(2);
     }
+    function Board_OpenCompanyServices() {
+        Board_OpenSideBar();
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+        SF.sleep(2);
+        SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[10]'));
+        JS.waitForExist('input[ng-model=\\"vm.basicSettings.services.localMoveOn\\"]');
+        SF.sleep(4);
+    }
+
     function Board_OpenSchedule() {
         Board_OpenSideBar ();
         SF.click(By.xpath('//li[@ng-show="vm.PermissionsServices.hasPermission(\'canSeeScheduleMenu\')"]'));
@@ -704,6 +729,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         LongDistanceSettings_SelectMABasedState: LongDistanceSettings_SelectMABasedState,
 
         //------------------------------------BOARD=========================================
+        Board_LogoutAdmin: Board_LogoutAdmin,
+        Board_ClickCreate: Board_ClickCreate,
         Board_OpenSideBar: Board_OpenSideBar,
         Board_OpenDashboard: Board_OpenDashboard,
         Board_OpenLocalDispatch: Board_OpenLocalDispatch,
@@ -711,6 +738,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenNotConfirmed: Board_OpenNotConfirmed,
         Board_OpenConfirmed: Board_OpenConfirmed,
         Board_OpenSettingsSchedule: Board_OpenSettingsSchedule,
+        Board_OpenCompanyServices:Board_OpenCompanyServices,
         Board_OpenSettingsGeneral: Board_OpenSettingsGeneral,
         Board_OpenSettingsDepartment: Board_OpenSettingsDepartment,
         Board_RefreshDashboard:Board_RefreshDashboard,
@@ -719,7 +747,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_Refresh:Board_Refresh,
         Board_OpenMessage: Board_OpenMessage,
         Board_OpenSchedule: Board_OpenSchedule,
-        Board_OpenReviewSttings: Board_OpenReviewSttings,
+        Board_OpenReviewSettings: Board_OpenReviewSettings,
         Board_OpenSettingsLongDistance: Board_OpenSettingsLongDistance,
         Board_OpenAllRequest: Board_OpenAllRequest,
         Board_OpenStorages: Board_OpenStorages,

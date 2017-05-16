@@ -32,7 +32,7 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.request.Id);
@@ -105,7 +105,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
     SF.sleep(2);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
 condition.nowWeDoing = 'идем на форемана проверить что он удалился с  работы';
     SF.sleep (3);
