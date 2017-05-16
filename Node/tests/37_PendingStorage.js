@@ -44,12 +44,12 @@ condition.nowWeDoing = 'Зайти в local Dispatch, найти первый р
     MF.Dispatch_GridView ();
     SF.sleep(1);
     LF.SelectRequestDispatch(V.boardNumbersTo.Id);
-    LF.selectCrew(V.ForemanName);
+    LF.selectCrew(V.foremanName);
     SF.sleep(2);
     LF.LogoutFromBoardAdmin();
 
 condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
-    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.boardNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
     SF.click(By.xpath('//li[@id="tab_Inventory"]'));
@@ -152,12 +152,12 @@ condition.nowWeDoing = 'Найти второй реквест, назначит
     MF.WaitWhileBusy ();
     MF.Dispatch_GridView ();
     LF.SelectRequestDispatch(V.boardNumbersFrom.Id);
-    LF.selectCrew(V.ForemanName);
+    LF.selectCrew(V.foremanName);
     SF.sleep(2);
     LF.LogoutFromBoardAdmin();
 
 condition.nowWeDoing = 'Найти вторую работу, зайти в Inventory, подтвердить состояния предметов, запомнить их';
-    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.boardNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage ();
     SF.click(By.xpath('//li[@id="tab_Inventory"]'));

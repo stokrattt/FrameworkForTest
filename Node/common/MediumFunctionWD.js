@@ -228,6 +228,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Contract_OpenBillOfLading() {
+        WaitWhileBusy();
         SF.click(By.xpath('//li[@id="tab_Bill of lading"]'));
 
     }

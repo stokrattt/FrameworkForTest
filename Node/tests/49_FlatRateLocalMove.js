@@ -60,11 +60,11 @@ condition.nowWeDoing = 'идем в акк букаем работу';
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.request.Id);
-    LF.selectCrewFlatRatePickUp(V.ForemanName);
+    LF.selectCrewFlatRatePickUp(V.foremanName);
     LF.LogoutFromBoardAdmin();
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
-    LF.LoginToBoardAsCustom (V.foremanLogin, V.foremanPassword);
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
@@ -117,7 +117,7 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
 condition.nowWeDoing = 'сейчас идём в пейролл';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
-    LF.findTestForemanInPayroll(V.ForemanName);
+    LF.findTestForemanInPayroll(V.foremanName);
 
 condition.nowWeDoing = 'выбираем цифры формена';
     V.payrollNumbers = {

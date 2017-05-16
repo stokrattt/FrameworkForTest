@@ -1,19 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/DefaultSettings.js',
-        './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',
-        './tests/4_CheckFuelSurcharge.js',
-        './tests/7_DepartmenTest.js',
-        './tests/5_ReservationMov&Stor.js',
-        './tests/DefaultSettings.js',
-        './tests/21_LDFromAdmin.js',
-        './tests/6_WithoutReservationMov&Stor.js',
-        './tests/SetReservationPrice.js',
-        './tests/9_TestNotes.js',
-        './tests/2_CheckPermissions.js',
-        './tests/11_CheckBillOfLadding.js',
-        './tests/44_CreateForemanAndAssignCheck.js',
-        './tests/TheCleaner.js',//==============================уборка=========================
+       
     ];
     config.chainFail = false;
     config.browser = 'chrome';

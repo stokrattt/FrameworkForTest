@@ -54,5 +54,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.SearchRequest={};
     MF.Board_GetFirstFoundedId(V.SearchRequest);
     VD.IWant (VD.VToEqual, V.requestAdmin.Id, V.SearchRequest.Id, 'Поиск по другим пермишинам не работает');
+    SF.sleep(1);
     SF.endOfTest();
 };

@@ -71,6 +71,11 @@ module.exports = function(config,V) {
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
     V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
     V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
+    V.adminLogin = 'TestAdmin';
+    V.adminPassword = 'test';
+    V.foremanLogin = 'TestForeman';
+    V.foremanPassword = '123';
+    V.foremanName = 'Test Foreman';
 
 /*список тестов  для вставки выше
  './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',

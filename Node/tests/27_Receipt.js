@@ -52,11 +52,11 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.request.Id);
-    LF.selectCrew(V.ForemanName);
+    LF.selectCrew(V.foremanName);
     LF.LogoutFromBoardAdmin();
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
-    LF.LoginToBoardAsCustom(V.foremanLogin, V.foremanPassword);
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
