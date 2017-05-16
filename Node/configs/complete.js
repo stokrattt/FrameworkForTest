@@ -63,7 +63,9 @@ module.exports = function(config,V) {
         './tests/45_MovStorAddInventConfirmClient.js',
         './tests/46_FuelByMileage.js',
         './tests/47_SendMessage.js',
-        './tests/50_AddJobToTrip.js'
+        './tests/50_AddJobToTrip.js',
+        './tests/53_ManualClosingWork.js',
+        './tests/54_LDQuoteAndFuel.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

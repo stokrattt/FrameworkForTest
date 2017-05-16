@@ -408,7 +408,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
     }
     function EditRequest_OpenPayment() {
-        JS.click('label[ng-click=\\"OpenPaymentModal();\\"]');
+        JS.click('label[ng-click=\\"OpenPaymentModal();\\"]:visible');
         SF.waitForVisible (By.xpath('//div[@class="inside_box"]'));
         SF.sleep (3);
     }
@@ -496,6 +496,28 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_SetSizeOfMoveNumber(number){
         SF.select(By.xpath('//select[@id="edit-size-move"]'),number);
         SF.sleep(1);
+    }
+    function EditRequest_AddPacking() {
+        SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
+        SF.waitForVisible (By.xpath('//div[@class="inside_box"]'));
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        WaitWhileBusy ();
+        SF.sleep (3);
+    }
+    function EditRequest_AddAdditionalServicesFullPack() {
+        SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
+        SF.waitForVisible (By.id('extra-service-modal'));
+        SF.sleep(3);
+        SF.click(By.xpath('//label[@ng-model="packing_service"][3]'));
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        WaitWhileBusy ();
+        SF.sleep (2);
     }
     function EditRequest_RememberCbf(boardNumbers){
         driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
@@ -791,6 +813,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenPayment: EditRequest_OpenPayment,
         EditRequest_OpenPayrollPickupFlatRate: EditRequest_OpenPayrollPickupFlatRate,
         EditRequest_OpenPayrollDeliveryFlatRate: EditRequest_OpenPayrollDeliveryFlatRate,
+        EditRequest_AddPacking: EditRequest_AddPacking,
+        EditRequest_AddAdditionalServicesFullPack: EditRequest_AddAdditionalServicesFullPack,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

@@ -662,6 +662,38 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(4);
         console.log('создали реквест');
     }
+    function CreateLongDistanceFromBoard(client) {
+        SF.click(By.linkText('Create Request'));
+        SF.sleep(3);
+        SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:7"]'));
+        SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+        V.request = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
+            V.request.moveDate = calDate;
+            console.log(V.request);
+        }),config.timeout);
+        SF.sleep(0.5);
+        SF.click(By.xpath('//ul[@class="chosen-choices"]'));
+        SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+        SF.send(By.id("edit-zip-code-from"), "02032");
+        SF.send(By.id("edit-zip-code-to"), "90001");
+        SF.sleep(4);
+        SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
+        SF.sleep(1);
+        MF.WaitWhileBusy ();
+        SF.sleep(1);
+        SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
+        SF.sleep(2);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
+        SF.click(By.xpath('//button[@ng-click="create()"]'));
+        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+        SF.sleep(2);
+        MF.WaitWhileBusy ();
+        console.log('создали реквест');
+    }
     function CreateLoadingHelpFromBoard(client) {
         SF.click(By.linkText('Create Request'));
         SF.sleep(4);
@@ -1903,6 +1935,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         CreateFlatRateDownForm: CreateFlatRateDownForm,
         CreateStorageTenant: CreateStorageTenant,
         CreateFlatRateFromBoard: CreateFlatRateFromBoard,
+        CreateLongDistanceFromBoard: CreateLongDistanceFromBoard,
         RememberDigitsRequestBoard_Up: RememberDigitsRequestBoard_Up,
         RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
         RememberDigitsRequestBoard: RememberDigitsRequestBoard,

@@ -50,7 +50,7 @@ condition.nowWeDoing = 'Идем на апи и дергаем крон';
     SF.click(By.xpath('//b[contains(text(), "move_reviews")]/../following-sibling::td/a[contains(text(), "Force run")]'));
     SF.sleep(2);
     driver.switchTo().alert().accept();
-    SF.sleep(45);
+    SF.sleep(140);
 
     SF.click(By.xpath('//li[@class="admin-menu-action"]/a[contains(text(), "Log out")]'));
     SF.sleep (5);
