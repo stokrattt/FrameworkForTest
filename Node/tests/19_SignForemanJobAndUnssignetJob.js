@@ -90,6 +90,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//div[@id="invoice"]//a[@ng-click="select(tabs[1])"]'));
+    SF.sleep(1);
     SF.click(By.xpath('//span[@ng-click="removeWorker(foremanIndex, \'foreman\')"]'));
     MF.SweetConfirm ();
     SF.sleep (2);

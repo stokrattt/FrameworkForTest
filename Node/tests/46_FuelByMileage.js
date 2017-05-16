@@ -87,9 +87,9 @@ condition.nowWeDoing = 'меняем зип код в реквесте, чтоб
     SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");
     SF.sleep(6);
     MF.EditRequest_SetAdressToFrom ();
-    SF.sleep(4);
+    SF.sleep(6);
     MF.EditRequest_SaveChanges ();
-    SF.sleep(5);
+    SF.sleep(3);
     V.boardNumbers100_140 = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers100_140);
     SF.sleep(0.5);

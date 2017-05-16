@@ -103,7 +103,7 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
-    SF.sleep (3);
+    SF.sleep (4);
     LF.LogoutFromBoardAdmin ();
     SF.get(V.frontURL);
 condition.nowWeDoing = 'создаем реквест второй раз с фронтовой верхней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
@@ -121,7 +121,7 @@ condition.nowWeDoing = 'создаем реквест второй раз с ф�
     SF.send (By.id('edit-zip-code-to'), '50201');
     SF.sleep(2);
     MF.SweetConfirm();
-
+Debug.pause();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);

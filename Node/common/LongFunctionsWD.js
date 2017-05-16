@@ -679,6 +679,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         SF.sleep(4);
+        MF.WaitWhileBusy ();
         SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
@@ -1259,7 +1260,49 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }));
         SF.sleep(1);
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
-            Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
+            Math.floor(boardNumbers.Tips / V.boardNumbers.CrewSize),
+            'Не совпал Tips формена');
+
+        driver.wait(driver.executeScript('return ' +
+            '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        ).then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
+        }));
+        SF.sleep(1);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
+            Math.floor(boardNumbers.AdServices),
+            'Не совпал Extras формена');
+
+        driver.wait(driver.executeScript('return ' +
+            '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        ).then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
+        }));
+        SF.sleep(1);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
+            Math.floor(boardNumbers.Packing),
+            'Не совпал Packing формена');
+
+        driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
+        });
+    }
+    function RememberAndValidatePayroll_In_EditRequestFlatRateDelivery(boardNumbers) {
+        boardNumbers.Payroll = {
+            foremanForCommission: {},
+            helpersForComission: []
+        };
+        SF.sleep(3);
+
+        SF.click(By.xpath('//li[@heading="Foremen"]/a'));
+        driver.wait(driver.executeScript('return ' +
+            '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        ).then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
+        }));
+        SF.sleep(1);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
+            Math.floor(boardNumbers.Tips / V.boardNumbers.CrewSize),
             'Не совпал Tips формена');
 
         driver.wait(driver.executeScript('return ' +
@@ -1909,6 +1952,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         ValidatePendingStorageRequest: ValidatePendingStorageRequest,
         RememberCarrier: RememberCarrier,
         Contract_SignMainPayment:Contract_SignMainPayment,
-        Contract_AddInventory:Contract_AddInventory
+        Contract_AddInventory:Contract_AddInventory,
+        RememberAndValidatePayroll_In_EditRequestFlatRateDelivery: RememberAndValidatePayroll_In_EditRequestFlatRateDelivery
     };
 };

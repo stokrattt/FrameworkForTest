@@ -22,7 +22,7 @@ condition.nowWeDoing = 'запоминаем данные';
         V.frontNumbersLoadingDown.Truck = SF.cleanPrice (text);
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcsettings.travelTime"]/span')).getText().then(function (text) {
-        let hours = text.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('Hrs')));
+        let hours = text.indexOf('Hr') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('Hr')));
         let minutes = text.indexOf('Min') == -1 ? 0 : SF.cleanPrice(text.substring((text.indexOf('Hrs') + 1), text.indexOf('Min')));
         V.frontNumbersLoadingDown.TravelTime = hours * 60 + minutes;
     }), config.timeout);
