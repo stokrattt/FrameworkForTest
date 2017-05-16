@@ -46,7 +46,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.sleep(2);
     MF.WaitWhileBusy();
-    SF.select(By.xpath('//select[@id="edit-status"]'), 3);
+    MF.EditRequest_SetToConfirmed();
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
 
@@ -54,22 +54,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.perCubicFeet = '5';
     SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);
-    V.addressFrom = SF.randomBukva(6) + '_t';
-    V.addressTo = SF.randomBukva(6) + '_t';
-    V.aptFrom = SF.randomCifra(1);
-    V.aptTo = SF.randomCifra(1);
-    SF.send(By.xpath('//input[@ng-model="request.field_moving_from.thoroughfare"]'), V.addressFrom);
-    SF.send(By.xpath('//input[@ng-model="request.apt_from.value"]'), V.aptFrom);
-    SF.send(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), V.addressTo);
-    SF.send(By.xpath('//input[@ng-model="request.apt_to.value"]'), V.aptTo);
+    MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest ();
 
     MF.Board_OpenSideBar();
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'trip\', \'\')"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//a[@ng-class="{active:vm.isCurrent(\'trip planner\')}"]'));
-    SF.click(By.xpath('//button[@ng-click="toggleLeft()"]'));
+    MF.Board_OpenTripPlanner();
+    MF.Board_OpenSideBar();
     SF.sleep(2);
 
     condition.nowWeDoing = 'Создаем Трип';
