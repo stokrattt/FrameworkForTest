@@ -8,11 +8,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
-    SF.get('http://stage.themoveboard.com:8090/moveBoard/#/login')
-    SF.send(By.id('email'), 'TestAdmin');
-    SF.send(By.id('password'), 'test');
-    JS.click('.btn-primary');
-    SF.sleep(3);
+    SF.get('http://stage.themoveboard.com:8090/moveBoard/#/login');
+    LF.LoginToBoardAs_Roma4ke_Admin ();
 
     condition.nowWeDoing = 'Создаем Long Distance работу';
     SF.click(By.xpath('//a[@ng-click="vm.openEditModal()"]'));
