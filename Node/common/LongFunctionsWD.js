@@ -169,6 +169,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
+        JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
     function FullSmallCalcAsMovingWithStorage(client){
         SF.sleep(3);
@@ -337,6 +338,22 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
         SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
         driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
+        SF.sleep(1);
+        SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
+        driver.executeScript("$('body').scrollTop(0);");
+        SF.sleep(5);
+    }
+    function AccountLoadingDetails() {
+        JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep(5);
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep(1);
+        SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 60);
+        //SF.select(By.xpath('//select[@id="new_door_to_parking"]'), 60);
+        SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
+        //SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
+        //driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
         SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
         driver.executeScript("$('body').scrollTop(0);");
@@ -1833,6 +1850,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         AccountLocalAddInventory: AccountLocalAddInventory,
         AccountFlatRateAddInventory: AccountFlatRateAddInventory,
         AccountLocalDetails: AccountLocalDetails,
+        AccountLoadingDetails : AccountLoadingDetails,
         AccountUnloadingEnterAddress:AccountUnloadingEnterAddress,
         AccountLoadingEnterAddress: AccountLoadingEnterAddress,
         AccountToStorageEnterAddress: AccountToStorageEnterAddress,

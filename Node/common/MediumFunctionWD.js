@@ -419,6 +419,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_SetToConfirmed() {
         SF.select(By.xpath('//select[@id="edit-status"]'), 3);
     }
+    function EditRequest_SetToUploading() {
+        SF.select(By.xpath('//select[@id="edit-service"]'), 3);
+    }
 
     function EditRequest_SaveChanges() {
         JS.click('button[ng-click=\\"UpdateRequest()\\"]');
@@ -760,6 +763,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenClient: EditRequest_OpenClient,
         EditRequest_OpenRequest: EditRequest_OpenRequest,
         EditRequest_SetToNotConfirmed: EditRequest_SetToNotConfirmed,
+        EditRequest_SetToUploading: EditRequest_SetToUploading,
         EditRequest_SaveChanges: EditRequest_SaveChanges,
         EditRequest_WaitForBalanceVisible: EditRequest_WaitForBalanceVisible,
         EditRequest_ScrollDown: EditRequest_ScrollDown,
