@@ -8,10 +8,13 @@ module.exports = function(config,V) {
         './tests/25_ChangeDateDispatch.js',
         './tests/31_FlateRateBooking.js',
         './tests/49_FlatRateLocalMove.js',
+        './tests/52_AllFlatRate.js',
         './tests/DefaultSettings.js',
         './tests/37_PendingStorage.js',
         './tests/43_WeightType.js',
-        './tests/49_FlatRateLocalMove.js'
+        './tests/49_FlatRateLocalMove.js',
+        './tests/TheCleaner.js'//==============================уборка=========================
+
     ];
     config.chainFail = false;
     config.browser = 'chrome';

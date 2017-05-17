@@ -11,7 +11,9 @@ module.exports = function(config,V) {
         './tests/35_InventoryLocalMoving.js',
         './tests/36_DatePending.js',
         './tests/45_MovStorAddInventConfirmClient.js',
-        './tests/47_SendMessage.js'
+        './tests/47_SendMessage.js',
+        './tests/TheCleaner.js'//==============================уборка=========================
+
     ];
     config.chainFail = false;
     config.browser = 'chrome';

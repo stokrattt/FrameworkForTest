@@ -6,7 +6,9 @@ module.exports = function(config,V) {
         './tests/28_CalcWarnAndTurnOffWhenManual.js',
         './tests/29_CheckFewMoverForUser.js',
         './tests/32_AllMovingWithStorage.js',
-        './tests/50_AddJobToTrip.js'
+        './tests/50_AddJobToTrip.js',
+        './tests/TheCleaner.js'//==============================уборка=========================
+
     ];
     config.chainFail = false;
     config.browser = 'chrome';

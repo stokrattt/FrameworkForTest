@@ -12,8 +12,11 @@ module.exports = function(config,V) {
         './tests/41_ContractPageSettings.js',
         './tests/46_FuelByMileage.js',
         './tests/51_ServiceTypesOnOff.js',
+        './tests/54_LDQuoteAndFuel.js',
 
-        './tests/DefaultSettings.js'
+        './tests/DefaultSettings.js',
+        './tests/TheCleaner.js'//==============================уборка=========================
+
     ];
     config.chainFail = false;
     config.browser = 'chrome';
