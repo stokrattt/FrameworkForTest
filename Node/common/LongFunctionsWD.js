@@ -338,6 +338,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
         driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
         SF.sleep(1);
+        MF.WaitWhileBusy ();
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(5);
