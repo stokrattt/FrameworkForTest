@@ -26,5 +26,7 @@ module.exports = function(config,V) {
     V.foremanPassword = '123';
     V.foremanName = 'Foreman Flow4';
     V.adminName = 'Admin';
+    V.foremanEmail = 'ForemanFlow1@test.com';
+
 
 };

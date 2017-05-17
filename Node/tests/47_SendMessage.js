@@ -84,7 +84,7 @@ condition.nowWeDoing = 'Идем под клиентом и проверяем �
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest (V.accountNumbers.Id);
     MF.Account_OpenMessage();
-    driver.wait(driver.findElement(By.xpath('//a[contains(text(), "'+V.foremanName+'")]/following-sibling::span[2]/p/p')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//a[contains(text(), "JackSales")]/following-sibling::span[2]/p/p')).getText().then(function (text) {
         VD.IWant (VD.VToEqual, V.toClientFromSales, text, 'не нашло текст который мы отправили клиенту от sales');
     }),config.timeout);
     SF.sleep(1);

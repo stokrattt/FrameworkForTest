@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/54_LDQuoteAndFuel.js'];
+    config.suite = ['./tests/33_AddCarrier.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 
@@ -11,6 +11,9 @@ module.exports = function(config,V) {
     V.foremanLogin = 'TestForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
+    V.adminName = 'Test';
+    V.foremanEmail = 'TestForeman@mail.com';
+
 };
 
 

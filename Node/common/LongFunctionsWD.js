@@ -1283,7 +1283,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }));
         SF.sleep(1);
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
-            Math.floor(boardNumbers.Tips / V.boardNumbers.CrewSize),
+            Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
             'Не совпал Tips формена');
 
         driver.wait(driver.executeScript('return ' +
@@ -1325,7 +1325,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }));
         SF.sleep(1);
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
-            Math.floor(boardNumbers.Tips / V.boardNumbers.CrewSize),
+            Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
             'Не совпал Tips формена');
 
         driver.wait(driver.executeScript('return ' +

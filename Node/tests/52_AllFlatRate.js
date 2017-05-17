@@ -243,6 +243,7 @@ condition.nowWeDoing = 'возвращаемся в диспач, проверя
 condition.nowWeDoing = 'сейчас идём в пейролл и проверяем работy';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
+
     LF.findTestForemanInPayroll(V.foremanName);
     V.payrollNumbersPickup = {
         Foreman:{}, Sale:{}
@@ -254,6 +255,8 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
     }), config.timeout);
     SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
+    MF.WaitWhileBusy ();
+    LF.selectDateInPayroll(V.changedateDelAdmin);
     MF.WaitWhileBusy ();
     LF.findFlatRateDeliveryForemanInPayroll ();
     V.payrollNumbersDelivery = {

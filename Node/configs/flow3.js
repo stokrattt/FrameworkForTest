@@ -12,7 +12,6 @@ module.exports = function(config,V) {
         './tests/DefaultSettings.js',
         './tests/37_PendingStorage.js',
         './tests/43_WeightType.js',
-        './tests/49_FlatRateLocalMove.js',
         './tests/TheCleaner.js'//==============================уборка=========================
 
     ];
@@ -27,5 +26,7 @@ module.exports = function(config,V) {
     V.foremanPassword = '123';
     V.foremanName = 'Foreman Flow3';
     V.adminName = 'Admin';
+    V.foremanEmail = 'ForemanFlow1@test.com';
+
 
 };

@@ -184,7 +184,7 @@ condition.nowWeDoing = 'идем в админку проверять что р�
          options = {  month: 'long', year: 'numeric' };
         V.Dates = (future.toLocaleDateString('en-US', options));
     }), config.timeout);
-    SF.sleep(5);
+    SF.sleep(8);
             if (V.current == V.Dates) {
                  now = new Date();
                  msInDay = 86400000;

@@ -79,6 +79,8 @@ module.exports = function(config,V) {
     V.foremanLogin = 'TestForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
+    V.adminName = 'Test';
+    V.foremanEmail = 'TestForeman@mail.com';
 
 /*список тестов  для вставки выше
  './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',

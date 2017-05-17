@@ -183,6 +183,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Account_ClickViewRequest() {
+        SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
     }
 

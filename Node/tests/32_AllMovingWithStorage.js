@@ -14,6 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.FullSmallCalcAsMovingWithStorage(V.client);
     MF.FrontSite_GoToAccount();
     condition.nowWeDoing = 'зашли первый раз в аккаунт';
+    MF.WaitWhileBusy ();
     MF.Account_ClickViewRequest();
 
     MF.WaitWhileBusy();
@@ -124,7 +125,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving With Storage Quote (Confirmed)");
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
-    MF.EditRequest_Check1EmailExist("TestForeman@mail.com", "Send TO Foreman");
+    MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 

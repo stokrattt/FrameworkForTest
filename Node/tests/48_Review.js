@@ -65,6 +65,7 @@ condition.nowWeDoing = 'идем в админку, открываем рекв�
     MF.EditRequest_Check1EmailExist (V.client.email, "Review");
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Review")][contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     SF.click(By.xpath('//a[contains(text(), "Give us review")]'));
+    SF.sleep (2);
 condition.nowWeDoing = 'переходим с логов по ссылке в акк и ставим 5 звезд, подтверждаем';
     SF.openTab (1);
     SF.waitForLocated (By.id('reviews-moveboard'));
