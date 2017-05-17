@@ -96,7 +96,7 @@ condition.nowWeDoing = 'сохранили и закрыли ревест. Ид�
     LF.RememberDigitsRequestBoard(V.boardNumbersLast);
     LF.Validation_Compare_Account_Admin (V.boardNumbersAddServices, V.boardNumbersLast);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

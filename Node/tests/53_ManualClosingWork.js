@@ -80,7 +80,7 @@ condition.nowWeDoing = 'идем в коферм работы на борде,о
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersCloseJob);
     VD.IWant(VD.VToEqual,V.boardNumbersCloseJob.Balance, 0, 'баланс не ноль');
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
   //=========================закончили писать тест=============================
     SF.endOfTest();
 };

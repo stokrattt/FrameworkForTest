@@ -84,7 +84,7 @@ condition.nowWeDoing = 'пошли в админку, открыли рекве�
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
 condition.nowWeDoing = 'идем в акк подтвердить выбранную опцию';
@@ -120,7 +120,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     MF.SweetConfirm();
     SF.sleep (5);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
 condition.nowWeDoing = 'идем в акк под клиентом букать работу';
     LF.LoginToAccountAsClient (V.client);
@@ -149,7 +149,7 @@ condition.nowWeDoing = 'идем в админку в диспач';
     SF.click(By.xpath('//li[@ng-click="vm.navigation.active = $index"]/a/span[contains(text(), "Delivery crew")]'));
     SF.sleep(2);
     LF.selectCrewFlatRateDelivery();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
 
 condition.nowWeDoing = 'заходим под первым фореманом подписывать pick up контракт';
