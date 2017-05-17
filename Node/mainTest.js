@@ -49,7 +49,8 @@ for (attrs; attrs < process.argv.length; attrs++) {
     if (process.argv[attrs].indexOf('=') != -1) {
         V[process.argv[attrs].substring(0, process.argv[attrs].indexOf('='))] = process.argv[attrs].substring(process.argv[attrs].indexOf('=') + 1);
     } else if (process.argv[attrs].indexOf('config:') != -1) {
-        require('./configs/'+process.argv[attrs].substring(process.argv[attrs].indexOf(':') + 1))(config,V);
+        config.fileName = process.argv[attrs].substring(process.argv[attrs].indexOf(':') + 1);
+        require('./configs/'+config.fileName)(config,V);
     }
 }
 
@@ -75,7 +76,7 @@ global.driver=getNewDriver();
 
 function getTestName(string){
     let pos = 0;
-    for (let i=0; i<string.length; i++) {if (string[i]=='/') {pos=i;}};
+    for (let i=0; i<string.length; i++) {if (string[i]=='/') {pos=i;}}
     return string.substring(pos, string.indexOf('.js'));
 }
 
@@ -100,10 +101,10 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
             if (!exist) {system.fs.mkdirSync('reports/'+condition.testName);}
         condition.errorNumber++;
         system.fs.writeFile('reports/'+condition.testName + '/' + condition.errorNumber + '.png', image, 'base64', function (err) {
-                if (err!=null) {console.log(err)};
+                if (err!=null) {console.log(err);}
             });
         system.fs.writeFile('reports/'+condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing+'\n'+e+'\n'+e.stack, function (err) {
-                if (err!=null) {console.log(err)};
+                if (err!=null) {console.log(err);}
             });
             console.log('сделали скрин'.yellow);
             console.log('Произошла ошибка: '.red, e);
@@ -161,9 +162,15 @@ system.myEmitter.on('event', () => {
         (SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);}).run();
     } else {
         console.log('end...');
-        for (let i=0; i<testPassed.length; i++){console.log(testPassed[i]);}
+        let endLog='';
+        for (let i=0; i<testPassed.length; i++){endLog+=testPassed[i]+'\n';console.log(testPassed[i]);}
+
         let endTests = Math.floor((new Date().getTime() - startTests)/1000);
         console.log(('сделали за '+ Math.floor(endTests/60)+'мин '+endTests%60+'сек').green);
+        system.fs.writeFile('reports/'+config.fileName+ '.txt', endLog+
+            'сделали за '+ Math.floor(endTests/60)+'мин '+endTests%60+'сек',
+            function (err) { if (err!=null) {console.log(err);}}
+        );
         system.myEmitter.removeAllListeners('event');
 
     }

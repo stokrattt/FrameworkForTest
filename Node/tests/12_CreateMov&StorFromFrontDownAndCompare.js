@@ -64,7 +64,7 @@ condition.nowWeDoing = 'сравниваем с акком второй рекв
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
 condition.nowWeDoing = 'зашли под клиентом и букаем первую работу';
     LF.LoginToAccountAsClient (V.client, V.client.passwd);

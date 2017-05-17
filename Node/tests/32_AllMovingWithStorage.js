@@ -14,6 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.FullSmallCalcAsMovingWithStorage(V.client);
     MF.FrontSite_GoToAccount();
     condition.nowWeDoing = 'зашли первый раз в аккаунт';
+    MF.WaitWhileBusy ();
     MF.Account_ClickViewRequest();
 
     MF.WaitWhileBusy();
@@ -84,7 +85,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'Зайти в аккаунт и подтвердить первый реквест. Можно ещё раз сравнить все цифры с админкой';
     SF.get(V.accountURL);
@@ -124,9 +125,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving With Storage Quote (Confirmed)");
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
-    MF.EditRequest_Check1EmailExist("TestForeman@mail.com", "Send TO Foreman");
+    MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
     LF.closeEditRequest();
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
@@ -194,7 +195,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SetToConfirmed();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'Найти второй реквест, назначить команду и отправить работу.';
     SF.get(V.adminURL);
@@ -206,7 +207,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbersFrom.Id);
     LF.selectCrew(V.foremanName);
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'Найти вторую работу у формена, зайти в Inventory, подтвердить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);

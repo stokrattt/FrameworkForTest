@@ -15,7 +15,7 @@ condition.nowWeDoing = 'идем в админку проверяем что с�
     SF.sleep (3);
     JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
 condition.nowWeDoing = 'создаем Flat Rate реквест';
     LF.CreateFlatRateDownForm(V.client);
@@ -115,7 +115,7 @@ condition.nowWeDoing = 'заполняем опции 2';
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
 condition.nowWeDoing = 'идем в акк под клиентом выбирать опцию';
     LF.LoginToAccountAsClient (V.client);
@@ -159,7 +159,7 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
 
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get (V.accountURL);
     LF.LoginToAccountAsClient (V.client);
 condition.nowWeDoing = 'идем в акк под клиентом 2 раз букать работу';
@@ -184,7 +184,7 @@ condition.nowWeDoing = 'идем в админку проверять что р�
          options = {  month: 'long', year: 'numeric' };
         V.Dates = (future.toLocaleDateString('en-US', options));
     }), config.timeout);
-    SF.sleep(5);
+    SF.sleep(8);
             if (V.current == V.Dates) {
                  now = new Date();
                  msInDay = 86400000;
@@ -206,7 +206,7 @@ condition.nowWeDoing = 'идем в админку проверять что р�
                 }),config.timeout);
             }
 
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     
     //=========================закончили писать тест=============================
     SF.endOfTest();

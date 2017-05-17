@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/32_AllMovingWithStorage.js'
+        './tests/51_ServiceTypesOnOff.js'
     ];
     config.chainFail = false;
     /*V.adminURL = 'localhost:8080/moveBoard/#/dashboard';
@@ -9,8 +9,11 @@ module.exports = function(config,V) {
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
     V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
     V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
-    V.adminLogin = 'WorkAdmin';
+    V.adminLogin = 'RibaKitAdmin';
     V.adminPassword = 'test';
+    V.foremanLogin = 'RibaKitForeman';
+    V.foremanPassword = '123';
+    V.foremanName = 'Foreman Riba';
 };
 
 

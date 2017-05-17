@@ -31,7 +31,7 @@ condition.nowWeDoing = 'запоминаем все данные';
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'зашли под клиентом в акк';
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     MF.Account_CheckRequestStatus_NotConfirmed(V.request.Id);
@@ -53,7 +53,7 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.request.Id);
     LF.selectCrew(V.foremanName);
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
@@ -136,7 +136,7 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
    // SF.click (By.xpath('//a[@ng-click="createInvoice()"]/../..//button[@ng-click="cancel()"]'));
     //SF.sleep(2);
     //LF.closeEditRequest ();
-    //LF.LogoutFromBoardAdmin ();
+    //MF.Board_LogoutAdmin ();
 
 
     //=========================закончили писать тест=============================

@@ -46,7 +46,7 @@ condition.nowWeDoing = 'Зайти в local Dispatch, найти первый р
     LF.SelectRequestDispatch(V.boardNumbersTo.Id);
     LF.selectCrew(V.foremanName);
     SF.sleep(2);
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
@@ -154,7 +154,7 @@ condition.nowWeDoing = 'Найти второй реквест, назначит
     LF.SelectRequestDispatch(V.boardNumbersFrom.Id);
     LF.selectCrew(V.foremanName);
     SF.sleep(2);
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'Найти вторую работу, зайти в Inventory, подтвердить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);

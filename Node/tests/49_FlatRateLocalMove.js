@@ -11,6 +11,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
 
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenSettingsGeneral ();
+    SF.sleep (3);
+    JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
+
     LF.CreateFlatRateFromBoard (V.client);
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.localMove"]/..'));
     SF.clear (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'));
@@ -35,7 +40,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.SweetConfirm();
     SF.sleep (5);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
 
@@ -61,7 +66,7 @@ condition.nowWeDoing = 'идем в акк букаем работу';
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.request.Id);
     LF.selectCrewFlatRatePickUp(V.foremanName);
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);

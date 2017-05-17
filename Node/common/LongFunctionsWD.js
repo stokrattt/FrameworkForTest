@@ -339,6 +339,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
         driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
         SF.sleep(1);
+        MF.WaitWhileBusy ();
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(5);
@@ -438,16 +439,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
     function LogoutFromAccount() {
         JS.scroll("a[ng-click=\"vm.Logout()\"]");
-        SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
-        SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
-        SF.sleep(5);
-    }
-    function LogoutFromBoardAdmin() {
-        JS.waitForNotExist('div.toast-success');
-        JS.waitForNotExist('div.toast-message');
-        JS.scroll('a[ng-click=\"vm.Logout()\"]');
-        SF.click(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
-        SF.sleep(1);
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
         SF.sleep(5);
@@ -679,6 +670,38 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(4);
         console.log('создали реквест');
     }
+    function CreateLongDistanceFromBoard(client) {
+        SF.click(By.linkText('Create Request'));
+        SF.sleep(3);
+        SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:7"]'));
+        SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+        V.request = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
+            V.request.moveDate = calDate;
+            console.log(V.request);
+        }),config.timeout);
+        SF.sleep(0.5);
+        SF.click(By.xpath('//ul[@class="chosen-choices"]'));
+        SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+        SF.send(By.id("edit-zip-code-from"), "02032");
+        SF.send(By.id("edit-zip-code-to"), "90001");
+        SF.sleep(4);
+        SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
+        SF.sleep(1);
+        MF.WaitWhileBusy ();
+        SF.sleep(1);
+        SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
+        SF.sleep(2);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
+        SF.click(By.xpath('//button[@ng-click="create()"]'));
+        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+        SF.sleep(2);
+        MF.WaitWhileBusy ();
+        console.log('создали реквест');
+    }
     function CreateLoadingHelpFromBoard(client) {
         SF.click(By.linkText('Create Request'));
         SF.sleep(4);
@@ -696,6 +719,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         SF.sleep(4);
+        MF.WaitWhileBusy ();
         SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
@@ -1303,6 +1327,48 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
         });
     }
+    function RememberAndValidatePayroll_In_EditRequestFlatRateDelivery(boardNumbers) {
+        boardNumbers.Payroll = {
+            foremanForCommission: {},
+            helpersForComission: []
+        };
+        SF.sleep(3);
+
+        SF.click(By.xpath('//li[@heading="Foremen"]/a'));
+        driver.wait(driver.executeScript('return ' +
+            '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        ).then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
+        }));
+        SF.sleep(1);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
+            Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
+            'Не совпал Tips формена');
+
+        driver.wait(driver.executeScript('return ' +
+            '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        ).then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
+        }));
+        SF.sleep(1);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
+            Math.floor(boardNumbers.AdServices),
+            'Не совпал Extras формена');
+
+        driver.wait(driver.executeScript('return ' +
+            '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        ).then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
+        }));
+        SF.sleep(1);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
+            Math.floor(boardNumbers.Packing),
+            'Не совпал Packing формена');
+
+        driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
+        });
+    }
     function findTestForemanInPayroll(ForemanName) {
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
@@ -1857,7 +1923,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         AccountFromStorageEnterAddress: AccountFromStorageEnterAddress,
         RememberAccountNumbers: RememberAccountNumbers,
         LogoutFromAccount: LogoutFromAccount,
-        LogoutFromBoardAdmin: LogoutFromBoardAdmin,
         LogoutFromBoardForeman: LogoutFromBoardForeman,
         LoginToBoardAsAdmin: LoginToBoardAsAdmin,
         LoginToBoardAsForeman: LoginToBoardAsForeman,
@@ -1878,6 +1943,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         CreateFlatRateDownForm: CreateFlatRateDownForm,
         CreateStorageTenant: CreateStorageTenant,
         CreateFlatRateFromBoard: CreateFlatRateFromBoard,
+        CreateLongDistanceFromBoard: CreateLongDistanceFromBoard,
         RememberDigitsRequestBoard_Up: RememberDigitsRequestBoard_Up,
         RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
         RememberDigitsRequestBoard: RememberDigitsRequestBoard,
@@ -1927,6 +1993,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         ValidatePendingStorageRequest: ValidatePendingStorageRequest,
         RememberCarrier: RememberCarrier,
         Contract_SignMainPayment:Contract_SignMainPayment,
-        Contract_AddInventory:Contract_AddInventory
+        Contract_AddInventory:Contract_AddInventory,
+        RememberAndValidatePayroll_In_EditRequestFlatRateDelivery: RememberAndValidatePayroll_In_EditRequestFlatRateDelivery
     };
 };

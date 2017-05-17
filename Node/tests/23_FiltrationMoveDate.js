@@ -100,7 +100,7 @@ condition.nowWeDoing = 'идем удалять созданные реквес�
     LF.deletePendingRequest ();
     LF.OpenRequest (V.Id5);
     LF.deletePendingRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

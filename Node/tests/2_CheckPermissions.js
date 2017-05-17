@@ -31,7 +31,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenSettings();
     MF.EditRequest_RememberSale(V.requestAdmin);
     MF.EditRequest_CloseEditRequest();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
     condition.nowWeDoing = 'заходим под сейлсом и проверяем разные галочки';
     LF.LoginToBoardAsCustom(V.SalesLogin,V.SalesPass);

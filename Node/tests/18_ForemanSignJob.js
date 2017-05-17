@@ -32,7 +32,7 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     // LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.LoginToBoardAsCustomForeman (V.foremanLogin, V.foremanPassword);
@@ -89,7 +89,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     }
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     // LF.closeEditRequest ();
-    // LF.LogoutFromBoardAdmin ();
+    // MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

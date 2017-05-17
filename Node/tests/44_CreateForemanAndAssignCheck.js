@@ -67,7 +67,7 @@ condition.nowWeDoing = 'идем в диспач ищем работу и наз
     SF.sleep(2);
     MF.WaitToastExit ();
     SF.sleep(2);
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing = 'зашли  под созданным фореманом и подписываем работу';
     SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
@@ -163,7 +163,7 @@ condition.nowWeDoing='идем удалять форемана';
     MF.WaitToastExit ();
     MF.WaitWhileBusy ();
     SF.sleep (2);
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

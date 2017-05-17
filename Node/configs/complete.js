@@ -1,7 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
         './tests/DefaultSettings.js',
-        './tests/48_Review.js',
         './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',
         './tests/4_CheckFuelSurcharge.js',
         './tests/7_DepartmenTest.js',
@@ -16,6 +15,7 @@ module.exports = function(config,V) {
         './tests/2_CheckPermissions.js',
         './tests/11_CheckBillOfLadding.js',
         './tests/TheCleaner.js',//==============================уборка=========================
+        './tests/51_ServiceTypesOnOff.js',
         './tests/DefaultSettings.js',
         './tests/10_CompareQuotesLocal.js',
         './tests/12_CreateMov&StorFromFrontDownAndCompare.js',
@@ -45,6 +45,7 @@ module.exports = function(config,V) {
         './tests/30_StorageTenant.js',
         './tests/31_FlateRateBooking.js',
         './tests/49_FlatRateLocalMove.js',
+        './tests/52_AllFlatRate.js',
         './tests/32_AllMovingWithStorage.js',
         './tests/33_AddCarrier.js',
         './tests/34_ContractPageCustomBlock.js',
@@ -64,7 +65,9 @@ module.exports = function(config,V) {
         './tests/47_SendMessage.js',
         './tests/48_Review.js',
         './tests/49_FlatRateLocalMove.js',
-        './tests/50_AddJobToTrip.js'
+        './tests/50_AddJobToTrip.js',
+        './tests/53_ManualClosingWork.js',
+        './tests/54_LDQuoteAndFuel.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';
@@ -76,6 +79,8 @@ module.exports = function(config,V) {
     V.foremanLogin = 'TestForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
+    V.adminName = 'Test';
+    V.foremanEmail = 'TestForeman@mail.com';
 
 /*список тестов  для вставки выше
  './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',

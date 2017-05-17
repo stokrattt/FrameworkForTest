@@ -19,7 +19,7 @@ condition.nowWeDoing = 'запоминаем данные';
         V.frontNumbersUnloadingDown.Truck = SF.cleanPrice (text);
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcsettings.travelTime"]/span')).getText().then(function (text) {
-        let hours = text.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('Hrs')));
+        let hours = text.indexOf('Hr') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('Hr')));
         let minutes = text.indexOf('Min') == -1 ? 0 : SF.cleanPrice(text.substring((text.indexOf('Hrs') + 1), text.indexOf('Min')));
         V.frontNumbersUnloadingDown.TravelTime = hours * 60 + minutes;
     }), config.timeout);
@@ -31,6 +31,9 @@ condition.nowWeDoing = 'запоминаем данные';
     }), config.timeout);
     SF.sleep(1);
     console.log(V.frontNumbersUnloadingDown);
+
+    Debug.pause();
+
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);
     SF.click(By.linkText('View Request Page'));
@@ -70,7 +73,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
 
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
 condition.nowWeDoing = 'зашли под клиентом букаем  работу';

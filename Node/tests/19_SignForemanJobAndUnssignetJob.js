@@ -32,7 +32,7 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.request.Id);
@@ -90,6 +90,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.click(By.xpath('//div[@id="invoice"]//a[@ng-click="select(tabs[1])"]'));
+    SF.sleep(1);
     SF.click(By.xpath('//span[@ng-click="removeWorker(foremanIndex, \'foreman\')"]'));
     MF.SweetConfirm ();
     SF.sleep (2);
@@ -104,7 +105,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
     SF.sleep(2);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
 condition.nowWeDoing = 'идем на форемана проверить что он удалился с  работы';
     SF.sleep (3);

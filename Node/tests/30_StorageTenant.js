@@ -145,7 +145,7 @@ condition.nowWeDoing = 'старт рекуринг';
 condition.nowWeDoing = 'идем проверять что он есть в Move in';
     MF.StorageTenant_OpenStorages(V.storage.Id);
     MF.EditStorage_CloseOpenModal();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

@@ -124,6 +124,7 @@ condition.nowWeDoing = 'ищем в contract page текст который мы
         VD.IWant(VD.VNotToEqual, q, -1, 'не нашло текст rate');
         V.rateClear = text.replace(V.rate, '');
     }),config.timeout);
+    SF.sleep(1);
     SF.clear (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.localHourlyRate"]//div[@ng-model="html"]'));
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.localHourlyRate"]//div[@ng-model="html"]'), V.rateClear );
     driver.wait(driver.findElement(By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.longRates"]//div[@ng-model="html"]')).getText().then(function (text) {
@@ -131,8 +132,9 @@ condition.nowWeDoing = 'ищем в contract page текст который мы
         VD.IWant(VD.VNotToEqual, q, -1, 'не нашло текст longrate');
         V.longrateClear = text.replace(V.longrate, '');
     }),config.timeout);
-    SF.clear (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.localHourlyRate"]//div[@ng-model="html"]'));
-    SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.localHourlyRate"]//div[@ng-model="html"]'), V.longrateClear );
+    SF.sleep(1);
+    SF.clear (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.longRates"]//div[@ng-model="html"]'));
+    SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.longRates"]//div[@ng-model="html"]'), V.longrateClear );
     driver.wait(driver.findElement(By.xpath('//textarea[@ng-model="vm.contract_page.textContent.declarUp"]')).getText().then(function (text) {
         q = text.indexOf(V.declaration);
         VD.IWant(VD.VNotToEqual, q, -1, 'не нашло текст declaration');
@@ -289,7 +291,7 @@ condition.nowWeDoing = 'проверяем на главной странице 
         VD.IWant(VD.VToEqual, q, -1, 'текст declarationB остался, а не должен был');
     }),config.timeout);
     SF.sleep(1);
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

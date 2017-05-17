@@ -10,12 +10,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get('http://stage.themoveboard.com/moveBoard/#/login');
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    LF.CreateLocalMovingFromBoard(V.client);
+
     Debug.pause();
-    V.boardNumbers = {};
-    LF.RememberDigitsRequestBoard(V.boardNumbers);
-    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    VD.IWant(VD.VToEqual,V.boardNumbers.Fuel, 82.6,'Фуель не совпал');
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

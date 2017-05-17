@@ -84,7 +84,7 @@ condition.nowWeDoing = 'сравниваем данные которые был�
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (123);
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest(V.request.Id);
@@ -130,7 +130,7 @@ condition.nowWeDoing = 'идем в логи проверять что клие�
     VD.IWant(VD.VToEqual, V.logNumbers.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в логах и борда');
     VD.IWant(VD.VToEqual, V.logNumbers.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в логах и борда');
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest(V.request.Id);

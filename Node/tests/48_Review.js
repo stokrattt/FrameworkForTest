@@ -11,7 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что они включены';
-    MF.Board_OpenReviewSttings();
+    MF.Board_OpenReviewSettings();
     SF.click(By.xpath('//button[@ng-click="openReviewSettings()"]'));
     SF.waitForLocated (By.id('template-container'));
     driver.wait(driver.executeScript("if($('input[ng-model=\"autoSend\"]').hasClass('ng-not-empty')){" +
@@ -38,7 +38,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     MF.EditRequest_SetLaborTimeCloseJob ();
     MF.EditRequest_CloseJob();
     LF.closeEditRequest ();
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 condition.nowWeDoing = 'Идем на апи и дергаем крон';
     SF.get ('http://api.moversboard.net:8084/admin/config/system/cron');
     SF.waitForLocated (By.id('user-login'));
@@ -50,11 +50,8 @@ condition.nowWeDoing = 'Идем на апи и дергаем крон';
     SF.click(By.xpath('//b[contains(text(), "move_reviews")]/../following-sibling::td/a[contains(text(), "Force run")]'));
     SF.sleep(2);
     driver.switchTo().alert().accept();
-    SF.sleep(15);
-    SF.click(By.xpath('//b[contains(text(), "move_reviews")]/../following-sibling::td/a[contains(text(), "Force run")]'));
-    SF.sleep(2);
-    driver.switchTo().alert().accept();
-    SF.sleep (20);
+    SF.sleep(140);
+
     SF.click(By.xpath('//li[@class="admin-menu-action"]/a[contains(text(), "Log out")]'));
     SF.sleep (5);
     SF.get (V.adminURL);
@@ -68,6 +65,7 @@ condition.nowWeDoing = 'идем в админку, открываем рекв�
     MF.EditRequest_Check1EmailExist (V.client.email, "Review");
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Review")][contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     SF.click(By.xpath('//a[contains(text(), "Give us review")]'));
+    SF.sleep (2);
 condition.nowWeDoing = 'переходим с логов по ссылке в акк и ставим 5 звезд, подтверждаем';
     SF.openTab (1);
     SF.waitForLocated (By.id('reviews-moveboard'));
@@ -84,12 +82,12 @@ condition.nowWeDoing = 'переходим с логов по ссылке в а
     SF.get(V.adminURL);
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что появились наши 5 звезд и текст';
-    MF.Board_OpenReviewSttings ();
+    MF.Board_OpenReviewSettings ();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.client.name+'")]/following-sibling::div[1]/p/p[1]')).getText().then(function (text) {
         VD.IWant(VD.VToEqual, text, 'five stars it is good', 'не нашло наш текст для звезд, а может и звезды');
     }),config.timeout);
     SF.sleep(1);
-    LF.LogoutFromBoardAdmin ();
+    MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
