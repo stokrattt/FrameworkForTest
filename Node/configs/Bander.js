@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/53_LoadingAllSteps.js'];
+    config.suite = ['./tests/55_LoadingAllSteps.js'];
 
     config.chainFail = false;
     config.timeout = 30000;

@@ -44,21 +44,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
-    MF.EditRequest_OpenLogs();
+    MF.EditRequest_OpenLogs(); //===============================================================//
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
-    //.EditRequest_Check1EmailExist(V.client.email, "Request Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Loading created (Pending)");
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
-    MF.EditRequest_SetToUploading();
 
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenLogs();
-    MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Loading Not Confirmed");
     LF.closeEditRequest();
     SF.sleep(2);
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
     SF.get(V.accountURL);
@@ -84,12 +83,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_OpenLogs();
-    // MF.EditRequest_Check1EmailExist(V.client.email, "Request Local Quote (Confirmed)");
-    // MF.EditRequest_Check1EmailExist(V.client.email, "YOUR MOVE IS CONFIRMED AND SCHEDULED!");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Loading Confirmed");
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
     MF.EditRequest_Check1EmailExist("TestForeman@mail.com", "Send TO Foreman");
     LF.closeEditRequest();
-    LF.LogoutFromBoardAdmin();
+    MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
@@ -135,7 +133,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.accountNumbers.Id);
-    //.pause();
+    MF.EditRequest_WaitForBalanceVisible();
+    MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.client.email,'Job is completed');
+    MF.EditRequest_OpenRequest();
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
@@ -175,7 +176,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     VD.IWant(VD.VToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-
 
     SF.endOfTest();
 };

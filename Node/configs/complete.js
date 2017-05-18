@@ -67,7 +67,8 @@ module.exports = function(config,V) {
         './tests/49_FlatRateLocalMove.js',
         './tests/50_AddJobToTrip.js',
         './tests/53_ManualClosingWork.js',
-        './tests/54_LDQuoteAndFuel.js'
+        './tests/54_LDQuoteAndFuel.js',
+        './tests/55_LoadingAllSteps.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

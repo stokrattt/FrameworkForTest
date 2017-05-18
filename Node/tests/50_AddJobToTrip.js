@@ -115,7 +115,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'редактируем поля rate Per CF b Volume cf';
     SF.click(By.xpath('//div[@ng-click="openRateModal(item)"]'));
-    V.ratePerCf= 4
+    V.ratePerCf= 4;
     SF.sleep(1);
     SF.clear(By.xpath('//input[@ng-model="rate_per_cf"]'));
     SF.send(By.xpath('//input[@ng-model="rate_per_cf"]'), V.ratePerCf);
@@ -130,7 +130,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="update()"]'));
     SF.sleep(3);
     SF.click(By.xpath('//div[@ng-click="addServices(item, $index)"]'));
-    SF.sleep(2);
+    SF.sleep(4);
     JS.click('li:contains(\\"Estimated Full Packing\\")');
     V.packingCost = 250;
     SF.clear(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'));
