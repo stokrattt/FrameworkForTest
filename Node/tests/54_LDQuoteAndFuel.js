@@ -23,13 +23,14 @@ condition.nowWeDoing = 'идем в настройки выставляем дл
     SF.sleep (2);
     SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
     SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), 10);
-    SF.sleep (2);
+    SF.sleep (4);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-not-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
-    SF.sleep (4);
+    SF.sleep (1);
     MF.LongDistanceSettings_SelectMABasedState();
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
+    SF.sleep (4);
     MF.Board_OpenSettingsGeneral ();
     SF.click(By.linkText('Fuel Surcharge'));
     SF.sleep (2);

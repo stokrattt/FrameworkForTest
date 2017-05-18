@@ -69,6 +69,8 @@ module.exports = function(config,V) {
         './tests/54_LDQuoteAndFuel.js',
         './tests/56_LoadingAllSteps.js',
         './tests/57_UnloadingAllSteps.js'
+        './tests/55_CreateFlagAndCheckOnDashboard.js',
+        './tests/58_Discount.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

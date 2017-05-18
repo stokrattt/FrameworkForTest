@@ -328,6 +328,39 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
         SF.sleep(2);
     }
+    function AccountLocalAddAdditionalInventory() {
+        JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
+        JS.waitForExist('div[ng-repeat="filter in filters"]');
+        SF.sleep(5);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[1]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
+        SF.sleep(1);
+        JS.click('button#save-inventory.inventory__button');
+        JS.waitForExist('button.confirm:contains("OK")');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
+        SF.sleep(2);
+    }
+
     function AccountLocalDetails() {
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
         JS.waitForNotExist('div.busyoverlay:visible');
@@ -926,6 +959,17 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//input[@ng-model="payment.exp_year"]'), 20);
         SF.send(By.xpath('//input[@ng-model="secure.cvc"]'), 323);
         SF.sleep(1);
+        SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+    }
+    function FillCardPayModalBuyCoupon() {
+        JS.waitForExist('input[ng-model="payment.card_num"]');
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@ng-model="payment.card_num"]'), 4111111111111111);
+        SF.send(By.xpath('//input[@ng-model="payment.exp_month"]'), 11);
+        SF.send(By.xpath('//input[@ng-model="payment.exp_year"]'), 20);
+        SF.send(By.xpath('//input[@ng-model="secure.cvc"]'), 323);
+        SF.send(By.xpath('//input[@ng-model="payment.billing_zip"]'), '02032');
+        SF.sleep(2);
         SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
     }
     function MakeSignJS(canvasID) {
@@ -1925,6 +1969,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         FullSmallCalcAsFlateRate: FullSmallCalcAsFlateRate,
         AccountLocalEnterAddress: AccountLocalEnterAddress,
         AccountLocalAddInventory: AccountLocalAddInventory,
+        AccountLocalAddAdditionalInventory: AccountLocalAddAdditionalInventory,
         AccountFlatRateAddInventory: AccountFlatRateAddInventory,
         AccountLocalDetails: AccountLocalDetails,
         AccountLoadingDetails : AccountLoadingDetails,
@@ -1968,6 +2013,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SetManager: SetManager,
         SetClientPasswd: SetClientPasswd,
         FillCardPayModal: FillCardPayModal,
+        FillCardPayModalBuyCoupon: FillCardPayModalBuyCoupon,
         MakeSignJS: MakeSignJS,
         ConfirmRequestInAccount_WithReservation: ConfirmRequestInAccount_WithReservation,
         ConfirmRequestInAccount_NoReservation: ConfirmRequestInAccount_NoReservation,

@@ -93,7 +93,7 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
-    MF.SweetConfirm ();
+    // MF.SweetConfirm ();
     SF.sleep (1);
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
