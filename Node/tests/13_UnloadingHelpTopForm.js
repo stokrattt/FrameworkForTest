@@ -11,7 +11,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing='заполняем верхнюю форму как UnloadingHelp';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsUnloading(V.clientWithRes);
-    MF.FrontSite_GoToAccount();
     condition.nowWeDoing='зашли первый раз в аккаунт';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();

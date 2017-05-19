@@ -80,7 +80,7 @@ condition.nowWeDoing = 'открываем страницу всех рекве�
 condition.nowWeDoing = 'идем на дашборд и на страницу нот конферм и смотрим что флага нету';
     MF.Board_OpenDashboard ();
     MF.Board_OpenNotConfirmed ();
-    driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"8410")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
         VD.IWant(VD.VNotToEqual, text, 'TEST FLAG', 'не удалился флаг на странице нот конферм');
     }),config.timeout);
     SF.sleep(0.5);

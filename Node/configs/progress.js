@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/58_Discount.js'];
+    config.suite = ['./tests/13_UnloadingHelpTopForm.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

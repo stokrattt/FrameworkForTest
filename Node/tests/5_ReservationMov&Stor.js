@@ -24,6 +24,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.addToCleanerJob(V.boardNumbers.Id);
     MF.EditRequest_SetToNotConfirmed();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.EditRequest_SetAdressFrom ();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenClient();
     V.client.passwd = 123;
@@ -40,7 +41,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.sleep(5);
     MF.WaitWhileBusy();
-    LF.AccountToStorageEnterAddress();
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount ();
