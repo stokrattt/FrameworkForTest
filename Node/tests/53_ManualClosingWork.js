@@ -70,6 +70,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     MF.WaitWhileBusy ();
     JS.click('button[ng-click=\\"cancel()\\"]:visible');
     SF.sleep (2);
+    MF.WaitToastExit();
 
 condition.nowWeDoing = 'идем в коферм работы на борде,открываем наш реквест, закрываем работу и проверяем что баланс равен 0';
     MF.Board_OpenConfirmed ();

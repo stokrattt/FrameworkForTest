@@ -364,15 +364,15 @@ exports.payrollTableSum = function () {
     var sum = 0;
     var len =  $(selector).length-1;
     console.log('len '+len);
-    for(var i=0; i<len; i++){
+    for(var i=0; i<len; i++){8/
         console.log(Number(clearText($(selector)[i].innerHTML)));
         sum=sum+Number(clearText($(selector)[i].innerHTML));
     }
     sum = Math.round(sum*100)/100;
     console.log('sum mus be '+Number(clearText($(selector)[len].innerHTML)));
-    b=Number(clearText($('div.total-payroll-panel  div.total-title:contains("Balance")').next().text()));
-    console.log('сверху написано '+b);
-    return (sum == Number(clearText($(selector)[len].innerHTML)))&&(b==sum);
+    var balTop = Number(clearText($('div.total-payroll-panel  div.total-title:contains("Balance")').next().text()));
+    console.log('сверху написано '+balTop);
+    return {sum:sum, balTop:balTop};
 }.toString().substring(12);
 
 exports.CheckSumsInContract = function () {

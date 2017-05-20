@@ -645,7 +645,84 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Payroll_ClickAllDepartment() {
         SF.click(By.xpath('//a[@ng-click="dTable=\'departments\';employee=\'\'"]'));
     }
-
+    function Payroll_RefreshTable() {
+        SF.sleep(1.5);
+        SF.click(By.xpath('//a[@ng-click="getByDate()"]/i'));
+        WaitWhileBusy ();
+    }
+    function Payroll_UpdateCache() {
+        SF.click(By.xpath('//button[@ng-click="updatePayrollCache()"]'));
+        SF.sleep (40);
+        WaitWhileBusy ();
+        SF.sleep(1);
+        WaitWhileBusy ();
+    }
+    function Payroll_SelectAllJobsCheckbox() {
+        SF.click(By.xpath('//input[@ng-model="global"]/..'));
+    }
+    function PayrollPayCheck_ClickSavePayment() {
+        WaitWhileBusy ();
+        SF.click (By.xpath('//button[@ng-click="savePayment()"]'));
+        WaitWhileBusy ();
+        SF.sleep(2);
+    }
+    function Payroll_ClickApplyPayment() {
+        SF.click(By.xpath('//a[@ng-click="applyPayment()"]'));
+        SF.waitForLocated (By.xpath('//button[@ng-click="savePayment()"]'));
+        WaitWhileBusy ();
+    }
+    function Payroll_ClickStepBackToNameWorker() {
+        SF.click(By.xpath('//a[@ng-click="dTable=\'workers\';employee=\'\'"]'));
+        WaitWhileBusy ();
+    }
+    function Payroll_ClickStepBackToAllDepartments() {
+        JS.click('a[ng-click=\\"dTable=\'departments\';employee=\'\'\\"]:visible');
+        WaitWhileBusy ();
+    }
+    function Payroll_GoToWorkerJobs(foremanName) {
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+ foremanName +'")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+ foremanName +'")]'));
+        WaitWhileBusy ();
+    }
+    function Payroll_OpenPayCheckCash() {
+        SF.click(By.xpath('//tr[@ng-repeat="(id, dataObj) in userCurrentTbl.users_paychecks"]'));
+        SF.sleep(0.3);
+        SF.click(By.xpath('//tr[@ng-repeat="(id, dataObj) in userCurrentTbl.users_paychecks"]'));
+        SF.waitForLocated (By.xpath('//button[@ng-click="removePaycheck()"]'));
+        WaitWhileBusy();
+    }
+    function PayrollPayCheck_ClickDeleteAndConfirm() {
+        SF.click (By.xpath('//button[@ng-click="removePaycheck()"]'));
+        SweetConfirm ();
+        WaitWhileBusy();
+    }
+    function PayrollPayCheck_SelectCheckPayment() {
+        SF.select(By.xpath('//select[@ng-model="payment.formPayment"]'), 'string:0');
+    }
+    function Payroll_ClickAddMiscPayment() {
+        SF.click(By.xpath('//a[@ng-click="openModal(\'addMiscPayment\')"]'));
+        SF.waitForLocated (By.xpath('//button[@ng-click="saveMisc()"]'));
+        WaitWhileBusy ();
+    }
+    function PayrollMiscPayment_ClickAmount() {
+        SF.click(By.xpath('//input[@id="fields-amount"]/..'));
+    }
+    function PayrollMiscPayment_ClickSave() {
+        SF.click (By.xpath('//button[@ng-click="saveMisc()"]'));
+        WaitWhileBusy();
+    }
+    function PayrollMiscPayment_ClickAmountDeduct() {
+        SF.click(By.xpath('//input[@id="fields-amount"]/..'));
+        SF.click(By.xpath('//input[@id="fields-deduct"]/..'));
+    }
+    function PayrollMiscPayment_ClickAmountPaid() {
+        SF.click(By.xpath('//input[@id="fields-amount"]/..'));
+        SF.click(By.xpath('//input[@id="fields-receivable"]/..'));
+    }
+    function PayrollMiscPayment_SendAmountSumm(suma) {
+        SF.clear(By.xpath('//input[@ng-model="misc.amount"]'));
+        SF.send(By.xpath('//input[@ng-model="misc.amount"]'), suma);
+    }
     //================================FRONT SITE======================================
     function FrontSite_GoToAccount() {
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
@@ -854,6 +931,23 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Dispatch_WaitForCalendar: Dispatch_WaitForCalendar,
         //===================================PAYROLL========================================
         Payroll_ClickAllDepartment: Payroll_ClickAllDepartment,
+        Payroll_RefreshTable: Payroll_RefreshTable,
+        Payroll_UpdateCache: Payroll_UpdateCache,
+        Payroll_SelectAllJobsCheckbox: Payroll_SelectAllJobsCheckbox,
+        PayrollPayCheck_ClickSavePayment: PayrollPayCheck_ClickSavePayment,
+        Payroll_ClickApplyPayment: Payroll_ClickApplyPayment,
+        Payroll_ClickStepBackToNameWorker: Payroll_ClickStepBackToNameWorker,
+        Payroll_ClickStepBackToAllDepartments: Payroll_ClickStepBackToAllDepartments,
+        Payroll_GoToWorkerJobs: Payroll_GoToWorkerJobs,
+        Payroll_OpenPayCheckCash: Payroll_OpenPayCheckCash,
+        PayrollPayCheck_ClickDeleteAndConfirm: PayrollPayCheck_ClickDeleteAndConfirm,
+        PayrollPayCheck_SelectCheckPayment: PayrollPayCheck_SelectCheckPayment,
+        Payroll_ClickAddMiscPayment: Payroll_ClickAddMiscPayment,
+        PayrollMiscPayment_ClickAmount: PayrollMiscPayment_ClickAmount,
+        PayrollMiscPayment_ClickSave: PayrollMiscPayment_ClickSave,
+        PayrollMiscPayment_ClickAmountDeduct: PayrollMiscPayment_ClickAmountDeduct,
+        PayrollMiscPayment_ClickAmountPaid: PayrollMiscPayment_ClickAmountPaid,
+        PayrollMiscPayment_SendAmountSumm: PayrollMiscPayment_SendAmountSumm,
         //==================================SCHEDULE========================================
         Schedule_SetReservationLocalTo: Schedule_SetReservationLocalTo,
         //==================================DEPARTMENT======================================

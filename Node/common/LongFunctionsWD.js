@@ -260,9 +260,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForExist('button.confirm:contains("Update")');
         SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Update")]'));
-        JS.waitForExist('button.confirm:contains("OK")');
+        // JS.waitForExist('button.confirm:contains("OK")');
         SF.sleep(2);
-        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
+        // SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
     }
     function AccountFromStorageEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
@@ -1959,6 +1959,59 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.WaitWhileBusy ();
         SF.sleep (3);
     }
+    function Payroll_DeleteAllMiscPaymentCycle() {
+        driver.wait(driver.executeScript("return $('table[dt-options=\"dtOptions\"] tr[ng-repeat=\"(id, dataObj) in userCurrentTbl.misc\"]').length").then(function (paycheck) {
+            V.payMisc = paycheck;
+            console.log(V.payMisc)
+        }), config.timeout);
+        SF.sleep(1);
+        for (let i = 0; i < V.payMisc; i++) {
+            SF.click(By.xpath('//table[@dt-options="dtOptions"]//tr[@ng-repeat="(id, dataObj) in userCurrentTbl.misc"]'));
+            SF.sleep(0.5);
+            SF.click(By.xpath('//table[@dt-options="dtOptions"]//tr[@ng-repeat="(id, dataObj) in userCurrentTbl.misc"]'));
+            SF.waitForLocated (By.xpath('//button[@ng-click="removeMisc()"]'));
+            MF.WaitWhileBusy();
+            SF.click (By.xpath('//button[@ng-click="removeMisc()"]'));
+            MF.SweetConfirm ();
+            MF.WaitWhileBusy();
+        }
+    }
+    function Payroll_DeleteAllPaycheckPaycashCycle() {
+        driver.wait(driver.executeScript("return $('table[dt-options=\"dtOptionsPaycheck\"] tr[ng-repeat=\"(id, dataObj) in userCurrentTbl.users_paychecks\"]').length").then(function (paycheck) {
+            V.paycheck = paycheck;
+            console.log(V.paycheck)
+        }), config.timeout);
+        SF.sleep(1);
+        for (let i = 0; i < V.paycheck; i++) {
+            SF.click(By.xpath('//table[@dt-options="dtOptionsPaycheck"]//tr[@ng-repeat="(id, dataObj) in userCurrentTbl.users_paychecks"]'));
+            SF.sleep(0.3);
+            SF.click(By.xpath('//table[@dt-options="dtOptionsPaycheck"]//tr[@ng-repeat="(id, dataObj) in userCurrentTbl.users_paychecks"]'));
+            SF.waitForLocated (By.xpath('//button[@ng-click="removePaycheck()"]'));
+            MF.WaitWhileBusy();
+            SF.click (By.xpath('//button[@ng-click="removePaycheck()"]'));
+            MF.SweetConfirm ();
+            MF.WaitWhileBusy();
+        }
+    }
+    function Payroll_SelectPeriod20Days() {
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() - msInDay *10);
+        let options = { month: 'short', day: 'numeric', year: 'numeric' };
+        V.payrollDateFrom = (future.toLocaleDateString('en-US', options));
+        now = new Date();
+        msInDay = 86400000;
+        future = new Date(now.getTime() + msInDay *10);
+        options = { month: 'short', day: 'numeric', year: 'numeric' };
+        V.payrollDateTo = (future.toLocaleDateString('en-US', options));
+        SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));
+        SF.send(By.xpath('//input[@ng-model="dateRange.from"]'), V.payrollDateFrom);
+        SF.clear(By.xpath('//input[@ng-model="dateRange.to"]'));
+        SF.send(By.xpath('//input[@ng-model="dateRange.to"]'), V.payrollDateTo);
+        SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
+        SF.sleep(1);
+        MF.WaitWhileBusy ();
+    }
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -2052,6 +2105,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberCarrier: RememberCarrier,
         Contract_SignMainPayment:Contract_SignMainPayment,
         Contract_AddInventory:Contract_AddInventory,
-        RememberAndValidatePayroll_In_EditRequestFlatRateDelivery: RememberAndValidatePayroll_In_EditRequestFlatRateDelivery
+        RememberAndValidatePayroll_In_EditRequestFlatRateDelivery: RememberAndValidatePayroll_In_EditRequestFlatRateDelivery,
+//Payroll
+        Payroll_DeleteAllMiscPaymentCycle: Payroll_DeleteAllMiscPaymentCycle,
+        Payroll_DeleteAllPaycheckPaycashCycle: Payroll_DeleteAllPaycheckPaycashCycle,
+        Payroll_SelectPeriod20Days: Payroll_SelectPeriod20Days,
     };
 };
