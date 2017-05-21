@@ -31,6 +31,7 @@ condition.nowWeDoing = 'идем в локал диспач и меняем да
     SF.sleep(1);
     MF.WaitWhileBusy ();
     MF.Dispatch_GridView();
+    JS.scroll ('i[ng-click=\\"vm.getByDate();\\"]');
     LF.OpenRequestDispatch (V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenConfirmWork();

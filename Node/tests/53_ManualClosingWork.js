@@ -71,6 +71,9 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     JS.click('button[ng-click=\\"cancel()\\"]:visible');
     SF.sleep (2);
     MF.WaitToastExit();
+    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
+    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+    SF.sleep(2);
 
 condition.nowWeDoing = 'идем в коферм работы на борде,открываем наш реквест, закрываем работу и проверяем что баланс равен 0';
     MF.Board_OpenConfirmed ();
