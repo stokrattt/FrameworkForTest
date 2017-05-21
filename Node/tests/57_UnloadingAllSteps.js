@@ -91,7 +91,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Unloading Confirmed");
     //MF.EditRequest_Check1EmailExist(V.client.email, "Complete the confirmation process");
-    MF.EditRequest_Check1EmailExist(V.client.email, 'New Message From emilia clark');
+    MF.EditRequest_Check1EmailExist(V.client.email, 'New Message From emilia');
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
     MF.EditRequest_Check1EmailExist("TestForeman@mail.com", "Send TO Foreman");
     LF.closeEditRequest();
