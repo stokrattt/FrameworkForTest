@@ -44,7 +44,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
-    MF.EditRequest_OpenLogs(); //===============================================================//
+    MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.client.email, "Unloading created (Pending)");
@@ -69,11 +69,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
+    MF.Account_OpenMessage();
+    MF.BoardAccount_SendMessage('first message');
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'второй раз в админке, локал диспатч';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenMessage ();
+    SF.click (By.xpath('//tr[@ng-click="showComments(request)"]/td[contains(text(), "'+V.accountNumbers.Id+'")]'));
+    MF.WaitWhileBusy ();
+    MF.BoardAccount_SendMessage('some message');
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.WaitWhileBusy();
@@ -84,6 +90,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Unloading Confirmed");
+    //MF.EditRequest_Check1EmailExist(V.client.email, "Complete the confirmation process");
+    MF.EditRequest_Check1EmailExist(V.client.email, 'New Message From emilia clark');
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
     MF.EditRequest_Check1EmailExist("TestForeman@mail.com", "Send TO Foreman");
     LF.closeEditRequest();
@@ -135,6 +143,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.client.email, "Complete the confirmation process");
     MF.EditRequest_Check1EmailExist(V.client.email,'Job is completed');
     MF.EditRequest_OpenRequest();
     MF.EditRequest_WaitForBalanceVisible();
