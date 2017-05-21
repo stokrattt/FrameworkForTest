@@ -80,13 +80,15 @@ condition.nowWeDoing = 'тут заходим в конкретного мужи
                 V.balanceDown = SF.cleanPrice(balanceDown);
             }), config.timeout);
             SF.sleep(1);
+            driver.wait(driver.executeScript(JSstep.payrollTableSum).then(function (summa) {
+                VD.IWant(VD.VToEqual, summa.sum, summa.balTop, 'Не совпали сумма посчитанная в таблице с балансом сверху "' + V.jobsName +'"');
+            }),config.timeout);
+            SF.sleep(1);
             VD.IWant(VD.VToEqual, V.balanceTop, V.balanceDown, 'сумма сврехру на балансе не совпала с суммой снизу ИТОГО  "' + V.jobsName +'"');
            // driver.wait(driver.executeScript(JSstep.payrollTableSum));
-            JS.click('a[ng-click=\\"dTable=\'workers\';employee=\'\'\\"]:visible');
-            MF.WaitWhileBusy ();
+            MF.Payroll_ClickStepBackToNameWorker();
         }
-        JS.click('a[ng-click=\\"dTable=\'departments\';employee=\'\'\\"]:visible');
-        MF.WaitWhileBusy ();
+        MF.Payroll_ClickStepBackToAllDepartments ();
     }
 
     //=========================закончили писать тест=============================

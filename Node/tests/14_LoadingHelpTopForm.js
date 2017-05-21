@@ -11,7 +11,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing='заполняем верхнюю форму как LoadingHelp';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsLoading(V.clientWithRes);
-    MF.FrontSite_GoToAccount();
     condition.nowWeDoing='зашли первый раз в аккаунт';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
@@ -63,7 +62,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.frontURL);
     LF.FullSmallCalcAsUnloading(V.clientNoRes);
-    MF.FrontSite_GoToAccount();
 
     condition.nowWeDoing='зашли первый раз в аккаунт NoRes';
     SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
