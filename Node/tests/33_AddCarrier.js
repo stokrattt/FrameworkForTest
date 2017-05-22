@@ -143,13 +143,13 @@ condition.nowWeDoing = 'удаляем карьера';
         }
         let id = url.substring(c+1);
         driver.executeScript(
-            JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8083/server/long_distance_carrier/'+id)
+            JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8082/server/long_distance_carrier/'+id)
         );
     }),config.timeout);
 
-    SF.sleep(2);
+    SF.sleep(4);
 
-    SF.click(By.xpath('//ng-md-icon[@icon="chevron_left"]'));
+    SF.click(By.xpath('//button[@ng-click="close()"]'));
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
