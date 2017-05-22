@@ -22,6 +22,7 @@ condition.nowWeDoing = 'запоминаем все данные';
     LF.addToCleanerJob(V.request.Id);
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SetAdressToFrom();
+
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
     SF.sleep (0.5);

@@ -260,9 +260,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForExist('button.confirm:contains("Update")');
         SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Update")]'));
-        // JS.waitForExist('button.confirm:contains("OK")');
+        JS.waitForExist('button.confirm:contains("OK")');
         SF.sleep(2);
-        // SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
     }
     function AccountFromStorageEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');

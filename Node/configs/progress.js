@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/PayrollAddMiscCustomPayment.js'];
+    config.suite = ['./tests/53_ManualClosingWork.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 
