@@ -53,6 +53,7 @@ condition.nowWeDoing = 'Редактируем карьера';
     SF.sleep(1);
     V.carrierNew2.name = SF.randomBukva(6) + '_t';
     V.carrierNew2.contactPerson = SF.randomBukva(6) + '_t';
+    SF.sleep(3);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.name"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.name"]'), V.carrierNew2.name);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.contact_person"]'));
@@ -146,10 +147,6 @@ condition.nowWeDoing = 'удаляем карьера';
             JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8082/server/long_distance_carrier/'+id)
         );
     }),config.timeout);
-
-    SF.sleep(4);
-
-    SF.click(By.xpath('//button[@ng-click="close()"]'));
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

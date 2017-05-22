@@ -144,7 +144,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenLogs();
-    MF.EditRequest_Check1EmailExist(V.client.email, "Complete the confirmation process");
+    //MF.EditRequest_Check1EmailExist(V.client.email, "Complete the confirmation process");
     MF.EditRequest_Check1EmailExist(V.client.email,'Job is completed');
     MF.EditRequest_OpenRequest();
     MF.EditRequest_WaitForBalanceVisible();
