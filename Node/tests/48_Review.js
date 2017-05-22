@@ -74,7 +74,7 @@ condition.nowWeDoing = 'переходим с логов по ссылке в а
     SF.send(By.xpath('//div[@ng-model="html"]'), 'five stars it is good');
     SF.click(By.xpath('//button[@ng-click="apply()"]'));
     MF.SweetConfirm ();
-    MF.WaitToastExit ();
+    MF.WaitWhileToaster ();
     SF.sleep(3);
     MF.Account_ClickViewRequest ();
     SF.sleep(3);

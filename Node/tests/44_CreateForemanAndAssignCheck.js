@@ -63,9 +63,9 @@ condition.nowWeDoing = 'идем в диспач ищем работу и наз
     SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
     SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
     SF.click(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
-    MF.WaitToastExit ();
+    MF.WaitWhileToaster ();
     SF.sleep(2);
-    MF.WaitToastExit ();
+    MF.WaitWhileToaster ();
     SF.sleep(2);
     MF.Board_LogoutAdmin ();
 
@@ -160,7 +160,7 @@ condition.nowWeDoing='идем удалять форемана';
     SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();
-    MF.WaitToastExit ();
+    MF.WaitWhileToaster ();
     MF.WaitWhileBusy ();
     SF.sleep (2);
     MF.Board_LogoutAdmin ();

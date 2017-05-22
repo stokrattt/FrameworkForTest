@@ -31,7 +31,7 @@ condition.nowWeDoing = 'идем в леджер и создаем паймен�
     SF.sleep (1);
     SF.click(By.xpath('//button[@ng-click="Save()"]'));
     SF.sleep (2);
-    MF.WaitToastExit();
+    MF.WaitWhileToaster();
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.sleep (2);
     MF.WaitWhileBusy ();
@@ -41,7 +41,7 @@ condition.nowWeDoing = 'идем в леджер и создаем паймен�
     SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
     LF.FillCardPayModal ();
     SF.sleep (2);
-    MF.WaitToastExit();
+    MF.WaitWhileToaster();
     JS.click('button[ng-click=\\"cancel()\\"]:visible');
     JS.click('button[ng-click=\\"openPayment()\\"]:visible');
     SF.sleep(2);
@@ -84,7 +84,7 @@ condition.nowWeDoing = 'идем в леджер и создаем инвойс'
     MF.WaitWhileBusy ();
     SF.waitForLocated (By.xpath('//h2[contains(text(), "Template preview")]'));
     SF.click(By.xpath('//a[@ng-click="save()"]'));
-    MF.WaitToastExit();
+    MF.WaitWhileToaster();
     SF.click(By.xpath('//button[@ng-click="proRate()"]'));
 
 condition.nowWeDoing = 'идем в леджер и создаем про рейт';
@@ -122,10 +122,10 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
     SF.click(By.xpath('//textarea[@ng-model="invoice.notes"]'));
     SF.click(By.xpath('//button[@ng-click="saveAsDraft()"]'));
     MF.WaitWhileBusy ();
-    MF.WaitToastExit();
+    MF.WaitWhileToaster();
     SF.click(By.xpath('//button[@ng-click="updateStorageRequest(data)"]'));
     MF.WaitWhileBusy ();
-    MF.WaitToastExit();
+    MF.WaitWhileToaster();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Balance :")]/span')).getText().then(function (text) {
         V.balanceTenant = SF.cleanPrice (text);
         VD.IWant (VD.VToEqual, V.balanceTenant, -780, 'баланс не совпадает с суммой оплаты')

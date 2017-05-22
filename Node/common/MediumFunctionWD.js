@@ -1,5 +1,5 @@
 module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system, condition, config, constants) {
-    function WaitToastExit() {
+    function WaitWhileToaster() {
         JS.waitForNotExist('div.toast-message:visible');
         JS.waitForNotExist('div.toast-success:visible');
     }
@@ -798,7 +798,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
 
     return {
-        WaitToastExit: WaitToastExit,
+        WaitWhileToaster: WaitWhileToaster,
         WaitWhileBusy: WaitWhileBusy,
         SweetConfirm: SweetConfirm,
         SweetCancel: SweetCancel,

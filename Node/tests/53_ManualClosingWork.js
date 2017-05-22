@@ -53,8 +53,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
     SF.sleep (1);
     SF.click(By.xpath('//button[@ng-click="Save()"]'));
-    SF.sleep (4);
-    MF.WaitToastExit();
+    MF.WaitWhileToaster();
     MF.WaitWhileBusy ();
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.sleep (2);
@@ -65,20 +64,20 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     SF.send (By.xpath('//input[@ng-model="charge_value.value"]'),V.cardInput);
     SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
     LF.FillCardPayModal ();
-    SF.sleep (3);
-    MF.WaitToastExit();
+    JS.waitForExist('div.payment-receipt-modal');
+    MF.WaitWhileToaster();
     MF.WaitWhileBusy ();
-    JS.click('button[ng-click=\\"cancel()\\"]:visible');
-    SF.sleep (2);
-    MF.WaitToastExit();
-    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(2);
+    SF.click(By.xpath('//div[contains(@class,"payment-receipt-modal")]/following-sibling::div[1]/button[@ng-click="cancel()"]'));
+    SF.sleep(1);
+    SF.click(By.xpath('//div[@ng-show="receiptLoader"]/following-sibling::div[contains(@class,"modal-footer")]/button[@ng-click="cancel()" and contains(text(),"Cancel")]'));
+    SF.sleep(1);
+    MF.EditRequest_CloseEditRequest();
 
 condition.nowWeDoing = 'идем в коферм работы на борде,открываем наш реквест, закрываем работу и проверяем что баланс равен 0';
     MF.Board_OpenConfirmed ();
     LF.OpenRequest (V.boardNumbers.Id);
     MF.EditRequest_CloseConfirmWork ();
+    Debug.pause();
     MF.EditRequest_CloseJob();
     V.boardNumbersCloseJob = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersCloseJob);
