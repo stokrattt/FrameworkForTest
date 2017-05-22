@@ -24,6 +24,8 @@ condition.nowWeDoing = 'идем в пейролл и віставляем да�
     SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
     SF.sleep(1);
     MF.WaitWhileBusy ();
+    MF.Payroll_UpdateCache ();
+
 condition.nowWeDoing = 'тут запускаем цикл на перебор всех категорий и всех юзеров';
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(id, dataObj) in dataTbl track by $index\"]').length").then(function (depart) {
         V.department = depart;
@@ -85,7 +87,6 @@ condition.nowWeDoing = 'тут заходим в конкретного мужи
             }),config.timeout);
             SF.sleep(1);
             VD.IWant(VD.VToEqual, V.balanceTop, V.balanceDown, 'сумма сврехру на балансе не совпала с суммой снизу ИТОГО  "' + V.jobsName +'"');
-           // driver.wait(driver.executeScript(JSstep.payrollTableSum));
             MF.Payroll_ClickStepBackToNameWorker();
         }
         MF.Payroll_ClickStepBackToAllDepartments ();

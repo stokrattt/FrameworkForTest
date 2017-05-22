@@ -2012,6 +2012,30 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         MF.WaitWhileBusy ();
     }
+    function RememberPayrollNumbers_InsideWorker(payrollNumbersInside) {
+        driver.wait(driver.executeScript("return $('div.total-payroll-panel div.total-title:contains(\"Paid\")').next().text()").then(function (paid) {
+            payrollNumbersInside.paid = SF.cleanPrice(paid);
+        }), config.timeout);
+        SF.sleep(1);
+        driver.wait(driver.executeScript("return $('div.total-payroll-panel div.total-title:contains(\"Balance\")').next().text()").then(function (balanceTop) {
+            payrollNumbersInside.balanceTop = SF.cleanPrice(balanceTop);
+        }), config.timeout);
+        SF.sleep(1);
+        driver.wait(driver.executeScript("return $('.mdDataTable-header-alternate td:last-child').text()").then(function (balanceDown) {
+            payrollNumbersInside.balanceDown = SF.cleanPrice(balanceDown);
+        }), config.timeout);
+        SF.sleep(1);
+    }
+    function RememberPayrollNumbers_OutsideNameWorker(workerName, payrollNumbersOutside) {
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+workerName+'")]/following-sibling::td[@ng-show="columns.fields[\'total\'].selected"][last()]')).getText().then(function (total) {
+            payrollNumbersOutside.total = SF.cleanPrice (total);
+        }),config.timeout);
+        SF.sleep(0,5);
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+workerName+'")]/following-sibling::td[@ng-show="columns.fields[\'paid\'].selected"][last()]')).getText().then(function (paid) {
+            payrollNumbersOutside.paid = SF.cleanPrice (paid);
+        }),config.timeout);
+        SF.sleep(0,5);
+    }
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -2110,5 +2134,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         Payroll_DeleteAllMiscPaymentCycle: Payroll_DeleteAllMiscPaymentCycle,
         Payroll_DeleteAllPaycheckPaycashCycle: Payroll_DeleteAllPaycheckPaycashCycle,
         Payroll_SelectPeriod20Days: Payroll_SelectPeriod20Days,
+        RememberPayrollNumbers_OutsideNameWorker: RememberPayrollNumbers_OutsideNameWorker,
+        RememberPayrollNumbers_InsideWorker: RememberPayrollNumbers_InsideWorker
     };
 };

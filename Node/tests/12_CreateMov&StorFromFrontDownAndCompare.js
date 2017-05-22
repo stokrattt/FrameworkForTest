@@ -113,12 +113,12 @@ condition.nowWeDoing = 'букаем вторую работу мувинга и
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
+    MF.SweetConfirm ();
     SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
     SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    SF.sleep(2);
     MF.SweetConfirm ();
     MF.SweetConfirm ();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));

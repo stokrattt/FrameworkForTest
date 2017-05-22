@@ -70,7 +70,10 @@ module.exports = function(config,V) {
         './tests/56_LoadingAllSteps.js',
         './tests/57_UnloadingAllSteps.js',
         './tests/55_CreateFlagAndCheckOnDashboard.js',
-        './tests/58_Discount.js'
+        './tests/58_Discount.js',
+        './tests/59_PayrollAddMiscCustomPayment.js',
+        './tests/TheCleaner.js',//==============================уборка=========================
+
     ];
     config.chainFail = false;
     config.browser = 'chrome';
