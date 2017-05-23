@@ -94,7 +94,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //MF.EditRequest_Check1EmailExist(V.client.email, "Complete the confirmation process");
     MF.EditRequest_Check1EmailExist(V.client.email, 'New Message From emilia');
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
-    MF.EditRequest_Check1EmailExist("ForemanFlow1@test.com", "Send TO Foreman");
+    MF.EditRequest_Check1EmailExist("TestForeman@mail.com", "Send TO Foreman");
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
