@@ -164,7 +164,7 @@ condition.nowWeDoing = 'идем удалять миск пайменты, и е
         VD.IWant(VD.VToEqual, summa.sum, summa.balTop, 'Не совпали сумма посчитанная в таблице и с балансом сверху внутри чувачка после проведения всех платежей и их удаления');
     }),config.timeout);
     SF.sleep(1);
-    MF.WaitToastExit ();
+    MF.WaitWhileToaster ();
 
 condition.nowWeDoing = 'возващаемся на шаг наз, проверяем что после удаления всех миск пайментов, напротив имени чувачка тотал такой какой был вначале и paid = 0';
     MF.Payroll_ClickStepBackToNameWorker ();

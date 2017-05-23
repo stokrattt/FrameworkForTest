@@ -128,7 +128,9 @@ condition.nowWeDoing = 'идем в диспач ищем работу, пров
     });
     SF.sleep(1);
     MF.EditRequest_CloseModal();
+    MF.SweetConfirm ();
     LF.closeEditRequest();
+
 
 condition.nowWeDoing = 'идем в пейрол ищем форемана и проверяем комиссию';
     MF.Board_OpenPayroll();

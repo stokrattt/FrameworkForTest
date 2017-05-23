@@ -19,7 +19,7 @@ condition.nowWeDoing = 'идем в админку в настройки рев�
     SF.sleep(0.5);
     SF.select(By.xpath('//select[@ng-model="selectedDay"]'), 0);
     SF.click(By.xpath('//button[@ng-click="apply()"]'));
-    MF.SweetConfirm ();
+    // MF.SweetConfirm ();
     SF.sleep(2);
 condition.nowWeDoing = 'создаем локал мув, конфермим его и закрываем работу';
     LF.CreateLocalMovingFromBoard (V.client);
@@ -73,11 +73,13 @@ condition.nowWeDoing = 'переходим с логов по ссылке в а
     SF.click (By.xpath('//div[@id="review_settings"]/div//i[5]'));
     SF.send(By.xpath('//div[@ng-model="html"]'), 'five stars it is good');
     SF.click(By.xpath('//button[@ng-click="apply()"]'));
-    MF.SweetConfirm ();
+    SF.sleep(2);
+    SF.click(By.xpath('//i[@ng-click="cancel()"]'));
+    // MF.SweetConfirm ();
     MF.WaitWhileToaster ();
-    SF.sleep(3);
+    SF.sleep(2);
     MF.Account_ClickViewRequest ();
-    SF.sleep(3);
+    SF.sleep(2);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));

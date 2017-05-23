@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/59_PayrollAddMiscCustomPayment.js'];
+    config.suite = ['./tests/32_AllMovingWithStorage.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

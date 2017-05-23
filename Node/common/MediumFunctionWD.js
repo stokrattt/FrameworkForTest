@@ -652,7 +652,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Payroll_UpdateCache() {
         SF.click(By.xpath('//button[@ng-click="updatePayrollCache()"]'));
-        SF.sleep (40);
+        SF.sleep (60);
         WaitWhileBusy ();
         SF.sleep(1);
         WaitWhileBusy ();
