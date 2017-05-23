@@ -1457,6 +1457,17 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
     }
+    function findHelperInPayroll(name) {
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"helper")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"helper")]'));
+        SF.sleep(1);
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"' + name + '")]'));
+        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"' + name + '")]'));
+        SF.sleep(1);
+        JS.waitForNotExist('div.busyoverlay:visible');
+        SF.sleep(2);
+    }
     function selectDateInPayroll(date) {
 
         SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));
@@ -2119,6 +2130,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         findTestForemanInPayroll: findTestForemanInPayroll,
         findFlatRateDeliveryForemanInPayroll: findFlatRateDeliveryForemanInPayroll,
         findSaleInPayroll: findSaleInPayroll,
+        findHelperInPayroll: findHelperInPayroll,
         selectDateInPayroll: selectDateInPayroll,
         addToCleanerJob: addToCleanerJob,
         gotoSetingsLD: gotoSetingsLD,

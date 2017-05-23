@@ -548,6 +548,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
         SF.sleep (2);
     }
+    function EditRequest_AddValuation() {
+        SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
+        SF.waitForLocated (By.xpath('//button[@ng-click="saveValuation()"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//input[@id="full-protection"]/..'));
+        SF.sleep(2);
+        SF.click(By.xpath('//td[@ng-repeat="(key, value) in amoutValuation"][2]/div'));
+        SF.click (By.xpath('//button[@ng-click="saveValuation()"]'));
+        SweetConfirm ();
+        WaitWhileBusy ();
+    }
     function EditRequest_RememberCbf(boardNumbers){
         driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
             boardNumbers.cbf = SF.cleanPrice(text);
@@ -925,6 +936,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenPayrollDeliveryFlatRate: EditRequest_OpenPayrollDeliveryFlatRate,
         EditRequest_AddPacking: EditRequest_AddPacking,
         EditRequest_AddAdditionalServicesFullPack: EditRequest_AddAdditionalServicesFullPack,
+        EditRequest_AddValuation: EditRequest_AddValuation,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

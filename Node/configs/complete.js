@@ -73,6 +73,7 @@ module.exports = function(config,V) {
         './tests/58_Discount.js',
         './tests/59_PayrollAddMiscCustomPayment.js',
         './tests/TheCleaner.js',//==============================уборка=========================
+        './tests/60_Excludes.js'
 
     ];
     config.chainFail = false;
