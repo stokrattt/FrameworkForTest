@@ -1384,17 +1384,29 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         SF.click(By.xpath('//li[@heading="Helpers"]/a'));
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
-            V.boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
+            boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
         }),config.timeout);
         SF.sleep(1);
     }
-    function RememberAndValidatePayroll_In_EditRequestFlatRateDelivery(boardNumbers) {
+    function RememberAndValidatePayroll_In_EditRequestFlatRatePickup(boardNumbers) {
         boardNumbers.Payroll = {
+            managerForCommission: {},
             foremanForCommission: {},
             helpersForComission: []
         };
         SF.sleep(3);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
+            boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
+        }));
+        SF.sleep(1);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office),
+            Math.floor(boardNumbers.Total
+                - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
+            'Не совпал ForCommission менеджера');
 
+        driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
+            boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
+        });
         SF.click(By.xpath('//li[@heading="Foremen"]/a'));
         driver.wait(driver.executeScript('return ' +
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
@@ -1403,7 +1415,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }));
         SF.sleep(1);
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
-            Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
+            Math.floor(boardNumbers.Tips / 4),
             'Не совпал Tips формена');
 
         driver.wait(driver.executeScript('return ' +
@@ -1429,6 +1441,60 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
         });
+        SF.sleep(1);
+        SF.click(By.xpath('//li[@heading="Helpers"]/a'));
+        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
+            boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
+        }),config.timeout);
+        SF.sleep(1);
+    }
+    function RememberAndValidatePayroll_In_EditRequestFlatRateDelivery(boardNumbers) {
+        boardNumbers.Payroll = {
+            foremanForCommission: {},
+            helpersForComission: []
+        };
+        SF.sleep(3);
+
+        SF.click(By.xpath('//li[@heading="Foremen"]/a'));
+        driver.wait(driver.executeScript('return ' +
+            '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        ).then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
+        }));
+        SF.sleep(1);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
+            Math.floor(boardNumbers.Tips / 4),
+            'Не совпал Tips формена');
+
+        driver.wait(driver.executeScript('return ' +
+            '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        ).then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
+        }));
+        SF.sleep(1);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
+            Math.floor(boardNumbers.AdServices),
+            'Не совпал Extras формена');
+
+        driver.wait(driver.executeScript('return ' +
+            '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        ).then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
+        }));
+        SF.sleep(1);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
+            Math.floor(boardNumbers.Packing),
+            'Не совпал Packing формена');
+
+        driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
+        });
+        SF.sleep(1);
+        SF.click(By.xpath('//li[@heading="Helpers"]/a'));
+        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
+            boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
+        }),config.timeout);
+        SF.sleep(1);
     }
     function findTestForemanInPayroll(ForemanName) {
         SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
@@ -2147,6 +2213,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberCarrier: RememberCarrier,
         Contract_SignMainPayment:Contract_SignMainPayment,
         Contract_AddInventory:Contract_AddInventory,
+        RememberAndValidatePayroll_In_EditRequestFlatRatePickup: RememberAndValidatePayroll_In_EditRequestFlatRatePickup,
         RememberAndValidatePayroll_In_EditRequestFlatRateDelivery: RememberAndValidatePayroll_In_EditRequestFlatRateDelivery,
 //Payroll
         Payroll_DeleteAllMiscPaymentCycle: Payroll_DeleteAllMiscPaymentCycle,
