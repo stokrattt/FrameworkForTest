@@ -25,7 +25,7 @@ condition.nowWeDoing = 'запоминаем данные которые пос�
     SF.sleep(4);
     SF.openTab (1);
 condition.nowWeDoing = 'пошли в аккаунт';
-    SF.sleep (3);
+    SF.sleep (4);
     MF.Account_ClickViewRequest ();
 condition.nowWeDoing = 'запомнили данные в аке и сравниваем с калькулятором';
     LF.RememberAccountNumbers(V.accountNumbersTo);
@@ -93,7 +93,7 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
-    MF.SweetConfirm ();
+    // MF.SweetConfirm ();
     SF.sleep (1);
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
@@ -113,7 +113,7 @@ condition.nowWeDoing = 'букаем вторую работу мувинга и
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
-    MF.SweetConfirm ();
+    // MF.SweetConfirm ();
     SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
     SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
@@ -132,7 +132,7 @@ condition.nowWeDoing = 'букаем вторую работу мувинга и
         VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     MF.WaitWhileBusy ();
-    LF.LogoutFromAccount ();
+    // LF.LogoutFromAccount ();
 
     SF.endOfTest();
 };

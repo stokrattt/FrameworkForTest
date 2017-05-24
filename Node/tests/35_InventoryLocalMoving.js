@@ -48,6 +48,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_OpenRequest(V.accountNumbers.Id);
     LF.RememberAccountNumbers(V.accountNumbers);
     VD.IWant(VD.VToEqual, V.accountNumbers.cbf, V.boardNumbers.InventoryCubicFit);
+    SF.sleep(2);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

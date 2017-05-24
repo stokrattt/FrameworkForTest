@@ -319,13 +319,13 @@ condition.nowWeDoing='идем удалять менеджера';
     SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
     SF.sleep (1);
-    JS.waitForNotExist('div.toast-message');
-    JS.waitForExist('div.toast-message');
-
-    JS.waitForExist('div.toast-success');
-    JS.waitForNotExist('div.toast-success');
-
-    LF.LogoutFromBoardForeman ();
+    // JS.waitForNotExist('div.toast-message');
+    // JS.waitForExist('div.toast-message');
+    //
+    // JS.waitForExist('div.toast-success');
+    // JS.waitForNotExist('div.toast-success');
+    //
+    // LF.LogoutFromBoardForeman ();
 
     SF.endOfTest();
 };

@@ -158,9 +158,9 @@ condition.nowWeDoing = 'зашли на админку второй раз дл�
     VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.Total, V.boardNumbers.Total, 'не совпали Total аккаунта и борда');
     VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     SF.sleep (1);
-    MF.EditRequest_SaveChanges ();
-    LF.closeEditRequest ();
-    MF.Board_LogoutAdmin ();
+    // MF.EditRequest_SaveChanges ();
+    // LF.closeEditRequest ();
+    // MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

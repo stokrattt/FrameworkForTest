@@ -94,8 +94,9 @@ condition.nowWeDoing = 'идем открывать первый реквест 
     VD.IWant(VD.VNotToEqual, V.boardNumbers.TotalMin, V.boardNumbersClone.TotalMin, 'совпали TotalMin первого реквеста и клона, хотя не должно было');
     VD.IWant(VD.VNotToEqual, V.boardNumbers.TotalMax, V.boardNumbersClone.TotalMax, 'совпали TotalMax первого реквеста и клона, хотя не должно было');
     VD.IWant(VD.VNotToEqual, V.boardNumbers.Fuel, V.boardNumbersClone.Fuel, 'совпали Fuel первого реквеста и клона, хотя не должно было');
-    LF.closeEditRequest ();
-    MF.Board_LogoutAdmin ();
+    SF.sleep(2);
+    // LF.closeEditRequest ();
+    // MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

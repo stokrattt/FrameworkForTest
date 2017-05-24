@@ -213,28 +213,29 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id6Long + '")]')).getText().then(function (id6Long) {
         VD.IWant (VD.VToEqual, V.Id6Long, id6Long, 'не нашел реквест6 по фильтрации по Move date')
     }),config.timeout);
+    SF.sleep(2);
 condition.nowWeDoing = 'идем удалять созданные реквесты';
-    LF.OpenRequest (V.Id4Long);
-    LF.deletePendingRequest ();
-    LF.OpenRequest (V.Id5Long);
-    LF.deletePendingRequest ();
-    LF.OpenRequest (V.Id6Long);
-    LF.deletePendingRequest ();
-    SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 1);
-    MF.WaitWhileBusy ();
-    SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
-    SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.createdate);
-    SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
-    SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.createdate);
-    SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
-    MF.WaitWhileBusy ();
-    LF.OpenRequest (V.Id1);
-    LF.deletePendingRequest ();
-    LF.OpenRequest (V.Id2);
-    LF.deletePendingRequest ();
-    LF.OpenRequest (V.Id3);
-    LF.deletePendingRequest ();
-    MF.Board_LogoutAdmin ();
+    // LF.OpenRequest (V.Id4Long);
+    // LF.deletePendingRequest ();
+    // LF.OpenRequest (V.Id5Long);
+    // LF.deletePendingRequest ();
+    // LF.OpenRequest (V.Id6Long);
+    // LF.deletePendingRequest ();
+    // SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 1);
+    // MF.WaitWhileBusy ();
+    // SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
+    // SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.createdate);
+    // SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
+    // SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.createdate);
+    // SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
+    // MF.WaitWhileBusy ();
+    // LF.OpenRequest (V.Id1);
+    // LF.deletePendingRequest ();
+    // LF.OpenRequest (V.Id2);
+    // LF.deletePendingRequest ();
+    // LF.OpenRequest (V.Id3);
+    // LF.deletePendingRequest ();
+    // MF.Board_LogoutAdmin ();
 
 
     //=========================закончили писать тест=============================

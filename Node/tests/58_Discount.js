@@ -127,7 +127,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     SF.sleep(1);
     SF.send(By.xpath('//input[@placeholder="Promo code"]'), V.DiscountCode);
     MF.WaitWhileBusy ();
-    SF.click(4);
+    SF.sleep(4);
     SF.click(By.xpath('//button[@class="confirm"]'));
     MF.SweetConfirm ();
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
@@ -190,8 +190,8 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
     SF.sleep(1);
     VD.IWant (VD.VToEqual, V.PaymentReceipt, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент в ресите не совпала оплата которая была на контракте');
     SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    LF.LogoutFromAccount ();
+    // SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+    // LF.LogoutFromAccount ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

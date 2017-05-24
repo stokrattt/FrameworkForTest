@@ -123,6 +123,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (!V.CompanyServices.Storage) {SF.click(By.xpath(V.storageSelector+'/..'));}
     if (!V.CompanyServices.Flat) {SF.click(By.xpath(V.flatSelector+'/..'));}
     if (!V.CompanyServices.Long) {SF.click(By.xpath(V.longSelector+'/..'));}
+    SF.sleep(2);
     MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();

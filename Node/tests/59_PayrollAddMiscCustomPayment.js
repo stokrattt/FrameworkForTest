@@ -15,7 +15,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'идем в пейрол вводи дату в промежутке 20 дней и нажимаем update payroll cache';
     MF.Board_OpenPayroll ();
     LF.Payroll_SelectPeriod20Days();
-    MF.Payroll_UpdateCache ();
+    // MF.Payroll_UpdateCache ();
 
 condition.nowWeDoing = 'заходим у форемана и счтаем сначала сумму в таблице и сравниваем с итого, перед этим удаляем все пейчеки если есть и миск пайменты';
     LF.findTestForemanInPayroll(V.foremanName);
@@ -174,7 +174,7 @@ condition.nowWeDoing = 'возващаемся на шаг наз, провер�
     VD.IWant (VD.VToEqual, V.payrollNumbersOutsideAfterDeleteAllPayment.total, V.balanceDown, 'Тотал у форемана снаружи напротив имени чувака изменился с тем который был вначале до добавления и после удаления всех пайментов');
     VD.IWant (VD.VToEqual, V.payrollNumbersOutsideAfterDeleteAllPayment.paid, 0, 'пейд снаружи у чувачка не ноль, а должен быть нулем');
     SF.sleep(0,5);
-    MF.Board_LogoutAdmin ();
+    // MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/60_Excludes.js'];
+    config.suite = ['./tests/12_CreateMov&StorFromFrontDownAndCompare.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

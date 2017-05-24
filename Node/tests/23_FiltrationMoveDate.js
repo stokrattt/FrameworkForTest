@@ -89,18 +89,19 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id5 + '")]')).getText().then(function (id5) {
         VD.IWant (VD.VToEqual, V.Id5, id5, 'не нашел реквест по фильтрации5')
     }),config.timeout);
+    SF.sleep(2);
 condition.nowWeDoing = 'идем удалять созданные реквесты';
-    LF.OpenRequest (V.Id1);
-    LF.deletePendingRequest ();
-    LF.OpenRequest (V.Id2);
-    LF.deletePendingRequest ();
-    LF.OpenRequest (V.Id3);
-    LF.deletePendingRequest ();
-    LF.OpenRequest (V.Id4);
-    LF.deletePendingRequest ();
-    LF.OpenRequest (V.Id5);
-    LF.deletePendingRequest ();
-    MF.Board_LogoutAdmin ();
+    // LF.OpenRequest (V.Id1);
+    // LF.deletePendingRequest ();
+    // LF.OpenRequest (V.Id2);
+    // LF.deletePendingRequest ();
+    // LF.OpenRequest (V.Id3);
+    // LF.deletePendingRequest ();
+    // LF.OpenRequest (V.Id4);
+    // LF.deletePendingRequest ();
+    // LF.OpenRequest (V.Id5);
+    // LF.deletePendingRequest ();
+    // MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

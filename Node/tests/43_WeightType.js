@@ -86,11 +86,11 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     V.accountNumbersCustom = {};
     LF.RememberAccountNumbers (V.accountNumbersCustom);
     LF.Validation_Compare_Account_Admin (V.accountNumbersCustom, V.boardNumbersCustom2);
-    SF.sleep (1);
-    driver.close();
-    SF.openTab (0);
-    LF.closeEditRequest ();
-    MF.Board_LogoutAdmin ();
+    SF.sleep (2);
+    // driver.close();
+    // SF.openTab (0);
+    // LF.closeEditRequest ();
+    // MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

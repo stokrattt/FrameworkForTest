@@ -63,8 +63,8 @@ condition.nowWeDoing = 'ищем второй раз в диспатче рек�
     MF.WaitWhileBusy ();
     LF.OpenRequestDispatch (V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
-    LF.closeEditRequest();
-    MF.Board_LogoutAdmin ();
+    // LF.closeEditRequest();
+    // MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

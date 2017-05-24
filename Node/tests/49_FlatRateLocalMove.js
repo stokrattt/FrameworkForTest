@@ -126,7 +126,7 @@ condition.nowWeDoing = 'сейчас идём в пейролл';
 
 condition.nowWeDoing = 'выбираем цифры формена';
     V.payrollNumbers = {
-        Foreman:{}, Sale:{}
+        Foreman:{}, Sale:{}, Helper:{}
     };
     driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.request.Id)).then(function (text) {
         V.payrollNumbers.Foreman.Total = SF.cleanPrice(text);
@@ -146,6 +146,19 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
 
     VD.IWant(VD.VToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.request.Id);
+
+condition.nowWeDoing = 'выбираем цифры helper';
+    MF.Payroll_ClickAllDepartment();
+    MF.WaitWhileBusy();
+    LF.findHelperInPayroll('Test Helper1');
+    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.request.Id)).then(function (text) {
+        V.payrollNumbers.Helper.Total = SF.cleanPrice(text);
+    }), config.timeout);
+    SF.sleep(1);
+
+    VD.IWant(VD.VToEqual, V.payrollNumbers.Helper.Total, V.boardNumbers.Payroll.helpersForComission.total, 'не совпали цифры в Payroll helper\n' +
+        'id=' + V.request.Id);
+    SF.sleep(1);
 
 
     //=========================закончили писать тест=============================

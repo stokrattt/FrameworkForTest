@@ -30,7 +30,7 @@ condition.nowWeDoing = 'идем в настройки выставляем дл
     SF.sleep (1);
     MF.LongDistanceSettings_SelectMABasedState();
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
-    SF.sleep (7);
+    SF.sleep (3);
     MF.Board_OpenSettingsGeneral ();
     SF.click(By.linkText('Fuel Surcharge'));
     SF.sleep (2);
@@ -38,6 +38,8 @@ condition.nowWeDoing = 'идем в настройки выставляем дл
     SF.send(By.xpath('//input[@ng-model="vm.fuel_surcharge.def_ld"]'), 10);
     SF.click(By.xpath('//input[@ng-model="vm.fuel_surcharge.settingsByMileageLD.amount"]'));
     SF.sleep(3);
+    driver.navigate().refresh();
+    SF.sleep(10);
 
 condition.nowWeDoing = 'создаем лонг дистанс реквест и проверяем квоту, фуел и тотал';
     LF.CreateLongDistanceFromBoard(V.client);
@@ -96,8 +98,9 @@ condition.nowWeDoing = 'сохранили и закрыли ревест. Ид�
     V.boardNumbersLast = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersLast);
     LF.Validation_Compare_Account_Admin (V.boardNumbersAddServices, V.boardNumbersLast);
-    LF.closeEditRequest ();
-    MF.Board_LogoutAdmin ();
+    SF.sleep(2);
+    // LF.closeEditRequest ();
+    // MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

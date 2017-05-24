@@ -1381,6 +1381,12 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
         });
+        SF.sleep(1);
+        SF.click(By.xpath('//li[@heading="Helpers"]/a'));
+        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
+            V.boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
+        }),config.timeout);
+        SF.sleep(1);
     }
     function RememberAndValidatePayroll_In_EditRequestFlatRateDelivery(boardNumbers) {
         boardNumbers.Payroll = {
