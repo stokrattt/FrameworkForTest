@@ -48,6 +48,7 @@ condition.nowWeDoing = 'переходим сразу с диспача на к�
 
 condition.nowWeDoing = 'возвращаемся в настройки на мувборд и переходим в настройки контракта, проверять галочки';
     MF.Board_OpenSettingsGeneral ();
+    SF.sleep(3);
     JS.scroll('.pageheader');
     SF.click(By.linkText('Contract page'));
     SF.sleep (2);

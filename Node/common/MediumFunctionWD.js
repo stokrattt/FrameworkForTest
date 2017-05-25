@@ -120,6 +120,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
         SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     }
+    function Board_OpenSettingsAccountPageCustomBlock() {
+        SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
+        SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][3]'));
+        SF.sleep(2);
+    }
     function Board_OpenSettingsLongDistance() {
         SF.click(By.xpath('//a[@ui-sref="settings.longdistance"]'));
         SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
@@ -142,8 +147,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function Board_SearchRequest(selector){
+        SF.clear (By.id('gSearch'));
         SF.send (By.id('gSearch'), selector);
         SF.waitForLocated (By.xpath('//div[@ng-show="searchRequests.length"]'));
+    }
+    function Board_SearchOpenRequest(request) {
+        SF.click(By.xpath('//div[@ng-bind-html="request.nid | searchfilter:search"]/span[contains(text(),"' + request.Id + '")]/..'));
+        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+        WaitWhileBusy ();
+        SF.sleep(1);
     }
     function Board_GetFirstFoundedId(request){
         SF.waitForVisible(By.xpath('//div[@class="requestsid ng-binding"]'));
@@ -181,7 +193,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForExist('button.confirm:contains("OK")');
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
     }
-
+    function Account_Refresh() {
+        driver.navigate().refresh();
+        SF.waitForLocated (By.id('tab_Move Overview'));
+        SF.sleep(2);
+        WaitWhileBusy();
+    }
+    function Account_ClickViewConfirmationPage() {
+        SF.click(By.linkText('View confirmation page'));
+        SF.sleep(4);
+    }
     function Account_ClickViewRequest() {
         SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
@@ -835,6 +856,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSettingsDepartment: Board_OpenSettingsDepartment,
         Board_RefreshDashboard:Board_RefreshDashboard,
         Board_SearchRequest:Board_SearchRequest,
+        Board_SearchOpenRequest: Board_SearchOpenRequest,
         Board_GetFirstFoundedId:Board_GetFirstFoundedId,
         Board_Refresh:Board_Refresh,
         Board_OpenMessage: Board_OpenMessage,
@@ -847,6 +869,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenCourier : Board_OpenCourier,
         Board_OpenTripPlanner: Board_OpenTripPlanner,
         Board_OpenCarriersAndAgents: Board_OpenCarriersAndAgents,
+        Board_OpenSettingsAccountPageCustomBlock: Board_OpenSettingsAccountPageCustomBlock,
         //====================================ACCOUNT=======================================
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,
@@ -860,6 +883,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_OpenMessage: Account_OpenMessage,
         Account_SubmitFlatRateAfterAddInventory: Account_SubmitFlatRateAfterAddInventory,
         Account_ChooseOptionFlatRate: Account_ChooseOptionFlatRate,
+        Account_Refresh: Account_Refresh,
+        Account_ClickViewConfirmationPage: Account_ClickViewConfirmationPage,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,

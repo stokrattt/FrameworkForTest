@@ -82,18 +82,16 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
     SF.click (By.id('paybutton'));
     MF.SweetConfirm ();
     SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
-    SF.send (By.id('edit-moving-from'), 'otkuda edem');
+    SF.click (By.id('edit-moving-from'));
+    SF.send (By.id('edit-moving-from'), 'kuda edem');
     SF.send (By.id('edit-moving-from-apt'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
     MF.SweetConfirm ();
 
-    //SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    //SF.click (By.xpath('//button[@class="confirm"]'));
-
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
-    // MF.SweetConfirm ();
+    MF.SweetConfirm ();
     SF.sleep (1);
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
@@ -113,8 +111,9 @@ condition.nowWeDoing = 'букаем вторую работу мувинга и
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
-    // MF.SweetConfirm ();
+    MF.SweetConfirm ();
     SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
+    SF.click (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
     SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));

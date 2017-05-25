@@ -40,6 +40,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.accountNumbersFrom = {};
     MF.WaitWhileBusy();
     SF.sleep(5);
+    Debug.pause();
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.LogoutFromAccount();
@@ -122,6 +123,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.selectCrew(V.foremanName);
     SF.sleep(2);
     LF.OpenRequestDispatch(V.accountNumbersTo.Id);
+    MF.WaitWhileBusy ();
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving With Storage Quote (Confirmed)");
     MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");

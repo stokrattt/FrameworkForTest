@@ -176,7 +176,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(3);
         JS.click("input#extra-service");
         JS.select('select#edit-service',2);
-        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02032");
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02461");
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
         SF.sleep(2);
@@ -255,7 +255,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     function AccountToStorageEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
         SF.sleep(1);
-        SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'From Address');
+        SF.click(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'));
+        SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'Otkuda edem');
+        SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         JS.waitForExist('button.confirm:contains("Update")');
         SF.sleep(2);
@@ -267,7 +269,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     function AccountFromStorageEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
         SF.sleep(1);
-        SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'To Address');
+        SF.click(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'));
+        SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Kuda edem');
+        SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         JS.waitForExist('button.confirm:contains("Update")');
         SF.sleep(2);

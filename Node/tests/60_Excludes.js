@@ -188,7 +188,7 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
     SF.sleep(1);
 
     MF.EditRequest_CloseModal();
-    MF.SweetConfirm ();
+    // MF.SweetConfirm ();
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'сейчас идём в пейролл';

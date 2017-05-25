@@ -137,6 +137,11 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     SF.clear(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
     SF.sleep (1);
+    // SF.clear(By.xpath('//input[@ng-model="deliveryDateSecondInput"]'));
+    // SF.send(By.xpath('//input[@ng-model="deliveryDateSecondInput"]'), V.changedateDelAdmin);
+    // driver.actions().sendKeys(Key.ENTER).perform();
+
+    Debug.pause();
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.sleep (1);
@@ -144,7 +149,7 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     MF.EditRequest_SetToNotConfirmed ();
     SF.click (By.xpath('//button[@ng-click="DeliveryDay()"]'));
     MF.WaitWhileBusy ();
-    SF.sleep (7);
+    SF.sleep (15);
     driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (check) {
         VD.INeed(VD.VToEqual, check, 1, 'трак (желтая линия, реквест) на таблице траков в реквесте не нашелся в деливери дейт');
         console.log(check);
