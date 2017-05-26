@@ -38,8 +38,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="editrequest.account.mail"]'), V.user.eMail);
     SF.send(By.xpath('//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.user.phone);
     SF.sleep(10);
-    // SF.waitForVisible(By.xpath('//button[@ng-click="create()"]'));
-    // SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="create()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     MF.WaitWhileBusy();
