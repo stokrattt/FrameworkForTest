@@ -75,6 +75,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
 
 condition.nowWeDoing = 'идем в коферм работы на борде,открываем наш реквест, закрываем работу и проверяем что баланс равен 0';
     MF.Board_OpenConfirmed ();
+    MF.WaitWhileBusy ();
     LF.OpenRequest (V.boardNumbers.Id);
     MF.EditRequest_CloseConfirmWork ();
     Debug.pause();

@@ -269,6 +269,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Account_ClickFromStorage() {
         SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
+        SF.sleep(2);
+        WaitWhileBusy ();
+    }
+    function Account_ClickToStorage() {
+        SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id || vm.request.request_all_data.baseRequestNid)"]'));
+        SF.sleep(2);
+        WaitWhileBusy ();
+    }
+    function AccountConfirmationPage_ClickBackToRequest() {
+        SF.click(By.id('printinerary'));
+        SF.sleep(2);
+        WaitWhileBusy ();
     }
 
     //===================================CONTRACT===================================
@@ -888,11 +900,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_WaitForInventoryCheck: Account_WaitForInventoryCheck,
         Account_WaitForDetailsCheck: Account_WaitForDetailsCheck,
         Account_ClickFromStorage: Account_ClickFromStorage,
+        Account_ClickToStorage: Account_ClickToStorage,
         Account_OpenMessage: Account_OpenMessage,
         Account_SubmitFlatRateAfterAddInventory: Account_SubmitFlatRateAfterAddInventory,
         Account_ChooseOptionFlatRate: Account_ChooseOptionFlatRate,
         Account_Refresh: Account_Refresh,
         Account_ClickViewConfirmationPage: Account_ClickViewConfirmationPage,
+        AccountConfirmationPage_ClickBackToRequest: AccountConfirmationPage_ClickBackToRequest,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,

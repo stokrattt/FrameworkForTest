@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/62_MovingCustomBlock.js'];
+    config.suite = ['./tests/63_MovingStorageCustomBlock.js'];
     config.chainFail = false;
     config.browser = 'chrome';
 

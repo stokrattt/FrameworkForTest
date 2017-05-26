@@ -75,7 +75,8 @@ module.exports = function(config,V) {
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/60_Excludes.js',
         './tests/61_SITInvoices.js',
-        './tests/62_MovingCustomBlock.js'
+        './tests/62_MovingCustomBlock.js',
+        './tests/63_MovingStorageCustomBlock.js'
 
     ];
     config.chainFail = false;

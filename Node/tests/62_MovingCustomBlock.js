@@ -91,7 +91,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
         console.log(text);
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.id('printinerary'));
+    MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
     SF.sleep(1);
 
@@ -115,7 +115,7 @@ condition.nowWeDoing = 'выключаем кастомный блок not confi
         console.log(text);
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.id('printinerary'));
+    MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
     SF.sleep(1);
 
@@ -154,7 +154,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
         console.log(text);
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.id('printinerary'));
+    MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
     SF.sleep(1);
 

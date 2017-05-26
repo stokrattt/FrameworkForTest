@@ -30,6 +30,7 @@ condition.nowWeDoing = 'добавляем два разы инвенторий 
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
 condition.nowWeDoing = 'пошли на дашборд, открываем реквест, сравниваем данные, ставим в настройках показать дискаунт на акке и добавляем в реквесте тоже дискаунт, запоминаем данные';
+    MF.WaitWhileBusy ();
     LF.OpenRequest (V.accountNumbers.Id);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
@@ -88,8 +89,9 @@ condition.nowWeDoing = 'идем в акк запоминаем данные и 
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-
+    SF.sleep(2);
 condition.nowWeDoing = 'пошли в админку второй раз, конфермим работу идем в диспач назначаем команду';
+    MF.WaitWhileBusy ();
     LF.OpenRequest (V.accountNumbers.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.EditRequest_SetToConfirmed ();
@@ -129,6 +131,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.WaitWhileBusy ();
     SF.sleep(4);
     SF.click(By.xpath('//button[@class="confirm"]'));
+    SF.sleep(2);
     MF.SweetConfirm ();
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
         V.TotalLessWithDiscount = SF.cleanPrice(text);
@@ -138,7 +141,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     VD.IWant (VD.VNotToEqual, V.TotalLess, V.TotalLessWithDiscount, 'скидка-купон на контракте не применилась');
     SF.sleep(1);
     MF.Contract_ClickPay();
-    SF.click(By.xpath('//div[@ng-click="tipsSelected()"]'));
+    // SF.click(By.xpath('//div[@ng-click="tipsSelected()"]'));
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="charge_value.value"]')).getAttribute('value').then(function (text) {
         V.Payment = SF.cleanPrice (text);
@@ -174,6 +177,7 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
     MF.WaitWhileBusy ();
     MF.Account_WaitForGreenTextAfterConfirm ();
     SF.click(By.xpath('//li[@id="tab_Payment Receipts"]'));
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="receipt in vm.request.receipts track by $index"]/td[3]')).getText().then(function (text) {
         V.PaymentAccount = SF.cleanPrice (text);
         console.log(V.PaymentAccount);
@@ -183,6 +187,7 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
     SF.sleep(1);
     SF.click(By.xpath('//tr[@ng-repeat="receipt in vm.request.receipts track by $index"]/td[4]'));
     SF.waitForLocated (By.xpath('//div[@class="payment-receipt-modal ng-scope printSection"]'));
+    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount:")]/following-sibling::span')).getText().then(function (text) {
         V.PaymentReceipt = SF.cleanPrice (text);
         console.log(V.PaymentReceipt);
