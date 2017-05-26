@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/61_SITInvoices.js'];
+    config.suite = ['./tests/50_AddJobToTrip.js'];
 
     config.chainFail = false;
     config.timeout = 30000;
