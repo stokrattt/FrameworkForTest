@@ -965,6 +965,17 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
     }
+    function InvoiceOnlinePayment() {
+        JS.waitForExist('input[ng-model="payment.card_num"]');
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@ng-model="payment.lastName"]'), "Second Name");
+        SF.send(By.xpath('//input[@ng-model="payment.card_num"]'), 4111111111111111);
+        SF.send(By.xpath('//input[@ng-model="payment.exp_month"]'), 11);
+        SF.send(By.xpath('//input[@ng-model="payment.exp_year"]'), 20);
+        SF.send(By.xpath('//input[@ng-model="secure.cvc"]'), 323);
+        SF.sleep(1);
+        SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+    }
     function FillCardPayModalBuyCoupon() {
         JS.waitForExist('input[ng-model="payment.card_num"]');
         SF.sleep(1);
@@ -2177,6 +2188,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SetManager: SetManager,
         SetClientPasswd: SetClientPasswd,
         FillCardPayModal: FillCardPayModal,
+        InvoiceOnlinePayment: InvoiceOnlinePayment,
         FillCardPayModalBuyCoupon: FillCardPayModalBuyCoupon,
         MakeSignJS: MakeSignJS,
         ConfirmRequestInAccount_WithReservation: ConfirmRequestInAccount_WithReservation,

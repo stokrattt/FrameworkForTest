@@ -37,7 +37,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.user.lastName);
     SF.send(By.xpath('//input[@ng-model="editrequest.account.mail"]'), V.user.eMail);
     SF.send(By.xpath('//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.user.phone);
-    SF.sleep(1);
+    SF.sleep(4);
+    SF.waitForVisible(By.xpath('//button[@ng-click="create()"]'));
+    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="create()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     MF.WaitWhileBusy();
@@ -53,6 +55,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
+    SF.sleep(2);
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Balance:")]/..//div')).getText().then(function(text){
+        V.tpCollected = SF.cleanPrice(text);
+    }),config.timeout);
+    SF.sleep(2);
     LF.closeEditRequest ();
 
     MF.Board_OpenSideBar();
@@ -108,12 +115,41 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
 
     SF.click(By.xpath('//div[contains(text(), "' + V.user.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"' + V.user.name + '")]/..//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
+        V.ldJobId = text;
+    }),config.timeout);
     SF.sleep(2);
     JS.click('span:contains(\\"Add requests to trip\\")');
     SF.sleep(3);
     JS.click('span:contains(\\"Closing\\")');
 
-    condition.nowWeDoing = 'редактируем поля rate Per CF b Volume cf';
+    condition.nowWeDoing = 'редактируем поля и проверяем циферки';
+    SF.sleep(2);
+    SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
+    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+    MF.WaitWhileBusy();
+    SF.sleep(2);
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Balance:")]/..//div')).getText().then(function(text){
+        V.requestBalanceAfter = SF.cleanPrice(text);
+        VD.IWant(VD.VToEqual, V.requestBalanceAfter, 0.00, 'Баланс в окне реквеста должен бить 0 после добавления работи в трип');
+    }),config.timeout);
+
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Payment:")]/..//div')).getText().then(function(text){
+        V.requestPaymentAfter = SF.cleanPrice(text);
+        VD.IWant(VD.VToEqual, V.requestPaymentAfter, V.tpCollected, 'Пеймент должен бить равен тпКолектед');
+    }),config.timeout);
+    SF.sleep(2);
+    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    SF.sleep(6);
+    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    SF.sleep(4);
+    LF.closeEditRequest ();
+    SF.sleep(2);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"$627.50")]')).getText().then(function(text){
+        V.cleanTPCollected = SF.cleanPrice(text);
+        VD.IWant(VD.VToEqual, V.tpCollected, V.cleanTPCollected, 'не совпали TP Collected');
+    }),config.timeout);
     SF.click(By.xpath('//div[@ng-click="openRateModal(item)"]'));
     V.ratePerCf= 4;
     SF.sleep(1);
@@ -136,6 +172,25 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'));
     SF.send(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'), V.packingCost);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep(3);
+    SF.click(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]'));
+    SF.sleep(3);
+    SF.click(By.xpath('//button[@ng-click="openCustomPayment($event, 0, userInfo.nid, [], 4)"]'));
+    V.somePayment = 100;
+    SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
+    SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.somePayment);
+    SF.sleep(2);
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep(4);
+    SF.click(By.xpath('//button[@ng-click="back()"]'));
+    SF.sleep(2);
+
+    V.totalTPCollected = V.somePayment + V.tpCollected;
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"$727.50")]')).getText().then(function(text){
+        V.cleanTotalTPCollected = SF.cleanPrice(text);
+        VD.IWant(VD.VToEqual, V.totalTPCollected, V.cleanTotalTPCollected, 'не совпали TPcollected');
+    }),config.timeout);
+
     V.jobCost = V.volumeCf * V.ratePerCf;
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"$1,400.00")]')).getText().then(function(text){
         V.cleanJobCost = SF.cleanPrice(text);
@@ -147,6 +202,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"$1,650.00")]')).getText().then(function(text){
         V.cleanJobTotal = SF.cleanPrice(text);
         VD.IWant(VD.VToEqual, V.jobTotal, V.cleanJobTotal, 'не совпали Total Job Cost');
+    }),config.timeout);
+
+    V.balance = V.totalTPCollected - V.jobTotal;
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"-$922.50")]')).getText().then(function(text){
+        V.cleanBalance = SF.cleanPrice(text);
+        VD.IWant(VD.VToEqual, V.balance, V.cleanBalance, 'не совпали Balance');
     }),config.timeout);
 
     condition.nowWeDoing = 'Проверяем логи';
@@ -161,8 +222,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(3);
 
-    SF.click(By.xpath('//button[@ng-click="closeTrip()"]'));
-    SF.click(By.xpath('//div[contains(text(), "' + V.driverName + '")]'));
+    JS.click('span:contains(\\"Trip details\\")');
 
     condition.nowWeDoing = 'удаляем работу из трипа';
     SF.sleep(2);
@@ -172,6 +232,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     JS.click('span:contains(\\"Update\\")');
 
-    //=========================закончили писать тест=============================
+    condition.nowWeDoing = 'Проверяем логи после того как удалили работу с трипа';
+    JS.click('span:contains(\\"Log\\")');
     SF.endOfTest();
 };

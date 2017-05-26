@@ -176,6 +176,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ui-sref="couriers"]'));
         SF.sleep(2);
     }
+    function Board_OpenAgentFolio() {
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'trip\', \'\')"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ui-sref="agentFolio"]'));
+        SF.sleep(2);
+    }
     function Board_OpenTripPlanner() {
         SF.click(By.xpath('//a[@ng-class="{active:vm.isCurrent(\'trip planner\')}"]'));
         SF.sleep(2);
@@ -867,6 +874,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenStorages: Board_OpenStorages,
         Board_OpenStoragesTenant: Board_OpenStoragesTenant,
         Board_OpenCourier : Board_OpenCourier,
+        Board_OpenAgentFolio: Board_OpenAgentFolio,
         Board_OpenTripPlanner: Board_OpenTripPlanner,
         Board_OpenCarriersAndAgents: Board_OpenCarriersAndAgents,
         Board_OpenSettingsAccountPageCustomBlock: Board_OpenSettingsAccountPageCustomBlock,

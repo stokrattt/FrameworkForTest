@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/57_UnloadingAllSteps.js'];
+    config.suite = ['./tests/61_SITInvoices.js'];
 
     config.chainFail = false;
     config.timeout = 30000;
