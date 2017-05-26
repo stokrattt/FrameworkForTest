@@ -74,6 +74,7 @@ module.exports = function(config,V) {
         './tests/59_PayrollAddMiscCustomPayment.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/60_Excludes.js',
+        './tests/61_SITInvoices.js',
         './tests/62_MovingCustomBlock.js'
 
     ];
