@@ -8,7 +8,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
-    SF.get('http://stage.themoveboard.com:8000/moveBoard/#/login');
+    SF.get('http://stage.themoveboard.com:8090/moveBoard/#/login');
     LF.LoginToBoardAs_Roma4ke_Admin ();
 
     condition.nowWeDoing = 'Создаем Long Distance работу';
@@ -90,7 +90,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.sleep(1);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.carrier_id"]'));
-    SF.click(By.xpath('//div[text()="best rate"]'));
+    SF.click(By.xpath('//div[text()="Test name"]'));
     V.driverPhone = SF.randomCifra(10);
     V.driverName = SF.randomBukva(6) + '_t';
     V.notes = SF.randomBukva(25) + '_t';
@@ -138,10 +138,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.VToEqual, V.requestPaymentAfter, V.tpCollected, 'Пеймент должен бить равен тпКолектед');
     }),config.timeout);
     SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SF.sleep(6);
-    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep(4);
+    // SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    // SF.sleep(6);
+    // SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    // SF.sleep(4);
     LF.closeEditRequest ();
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"$627.50")]')).getText().then(function(text){
