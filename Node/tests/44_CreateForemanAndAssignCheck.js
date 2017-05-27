@@ -128,7 +128,7 @@ condition.nowWeDoing = 'идем в диспач ищем работу, пров
     });
     SF.sleep(1);
     MF.EditRequest_CloseModal();
-    MF.SweetConfirm ();
+    // MF.SweetConfirm ();
     LF.closeEditRequest();
 
 

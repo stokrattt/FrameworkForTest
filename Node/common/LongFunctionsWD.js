@@ -538,6 +538,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//input[@id="password"]'), passwd);
         SF.click(By.xpath('//button[@type="submit"]'));
         SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+        MF.WaitWhileBusy ();
     }
     function LoginToBoardAsCustomForeman(login, passwd) {
         SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
@@ -556,6 +557,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
     }
     function OpenRequest(request) {
+        MF.WaitWhileBusy ();
         driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), config.timeout)
             .getAttribute('class').then(function (classStr) {
                     if (classStr.indexOf('active_row') == -1) {

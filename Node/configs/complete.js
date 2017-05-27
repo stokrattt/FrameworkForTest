@@ -79,6 +79,7 @@ module.exports = function(config,V) {
         './tests/63_MovingStorageCustomBlock.js'
 
     ];
+    config.timeout = 35000;
     config.chainFail = false;
     config.browser = 'chrome';
     V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';

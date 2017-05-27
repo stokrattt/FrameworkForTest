@@ -50,19 +50,19 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_OpenAllRequest() {
         Board_OpenSideBar();
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'all_requests\', \'\')"]'));
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'requests\', \'\')"]'));
         WaitWhileBusy ();
     }
     function Board_OpenStorages() {
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'pending\', \'\')"]'));
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'storages.pending\', \'\')"]'));
         WaitWhileBusy ();
         SF.sleep (3);
         WaitWhileBusy ();
     }
     function Board_OpenStoragesTenant() {
         Board_OpenSideBar ();
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'pending\', \'\')"]'));
-        SF.click(By.xpath('//a[@ui-sref="tenants"]'));
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'storages.pending\', \'\')"]'));
+        SF.click(By.xpath('//a[@ui-sref="storages.tenants"]'));
         WaitWhileBusy ();
         SF.sleep (3);
         WaitWhileBusy ();
@@ -138,8 +138,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(3);
     }
     function Board_OpenDashboard() {
-        SF.click(By.xpath('//a[@ui-sref="dashboard"]'));
-        SF.sleep(5);
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dashboard\', \'\')"]'));
+        SF.sleep(2);
+        WaitWhileBusy ();
     }
     function Board_RefreshDashboard(){
         SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));

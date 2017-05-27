@@ -141,7 +141,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     VD.IWant (VD.VNotToEqual, V.TotalLess, V.TotalLessWithDiscount, 'скидка-купон на контракте не применилась');
     SF.sleep(1);
     MF.Contract_ClickPay();
-    // SF.click(By.xpath('//div[@ng-click="tipsSelected()"]'));
+    SF.click(By.xpath('//div[@ng-click="tipsSelected()"]'));
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="charge_value.value"]')).getAttribute('value').then(function (text) {
         V.Payment = SF.cleanPrice (text);

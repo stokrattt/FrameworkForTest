@@ -243,7 +243,6 @@ condition.nowWeDoing = 'возвращаемся в диспач, проверя
 condition.nowWeDoing = 'сейчас идём в пейролл и проверяем работy';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
-
     LF.findTestForemanInPayroll(V.foremanName);
     V.payrollNumbersPickup = {
         Foreman:{}, Sale:{}, Helper:{}
@@ -254,19 +253,17 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
             'id=' + V.FRId);
     }), config.timeout);
     SF.sleep(1);
+
+    condition.nowWeDoing = 'выбираем цифры helper pickup';
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy ();
-    LF.selectDateInPayroll(V.changedateDelAdmin);
-    MF.WaitWhileBusy ();
-    LF.findFlatRateDeliveryForemanInPayroll ();
-    V.payrollNumbersDelivery = {
-        Foreman:{}, Sale:{}
-    };
-    driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.FRId)).then(function (text) {
-        V.payrollNumbersDelivery.Foreman.Total = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.payrollNumbersDelivery.Foreman.Total, V.boardNumbersDelivery.Payroll.foremanForCommission.total, 'не совпали цифры Pickup в Payroll foreman\n' +
-            'id=' + V.FRId);
+    MF.WaitWhileBusy();
+    LF.findHelperInPayroll('Test Helper1');
+    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.FRId)).then(function (text) {
+        V.payrollNumbersPickup.Helper.Total = SF.cleanPrice(text);
     }), config.timeout);
+    SF.sleep(1);
+    VD.IWant(VD.VToEqual, V.payrollNumbersPickup.Helper.Total, V.boardNumbersPickup.Payroll.helpersForComission.total, 'не совпали цифры в Payroll helper\n' +
+        'id=' + V.FRId);
     SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
@@ -281,16 +278,31 @@ condition.nowWeDoing = 'проверяем цифры менеджера';
         'id=' + V.FRId);
     SF.sleep(2);
 
-    condition.nowWeDoing = 'выбираем цифры helper';
+    MF.Payroll_ClickAllDepartment();
+    MF.WaitWhileBusy ();
+    LF.selectDateInPayroll(V.boardNumbers.moveDate);
+    MF.WaitWhileBusy ();
+    LF.findFlatRateDeliveryForemanInPayroll ();
+    V.payrollNumbersDelivery = {
+        Foreman:{}, Sale:{}, Helper:{}
+    };
+    driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.FRId)).then(function (text) {
+        V.payrollNumbersDelivery.Foreman.Total = SF.cleanPrice(text);
+        VD.IWant(VD.VToEqual, V.payrollNumbersDelivery.Foreman.Total, V.boardNumbersDelivery.Payroll.foremanForCommission.total, 'не совпали цифры delivery в Payroll foreman\n' +
+            'id=' + V.FRId);
+    }), config.timeout);
+    SF.sleep(1);
+
+condition.nowWeDoing = 'выбираем цифры helper';
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
     LF.findHelperInPayroll('Test Helper1');
     driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.FRId)).then(function (text) {
-        V.payrollNumbers.Helper.Total = SF.cleanPrice(text);
+        V.payrollNumbersDelivery.Helper.Total = SF.cleanPrice(text);
     }), config.timeout);
     SF.sleep(1);
 
-    VD.IWant(VD.VToEqual, V.payrollNumbers.Helper.Total, V.boardNumbers.Payroll.helpersForComission.total, 'не совпали цифры в Payroll helper\n' +
+    VD.IWant(VD.VToEqual, V.payrollNumbersDelivery.Helper.Total, V.boardNumbersDelivery.Payroll.helpersForComission.total, 'не совпали цифры в Payroll helper\n' +
         'id=' + V.FRId);
     SF.sleep(1);
 
