@@ -32,6 +32,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.toast-message');
         JS.scroll('a[ng-click=\"vm.Logout()\"]');
+        WaitWhileBusy ();
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
         SF.sleep(1);
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
@@ -489,7 +490,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_SetToUploading() {
         SF.select(By.xpath('//select[@id="edit-service"]'), 3);
     }
-
     function EditRequest_SaveChanges() {
         JS.click('button[ng-click=\\"UpdateRequest()\\"]');
         JS.waitForExist('button[ng-click="update(request)"]:visible');
