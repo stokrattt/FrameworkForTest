@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/4_CheckFuelSurcharge.js',
+        './tests/4_CheckFuelCFitInventOffCalc.js',
         './tests/7_DepartmenTest.js',//использует roma4ke
         './tests/44_CreateForemanAndAssignCheck.js',//использует roma4ke
         './tests/20_LDTopForm.js',

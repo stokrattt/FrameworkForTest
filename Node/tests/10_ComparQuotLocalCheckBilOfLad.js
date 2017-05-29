@@ -39,5 +39,30 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
             VD.IWant(VD.VToEqual, V.logNumbers.QuoteMax, V.boardNumbers.TotalMax);
     });
     SF.sleep(1);
+    MF.EditRequest_OpenRequest ();
+
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    LF.addToCleanerJob(V.accountNumbers.Id);
+    MF.EditRequest_SetToConfirmed ();
+    MF.EditRequest_SetAdressToFrom ();
+    MF.EditRequest_SaveChanges ();
+    MF.EditRequest_OpenSettings();
+    MF.EditRequest_SetSaleNumber(2);
+
+    MF.EditRequest_OpenRequest();
+condition.nowWeDoing = 'закрываем работу и переходим в на страницу bill of lading';
+
+    MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_SetLaborTimeCloseJob();
+
+    MF.EditRequest_CloseJob();
+    MF.EditRequest_OpenContractCloseJob();
+    SF.openTab (1);
+    SF.sleep (3);
+    MF.WaitWhileBusy();
+    MF.SweetConfirm();
+    MF.Contract_OpenBillOfLading();
+    MF.Contract_WaitBillOfLading ();
+    MF.Contract_CheckLoadBillOfLadding();
     SF.endOfTest();
 };

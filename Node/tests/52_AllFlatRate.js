@@ -262,22 +262,23 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
         V.payrollNumbersPickup.Helper.Total = SF.cleanPrice(text);
     }), config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.payrollNumbersPickup.Helper.Total, V.boardNumbersPickup.Payroll.helpersForComission.total, 'не совпали цифры в Payroll helper\n' +
+    VD.IWant(VD.VToEqual, V.payrollNumbersPickup.Helper.Total, V.boardNumbersPickup.Payroll.helpersForComission.total, 'не совпали цифры в Payroll pickup helper\n' +
         'id=' + V.FRId);
     SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
 
-condition.nowWeDoing = 'проверяем цифры менеджера';
+condition.nowWeDoing = 'проверяем цифры менеджера pickup';
     LF.findSaleInPayroll('JackSales do not delete');
     driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.FRId)).then(function (text) {
         V.payrollNumbersPickup.Sale.Total = SF.cleanPrice(text);
     }), config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.payrollNumbersPickup.Sale.Total, V.boardNumbersPickup.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+    VD.IWant(VD.VToEqual, V.payrollNumbersPickup.Sale.Total, V.boardNumbersPickup.Payroll.managerForCommission.total, 'не совпали цифры в Payroll pickup manager\n' +
         'id=' + V.FRId);
     SF.sleep(2);
 
+condition.nowWeDoing = 'начинаем проверять чувачком из delivery';
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy ();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
@@ -293,7 +294,7 @@ condition.nowWeDoing = 'проверяем цифры менеджера';
     }), config.timeout);
     SF.sleep(1);
 
-condition.nowWeDoing = 'выбираем цифры helper';
+condition.nowWeDoing = 'выбираем цифры helper delivery';
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
     LF.findHelperInPayroll('Test Helper1');

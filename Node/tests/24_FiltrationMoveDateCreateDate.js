@@ -175,6 +175,7 @@ condition.nowWeDoing = 'получаем текущую дату';
     var options = { month: 'short', day: 'numeric', year: 'numeric' };
     V.createdate = (d.toLocaleDateString('en-US', options));
     console.log (V.createdate);
+
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по create date';
     MF.Board_OpenAllRequest();
     SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
@@ -194,6 +195,7 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
         VD.IWant (VD.VToEqual, V.Id3, id3, 'не нашел реквест3 по фильтрации create date')
     }),config.timeout);
     SF.sleep (2);
+
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по Move date';
     SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 2);
     MF.WaitWhileBusy ();

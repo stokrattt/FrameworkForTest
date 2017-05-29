@@ -34,6 +34,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         console.log (length);
     }),config.timeout);
     SF.sleep(2);
+    MF.EditRequest_OpenRequest ();
+    SF.sleep(1);
+    SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
+    SF.click(By.xpath('//li[@class="ui-timepicker-selected"]/following-sibling::li[2]'));
+    SF.waitForVisible(By.xpath('//h2[contains(text(),"Are you sure you want set time manualy?")]'));
+    SF.click(By.xpath('//button[contains(text(),"Yes, lel\'s do it!")]'));
+    SF.sleep(1);
     // LF.closeEditRequest ();
     // MF.Board_LogoutAdmin ();
 

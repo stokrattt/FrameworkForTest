@@ -24,7 +24,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SetSaleNumber(2);
 
     MF.EditRequest_OpenRequest();
-    condition.nowWeDoing = 'закрываем работу и переходим в на страницу bill of ladding';
+    condition.nowWeDoing = 'закрываем работу и переходим в на страницу bill of lading';
 
     MF.EditRequest_CloseConfirmWork();
     MF.EditRequest_SetLaborTimeCloseJob();

@@ -1,7 +1,7 @@
 module.exports = function(config,V) {
     config.suite = [
         './tests/2_CheckPermissions.js',
-        './tests/9_TestNotes.js',
+        './tests/9_TestNoteSaveNothing.js',
         './tests/12_CreateMov&StorFromFrontDownAndCompare.js',
         './tests/18_ForemanSignJob.js',
         './tests/26_CloneRequest.js',

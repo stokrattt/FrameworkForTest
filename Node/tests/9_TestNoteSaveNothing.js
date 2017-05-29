@@ -20,6 +20,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    LF.addToCleanerJob(V.request.Id);
     SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
     SF.waitForVisible(By.xpath('//div[@class="modal-content"]'));
     SF.sleep (3);
@@ -29,15 +30,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="update(request)"]'));
     JS.waitForNotExist('div.toast-success');
     SF.sleep(4);
-    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(4);
+    LF.closeEditRequest ();
     LF.OpenRequest(V.request.Id);
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    console.log(V.note);
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
       VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');
     }),config.timeout);
-
+    SF.sleep(1);
     SF.click(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
     SF.clear(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
     V.note = {};
@@ -45,26 +43,21 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'), V.note);
 
     LF.addInventoryBoard ();
-    JS.select ('#edit-status', 2);
-
-    JS.click ('button[ng-click=\\"UpdateRequest()\\"]');
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep (5);
-    JS.waitForNotExist('div.toast-success');
-
-    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//div[@ng-click="vm.select(3)"]'));
-    SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
-    SF.sleep(2);
-    JS.waitForExist('div.busyoverlay');
+    MF.EditRequest_SetToNotConfirmed ();
+    MF.EditRequest_SaveChanges ();
+    LF.closeEditRequest ();
+    MF.Board_OpenNotConfirmed ();
+    MF.Board_RefreshDashboard ();
     LF.OpenRequest(V.request.Id);
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
         VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');
     }),config.timeout);
+    SF.sleep(1);
+    JS.click('button[ng-click=\\"UpdateRequest()\\"]');
 
+condition.nowWeDoing='сейчас должно появиться Nothing to Update!';
+    JS.waitForExist("h2:contains(\"Nothing to Update!\")");
+    MF.SweetConfirm();
 
     SF.endOfTest();
 };

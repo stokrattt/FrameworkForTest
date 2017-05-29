@@ -1,7 +1,7 @@
 module.exports = function(config,V) {
     config.suite = [
         './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',
-        './tests/10_CompareQuotesLocal.js',
+        './tests/10_ComparQuotLocalCheckBilOfLad.js',
         './tests/19_SignForemanJobAndUnssignetJob.js',
         './tests/23_FiltrationMoveDate.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
