@@ -64,7 +64,7 @@ condition.nowWeDoing = 'пошли на страницу нот конферм �
     MF.Board_OpenAllRequest ();
 
 condition.nowWeDoing = 'открываем страницу всех реквестов, смотрим что там есть наш флаг и что есть этот реквест, открываем реквест и удаляем флаг';
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'requests_child\', {id: flag.id})"][contains(text(),"test flag")]'));
+    SF.click(By.xpath('//a[@title="test flag"][contains(text(),"test flag")]'));
     MF.WaitWhileBusy ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
         VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили на странице Request Page (filtration page)');
