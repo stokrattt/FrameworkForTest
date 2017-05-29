@@ -149,10 +149,6 @@ condition.nowWeDoing = 'удаляем карьера';
         );
     }),config.timeout);
     SF.sleep(1);
-    //
-    // SF.sleep(4);
-    //
-    // SF.click(By.xpath('//ng-md-icon[@icon="chevron_left"]'));
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
