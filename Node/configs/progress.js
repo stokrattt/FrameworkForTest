@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/4_CheckFuelCFitInventOffCalc.js'];
+    config.suite = ['./tests/64_LoadingHelpCustomBlock.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
