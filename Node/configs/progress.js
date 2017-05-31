@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/64_LoadingHelpCustomBlock.js'];
+    config.suite = ['./tests/ProfitAndLoss.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;

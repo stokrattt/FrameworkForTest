@@ -27,7 +27,23 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
     }
 
+    ///===============================Profit and loss===============================
+
+    function ProfitLoss_AddExpense(suma, categoria, notes) {
+        SF.click(By.xpath('//button[@ng-click="vm.createExpense()"]'));
+        WaitWhileBusy ();
+        SF.click(By.xpath('//input[@ng-model="expense.amount"]'));
+        SF.send(By.xpath('//input[@ng-model="expense.amount"]'), suma);
+        SF.select(By.xpath('//select[@ng-model="expense.category"]'), categoria);
+        SF.send(By.xpath('//textarea[@ng-model="expense.notes"]'), notes);
+        SF.click(By.xpath('//button[@ng-click="saveExpense()"]'));
+        SweetConfirm ();
+        SweetConfirm ();
+        WaitWhileBusy ();
+    }
+
     ///===============================BOARD=========================================
+
     function Board_LogoutAdmin() {
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.toast-message');
@@ -884,6 +900,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         //==================================LONG DISTANCE SETTINGS==========================
         LongDistanceSettings_ClickOnMapCaliforniya: LongDistanceSettings_ClickOnMapCaliforniya,
         LongDistanceSettings_SelectMABasedState: LongDistanceSettings_SelectMABasedState,
+
+        ///===============================Profit and loss===============================
+
+        ProfitLoss_AddExpense: ProfitLoss_AddExpense,
 
         //------------------------------------BOARD=========================================
         Board_LogoutAdmin: Board_LogoutAdmin,
