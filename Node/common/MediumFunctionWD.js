@@ -60,6 +60,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (3);
         WaitWhileBusy ();
     }
+    function Board_OpenStorage() {
+        Board_OpenSideBar ();
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'storages.pending\', \'\')"]'));
+        SF.click(By.xpath('//a[@ui-sref="storages.storage"]'));
+        WaitWhileBusy ();
+        SF.sleep (3);
+        WaitWhileBusy ();
+    }
     function Board_OpenStoragesTenant() {
         Board_OpenSideBar ();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'storages.pending\', \'\')"]'));
@@ -136,6 +144,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSettingsGeneral();
         SF.click(By.xpath('//a[@ui-sref="settings.department"]'));
         SF.waitForVisible(By.xpath('//a[@ui-sref="settings.department"]'));
+        SF.sleep(3);
+    }
+    function Board_OpenSettingsTemplateBuilder() {
+        Board_OpenSettingsGeneral();
+        SF.click(By.xpath('//a[@ui-sref="settings.templatebuilder"]'));
+        SF.waitForVisible(By.xpath('//a[@ui-sref="settings.templatebuilder"]'));
         SF.sleep(3);
     }
     function Board_OpenDashboard() {
@@ -874,6 +888,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenCompanyServices:Board_OpenCompanyServices,
         Board_OpenSettingsGeneral: Board_OpenSettingsGeneral,
         Board_OpenSettingsDepartment: Board_OpenSettingsDepartment,
+        Board_OpenSettingsTemplateBuilder: Board_OpenSettingsTemplateBuilder,
         Board_RefreshDashboard:Board_RefreshDashboard,
         Board_SearchRequest:Board_SearchRequest,
         Board_SearchOpenRequest: Board_SearchOpenRequest,
@@ -885,6 +900,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSettingsLongDistance: Board_OpenSettingsLongDistance,
         Board_OpenAllRequest: Board_OpenAllRequest,
         Board_OpenStorages: Board_OpenStorages,
+        Board_OpenStorage: Board_OpenStorage,
         Board_OpenStoragesTenant: Board_OpenStoragesTenant,
         Board_OpenCourier : Board_OpenCourier,
         Board_OpenAgentFolio: Board_OpenAgentFolio,

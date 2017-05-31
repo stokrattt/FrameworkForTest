@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/33_AddCarrier.js'];
+    config.suite = ['./tests/65_StorageEmailTemplate.js'];
 
     config.chainFail = false;
     config.timeout = 30000;
