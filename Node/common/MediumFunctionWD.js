@@ -44,6 +44,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForExist('select[ng-model=\\"editrequest.data.field_move_service_type\\"]');
         SF.sleep(2);
     }
+    function Board_OpenStatistic() {
+        Board_OpenSideBar ();
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'statistics.byrole\', \'\')"]'));
+        SF.sleep(2);
+    }
+    function Board_OpenProfitLoss() {
+        SF.click(By.xpath('//a[@ui-sref="statistics.ProfitLose"]'));
+        SF.sleep(2);
+        WaitWhileBusy ();
+    }
 
     function Board_OpenSideBar() {
         SF.click(By.xpath("//button[@ng-click=\"toggleLeft()\"]"));
@@ -907,6 +917,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenTripPlanner: Board_OpenTripPlanner,
         Board_OpenCarriersAndAgents: Board_OpenCarriersAndAgents,
         Board_OpenSettingsAccountPageCustomBlock: Board_OpenSettingsAccountPageCustomBlock,
+        Board_OpenStatistic: Board_OpenStatistic,
+        Board_OpenProfitLoss: Board_OpenProfitLoss,
         //====================================ACCOUNT=======================================
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,

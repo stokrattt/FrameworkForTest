@@ -77,7 +77,9 @@ module.exports = function(config,V) {
         './tests/61_SITInvoices.js',
         './tests/62_MovingCustomBlock.js',
         './tests/63_MovingStorageCustomBlock.js',
+        './tests/64_LoadingHelpCustomBlock.js',
         './tests/65_StorageEmailTemplate.js'
+
 
     ];
     config.timeout = 35000;
