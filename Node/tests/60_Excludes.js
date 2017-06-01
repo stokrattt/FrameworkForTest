@@ -15,7 +15,7 @@ condition.nowWeDoing = 'Создаем локал мув, добавляем п�
     LF.CreateLocalMovingFromBoard (V.client);
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_AddPacking ();
-    MF.EditRequest_AddAdditionalServicesFullPack ();
+    // MF.EditRequest_AddAdditionalServicesFullPack ();
     MF.EditRequest_SetSizeOfMoveNumber (3);
     MF.EditRequest_AddValuation ();
     V.boardNumbers = {};

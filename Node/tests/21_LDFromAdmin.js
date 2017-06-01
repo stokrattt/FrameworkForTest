@@ -108,7 +108,7 @@ condition.nowWeDoing = 'ждем инвентория';
     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
     SF.click(By.id("save-inventory"));
     SF.sleep (4);
-    MF.EditRequest_AddAdditionalServicesFullPack ();
+    // MF.EditRequest_AddAdditionalServicesFullPack ();
     MF.EditRequest_AddPacking ();
 condition.nowWeDoing = 'запоминаем данные после добавления всех сервисов ';
     V.boardNumbersWithAddServices = {};

@@ -431,7 +431,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             function(text){
                 accountNumbers.cbf = SF.cleanPrice(text.substring(text.indexOf('Inventory')+9, text.indexOf('c.f.')));
             }),config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Fuel Surcharge")]/../div[2]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Fuel Surcharge")]/../../div[2]')).getText().then(function (text) {
             accountNumbers.Fuel = SF.cleanPrice(text);
         }),config.timeout);
         driver.wait(driver.executeScript(JSstep.getServicesCostAccount), config.timeout).then(function (ServicesText) {
@@ -1593,7 +1593,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep (0.5);
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-        SF.sleep (4);
+        SF.sleep (7);
         SF.send(By.id('edit-first-name'), client.name);
         SF.send(By.id('edit-last-name'), client.fam);
         SF.sleep(0.3);

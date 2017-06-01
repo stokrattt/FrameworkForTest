@@ -48,7 +48,7 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
         V.accountNumbersLD.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
         V.accountNumbersLD.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Fuel Surcharge")]/../div[2]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Fuel Surcharge")]/../../div[2]')).getText().then(function (text) {
         V.accountNumbersLD.Fuel = SF.cleanPrice(text);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Long Distance Grand Total")]/following-sibling::div[1]')).getText().then(function (text) {
@@ -109,7 +109,7 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
         V.accountNumbersLDWithInvent.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
         V.accountNumbersLDWithInvent.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Fuel Surcharge")]/../div[2]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Fuel Surcharge")]/../../div[2]')).getText().then(function (text) {
         V.accountNumbersLDWithInvent.Fuel = SF.cleanPrice(text);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Long Distance Grand Total")]/following-sibling::div[1]')).getText().then(function (text) {

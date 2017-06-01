@@ -16,7 +16,7 @@ condition.nowWeDoing = 'заполняем нижний калькулятор �
         V.nameRequest = text;
         VD.IWant(VD.VToEqual, V.nameRequest, 'Moving & Storage', 'тип реквеста не совпал с созданным');
     }), config.timeout);
-
+    SF.sleep(1);
 condition.nowWeDoing = 'запоминаем данные которые посчитал кальк';
     LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
     SF.click(By.id('submitRequestButton'));
@@ -86,6 +86,7 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
     SF.send (By.id('edit-moving-from'), 'kuda edem');
     SF.send (By.id('edit-moving-from-apt'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    SF.sleep(2);
     MF.SweetConfirm ();
 
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));

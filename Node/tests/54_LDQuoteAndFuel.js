@@ -82,7 +82,7 @@ condition.nowWeDoing = 'добавляем инвенторий и опять п
 
 condition.nowWeDoing = 'добавляем пакинг и сервисы и проверяем что гранд тотал верный';
     MF.EditRequest_AddPacking ();
-    MF.EditRequest_AddAdditionalServicesFullPack ();
+    // MF.EditRequest_AddAdditionalServicesFullPack ();
     V.boardNumbersAddServices = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddServices);
     V.totalAllServices = V.boardNumbersAddInventory.Quote + V.boardNumbersAddInventory.Fuel + V.boardNumbersAddServices.Packing + V.boardNumbersAddServices.AdServices;
