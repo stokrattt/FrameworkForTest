@@ -14,6 +14,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         console.log(V.FuelMileage);
     }),config.timeout);
     SF.sleep(1);
+    JS.scroll('.acc_title');
+    SF.sleep(2);
     if (V.FuelMileage != 0) {
         for (let i=0; i < V.FuelMileage; i++) {
             SF.click (By.xpath('//div[@ng-click="vm.removeSurcharge(index)"]/i'));
