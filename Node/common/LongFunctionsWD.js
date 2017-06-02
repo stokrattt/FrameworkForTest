@@ -227,6 +227,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForExist('button.confirm:contains("OK")');
         SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
+        SF.sleep(2);
     }
     function AccountUnloadingEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');

@@ -684,10 +684,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
         SF.sleep(3);
     }
-    function EditRequest_SetLaborTimeCloseJob() {
+    function EditRequest_SetLaborTimeCloseJob(Time) {
         SF.clear (By.xpath('//input[@ng-model="invoice.work_time"]'));
         JS.waitForNotExist ('div.busyoverlay:visible');
-        SF.send (By.xpath('//input[@ng-model="invoice.work_time"]'), '01:00');
+        SF.send (By.xpath('//input[@ng-model="invoice.work_time"]'),
+            (Time==undefined?'01:00':Time));
         JS.waitForNotExist ('div.busyoverlay:visible');
     }
     function EditRequest_CloseJob() {
@@ -711,6 +712,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
+        Board_OpenSideBar();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
         SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
         WaitWhileBusy();

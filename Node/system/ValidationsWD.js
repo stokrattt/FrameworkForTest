@@ -1,5 +1,12 @@
 module.exports = function (system, condition) {
+    function getFnName(fn) {
+        var f = typeof fn == 'function';
+        var s = f && ((fn.name && ['', fn.name]) || fn.toString().match(/function ([^\(]+)/));
+        return (!f && 'not a function') || (s && s[1] || 'anonymous');
+    }
+
     function VToEqual (value1, value2) {
+        this.name='';
         return (value1 == value2);
     }
     function VNotToEqual (value1, value2) {
@@ -26,7 +33,7 @@ module.exports = function (system, condition) {
                 console.log('Ошибка валидации: '.red, e);
 
             }));
-        }
+        } else {console.log((value1+' '+getFnName(func)+' '+value2).green);}
     }
     function INeed (func, value1, value2, e) {
         if (!func(value1, value2)) {

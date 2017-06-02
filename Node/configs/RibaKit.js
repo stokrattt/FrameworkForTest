@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/53_ManualClosingWork.js'
+        './tests/1_AllLocalMoving.js'
     ];
     config.chainFail = false;
     /*V.adminURL = 'localhost:8080/moveBoard/#/dashboard';
@@ -14,6 +14,7 @@ module.exports = function(config,V) {
     V.foremanLogin = 'RibaKitForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Foreman Riba';
+    V.foremanEmail = 'RibaKitForeman@test.test';
 };
 
 
