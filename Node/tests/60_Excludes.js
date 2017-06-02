@@ -53,8 +53,9 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     SF.click(By.xpath('//a[@ng-click="showAdditionalServicesRef.show = !showAdditionalServicesRef.show"]'));
     SF.click(By.xpath('//li[@ng-click="addService(s)"][contains(text(), "Tip")]'));
     SF.sleep(3);
-    SF.clear(By.xpath('//tr[@ng-repeat="service in additionalServices track by $index"][2]/td[3]/input'));
-    SF.send(By.xpath('//tr[@ng-repeat="service in additionalServices track by $index"][2]/td[3]/input'), 200);
+    Debug.pause();
+    SF.clear(By.xpath('//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'));
+    SF.send(By.xpath('//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'), 200);
 
     LF.MakeSignInContract();
     LF.MakeSignInContract();

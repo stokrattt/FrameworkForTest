@@ -141,7 +141,7 @@ condition.nowWeDoing = 'добавляем Paid и проверяем';
     MF.PayrollMiscPayment_SendAmountSumm (200);
     MF.PayrollMiscPayment_ClickSave();
     MF.Payroll_RefreshTable ();
-    V.balanceAfterPaid = (V.payrollNumbersInsideAfterDeletePayCheck.balanceDown - 200).toFixed(1);
+    V.balanceAfterPaid = (V.payrollNumbersInsideAfterDeletePayCheck.balanceDown - 200).toFixed(2);
 
     V.payrollNumbersInsideAfterToPaidAndDeductAndPaid = {};
     LF.RememberPayrollNumbers_InsideWorker (V.payrollNumbersInsideAfterToPaidAndDeductAndPaid);
