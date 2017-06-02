@@ -21,7 +21,7 @@ condition.nowWeDoing = 'добавляем два разы инвенторий 
     LF.AccountLocalAddInventory ();
     LF.AccountLocalAddAdditionalInventory ();
     SF.click(By.xpath('//input[@ng-model="vm.packing_service"]/following-sibling::span[contains(text(), "I need Full Packing")]'));
-    SF.sleep(3);
+    SF.sleep(12);
     MF.WaitWhileBusy ();
     V.accountNumbers = {};
     LF.RememberAccountNumbers (V.accountNumbers);

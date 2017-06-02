@@ -77,7 +77,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_OpenAllRequest() {
         Board_OpenSideBar();
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'requests\', \'\')"]'));
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'requests.child\', \'\')"]'));
         WaitWhileBusy ();
     }
     function Board_OpenStorages() {

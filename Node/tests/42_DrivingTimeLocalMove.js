@@ -84,6 +84,7 @@ condition.nowWeDoing = 'сравниваем данные которые был�
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (123);
     LF.closeEditRequest ();
+    MF.WaitWhileToaster ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);

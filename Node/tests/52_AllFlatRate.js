@@ -127,7 +127,7 @@ condition.nowWeDoing = 'идем в акк под клиентом букать 
     MF.Account_OpenRequest (V.FRId);
     MF.WaitWhileBusy ();
     SF.sleep(2);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-if="showQuote"]/div[contains(text(), "Flat Rate")]/following-sibling::div[1]/span')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="showQuote"]/div[contains(text(), "Flat Rate")]/following-sibling::div[1]/div/span')).getText().then(function (text) {
         V.quoteFlatRate = SF.cleanPrice (text);
         VD.IWant (VD.VToEqual, V.quoteFlatRate, 5000, 'не нашло цену флет рейт')
     }),config.timeout);

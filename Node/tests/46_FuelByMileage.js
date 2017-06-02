@@ -15,6 +15,8 @@ condition.nowWeDoing = 'идем в настройки фуела и добав�
     MF.Board_OpenSettingsGeneral();
     SF.click(By.linkText('Fuel Surcharge'));
     SF.sleep (2);
+    JS.scroll ('a[ng-click="vm.select(tab)"]:contains("Basic")');
+    SF.sleep(2);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index, amount) in vm.surcharge\"]').length").then(function (check) {
         V.FuelMileage = check;
         console.log(V.FuelMileage);
@@ -27,19 +29,22 @@ condition.nowWeDoing = 'идем в настройки фуела и добав�
             SF.sleep(1);
         }
     }
+
     SF.click(By.xpath('//button[@ng-click="vm.addNewSurcharge(); vm.addSurcharge = true"]'));
     SF.send(By.xpath('//input[@ng-model="vm.newSurcharge.from"]'), 60);
     SF.send(By.xpath('//input[@ng-model="vm.newSurcharge.to"]'), 100);
     SF.clear (By.xpath('//input[@ng-model="vm.newSurcharge.amount"]'));
     SF.send (By.xpath('//input[@ng-model="vm.newSurcharge.amount"]'), 500);
-    SF.click(By.xpath('//button[@ng-click="vm.saveNewSurcharge(); "]'));
+    SF.sleep(1);
+    SF.click(By.xpath('//button[@ng-click="vm.saveNewSurcharge();"]'));
     SF.sleep(0.5);
     SF.click(By.xpath('//button[@ng-click="vm.addNewSurcharge(); vm.addSurcharge = true"]'));
     SF.send(By.xpath('//tr[@ng-if="vm.addSurcharge"]//input[@ng-model="vm.newSurcharge.from"]'), 100);
     SF.send(By.xpath('//tr[@ng-if="vm.addSurcharge"]//input[@ng-model="vm.newSurcharge.to"]'), 140);
     SF.clear (By.xpath('//tr[@ng-if="vm.addSurcharge"]//input[@ng-model="vm.newSurcharge.amount"]'));
     SF.send (By.xpath('//tr[@ng-if="vm.addSurcharge"]//input[@ng-model="vm.newSurcharge.amount"]'), 800);
-    SF.click(By.xpath('//button[@ng-click="vm.saveNewSurcharge(); "]'));
+    SF.sleep(1);
+    SF.click(By.xpath('//button[@ng-click="vm.saveNewSurcharge();"]'));
     SF.sleep(3);
 
 condition.nowWeDoing = 'создаем локал мув где расстояние будет от 60 до 100 миль';
