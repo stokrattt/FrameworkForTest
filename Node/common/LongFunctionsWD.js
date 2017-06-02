@@ -1365,40 +1365,34 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
-        SF.click(By.xpath('//li[@heading="Foremen"]/a'));
-        driver.wait(driver.executeScript('return ' +
-            '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
-        ).then(function (text) {
-            boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
-        }));
-        SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
-            Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
+        MF.EditRequest_PayrollOpenForemanTab();
+        boardNumbers.Payroll.foremanForCommission.Tips={};
+        boardNumbers.Payroll.foremanForCommission.fromTotal={};
+        boardNumbers.Payroll.foremanForCommission.AdServices={};
+        boardNumbers.Payroll.foremanForCommission.Daily={};
+        boardNumbers.Payroll.foremanForCommission.Hourly={};
+        boardNumbers.Payroll.foremanForCommission.Packing={};
+        boardNumbers.Payroll.foremanForCommission.Bonus={};
+        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Tips', boardNumbers.Payroll.foremanForCommission.Tips);
+        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Commission from total', boardNumbers.Payroll.foremanForCommission.fromTotal);
+        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Extras Commission', boardNumbers.Payroll.foremanForCommission.AdServices);
+        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Daily Rate', boardNumbers.Payroll.foremanForCommission.Daily);
+        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Hourly Rate', boardNumbers.Payroll.foremanForCommission.Hourly);
+        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Packing Commission', boardNumbers.Payroll.foremanForCommission.Packing);
+        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Bonus', boardNumbers.Payroll.foremanForCommission.Bonus);
+        MF.EditRequest_PayrollGetForemansTotal(boardNumbers);
+
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
+            Math.floor(boardNumbers.Tips.forCommission / boardNumbers.CrewSize),
             'Не совпал Tips формена');
 
-        driver.wait(driver.executeScript('return ' +
-            '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
-        ).then(function (text) {
-            boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
-        }));
-        SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices.forCommission),
             Math.floor(boardNumbers.AdServices),
             'Не совпал Extras формена');
 
-        driver.wait(driver.executeScript('return ' +
-            '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
-        ).then(function (text) {
-            boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
-        }));
-        SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing.forCommission),
             Math.floor(boardNumbers.Packing),
             'Не совпал Packing формена');
-
-        driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
-            boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
-        });
         SF.sleep(1);
         SF.click(By.xpath('//li[@heading="Helpers"]/a'));
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {

@@ -566,6 +566,54 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
         JS.waitForNotExist('div.busyoverlay:visible');
     }
+    function EditRequest_PayrollSetManagerCommission(name, type, forCommission, percent) {
+        SF.send(By.xpath('//option[contains(text(),"'+name+'") and @selected="selected"]/../../../../..//' +
+            'td[contains(text(),"'+type+'")]/..//input[@ng-model="sale.for_commission "]'),forCommission);
+        SF.send(By.xpath('//option[contains(text(),"'+name+'") and @selected="selected"]/../../../../..//' +
+            'td[contains(text(),"'+type+'")]/..//input[@ng-model="sale.rate"]'),percent);
+    }
+    function EditRequest_PayrollOpenForemanTab() {
+        SF.click(By.xpath('//li[@heading="Foremen"]/a'));
+    }
+    function EditRequest_PayrollSetForemanCommission(name, type, forCommission, percent){
+        SF.send(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
+            '/../../../../../..//option[contains(text(),"'+type+'") and @selected="selected"]/..//input[@ng-model="sale.for_commission "]'),forCommission);
+        SF.send(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
+            '/../../../../../..//option[contains(text(),"'+type+'") and @selected="selected"]/..//input[@ng-model="sale.rate"]'),percent);
+    }
+    function EditRequest_PayrollGetForemanCommission(name, type, objectToStore){
+        driver.wait(driver.findElement(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
+            '/../../../../../..//option[contains(text(),"'+type+'") and @selected="selected"]' +
+            '/../../..//input[@ng-model="foreman.for_commission"]')).getAttribute('value').then(
+                function(text){objectToStore.forCommission=SF.cleanPrice(text);}
+        ),config.timeout);
+        if (type=='Tips') {objectToStore.percent=100;}
+        else {
+            driver.wait(driver.findElement(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"' + name + '") and @selected="selected"]' +
+                '/../../../../../..//option[contains(text(),"' + type + '") and @selected="selected"]' +
+                '/../../..//input[@ng-model="foreman.for_commission"]')).getAttribute('value').then(
+                function (text) {
+                    objectToStore.percent = SF.cleanPrice(text);
+                }
+            ), config.timeout);
+            SF.sleep(1);
+        }
+        driver.wait(driver.findElement(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"' + name + '") and @selected="selected"]' +
+            '/../../../../../..//option[contains(text(),"' + type + '") and @selected="selected"]' +
+            '/../../..//input[@ng-model="foreman.for_commission"]/../following-sibling::td[2]/span')).getText().then(
+            function (text) {
+                objectToStore.total = SF.cleanPrice(text);
+            }
+        ), config.timeout);
+        SF.sleep(1);
+        console.log(objectToStore);
+    }
+
+    function EditRequest_PayrollGetForemansTotal(boardNumbers) {
+        driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
+            boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
+        });
+    }
 
     function EditRequest_CloseEditRequest() {
         SF.click(By.xpath('//button[@ng-click="cancel()"]'));
@@ -1007,6 +1055,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_WaitForBalanceVisible: EditRequest_WaitForBalanceVisible,
         EditRequest_ScrollDown: EditRequest_ScrollDown,
         EditRequest_OpenPayroll: EditRequest_OpenPayroll,
+        EditRequest_PayrollSetManagerCommission: EditRequest_PayrollSetManagerCommission,
+        EditRequest_PayrollOpenForemanTab: EditRequest_PayrollOpenForemanTab,
+        EditRequest_PayrollGetForemansTotal: EditRequest_PayrollGetForemansTotal,
+        EditRequest_PayrollSetForemanCommission: EditRequest_PayrollSetForemanCommission,
+        EditRequest_PayrollGetForemanCommission: EditRequest_PayrollGetForemanCommission,
+
         EditRequest_CloseEditRequest: EditRequest_CloseEditRequest,
         EditRequest_CloseModal: EditRequest_CloseModal,
         EditRequest_ExpandPendingEmail: EditRequest_ExpandPendingEmail,

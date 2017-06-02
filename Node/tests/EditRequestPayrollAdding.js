@@ -9,7 +9,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    Debug.pause();
     condition.nowWeDoing = 'создаём local moving';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
@@ -35,8 +34,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //addSalesPayroll
     SF.click(By.xpath('//div[@ng-click="addWorker(\'salesPerson\')"]'));
     //selectEmilia
-    SF.click(By.xpath('//select[@ng-model="selected.salesPerson[salesPersonIndex]"]'),6070);
+    SF.select(By.xpath('//select[@ng-model="selected.salesPerson[salesPersonIndex]"]'),6070);
+    //set Office commission
+    MF.EditRequest_PayrollSetManagerCommission('emilia clark','Office Commission', 123, 80);
+    //open Foreman tab
+    MF.EditRequest_PayrollOpenForemanTab();
     MF.WaitWhileBusy();
+    LF.RememberAndValidatePayroll_In_EditRequest(V.boardNumbers);
 
     Debug.pause();
 
