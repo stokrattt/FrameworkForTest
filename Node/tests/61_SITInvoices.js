@@ -168,7 +168,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'Заходим в Агент фолио';
     MF.Board_OpenSideBar ();
     SF.sleep(2);
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'trip\', \'\')"]'));
+    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
     MF.Board_OpenAgentFolio ();
     MF.Board_OpenSideBar ();
     SF.click(By.xpath('//md-switch[@ng-model="hideZero"]'));

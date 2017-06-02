@@ -213,16 +213,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_OpenCourier() {
         SF.sleep(1);
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'trip\', \'\')"]'));
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
         SF.sleep(1);
-        SF.click(By.xpath('//a[@ui-sref="couriers"]'));
+        SF.click(By.xpath('//a[@ui-sref="lddispatch.couriers"]'));
         SF.sleep(2);
     }
     function Board_OpenAgentFolio() {
         SF.sleep(1);
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'trip\', \'\')"]'));
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
         SF.sleep(1);
-        SF.click(By.xpath('//a[@ui-sref="agentFolio"]'));
+        SF.click(By.xpath('//a[@ui-sref="lddispatch.agentFolio"]'));
         SF.sleep(2);
     }
     function Board_OpenTripPlanner() {

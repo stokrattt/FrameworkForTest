@@ -145,7 +145,7 @@ condition.nowWeDoing = 'удаляем карьера';
         }
         let id = url.substring(c+1);
         driver.executeScript(
-            JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8082/server/long_distance_carrier/'+id)
+            JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8084/server/long_distance_carrier/'+id)
         );
     }),config.timeout);
     SF.sleep(1);

@@ -61,7 +61,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest ();
 
     MF.Board_OpenSideBar();
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'trip\', \'\')"]'));
+    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
     SF.sleep(2);
     MF.Board_OpenTripPlanner();
     MF.Board_OpenSideBar();
@@ -90,7 +90,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.sleep(1);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.carrier_id"]'));
-    SF.click(By.xpath('//div[text()="Test name"]'));
+    SF.click(By.xpath('//div[text()="Test"]'));
     V.driverPhone = SF.randomCifra(10);
     V.driverName = SF.randomBukva(6) + '_t';
     V.notes = SF.randomBukva(25) + '_t';
