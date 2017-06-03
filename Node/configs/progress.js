@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/49_FlatRateLocalMove.js'];
+    config.suite = ['./tests/55_CreateFlagAndCheckOnDashboard.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;

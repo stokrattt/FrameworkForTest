@@ -33,7 +33,6 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     SF.sleep (4);
 condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLD (V.client);
-    console.log("заполнили форму");
     condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy ();
@@ -81,7 +80,6 @@ condition.nowWeDoing = 'зашли на админку для сравнения
     }),config.timeout);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     SF.sleep (2);
-    console.log(V.boardNumbers);
     VD.IWant(VD.VToEqual, V.accountNumbersLD.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
     VD.IWant(VD.VToEqual, V.accountNumbersLD.moveDate.Month, V.boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
     VD.IWant(VD.VToEqual, V.accountNumbersLD.moveDate.Year, V.boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
@@ -127,7 +125,6 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
         V.accountNumbersLDWithInvent.CubicFit = SF.cleanPrice(text.substring(0, text.indexOf('c')));
     }),config.timeout);
     SF.sleep(2);
-    console.log(V.accountNumbersLDWithInvent);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -151,7 +148,6 @@ condition.nowWeDoing = 'зашли на админку второй раз дл�
     }),config.timeout);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     SF.sleep (2);
-    console.log(V.boardNumbers);
 
     VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
     VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.moveDate.Month, V.boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');

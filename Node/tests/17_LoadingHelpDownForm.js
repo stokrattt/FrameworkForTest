@@ -34,7 +34,6 @@ condition.nowWeDoing = 'запоминаем данные';
     }), config.timeout);
 
     SF.sleep(1);
-    console.log(V.frontNumbersLoadingDown);
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);
     SF.click(By.linkText('View Request Page'));

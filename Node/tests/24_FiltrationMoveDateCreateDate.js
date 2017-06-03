@@ -53,7 +53,6 @@ condition.nowWeDoing = 'создаем реквест 4';
     SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
     driver.wait(driver.executeScript(JSstep.Click31DaysCalendar).then(function (calDate) {
         V.moveDateLong = calDate;
-        console.log(V.request);
     }),config.timeout);
     SF.sleep(0.5);
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
@@ -61,7 +60,6 @@ condition.nowWeDoing = 'создаем реквест 4';
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
         V.mdateLong = (mdate);
     }),config.timeout);
-    console.log (V.mdateLong);
     SF.send(By.id("edit-zip-code-from"), "02032");
     SF.send(By.id("edit-zip-code-to"), "02136");
     SF.sleep(5);
@@ -78,7 +76,6 @@ condition.nowWeDoing = 'создаем реквест 4';
     SF.click(By.xpath('//button[@ng-click="create()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     SF.sleep(4);
-    console.log('создали реквест');
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id4Long = SF.cleanPrice(text);
     }),config.timeout);
@@ -96,7 +93,6 @@ condition.nowWeDoing = 'создаем реквест 5';
     SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
     driver.wait(driver.executeScript(JSstep.Click31DaysCalendar).then(function (calDate) {
         V.moveDateLong = calDate;
-        console.log(V.request);
     }),config.timeout);
     SF.sleep(0.5);
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
@@ -104,7 +100,6 @@ condition.nowWeDoing = 'создаем реквест 5';
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
         V.mdateLong = (mdate);
     }),config.timeout);
-    console.log (V.mdateLong);
     SF.send(By.id("edit-zip-code-from"), "02032");
     SF.send(By.id("edit-zip-code-to"), "02136");
     SF.sleep(5);
@@ -121,7 +116,6 @@ condition.nowWeDoing = 'создаем реквест 5';
     SF.click(By.xpath('//button[@ng-click="create()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     SF.sleep(4);
-    console.log('создали реквест');
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id5Long = SF.cleanPrice(text);
     }),config.timeout);
@@ -140,7 +134,6 @@ condition.nowWeDoing = 'создаем реквест 6';
     SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
     driver.wait(driver.executeScript(JSstep.Click31DaysCalendar).then(function (calDate) {
         V.moveDateLong = calDate;
-        console.log(V.request);
     }),config.timeout);
     SF.sleep(0.5);
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
@@ -148,7 +141,6 @@ condition.nowWeDoing = 'создаем реквест 6';
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
         V.mdateLong = (mdate);
     }),config.timeout);
-    console.log (V.mdateLong);
     SF.send(By.id("edit-zip-code-from"), "02032");
     SF.send(By.id("edit-zip-code-to"), "02136");
     SF.sleep(5);
@@ -165,7 +157,6 @@ condition.nowWeDoing = 'создаем реквест 6';
     SF.click(By.xpath('//button[@ng-click="create()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     SF.sleep(4);
-    console.log('создали реквест');
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id6Long = SF.cleanPrice(text);
     }),config.timeout);
@@ -174,7 +165,6 @@ condition.nowWeDoing = 'получаем текущую дату';
     var d = new Date();
     var options = { month: 'short', day: 'numeric', year: 'numeric' };
     V.createdate = (d.toLocaleDateString('en-US', options));
-    console.log (V.createdate);
 
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по create date';
     MF.Board_OpenAllRequest();

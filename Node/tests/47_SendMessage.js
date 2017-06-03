@@ -14,7 +14,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
-    console.log("заполнили форму");
 condition.nowWeDoing = 'первый раз в аккаунте, отправляем смс админу';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
@@ -35,7 +34,6 @@ condition.nowWeDoing = 'зашли в админку идем в раздел с
     SF.click (By.xpath('//tr[@ng-click="showComments(request)"]/td[contains(text(), "'+V.accountNumbers.Id+'")]'));
     MF.WaitWhileBusy ();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+ V.client.name +'")]/../following-sibling::div[1]//p/p')).getText().then(function (text) {
-        console.log(text);
         VD.IWant (VD.VToEqual, V.toAdmin, text, 'не нашло текст который мы отправили от клиента админу');
     }),config.timeout);
     SF.sleep(1);
@@ -72,7 +70,6 @@ condition.nowWeDoing = 'Идем под сейлсом и проверяем ч�
     SF.click (By.xpath('//tr[@ng-click="showComments(request)"]/td[contains(text(), "'+V.accountNumbers.Id+'")]'));
     MF.WaitWhileBusy ();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+ V.client.name +'")]/../following-sibling::div[1]//p/p')).getText().then(function (text) {
-        console.log(text);
         VD.IWant (VD.VToEqual, V.toSalesFromClient, text, 'не нашло смс который мы отправили от клиента сейлсу');
     }),config.timeout);
     SF.sleep(1);

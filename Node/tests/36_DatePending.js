@@ -19,11 +19,9 @@ condition.nowWeDoing = 'создаем первый реквест';
     SF.sleep(2);
     driver.wait(driver.executeScript("return $('#edit-start-time').val()").then(function (text) {
         V.time = text;
-        console.log (V.time);
     }),config.timeout);
     driver.wait(driver.executeScript("return $('div .choosen[ng-click=\"chooseTruck(tid)\"]').text()").then(function (text) {
         V.truck = text;
-        console.log(V.truck);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id1 = SF.cleanPrice(text);

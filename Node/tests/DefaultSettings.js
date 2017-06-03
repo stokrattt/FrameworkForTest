@@ -11,7 +11,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="vm.fuel_surcharge.def_local"]'), 10);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index, amount) in vm.surcharge\"]').length").then(function (check) {
         V.FuelMileage = check;
-        console.log(V.FuelMileage);
     }),config.timeout);
     SF.sleep(1);
     JS.scroll('.acc_title');
@@ -24,8 +23,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         }
     }
     SF.click(By.linkText('Contract page'));
-    Debug.pause ();
-
     SF.sleep (2);
     driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.pushTips\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"contract_page.pushTips\"]').click()}"),config.timeout);
@@ -86,7 +83,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[ng-if=\"isSecondStepFirst()\"]').length").then(function (length) {
         V.lengthCalc = length;
-        console.log(V.lengthCalc);
     }),config.timeout);
     SF.sleep(1);
     if (V.lengthCalc == 0) {
@@ -117,7 +113,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.CompanyServices.Long=(arr.length==1);
     }),config.timeout);
     SF.sleep(1);
-    console.log(V.CompanyServices);
     if (!V.CompanyServices.Local) {SF.click(By.xpath(V.localSelector+'/..'));}
     if (!V.CompanyServices.Overnight) {SF.click(By.xpath(V.overnightSelector+'/..'));}
     if (!V.CompanyServices.Loading) {SF.click(By.xpath(V.loadingSelector+'/..'));}

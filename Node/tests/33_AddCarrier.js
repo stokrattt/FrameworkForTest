@@ -98,7 +98,6 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     SF.sleep(1);
 
     LF.RememberCarrier(V.carrierNew3);
-    console.log(V.carrierNew3);
     VD.IWant(VD.VNotToEqual,V.carrierNew.name, V.carrierNew2.name,'Поля совпадают');
     VD.IWant(VD.VNotToEqual,V.carrierNew.contactPerson, V.carrierNew2.contactPerson,'Поля совпадают');
     VD.IWant(VD.VNotToEqual,V.carrierNew.address, V.carrierNew2.address,'Поля совпадают');

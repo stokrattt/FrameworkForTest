@@ -78,7 +78,8 @@ module.exports = function(config,V) {
         './tests/62_MovingCustomBlock.js',
         './tests/63_MovingStorageCustomBlock.js',
         './tests/64_LoadingHelpCustomBlock.js',
-        './tests/65_StorageEmailTemplate.js'
+        './tests/65_StorageEmailTemplate.js',
+        './tests/66_ProfitAndLoss.js'
 
 
     ];

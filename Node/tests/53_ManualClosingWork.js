@@ -40,8 +40,6 @@ condition.nowWeDoing = 'считаем квоту от времени и гра�
     V.TotalSum = V.boardNumbersClose.QuoteMax + V.boardNumbersClose.Fuel;
     VD.IWant (VD.VToEqual, V.boardNumbersClose.Total, V.TotalSum, 'не правильно посчитало гранд  по формуле фуел + квота');
     SF.sleep(2);
-    console.log (V.LaborTime, V.TotalSum, V.QuoteLaborTravelRate);
-    console.log (V.QuoteLaborTravelRate);
 
 condition.nowWeDoing = 'добавляем два паймента, один кастомный, один карточкой, так чтобы баланс был равен 0 и закрываем реквест';
     MF.EditRequest_OpenPayment();

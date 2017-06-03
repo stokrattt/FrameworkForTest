@@ -31,7 +31,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (3);
     driver.wait(driver.executeScript('return $("div:contains(\\"All Moves\\") tbody.ng-scope tr").length').then(function (length) {
         VD.IWant (VD.VToEqual, length, '3', 'на вкладке клиент нету всех работ данного юзера');
-        console.log (length);
     }),config.timeout);
     SF.sleep(2);
     MF.EditRequest_OpenRequest ();

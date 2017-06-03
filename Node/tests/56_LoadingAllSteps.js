@@ -10,7 +10,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLoading(V.client);
 
-    console.log("заполнили форму");
     condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
@@ -28,7 +27,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.addToCleanerJob(V.accountNumbers.Id);
 
     LF.LogoutFromAccount();
-    console.log('закончили с аккаунтом');
 
     condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);

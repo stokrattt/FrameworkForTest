@@ -65,7 +65,6 @@ condition.nowWeDoing = 'тут заходим в конкретного мужи
             SF.sleep (3);
             MF.WaitWhileBusy ();
             driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(id, dataObj) in userCurrentTbl.jobs\"]').length").then(function (jobs) {
-                console.log(jobs);
                 VD.IWant(VD.VToEqual, V.jobsUser, jobs, 'работы чувака не совпали снаружи и внутри "' + V.jobsName +'"')
             }),config.timeout);
             SF.sleep(1);

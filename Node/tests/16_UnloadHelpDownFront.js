@@ -30,7 +30,6 @@ condition.nowWeDoing = 'запоминаем данные';
             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
     }), config.timeout);
     SF.sleep(1);
-    console.log(V.frontNumbersUnloadingDown);
 
     Debug.pause();
 

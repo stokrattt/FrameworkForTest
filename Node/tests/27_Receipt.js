@@ -105,7 +105,6 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
     MF.EditRequest_OpenPayment();
     driver.wait(driver.findElement(By.xpath('//tbody/tr[1][@ng-click="prepareToDelete($index, receipt.id)"]/td[4]')).getText().then(function(text){
         V.payment1 = SF.cleanPrice (text);
-        console.log (V.payment1);
     }),config.timeout);
     //driver.wait(driver.executeScript("$('tbody tr:nth-child(1)[ng-click=\"prepareToDelete($index, receipt.id)\"]:visible').dblclick();"), config.timeout);
     driver.actions().mouseMove(driver.findElement(By.xpath('//tr[@ng-click="prepareToDelete($index, receipt.id)"]'))).doubleClick().perform();
@@ -121,7 +120,6 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
 
     driver.wait(driver.findElement(By.xpath('//tbody/tr[2][@ng-click="prepareToDelete($index, receipt.id)"]/td[4]')).getText().then(function(text){
         V.payment2 = SF.cleanPrice (text);
-        console.log (V.payment2);
     }),config.timeout);
     driver.actions().mouseMove(driver.findElement(By.xpath('//tr[2][@ng-click="prepareToDelete($index, receipt.id)"]'))).doubleClick().perform();
     SF.sleep(3);

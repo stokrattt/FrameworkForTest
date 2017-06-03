@@ -91,7 +91,6 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     }), config.timeout);
 */
     SF.sleep(2);
-    console.log(V.frontNumbersOvernightDown_UP, V.frontNumbersOvernightDown_Del);
     SF.click(By.id('submitRequestButton'));
     SF.sleep (4);
     SF.click(By.linkText('View Request Page'));
@@ -147,13 +146,13 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     condition.nowWeDoing = 'зашли под клиентом букаем первую работу';
-    SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.accountNumbersUp.Id+'")]/following-sibling::td[1]'));
-    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.accountNumbersUp.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
-        VD.IWant(VD.VToEqual,Status,'Not Confirmed');
-    }), config.timeout);
-    SF.sleep (1);
-    SF.click(By.xpath('//td[contains(text(),"'+V.accountNumbersUp.Id+'")]/following-sibling::td/button[contains(text(),"View")]'));
-    SF.sleep(3);
+    MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbersUp.Id);
+    MF.Account_OpenRequest(V.accountNumbersUp.Id);
+
+    MF.WaitWhileBusy();
+    SF.sleep(2);
+    MF.WaitWhileBusy();
+
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
@@ -209,7 +208,7 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
         VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     MF.WaitWhileBusy ();
-    LF.LogoutFromAccount ();
+    // LF.LogoutFromAccount ();
 
     SF.endOfTest();
 };

@@ -246,7 +246,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.path = path;
     }), config.timeout);
     SF.sleep(1);
-    console.log(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();

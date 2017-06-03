@@ -19,7 +19,6 @@ condition.nowWeDoing = 'идем в настройки фуела и добав�
     SF.sleep(2);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index, amount) in vm.surcharge\"]').length").then(function (check) {
         V.FuelMileage = check;
-        console.log(V.FuelMileage);
     }),config.timeout);
     SF.sleep(1);
     if (V.FuelMileage != 0) {
@@ -55,7 +54,6 @@ condition.nowWeDoing = 'создаем локал мув где расстоян
     V.request = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
         V.request.moveDate = calDate;
-        console.log(V.request);
     }),config.timeout);
     SF.sleep(0.5);
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
@@ -63,7 +61,6 @@ condition.nowWeDoing = 'создаем локал мув где расстоян
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
         V.request.mdate = (mdate);
     }),config.timeout);
-    console.log (V.request.mdate);
     SF.send(By.id("edit-zip-code-from"), "02121");
     SF.send(By.id("edit-zip-code-to"), "01452");
     SF.sleep(4);
@@ -79,7 +76,6 @@ condition.nowWeDoing = 'создаем локал мув где расстоян
     SF.click(By.xpath('//button[@ng-click="create()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     SF.sleep(4);
-    console.log('создали реквест');
     V.boardNumbers60_100 = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers60_100);
     SF.sleep(1);

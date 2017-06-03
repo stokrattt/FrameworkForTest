@@ -40,7 +40,6 @@ condition.nowWeDoing = 'идём в настройки клонировать р
     driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.IdClone = SF.cleanPrice(text);
         LF.addToCleanerJob(V.IdClone);
-        console.log(V.IdClone);
     }),config.timeout);
 
     SF.click(By.xpath('//div[contains(@class,"requestModal status_1")]//button[@ng-click="cancel()"]'));

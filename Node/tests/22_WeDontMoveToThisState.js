@@ -54,7 +54,6 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ве
     V.frontNumbers = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
         V.frontNumbers.moveDate = D;
-        console.log(V.frontNumbers.moveDate);
     }));
     SF.sleep(1);
     driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
@@ -70,7 +69,6 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     V.request={};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
         V.request.moveDate = MovDateFront;
-        console.log(V.request);
     }), config.timeout);
     SF.sleep (0.5);
     SF.send (By.id('edit-zip-code-from'), '02111');
@@ -179,7 +177,6 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     V.frontNumbers = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
         V.frontNumbers.moveDate = D;
-        console.log(V.frontNumbers.moveDate);
     }),config.timeout);
     SF.sleep(1);
     driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
@@ -194,7 +191,6 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     V.request={};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
         V.request.moveDate = MovDateFront;
-        console.log(V.request);
     }), config.timeout);
     SF.sleep (0.5);
     SF.send (By.id('edit-zip-code-from'), '02111');
@@ -272,7 +268,6 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     V.request={};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
         V.request.moveDate = MovDateFront;
-        console.log(V.request);
     }), config.timeout);
     SF.sleep (0.5);
     SF.send (By.id('edit-zip-code-from'), '02111');

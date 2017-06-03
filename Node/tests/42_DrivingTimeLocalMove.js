@@ -44,7 +44,6 @@ condition.nowWeDoing = 'создаем локал мув с требуемыми
     V.request = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
         V.request.moveDate = calDate;
-        console.log(V.request);
     }),config.timeout);
     SF.sleep(0.5);
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
@@ -52,7 +51,6 @@ condition.nowWeDoing = 'создаем локал мув с требуемыми
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
         V.request.mdate = (mdate);
     }),config.timeout);
-    console.log (V.request.mdate);
     SF.send(By.id("edit-zip-code-from"), "07030");
     SF.send(By.id("edit-zip-code-to"), "02148");
     SF.sleep(4);
@@ -72,7 +70,6 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     SF.click(By.xpath('//button[@ng-click="create()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     SF.sleep(4);
-    console.log('создали реквест');
     V.boardNumbersClean = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersClean);
 condition.nowWeDoing = 'сравниваем данные которые были в калькуляторе при создании и внутри реквеста, первый раз';
@@ -126,7 +123,6 @@ condition.nowWeDoing = 'идем в логи проверять что клие�
         }
     }),config.timeout);
     SF.sleep(1);
-    console.log(V.logNumbers);
     VD.IWant(VD.VToEqual, V.logNumbers.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в логах и борда');
     VD.IWant(VD.VToEqual, V.logNumbers.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в логах и борда');
     VD.IWant(VD.VToEqual, V.logNumbers.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в логах и борда');

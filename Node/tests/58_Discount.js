@@ -121,7 +121,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     SF.click(By.xpath('//span[@ng-click="showDiscountInContract()"]'));
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
         V.TotalLess = SF.cleanPrice(text);
-        console.log(V.TotalLess);
     }),config.timeout);
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="openCouponModal()"]'));
@@ -135,7 +134,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.SweetConfirm ();
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
         V.TotalLessWithDiscount = SF.cleanPrice(text);
-        console.log(V.TotalLessWithDiscount);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant (VD.VNotToEqual, V.TotalLess, V.TotalLessWithDiscount, 'скидка-купон на контракте не применилась');
@@ -145,7 +143,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="charge_value.value"]')).getAttribute('value').then(function (text) {
         V.Payment = SF.cleanPrice (text);
-        console.log(V.Payment);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant (VD.VToEqual, V.Payment, V.TotalLessWithDiscount, 'в модальном окне при оплате скидка-купон на контракте не применилась');
@@ -155,7 +152,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//div[@ng-init="payment.setPaymentBlockHeight(\'.credit_form.credit-pay\')"]/div[1]')).getText().then(function (text) {
         V.PaymentCheck = SF.cleanPrice (text);
-        console.log(V.PaymentCheck);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant (VD.VToEqual, V.PaymentCheck, V.TotalLessWithDiscount, 'в модальном окне при оплате Check скидка-купон на контракте не применилась');
@@ -180,7 +176,6 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
     SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="receipt in vm.request.receipts track by $index"]/td[3]')).getText().then(function (text) {
         V.PaymentAccount = SF.cleanPrice (text);
-        console.log(V.PaymentAccount);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant (VD.VToEqual, V.PaymentAccount, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент не совпала оплата которая была на контракте');
@@ -190,7 +185,6 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount:")]/following-sibling::span')).getText().then(function (text) {
         V.PaymentReceipt = SF.cleanPrice (text);
-        console.log(V.PaymentReceipt);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant (VD.VToEqual, V.PaymentReceipt, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент в ресите не совпала оплата которая была на контракте');

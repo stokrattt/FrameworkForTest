@@ -176,7 +176,6 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
         '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
     ).then(function (text) {
         V.boardNumbers.Payroll.helpersForComission.Tips = SF.cleanPrice(text);
-        console.log(V.boardNumbers.Payroll.helpersForComission.Tips);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.VToEqual, Math.floor(V.boardNumbers.Payroll.helpersForComission.Tips),

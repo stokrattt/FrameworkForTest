@@ -9,13 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
 
     LF.LoginToBoardAs_Roma4ke_Admin();
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.click (By.xpath('//a[@ui-sref="settings.department"]'));
-    SF.waitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
-    SF.sleep(4);
+    MF.Board_OpenSettingsDepartment ();
     condition.nowWeDoing='Создаем менеджера***********************************************';
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
     SF.sleep(3);
@@ -34,8 +28,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="request.email"]'), V.managerAccount);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     MF.WaitWhileBusy();
-    SF.sleep(3);
-    JS.waitForExist('div.toast-success:visible');
+    MF.WaitWhileToaster ();
     SF.sleep(3);
     Debug.pause();
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "mantest testman")]'));
@@ -60,9 +53,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.salesPass);
     SF.send (By.xpath('//input[@ng-model="request.email"]'), V.salesAccount);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    SF.sleep(1);
-    JS.waitForExist('div.toast-success');
+    MF.WaitWhileBusy ();
+    MF.WaitWhileToaster ();
     SF.sleep(3);
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "salestest testsales")]'));
 condition.nowWeDoing='Создали сейлса**************************************';
@@ -78,9 +70,8 @@ condition.nowWeDoing='Создаем драйвера***************************
     SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.driverLastName);
     SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    SF.sleep(1);
-    JS.waitForExist('div.toast-success');
+    MF.WaitWhileBusy ();
+    MF.WaitWhileToaster ();
     SF.sleep(3);
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "drivertest testdriver")]'));
     //SF.sleep(3);
@@ -97,9 +88,8 @@ condition.nowWeDoing='Создаем хелпера*****************************
     SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.helperLastName);
     SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    SF.sleep(1);
-    JS.waitForExist('div.toast-success');
+    MF.WaitWhileBusy ();
+    MF.WaitWhileToaster ();
     SF.sleep(3);
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "helpertest testhelper")]'));
     //SF.sleep(3);
@@ -123,9 +113,8 @@ condition.nowWeDoing='Создаем форемана***************************
     SF.send (By.xpath('//input[@ng-model="request.email"]'), V.foremanAccount);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
    // SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "foremantest testforeman")]'));
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    SF.sleep(1);
-    JS.waitForNotExist('div.toast-success');
+    MF.WaitWhileBusy ();
+    MF.WaitWhileToaster ();
     SF.sleep(3);
 
 condition.nowWeDoing='Создали форемана**************************************';
@@ -133,35 +122,15 @@ condition.nowWeDoing='Создали форемана***************************
     MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing='Заходим под созданным менеджером*************************************';
-    SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
-    SF.send(By.xpath('//input[@id="email"]'), V.managerAccount);
-    SF.send(By.xpath('//input[@id="password"]'), V.managerPass);
-    SF.click(By.xpath('//button[@type="submit"]'));
-    SF.waitForLocated(By.id('main-content'));
-    SF.sleep (3);
-
+    LF.LoginToBoardAsCustom (V.managerAccount, V.managerPass);
     MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing='Заходим под созданным sales*************************************';
-
-    SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
-    SF.send(By.xpath('//input[@id="email"]'), V.salesAccount);
-    SF.send(By.xpath('//input[@id="password"]'), V.salesPass);
-    SF.click(By.xpath('//button[@type="submit"]'));
-    SF.waitForLocated(By.id('main-content'));
-    SF.sleep (3);
-
+    LF.LoginToBoardAsCustom (V.salesAccount, V.salesPass);
     MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing='Заходим под созданным foreman*************************************';
-
-    SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
-    SF.send(By.xpath('//input[@id="email"]'), V.foremanAccount);
-    SF.send(By.xpath('//input[@id="password"]'), V.foremanPass);
-    SF.click(By.xpath('//button[@type="submit"]'));
-    SF.waitForLocated(By.id('datatable'));
-    SF.sleep (3);
-
+    LF.LoginToBoardAsCustomForeman (V.foremanAccount, V.foremanPass)
     LF.LogoutFromBoardForeman ();
 
     LF.LoginToBoardAs_Roma4ke_Admin ();
@@ -171,34 +140,22 @@ condition.nowWeDoing = 'заходим под админом и создаем �
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id);
-    }));
-    JS.select ('#edit-status', 3);
-    SF.send (By.id('edit-moving-from'), 2342342342424);
-    SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
+    }),config.timeout);
+    MF.EditRequest_SetToConfirmed ();
+    MF.EditRequest_SetAdressToFrom ();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 
     LF.RememberDateFromRequest(V.boardNumbers);
-
-    JS.click ("button[ng-click=\\\"UpdateRequest()\\\"]");
-    SF.waitForVisible (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.click (By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep (5);
-    JS.waitForNotExist ('div.busyoverlay:visible');
-    JS.waitForNotExist('div.toast-success');
-    SF.click (By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep (1);
+    MF.EditRequest_SaveChanges ();
+    LF.closeEditRequest ();
     condition.nowWeDoing = 'идем в локал диспач';
-    SF.click (By.xpath('//button[@ng-click="toggleLeft()"]'));
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
-    SF.sleep (7);
-    SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
+    MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(1);
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
+    MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
+    MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
 
     driver.executeScript (
@@ -218,13 +175,7 @@ condition.nowWeDoing = 'заходим под админом и создаем �
             VD.IWant(VD.VNotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
     });
 condition.nowWeDoing='зашли в настройки департмента';
-    SF.click (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
-    SF.click (By.xpath('//a[@ui-sref="settings.department"]'));
-    SF.sleep(2);
-    SF.waitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep(3);
+    MF.Board_OpenSettingsDepartment ();
 
 condition.nowWeDoing='идем удалять форемана';
 
@@ -233,39 +184,34 @@ condition.nowWeDoing='идем удалять форемана';
     driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"foremantest testforeman\")').dblclick();"),config.timeout);
     SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    JS.waitForNotExist('div.toast-message');
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep (2);
+    MF.SweetConfirm ();
+    MF.WaitWhileToaster ();
+    MF.WaitWhileBusy ();
 
 condition.nowWeDoing='идем удалять хелпера';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
     SF.sleep(2);
     let count=0;
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"helpertest testhelper\")').length;").then(function(c){
         count=c;
     }),config.timeout);
     SF.sleep(0.5);
-    console.log(count);
     while (count>0){
         driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"helpertest testhelper\"):eq(0)').dblclick();"),config.timeout);
         SF.sleep (2);
         SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-        SF.click (By.xpath('//button[@class="confirm"]'));
-        JS.waitForNotExist('div.toast-message');
-        JS.waitForNotExist('div.busyoverlay:visible');
+        MF.SweetConfirm ();
+        MF.WaitWhileToaster ();
+        MF.WaitWhileBusy ();
         SF.sleep (2);
         driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"helpertest testhelper\")').length;").then(function(c){
             count=c;
         }),config.timeout);
         SF.sleep(1);
-        console.log(count);
     }
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     SF.sleep(1);
 
 condition.nowWeDoing='идем удалять драйвера';
@@ -273,26 +219,23 @@ condition.nowWeDoing='идем удалять драйвера';
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
     SF.sleep(2);
     count=0;
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy ();
     driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"drivertest testdriver\")').length;").then(function(c){
         count=c;
     }),config.timeout);
     SF.sleep(0.5);
-    console.log(count);
     while (count>0){
         driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"drivertest testdriver\"):eq(0)').dblclick();"),config.timeout);
         SF.sleep (2);
         SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-        SF.click (By.xpath('//button[@class="confirm"]'));
-        JS.waitForNotExist('div.toast-message');
-        JS.waitForNotExist('div.busyoverlay:visible');
+        MF.SweetConfirm ();
+        MF.WaitWhileToaster ();
+        MF.WaitWhileBusy ();
         SF.sleep (2);
         driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"drivertest testdriver\")').length;").then(function(c){
             count=c;
         }),config.timeout);
         SF.sleep(1);
-        console.log(count);
     }
     SF.sleep(1);
 
@@ -303,10 +246,9 @@ condition.nowWeDoing='идем удалять сейлса';
     driver.executeScript("$('.mdDataTable tbody tr td:contains(\"salestest testsales\")').dblclick();");
     SF.sleep (2);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    JS.waitForNotExist('div.toast-message');
-    SF.sleep (2);
+    MF.SweetConfirm ();
+    MF.WaitWhileToaster ();
+    MF.WaitWhileBusy ();
 
 condition.nowWeDoing='идем удалять менеджера';
 
@@ -316,15 +258,10 @@ condition.nowWeDoing='идем удалять менеджера';
     SF.sleep (2);
     Debug.pause ();
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-    SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    SF.sleep (1);
-    // JS.waitForNotExist('div.toast-message');
-    // JS.waitForExist('div.toast-message');
-    //
-    // JS.waitForExist('div.toast-success');
-    // JS.waitForNotExist('div.toast-success');
-    //
+    MF.SweetConfirm ();
+    MF.WaitWhileToaster ();
+    // MF.WaitWhileBusy ();
+
     // LF.LogoutFromBoardForeman ();
 
     SF.endOfTest();

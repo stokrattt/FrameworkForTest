@@ -236,7 +236,6 @@ condition.nowWeDoing="Зайти в Storsge pending, найти реквест";
     SF.sleep(1);
     driver.findElement(By.xpath('//span[contains(text(),"Balance :")]/span')).getText().then(function(text){
         V.storageNumbers.balance = SF.cleanPrice(text);
-        console.log(V.storageNumbers.balance);
     });
     SF.sleep(2);
     VD.IWant(VD.VToEqual, V.storageNumbers.balance, 0, 'баланс не нулевой');

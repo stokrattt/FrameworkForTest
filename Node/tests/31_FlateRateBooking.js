@@ -153,7 +153,6 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     SF.sleep (15);
     driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (check) {
         VD.IWant(VD.VToEqual, check, 1, 'трак (желтая линия, реквест) на таблице траков в реквесте не нашелся в деливери дейт');
-        console.log(check);
     }),config.timeout);
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();

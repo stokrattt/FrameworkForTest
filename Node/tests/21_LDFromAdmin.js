@@ -40,7 +40,6 @@ condition.nowWeDoing = 'создаем ЛД реквест';
     V.request = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
         V.request.moveDate = calDate;
-        console.log(V.request);
     }),config.timeout);
     SF.sleep(0.5);
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
@@ -56,7 +55,6 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     V.LDAdminCalc = {};
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Long Distance Quote ")]/following-sibling::td[1]')).getText().then(function(quote){
         V.LDAdminCalc.Quote = SF.cleanPrice (quote);
-        console.log (V.LDQuote);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Fuel Surcharge ")]/following-sibling::td[1]')).getText().then(function(fuel){
         V.LDAdminCalc.Fuel = SF.cleanPrice (fuel);
@@ -65,7 +63,6 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
         V.LDAdminCalc.Total = SF.cleanPrice (total);
     }),config.timeout);
     SF.sleep (1);
-    console.log (V.LDAdminCalc);
 
     SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
     SF.sleep(2);
@@ -76,10 +73,8 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     SF.click(By.xpath('//button[@ng-click="create()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     SF.sleep(4);
-    console.log('создали реквест');
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     SF.sleep (1);
-    console.log(V.boardNumbers);
     V.request.Id = {};
         driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
@@ -114,7 +109,6 @@ condition.nowWeDoing = 'запоминаем данные после добав�
     V.boardNumbersWithAddServices = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersWithAddServices);
     SF.sleep (1);
-    console.log(V.boardNumbersWithAddServices);
     MF.EditRequest_SetToNotConfirmed();
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
@@ -143,7 +137,6 @@ condition.nowWeDoing = 'идём в логи';
         V.logNumbers.Quote = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(1);
-    console.log(V.logNumbers);
     VD.IWant(VD.VToEqual, V.logNumbers.Quote, V.boardNumbersWithAddServices.Total, 'не совпал гранд тотал в письме и в реквесте');
     SF.sleep(1);
     LF.closeEditRequest ();
@@ -166,7 +159,6 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
         }
     }),config.timeout);
     SF.sleep (1);
-    console.log(V.accountNumbersLD.Total);
     VD.IWant (VD.VToEqual, V.boardNumbersWithAddServices.Total, V.accountNumbersLD.Total, 'не совпал гранд тотал мувборда и аккаунта');
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
     SF.sleep (2);
@@ -174,7 +166,6 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
         }),config.timeout);
     SF.sleep(1);
-    console.log(V.ConfirmationTotal);
     VD.IWant(VD.VToEqual, V.logNumbers.Quote, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
