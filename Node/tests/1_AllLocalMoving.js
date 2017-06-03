@@ -99,6 +99,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.VToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }),config.timeout);
+    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();

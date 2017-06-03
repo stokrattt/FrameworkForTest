@@ -318,7 +318,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
         SF.sleep(1);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-        SF.sleep(1);
+        SF.sleep(2);
         if (accountNumbers != undefined) {
             driver.wait(driver.executeScript('return $(\'div.inventory__toolbar-item:contains("Total Estimated Cubic Feet:")\').text()').then(
                 function (text) {
@@ -328,10 +328,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             ),config.timeout);
         }
         JS.click('button#save-inventory.inventory__button');
+        SF.sleep(1);
         JS.waitForExist('button.confirm:contains("OK")');
         SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
-        SF.sleep(2);
+        SF.sleep(3);
     }
     function AccountLocalAddAdditionalInventory() {
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
@@ -1238,7 +1239,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
     }
     function MakeSignInContract() {
-        SF.click(By.xpath('//div[@class="empty-signature"]'));
+        SF.click(By.xpath('//div[@id="main-contract"]//div[@class="empty-signature"]'));
         MakeSignJS("signatureCanvas");
         SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
         SF.sleep(2);

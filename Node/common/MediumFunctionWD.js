@@ -185,6 +185,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_RefreshDashboard(){
         SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
+        WaitWhileBusy ();
         SF.sleep (3);
         WaitWhileBusy ();
     }
@@ -334,7 +335,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Contract_WaitBillOfLading() {
-        SF.waitForVisible(By.xpath('//div[@class="empty-signature"]'));
+        SF.waitForVisible(By.xpath('//div[@id="main-contract"]//div[@class="empty-signature"]'));
     }
 
     function Contract_OpenBillOfLading() {
