@@ -9,13 +9,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
 condition.nowWeDoing = 'идем в админку проверяем что стоит галка на флет рейт';
-    SF.get(V.adminURL);
-    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.Board_OpenSettingsGeneral ();
-    SF.sleep (3);
-    JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
-    MF.Board_LogoutAdmin ();
+    // SF.get(V.adminURL);
+    // LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    // MF.Board_OpenSettingsGeneral ();
+    // SF.sleep (3);
+    // JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
+    // driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
+    // MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
 condition.nowWeDoing = 'создаем Flat Rate реквест';
     LF.CreateFlatRateDownForm(V.client);

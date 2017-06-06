@@ -122,16 +122,30 @@ condition.nowWeDoing='Создали форемана***************************
     MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing='Заходим под созданным менеджером*************************************';
-    LF.LoginToBoardAsCustom (V.managerAccount, V.managerPass);
+    SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
+    SF.send(By.xpath('//input[@id="email"]'), V.managerAccount);
+    SF.send(By.xpath('//input[@id="password"]'), V.managerPass);
+    SF.click(By.xpath('//button[@type="submit"]'));
+    SF.waitForLocated(By.id('main-content'));
+    SF.sleep (3);
     MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing='Заходим под созданным sales*************************************';
-    LF.LoginToBoardAsCustom (V.salesAccount, V.salesPass);
+    SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
+    SF.send(By.xpath('//input[@id="email"]'), V.salesAccount);
+    SF.send(By.xpath('//input[@id="password"]'), V.salesPass);
+    SF.click(By.xpath('//button[@type="submit"]'));
+    SF.waitForLocated(By.id('main-content'));
+    SF.sleep (3);
     MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing='Заходим под созданным foreman*************************************';
-    LF.LoginToBoardAsCustomForeman (V.foremanAccount, V.foremanPass)
-    LF.LogoutFromBoardForeman ();
+    SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
+    SF.send(By.xpath('//input[@id="email"]'), V.foremanAccount);
+    SF.send(By.xpath('//input[@id="password"]'), V.foremanPass);
+    SF.click(By.xpath('//button[@type="submit"]'));
+    SF.waitForLocated(By.id('datatable'));
+    SF.sleep (3);    LF.LogoutFromBoardForeman ();
 
     LF.LoginToBoardAs_Roma4ke_Admin ();
 condition.nowWeDoing = 'заходим под админом и создаем реквест';

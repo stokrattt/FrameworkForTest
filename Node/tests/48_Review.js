@@ -68,6 +68,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     SF.sleep (2);
 condition.nowWeDoing = 'переходим с логов по ссылке в акк и ставим 5 звезд, подтверждаем';
     SF.openTab (1);
+    LF.LoginToAccountAsClient (V.client);
     SF.waitForLocated (By.id('reviews-moveboard'));
     SF.sleep(2);
     SF.click (By.xpath('//div[@id="review_settings"]/div//i[5]'));
@@ -81,6 +82,7 @@ condition.nowWeDoing = 'переходим с логов по ссылке в а
     SF.sleep(2);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что появились наши 5 звезд и текст';
     MF.Board_OpenReviewSettings ();
@@ -88,7 +90,6 @@ condition.nowWeDoing = 'идем в админку в настройки рев�
         VD.IWant(VD.VToEqual, text, 'five stars it is good', 'не нашло наш текст для звезд, а может и звезды');
     }),config.timeout);
     SF.sleep(1);
-    MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

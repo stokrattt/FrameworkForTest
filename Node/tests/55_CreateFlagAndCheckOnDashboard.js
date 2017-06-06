@@ -15,9 +15,8 @@ condition.nowWeDoing = 'Идем в настройки и создаем фла�
     MF.Board_OpenSettingsGeneral ();
     SF.click(By.linkText('Company Flags'));
     SF.sleep(2);
-    V.FlagName = SF.randomBukva(5) + '_flag';
     SF.click(By.xpath('//button[@ng-click="vm.addNewFlag(); vm.addFlag = true"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.newFlag.name"]'), V.FlagName);
+    SF.send(By.xpath('//input[@ng-model="vm.newFlag.name"]'), 'test flag');
     SF.clear(By.xpath('//input[@ng-model="vm.newFlag.color"]'));
     SF.send(By.xpath('//input[@ng-model="vm.newFlag.color"]'), '#b8263a');
     SF.click(By.xpath('//button[@ng-click="vm.saveNewFlag(); "]'));
@@ -37,7 +36,7 @@ condition.nowWeDoing = 'Создаем реквест и ставим созда
 
 condition.nowWeDoing = 'идем на дашборд и проверяем что у реквеста стоит флаг созданный';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.VToEqual, text, V.FlagName, 'не нашло флаг который мы выставили');
+        VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили');
     }),config.timeout);
     SF.sleep(0.5);
     driver.navigate().refresh();
@@ -45,7 +44,7 @@ condition.nowWeDoing = 'идем на дашборд и проверяем чт�
 condition.nowWeDoing = 'обновляем страницу и проверяем что флаг остался, открываем реквест ставим нот конферм и сохраняем';
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.VToEqual, text, V.FlagName, 'не нашло флаг который мы выставили после обновления страницы');
+        VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили после обновления страницы');
     }),config.timeout);
     SF.sleep(0.5);
     LF.OpenRequest (V.boardNumbers.Id);
@@ -59,17 +58,17 @@ condition.nowWeDoing = 'обновляем страницу и проверяе�
 condition.nowWeDoing = 'пошли на страницу нот конферм и смотрим что флаг есть';
     MF.Board_OpenNotConfirmed ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.VToEqual, text, V.FlagName, 'не нашло флаг который мы выставили на странице нот конферм');
+        VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили на странице нот конферм');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Board_OpenAllRequest ();
 
 condition.nowWeDoing = 'открываем страницу всех реквестов, смотрим что там есть наш флаг и что есть этот реквест, открываем реквест и удаляем флаг';
-    SF.click(By.xpath('//a[@title="test flag"][contains(text(),"'+V.FlagName+'")]'));
+    SF.click(By.xpath('//a[@title="test flag"][contains(text(),"test flag")]'));
     MF.WaitWhileBusy ();
     Debug.pause ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.VToEqual, text, V.FlagName, 'не нашло флаг который мы выставили на странице Request Page (filtration page)');
+        VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили на странице Request Page (filtration page)');
     }),config.timeout);
     SF.sleep(0.5);
     LF.OpenRequest (V.boardNumbers.Id);
@@ -83,7 +82,7 @@ condition.nowWeDoing = 'идем на дашборд и на страницу н
     MF.Board_OpenDashboard ();
     MF.Board_OpenNotConfirmed ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.VNotToEqual, text, V.FlagName, 'не удалился флаг на странице нот конферм');
+        VD.IWant(VD.VNotToEqual, text, 'TEST FLAG', 'не удалился флаг на странице нот конферм');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Board_OpenSideBar ();

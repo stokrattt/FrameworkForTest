@@ -16,8 +16,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(5);
     MF.WaitWhileBusy();
     MF.Account_ClickPartialPacking();
+    SF.sleep(2);
     LF.AccountLoadingEnterAddress();
+    SF.sleep(3);
     LF.AccountLocalAddInventory();
+    Debug.pause();
     LF.AccountLoadingDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();

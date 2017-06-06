@@ -151,7 +151,7 @@ condition.nowWeDoing = 'идем в пейрол ищем форемана и п
     SF.sleep(1);
 
 condition.nowWeDoing='идем удалять форемана';
-    MF.Board_OpenSideBar ();
+    // MF.Board_OpenSideBar ();
     SF.sleep(1);
     MF.Board_OpenSettingsDepartment ();
     SF.sleep(2);

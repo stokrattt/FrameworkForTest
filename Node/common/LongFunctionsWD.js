@@ -29,7 +29,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -63,7 +63,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -98,7 +98,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -133,7 +133,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -168,7 +168,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -212,7 +212,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(\\\'Submit\\\')\\"]');
+        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     }
     function AccountLocalEnterAddress() {
@@ -244,6 +244,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     function AccountLoadingEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
         SF.sleep(1);
+        SF.click(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'));
         SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'From Address');
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         JS.waitForExist('button.confirm:contains("Update")');
@@ -302,7 +303,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep (3);
     }
     function AccountLocalAddInventory(accountNumbers) {
-        JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
+        // JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
+        SF.click(By.id('tab_Inventory'));
         JS.waitForExist('div[ng-repeat="filter in filters"]');
         SF.sleep(5);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
@@ -337,7 +339,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     function AccountLocalAddAdditionalInventory() {
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
         JS.waitForExist('div[ng-repeat="filter in filters"]');
-        SF.sleep(5);
+        SF.sleep(10);
         SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[1]'));
         SF.sleep(1);
         SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[1]'));
@@ -928,8 +930,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant(VD.VToEqual, accountNumbers.TotalMin, frontNumbersDown.QuoteMinTo, 'не совпали TotalMin аккаунта и фронта');
         VD.IWant(VD.VToEqual, accountNumbers.TotalMax, frontNumbersDown.QuoteMaxTo, 'не совпали TotalMax аккаунта и фронта');
         VD.IWant(VD.VToEqual, accountNumbers.Fuel, frontNumbersDown.FuelTo, 'не совпали Fuel аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinTo, 'не совпали TotalMax аккаунта и фронта');
-        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxTo, 'не совпали Fuel аккаунта и фронта');
+        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinTo, 'не совпали JobTimeMin аккаунта и фронта');
+        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxTo, 'не совпали JobTimeMax аккаунта и фронта');
     }
 
     function Validation_Compare_Account_Front_MovStorFrom(accountNumbers,frontNumbersDown) {
@@ -942,8 +944,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant(VD.VToEqual, accountNumbers.TotalMin, frontNumbersDown.QuoteMinFrom, 'не совпали TotalMin аккаунта и фронта From');
         VD.IWant(VD.VToEqual, accountNumbers.TotalMax, frontNumbersDown.QuoteMaxFrom, 'не совпали TotalMax аккаунта и фронта From');
         VD.IWant(VD.VToEqual, accountNumbers.Fuel, frontNumbersDown.FuelFrom, 'не совпали Fuel аккаунта и борда From');
-        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinFrom, 'не совпали TotalMax аккаунта и фронта From');
-        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxFrom, 'не совпали Fuel аккаунта и фронта From');
+        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinFrom, 'не совпали JobTimeMin аккаунта и фронта From');
+        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxFrom, 'не совпали JobTimeMax аккаунта и фронта From');
     }
 
     function SetManager(name) {
@@ -1586,7 +1588,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.select ('#edit-size-move', 8);
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
-        SF.sleep (0.5);
+        SF.sleep (5);
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (7);
@@ -1626,7 +1628,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.select ('#edit-size-move', 8);
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
-        SF.sleep (0.5);
+        SF.sleep (5);
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (4);
@@ -1652,26 +1654,26 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
 
     function RememberFrontNumbersMovAndStorDown(frontNumbersDown){
         condition.nowWeDoing = 'запоминаем данные с мувинг сторадж TУ';
-
-        driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[@ng-if="storageCalcResult.to.surcharge_fuel"]/span')).getText().then(function(text){
+        // [@class="box_info from_storage storage"]
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@ng-if="storageCalcResult.to.surcharge_fuel"]/span')).getText().then(function(text){
             frontNumbersDown.FuelTo = SF.cleanPrice (text.replace('$', ''));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[@ng-if="storageCalcResult.to.isMinHourLessThenMaxTime"]/span')).getText().then(function(text){
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@ng-if="!requestToStorage.small_job"]/span')).getText().then(function(text){
             frontNumbersDown.QuoteMinTo = SF.cleanPrice(text.substring(0, text.indexOf('-')));
             frontNumbersDown.QuoteMaxTo = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.to.travelTime"]/span')).getText().then(function (text) {
             frontNumbersDown.TravelTimeTo = SF.cleanPrice(text.substring(text.indexOf('min')));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[4]/span')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[4]/span')).getText().then(function (text) {
             frontNumbersDown.CrewTo = SF.cleanPrice (text);
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[@class="box_info from_storage storage"]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
             frontNumbersDown.RateTo = text.indexOf('$', 4) == -1 ?
                 SF.cleanPrice(text) :
                 SF.cleanPrice(text.substring(text.indexOf('$', 4)));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//span[@ng-if="storageCalcResult.to.isMinHourLessThenMaxTime"]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//span[@ng-if="!requestToStorage.small_job"]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
             let textMax = text.substring(text.indexOf('-') + 1);
             let hoursMin = textMin.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('Hrs')));
@@ -1684,25 +1686,25 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
 
         condition.nowWeDoing = 'запоминаем данные с мувинг сторадж FROM';
 
-        driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[@ng-if="storageCalcResult.from.surcharge_fuel"]/span')).getText().then(function(text){
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[@ng-if="storageCalcResult.from.surcharge_fuel"]/span')).getText().then(function(text){
             frontNumbersDown.FuelFrom = SF.cleanPrice (text.replace('$', ''));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[@ng-if="storageCalcResult.from.isMinHourLessThenMaxTime"]/span')).getText().then(function(text){
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[@ng-if="!requestFromStorage.small_job"]/span')).getText().then(function(text){
             frontNumbersDown.QuoteMinFrom = SF.cleanPrice(text.substring(0, text.indexOf('-')));
             frontNumbersDown.QuoteMaxFrom = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.from.travelTime"]/span')).getText().then(function (text) {
             frontNumbersDown.TravelTimeFrom = SF.cleanPrice(text.substring(text.indexOf('min')));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[4]/span')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[4]/span')).getText().then(function (text) {
             frontNumbersDown.CrewFrom = SF.cleanPrice (text);
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[5]/span')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
             frontNumbersDown.RateFrom = text.indexOf('$', 4) == -1 ?
                 SF.cleanPrice(text) :
                 SF.cleanPrice(text.substring(text.indexOf('$', 4)));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//span[@ng-if="storageCalcResult.from.isMinHourLessThenMaxTime"]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//span[@ng-if="!requestFromStorage.small_job"]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
             let textMax = text.substring(text.indexOf('-') + 1);
             let hoursMin = textMin.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('Hrs')));
@@ -1715,7 +1717,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
 
         condition.nowWeDoing = 'запоминаем данные с мувинг сторадж Estimated Labor и Estimated Monthly Storage';
 
-        driver.wait(driver.findElement(By.xpath('//div[@class="box_info total storage"]//div/span')).getText().then(function(text){
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, form_block)]/div[@ng-if="basicsettings.showQuoteFront[request.serviceType]"]' +
+            '//h3[contains(text(), "Estimated labor:")]/following-sibling::span')).getText().then(function(text){
             frontNumbersDown.EstimatedLaborMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
             frontNumbersDown.EstimatedLaborMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
         }), config.timeout);
@@ -2004,7 +2007,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.select ('#edit-size-move', 10);
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
-        SF.sleep (0.5);
+        SF.sleep (7);
+        Debug.pause();
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (4);
@@ -2028,7 +2032,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.id('submitRequestButton'));
         SF.sleep (2);
         SF.click(By.linkText('View Request Page'));
-        SF.sleep(4);
+        SF.sleep(7);
     }
     function CreateStorageTenant(client) {
         SF.click(By.xpath('//button[@ng-click="pending.createModal()"]'));

@@ -47,6 +47,7 @@ condition.nowWeDoing = 'переходим сразу с диспача на к�
     SF.openTab (0);
 
 condition.nowWeDoing = 'возвращаемся в настройки на мувборд и переходим в настройки контракта, проверять галочки';
+    MF.Board_OpenSideBar ();
     MF.Board_OpenSettingsGeneral ();
     SF.sleep(3);
     JS.scroll('.pageheader');
