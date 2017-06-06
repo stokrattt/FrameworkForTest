@@ -50,8 +50,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
     MF.Board_RefreshDashboard();
+    SF.sleep(2);
     MF.Board_SearchRequest(V.requestAdmin.Id);
     V.SearchRequest={};
+    SF.sleep(2);
     MF.Board_GetFirstFoundedId(V.SearchRequest);
     VD.IWant (VD.VToEqual, V.requestAdmin.Id, V.SearchRequest.Id, 'Поиск по другим пермишинам не работает');
     SF.sleep(1);

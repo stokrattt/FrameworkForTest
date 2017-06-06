@@ -97,8 +97,9 @@ condition.nowWeDoing = 'зашли на админку для сравнения
 condition.nowWeDoing = 'зашли в аккаунт и добавляем инвентори';
     MF.Account_CheckRequestStatus_Pending (V.accountNumbersLD.Id);
     MF.Account_OpenRequest (V.accountNumbersLD.Id);
+    MF.Account_ClickViewRequest();
     LF.AccountLocalAddInventory();
-    SF.sleep(20);
+    SF.sleep(5);
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу после добавления инвентори на аккаунте';
     V.accountNumbersLDWithInvent={};
     driver.wait(driver.executeScript('return $("div:contains(\\"Move Date (Pick Up Day):\\"):last").next().text()').then(function (dateString) {

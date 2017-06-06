@@ -188,6 +188,8 @@ condition.nowWeDoing = 'заходим под админом и создаем �
             VD.IWant(VD.VNotToEqual, counts.Helper, 0, 'не нашло имя хелпера');
             VD.IWant(VD.VNotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
     });
+    SF.sleep(1);
+    MF.Board_OpenSideBar ();
 condition.nowWeDoing='зашли в настройки департмента';
     MF.Board_OpenSettingsDepartment ();
 
