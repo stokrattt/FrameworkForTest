@@ -83,6 +83,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.click(By.xpath('//div[@class="ibox movingstorage"]//tr[@ng-repeat="not_confirmed in movingNotConfirmedBody"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
     MF.Board_SearchRequest(V.accountNumbersTo.Id);
+    SF.sleep(3);
     MF.Board_SearchOpenRequest (V.accountNumbersTo);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
@@ -178,6 +179,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     SF.click(By.xpath('//div[@class="ibox movingstorage"]//tr[@ng-repeat="confirmed in movingConfirmedBody"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
     MF.Board_SearchRequest(V.accountNumbersTo.Id);
+    SF.sleep(3);
     MF.Board_SearchOpenRequest (V.accountNumbersTo);
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges ();

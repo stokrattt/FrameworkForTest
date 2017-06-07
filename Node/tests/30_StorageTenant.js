@@ -85,6 +85,7 @@ condition.nowWeDoing = 'идем в леджер и создаем инвойс'
     SF.waitForLocated (By.xpath('//h2[contains(text(), "Template preview")]'));
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     MF.WaitWhileToaster();
+    SF.sleep(3);
     SF.click(By.xpath('//button[@ng-click="proRate()"]'));
 
 condition.nowWeDoing = 'идем в леджер и создаем про рейт';
@@ -145,7 +146,7 @@ condition.nowWeDoing = 'старт рекуринг';
 condition.nowWeDoing = 'идем проверять что он есть в Move in';
     MF.StorageTenant_OpenStorages(V.storage.Id);
     MF.EditStorage_CloseOpenModal();
-    MF.Board_LogoutAdmin ();
+    // MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

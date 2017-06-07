@@ -69,6 +69,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.sleep(2);
 
     MF.Board_SearchRequest(V.boardNumbers.Id);
+    SF.sleep(3);
     MF.Board_SearchOpenRequest (V.boardNumbers);
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SetAdressToFrom ();
