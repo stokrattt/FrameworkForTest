@@ -20,7 +20,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.AccountLoadingEnterAddress();
     SF.sleep(3);
     LF.AccountLocalAddInventory();
-    Debug.pause();
     LF.AccountLoadingDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();

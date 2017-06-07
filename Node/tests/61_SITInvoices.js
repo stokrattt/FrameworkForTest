@@ -58,7 +58,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.zipTo = '32132';
     SF.send(By.xpath('//input[@ng-model="editrequest.data.field_moving_from.postal_code"]'), V.zipFrom);
     SF.send(By.xpath('//input[@ng-model="editrequest.data.field_moving_to.postal_code"]'), V.zipTo);
-    SF.sleep(3);
+    SF.sleep(5);
     SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
     SF.sleep(8);
     SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
@@ -152,7 +152,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('span:contains(\\"Closing\\")');
     SF.sleep(3);
     SF.click(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]'));
-    SF.sleep(3);
+    SF.sleep(5);
     SF.click(By.xpath('//button[@ng-click="openCustomPayment($event, 0, userInfo.nid, [], 4)"]'));
     V.somePayment = 900;
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
