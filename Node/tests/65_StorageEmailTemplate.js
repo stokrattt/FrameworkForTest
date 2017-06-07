@@ -85,6 +85,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
 
     condition.nowWeDoing = 'заходим в сторадж и проверяем есть ли там темплейти и совпадают ли они';
+    MF.Board_OpenSideBar ();
     MF.Board_OpenStorage();
     SF.click (By.xpath('//img[@ng-src="content/img/storage-icons/Storage.jpg"]'));
     SF.sleep (5);

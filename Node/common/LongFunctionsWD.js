@@ -1386,7 +1386,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.EditRequest_PayrollGetForemansTotal(boardNumbers);
 
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
-            Math.floor(boardNumbers.Tips.forCommission / boardNumbers.CrewSize),
+            Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
             'Не совпал Tips формена');
 
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices.forCommission),
