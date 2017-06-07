@@ -39,7 +39,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 
     MF.EditRequest_OpenSettings();
-    LF.SetManager('emilia');
+    LF.SetManager(V.managerFirstName);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenLogs();
@@ -163,7 +163,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
 
     condition.nowWeDoing = 'выбираем цифры менеджера';
-    LF.findSaleInPayroll('emilia clark');
+    LF.findSaleInPayroll(V.managerName);
     driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.boardNumbers.Id)).then(function (text) {
         V.payrollNumbers.Sale.Total = SF.cleanPrice(text);
     }), config.timeout);

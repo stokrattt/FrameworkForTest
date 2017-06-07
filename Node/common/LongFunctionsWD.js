@@ -1349,18 +1349,48 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForNotExist('div#datePicker-block.disabled');
         SF.click(By.xpath('(//td[@data-handler="selectDay"])[' + EQ + ']'));
     }
-    function RememberAndValidatePayroll_In_EditRequest(boardNumbers) {
+    function EditRequestPayroll_RememberManager(name, boardNumbers){
+        if (boardNumbers.Payroll==undefined){
+            boardNumbers.Payroll = {
+                managerForCommission: {},
+                foremanForCommission: {},
+                helpersForCommission: []
+            }
+        }
+        MF.EditRequest_PayrollGetManagerCommission(name, boardNumbers.Payroll.managerForCommission);
+        SF.sleep(1);
+    }
+    function EditRequestPayroll_RememberForeman(name, boardNumbers){
+        if (boardNumbers.Payroll==undefined){
+            boardNumbers.Payroll = {
+                managerForCommission: {},
+                foremanForCommission: {},
+                helpersForCommission: []
+            }
+        }
+        boardNumbers.Payroll.foremanForCommission.Tips={};
+        boardNumbers.Payroll.foremanForCommission.fromTotal={};
+        boardNumbers.Payroll.foremanForCommission.AdServices={};
+        boardNumbers.Payroll.foremanForCommission.Daily={};
+        boardNumbers.Payroll.foremanForCommission.Hourly={};
+        boardNumbers.Payroll.foremanForCommission.Packing={};
+        boardNumbers.Payroll.foremanForCommission.Bonus={};
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Tips', boardNumbers.Payroll.foremanForCommission.Tips);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Commission from total', boardNumbers.Payroll.foremanForCommission.fromTotal);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Extras Commission', boardNumbers.Payroll.foremanForCommission.AdServices);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Daily Rate', boardNumbers.Payroll.foremanForCommission.Daily);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Hourly Rate', boardNumbers.Payroll.foremanForCommission.Hourly);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Packing Commission', boardNumbers.Payroll.foremanForCommission.Packing);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Bonus', boardNumbers.Payroll.foremanForCommission.Bonus);
+    }
+    function RememberAndValidatePayroll_In_EditRequest(managerName, boardNumbers) {
         boardNumbers.Payroll = {
             managerForCommission: {},
             foremanForCommission: {},
-            helpersForComission: []
+            helpersForCommission: []
         };
-        SF.sleep(3);
-        driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
-            boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
-        }));
-        SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office),
+        EditRequestPayroll_RememberManager(managerName, boardNumbers);
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.forCommission),
             Math.floor(boardNumbers.Total
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
             'Не совпал ForCommission менеджера');
@@ -1369,33 +1399,33 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
         MF.EditRequest_PayrollOpenForemanTab();
-        boardNumbers.Payroll.foremanForCommission.Tips={};
-        boardNumbers.Payroll.foremanForCommission.fromTotal={};
-        boardNumbers.Payroll.foremanForCommission.AdServices={};
-        boardNumbers.Payroll.foremanForCommission.Daily={};
-        boardNumbers.Payroll.foremanForCommission.Hourly={};
-        boardNumbers.Payroll.foremanForCommission.Packing={};
-        boardNumbers.Payroll.foremanForCommission.Bonus={};
-        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Tips', boardNumbers.Payroll.foremanForCommission.Tips);
-        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Commission from total', boardNumbers.Payroll.foremanForCommission.fromTotal);
-        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Extras Commission', boardNumbers.Payroll.foremanForCommission.AdServices);
-        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Daily Rate', boardNumbers.Payroll.foremanForCommission.Daily);
-        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Hourly Rate', boardNumbers.Payroll.foremanForCommission.Hourly);
-        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Packing Commission', boardNumbers.Payroll.foremanForCommission.Packing);
-        MF.EditRequest_PayrollGetForemanCommission(V.foremanName, 'Bonus', boardNumbers.Payroll.foremanForCommission.Bonus);
+        EditRequestPayroll_RememberForeman(V.foremanName, boardNumbers);
         MF.EditRequest_PayrollGetForemansTotal(boardNumbers);
 
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
             Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
             'Не совпал Tips формена');
-
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices.forCommission),
             Math.floor(boardNumbers.AdServices),
             'Не совпал Extras формена');
-
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing.forCommission),
             Math.floor(boardNumbers.Packing),
             'Не совпал Packing формена');
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.fromTotal.forCommission),
+            Math.floor(boardNumbers.Total),
+            'Не совпал FromTotal формена');
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Daily.forCommission),
+            Math.floor(20),
+            'Не совпал Daily формена');
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Hourly.percent),
+            Math.floor(30),
+            'Не совпал Hourly формена');
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
+            Math.floor(15),
+            'Не совпал Bonus формена');
+        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.forCommission),
+            Math.floor(boardNumbers.Quote/boardNumbers.HourlyRate),
+            'Не совпал LaborTime формена');
         SF.sleep(1);
         SF.click(By.xpath('//li[@heading="Helpers"]/a'));
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
@@ -1432,6 +1462,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
             Math.floor(boardNumbers.Tips / 4),
             'Не совпал Tips формена');
+
 
         driver.wait(driver.executeScript('return ' +
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
@@ -2008,7 +2039,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
         SF.sleep (7);
-        Debug.pause();
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (4);
@@ -2216,6 +2246,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         payRentalInventory: payRentalInventory,
         RememberDateFromRequest: RememberDateFromRequest,
         findDayInLocalDispatch: findDayInLocalDispatch,
+        EditRequestPayroll_RememberManager:EditRequestPayroll_RememberManager,
+        EditRequestPayroll_RememberForeman:EditRequestPayroll_RememberForeman,
         RememberAndValidatePayroll_In_EditRequest: RememberAndValidatePayroll_In_EditRequest,
         findTestForemanInPayroll: findTestForemanInPayroll,
         findFlatRateDeliveryForemanInPayroll: findFlatRateDeliveryForemanInPayroll,
