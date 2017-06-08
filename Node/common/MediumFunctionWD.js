@@ -89,6 +89,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Board_OpenStorage() {
         Board_OpenSideBar ();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'storages.pending\', \'\')"]'));
+        SF.sleep (3);
         SF.click(By.xpath('//a[@ui-sref="storages.storage"]'));
         WaitWhileBusy ();
         SF.sleep (3);
@@ -97,6 +98,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Board_OpenStoragesTenant() {
         Board_OpenSideBar ();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'storages.pending\', \'\')"]'));
+        SF.sleep (3);
         SF.click(By.xpath('//a[@ui-sref="storages.tenants"]'));
         WaitWhileBusy ();
         SF.sleep (3);
@@ -224,6 +226,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
         SF.sleep(1);
         SF.click(By.xpath('//a[@ui-sref="lddispatch.agentFolio"]'));
+        SF.sleep(2);
+    }
+    function Board_OpenJobsInSIT() {
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ui-sref="lddispatch.sitJobs"]'));
         SF.sleep(2);
     }
     function Board_OpenTripPlanner() {
@@ -987,6 +996,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenStoragesTenant: Board_OpenStoragesTenant,
         Board_OpenCourier : Board_OpenCourier,
         Board_OpenAgentFolio: Board_OpenAgentFolio,
+        Board_OpenJobsInSIT: Board_OpenJobsInSIT,
         Board_OpenTripPlanner: Board_OpenTripPlanner,
         Board_OpenCarriersAndAgents: Board_OpenCarriersAndAgents,
         Board_OpenSettingsAccountPageCustomBlock: Board_OpenSettingsAccountPageCustomBlock,

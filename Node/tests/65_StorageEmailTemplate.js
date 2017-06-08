@@ -15,9 +15,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@type="submit"]'));
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
     SF.sleep (3);
-    MF.Board_OpenSideBar ();
     MF.Board_OpenSettingsTemplateBuilder();
-    MF.Board_OpenSideBar ();
     MF.WaitWhileBusy();
     SF.waitForVisible(By.xpath('//select[@ng-model="filterByKeyName.key_name"]'));
     SF.click(By.xpath("//button[@ng-click=\"toggleLeft()\"]"));
@@ -85,7 +83,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
 
     condition.nowWeDoing = 'заходим в сторадж и проверяем есть ли там темплейти и совпадают ли они';
-    MF.Board_OpenSideBar ();
     MF.Board_OpenStorage();
     SF.click (By.xpath('//img[@ng-src="content/img/storage-icons/Storage.jpg"]'));
     SF.sleep (5);
