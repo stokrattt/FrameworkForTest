@@ -10,15 +10,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     LF.LoginToBoardAs_Roma4ke_Admin();
     MF.Board_OpenSettingsDepartment ();
-    condition.nowWeDoing='Создаем менеджера***********************************************';
+
+condition.nowWeDoing='Создаем менеджера***********************************************';
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
     SF.sleep(3);
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
-    V.managerFirstName = "mantest";
-    V.managerLastName = "testman";
-    SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.managerFirstName);
-    SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.managerLastName);
+    V.managerFirstName1 = "mantest";
+    V.managerLastName1 = "testman";
+    SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.managerFirstName1);
+    SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.managerLastName1);
     SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
     SF.click (By.linkText('Account'));
     V.managerAccount = "mantest@ya.ya";
@@ -33,12 +34,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     Debug.pause();
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "mantest testman")]'));
     //SF.sleep (3);
-    condition.nowWeDoing='Создали менеджера****************************************';
+
+condition.nowWeDoing='Создали менеджера****************************************';
     //JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SF.sleep(2);
 
-    condition.nowWeDoing='Создаем сейлса**************************************';
+condition.nowWeDoing='Создаем сейлса**************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
     V.salesFirstName = "salestest";
@@ -56,11 +58,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy ();
     MF.WaitWhileToaster ();
     SF.sleep(3);
+
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "salestest testsales")]'));
 condition.nowWeDoing='Создали сейлса**************************************';
     //JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
     SF.sleep(2);
+
 condition.nowWeDoing='Создаем драйвера**************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
@@ -75,10 +79,12 @@ condition.nowWeDoing='Создаем драйвера***************************
     SF.sleep(3);
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "drivertest testdriver")]'));
     //SF.sleep(3);
+
 condition.nowWeDoing='Создали драйвера**************************************';
    // JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
     SF.sleep(2);
+
 condition.nowWeDoing='Создаем хелпера**************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
@@ -93,10 +99,12 @@ condition.nowWeDoing='Создаем хелпера*****************************
     SF.sleep(3);
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "helpertest testhelper")]'));
     //SF.sleep(3);
+
 condition.nowWeDoing='Создали хелпера**************************************';
   //  JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(2);
+
 condition.nowWeDoing='Создаем форемана**************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));

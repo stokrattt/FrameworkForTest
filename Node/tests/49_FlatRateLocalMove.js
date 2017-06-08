@@ -114,7 +114,7 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     SF.sleep (2);
-    LF.RememberAndValidatePayroll_In_EditRequest(V.boardNumbers);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
     SF.sleep (2);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();

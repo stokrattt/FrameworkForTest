@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/EditRequestPayrollAdding.js'
+        './tests/56_LoadingAllSteps.js'
     ];
     config.chainFail = false;
     /*V.adminURL = 'localhost:8080/moveBoard/#/dashboard';
@@ -15,6 +15,8 @@ module.exports = function(config,V) {
     V.foremanPassword = '123';
     V.foremanName = 'Foreman Riba';
     V.foremanEmail = 'RibaKitForeman@test.test';
+    V.managerName = 'emilia clark';
+    V.managerFirstName = 'emilia';
 };
 
 

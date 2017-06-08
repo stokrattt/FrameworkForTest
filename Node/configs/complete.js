@@ -96,6 +96,8 @@ module.exports = function(config,V) {
     V.foremanName = 'Test Foreman';
     V.adminName = 'Test';
     V.foremanEmail = 'TestForeman@mail.com';
+    V.managerName = 'emilia clark';
+    V.managerFirstName = 'emilia';
 
 /*список тестов  для вставки выше
  './tests/DefaultSettings.js',

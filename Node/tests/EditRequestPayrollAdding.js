@@ -30,6 +30,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.OpenRequestDispatch(V.boardNumbers.Id);
     MF.EditRequest_SetLaborTimeCloseJob('3:00');
     MF.EditRequest_CloseJob();
+    LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_OpenPayroll();
     //addSalesPayroll
     SF.click(By.xpath('//div[@ng-click="addWorker(\'salesPerson\')"]'));
@@ -37,12 +38,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.select(By.xpath('//select[@ng-model="selected.salesPerson[salesPersonIndex]"]'),6070);
     //set Office commission
     MF.EditRequest_PayrollSetManagerCommission('emilia clark','Office Commission', 123, 80);
+    LF.EditRequestPayroll_RememberManager(V.managerName, V.boardNumbers);
     //open Foreman tab
     MF.EditRequest_PayrollOpenForemanTab();
-    MF.WaitWhileBusy();
-    LF.RememberAndValidatePayroll_In_EditRequest(V.boardNumbers);
-
-    Debug.pause();
+    LF.EditRequestPayroll_RememberForeman(V.foremanName, V.boardNumbers);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

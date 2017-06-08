@@ -584,6 +584,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_PayrollOpenForemanTab() {
         SF.click(By.xpath('//li[@heading="Foremen"]/a'));
+        WaitWhileBusy();
     }
     function EditRequest_PayrollSetForemanCommission(name, type, forCommission, percent){
         SF.send(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
@@ -591,22 +592,41 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
             '/../../../../../..//option[contains(text(),"'+type+'") and @selected="selected"]/..//input[@ng-model="sale.rate"]'),percent);
     }
+    function EditRequest_PayrollGetManagerCommission(name, objectToStore){
+        driver.wait(driver.findElement(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
+            '/../../../../..//tr[1]//input[@ng-model="sale.for_commission "]')).getAttribute('value').then(
+            function(text){objectToStore.forCommission=SF.cleanPrice(text);}
+        ),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
+            '/../../../../..//tr[1]//input[@ng-model="sale.rate"]')).getAttribute('value').then(
+            function (text) {
+                objectToStore.percent = SF.cleanPrice(text);
+            }
+        ), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
+            '/../../../../..//tr[1]//input[@ng-model="sale.rate"]/../following-sibling::td[1]')).getText().then(
+            function (text) {
+                objectToStore.total = SF.cleanPrice(text);
+            }
+        ), config.timeout);
+        SF.sleep(1);
+        console.log('manager ForCommission '); console.log(objectToStore);
+    }
     function EditRequest_PayrollGetForemanCommission(name, type, objectToStore){
         driver.wait(driver.findElement(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
             '/../../../../../..//option[contains(text(),"'+type+'") and @selected="selected"]' +
             '/../../..//input[@ng-model="foreman.for_commission"]')).getAttribute('value').then(
                 function(text){objectToStore.forCommission=SF.cleanPrice(text);}
         ),config.timeout);
-        if (type=='Tips') {objectToStore.percent=100;}
+        if ((type=='Tips')||(type=='Daily Rate')) {objectToStore.percent=100;}
         else {
             driver.wait(driver.findElement(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"' + name + '") and @selected="selected"]' +
                 '/../../../../../..//option[contains(text(),"' + type + '") and @selected="selected"]' +
-                '/../../..//input[@ng-model="foreman.for_commission"]')).getAttribute('value').then(
+                '/../../..//input[@ng-model="foreman.rate"]')).getAttribute('value').then(
                 function (text) {
                     objectToStore.percent = SF.cleanPrice(text);
                 }
             ), config.timeout);
-            SF.sleep(1);
         }
         driver.wait(driver.findElement(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"' + name + '") and @selected="selected"]' +
             '/../../../../../..//option[contains(text(),"' + type + '") and @selected="selected"]' +
@@ -616,7 +636,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             }
         ), config.timeout);
         SF.sleep(1);
-        console.log(objectToStore);
+        console.log(type+' '); console.log(objectToStore);
     }
 
     function EditRequest_PayrollGetForemansTotal(boardNumbers) {
@@ -1067,6 +1087,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ScrollDown: EditRequest_ScrollDown,
         EditRequest_OpenPayroll: EditRequest_OpenPayroll,
         EditRequest_PayrollSetManagerCommission: EditRequest_PayrollSetManagerCommission,
+        EditRequest_PayrollGetManagerCommission:EditRequest_PayrollGetManagerCommission,
         EditRequest_PayrollOpenForemanTab: EditRequest_PayrollOpenForemanTab,
         EditRequest_PayrollGetForemansTotal: EditRequest_PayrollGetForemansTotal,
         EditRequest_PayrollSetForemanCommission: EditRequest_PayrollSetForemanCommission,

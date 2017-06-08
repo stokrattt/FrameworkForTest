@@ -19,8 +19,11 @@ condition.nowWeDoing = 'идем в админку в настройки рев�
     SF.sleep(0.5);
     SF.select(By.xpath('//select[@ng-model="selectedDay"]'), 0);
     SF.click(By.xpath('//button[@ng-click="apply()"]'));
+    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     // MF.SweetConfirm ();
     SF.sleep(2);
+    Debug.pause();
+
 condition.nowWeDoing = 'создаем локал мув, конфермим его и закрываем работу';
     LF.CreateLocalMovingFromBoard (V.client);
     MF.EditRequest_SetAdressToFrom ();
@@ -64,18 +67,18 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     SF.sleep(2);
     MF.EditRequest_Check1EmailExist (V.client.email, "Review");
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Review")][contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
-    SF.click(By.xpath('//a[contains(text(), "Give us review")]'));
+    SF.click(By.xpath('//font[@color="#7e7e7e"]/a[5]'));
     SF.sleep (2);
 condition.nowWeDoing = 'переходим с логов по ссылке в акк и ставим 5 звезд, подтверждаем';
-    SF.openTab (1);
+    // SF.openTab (1);
     LF.LoginToAccountAsClient (V.client);
     SF.waitForLocated (By.id('reviews-moveboard'));
     SF.sleep(2);
-    SF.click (By.xpath('//div[@id="review_settings"]/div//i[5]'));
-    SF.send(By.xpath('//div[@ng-model="html"]'), 'five stars it is good');
-    SF.click(By.xpath('//button[@ng-click="apply()"]'));
-    SF.sleep(2);
-    // SF.click(By.xpath('//i[@ng-click="cancel()"]'));
+    // SF.click (By.xpath('//div[@id="review_settings"]/div//i[5]'));
+    // SF.send(By.xpath('//div[@ng-model="html"]'), 'five stars it is good');
+    // SF.click(By.xpath('//button[@ng-click="apply()"]'));
+    // SF.sleep(2);
+    SF.click(By.xpath('//i[@ng-click="cancel()"]'));
     // MF.SweetConfirm ();
     MF.WaitWhileToaster ();
     MF.Account_ClickViewRequest ();
@@ -86,8 +89,8 @@ condition.nowWeDoing = 'переходим с логов по ссылке в а
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что появились наши 5 звезд и текст';
     MF.Board_OpenReviewSettings ();
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.client.name+'")]/following-sibling::div[1]/p/p[1]')).getText().then(function (text) {
-        VD.IWant(VD.VToEqual, text, 'five stars it is good', 'не нашло наш текст для звезд, а может и звезды');
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.client.name+'")]/following-sibling::div[1]/p')).getText().then(function (text) {
+        VD.IWant(VD.VToEqual, text, 'Review from email', 'не нашло наш текст для звезд, а может и звезды');
     }),config.timeout);
     SF.sleep(1);
 

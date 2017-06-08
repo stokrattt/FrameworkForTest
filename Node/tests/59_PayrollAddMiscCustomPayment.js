@@ -47,6 +47,7 @@ condition.nowWeDoing = 'выделяем все работы и делаем о�
     SF.sleep(1);
 
 condition.nowWeDoing = 'возвращаемся на шаг назад и проверяем что сумма которую оплатили кэшем отображается в пейд напротив имени форемана и что тотал равен 0';
+    JS.scroll ('a[ng-click=\"dTable=\'workers\';employee=\'\'\"]');
     MF.Payroll_ClickStepBackToNameWorker ();
     V.payrollNumbersOutsideAfterPaidCash = {};
     LF.RememberPayrollNumbers_OutsideNameWorker (V.foremanName, V.payrollNumbersOutsideAfterPaidCash);

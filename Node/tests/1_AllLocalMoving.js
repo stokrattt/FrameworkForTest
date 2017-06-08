@@ -39,7 +39,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 
     MF.EditRequest_OpenSettings();
-    LF.SetManager('emilia');
+    LF.SetManager(V.managerFirstName);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenLogs();
@@ -138,7 +138,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     SF.sleep (2);
-    LF.RememberAndValidatePayroll_In_EditRequest(V.boardNumbers);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
     SF.sleep (2);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
@@ -163,7 +163,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
 
     condition.nowWeDoing = 'выбираем цифры менеджера';
-    LF.findSaleInPayroll('emilia clark');
+    LF.findSaleInPayroll(V.managerName);
     driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.boardNumbers.Id)).then(function (text) {
         V.payrollNumbers.Sale.Total = SF.cleanPrice(text);
     }), config.timeout);
