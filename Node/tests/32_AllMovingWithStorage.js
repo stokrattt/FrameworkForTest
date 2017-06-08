@@ -269,7 +269,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.VToEqual, V.boardNumbersTo.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
-    LF.RememberAndValidatePayroll_In_EditRequest(V.boardNumbersTo);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersTo);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
@@ -286,7 +286,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.VToEqual, V.boardNumbersFrom.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
-    LF.RememberAndValidatePayroll_In_EditRequest(V.boardNumbersFrom);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersFrom);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 

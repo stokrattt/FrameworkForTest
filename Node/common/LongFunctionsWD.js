@@ -1412,7 +1412,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             Math.floor(boardNumbers.Packing),
             'Не совпал Packing формена');
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.fromTotal.forCommission),
-            Math.floor(boardNumbers.Total),
+            Math.floor(boardNumbers.Total
+                - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
             'Не совпал FromTotal формена');
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Daily.forCommission),
             Math.floor(20),
@@ -1437,7 +1438,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         boardNumbers.Payroll = {
             managerForCommission: {},
             foremanForCommission: {},
-            helpersForComission: []
+            helpersForComission: {}
         };
         SF.sleep(3);
         driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
