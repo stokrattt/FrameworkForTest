@@ -170,7 +170,7 @@ condition.nowWeDoing = 'Найти вторую работу, зайти в Inve
     SF.sleep(1);
 
 condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
-    SF.waitForVisible(By.xpath('//div[@class="empty-signature"]'));
+    SF.waitForVisible(By.xpath('//div[@id="main-contract"]//div[@class="empty-signature"]'));
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.VToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
