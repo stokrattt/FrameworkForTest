@@ -235,6 +235,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ui-sref="lddispatch.sitJobs"]'));
         SF.sleep(2);
     }
+    function Board_OpenPickup() {
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ui-sref="lddispatch.pick_up"]'));
+        SF.sleep(2);
+    }
     function Board_OpenTripPlanner() {
         SF.click(By.xpath('//a[@ng-class="{active:vm.isCurrent(\'trip planner\')}"]'));
         SF.sleep(2);
@@ -1017,6 +1024,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenCourier : Board_OpenCourier,
         Board_OpenAgentFolio: Board_OpenAgentFolio,
         Board_OpenJobsInSIT: Board_OpenJobsInSIT,
+        Board_OpenPickup: Board_OpenPickup,
         Board_OpenTripPlanner: Board_OpenTripPlanner,
         Board_OpenCarriersAndAgents: Board_OpenCarriersAndAgents,
         Board_OpenSettingsAccountPageCustomBlock: Board_OpenSettingsAccountPageCustomBlock,
