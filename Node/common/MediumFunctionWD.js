@@ -683,9 +683,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             '/../../../../../tbody/tr[last()]/preceding-sibling::tr[1]//select[@ng-model="foreman.id"]/option[contains(text(),"'+type+'")]'));
     }
 
-    function EditRequest_PayrollGetForemansTotal(Payroll) {
+    function EditRequest_PayrollGetForemansTotal(foremanForCommission) {
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
-            Payroll.foremanForCommission.total = SF.cleanPrice(text);
+            foremanForCommission.total = SF.cleanPrice(text);
         });
     }
 

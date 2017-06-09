@@ -1370,7 +1370,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.EditRequest_PayrollGetForemanCommission(name, 'Packing Commission', foremanForCommission.Packing);
         MF.EditRequest_PayrollGetForemanCommission(name, 'Bonus', foremanForCommission.Bonus);
 
-        for (let type in Payroll.foremanForCommission){
+        for (let type in foremanForCommission){
             if (foremanForCommission[type].forCommission != 'not Exist'){
                 foremanForCommission.Total+=foremanForCommission[type].total;
             }
@@ -1382,7 +1382,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             foremanForCommission: {},
             helpersForCommission: []
         };
-        EditRequestPayroll_RememberManager(managerName, boardNumbers.Payroll);
+        EditRequestPayroll_RememberManager(managerName, boardNumbers.Payroll.managerForCommission);
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.forCommission),
             Math.floor(boardNumbers.Total
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
@@ -1392,8 +1392,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
         MF.EditRequest_PayrollOpenForemanTab();
-        EditRequestPayroll_RememberForeman(V.foremanName, boardNumbers.Payroll);
-        MF.EditRequest_PayrollGetForemansTotal(boardNumbers.Payroll);
+        EditRequestPayroll_RememberForeman(V.foremanName, boardNumbers.Payroll.foremanForCommission);
+        MF.EditRequest_PayrollGetForemansTotal(boardNumbers.Payroll.foremanForCommission);
 
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
             Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
