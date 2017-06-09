@@ -890,7 +890,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function Payroll_ClickStepBackToNameWorker() {
-        SF.click(By.xpath('//a[@ng-click="dTable=\'workers\';employee=\'\'"]'));
+        JS.click('a[ng-click=\\"dTable=\'workers\';employee=\'\'\\"]:visible');
         WaitWhileBusy ();
     }
     function Payroll_ClickStepBackToAllDepartments() {

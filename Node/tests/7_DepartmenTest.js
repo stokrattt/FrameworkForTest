@@ -208,6 +208,8 @@ condition.nowWeDoing='идем удалять форемана';
     driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"foremantest testforeman\")').dblclick();"),config.timeout);
     SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
+    SF.sleep(2);
+    SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();
     MF.WaitWhileToaster ();
     MF.WaitWhileBusy ();
