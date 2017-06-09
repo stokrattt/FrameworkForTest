@@ -1349,39 +1349,32 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForNotExist('div#datePicker-block.disabled');
         SF.click(By.xpath('(//td[@data-handler="selectDay"])[' + EQ + ']'));
     }
-    function EditRequestPayroll_RememberManager(name, boardNumbers){
-        if (boardNumbers.Payroll==undefined){
-            boardNumbers.Payroll = {
-                managerForCommission: {},
-                foremanForCommission: {},
-                helpersForCommission: []
-            }
-        }
-        MF.EditRequest_PayrollGetManagerCommission(name, boardNumbers.Payroll.managerForCommission);
+    function EditRequestPayroll_RememberManager(name, managerForCommission){
+        MF.EditRequest_PayrollGetManagerCommission(name, managerForCommission);
         SF.sleep(1);
     }
-    function EditRequestPayroll_RememberForeman(name, boardNumbers){
-        if (boardNumbers.Payroll==undefined){
-            boardNumbers.Payroll = {
-                managerForCommission: {},
-                foremanForCommission: {},
-                helpersForCommission: []
+    function EditRequestPayroll_RememberForeman(name, foremanForCommission){
+        foremanForCommission.Tips={};
+        foremanForCommission.fromTotal={};
+        foremanForCommission.AdServices={};
+        foremanForCommission.Daily={};
+        foremanForCommission.Hourly={};
+        foremanForCommission.Packing={};
+        foremanForCommission.Bonus={};
+        foremanForCommission.Total=0;
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Tips', foremanForCommission.Tips);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Commission from total', foremanForCommission.fromTotal);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Extras Commission', foremanForCommission.AdServices);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Daily Rate', foremanForCommission.Daily);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Hourly Rate', foremanForCommission.Hourly);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Packing Commission', foremanForCommission.Packing);
+        MF.EditRequest_PayrollGetForemanCommission(name, 'Bonus', foremanForCommission.Bonus);
+
+        for (let type in Payroll.foremanForCommission){
+            if (foremanForCommission[type].forCommission != 'not Exist'){
+                foremanForCommission.Total+=foremanForCommission[type].total;
             }
         }
-        boardNumbers.Payroll.foremanForCommission.Tips={};
-        boardNumbers.Payroll.foremanForCommission.fromTotal={};
-        boardNumbers.Payroll.foremanForCommission.AdServices={};
-        boardNumbers.Payroll.foremanForCommission.Daily={};
-        boardNumbers.Payroll.foremanForCommission.Hourly={};
-        boardNumbers.Payroll.foremanForCommission.Packing={};
-        boardNumbers.Payroll.foremanForCommission.Bonus={};
-        MF.EditRequest_PayrollGetForemanCommission(name, 'Tips', boardNumbers.Payroll.foremanForCommission.Tips);
-        MF.EditRequest_PayrollGetForemanCommission(name, 'Commission from total', boardNumbers.Payroll.foremanForCommission.fromTotal);
-        MF.EditRequest_PayrollGetForemanCommission(name, 'Extras Commission', boardNumbers.Payroll.foremanForCommission.AdServices);
-        MF.EditRequest_PayrollGetForemanCommission(name, 'Daily Rate', boardNumbers.Payroll.foremanForCommission.Daily);
-        MF.EditRequest_PayrollGetForemanCommission(name, 'Hourly Rate', boardNumbers.Payroll.foremanForCommission.Hourly);
-        MF.EditRequest_PayrollGetForemanCommission(name, 'Packing Commission', boardNumbers.Payroll.foremanForCommission.Packing);
-        MF.EditRequest_PayrollGetForemanCommission(name, 'Bonus', boardNumbers.Payroll.foremanForCommission.Bonus);
     }
     function RememberAndValidatePayroll_In_EditRequest(managerName, boardNumbers) {
         boardNumbers.Payroll = {
@@ -1389,7 +1382,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             foremanForCommission: {},
             helpersForCommission: []
         };
-        EditRequestPayroll_RememberManager(managerName, boardNumbers);
+        EditRequestPayroll_RememberManager(managerName, boardNumbers.Payroll);
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.forCommission),
             Math.floor(boardNumbers.Total
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
@@ -1399,8 +1392,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
         MF.EditRequest_PayrollOpenForemanTab();
-        EditRequestPayroll_RememberForeman(V.foremanName, boardNumbers);
-        MF.EditRequest_PayrollGetForemansTotal(boardNumbers);
+        EditRequestPayroll_RememberForeman(V.foremanName, boardNumbers.Payroll);
+        MF.EditRequest_PayrollGetForemansTotal(boardNumbers.Payroll);
 
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
             Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
