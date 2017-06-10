@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/60_Excludes.js'];
+    config.suite = ['./tests/DefaultSettings.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 30000;

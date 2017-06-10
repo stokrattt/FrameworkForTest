@@ -138,6 +138,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSideBar();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
         SF.sleep(2);
+        JS.scroll ('a:contains("Calendar")');
+        SF.sleep(1);
         SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[10]'));
         JS.waitForExist('input[ng-model=\\"vm.basicSettings.services.localMoveOn\\"]');
         SF.sleep(4);

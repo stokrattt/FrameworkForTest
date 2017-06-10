@@ -114,6 +114,7 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     SF.sleep (2);
+    V.managerName = 'JackSales do not delete';
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
     SF.sleep (2);
     MF.EditRequest_CloseModal();
@@ -156,7 +157,7 @@ condition.nowWeDoing = 'выбираем цифры helper';
     }), config.timeout);
     SF.sleep(1);
 
-    VD.IWant(VD.VToEqual, V.payrollNumbers.Helper.Total, V.boardNumbers.Payroll.helpersForComission.total, 'не нашло этой работы у хелпера или не совпали цифры в Payroll helper\n' +
+    VD.IWant(VD.VToEqual, V.payrollNumbers.Helper.Total, V.boardNumbers.Payroll.helpersForCommission.total, 'не нашло этой работы у хелпера или не совпали цифры в Payroll helper\n' +
         'id=' + V.request.Id);
     SF.sleep(1);
 
