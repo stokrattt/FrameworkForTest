@@ -136,18 +136,18 @@ condition.nowWeDoing = 'Проверяем есть ли карьер в спи�
     SF.sleep(3);
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
 
-condition.nowWeDoing = 'удаляем карьера';
-    driver.wait(driver.executeScript('return location.toString();').then(function(url){
-        let c='a';
-        for (let i=0; i<url.length; i++) {
-            if (url[i]=='/'){c=i;}
-        }
-        let id = url.substring(c+1);
-        driver.executeScript(
-            JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8084/server/long_distance_carrier/'+id)
-        );
-    }),config.timeout);
-    SF.sleep(1);
+// condition.nowWeDoing = 'удаляем карьера';
+//     driver.wait(driver.executeScript('return location.toString();').then(function(url){
+//         let c='a';
+//         for (let i=0; i<url.length; i++) {
+//             if (url[i]=='/'){c=i;}
+//         }
+//         let id = url.substring(c+1);
+//         driver.executeScript(
+//             JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8084/server/long_distance_carrier/'+id)
+//         );
+//     }),config.timeout);
+//     SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

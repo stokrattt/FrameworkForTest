@@ -90,7 +90,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.sleep(1);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.carrier_id"]'));
-    SF.click(By.xpath('//div[text()="Test"]'));
+    SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     V.driverPhone = SF.randomCifra(10);
     V.driverName = SF.randomBukva(6) + '_t';
     V.notes = SF.randomBukva(25) + '_t';
@@ -138,10 +138,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.VToEqual, V.requestPaymentAfter, V.tpCollected, 'Пеймент должен бить равен тпКолектед');
     }),config.timeout);
     SF.sleep(2);
-    // SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    // SF.sleep(6);
-    // SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    // SF.sleep(4);
     LF.closeEditRequest ();
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]')).getText().then(function(text){
@@ -243,5 +239,25 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('span:contains(\\"Log\\")');
     driver.wait(driver.findElement(By.xpath('//b[contains(text(),"Job #'+ V.ldJobId +' was removed")]')).getText().then(function(text){
     }),config.timeout);
+
+    MF.Board_OpenSideBar ();
+    MF.Board_OpenCarriersAndAgents ();
+    MF.Board_OpenSideBar ();
+    SF.sleep(3);
+    SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'))
+
+
+    condition.nowWeDoing = 'удаляем карьера';
+    driver.wait(driver.executeScript('return location.toString();').then(function(url){
+        let c='a';
+        for (let i=0; i<url.length; i++) {
+            if (url[i]=='/'){c=i;}
+        }
+        let id = url.substring(c+1);
+        driver.executeScript(
+            JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8084/server/long_distance_carrier/'+id)
+        );
+    }),config.timeout);
+    SF.sleep(1);
     SF.endOfTest();
 };
