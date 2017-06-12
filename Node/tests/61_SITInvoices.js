@@ -153,7 +153,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
     SF.click(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]'));
     SF.sleep(5);
-    SF.click(By.xpath('//button[@ng-click="openCustomPayment($event, 0, userInfo.nid, [], 4)"]'));
+    SF.click(By.xpath('//button[@ng-click="openCustomPayment($event, 0, item.id, [], 4)"]'));
     V.somePayment = 900;
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
     SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.somePayment);

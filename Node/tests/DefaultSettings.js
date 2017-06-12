@@ -89,6 +89,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         SF.click(By.xpath('//span[@ng-click="changeStepsOrder()"]/i[2]'));
         SF.sleep(3);
     }
+    SF.click(By.linkText('Basic Settings'));
+    SF.select(By.xpath('//select[@ng-model="vm.calcSettings.min_hours"]'),1);
     MF.Board_OpenCompanyServices();
     V.CompanyServices={};
     driver.wait(driver.findElements(By.xpath(V.localSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){

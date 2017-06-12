@@ -138,6 +138,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSideBar();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
         SF.sleep(2);
+        JS.scroll ('a:contains("Calendar")');
+        SF.sleep(1);
         SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[10]'));
         JS.waitForExist('input[ng-model=\\"vm.basicSettings.services.localMoveOn\\"]');
         SF.sleep(4);
@@ -683,9 +685,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             '/../../../../../tbody/tr[last()]/preceding-sibling::tr[1]//select[@ng-model="foreman.id"]/option[contains(text(),"'+type+'")]'));
     }
 
-    function EditRequest_PayrollGetForemansTotal(Payroll) {
+    function EditRequest_PayrollGetForemansTotal(foremanForCommission) {
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
-            Payroll.foremanForCommission.total = SF.cleanPrice(text);
+            foremanForCommission.total = SF.cleanPrice(text);
         });
     }
 
@@ -890,7 +892,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function Payroll_ClickStepBackToNameWorker() {
-        SF.click(By.xpath('//a[@ng-click="dTable=\'workers\';employee=\'\'"]'));
+        JS.click('a[ng-click=\\"dTable=\'workers\';employee=\'\'\\"]:visible');
         WaitWhileBusy ();
     }
     function Payroll_ClickStepBackToAllDepartments() {

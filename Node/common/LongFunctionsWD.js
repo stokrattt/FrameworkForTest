@@ -1373,7 +1373,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.EditRequest_PayrollGetForemanCommission(name, 'Packing Commission', foremanForCommission.Packing);
         MF.EditRequest_PayrollGetForemanCommission(name, 'Bonus', foremanForCommission.Bonus);
 
-        for (let type in Payroll.foremanForCommission){
+        for (let type in foremanForCommission){
             if (foremanForCommission[type].forCommission != 'not Exist'){
                 foremanForCommission.Total+=foremanForCommission[type].total;
             }
@@ -1385,7 +1385,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             foremanForCommission: {},
             helpersForCommission: []
         };
-        EditRequestPayroll_RememberManager(managerName, boardNumbers.Payroll);
+        EditRequestPayroll_RememberManager(managerName, boardNumbers.Payroll.managerForCommission);
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.forCommission),
             Math.floor(boardNumbers.Total
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
@@ -1395,8 +1395,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
         MF.EditRequest_PayrollOpenForemanTab();
-        EditRequestPayroll_RememberForeman(V.foremanName, boardNumbers.Payroll);
-        MF.EditRequest_PayrollGetForemansTotal(boardNumbers.Payroll);
+        EditRequestPayroll_RememberForeman(V.foremanName, boardNumbers.Payroll.foremanForCommission);
+        MF.EditRequest_PayrollGetForemansTotal(boardNumbers.Payroll.foremanForCommission);
 
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
             Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
@@ -1412,21 +1412,23 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
             'Не совпал FromTotal формена');
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Daily.forCommission),
-            Math.floor(20),
+            Math.floor(50),
             'Не совпал Daily формена');
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Hourly.percent),
-            Math.floor(30),
+            Math.floor(10),
             'Не совпал Hourly формена');
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
-            Math.floor(15),
+            Math.floor(25),
             'Не совпал Bonus формена');
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.forCommission),
             Math.floor(boardNumbers.Quote/boardNumbers.HourlyRate),
             'Не совпал LaborTime формена');
         SF.sleep(1);
         SF.click(By.xpath('//li[@heading="Helpers"]/a'));
+        SF.sleep(2);
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
-            boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
+            V.boardNumbers.Payroll.helpersForCommission.total = SF.cleanPrice(text);
+            console.log(V.boardNumbers.Payroll.helpersForCommission.total);
         }),config.timeout);
         SF.sleep(1);
     }
@@ -1681,18 +1683,17 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
 
     function RememberFrontNumbersMovAndStorDown(frontNumbersDown){
         condition.nowWeDoing = 'запоминаем данные с мувинг сторадж TУ';
-        // [@class="box_info from_storage storage"]
         driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@ng-if="storageCalcResult.to.surcharge_fuel"]/span')).getText().then(function(text){
             frontNumbersDown.FuelTo = SF.cleanPrice (text.replace('$', ''));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@ng-if="!requestToStorage.small_job"]/span')).getText().then(function(text){
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@ng-if="!storageCalcResult.to.small_job"]/span')).getText().then(function(text){
             frontNumbersDown.QuoteMinTo = SF.cleanPrice(text.substring(0, text.indexOf('-')));
             frontNumbersDown.QuoteMaxTo = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.to.travelTime"]/span')).getText().then(function (text) {
             frontNumbersDown.TravelTimeTo = SF.cleanPrice(text.substring(text.indexOf('min')));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[4]/span')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//h3[contains(text(), "Crew Size:")]/following-sibling::span')).getText().then(function (text) {
             frontNumbersDown.CrewTo = SF.cleanPrice (text);
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
@@ -1700,7 +1701,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                 SF.cleanPrice(text) :
                 SF.cleanPrice(text.substring(text.indexOf('$', 4)));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//span[@ng-if="!requestToStorage.small_job"]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//span[@ng-if="!storageCalcResult.to.small_job"]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
             let textMax = text.substring(text.indexOf('-') + 1);
             let hoursMin = textMin.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('Hrs')));
@@ -1716,14 +1717,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[@ng-if="storageCalcResult.from.surcharge_fuel"]/span')).getText().then(function(text){
             frontNumbersDown.FuelFrom = SF.cleanPrice (text.replace('$', ''));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[@ng-if="!requestFromStorage.small_job"]/span')).getText().then(function(text){
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[@ng-if="!storageCalcResult.from.small_job"]/span')).getText().then(function(text){
             frontNumbersDown.QuoteMinFrom = SF.cleanPrice(text.substring(0, text.indexOf('-')));
             frontNumbersDown.QuoteMaxFrom = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.from.travelTime"]/span')).getText().then(function (text) {
             frontNumbersDown.TravelTimeFrom = SF.cleanPrice(text.substring(text.indexOf('min')));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[4]/span')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Crew Size:")]/following-sibling::span')).getText().then(function (text) {
             frontNumbersDown.CrewFrom = SF.cleanPrice (text);
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
@@ -1731,7 +1732,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                 SF.cleanPrice(text) :
                 SF.cleanPrice(text.substring(text.indexOf('$', 4)));
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//span[@ng-if="!requestFromStorage.small_job"]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//span[@ng-if="!storageCalcResult.from.small_job"]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
             let textMax = text.substring(text.indexOf('-') + 1);
             let hoursMin = textMin.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('Hrs')));
@@ -1742,17 +1743,17 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             frontNumbersDown.JobTimeMaxFrom = hoursMax * 60 + minutesMax;
         }), config.timeout);
 
-        condition.nowWeDoing = 'запоминаем данные с мувинг сторадж Estimated Labor и Estimated Monthly Storage';
-
-        driver.wait(driver.findElement(By.xpath('//div[contains(@class, form_block)]/div[@ng-if="basicsettings.showQuoteFront[request.serviceType]"]' +
-            '//h3[contains(text(), "Estimated labor:")]/following-sibling::span')).getText().then(function(text){
-            frontNumbersDown.EstimatedLaborMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
-            frontNumbersDown.EstimatedLaborMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
-        }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[@ng-if="!overnightMove"]/span')).getText().then(function(text){
-            frontNumbersDown.MonthlyStorageMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
-            frontNumbersDown.MonthlyStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
-        }), config.timeout);
+        // condition.nowWeDoing = 'запоминаем данные с мувинг сторадж Estimated Labor и Estimated Monthly Storage';
+        //
+        // driver.wait(driver.findElement(By.xpath('//div[contains(@class, form_block)]/div[@ng-if="basicsettings.showQuoteFront[request.serviceType]"]' +
+        //     '//h3[contains(text(), "Estimated labor:")]/following-sibling::span')).getText().then(function(text){
+        //     frontNumbersDown.EstimatedLaborMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+        //     frontNumbersDown.EstimatedLaborMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+        // }), config.timeout);
+        // driver.wait(driver.findElement(By.xpath('//div[@ng-if="!overnightMove"]/span')).getText().then(function(text){
+        //     frontNumbersDown.MonthlyStorageMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+        //     frontNumbersDown.MonthlyStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+        // }), config.timeout);
         SF.sleep(1);
         console.log(frontNumbersDown);
     }
@@ -2127,7 +2128,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         V.payrollDateFrom = (future.toLocaleDateString('en-US', options));
         now = new Date();
         msInDay = 86400000;
-        future = new Date(now.getTime() + msInDay *10);
+        future = new Date(now.getTime() + msInDay *6);
         options = { month: 'short', day: 'numeric', year: 'numeric' };
         V.payrollDateTo = (future.toLocaleDateString('en-US', options));
         SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));

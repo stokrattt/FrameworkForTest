@@ -36,6 +36,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         foremanForCommission: {},
         starkForCommission: {}
     };
+    V.managerName = 'emilia clark';
     MF.EditRequest_OpenPayroll();
     MF.EditRequest_PayrollAddManager(V.managerName);
     MF.EditRequest_PayrollSetManagerCommission('emilia clark','Office Commission', 123, 80);

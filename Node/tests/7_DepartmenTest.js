@@ -108,6 +108,7 @@ condition.nowWeDoing='Создали хелпера*****************************
 condition.nowWeDoing='Создаем форемана**************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
+    SF.sleep(2);
     V.foremanFirstName = "foremantest";
     V.foremanLastName = "testforeman";
     SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.foremanFirstName);
@@ -196,6 +197,7 @@ condition.nowWeDoing = 'заходим под админом и создаем �
             VD.IWant(VD.VNotToEqual, counts.Helper, 0, 'не нашло имя хелпера');
             VD.IWant(VD.VNotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
     });
+    Debug.pause ();
     SF.sleep(1);
     MF.Board_OpenSideBar ();
 condition.nowWeDoing='зашли в настройки департмента';
@@ -207,6 +209,10 @@ condition.nowWeDoing='идем удалять форемана';
     SF.sleep(3);
     driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"foremantest testforeman\")').dblclick();"),config.timeout);
     SF.sleep (3);
+    SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
+    SF.sleep(2);
+    MF.WaitWhileBusy ();
+    SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();
     MF.WaitWhileToaster ();

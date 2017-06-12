@@ -123,7 +123,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'редактируем поля и проверяем циферки';
     SF.sleep(2);
-    SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
+    SF.click(By.xpath('//div[@ng-repeat="item in jobsTripList track by $index"]//div[@ng-click="openRequest(id)"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     MF.WaitWhileBusy();
     SF.sleep(2);
@@ -144,15 +144,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     // SF.sleep(4);
     LF.closeEditRequest ();
     SF.sleep(2);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"$627.50")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]')).getText().then(function(text){
         V.cleanTPCollected = SF.cleanPrice(text);
+        console.log(V.cleanTPCollected);
         VD.IWant(VD.VToEqual, V.tpCollected, V.cleanTPCollected, 'не совпали TP Collected');
     }),config.timeout);
     SF.click(By.xpath('//div[@ng-click="openRateModal(item)"]'));
     V.ratePerCf= 4;
     SF.sleep(1);
     SF.clear(By.xpath('//input[@ng-model="rate_per_cf"]'));
+    SF.sleep(1);
     SF.send(By.xpath('//input[@ng-model="rate_per_cf"]'), V.ratePerCf);
+    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="update()"]'));
     SF.sleep(3);
 
@@ -160,7 +163,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     V.volumeCf= 350;
     SF.clear(By.xpath('//input[@ng-model="volume_cf"]'));
+    SF.sleep(1);
     SF.send(By.xpath('//input[@ng-model="volume_cf"]'), V.volumeCf);
+    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="update()"]'));
     SF.sleep(3);
     SF.click(By.xpath('//div[@ng-click="addServices(item, $index)"]'));
@@ -173,7 +178,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
     SF.click(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]'));
     SF.sleep(3);
-    SF.click(By.xpath('//button[@ng-click="openCustomPayment($event, 0, userInfo.nid, [], 4)"]'));
+    SF.click(By.xpath('//button[@ng-click="openCustomPayment($event, 0, item.id, [], 4)"]'));
     V.somePayment = 100;
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
     SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.somePayment);
@@ -181,29 +186,29 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.sleep(4);
     SF.click(By.xpath('//button[@ng-click="back()"]'));
-    SF.sleep(2);
+    SF.sleep(4);
 
     V.totalTPCollected = V.somePayment + V.tpCollected;
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"$727.50")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]')).getText().then(function(text){
         V.cleanTotalTPCollected = SF.cleanPrice(text);
         VD.IWant(VD.VToEqual, V.totalTPCollected, V.cleanTotalTPCollected, 'не совпали TPcollected');
     }),config.timeout);
-
+    SF.sleep(1);
     V.jobCost = V.volumeCf * V.ratePerCf;
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"$1,400.00")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openVolumeModal(item)"]/following-sibling::div[1]')).getText().then(function(text){
         V.cleanJobCost = SF.cleanPrice(text);
         VD.IWant(VD.VToEqual, V.jobCost, V.cleanJobCost, 'не совпали Job Cost');
     }),config.timeout);
     SF.sleep(2);
 
     V.jobTotal = V.jobCost + V.packingCost;
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"$1,650.00")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="addServices(item, $index)"]/following-sibling::div[1]')).getText().then(function(text){
         V.cleanJobTotal = SF.cleanPrice(text);
         VD.IWant(VD.VToEqual, V.jobTotal, V.cleanJobTotal, 'не совпали Total Job Cost');
     }),config.timeout);
 
     V.balance = V.totalTPCollected - V.jobTotal;
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"-$922.50")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openVolumeModal(item)"]/following-sibling::div[last()]')).getText().then(function(text){
         V.cleanBalance = SF.cleanPrice(text);
         VD.IWant(VD.VToEqual, V.balance, V.cleanBalance, 'не совпали Balance');
     }),config.timeout);

@@ -74,7 +74,8 @@ condition.nowWeDoing = 'Идем под сейлсом и проверяем ч�
     }),config.timeout);
     SF.sleep(1);
     V.toClientFromSales = SF.randomBukva(6) + '_toClientFromSales';
-    JS.scroll ('div[ng-click=\"markAllMessagesAsRead()\"]');
+    // JS.scroll ('div[ng-click=\"markAllMessagesAsRead()\"]');
+    JS.scroll ('h2:contains("Requests")');
     MF.BoardAccount_SendMessage(V.toClientFromSales);
     LF.LogoutFromBoardForeman ();
     SF.get(V.accountURL);
@@ -86,7 +87,7 @@ condition.nowWeDoing = 'Идем под клиентом и проверяем �
         VD.IWant (VD.VToEqual, V.toClientFromSales, text, 'не нашло текст который мы отправили клиенту от sales');
     }),config.timeout);
     SF.sleep(1);
-    LF.LogoutFromAccount ();
+    // LF.LogoutFromAccount ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
