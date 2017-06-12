@@ -80,7 +80,8 @@ module.exports = function(config,V) {
         './tests/64_LoadingHelpCustomBlock.js',
         './tests/65_StorageEmailTemplate.js',
         './tests/66_ProfitAndLoss.js',
-        './tests/67_EditRequestPayrollAdding.js'
+        './tests/67_EditRequestPayrollAdding.js',
+        './tests/68_SITPickUpDelivery.js'
 
 
     ];

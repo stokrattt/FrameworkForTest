@@ -135,9 +135,9 @@ exports.Click4DaysCalendar = function () {
     $("tr>td[data-month='" + future.getMonth() + "'][data-year='" + future.getFullYear() + "']:contains('" + date + "') > a:first").trigger('click');
 
     return {
-        futureYear: future.getFullYear(),
-        futureMonth: future.getMonth(),
-        futureDay: future.getDate()
+        Year: future.getFullYear(),
+        Month: future.getMonth(),
+        Day: future.getDate()
     };
 
 }.toString().substring(12);
@@ -159,9 +159,9 @@ exports.Click31DaysCalendar = function () {
     $("tr>td[data-month='" + future.getMonth() + "'][data-year='" + future.getFullYear() + "']:contains('" + date + "') > a:first").trigger('click');
 
     return {
-        futureYear: future.getFullYear(),
-        futureMonth: future.getMonth(),
-        futureDay: future.getDate()
+        Year: future.getFullYear(),
+        Month: future.getMonth(),
+        Day: future.getDate()
     };
 
 }.toString().substring(12);
@@ -183,9 +183,9 @@ exports.Click8DaysCalendar = function () {
     $("tr>td[data-month='" + farFuture.getMonth() + "'][data-year='" + farFuture.getFullYear() + "']:contains('" + date + "') > a:first").trigger('click');
 
     return {
-        farFutureYear: farFuture.getFullYear(),
-        farFutureMonth: farFuture.getMonth(),
-        farFutureDay: farFuture.getDate()
+        Year: farFuture.getFullYear(),
+        Month: farFuture.getMonth(),
+        Day: farFuture.getDate()
     };
 
 }.toString().substring(12);
@@ -231,9 +231,9 @@ exports.ClickCustomDaysCalendar = function(period) {
         $("tr>td[data-month='" + farFuture.getMonth() + "'][data-year='" + farFuture.getFullYear() + "']:contains('" + date + "') > a:first").trigger('click');
 
         return {
-            farFutureYear: farFuture.getFullYear(),
-            farFutureMonth: farFuture.getMonth(),
-            farFutureDay: farFuture.getDate()
+            Year: farFuture.getFullYear(),
+            Month: farFuture.getMonth(),
+            Day: farFuture.getDate()
         };
 
     }.toString().substring(12);

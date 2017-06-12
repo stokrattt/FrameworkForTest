@@ -208,6 +208,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.VToEqual, V.balance, V.cleanBalance, 'не совпали Balance');
     }),config.timeout);
 
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
+        V.ldJobId = SF.cleanPrice(text);
+    }),config.timeout);
+
     condition.nowWeDoing = 'Проверяем логи';
     JS.click('span:contains(\\"Log\\")');
     SF.sleep(3);
@@ -232,5 +236,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Проверяем логи после того как удалили работу с трипа';
     JS.click('span:contains(\\"Log\\")');
+    driver.wait(driver.findElement(By.xpath('//b[contains(text(),"Job #'+ V.ldJobId +' was removed")]')).getText().then(function(text){
+    }),config.timeout);
     SF.endOfTest();
 };

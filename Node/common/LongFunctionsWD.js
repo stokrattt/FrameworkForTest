@@ -725,6 +725,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         console.log('создали реквест');
     }
     function CreateLongDistanceFromBoard(client) {
+        if (client.zipFrom == undefined) {client.zipFrom='02032';}
+        if (client.zipTo == undefined) {client.zipTo='90001';}
         SF.click(By.linkText('Create Request'));
         SF.sleep(3);
         SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:7"]'));
@@ -737,8 +739,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(0.5);
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
         SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
-        SF.send(By.id("edit-zip-code-from"), "02032");
-        SF.send(By.id("edit-zip-code-to"), "90001");
+        SF.send(By.id("edit-zip-code-from"), client.zipFrom);
+        SF.send(By.id("edit-zip-code-to"), client.zipTo);
         SF.sleep(4);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         SF.sleep(1);
@@ -750,6 +752,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
+        MF.WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="create()"]'));
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         SF.sleep(2);
@@ -1581,7 +1584,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
     }
     function selectDateInPayroll(date) {
-
         SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));
         SF.send(By.xpath('//input[@ng-model="dateRange.from"]'), constants.monthNamesShort[date.Month] +
             ' ' + date.Day + ', ' + date.Year);

@@ -165,6 +165,19 @@ module.exports = function (system, config, By, until, constants, condition) {
         }
         return minus ? 0 - parseFloat(result) : parseFloat(result);
     }
+    function dateToStringMMMDDYYYY(date) {
+        return constants.monthNamesShort[date.Month] + ' ' + date.Day + ', ' + date.Year;
+    } function dateToStringMMMMDDYYYY(date) {
+        return constants.monthNames[date.Month] + ' ' + date.Day + ', ' + date.Year;
+    }
+
+    function parseDateInSIT(str) {
+        return {
+            Month: str.substring(0, str.indexOf('-')),
+            Date: str.substring(str.indexOf('-') + 1, str.indexOf('-', str.indexOf('-') + 1)) - 1,
+            Year: str.substring(str.indexOf('-', str.indexOf('-') + 1) + 1)
+        };
+    }
     function FindMonthInString (str) {
         for (let i = 0; i < 12; i++) {
             if (str.indexOf(constants.monthNames[i]) != -1) {
@@ -215,6 +228,9 @@ module.exports = function (system, config, By, until, constants, condition) {
         randomBukvaSmall:randomBukvaSmall,
         randomCifra:randomCifra,
         cleanPrice:cleanPrice,
+        dateToStringMMMDDYYYY:dateToStringMMMDDYYYY,
+        dateToStringMMMMDDYYYY:dateToStringMMMMDDYYYY,
+        parseDateInSIT:parseDateInSIT,
         FindMonthInString:FindMonthInString,
         FindShortMonthInString: FindShortMonthInString,
         openTab:openTab
