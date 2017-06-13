@@ -86,12 +86,12 @@ module.exports = function(config,V) {
 
 
     ];
-    config.timeout = 35000;
+    config.timeout = 40000;
     config.chainFail = false;
     config.browser = 'chrome';
-    V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
-    V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
-    V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
+    V.frontURL = 'http://movecalc.local:8080/front_site/';
+    V.accountURL = 'http://movecalc.local:8080/account/#/login';
+    V.adminURL = 'http://movecalc.local:8080/moveBoard/#/login';
     V.adminLogin = 'TestAdmin';
     V.adminPassword = 'test';
     V.foremanLogin = 'TestForeman';
