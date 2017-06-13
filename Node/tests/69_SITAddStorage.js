@@ -42,6 +42,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(4);
     SF.click(By.xpath('//button[@ng-click="create()"]/span'));
 
+    condition.nowWeDoing = 'Редактируем Storage';
     SF.sleep(5);
     SF.click(By.xpath('//div[text()="'+ V.storage.name +'"]'));
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
@@ -70,6 +71,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(4);
     SF.click(By.xpath('//button[@ng-click="create()"]'));
     SF.sleep(5);
+    condition.nowWeDoing = 'сравниваем сохранились ли изменения';
     SF.click(By.xpath('//div[text()="'+ V.storage2.name +'"]'));
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
     SF.sleep(2);
