@@ -81,6 +81,7 @@ module.exports = function(config,V) {
         './tests/65_StorageEmailTemplate.js',
         './tests/66_ProfitAndLoss.js',
         './tests/67_EditRequestPayrollAdding.js',
+        './tests/69_SITAddStorage.js',
         './tests/68_SITPickUpDelivery.js'
 
 

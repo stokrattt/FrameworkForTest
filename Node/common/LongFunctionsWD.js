@@ -1945,6 +1945,27 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }), config.timeout);
         SF.sleep(2);
     }
+    function RememberStorage(storageData) {
+        driver.wait(driver.executeScript('return $(\'input[ng-model="newStorage.name"]\').val()').then(function (text) {
+            storageData.name = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'textarea[ng-model="newStorage.address"]\').val()').then(function (text) {
+            storageData.address = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="newStorage.zip_code"]\').val()').then(function (text) {
+            storageData.zip = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="newStorage.notes"]\').val()').then(function (text) {
+            storageData.notes = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="newStorage.email"]\').val()').then(function (text) {
+            storageData.email = text;
+        }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="newStorage.phones[$index]"]\').val()').then(function (text) {
+            storageData.phone = text;
+        }), config.timeout);
+        SF.sleep(2);
+    }
     function Contract_SignMainPayment(){
         MakeSignJS('signatureCanvasPayment');
         SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
@@ -2258,6 +2279,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberStorageNumbers: RememberStorageNumbers,
         ValidatePendingStorageRequest: ValidatePendingStorageRequest,
         RememberCarrier: RememberCarrier,
+        RememberStorage: RememberStorage,
         Contract_SignMainPayment:Contract_SignMainPayment,
         Contract_AddInventory:Contract_AddInventory,
         RememberAndValidatePayroll_In_EditRequestFlatRatePickup: RememberAndValidatePayroll_In_EditRequestFlatRatePickup,
