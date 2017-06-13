@@ -214,6 +214,7 @@ condition.nowWeDoing='идем удалять форемана';
     MF.WaitWhileBusy ();
     SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
+    SF.sleep(3);
     MF.SweetConfirm ();
     MF.WaitWhileToaster ();
     MF.WaitWhileBusy ();

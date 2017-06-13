@@ -16,7 +16,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_AddRoomNumber(6);
     SF.sleep (2);
 
-
     Debug.pause ();
     V.boardNumbersNew={};
     MF.EditRequest_RememberCbf(V.boardNumbersNew);

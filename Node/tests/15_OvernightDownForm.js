@@ -101,6 +101,7 @@ condition.nowWeDoing = 'запоминаем данные калькулятор
     SF.click(By.linkText('View Request Page'));
     SF.sleep(4);
     SF.openTab (1);
+
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (3);
     MF.WaitWhileBusy ();
@@ -121,6 +122,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersDelivery,V.frontNumbersDown);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
+
 condition.nowWeDoing = 'зашли в админку';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequest(V.accountNumbersUp.Id);
@@ -130,6 +132,7 @@ condition.nowWeDoing = 'зашли в админку';
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbersUp,V.boardNumbersUp);
     MF.EditRequest_SetToNotConfirmed ();
+    MF.EditRequest_SetAdressFrom ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
     SF.sleep (0.5);
@@ -142,14 +145,17 @@ condition.nowWeDoing = 'зашли в админку';
     V.boardNumbersDelivery = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersDelivery);
     JS.step(JSstep.selectTruck((V.boardNumbersDelivery.LaborTimeMax + V.boardNumbersDelivery.TravelTime)/60));
+
 condition.nowWeDoing = 'сравниваем аккаунт и админку второй реквест';
     LF.Validation_Compare_Account_Admin(V.accountNumbersDelivery,V.boardNumbersDelivery);
     MF.EditRequest_SetToNotConfirmed ();
+    MF.EditRequest_SetAdressTo ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
+
     condition.nowWeDoing = 'зашли под клиентом букаем первую работу';
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbersUp.Id);
     MF.Account_OpenRequest(V.accountNumbersUp.Id);
@@ -164,17 +170,11 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
-    MF.SweetConfirm ();
-    SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
-    SF.click (By.id('edit-moving-from'));
-    SF.send (By.id('edit-moving-from'), 'otkuda edem');
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep (2);
-    MF.SweetConfirm ();
+
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
-    SF.sleep(0.5);
-    MF.SweetConfirm ();
+    SF.sleep(3);
+    // MF.SweetConfirm ();
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();
@@ -192,15 +192,15 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
-    MF.SweetConfirm ();
-    SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
-    SF.click (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
-    SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep(2);
-    //SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    //SF.click (By.xpath('//button[@class="confirm"]'));
-    MF.SweetConfirm ();
+    // // MF.SweetConfirm ();
+    // SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
+    // SF.click (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
+    // SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
+    // SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+    // SF.sleep(2);
+    // //SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+    // //SF.click (By.xpath('//button[@class="confirm"]'));
+    // MF.SweetConfirm ();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);

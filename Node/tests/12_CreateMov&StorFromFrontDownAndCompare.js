@@ -43,11 +43,13 @@ condition.nowWeDoing = 'запомнили данные в аке и сравн�
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'зашли под админом заполнили данные и сравниваем с акком первый реквест';
     LF.OpenRequest(V.accountNumbersTo.Id); /********************************************************************/
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
-    condition.nowWeDoing = 'сравниваем аккаунт и админку';
+
+condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbersTo,V.boardNumbersTo);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime)/60));
     MF.EditRequest_SetToNotConfirmed ();
@@ -57,6 +59,7 @@ condition.nowWeDoing = 'зашли под админом заполнили да
     V.client.passwd = 123;
     LF.SetClientPasswd(V.client.passwd);
     LF.closeEditRequest ();
+
 condition.nowWeDoing = 'сравниваем с акком второй реквест';
     LF.OpenRequest(V.accountNumbersFrom.Id); /********************************************************************/
     V.boardNumbersFrom = {};
@@ -70,6 +73,7 @@ condition.nowWeDoing = 'сравниваем с акком второй рекв
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
+
 condition.nowWeDoing = 'зашли под клиентом и букаем первую работу';
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.accountNumbersTo.Id+'")]/following-sibling::td[1]'));

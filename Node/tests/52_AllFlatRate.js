@@ -282,7 +282,7 @@ condition.nowWeDoing = 'проверяем цифры менеджера pickup'
 condition.nowWeDoing = 'начинаем проверять чувачком из delivery';
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy ();
-    LF.selectDateInPayroll(V.boardNumbers.moveDate);
+    LF.Payroll_SelectPeriod20Days();
     MF.WaitWhileBusy ();
     LF.findFlatRateDeliveryForemanInPayroll ();
     V.payrollNumbersDelivery = {
