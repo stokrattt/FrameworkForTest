@@ -6,6 +6,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
+    V.client.zipFrom = '02222';
+    V.client.zipTo = '32132';
 
     //=========================начинаем писать тест=============================
 
@@ -46,37 +48,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 
     condition.nowWeDoing = 'Создаем Long Distance работу';
-    SF.click(By.xpath('//a[@ng-click="vm.openEditModal()"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
-    driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
-    SF.sleep(1);
-    SF.click(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//option[text()="Long Distance"]'));
-    V.zipFrom = '02222';
-    V.zipTo = '32132';
-    SF.send(By.xpath('//input[@ng-model="editrequest.data.field_moving_from.postal_code"]'), V.zipFrom);
-    SF.send(By.xpath('//input[@ng-model="editrequest.data.field_moving_to.postal_code"]'), V.zipTo);
-    SF.sleep(5);
-    SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
-    SF.sleep(8);
-    SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-    V.user = {};
-    V.user.name = SF.randomBukva(6) + '_t';
-    V.user.lastName = SF.randomBukva(6) + '_t';
-    V.user.eMail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    V.user.phone = SF.randomCifra(10);
-    SF.send(By.xpath('//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.user.name);
-    SF.send(By.xpath('//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.user.lastName);
-    SF.send(By.xpath('//input[@ng-model="editrequest.account.mail"]'), V.user.eMail);
-    SF.send(By.xpath('//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.user.phone);
-    SF.sleep(10);
-    SF.click(By.xpath('//button[@ng-click="create()"]'));
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    MF.WaitWhileBusy();
-    SF.sleep(2);
-    MF.WaitWhileBusy();
+    LF.CreateLongDistanceFromBoard(V.client);
     MF.EditRequest_SetToConfirmed();
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
@@ -142,8 +114,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="search"]'));
 
-    SF.click(By.xpath('//div[contains(text(), "' + V.user.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"' + V.user.name + '")]/..//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
+    SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"' + V.client.name + '")]/..//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
         V.ldJobId = text;
     }),config.timeout);
     SF.sleep(2);

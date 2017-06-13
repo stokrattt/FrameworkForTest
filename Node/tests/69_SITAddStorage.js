@@ -14,7 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAs_Roma4ke_Admin ();
 
-    condition.nowWeDoing = 'Заходим в Storages и создаем Storage';
+    condition.nowWeDoing = 'Заходим в SIT Storages и создаем Storage';
     MF.Board_OpenSideBar();
     SF.sleep(2);
     MF.Board_OpenStorages();
