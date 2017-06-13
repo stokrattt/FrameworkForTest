@@ -49,7 +49,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
-=======
     SF.click(By.xpath('//a[@ng-click="vm.openEditModal()"]'));
     SF.sleep(2);
     SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
