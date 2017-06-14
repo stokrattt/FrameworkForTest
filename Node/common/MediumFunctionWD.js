@@ -237,7 +237,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ui-sref="lddispatch.sitJobs"]'));
         SF.sleep(2);
     }
-    function Board_OpenStorages() {
+    function BoardSIT_OpenStorages() {
         SF.sleep(1);
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
         SF.sleep(1);
@@ -1070,7 +1070,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenCourier : Board_OpenCourier,
         Board_OpenAgentFolio: Board_OpenAgentFolio,
         Board_OpenJobsInSIT: Board_OpenJobsInSIT,
-        Board_OpenStorages: Board_OpenStorages,
+        BoardSIT_OpenStorages: BoardSIT_OpenStorages,
         Board_OpenPickup: Board_OpenPickup,
         Board_OpenTripPlanner: Board_OpenTripPlanner,
         Board_OpenCarriersAndAgents: Board_OpenCarriersAndAgents,

@@ -17,7 +17,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'Заходим в SIT Storages и создаем Storage';
     MF.Board_OpenSideBar();
     SF.sleep(2);
-    MF.Board_OpenStorages();
+    MF.BoardSIT_OpenStorages();
     MF.Board_OpenSideBar();
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="addStorage()"]'));
