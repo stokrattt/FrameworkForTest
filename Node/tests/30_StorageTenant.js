@@ -17,7 +17,8 @@ condition.nowWeDoing = 'идем в сторадж и создаем стора�
     MF.Board_OpenStorages();
     LF.CreateStorageTenant(V.client);
     MF.EditStorage_RememberId (V.storage);
-
+    JS.scroll ('button[ng-click=\"closeModal()\"]');
+    SF.sleep(2);
 condition.nowWeDoing = 'идем в леджер и создаем пайменты';
     MF.EditStorage_OpenLedger();
     //driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="openPayment()"]'))).click();
