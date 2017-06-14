@@ -284,7 +284,6 @@ condition.nowWeDoing='идем удалять менеджера';
     SF.sleep(2);
     driver.executeScript("$('.mdDataTable tbody tr td:contains(\"mantest testman\")').dblclick();");
     SF.sleep (2);
-    Debug.pause ();
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();
     MF.WaitWhileToaster ();
