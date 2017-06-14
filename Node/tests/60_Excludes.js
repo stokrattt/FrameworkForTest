@@ -229,7 +229,7 @@ condition.nowWeDoing = 'выбираем цифры хелпера';
     }), config.timeout);
     SF.sleep(1);
 
-    VD.IWant(VD.VToEqual, V.payrollNumbers.Helper.Total, V.boardNumbers.Payroll.helpersForComission.total, 'не совпали цифры в Payroll helper\n' +
+    VD.IWant(VD.VToEqual, (V.payrollNumbers.Helper.Total/2), V.boardNumbers.Payroll.helpersForComission.total, 'не совпали цифры в Payroll helper\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(1);
 

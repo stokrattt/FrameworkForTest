@@ -53,7 +53,7 @@ condition.nowWeDoing = 'идем в акк букаем работу';
         text = SF.cleanPrice (text);
         VD.IWant (VD.VToEqual, 3000, text, 'не нашло флет рейт квоту на акке')
     }),config.timeout);
-    LF.ConfirmRequestInAccount_NoReservation();
+    LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     MF.WaitWhileBusy();
     LF.LogoutFromAccount ();

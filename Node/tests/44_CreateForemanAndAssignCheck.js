@@ -58,14 +58,16 @@ condition.nowWeDoing = 'идем в диспач ищем работу и наз
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
     SF.sleep (2);
-    SF.click (By.xpath('//select[@ng-model="vm.data.foreman"]'));
-    SF.click(By.xpath('//select[@ng-model="vm.data.foreman"]/option[contains(text(), "'+V.foremanFirstName+'")]'));
-    SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
-    SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
-    SF.click(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
-    MF.WaitWhileToaster ();
-    SF.sleep(2);
-    MF.WaitWhileToaster ();
+    LF.selectCrew(V.foremanFirstName);
+
+    // SF.click (By.xpath('//select[@ng-model="vm.data.foreman"]'));
+    // SF.click(By.xpath('//select[@ng-model="vm.data.foreman"]/option[contains(text(), "'+V.foremanFirstName+'")]'));
+    // SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
+    // SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
+    // SF.click(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
+    // MF.WaitWhileToaster ();
+    // SF.sleep(2);
+    // MF.WaitWhileToaster ();
     SF.sleep(2);
     MF.Board_LogoutAdmin ();
 

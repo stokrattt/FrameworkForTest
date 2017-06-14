@@ -9,13 +9,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
 condition.nowWeDoing = 'идем в админку проверяем что стоит галка на флет рейт';
-    // SF.get(V.adminURL);
-    // LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    // MF.Board_OpenSettingsGeneral ();
-    // SF.sleep (3);
-    // JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
-    // driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
-    // MF.Board_LogoutAdmin ();
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenSettingsGeneral ();
+    SF.sleep (3);
+    JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
+    MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
 condition.nowWeDoing = 'создаем Flat Rate реквест';
     LF.CreateFlatRateDownForm(V.client);
@@ -111,7 +111,7 @@ condition.nowWeDoing = 'заполняем опции 2';
     JS.waitForNotExist('div.toast-message:visible');
     JS.waitForNotExist('div.toast-success:visible');
     /**************************иногда выскакивает иногда нет************/
-    MF.SweetConfirm ();
+    // MF.SweetConfirm ();
     /*********************************************************************************************/
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
@@ -142,7 +142,6 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     // SF.send(By.xpath('//input[@ng-model="deliveryDateSecondInput"]'), V.changedateDelAdmin);
     // driver.actions().sendKeys(Key.ENTER).perform();
 
-    Debug.pause();
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.sleep (1);
