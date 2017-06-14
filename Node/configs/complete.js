@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/DefaultSettings.js',
+       './tests/DefaultSettings.js',
         './tests/48_Review.js',
         // './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',
         './tests/4_CheckFuelCFitInventOffCalc.js',
@@ -63,7 +63,7 @@ module.exports = function(config,V) {
         './tests/44_CreateForemanAndAssignCheck.js',
         './tests/45_MovStorAddInventConfirmClient.js',
         './tests/46_FuelByMileage.js',
-        './tests/47_SendMessage.js',
+        './tests/47_SendMessage.js',        
         './tests/50_AddJobToTrip.js',
         './tests/53_ManualClosingWork.js',
         './tests/54_LDQuoteAndFuel.js',
@@ -89,9 +89,9 @@ module.exports = function(config,V) {
     config.timeout = 40000;
     config.chainFail = false;
     config.browser = 'chrome';
-    V.frontURL = 'http://movecalc.local:8080/front_site/';
-    V.accountURL = 'http://movecalc.local:8080/account/#/login';
-    V.adminURL = 'http://movecalc.local:8080/moveBoard/#/login';
+    V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
+    V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
+    V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
     V.adminLogin = 'TestAdmin';
     V.adminPassword = 'test';
     V.foremanLogin = 'TestForeman';
