@@ -117,7 +117,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.dateEnd = (future.toLocaleDateString('en-US', options));
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.start"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.start"]/div/input'), V.dateStart);
-    SF.sleep(1)
+    SF.sleep(1);
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'), V.dateEnd);
 

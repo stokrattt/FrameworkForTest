@@ -97,7 +97,7 @@ condition.nowWeDoing = 'зашли на админку для сравнения
 condition.nowWeDoing = 'зашли в аккаунт и добавляем инвентори';
     MF.Account_CheckRequestStatus_Pending (V.accountNumbersLD.Id);
     MF.Account_OpenRequest (V.accountNumbersLD.Id);
-    MF.Account_ClickViewRequest();
+    // MF.Account_ClickViewRequest();
     LF.AccountLocalAddInventory();
     SF.sleep(5);
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу после добавления инвентори на аккаунте';

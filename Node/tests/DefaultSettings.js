@@ -93,6 +93,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.select(By.xpath('//select[@ng-model="vm.calcSettings.min_hours"]'),1);
     MF.Board_OpenCompanyServices();
     V.CompanyServices={};
+    JS.scroll ('div:contains("General Settings")');
+    SF.sleep(2);
     driver.wait(driver.findElements(By.xpath(V.localSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
         V.CompanyServices.Local=(arr.length==1);
     }),config.timeout);

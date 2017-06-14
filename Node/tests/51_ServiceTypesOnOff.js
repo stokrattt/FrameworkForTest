@@ -46,6 +46,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.CompanyServices.Long=(arr.length==1);
     }),config.timeout);
     SF.sleep(1);
+    JS.scroll ('div:contains("General Settings")');
+    SF.sleep(2);
     if (!V.CompanyServices.Local) {console.log('вкл Local');SF.click(By.xpath(V.localSelector+'/..'));}
     if (V.CompanyServices.Overnight) {console.log('выкл Over');SF.click(By.xpath(V.overnightSelector+'/..'));}
     if (!V.CompanyServices.Loading) {console.log('вкл Load');SF.click(By.xpath(V.loadingSelector+'/..'));}

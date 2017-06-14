@@ -1412,13 +1412,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
             'Не совпал FromTotal формена');
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Daily.forCommission),
-            Math.floor(50),
+            Math.floor(10),
             'Не совпал Daily формена');
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Hourly.percent),
             Math.floor(10),
             'Не совпал Hourly формена');
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
-            Math.floor(25),
+            Math.floor(10),
             'Не совпал Bonus формена');
         Debug.pause();
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.forCommission),
