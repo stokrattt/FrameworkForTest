@@ -44,14 +44,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //open Foreman tab
     MF.EditRequest_PayrollOpenForemanTab();
     LF.EditRequestPayroll_RememberForeman(V.foremanName, V.boardNumbers.Payroll.foremanForCommission);
-    MF.EditRequest_PayrollAddForeman('ned stark');
-    MF.EditRequest_PayrollAddForemanCommission('ned stark', 'Bonus');
-    MF.EditRequest_PayrollSetForemanCommission('ned stark','Bonus',7,90);
-    LF.EditRequestPayroll_RememberForeman('ned stark', V.boardNumbers.Payroll.starkForCommission);
+    MF.EditRequest_PayrollAddForeman('formen test1');
+    MF.EditRequest_PayrollAddForemanCommission('formen test1', 'Bonus');
+    MF.EditRequest_PayrollSetForemanCommission('formen test1','Bonus',7,90);
+    LF.EditRequestPayroll_RememberForeman('formen test1', V.boardNumbers.Payroll.starkForCommission);
     //submit payroll
     SF.click(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     MF.SweetConfirm();
     MF.SweetConfirm();
+    SF.sleep(2);
     MF.EditRequest_CloseModal();
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenPayroll();
@@ -67,9 +68,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     VD.IWant(VD.VToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-
+    SF.sleep(2);
     MF.Payroll_ClickAllDepartment();
-    LF.findTestForemanInPayroll('ned stark');
+    LF.findTestForemanInPayroll('formen test1');
     driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.boardNumbers.Id)).then(function (text) {
         V.payrollNumbers.Foreman.Total = SF.cleanPrice(text);
     }), config.timeout);
