@@ -1420,7 +1420,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
             Math.floor(10),
             'Не совпал Bonus формена');
-        Debug.pause();
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.forCommission),
             Math.floor(boardNumbers.Quote/boardNumbers.HourlyRate),
             'Не совпал LaborTime формена');
