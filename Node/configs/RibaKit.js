@@ -1,6 +1,9 @@
 module.exports = function(config,V) {
+
+    config.timeout = 60000;
+
     config.suite = [
-        './tests/49_FlatRateLocalMove.js'
+        './tests/1_AllLocalMoving.js'
     ];
     config.chainFail = false;
     /*V.adminURL = 'localhost:8080/moveBoard/#/dashboard';
@@ -11,6 +14,7 @@ module.exports = function(config,V) {
     V.adminURL = 'http://89.223.29.231:8080/moveBoard/#/login';
     V.adminLogin = 'RibaKitAdmin';
     V.adminPassword = 'test';
+    V.adminEmail = 'test@boston.com';//сюда будут прилетать все письма
     V.foremanLogin = 'RibaKitForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Foreman Riba';

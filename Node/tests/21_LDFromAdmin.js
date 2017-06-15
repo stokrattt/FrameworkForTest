@@ -126,8 +126,8 @@ condition.nowWeDoing = 'идём в логи';
 
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
-    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
-    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Long Distance Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Long Distance Quote (Pending Status)");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Long Distance Quote (Not Confirmed Status)");
 
     V.logNumbers={};

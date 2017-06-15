@@ -49,7 +49,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.client.email, "Loading created (Pending)");
-    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Request Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
 
@@ -85,7 +85,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Loading Confirmed");
-    MF.EditRequest_Check1EmailExist("roman@elromco.com", "Send to Admin when confirmed");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
     MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();

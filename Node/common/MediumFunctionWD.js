@@ -836,7 +836,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElements(By.xpath('//div[@ng-show="tabs[0].selected"]//span[' +
             'contains(text(),\'Mail was send to "'+receiver+'".\') and ' +
             'contains(text(),\'Subject: "'+Subject+'\')]')).then(function(array){
-            VD.IWant(VD.VToEqual, array.length,1,'имейл '+Subject+' не был отправлен или отправлен несколько раз');
+            VD.IWant(VD.VToEqual, array.length,1,'имейл '+Subject+' не был отправлен на '+receiver+' или отправлен несколько раз');
         }), config.timeout);
     }
 
