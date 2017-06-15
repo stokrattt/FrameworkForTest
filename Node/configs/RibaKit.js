@@ -12,6 +12,7 @@ module.exports = function(config,V) {
     V.adminURL = 'http://89.223.29.231:8080/moveBoard/#/login';
     V.adminLogin = 'TestAdmin';
     V.adminPassword = 'test';
+    V.adminEmail = 'test@boston.com';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
