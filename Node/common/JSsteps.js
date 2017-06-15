@@ -378,18 +378,7 @@ exports.payrollTableSum = function () {
 exports.CheckSumsInContract = function () {
     var HowToLook = function (text) {
         console.log('грязный текст:'+text);
-        var cifra='';
-        var index=text.indexOf('$');
-        if (index!==-1) {
-            var i=index+1;
-            while ( ( (!isNaN(text[i])) || (text[i]==='.') || (text[i]===',') || (text[i]===' ') ) && (i<text.length) ){
-                if (text[i]!==',') cifra+=text[i];
-                i++;
-            }
-            cifra=Number(cifra);
-        } else {
-            cifra=Number(text);
-        }
+        var cifra=parseFloat(text.replace(/[^\d'.']/g,''));
         console.log('цифра:'+cifra);
         return cifra;
     };
