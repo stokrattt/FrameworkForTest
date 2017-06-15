@@ -6,19 +6,17 @@ module.exports = function(config,V) {
         './tests/1_AllLocalMoving.js'
     ];
     config.chainFail = false;
-    /*V.adminURL = 'localhost:8080/moveBoard/#/dashboard';
-    V.accountURL = 'localhost:8080/account/#/login';
-    V.frontURL = 'localhost:8080/front_site/esquiremoving/';*/
+    config.browser = 'chrome';
     V.frontURL = 'http://89.223.29.231:8080/front_site/';
     V.accountURL = 'http://89.223.29.231:8080/account/#/login';
     V.adminURL = 'http://89.223.29.231:8080/moveBoard/#/login';
-    V.adminLogin = 'RibaKitAdmin';
+    V.adminLogin = 'TestAdmin';
     V.adminPassword = 'test';
-    V.adminEmail = 'test@boston.com';//сюда будут прилетать все письма
-    V.foremanLogin = 'RibaKitForeman';
+    V.foremanLogin = 'TestForeman';
     V.foremanPassword = '123';
-    V.foremanName = 'Foreman Riba';
-    V.foremanEmail = 'RibaKitForeman@test.test';
+    V.foremanName = 'Test Foreman';
+    V.adminName = 'Test';
+    V.foremanEmail = 'TestForeman@mail.com';
     V.managerName = 'emilia clark';
     V.managerFirstName = 'emilia';
 };
