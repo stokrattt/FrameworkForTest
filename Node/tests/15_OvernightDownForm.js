@@ -95,7 +95,6 @@ condition.nowWeDoing = 'запоминаем данные калькулятор
     }), config.timeout);
 */
     SF.sleep(2);
-    Debug.pause();
     SF.click(By.id('submitRequestButton'));
     SF.sleep (4);
     SF.click(By.linkText('View Request Page'));
@@ -206,7 +205,7 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     SF.sleep(0.5);
     SF.click (By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
-    MF.SweetConfirm ();
+    //MF.SweetConfirm ();
     LF.FillCardPayModal ();
     SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
