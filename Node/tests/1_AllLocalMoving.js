@@ -100,7 +100,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(1);
     LF.MakeSignInContract();
-    //LF.MakeSignInContract();
+    LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
