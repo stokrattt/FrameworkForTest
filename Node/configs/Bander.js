@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/69_SITAddStorage.js'];
+    config.suite = ['./tests/68_SITPickUpDelivery.js'];
 
     config.chainFail = false;
     config.timeout = 120000;

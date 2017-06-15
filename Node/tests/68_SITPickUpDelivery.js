@@ -116,7 +116,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.VToEqual, V.deliveryTo, '3465456456432132', 'delivery to не совпали');
     }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"LD")]/..//div[8]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[8]')).getText().then(function(text){
         V.statusLD =  text;
         VD.IWant(VD.VToEqual, V.statusLD, 'LD', 'LD status не совпали');
     }),config.timeout);

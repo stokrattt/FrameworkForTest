@@ -208,11 +208,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('span:contains(\\"Update\\")');
     SF.sleep(2);
 
-    condition.nowWeDoing = 'Проверяем логи после того как удалили работу с трипа';
-    JS.click('span:contains(\\"Log\\")');
-    SF.sleep(4);
-    driver.wait(driver.findElement(By.xpath('//b[contains(text(),"Job #' + V.ldJobId + ' was removed")]')).getText().then(function(text){
-    }),config.timeout);
+    // condition.nowWeDoing = 'Проверяем логи после того как удалили работу с трипа';
+    // JS.click('span:contains(\\"Log\\")');
+    // SF.sleep(4);
+    // driver.wait(driver.findElement(By.xpath('//b[contains(text(),"Job #' + V.ldJobId + ' was removed")]')).getText().then(function(text){
+    // }),config.timeout);
 
     MF.Board_OpenSideBar ();
     MF.Board_OpenCarriersAndAgents ();
