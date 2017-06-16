@@ -1433,8 +1433,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//li[@heading="Helpers"]/a'));
         SF.sleep(2);
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
-            V.boardNumbers.Payroll.helpersForCommission.total = SF.cleanPrice(text);
-            console.log(V.boardNumbers.Payroll.helpersForCommission.total);
+            boardNumbers.Payroll.helpersForCommission.total = SF.cleanPrice(text);
         }),config.timeout);
         SF.sleep(1);
     }
@@ -1992,6 +1991,12 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             SF.sleep(2);
         }
     }
+    function Contract_ReviewGive(stars, text){
+        MF.Contract_ReviewClickStar(stars);
+        MF.Contract_ReviewTypeFeedback(text);
+        MF.Contract_ReviesSend();
+        MF.Contract_OpenBillOfLading();
+    }
     function RememberLocalMoveDigitsCalc(LocalMoveAdminCalc) {
         driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Rate:")]/following-sibling::td[1]')).getText().then(function(rate){
             LocalMoveAdminCalc.HourlyRate = rate.indexOf('$', 4) == -1 ?
@@ -2288,6 +2293,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberStorage: RememberStorage,
         Contract_SignMainPayment:Contract_SignMainPayment,
         Contract_AddInventory:Contract_AddInventory,
+        Contract_ReviewGive: Contract_ReviewGive,
         RememberAndValidatePayroll_In_EditRequestFlatRatePickup: RememberAndValidatePayroll_In_EditRequestFlatRatePickup,
         RememberAndValidatePayroll_In_EditRequestFlatRateDelivery: RememberAndValidatePayroll_In_EditRequestFlatRateDelivery,
 //Payroll

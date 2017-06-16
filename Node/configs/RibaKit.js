@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 60000;
 
     config.suite = [
-        './tests/1_AllLocalMoving.js'
+        './tests/37_PendingStorage.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

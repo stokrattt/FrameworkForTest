@@ -460,6 +460,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             VD.IWant (VD.VToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
         }),config.timeout);
     }
+    function Contract_ReviewClickStar(stars){
+        SF.click(By.xpath('//li[@ng-repeat="star in stars"]['+stars+']'));
+    }
+    function Contract_ReviewTypeFeedback(text){
+        SF.send(By.xpath('//textarea[@ng-model="feedBack.comments"]'), text);
+    }
+    function Contract_ReviesSend(){
+        SF.click(By.xpath('//button[@ng-click="saveFeedBack()"]'));
+        SweetConfirm();
+    }
     //=================================EDIT STORAGE REQUEST=====================================
 
     function EditStorage_RememberId(storage) {
@@ -1117,6 +1127,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_SetRentalAddress: Contract_SetRentalAddress,
         Contract_SetRentalZip: Contract_SetRentalZip,
         Contract_CheckLoadBillOfLadding: Contract_CheckLoadBillOfLadding,
+        Contract_ReviewClickStar: Contract_ReviewClickStar,
+        Contract_ReviewTypeFeedback: Contract_ReviewTypeFeedback,
+        Contract_ReviesSend: Contract_ReviesSend,
         //=================================EDIT STORAGE REQUEST=====================================
         EditStorage_RememberId: EditStorage_RememberId,
         EditStorage_OpenLedger: EditStorage_OpenLedger,

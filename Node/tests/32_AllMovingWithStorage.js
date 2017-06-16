@@ -161,7 +161,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.VToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }));
-Debug.pause();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -218,7 +217,6 @@ Debug.pause();
     MF.Contract_OpenInventory();
 
     //тут нужно будет вставить валидацию инвентаря на контракте from storage
-    Debug.pause();
 
     LF.MakeSignInInventory(2);
     LF.MakeSignInInventory(3);
