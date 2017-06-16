@@ -70,6 +70,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         'id=' + V.boardNumbers.Id);
     SF.sleep(2);
     MF.Payroll_ClickAllDepartment();
+    MF.WaitWhileBusy ();
     LF.findTestForemanInPayroll('formen test1');
     driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.boardNumbers.Id)).then(function (text) {
         V.payrollNumbers.Foreman.Total = SF.cleanPrice(text);

@@ -161,7 +161,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_OpenSettingsAccountPageCustomBlock() {
         SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
-        SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][4]'));
+        SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][5]'));
         SF.sleep(2);
     }
     function Board_OpenSettingsLongDistance() {

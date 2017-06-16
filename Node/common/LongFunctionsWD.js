@@ -1450,23 +1450,23 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }));
         SF.sleep(1);
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office),
-            Math.floor(boardNumbers.Total
-                - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
+            (Math.floor(boardNumbers.Total
+                - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips)/2),
             'Не совпал ForCommission менеджера');
 
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
         SF.click(By.xpath('//li[@heading="Foremen"]/a'));
-        driver.wait(driver.executeScript('return ' +
-            '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
-        ).then(function (text) {
-            boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
-        }));
-        SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
-            Math.floor(boardNumbers.Tips / 4),
-            'Не совпал Tips формена');
+        // driver.wait(driver.executeScript('return ' +
+        //     '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        // ).then(function (text) {
+        //     boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
+        // }));
+        // SF.sleep(1);
+        // VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
+        //     Math.floor(boardNumbers.Tips / 4),
+        //     'Не совпал Tips формена');
 
 
         driver.wait(driver.executeScript('return ' +
@@ -1507,15 +1507,15 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(3);
 
         SF.click(By.xpath('//li[@heading="Foremen"]/a'));
-        driver.wait(driver.executeScript('return ' +
-            '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
-        ).then(function (text) {
-            boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
-        }));
-        SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
-            Math.floor(boardNumbers.Tips / 4),
-            'Не совпал Tips формена');
+        // driver.wait(driver.executeScript('return ' +
+        //     '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
+        // ).then(function (text) {
+        //     boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
+        // }));
+        // SF.sleep(1);
+        // VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
+        //     Math.floor(boardNumbers.Tips / 4),
+        //     'Не совпал Tips формена');
 
         driver.wait(driver.executeScript('return ' +
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'

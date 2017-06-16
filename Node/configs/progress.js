@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/19_SignForemanJobAndUnssignetJob.js'];
+    config.suite = ['./tests/67_EditRequestPayrollAdding.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;

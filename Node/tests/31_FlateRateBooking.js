@@ -111,7 +111,7 @@ condition.nowWeDoing = 'заполняем опции 2';
     JS.waitForNotExist('div.toast-message:visible');
     JS.waitForNotExist('div.toast-success:visible');
     /**************************иногда выскакивает иногда нет************/
-    // MF.SweetConfirm ();
+    MF.SweetConfirm ();
     /*********************************************************************************************/
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);

@@ -25,7 +25,6 @@ condition.nowWeDoing = 'добавляем два разы инвенторий 
     MF.WaitWhileBusy ();
     V.accountNumbers = {};
     LF.RememberAccountNumbers (V.accountNumbers);
-    Debug.pause();
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -38,7 +37,6 @@ condition.nowWeDoing = 'пошли на дашборд, открываем ре�
     SF.sleep(1);
     LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbers);
     SF.sleep(1);
-    Debug.pause();
     MF.EditRequest_OpenSettings ();
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.showCoupons"]/following-sibling::span'));
     SF.sleep(1);

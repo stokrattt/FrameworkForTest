@@ -263,7 +263,7 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
         V.payrollNumbersPickup.Helper.Total = SF.cleanPrice(text);
     }), config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.payrollNumbersPickup.Helper.Total, V.boardNumbersPickup.Payroll.helpersForComission.total, 'не совпали цифры в Payroll pickup helper\n' +
+    VD.IWant(VD.VToEqual, V.payrollNumbersPickup.Helper.Total, (V.boardNumbersPickup.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll pickup helper\n' +
         'id=' + V.FRId);
     SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
@@ -296,15 +296,27 @@ condition.nowWeDoing = 'начинаем проверять чувачком и�
     SF.sleep(1);
 
 condition.nowWeDoing = 'выбираем цифры helper delivery';
+    now = new Date();
+    msInDay = 86400000;
+    future = new Date(now.getTime() + msInDay * 4);
+    options = { month: 'short', day: 'numeric', year: 'numeric' };
+    V.changedateDelPayrolol = (future.toLocaleDateString('en-US', options));
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
+    SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));
+    SF.send(By.xpath('//input[@ng-model="dateRange.from"]'), V.changedateDelPayrolol);
+    SF.clear(By.xpath('//input[@ng-model="dateRange.to"]'));
+    SF.send(By.xpath('//input[@ng-model="dateRange.to"]'), V.changedateDelPayrolol);
+    SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
+    SF.sleep(1);
+    MF.WaitWhileBusy ();
     LF.findHelperInPayroll('Test Helper1');
     driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.FRId)).then(function (text) {
         V.payrollNumbersDelivery.Helper.Total = SF.cleanPrice(text);
     }), config.timeout);
     SF.sleep(1);
 
-    VD.IWant(VD.VToEqual, V.payrollNumbersDelivery.Helper.Total, V.boardNumbersDelivery.Payroll.helpersForComission.total, 'не совпали цифры в Payroll helper\n' +
+    VD.IWant(VD.VToEqual, V.payrollNumbersDelivery.Helper.Total, (V.boardNumbersDelivery.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper\n' +
         'id=' + V.FRId);
     SF.sleep(1);
 
