@@ -1185,6 +1185,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                     driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
                 }
             }), config.timeout);
+        JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
+        SF.sleep(1);
         SF.click(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
         JS.waitForExist('div.toast-success');
         SF.sleep(2);
@@ -1210,6 +1212,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                     driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
                 }
             }), config.timeout);
+        JS.scroll('a[ng-click=\"super.vm.assignTeam()\"]');
+        SF.sleep(1);
         SF.click(By.xpath("//a[@ng-click=\"super.vm.assignTeam()\"]"));
         MF.WaitWhileBusy ();
         JS.waitForExist('div.toast-success');
@@ -1236,6 +1240,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                     driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
                 }
             }), config.timeout);
+        JS.scroll('a[ng-click=\"super.vm.assignTeam()\"]');
+        SF.sleep(1);
         JS.click('a[ng-click=\\"super.vm.assignTeam()\\"]:visible');
         MF.WaitWhileBusy ();
         JS.waitForExist('div.toast-success');

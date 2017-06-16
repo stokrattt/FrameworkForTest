@@ -15,6 +15,7 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     LF.CreateLocalMovingFromBoard(V.client);
     V.boardNumbersDefault = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersDefault);
+    Debug.pause();
     LF.addInventoryBoard ();
     SF.sleep (4);
     V.boardNumbersInventory = {};
@@ -30,6 +31,7 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     V.boardNumbersDefault2 = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersDefault2);
     LF.Validation_Compare_Account_Admin (V.boardNumbersDefault2, V.boardNumbersDefault);
+    Debug.pause();
     MF.EditRequest_OpenSettings ();
 condition.nowWeDoing = 'идем в аккаунт и проверяем что там стоит дефолтный кубик фит';
     SF.click (By.xpath('//button[@ng-click="goToRequest()"]'));

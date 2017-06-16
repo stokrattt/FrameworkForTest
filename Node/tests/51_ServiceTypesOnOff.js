@@ -55,6 +55,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (V.CompanyServices.Storage) {console.log('выкл Stor');SF.click(By.xpath(V.storageSelector+'/..'));}
     if (!V.CompanyServices.Flat) {console.log('вкл Flat');SF.click(By.xpath(V.flatSelector+'/..'));}
     if (V.CompanyServices.Long) {console.log('выкл Long');SF.click(By.xpath(V.longSelector+'/..'));}
+    JS.scroll ('div:contains("General Settings")');
+
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing='проверяем на фронте: включено ли только Local,Loading,Unloading,Long';
