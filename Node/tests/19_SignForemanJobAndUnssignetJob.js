@@ -32,7 +32,6 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
-    Debug.pause();
     MF.Board_LogoutAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
@@ -62,6 +61,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
+    LF.Contract_ReviewGive(3, "test text for review");
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_Submit();

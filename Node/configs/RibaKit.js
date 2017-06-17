@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 60000;
 
     config.suite = [
-        './tests/37_PendingStorage.js'
+        './tests/19_SignForemanJobAndUnssignetJob.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';
