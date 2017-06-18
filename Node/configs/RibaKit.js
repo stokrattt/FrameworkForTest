@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 60000;
 
     config.suite = [
-        './tests/20_LDTopForm.js'
+        './tests/38_CustomPayrollInRequest.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

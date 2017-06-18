@@ -701,11 +701,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"' + name + '") and @selected="selected"]' +
             '/../../../../../tbody/tr[last()]/preceding-sibling::tr[1]//select[@ng-model="foreman.id"]/option[contains(text(),"'+type+'")]'));
     }
-
     function EditRequest_PayrollGetForemansTotal(foremanForCommission) {
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
             foremanForCommission.total = SF.cleanPrice(text);
         });
+    }
+    function EditRequest_PayrollSubmit(){
+		SF.click(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
+		MF.SweetConfirm();
+		MF.SweetConfirm();
+		SF.sleep(2);
     }
 
     function EditRequest_CloseEditRequest() {
@@ -1163,6 +1168,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_PayrollSetForemanCommission: EditRequest_PayrollSetForemanCommission,
         EditRequest_PayrollGetForemanCommission: EditRequest_PayrollGetForemanCommission,
         EditRequest_PayrollAddForemanCommission:EditRequest_PayrollAddForemanCommission,
+		EditRequest_PayrollSubmit: EditRequest_PayrollSubmit,
 
         EditRequest_CloseEditRequest: EditRequest_CloseEditRequest,
         EditRequest_CloseModal: EditRequest_CloseModal,

@@ -49,10 +49,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_PayrollSetForemanCommission('formen test1','Bonus',7,90);
     LF.EditRequestPayroll_RememberForeman('formen test1', V.boardNumbers.Payroll.starkForCommission);
     //submit payroll
-    SF.click(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
-    MF.SweetConfirm();
-    MF.SweetConfirm();
-    SF.sleep(2);
+	MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenPayroll();

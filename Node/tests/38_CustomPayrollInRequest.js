@@ -30,14 +30,11 @@ condition.nowWeDoing = 'Законфёрмить сразу реквест';
 
 condition.nowWeDoing = 'добавить в пейролл людей и закрыть';
     MF.EditRequest_OpenPayroll ();
-    SF.click(By.xpath('//div[@ng-click="addWorker(\'salesPerson\')"]'));
-    SF.select(By.xpath('//select[@ng-model="selected.salesPerson[salesPersonIndex]"]'),5899);
+	MF.EditRequest_PayrollAddManager(V.managerName);
     MF.WaitWhileBusy ();
-    SF.click(By.xpath('//a[@ng-click="select(tabs[1])"][contains(text(),"Foremen")]'));
-    SF.click(By.xpath('//div[@ng-click="addWorker(\'foreman\')"]'));
-    SF.select(By.xpath('//select[@ng-model="selected.foreman[foremanIndex]"]'),6156);
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
+	MF.EditRequest_PayrollOpenForemanTab();
+	MF.EditRequest_PayrollAddForeman(V.foremanName);
+	SF.click(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     SF.sleep(2);
     SF.click(By.xpath('//button[@class="confirm"]'));
     JS.waitForExist('div.sa-success:visible');
@@ -53,14 +50,14 @@ condition.nowWeDoing = 'снова открыть и найти людей';
     MF.Board_RefreshDashboard ();
     LF.OpenRequest(V.boardNumbers.Id);
     MF.EditRequest_OpenPayroll();
-    driver.wait(driver.executeScript('return $(\'select[ng-model="selected.salesPerson[salesPersonIndex]"]:visible  option[selected="selected"]:contains("emilia")\').length;')
+    driver.wait(driver.executeScript('return $(\'select[ng-model="selected.salesPerson[salesPersonIndex]"]:visible  option[selected="selected"]:contains("'+V.managerFirstName+'")\').length;')
         .then(function(count){
             V.countSales=count;
         }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.VToEqual, V.countSales, 1,'не сохранился Sale');
     SF.click(By.xpath('//a[@ng-click="select(tabs[1])"][contains(text(),"Foremen")]'));
-    driver.wait(driver.executeScript('return $(\'select[ng-model="selected.foreman[foremanIndex]"]:visible  option[selected="selected"]:contains("Test Foreman")\').length;')
+    driver.wait(driver.executeScript('return $(\'select[ng-model="selected.foreman[foremanIndex]"]:visible  option[selected="selected"]:contains("'+V.foremanName+'")\').length;')
         .then(function(count){
             V.countForeman=count;
         }),config.timeout);

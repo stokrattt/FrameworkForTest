@@ -88,6 +88,7 @@ condition.nowWeDoing = 'Редактируем карьера';
     SF.send (By.xpath('//input[@ng-model="agentModel.data.web_site"]'), V.carrierNew2.webSite);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierNew2.phoneNumber1);
+    Debug.pause();
     SF.sleep(2);
     JS.click('span:contains(\\"Save\\")');
     SF.sleep(5);
@@ -119,6 +120,7 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     VD.IWant(VD.VToEqual,V.carrierNew3.eMail, V.carrierNew2.eMail,'Поля не совпадают');
     VD.IWant(VD.VToEqual,V.carrierNew3.webSite, V.carrierNew2.webSite,'Поля не совпадают');
     VD.IWant(VD.VToEqual,-SF.cleanPrice(V.carrierNew3.phoneNumber1), V.carrierNew2.phoneNumber1,'Поля не совпадают');
+    Debug.pause();
     SF.sleep(1);
     JS.click('span:contains(\\"Save\\")');
     SF.sleep(3);
