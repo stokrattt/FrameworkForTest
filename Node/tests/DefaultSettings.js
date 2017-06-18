@@ -93,7 +93,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.select(By.xpath('//select[@ng-model="vm.calcSettings.min_hours"]'),1);
     MF.Board_OpenCompanyServices();
     V.CompanyServices={};
-    JS.scroll ('div:contains("General Settings")');
+    JS.scroll ('h4:contains("Company Services Settings")');
     SF.sleep(2);
     driver.wait(driver.findElements(By.xpath(V.localSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
         V.CompanyServices.Local=(arr.length==1);
@@ -125,6 +125,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (!V.CompanyServices.Flat) {SF.click(By.xpath(V.flatSelector+'/..'));}
     if (!V.CompanyServices.Long) {SF.click(By.xpath(V.longSelector+'/..'));}
     SF.sleep(2);
+    MF.Board_OpenSettingsGeneral ();
+    SF.sleep (3);
+    JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
+    SF.sleep(3);
     MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();

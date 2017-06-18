@@ -14,7 +14,9 @@ condition.nowWeDoing = 'идем в админку проверяем что с�
     MF.Board_OpenSettingsGeneral ();
     SF.sleep (3);
     JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
+    Debug.pause();
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
 condition.nowWeDoing = 'создаем Flat Rate реквест';

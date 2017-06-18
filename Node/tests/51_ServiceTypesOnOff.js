@@ -46,7 +46,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.CompanyServices.Long=(arr.length==1);
     }),config.timeout);
     SF.sleep(1);
-    JS.scroll ('div:contains("General Settings")');
+    JS.scroll ('h4:contains("Company Services Settings")');
     SF.sleep(2);
     if (!V.CompanyServices.Local) {console.log('вкл Local');SF.click(By.xpath(V.localSelector+'/..'));}
     if (V.CompanyServices.Overnight) {console.log('выкл Over');SF.click(By.xpath(V.overnightSelector+'/..'));}
@@ -134,6 +134,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing='Включаем только Storage,Overnight,Flat';
     MF.Board_OpenCompanyServices();
+    JS.scroll ('h4:contains("Company Services Settings")');
+    SF.sleep(2);
     V.CompanyServices={};
     driver.wait(driver.findElements(By.xpath(V.localSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
         V.CompanyServices.Local=(arr.length==1);
@@ -241,6 +243,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing='Возвращаем как было';
     MF.Board_OpenCompanyServices();
+    JS.scroll ('h4:contains("Company Services Settings")');
+    SF.sleep(2);
     V.CompanyServices={};
     driver.wait(driver.findElements(By.xpath(V.localSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){
         V.CompanyServices.Local=(arr.length==1);
