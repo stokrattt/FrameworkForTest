@@ -123,7 +123,7 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
     MF.Contract_SaveImages();
 
     //review
-    LF.Contract_ReviewGive(3, "test text for review");
+    // LF.Contract_ReviewGive(3, "test text for review");
 
     LF.MakeSignInContract();
     LF.MakeSignInContract();
@@ -201,7 +201,7 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
     //review
-    LF.Contract_ReviewGive(3, "test text for review");
+    // LF.Contract_ReviewGive(3, "test text for review");
 
     LF.MakeSignInContract();
     LF.MakeSignInContract();
