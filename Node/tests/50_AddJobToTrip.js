@@ -90,7 +90,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(2);
     JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.sleep(3);
+    SF.sleep(6);
     JS.click('span:contains(\\"Closing\\")');
 
     condition.nowWeDoing = 'редактируем поля и проверяем циферки';

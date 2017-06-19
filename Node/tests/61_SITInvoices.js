@@ -120,7 +120,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(2);
     JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.sleep(3);
+    SF.sleep(6);
     JS.click('span:contains(\\"Closing\\")');
     SF.sleep(3);
     SF.click(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]'));
