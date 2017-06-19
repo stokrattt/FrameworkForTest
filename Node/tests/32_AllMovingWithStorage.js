@@ -8,6 +8,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
+    V.managerName = 'emilia clark';
+
 
     condition.nowWeDoing = 'заполняем верхнюю форму как MovingWithStorage';
     SF.get(V.frontURL);

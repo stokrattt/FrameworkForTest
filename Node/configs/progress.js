@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/30_StorageTenant.js'];
+    config.suite = ['./tests/67_EditRequestPayrollAdding.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
@@ -14,6 +14,7 @@ module.exports = function(config,V) {
     V.adminName = 'Test';
     V.foremanEmail = 'TestForeman@mail.com';
     V.adminEmail = 'test@boston.com';//сюда будут прилетать все письма
+    V.managerName = 'emilia clark';
 
 
 };

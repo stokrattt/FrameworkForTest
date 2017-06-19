@@ -15,14 +15,17 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     LF.CreateLocalMovingFromBoard(V.client);
     V.boardNumbersDefault = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersDefault);
-    Debug.pause();
+
     LF.addInventoryBoard ();
     SF.sleep (4);
     V.boardNumbersInventory = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersInventory);
     MF.EditRequest_OpenSettings ();
     SF.click (By.xpath('//div[@ng-click="selectList(1)"]'));
+    SF.sleep(2);
     MF.EditRequest_OpenRequest ();
+    SF.sleep(4);
+    Debug.pause ();
     MF.EditRequest_RememberId (V.request);
     LF.addToCleanerJob (V.request.Id);
     MF.EditRequest_SaveChanges ();

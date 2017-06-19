@@ -1175,14 +1175,18 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             driver.findElements(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function (count) {
                 if (count.length > 0) {
                     driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).click());
-                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper2')]")).click());
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']" +
+                        "//option[contains(text(),'Test Helper2')]")).click());
                 }
             }), config.timeout);
+        JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
+        SF.sleep(1);
         driver.wait(
             driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function (count) {
                 if (count.length > 0) {
                     driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).click());
-                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']" +
+                        "//option[contains(text(),'Test Helper3')]")).click());
                 }
             }), config.timeout);
         JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
@@ -1426,9 +1430,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
             Math.floor(10),
             'Не совпал Bonus формена');
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.forCommission),
-            Math.floor(boardNumbers.Quote/boardNumbers.HourlyRate),
-            'Не совпал LaborTime формена');
+        // VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.forCommission),
+        //     Math.floor(boardNumbers.Quote/boardNumbers.HourlyRate),
+        //     'Не совпал LaborTime формена');
         SF.sleep(1);
         SF.click(By.xpath('//li[@heading="Helpers"]/a'));
         SF.sleep(2);

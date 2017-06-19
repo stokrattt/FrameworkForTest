@@ -58,7 +58,7 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     SF.send(By.xpath('//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'), 200);
 
     LF.MakeSignInContract();
-    // LF.MakeSignInContract();
+    LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
