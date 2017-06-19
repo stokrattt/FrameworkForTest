@@ -9,12 +9,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
 
-condition.nowWeDoing = 'создать local Moving реквест с борда';
+    condition.nowWeDoing = 'создать local Moving реквест с борда';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
 
-condition.nowWeDoing = 'Законфёрмить сразу реквест';
+    condition.nowWeDoing = 'Законфёрмить сразу реквест';
     V.boardNumbers = {};
     LF.addInventoryBoard ();
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -28,13 +28,13 @@ condition.nowWeDoing = 'Законфёрмить сразу реквест';
     MF.EditRequest_SetLaborTimeCloseJob ();
     MF.EditRequest_CloseJob ();
 
-condition.nowWeDoing = 'добавить в пейролл людей и закрыть';
+    condition.nowWeDoing = 'добавить в пейролл людей и закрыть';
     MF.EditRequest_OpenPayroll ();
-	MF.EditRequest_PayrollAddManager(V.managerName);
+    MF.EditRequest_PayrollAddManager(V.managerName);
     MF.WaitWhileBusy ();
-	MF.EditRequest_PayrollOpenForemanTab();
-	MF.EditRequest_PayrollAddForeman(V.foremanName);
-	SF.click(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
+    MF.EditRequest_PayrollOpenForemanTab();
+    MF.EditRequest_PayrollAddForeman(V.foremanName);
+    SF.click(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     SF.sleep(2);
     SF.click(By.xpath('//button[@class="confirm"]'));
     JS.waitForExist('div.sa-success:visible');
@@ -45,14 +45,12 @@ condition.nowWeDoing = 'добавить в пейролл людей и зак�
     SF.sleep(1);
     LF.closeEditRequest();
 
-condition.nowWeDoing = 'снова открыть и найти людей';
+    condition.nowWeDoing = 'снова открыть и найти людей';
     MF.Board_OpenConfirmed ();
     MF.Board_RefreshDashboard ();
     LF.OpenRequest(V.boardNumbers.Id);
     MF.EditRequest_OpenPayroll();
-    driver.wait(driver.executeScript('return $(\'select[ng-model="selected.salesPerson[salesPersonIndex]"]:visible  option[selected="selected"]:contains("'+V.managerFirstName+'")\').length;'));
-
-    driver.wait(driver.executeScript('return $(\'select[ng-model="selected.salesPerson[salesPersonIndex]"]:visible  option[selected="selected"]:contains("JackSales do not delete")\').length;')
+    driver.wait(driver.executeScript('return $(\'select[ng-model="selected.salesPerson[salesPersonIndex]"]:visible  option[selected="selected"]:contains("'+V.managerFirstName+'")\').length;')
         .then(function(count){
             V.countSales=count;
         }),config.timeout);
