@@ -708,8 +708,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_PayrollSubmit(){
 		SF.click(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
-		MF.SweetConfirm();
-		MF.SweetConfirm();
+		SweetConfirm();
+		SweetConfirm();
 		SF.sleep(2);
     }
 
