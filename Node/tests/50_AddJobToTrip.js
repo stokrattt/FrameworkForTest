@@ -115,7 +115,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]')).getText().then(function(text){
         V.cleanTPCollected = SF.cleanPrice(text);
         console.log(V.cleanTPCollected);
-        VD.IWant(VD.VToEqual, V.tpCollected, V.cleanTPCollected, 'не совпали TP Collected');
+        VD.IWant(VD.VToEqual, V.tpCollected, V.cleanTPCollected, 'не совпали TP Collected в клоузинге c Payment в модалке реквеста');
     }),config.timeout);
     SF.click(By.xpath('//div[@ng-click="openRateModal(item)"]'));
     V.ratePerCf= 4;
@@ -159,7 +159,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.totalTPCollected = V.somePayment + V.tpCollected;
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]')).getText().then(function(text){
         V.cleanTotalTPCollected = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.totalTPCollected, V.cleanTotalTPCollected, 'не совпали TPcollected');
+        VD.IWant(VD.VToEqual, V.totalTPCollected, V.cleanTotalTPCollected, 'не совпали TPcollected после добавления кастомного пеймента');
     }),config.timeout);
     SF.sleep(1);
     V.jobCost = V.volumeCf * V.ratePerCf;
@@ -174,12 +174,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.cleanJobTotal = SF.cleanPrice(text);
         VD.IWant(VD.VToEqual, V.jobTotal, V.cleanJobTotal, 'не совпали Total Job Cost');
     }),config.timeout);
+    SF.sleep(2);
 
     V.balance = V.totalTPCollected - V.jobTotal;
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openVolumeModal(item)"]/following-sibling::div[last()]')).getText().then(function(text){
         V.cleanBalance = SF.cleanPrice(text);
         VD.IWant(VD.VToEqual, V.balance, V.cleanBalance, 'не совпали Balance');
     }),config.timeout);
+    SF.sleep(2);
 
     condition.nowWeDoing = 'Проверяем логи';
     JS.click('span:contains(\\"Log\\")');

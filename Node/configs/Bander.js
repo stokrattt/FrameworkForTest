@@ -1,8 +1,10 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/70_SITAddTripPersonallyForeman.js'];
+    config.suite = ['./tests/33_AddCarrier',
+        './tests/50_AddJobToTrip'
+    ];
 
     config.chainFail = false;
-    config.timeout = 60000;
+    config.timeout = 40000;
     // V.frontURL = 'http://stage.themoveboard.com:8090/front_site/';
     // V.accountURL = 'http://stage.themoveboard.com:8090/account/#/login';
     // V.adminURL = 'http://stage.themoveboard.com:8090/moveBoard/#/login';
