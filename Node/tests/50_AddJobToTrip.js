@@ -60,7 +60,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'), V.dateEnd);
 
-    SF.sleep(1);
+    SF.sleep(2);
+    SF.click(By.xpath('//input[@ng-model="search"]'));
+    SF.sleep(2);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.carrier_id"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     V.driverPhone = SF.randomCifra(10);
@@ -78,9 +80,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'), V.dateStart);
-    SF.sleep(1);
-    SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateFromTo"]/div/input'));
-    SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateFromTo"]/div/input'), V.dateEnd);
+    SF.sleep(2);
+    // SF.click(By.xpath('//input[@ng-model="search"]'));
+    // SF.sleep(3);
+    SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'));
+    SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'), V.dateEnd);
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="search"]'));
 
