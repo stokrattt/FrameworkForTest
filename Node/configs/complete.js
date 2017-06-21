@@ -82,7 +82,8 @@ module.exports = function(config,V) {
         './tests/66_ProfitAndLoss.js',
         './tests/67_EditRequestPayrollAdding.js',
         './tests/69_SITAddStorage.js',
-        './tests/68_SITPickUpDelivery.js'
+        './tests/68_SITPickUpDelivery.js',
+        './tests/70_SITAddTripPersonallyForeman.js'
 
 
     ];

@@ -81,8 +81,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'), V.dateStart);
     SF.sleep(2);
-    // SF.click(By.xpath('//input[@ng-model="search"]'));
-    // SF.sleep(3);
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'), V.dateEnd);
     SF.sleep(2);

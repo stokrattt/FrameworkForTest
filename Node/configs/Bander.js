@@ -1,10 +1,9 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/33_AddCarrier',
-        './tests/50_AddJobToTrip'
+    config.suite = ['./tests/70_SITAddTripPersonallyForeman.js'
     ];
 
     config.chainFail = false;
-    config.timeout = 40000;
+    config.timeout = 25000;
     // V.frontURL = 'http://stage.themoveboard.com:8090/front_site/';
     // V.accountURL = 'http://stage.themoveboard.com:8090/account/#/login';
     // V.adminURL = 'http://stage.themoveboard.com:8090/moveBoard/#/login';
