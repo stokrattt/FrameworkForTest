@@ -26,6 +26,20 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click (By.xpath('//button[@ng-click="addMessage()"]'));
         SF.sleep(2);
     }
+    //================================MAIL.RU=======================================
+    function MailRu_Login(login, password){
+        SF.send(By.xpath('//input[@id="mailbox__login"]'),login);
+        SF.send(By.xpath('//input[@id="mailbox__password"]'),password);
+        SF.click(By.xpath('//input[@id="mailbox__auth__button"]'));
+        SF.waitForVisible(By.xpath('//div[contains(@class,"b-datalist__item")]'));
+        SF.sleep(1);
+    }
+    function MailRu_CheckEmailExistBySubject(subject){
+        driver.wait(driver.findElements(By.xpath('//a[@data-subject="'+subject+'"]')).then(function(elements){
+            VD.IWant(VD.VToEqual, elements.length,1,'письмо не дошло');
+        }),config.timeout);
+    }
+
 
     ///===============================Profit and loss===============================
 
@@ -257,6 +271,37 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_OpenCarriersAndAgents() {
         SF.click(By.xpath('//a[@ng-class="{active:vm.isCurrent(\'carriers and agents\')}"]'));
+    }
+	function Board_OpenRequest(request) {
+		WaitWhileBusy ();
+		driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), config.timeout)
+			.getAttribute('class').then(function (classStr) {
+					if (classStr.indexOf('active_row') == -1) {
+						driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), config.timeout);
+						driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), config.timeout);
+					} else {
+						driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), config.timeout);
+					}
+					if (!condition.busy) {
+						fiber.run();
+					}
+				}
+			), config.timeout);
+		if (!condition.busy) {
+			Fiber.yield();
+		}
+		SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+		WaitWhileBusy();
+		SF.sleep(2);
+		WaitWhileBusy();
+	}
+    function Board_OpenFirstRequest(){
+		SF.click(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+		SF.click(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+		SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+		WaitWhileBusy();
+		SF.sleep(2);
+		WaitWhileBusy();
     }
 
     //==============================ACCOUNT=======================================
@@ -867,6 +912,29 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }), config.timeout);
     }
 
+    function EditRequest_OpenMailDialog(){
+        SF.click(By.xpath('//i[@ng-click="openMailDialog()"]'));
+    }
+    function EditRequest_MailDialog_SetEmail(number, email){
+        SF.clear(By.xpath('//input[@ng-model="selected.mail"]['+number+']'));
+		SF.send(By.xpath('//input[@ng-model="selected.mail"]['+number+']'), email);
+		SF.click(By.xpath('//h2[contains(text(),"Selected email")]'));
+    }
+    function EditRequest_MailDialog_AddTemplate(group, name){
+        SF.click(By.xpath('//span[contains(text(),"'+group+'")]/../../a[@ng-click="toggleOpen()"]'));
+        SF.sleep(1);
+		SF.click(By.xpath('//span[contains(text(),"'+group+'")]/../../a[@ng-click="toggleOpen()"]/../../../div[contains(@class,"collapse")]' +
+            '/div/div/h3[contains(text(),"'+name+'")]/..'));
+		SF.click(By.xpath('//span[contains(text(),"'+group+'")]/../../a[@ng-click="toggleOpen()"]'));
+    }
+    function EditRequest_MailDialog_SetSubject(number, text){
+        SF.clear(By.xpath('//input[@ng-model="email.subject"]['+number+']'));
+		SF.send(By.xpath('//input[@ng-model="email.subject"]['+number+']'),text);
+    }
+    function EditRequest_MailDialog_ClickSend(){
+        SF.click(By.xpath('//a[@ng-click="sendEmailsAndClose()"]'));
+    }
+
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
@@ -1057,6 +1125,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SweetConfirm: SweetConfirm,
         SweetCancel: SweetCancel,
         BoardAccount_SendMessage: BoardAccount_SendMessage,
+        //==================================MAIL.RU=========================================
+		MailRu_Login:MailRu_Login,
+		MailRu_CheckEmailExistBySubject:MailRu_CheckEmailExistBySubject,
         //==================================FRONT SITE======================================
         FrontSite_GoToAccount: FrontSite_GoToAccount,
         //==================================LONG DISTANCE SETTINGS==========================
@@ -1104,6 +1175,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSettingsAccountPageCustomBlock: Board_OpenSettingsAccountPageCustomBlock,
         Board_OpenStatistic: Board_OpenStatistic,
         Board_OpenProfitLoss: Board_OpenProfitLoss,
+		Board_OpenRequest: Board_OpenRequest,
+		Board_OpenFirstRequest: Board_OpenFirstRequest,
         //====================================ACCOUNT=======================================
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,
@@ -1214,6 +1287,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_AddPacking: EditRequest_AddPacking,
         EditRequest_AddAdditionalServicesFullPack: EditRequest_AddAdditionalServicesFullPack,
         EditRequest_AddValuation: EditRequest_AddValuation,
+		EditRequest_OpenMailDialog: EditRequest_OpenMailDialog,
+		EditRequest_MailDialog_SetEmail: EditRequest_MailDialog_SetEmail,
+		EditRequest_MailDialog_AddTemplate: EditRequest_MailDialog_AddTemplate,
+		EditRequest_MailDialog_SetSubject: EditRequest_MailDialog_SetSubject,
+		EditRequest_MailDialog_ClickSend:EditRequest_MailDialog_ClickSend,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

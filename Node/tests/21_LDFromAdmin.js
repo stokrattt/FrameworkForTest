@@ -120,7 +120,7 @@ condition.nowWeDoing = 'запоминаем данные после добав�
     LF.closeEditRequest ();
     // MF.Board_OpenDashboard();
     MF.Board_OpenNotConfirmed();
-    LF.OpenRequest(V.request.Id);
+    MF.Board_OpenRequest(V.request.Id);
 condition.nowWeDoing = 'идём в логи';
     MF.EditRequest_OpenLogs();
 

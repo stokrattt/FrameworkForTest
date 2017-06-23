@@ -55,7 +55,7 @@ condition.nowWeDoing = 'сравниваем данные калькулятор
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'зашли под админом и сравниваем данные акка и админки';
-    LF.OpenRequest(V.accountNumbers.Id);
+    MF.Board_OpenRequest(V.accountNumbers.Id);
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.sleep (1);

@@ -94,7 +94,7 @@ condition.nowWeDoing = 'добавляем пакинг и сервисы и п�
 condition.nowWeDoing = 'сохранили и закрыли ревест. Идем на дашборд, открываем и сравниваем, проверяем что все осталось на своих местах(последние изменения)';
     MF.Board_OpenDashboard ();
     JS.scroll ('div[ng-click=\\"vm.select(3)\\"]');
-    LF.OpenRequest (V.boardNumbers.Id);
+    MF.Board_OpenRequest (V.boardNumbers.Id);
     V.boardNumbersLast = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersLast);
     LF.Validation_Compare_Account_Admin (V.boardNumbersAddServices, V.boardNumbersLast);

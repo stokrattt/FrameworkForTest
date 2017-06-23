@@ -31,7 +31,7 @@ condition.nowWeDoing = 'добавляем два разы инвенторий 
 
 condition.nowWeDoing = 'пошли на дашборд, открываем реквест, сравниваем данные, ставим в настройках показать дискаунт на акке и добавляем в реквесте тоже дискаунт, запоминаем данные';
     MF.WaitWhileBusy ();
-    LF.OpenRequest (V.accountNumbers.Id);
+    MF.Board_OpenRequest (V.accountNumbers.Id);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep(1);
@@ -92,7 +92,7 @@ condition.nowWeDoing = 'идем в акк запоминаем данные и 
     SF.sleep(2);
 condition.nowWeDoing = 'пошли в админку второй раз, конфермим работу идем в диспач назначаем команду';
     MF.WaitWhileBusy ();
-    LF.OpenRequest (V.accountNumbers.Id);
+    MF.Board_OpenRequest (V.accountNumbers.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges ();
@@ -108,7 +108,7 @@ condition.nowWeDoing = 'пошли в админку второй раз, кон
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт, запоминавем тотал, используем купон и проверяем что сумма уменьшилась';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    MF.Board_OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);

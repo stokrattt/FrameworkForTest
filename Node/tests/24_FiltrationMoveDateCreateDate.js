@@ -207,11 +207,11 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     }),config.timeout);
     SF.sleep(2);
 condition.nowWeDoing = 'идем удалять созданные реквесты';
-    // LF.OpenRequest (V.Id4Long);
+    // MF.Board_OpenRequest (V.Id4Long);
     // LF.deletePendingRequest ();
-    // LF.OpenRequest (V.Id5Long);
+    // MF.Board_OpenRequest (V.Id5Long);
     // LF.deletePendingRequest ();
-    // LF.OpenRequest (V.Id6Long);
+    // MF.Board_OpenRequest (V.Id6Long);
     // LF.deletePendingRequest ();
     // SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 1);
     // MF.WaitWhileBusy ();
@@ -221,11 +221,11 @@ condition.nowWeDoing = 'идем удалять созданные реквес�
     // SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.createdate);
     // SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
     // MF.WaitWhileBusy ();
-    // LF.OpenRequest (V.Id1);
+    // MF.Board_OpenRequest (V.Id1);
     // LF.deletePendingRequest ();
-    // LF.OpenRequest (V.Id2);
+    // MF.Board_OpenRequest (V.Id2);
     // LF.deletePendingRequest ();
-    // LF.OpenRequest (V.Id3);
+    // MF.Board_OpenRequest (V.Id3);
     // LF.deletePendingRequest ();
     // MF.Board_LogoutAdmin ();
 

@@ -61,7 +61,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
 //     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 // condition.nowWeDoing = 'идем в админку, открываем реквест и идем в логи, проверять что отправилась клиенту ревьюха';
 //     MF.Board_OpenConfirmed ();
-//     LF.OpenRequest (V.boardNumbers.Id);
+//     MF.Board_OpenRequest (V.boardNumbers.Id);
     MF.EditRequest_OpenLogs ();
     MF.WaitWhileBusy ();
     SF.sleep(2);

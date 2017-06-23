@@ -71,7 +71,7 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'зашли на админку для сравнения';
     SF.sleep (2);
-    LF.OpenRequest (V.accountNumbersLD.Id);
+    MF.Board_OpenRequest (V.accountNumbersLD.Id);
     V.boardNumbers = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
         dateString = dateString.toUpperCase();
@@ -134,7 +134,7 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'зашли на админку второй раз для сравнения с инвенторием';
     SF.sleep (2);
-    LF.OpenRequest (V.accountNumbersLD.Id);
+    MF.Board_OpenRequest (V.accountNumbersLD.Id);
     V.boardNumbersCubFit = {};
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SF.cleanPrice (text);

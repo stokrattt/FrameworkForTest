@@ -565,29 +565,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@type="submit"]'));
         SF.sleep(2);
     }
-    function OpenRequest(request) {
-        MF.WaitWhileBusy ();
-        driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), config.timeout)
-            .getAttribute('class').then(function (classStr) {
-                    if (classStr.indexOf('active_row') == -1) {
-                        driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), config.timeout);
-                        driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), config.timeout);
-                    } else {
-                        driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]')).click(), config.timeout);
-                    }
-                    if (!condition.busy) {
-                        fiber.run();
-                    }
-                }
-            ), config.timeout);
-        if (!condition.busy) {
-            Fiber.yield();
-        }
-        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        MF.WaitWhileBusy();
-        SF.sleep(2);
-        MF.WaitWhileBusy();
-    }
     function OpenRequestFlatRate(request) {
         driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), config.timeout)
             .getAttribute('class').then(function (classStr) {
@@ -2234,7 +2211,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         LoginToBoardAsCustomForeman: LoginToBoardAsCustomForeman,
         LoginToAccountAsClient: LoginToAccountAsClient,
         LoginToBoardAs_Roma4ke_Admin: LoginToBoardAs_Roma4ke_Admin,
-        OpenRequest: OpenRequest,
         OpenRequestFlatRate: OpenRequestFlatRate,
         CreateMovAndStorFromFrontDown: CreateMovAndStorFromFrontDown,
         CreateUnloadingHelpDownForm: CreateUnloadingHelpDownForm,

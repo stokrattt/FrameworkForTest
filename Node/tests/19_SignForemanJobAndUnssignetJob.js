@@ -35,7 +35,7 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     MF.Board_LogoutAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.request.Id);
+    MF.Board_OpenRequestDispatch(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
     SF.sleep(1);
@@ -78,7 +78,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     MF.Dispatch_ShowDoneJobs();
     MF.WaitWhileBusy ();
     SF.sleep(3);
-    LF.OpenRequestDispatch(V.request.Id);
+    MF.Board_OpenRequestDispatch(V.request.Id);
     JS.waitForExist('label:contains("Balance:"):visible');
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     SF.sleep (2);

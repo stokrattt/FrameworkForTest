@@ -104,7 +104,7 @@ condition.nowWeDoing = 'идем на дашборд, открываем рек�
     MF.Board_OpenDashboard ();
     JS.scroll ('div[ng-click=\"vm.select(0)\"]');
     SF.sleep(0.5);
-    LF.OpenRequest (V.boardNumbers60_100.Id);
+    MF.Board_OpenRequest (V.boardNumbers60_100.Id);
     V.boardNumbers100_140Last = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers100_140Last);
     SF.sleep(1);

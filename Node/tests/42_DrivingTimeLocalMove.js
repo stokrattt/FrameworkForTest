@@ -95,13 +95,13 @@ condition.nowWeDoing = 'первый раз в аккаунте, сравнив�
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'защли а админку второй раз, ставим нот конфем, трак, сохраняем, закрываем, открываем и сравниваем данные которые были первый раз в реквесте с данными после того как изменили статус';
-    LF.OpenRequest (V.request.Id);
+    MF.Board_OpenRequest (V.request.Id);
     JS.step(JSstep.selectTruck((V.boardNumbersClean.LaborTimeMax + V.boardNumbersClean.TravelTime)/60));
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
     MF.Board_OpenNotConfirmed ();
-    LF.OpenRequest (V.request.Id);
+    MF.Board_OpenRequest (V.request.Id);
     V.boardNumbersNotConfirmed = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersNotConfirmed);
     LF.Validation_Compare_Account_Admin (V.boardNumbersClean, V.boardNumbersNotConfirmed);

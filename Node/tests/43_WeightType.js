@@ -30,7 +30,7 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     LF.addToCleanerJob (V.request.Id);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
-    LF.OpenRequest (V.request.Id);
+    MF.Board_OpenRequest (V.request.Id);
     V.boardNumbersDefault2 = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersDefault2);
     LF.Validation_Compare_Account_Admin (V.boardNumbersDefault2, V.boardNumbersDefault);
@@ -52,7 +52,7 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     MF.EditRequest_OpenRequest ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
-    LF.OpenRequest (V.request.Id);
+    MF.Board_OpenRequest (V.request.Id);
 condition.nowWeDoing = 'теперь выставляем кубик фит на инвентори, закрыли и открыли, сравнили, должны быть данные по инвентори все одинаковые';
     V.boardNumbersInventory2 = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersInventory2);
@@ -78,7 +78,7 @@ condition.nowWeDoing = 'теперь выставляем кубик фит на
     LF.RememberDigitsRequestBoard (V.boardNumbersCustom);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
-    LF.OpenRequest (V.request.Id);
+    MF.Board_OpenRequest (V.request.Id);
     V.boardNumbersCustom2 = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersCustom2);
     LF.Validation_Compare_Account_Admin (V.boardNumbersCustom, V.boardNumbersCustom2);

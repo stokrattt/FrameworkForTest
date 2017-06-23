@@ -47,7 +47,7 @@ condition.nowWeDoing = 'обновляем страницу и проверяе�
         VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили после обновления страницы');
     }),config.timeout);
     SF.sleep(0.5);
-    LF.OpenRequest (V.boardNumbers.Id);
+    MF.Board_OpenRequest (V.boardNumbers.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SetToNotConfirmed ();
@@ -71,7 +71,7 @@ condition.nowWeDoing = 'открываем страницу всех рекве�
         VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили на странице Request Page (filtration page)');
     }),config.timeout);
     SF.sleep(0.5);
-    LF.OpenRequest (V.boardNumbers.Id);
+    MF.Board_OpenRequest (V.boardNumbers.Id);
     SF.click(By.id('company-flags'));
     SF.sleep(0.5);
     JS.click('a[ng-click=\\"removeFlag(request.nid)\\"]:visible');

@@ -48,7 +48,7 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     SF.get(V.adminURL);
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    LF.OpenRequestFlatRate (V.FRId);
+    MF.Board_OpenRequestFlatRate (V.FRId);
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
     SF.sleep (0.5);
     now = new Date();
@@ -95,7 +95,7 @@ condition.nowWeDoing = 'идем в акк подтвердить выбранн
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
 condition.nowWeDoing = 'идем в админку ставить нот конферм, трак....';
-    LF.OpenRequest (V.FRId);
+    MF.Board_OpenRequest (V.FRId);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep (1);
@@ -154,7 +154,7 @@ condition.nowWeDoing = 'идем в админку в диспач';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
 
 condition.nowWeDoing = 'заходим под первым фореманом подписывать pick up контракт';
-    LF.OpenRequestDispatch(V.FRId);
+    MF.Board_OpenRequestDispatch(V.FRId);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
     SF.sleep(1);
@@ -188,7 +188,7 @@ condition.nowWeDoing = 'заходим под первым фореманом п
 
 condition.nowWeDoing = 'заходим под вторым фореманом подписывать delivery контракт';
     LF.LoginToBoardAsForemanDeliveryFlatRate();
-    LF.OpenRequestDispatch(V.FRId);
+    MF.Board_OpenRequestDispatch(V.FRId);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
     SF.sleep(1);
@@ -222,7 +222,7 @@ condition.nowWeDoing = 'возвращаемся в диспач, проверя
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
-    LF.OpenRequestDispatch(V.FRId);
+    MF.Board_OpenRequestDispatch(V.FRId);
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();

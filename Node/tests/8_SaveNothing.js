@@ -22,7 +22,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing='ищем его в not Confirmed, открываем и пытаемся сохранить ничего не изменяя';
     MF.Board_OpenNotConfirmed();
-    LF.OpenRequest(V.boardNumbers.Id);
+    MF.Board_OpenRequest(V.boardNumbers.Id);
     JS.click('button[ng-click=\\"UpdateRequest()\\"]');
     condition.nowWeDoing='сейчас должно появиться Nothing to Update!';
     JS.waitForExist("h2:contains(\"Nothing to Update!\")");

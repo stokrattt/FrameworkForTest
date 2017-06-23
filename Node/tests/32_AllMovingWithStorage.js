@@ -51,7 +51,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.adminLogin = "TestAdmin";
     V.adminPassword = "test";
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    LF.OpenRequest(V.accountNumbersTo.Id);
+    MF.Board_OpenRequest(V.accountNumbersTo.Id);
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime) / 60));
@@ -73,7 +73,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_Check1EmailExist(V.client.email, "Change status to Not Confirmed");
     LF.closeEditRequest();
 
-    LF.OpenRequest(V.accountNumbersFrom.Id);
+    MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime) / 60));
@@ -123,7 +123,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SelectRequestDispatch(V.accountNumbersTo.Id);
     LF.selectCrew(V.foremanName);
     SF.sleep(2);
-    LF.OpenRequestDispatch(V.accountNumbersTo.Id);
+    MF.Board_OpenRequestDispatch(V.accountNumbersTo.Id);
     MF.WaitWhileBusy ();
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving With Storage Quote (Confirmed)");
@@ -134,7 +134,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.accountNumbersTo.Id);
+    MF.Board_OpenRequestDispatch(V.accountNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
     LF.Contract_AddInventory(7);
@@ -193,7 +193,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'From storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    LF.OpenRequest(V.accountNumbersFrom.Id);
+    MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     MF.EditRequest_SetToConfirmed();
     MF.EditRequest_SaveChanges();
@@ -214,7 +214,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Найти вторую работу у формена, зайти в Inventory, подтвердить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.accountNumbersFrom.Id);
+    MF.Board_OpenRequestDispatch(V.accountNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
 
@@ -263,7 +263,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
-    LF.OpenRequestDispatch(V.accountNumbersTo.Id);
+    MF.Board_OpenRequestDispatch(V.accountNumbersTo.Id);
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersTo);
     MF.EditRequest_ScrollDown();
@@ -280,7 +280,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
-    LF.OpenRequestDispatch(V.accountNumbersFrom.Id);
+    MF.Board_OpenRequestDispatch(V.accountNumbersFrom.Id);
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersFrom);
     MF.EditRequest_ScrollDown();

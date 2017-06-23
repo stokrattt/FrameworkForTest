@@ -28,7 +28,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
-    LF.OpenRequest(V.accountNumbers.Id);
+    MF.Board_OpenRequest(V.accountNumbers.Id);
     V.boardNumbers={};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     VD.IWant(VD.VToEqual, V.accountNumbers.InventoryCbf, V.boardNumbers.cbf,'Не совпали cbf аккаунта и борда');

@@ -76,7 +76,7 @@ condition.nowWeDoing = 'идем в коферм работы на борде,о
     MF.WaitWhileBusy ();
     SF.sleep(2);
     MF.WaitWhileBusy ();
-    LF.OpenRequest (V.boardNumbers.Id);
+    MF.Board_OpenRequest (V.boardNumbers.Id);
     MF.EditRequest_CloseConfirmWork ();
     Debug.pause();
     MF.EditRequest_CloseJob();

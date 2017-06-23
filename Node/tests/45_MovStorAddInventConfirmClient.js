@@ -35,7 +35,7 @@ condition.nowWeDoing = 'Идём на From запоминаем данные';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'зашли в админку To storage ставим нот конферм, адрес и пароль клиенту, сравниваем данные с аккаунтом';
-    LF.OpenRequest(V.accountNumbersTo.Id);
+    MF.Board_OpenRequest(V.accountNumbersTo.Id);
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime) / 60));
@@ -48,7 +48,7 @@ condition.nowWeDoing = 'зашли в админку To storage ставим н�
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
 condition.nowWeDoing = 'To storage ставим нот конферм, адрес и выставляем кубик фит в настройках с инвенторием и запоминаем данные с инвентори';
-    LF.OpenRequest(V.accountNumbersFrom.Id);
+    MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime) / 60));

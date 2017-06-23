@@ -59,7 +59,7 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     SF.get(V.adminURL);
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции 1';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    LF.OpenRequestFlatRate (V.FRId);
+    MF.Board_OpenRequestFlatRate (V.FRId);
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
     SF.sleep (0.5);
      now = new Date();
@@ -130,7 +130,7 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     condition.nowWeDoing = 'пошли в админку 2 раз, ставить трак, нот конферм';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
-    LF.OpenRequest (V.FRId);
+    MF.Board_OpenRequest (V.FRId);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep (1);
@@ -177,7 +177,7 @@ condition.nowWeDoing = 'идем в акк под клиентом 2 раз бу
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку проверять что работа конферм';
     MF.Board_OpenConfirmed ();
-    LF.OpenRequest (V.FRId);
+    MF.Board_OpenRequest (V.FRId);
     SF.sleep (3);
     LF.closeEditRequest ();
     MF.Board_OpenSchedule ();

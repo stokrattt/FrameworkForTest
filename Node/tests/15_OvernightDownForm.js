@@ -124,7 +124,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
 
 condition.nowWeDoing = 'зашли в админку';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    LF.OpenRequest(V.accountNumbersUp.Id);
+    MF.Board_OpenRequest(V.accountNumbersUp.Id);
     V.boardNumbersUp = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersUp);
     JS.step(JSstep.selectTruck((V.boardNumbersUp.LaborTimeMax + V.boardNumbersUp.TravelTime)/60));
@@ -140,7 +140,7 @@ condition.nowWeDoing = 'зашли в админку';
 
 
     LF.closeEditRequest ();
-    LF.OpenRequest(V.accountNumbersDelivery.Id); /********************************************************************/
+    MF.Board_OpenRequest(V.accountNumbersDelivery.Id); /********************************************************************/
     V.boardNumbersDelivery = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersDelivery);
     JS.step(JSstep.selectTruck((V.boardNumbersDelivery.LaborTimeMax + V.boardNumbersDelivery.TravelTime)/60));

@@ -40,7 +40,7 @@ condition.nowWeDoing = 'зашли в админку идем в раздел с
     V.toClientFromAdmin = SF.randomBukva(6) + '_toClientFromAdmin';
     MF.BoardAccount_SendMessage(V.toClientFromAdmin);
     MF.Board_OpenDashboard ();
-    LF.OpenRequest (V.accountNumbers.Id);
+    MF.Board_OpenRequest (V.accountNumbers.Id);
 condition.nowWeDoing = 'зашли в реквест';
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd(V.client.passwd);

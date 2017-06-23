@@ -1,17 +1,24 @@
 module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
     global.fiber = Fiber.current;
-    V.client = {};
-    V.client.name = SF.randomBukva(6) + '_t';
-    V.client.fam = SF.randomBukva(6) + '_t';
-    V.client.phone = SF.randomCifra(10);
-    V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    V.client.passwd = 123;
+	V.subject = SF.randomBukva(15);
 
     //=========================начинаем писать тест=============================
-    SF.get('http://stage.themoveboard.com/moveBoard/#/login');
-    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+	SF.get(V.adminURL);
+	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+	condition.nowWeDoing = 'открываем любой реквест и отправляем письмо на тестовую почту';
+	MF.Board_OpenFirstRequest();
+	MF.EditRequest_OpenMailDialog();
+	MF.EditRequest_MailDialog_SetEmail(1, V.testMail.mail);
+	MF.EditRequest_MailDialog_AddTemplate('Default','Expired');
+	MF.EditRequest_MailDialog_SetSubject(1, V.subject);
+	MF.EditRequest_MailDialog_ClickSend();
+	MF.EditRequest_CloseEditRequest();
+	MF.Board_LogoutAdmin();
 
-    Debug.pause();
+	condition.nowWeDoing = 'открываем тестовую почту и ищем письмо';
+	SF.get('http://mail.ru');
+	MF.MailRu_Login(V.testMail.login, V.testMail.password);
+	MF.MailRu_CheckEmailExistBySubject(V.subject);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

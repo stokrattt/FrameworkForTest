@@ -91,15 +91,15 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     }),config.timeout);
     SF.sleep(2);
 condition.nowWeDoing = 'идем удалять созданные реквесты';
-    // LF.OpenRequest (V.Id1);
+    // MF.Board_OpenRequest (V.Id1);
     // LF.deletePendingRequest ();
-    // LF.OpenRequest (V.Id2);
+    // MF.Board_OpenRequest (V.Id2);
     // LF.deletePendingRequest ();
-    // LF.OpenRequest (V.Id3);
+    // MF.Board_OpenRequest (V.Id3);
     // LF.deletePendingRequest ();
-    // LF.OpenRequest (V.Id4);
+    // MF.Board_OpenRequest (V.Id4);
     // LF.deletePendingRequest ();
-    // LF.OpenRequest (V.Id5);
+    // MF.Board_OpenRequest (V.Id5);
     // LF.deletePendingRequest ();
     // MF.Board_LogoutAdmin ();
 

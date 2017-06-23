@@ -47,7 +47,7 @@ condition.nowWeDoing = 'идём в настройки клонировать р
     LF.closeEditRequest ();
 condition.nowWeDoing = 'проверяем что клон в пендинге и открываем его';
     MF.Board_RefreshDashboard();
-    LF.OpenRequest (V.IdClone);
+    MF.Board_OpenRequest (V.IdClone);
     SF.sleep (2);
     SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
     JS.waitForExist('div.busyoverlay');
@@ -79,7 +79,7 @@ condition.nowWeDoing = 'ждем и добавляем инвентория';
     LF.closeEditRequest ();
 condition.nowWeDoing = 'идем открывать первый реквест и проверять что клон не затер данные первого';
     MF.Board_OpenNotConfirmed();
-    LF.OpenRequest (V.request.Id);
+    MF.Board_OpenRequest (V.request.Id);
     VD.IWant (VD.VNotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitClone, 'клон затер cubic fit первого реквеста');
     VD.IWant (VD.VNotToEqual, V.sizemove, V.sizemoveClone, 'клон затер sizemove первого реквеста');
     driver.wait(driver.findElement(By.id('edit-moving-from')).getText().then(function (text){

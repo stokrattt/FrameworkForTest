@@ -48,7 +48,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'снова открыть и найти людей';
     MF.Board_OpenConfirmed ();
     MF.Board_RefreshDashboard ();
-    LF.OpenRequest(V.boardNumbers.Id);
+    MF.Board_OpenRequest(V.boardNumbers.Id);
     MF.EditRequest_OpenPayroll();
     driver.wait(driver.executeScript('return $(\'select[ng-model="selected.salesPerson[salesPersonIndex]"]:visible  option[selected="selected"]:contains("'+V.managerFirstName+'")\').length;')
         .then(function(count){

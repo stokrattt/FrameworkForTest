@@ -32,7 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.waitForNotExist('div.toast-success');
     SF.sleep(4);
     LF.closeEditRequest ();
-    LF.OpenRequest(V.request.Id);
+    MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
       VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');
     }),config.timeout);
@@ -49,7 +49,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest ();
     MF.Board_OpenNotConfirmed ();
     MF.Board_RefreshDashboard ();
-    LF.OpenRequest(V.request.Id);
+    MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
         VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');
     }),config.timeout);

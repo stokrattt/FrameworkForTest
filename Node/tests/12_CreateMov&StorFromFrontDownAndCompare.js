@@ -45,7 +45,7 @@ condition.nowWeDoing = 'запомнили данные в аке и сравн�
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
 condition.nowWeDoing = 'зашли под админом заполнили данные и сравниваем с акком первый реквест';
-    LF.OpenRequest(V.accountNumbersTo.Id); /********************************************************************/
+    MF.Board_OpenRequest(V.accountNumbersTo.Id); /********************************************************************/
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
 
@@ -61,7 +61,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'сравниваем с акком второй реквест';
-    LF.OpenRequest(V.accountNumbersFrom.Id); /********************************************************************/
+    MF.Board_OpenRequest(V.accountNumbersFrom.Id); /********************************************************************/
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
