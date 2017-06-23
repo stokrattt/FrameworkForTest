@@ -10,10 +10,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
     condition.nowWeDoing = 'идем в настройки и выставляем резервацию';
-    MF.Board_OpenSettingsSchedule();
-    V.ReservationPrice = 150;
-    MF.Schedule_SetReservationLocalTo(V.ReservationPrice);
-    MF.Board_Refresh();
+    // MF.Board_OpenSettingsSchedule();
+    // V.ReservationPrice = 150;
+    // MF.Schedule_SetReservationLocalTo(V.ReservationPrice);
+    // MF.Board_Refresh();
 
     condition.nowWeDoing = 'создаем реквест';
     LF.CreateMovAndStorFromBoard (V.client);

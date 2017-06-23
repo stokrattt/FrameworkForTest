@@ -955,6 +955,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//input[@ng-model="secure.cvc"]'), 323);
         SF.sleep(1);
         SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+        SF.sleep(2);
     }
     function InvoiceOnlinePayment() {
         JS.waitForExist('input[ng-model="payment.card_num"]');
@@ -966,6 +967,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//input[@ng-model="secure.cvc"]'), 323);
         SF.sleep(1);
         SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+        MF.WaitWhileBusy ();
     }
     function FillCardPayModalBuyCoupon() {
         JS.waitForExist('input[ng-model="payment.card_num"]');
@@ -1021,6 +1023,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
         SF.sleep (1);
         FillCardPayModal ();
+        MF.WaitWhileSpinner ();
         SF.sleep (5);
         SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
         driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
@@ -1048,6 +1051,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MakeSignJS('signatureCanvasReserv');
         SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
         FillCardPayModal();
+        MF.WaitWhileSpinner ();
         SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
         driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
             VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');

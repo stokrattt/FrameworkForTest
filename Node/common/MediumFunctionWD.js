@@ -8,6 +8,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist('.busyoverlay:visible');
         SF.sleep(1);
     }
+    function WaitWhileSpinner() {
+        SF.sleep(1);
+        JS.waitForNotExist ('.spinner:visible');
+        SF.sleep(1);
+    }
 
     function SweetConfirm() {
         JS.waitForExist('button.confirm');
@@ -628,6 +633,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_SaveChanges() {
         JS.click('button[ng-click=\\"UpdateRequest()\\"]');
         JS.waitForExist('button[ng-click="update(request)"]:visible');
+        SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="update(request)"]'));
         JS.waitForExist("div.toast-success:visible");
         WaitWhileBusy();
@@ -1122,6 +1128,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     return {
         WaitWhileToaster: WaitWhileToaster,
         WaitWhileBusy: WaitWhileBusy,
+        WaitWhileSpinner: WaitWhileSpinner,
         SweetConfirm: SweetConfirm,
         SweetCancel: SweetCancel,
         BoardAccount_SendMessage: BoardAccount_SendMessage,
