@@ -67,6 +67,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
+    LF.Account_CheckSignature();
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'второй раз в админке, локал диспатч';
@@ -79,7 +80,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName);
-    Debug.pause();
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.WaitWhileBusy ();
     MF.EditRequest_OpenLogs();

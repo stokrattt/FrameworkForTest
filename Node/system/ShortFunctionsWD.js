@@ -91,6 +91,7 @@ module.exports = function (system, config, By, until, constants, condition) {
         SFstop();
     }
     function click(selector) {
+        console.log('click: '+selector);
         driver.wait(driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), config.timeout)), config.timeout).click(), config.timeout)
             .then(function () {
                 SFgo();

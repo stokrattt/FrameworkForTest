@@ -412,6 +412,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(5);
     }
+    function Account_CheckSignature(){
+		MF.Account_ClickViewConfirmationPage();
+		MF.Account_CheckSignOnConfirmationPage();
+		MF.Account_ConfirmationBackToRequest();
+    }
     function RememberAccountNumbers(accountNumbers) {
         driver.wait(driver.executeScript('return $("div:contains(\\"Move Date :\\"):last").next().text()').then(function (dateString) {
             dateString = dateString.toUpperCase();
@@ -2218,6 +2223,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         AccountLoadingEnterAddress: AccountLoadingEnterAddress,
         AccountToStorageEnterAddress: AccountToStorageEnterAddress,
         AccountFromStorageEnterAddress: AccountFromStorageEnterAddress,
+		Account_CheckSignature: Account_CheckSignature,
         RememberAccountNumbers: RememberAccountNumbers,
         LogoutFromAccount: LogoutFromAccount,
         LogoutFromBoardForeman: LogoutFromBoardForeman,

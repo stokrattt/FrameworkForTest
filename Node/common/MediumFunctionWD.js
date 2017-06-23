@@ -328,6 +328,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_WaitForGreenTextAfterConfirm() {
         SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     }
+    function Account_ClickViewConfirmationPage() {
+		WaitWhileBusy();
+		SF.sleep(2);
+        SF.click(By.xpath('//a[contains(text(),"View confirmation page")]'));
+    }
+    function Account_CheckSignOnConfirmationPage(){
+        SF.waitForVisible(By.xpath('//img[@ng-click="vm.openCardPhoto(image)"]'));
+    }
+    function Account_ConfirmationBackToRequest(){
+        SF.click(By.xpath('//a[contains(text(),"Back To Request")]'));
+        WaitWhileBusy();
+    }
 
     function Account_WaitForInventoryCheck() {
         SF.waitForVisible(By.xpath('//li[@id="tab_Inventory"]//i[@class="icon-check"]'));
@@ -1099,6 +1111,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_CheckRequestStatus_Pending: Account_CheckRequestStatus_Pending,
         Account_OpenRequest: Account_OpenRequest,
         Account_WaitForGreenTextAfterConfirm: Account_WaitForGreenTextAfterConfirm,
+		Account_ClickViewConfirmationPage: Account_ClickViewConfirmationPage,
+		Account_CheckSignOnConfirmationPage: Account_CheckSignOnConfirmationPage,
+		Account_ConfirmationBackToRequest: Account_ConfirmationBackToRequest,
         Account_WaitForInventoryCheck: Account_WaitForInventoryCheck,
         Account_WaitForDetailsCheck: Account_WaitForDetailsCheck,
         Account_ClickFromStorage: Account_ClickFromStorage,
@@ -1107,7 +1122,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_SubmitFlatRateAfterAddInventory: Account_SubmitFlatRateAfterAddInventory,
         Account_ChooseOptionFlatRate: Account_ChooseOptionFlatRate,
         Account_Refresh: Account_Refresh,
-        Account_ClickViewConfirmationPage: Account_ClickViewConfirmationPage,
         AccountConfirmationPage_ClickBackToRequest: AccountConfirmationPage_ClickBackToRequest,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
