@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/70_SITAddTripPersonallyForeman.js'
+    config.suite = ['./tests/61_SITInvoices.js'
     ];
 
     config.chainFail = false;
@@ -22,6 +22,7 @@ module.exports = function(config,V) {
     // V.foremanPassword = '123';
     // V.foremanName = 'Test Foreman';
     // V.foremanEmail = 'TestForeman@mail.com';
+
     V.adminLogin = 'AdminFlow1';
     V.adminPassword = 'test';
     V.foremanLogin = 'ForemanFlow1';
