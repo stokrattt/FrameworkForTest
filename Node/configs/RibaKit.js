@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 60000;
 
     config.suite = [
-        './tests/ManualEmailing.js'
+        './tests/ChangingRateAfterConfirming.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

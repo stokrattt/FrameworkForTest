@@ -178,6 +178,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
         SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     }
+	function Board_OpenSettingsRates() {
+		Board_OpenSideBar();
+		SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+		SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+		SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[3]'));
+	}
     function Board_OpenSettingsAccountPageCustomBlock() {
         SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
         SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][5]'));
@@ -1157,6 +1163,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSettingsSchedule: Board_OpenSettingsSchedule,
         Board_OpenCompanyServices:Board_OpenCompanyServices,
         Board_OpenSettingsGeneral: Board_OpenSettingsGeneral,
+		Board_OpenSettingsRates: Board_OpenSettingsRates,
         Board_OpenSettingsDepartment: Board_OpenSettingsDepartment,
         Board_OpenSettingsTemplateBuilder: Board_OpenSettingsTemplateBuilder,
         Board_RefreshDashboard:Board_RefreshDashboard,

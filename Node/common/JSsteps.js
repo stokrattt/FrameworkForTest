@@ -326,6 +326,21 @@ exports.selectTruck = function (hours) {
     return f.substring(0,f.indexOf('##')-1)+hours+f.substring(f.indexOf('##')+3);
 };
 
+exports.changeAllDetermPrices = function (from, to){
+	var f = function () {
+		var target = "##";
+		var len = $('input[ng-model*="vm.ratesSettings"]').length;
+		var i = 0;
+		for (i = 0; i < len; i++) {
+			var element = $('input[ng-model*="vm.ratesSettings"]:eq(' + i + ')');
+			if (element.val() == target) {
+				element.val("###");
+			}
+		}
+	}.toString().substring(12);
+	return f.replace(/##/, from).replace(/###/, to);
+};
+
 exports.getServicesCostAccount = function () {
     var a = $('div[ng-repeat="service in vm.extraServices"]').length;
     if (a > 1) {
