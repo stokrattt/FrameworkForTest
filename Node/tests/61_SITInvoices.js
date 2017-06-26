@@ -44,8 +44,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="agentModel.data.web_site"]'), V.carrierWebSite);
     SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierPhoneNumber1);
     JS.click('span:contains(\\"Save\\")');
-
-
+    SF.sleep(3);
 
     condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
@@ -155,7 +154,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.to_receive)"]'));
     SF.sleep(2);
     // JS.click('span:contains(\\"Send invoice\\")');
-    SF.click(By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.to_receive)"]'));
+    SF.click(By.xpath('//button[@ng-click="sendInvoice()"]'));
     SF.sleep(4);
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     SF.sleep(2);
