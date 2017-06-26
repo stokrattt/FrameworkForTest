@@ -58,7 +58,7 @@ condition.nowWeDoing = 'идем в диспач первый раз';
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    MF.Board_OpenRequestDispatch(V.request.Id);
+    LF.OpenRequestDispatch(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
@@ -96,7 +96,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
-    MF.Board_OpenRequestDispatch(V.request.Id);
+    LF.OpenRequestDispatch(V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();

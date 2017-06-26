@@ -108,7 +108,7 @@ condition.nowWeDoing = 'пошли в админку второй раз, кон
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт, запоминавем тотал, используем купон и проверяем что сумма уменьшилась';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    MF.Board_OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);

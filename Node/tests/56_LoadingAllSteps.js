@@ -82,7 +82,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName);
-    MF.Board_OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Loading Confirmed");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
@@ -92,7 +92,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    MF.Board_OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
@@ -133,7 +133,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
-    MF.Board_OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_WaitForBalanceVisible();
     // MF.EditRequest_OpenLogs();
     // MF.EditRequest_Check1EmailExist(V.client.email,'Job is completed');

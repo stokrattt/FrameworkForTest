@@ -27,7 +27,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
     LF.selectCrew(V.foremanName);
-    MF.Board_OpenRequestDispatch(V.boardNumbers.Id);
+    LF.OpenRequestDispatch(V.boardNumbers.Id);
     MF.EditRequest_SetLaborTimeCloseJob('3:00');
     MF.EditRequest_CloseJob();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);

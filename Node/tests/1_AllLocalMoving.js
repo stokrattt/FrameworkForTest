@@ -80,7 +80,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName);
-    MF.Board_OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.WaitWhileBusy ();
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Local Quote (Confirmed)");
@@ -92,7 +92,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    MF.Board_OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
@@ -135,7 +135,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
-    MF.Board_OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();

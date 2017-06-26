@@ -123,7 +123,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SelectRequestDispatch(V.accountNumbersTo.Id);
     LF.selectCrew(V.foremanName);
     SF.sleep(2);
-    MF.Board_OpenRequestDispatch(V.accountNumbersTo.Id);
+    LF.OpenRequestDispatch(V.accountNumbersTo.Id);
     MF.WaitWhileBusy ();
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving With Storage Quote (Confirmed)");
@@ -134,7 +134,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    MF.Board_OpenRequestDispatch(V.accountNumbersTo.Id);
+    LF.OpenRequestDispatch(V.accountNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
     LF.Contract_AddInventory(7);
@@ -214,7 +214,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Найти вторую работу у формена, зайти в Inventory, подтвердить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    MF.Board_OpenRequestDispatch(V.accountNumbersFrom.Id);
+    LF.OpenRequestDispatch(V.accountNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
 
@@ -263,7 +263,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
-    MF.Board_OpenRequestDispatch(V.accountNumbersTo.Id);
+    LF.OpenRequestDispatch(V.accountNumbersTo.Id);
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersTo);
     MF.EditRequest_ScrollDown();
@@ -280,7 +280,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
-    MF.Board_OpenRequestDispatch(V.accountNumbersFrom.Id);
+    LF.OpenRequestDispatch(V.accountNumbersFrom.Id);
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersFrom);
     MF.EditRequest_ScrollDown();
