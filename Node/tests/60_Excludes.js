@@ -42,7 +42,7 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     V.foremanLogin = 'ForemanExclude';
     V.foremanPassword = 123;
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    MF.Board_OpenRequestDispatch(V.boardNumbers.Id);
+    LF.OpenRequestDispatch(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
@@ -89,7 +89,7 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
-    MF.Board_OpenRequestDispatch(V.boardNumbers.Id);
+    LF.OpenRequestDispatch(V.boardNumbers.Id);
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     SF.sleep(1);

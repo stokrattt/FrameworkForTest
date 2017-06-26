@@ -32,7 +32,7 @@ condition.nowWeDoing = 'идем в локал диспач и меняем да
     MF.WaitWhileBusy ();
     MF.Dispatch_GridView();
     JS.scroll ('i[ng-click=\\"vm.getByDate();\\"]');
-    MF.Board_OpenRequestDispatch (V.request.Id);
+    LF.OpenRequestDispatch (V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenConfirmWork();
 
@@ -61,7 +61,7 @@ condition.nowWeDoing = 'ищем второй раз в диспатче рек�
     MF.WaitWhileBusy ();
     SF.sleep(1);
     MF.WaitWhileBusy ();
-    MF.Board_OpenRequestDispatch (V.request.Id);
+    LF.OpenRequestDispatch (V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
     // LF.closeEditRequest();
     // MF.Board_LogoutAdmin ();
