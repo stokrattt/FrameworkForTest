@@ -40,10 +40,33 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="newStorage.email"]'), V.storage.email);
     SF.send (By.xpath('//input[@ng-model="newStorage.phones[$index]"]'), V.storage.phone);
     SF.sleep(4);
-    SF.click(By.xpath('//button[@ng-click="create()"]/span'));
+    JS.click('span:contains(\\"Save\\")');
+    // SF.click(By.xpath('//button[@ng-click="create()"]/span'));
 
     condition.nowWeDoing = 'Редактируем Storage';
     SF.sleep(5);
+    V.last=false;
+    V.found=false;
+    do {
+        driver.wait(driver.findElements(By.xpath('//div[text()="'+ V.storage.name +'"]')).then(function (elements) {
+            V.count = elements.length;
+            console.log(V.count);
+        }), config.timeout);
+        SF.sleep(1);
+        driver.wait(driver.findElements(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]/parent::li[contains(@class,"disabled")]')).then(function (elements) {
+            V.last = (elements.length==1);
+            console.log(V.last);
+        }), config.timeout);
+        SF.sleep(1);
+        if ((V.count == 0)&&(!V.last)) {
+            SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
+        } else {
+            V.found=true;
+        }
+    }while ((V.count==0)&&(!V.last)&&(!V.found));
+
+    VD.INeed(VD.VToEqual, V.found, true, 'не нашёл нужный storage');
+
     SF.click(By.xpath('//div[text()="'+ V.storage.name +'"]'));
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
     SF.sleep(5);
@@ -69,9 +92,32 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear (By.xpath('//input[@ng-model="newStorage.phones[$index]"]'));
     SF.send (By.xpath('//input[@ng-model="newStorage.phones[$index]"]'), V.storage2.phone);
     SF.sleep(4);
-    SF.click(By.xpath('//button[@ng-click="create()"]'));
+    JS.click('span:contains(\\"Save\\")');
+    // SF.click(By.xpath('//button[@ng-click="create()"]'));
     SF.sleep(5);
     condition.nowWeDoing = 'сравниваем сохранились ли изменения';
+    V.last2=false;
+    V.found2=false;
+    do {
+        driver.wait(driver.findElements(By.xpath('//div[text()="'+ V.storage2.name +'"]')).then(function (elements) {
+            V.count2 = elements.length;
+            console.log(V.count2);
+        }), config.timeout);
+        SF.sleep(1);
+        driver.wait(driver.findElements(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]/parent::li[contains(@class,"disabled")]')).then(function (elements) {
+            V.last2 = (elements.length==1);
+            console.log(V.last2);
+        }), config.timeout);
+        SF.sleep(1);
+        if ((V.count == 0)&&(!V.last2)) {
+            SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
+        } else {
+            V.found2=true;
+        }
+    }while ((V.count2==0)&&(!V.last2)&&(!V.found2));
+
+    VD.INeed(VD.VToEqual, V.found, true, 'не нашёл нужный storage');
+
     SF.click(By.xpath('//div[text()="'+ V.storage2.name +'"]'));
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
     SF.sleep(2);
@@ -91,7 +137,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.VToEqual,V.storage3.notes, V.storage2.notes,'Поля не совпадают');
     VD.IWant(VD.VToEqual,-SF.cleanPrice(V.storage3.phone), V.storage2.phone,'Поля не совпадают');
     SF.sleep(4);
-    SF.click(By.xpath('//button[@ng-click="create()"]'));
+    JS.click('span:contains(\\"Save\\")');
+    // SF.click(By.xpath('//button[@ng-click="create()"]'));
     JS.click('span:contains(\\"Save\\")');
     SF.sleep(5);
 
