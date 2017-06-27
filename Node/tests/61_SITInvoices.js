@@ -151,7 +151,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//md-checkbox[@ng-model="selectAll"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.to_receive)"]'));
+    SF.click(By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.balance)"]'));
     SF.sleep(2);
     // JS.click('span:contains(\\"Send invoice\\")');
     SF.click(By.xpath('//button[@ng-click="sendInvoice()"]'));
