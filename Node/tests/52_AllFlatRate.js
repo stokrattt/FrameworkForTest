@@ -48,7 +48,7 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     SF.get(V.adminURL);
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.Board_OpenRequestFlatRate (V.FRId);
+    LF.OpenRequestFlatRate (V.FRId);
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
     SF.sleep (0.5);
     now = new Date();

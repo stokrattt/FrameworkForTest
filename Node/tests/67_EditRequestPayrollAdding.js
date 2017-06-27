@@ -75,7 +75,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     VD.IWant(VD.VToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.starkForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
-
+    SF.sleep (3);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

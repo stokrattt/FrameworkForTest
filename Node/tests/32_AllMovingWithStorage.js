@@ -51,6 +51,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.adminLogin = "TestAdmin";
     V.adminPassword = "test";
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.accountNumbersTo.Id);
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
@@ -72,7 +73,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Change status to Not Confirmed");
     LF.closeEditRequest();
-
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);

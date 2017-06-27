@@ -208,7 +208,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(3);
     }
     function Board_OpenDashboard() {
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dashboard\', \'\')"]'));
+        SF.click(By.xpath('//a[@ui-sref="dashboard"]'));
         SF.sleep(2);
         WaitWhileBusy ();
     }

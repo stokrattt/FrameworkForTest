@@ -1855,6 +1855,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
         JS.waitForExist('div.busyoverlay');
         SF.sleep (5);
+        MF.WaitWhileBusy ();
         JS.click('div[ng-repeat=\\"filter in filters\\"]:visible div:first');
         SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
         SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));

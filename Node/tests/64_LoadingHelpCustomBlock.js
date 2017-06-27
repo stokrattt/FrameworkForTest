@@ -144,6 +144,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickViewConfirmationPage ();
+    SF.sleep(3);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.VToEqual, text, 1, 'не нашло кастомный блок для loading confirmed на аккаунте на confirmation page');
     }),config.timeout);
