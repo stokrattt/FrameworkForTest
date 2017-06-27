@@ -12,7 +12,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id);
-    }),config.timeout);;
+    }),config.timeout);
     SF.click(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
     SF.clear(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
     V.note = SF.randomBukva(7);
@@ -32,6 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.waitForNotExist('div.toast-success');
     SF.sleep(4);
     LF.closeEditRequest ();
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
       VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');
@@ -49,6 +50,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest ();
     MF.Board_OpenNotConfirmed ();
     MF.Board_RefreshDashboard ();
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
         VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');

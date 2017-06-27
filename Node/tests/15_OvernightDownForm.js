@@ -177,6 +177,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();
+    MF.WaitWhileSpinner ();
     SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
         VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
@@ -207,6 +208,7 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     SF.sleep (1);
     //MF.SweetConfirm ();
     LF.FillCardPayModal ();
+    MF.WaitWhileSpinner ();
     SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
         VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
