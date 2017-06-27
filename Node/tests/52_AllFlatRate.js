@@ -109,7 +109,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.sleep (1);
-    VD.IWant (VD.VToEqual, 5000, V.boardNumbers.Total, 'тотал не совпал с выбранной суммой' );
+    VD.IWant (VD.ToEqual, 5000, V.boardNumbers.Total, 'тотал не совпал с выбранной суммой' );
     MF.EditRequest_SetToNotConfirmed ();
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();
@@ -130,7 +130,7 @@ condition.nowWeDoing = 'идем в акк под клиентом букать 
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="showQuote"]/div[contains(text(), "Flat Rate")]/following-sibling::div[1]/div/span')).getText().then(function (text) {
         V.quoteFlatRate = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.quoteFlatRate, 5000, 'не нашло цену флет рейт')
+        VD.IWant (VD.ToEqual, V.quoteFlatRate, 5000, 'не нашло цену флет рейт')
     }),config.timeout);
     SF.sleep(1);
 
@@ -226,7 +226,7 @@ condition.nowWeDoing = 'возвращаемся в диспач, проверя
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
-    VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+    VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     V.boardNumbersPickup = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersPickup);
     MF.EditRequest_OpenPayrollPickupFlatRate ();
@@ -250,7 +250,7 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
     };
     driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.FRId)).then(function (text) {
         V.payrollNumbersPickup.Foreman.Total = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.payrollNumbersPickup.Foreman.Total, V.boardNumbersPickup.Payroll.foremanForCommission.total, 'не совпали цифры Pickup в Payroll foreman\n' +
+        VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Foreman.Total, V.boardNumbersPickup.Payroll.foremanForCommission.total, 'не совпали цифры Pickup в Payroll foreman\n' +
             'id=' + V.FRId);
     }), config.timeout);
     SF.sleep(1);
@@ -263,7 +263,7 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
         V.payrollNumbersPickup.Helper.Total = SF.cleanPrice(text);
     }), config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.payrollNumbersPickup.Helper.Total, (V.boardNumbersPickup.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll pickup helper\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Helper.Total, (V.boardNumbersPickup.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll pickup helper\n' +
         'id=' + V.FRId);
     SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
@@ -275,7 +275,7 @@ condition.nowWeDoing = 'проверяем цифры менеджера pickup'
         V.payrollNumbersPickup.Sale.Total = SF.cleanPrice(text);
     }), config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.payrollNumbersPickup.Sale.Total, V.boardNumbersPickup.Payroll.managerForCommission.total, 'не совпали цифры в Payroll pickup manager\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Sale.Total, V.boardNumbersPickup.Payroll.managerForCommission.total, 'не совпали цифры в Payroll pickup manager\n' +
         'id=' + V.FRId);
     SF.sleep(2);
 
@@ -290,7 +290,7 @@ condition.nowWeDoing = 'начинаем проверять чувачком и�
     };
     driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.FRId)).then(function (text) {
         V.payrollNumbersDelivery.Foreman.Total = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.payrollNumbersDelivery.Foreman.Total, V.boardNumbersDelivery.Payroll.foremanForCommission.total, 'не совпали цифры delivery в Payroll foreman\n' +
+        VD.IWant(VD.ToEqual, V.payrollNumbersDelivery.Foreman.Total, V.boardNumbersDelivery.Payroll.foremanForCommission.total, 'не совпали цифры delivery в Payroll foreman\n' +
             'id=' + V.FRId);
     }), config.timeout);
     SF.sleep(1);
@@ -316,7 +316,7 @@ condition.nowWeDoing = 'выбираем цифры helper delivery';
     }), config.timeout);
     SF.sleep(1);
 
-    VD.IWant(VD.VToEqual, V.payrollNumbersDelivery.Helper.Total, (V.boardNumbersDelivery.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbersDelivery.Helper.Total, (V.boardNumbersDelivery.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper\n' +
         'id=' + V.FRId);
     SF.sleep(1);
 

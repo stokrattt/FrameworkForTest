@@ -100,7 +100,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
-    VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+    VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
 
 condition.nowWeDoing = 'идем в паймент и проверяем что данные оплаты совпадают с тем что написано в receipt';
     MF.EditRequest_OpenPayment();
@@ -113,7 +113,7 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
     SF.waitForVisible (By.xpath('//span[contains(text(), "Amount: ")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount: ")]/following-sibling::span')).getText().then(function(text){
         V.paymentAmount1 = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.paymentAmount1, V.payment1, 'оплата не совпала')
+        VD.IWant (VD.ToEqual, V.paymentAmount1, V.payment1, 'оплата не совпала')
     }),config.timeout);
     SF.sleep (3);
     SF.click (By.xpath('//h2[contains(text(), "Receipt ")]/../../..//button[@ng-click="cancel()"]'));
@@ -128,7 +128,7 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
     SF.waitForVisible (By.xpath('//span[contains(text(), "Amount: ")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount: ")]/following-sibling::span')).getText().then(function(text){
         V.paymentAmount2 = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.paymentAmount2, V.payment2, 'оплата не совпала')
+        VD.IWant (VD.ToEqual, V.paymentAmount2, V.payment2, 'оплата не совпала')
     }),config.timeout);
     SF.sleep (2);
     //SF.click (By.xpath('//h2[contains(text(), "Receipt ")]/../../..//button[@ng-click="cancel()"]'));

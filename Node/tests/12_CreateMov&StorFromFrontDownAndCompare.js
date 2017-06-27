@@ -14,7 +14,7 @@ condition.nowWeDoing = 'заполняем нижний калькулятор �
     LF.CreateMovAndStorFromFrontDown (V.client);
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info general"]/div/span')).getText().then(function(text){
         V.nameRequest = text;
-        VD.IWant(VD.VToEqual, V.nameRequest, 'Moving & Storage', 'тип реквеста не совпал с созданным');
+        VD.IWant(VD.ToEqual, V.nameRequest, 'Moving & Storage', 'тип реквеста не совпал с созданным');
     }), config.timeout);
     SF.sleep(1);
 condition.nowWeDoing = 'запоминаем данные которые посчитал кальк';
@@ -78,7 +78,7 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.accountNumbersTo.Id+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.accountNumbersTo.Id+'")]/following-sibling::td[1]')).getText().then(function(Status){
-        VD.IWant(VD.VToEqual,Status,'Not Confirmed');
+        VD.IWant(VD.ToEqual,Status,'Not Confirmed');
     }), config.timeout);
     //*******************************************************************************
     MF.Account_OpenRequest (V.accountNumbersTo.Id);
@@ -107,7 +107,7 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
     LF.FillCardPayModal ();
     SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     condition.nowWeDoing = 'зашли под клиентом и букаем вторую работу';
     MF.WaitWhileBusy ();
@@ -139,7 +139,7 @@ condition.nowWeDoing = 'букаем вторую работу мувинга и
     MF.WaitWhileSpinner ();
     SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     MF.WaitWhileBusy ();
     // LF.LogoutFromAccount ();

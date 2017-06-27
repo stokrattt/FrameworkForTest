@@ -606,8 +606,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             V.request.mdate = (mdate);
         }),config.timeout);
         console.log (V.request.mdate);
-        SF.send(By.id("edit-zip-code-from"), "02032");
-        SF.send(By.id("edit-zip-code-to"), "02136");
+        SF.send(By.id("edit-zip-code-from"), client.zipFrom==undefined?"02032":client.zipFrom);
+        SF.send(By.id("edit-zip-code-to"), client.zipTo==undefined?"02136":client.zipTo);
         SF.sleep(4);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         SF.sleep(1);
@@ -875,62 +875,62 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberDigitsRequestBoard_Down(boardNumbers);
     }
     function Validation_Compare_CalcLocalMove_Admin(LocalMoveAdminCalc, boardNumbers) {
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.CrewSize, boardNumbers.CrewSize, 'не совпали CrewSize калькулятора и борда');
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.HourlyRate, boardNumbers.HourlyRate, 'не совпали HourlyRate калькулятора и борда');
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.WorkTimeMin, boardNumbers.LaborTimeMin, 'не совпали LaborTimeMin калькулятора и борда');
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.WorkTimeMax, boardNumbers.LaborTimeMax, 'не совпали LaborTimeMax калькулятора и борда');
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.TravelTime, boardNumbers.TravelTime, 'не совпали TravelTime калькулятора и борда');
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.QuoteMin, boardNumbers.QuoteMin, 'не совпали QuoteMin калькулятора и борда');
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.QuoteMax, boardNumbers.QuoteMax, 'не совпали QuoteMax калькулятора и борда');
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.Trucks, boardNumbers.Trucks, 'не совпали Trucks калькулятора и борда');
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.TotalMin, boardNumbers.TotalMin, 'не совпали TotalMin калькулятора и борда');
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.TotalMax, boardNumbers.TotalMax, 'не совпали TotalMax калькулятора и борда');
-        VD.IWant(VD.VToEqual, LocalMoveAdminCalc.Fuel, boardNumbers.Fuel, 'не совпали Fuel калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.CrewSize, boardNumbers.CrewSize, 'не совпали CrewSize калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.HourlyRate, boardNumbers.HourlyRate, 'не совпали HourlyRate калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.WorkTimeMin, boardNumbers.LaborTimeMin, 'не совпали LaborTimeMin калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.WorkTimeMax, boardNumbers.LaborTimeMax, 'не совпали LaborTimeMax калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.TravelTime, boardNumbers.TravelTime, 'не совпали TravelTime калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.QuoteMin, boardNumbers.QuoteMin, 'не совпали QuoteMin калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.QuoteMax, boardNumbers.QuoteMax, 'не совпали QuoteMax калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.Trucks, boardNumbers.Trucks, 'не совпали Trucks калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.TotalMin, boardNumbers.TotalMin, 'не совпали TotalMin калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.TotalMax, boardNumbers.TotalMax, 'не совпали TotalMax калькулятора и борда');
+        VD.IWant(VD.ToEqual, LocalMoveAdminCalc.Fuel, boardNumbers.Fuel, 'не совпали Fuel калькулятора и борда');
     }
 
     function Validation_Compare_Account_Admin(accountNumbers,boardNumbers) {
-        VD.IWant(VD.VToEqual, accountNumbers.moveDate.Day, boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.moveDate.Month, boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.moveDate.Year, boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.CrewSize, boardNumbers.CrewSize, 'не совпали CrewSize аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.HourlyRate, boardNumbers.HourlyRate, 'не совпали HourlyRate аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.LaborTimeMin, boardNumbers.LaborTimeMin, 'не совпали LaborTimeMin аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.LaborTimeMax, boardNumbers.LaborTimeMax, 'не совпали LaborTimeMax аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.TravelTime, boardNumbers.TravelTime, 'не совпали TravelTime аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.Packing, boardNumbers.Packing, 'не совпали Packing аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.AdServices, boardNumbers.AdServices, 'не совпали Services аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.Trucks, boardNumbers.Trucks, 'не совпали Trucks аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.TotalMin, boardNumbers.TotalMin, 'не совпали TotalMin аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.TotalMax, boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.Fuel, boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.moveDate.Day, boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.moveDate.Month, boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.moveDate.Year, boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.CrewSize, boardNumbers.CrewSize, 'не совпали CrewSize аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.HourlyRate, boardNumbers.HourlyRate, 'не совпали HourlyRate аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.LaborTimeMin, boardNumbers.LaborTimeMin, 'не совпали LaborTimeMin аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.LaborTimeMax, boardNumbers.LaborTimeMax, 'не совпали LaborTimeMax аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.TravelTime, boardNumbers.TravelTime, 'не совпали TravelTime аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.Packing, boardNumbers.Packing, 'не совпали Packing аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.AdServices, boardNumbers.AdServices, 'не совпали Services аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.Trucks, boardNumbers.Trucks, 'не совпали Trucks аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.TotalMin, boardNumbers.TotalMin, 'не совпали TotalMin аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.TotalMax, boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.Fuel, boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     }
 
     function Validation_Compare_Account_Front_MovStorTo(accountNumbers,frontNumbersDown) {
 
-        VD.IWant(VD.VToEqual, accountNumbers.CrewSize, frontNumbersDown.CrewTo, 'не совпали CrewSize аккаунта и фронта');
-        VD.IWant(VD.VToEqual, accountNumbers.HourlyRate, frontNumbersDown.RateTo, 'не совпали HourlyRate аккаунта и фронта');
+        VD.IWant(VD.ToEqual, accountNumbers.CrewSize, frontNumbersDown.CrewTo, 'не совпали CrewSize аккаунта и фронта');
+        VD.IWant(VD.ToEqual, accountNumbers.HourlyRate, frontNumbersDown.RateTo, 'не совпали HourlyRate аккаунта и фронта');
 
-        VD.IWant(VD.VToEqual, accountNumbers.TravelTime, frontNumbersDown.TravelTimeTo, 'не совпали TravelTime аккаунта и фронта');
+        VD.IWant(VD.ToEqual, accountNumbers.TravelTime, frontNumbersDown.TravelTimeTo, 'не совпали TravelTime аккаунта и фронта');
 
-        VD.IWant(VD.VToEqual, accountNumbers.TotalMin, frontNumbersDown.QuoteMinTo, 'не совпали TotalMin аккаунта и фронта');
-        VD.IWant(VD.VToEqual, accountNumbers.TotalMax, frontNumbersDown.QuoteMaxTo, 'не совпали TotalMax аккаунта и фронта');
-        VD.IWant(VD.VToEqual, accountNumbers.Fuel, frontNumbersDown.FuelTo, 'не совпали Fuel аккаунта и борда');
-        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinTo, 'не совпали JobTimeMin аккаунта и фронта');
-        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxTo, 'не совпали JobTimeMax аккаунта и фронта');
+        VD.IWant(VD.ToEqual, accountNumbers.TotalMin, frontNumbersDown.QuoteMinTo, 'не совпали TotalMin аккаунта и фронта');
+        VD.IWant(VD.ToEqual, accountNumbers.TotalMax, frontNumbersDown.QuoteMaxTo, 'не совпали TotalMax аккаунта и фронта');
+        VD.IWant(VD.ToEqual, accountNumbers.Fuel, frontNumbersDown.FuelTo, 'не совпали Fuel аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinTo, 'не совпали JobTimeMin аккаунта и фронта');
+        VD.IWant(VD.ToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxTo, 'не совпали JobTimeMax аккаунта и фронта');
     }
 
     function Validation_Compare_Account_Front_MovStorFrom(accountNumbers,frontNumbersDown) {
 
-        VD.IWant(VD.VToEqual, accountNumbers.CrewSize, frontNumbersDown.CrewFrom, 'не совпали CrewSize аккаунта и фронта From');
-        VD.IWant(VD.VToEqual, accountNumbers.HourlyRate, frontNumbersDown.RateFrom, 'не совпали HourlyRate аккаунта и фронта From');
+        VD.IWant(VD.ToEqual, accountNumbers.CrewSize, frontNumbersDown.CrewFrom, 'не совпали CrewSize аккаунта и фронта From');
+        VD.IWant(VD.ToEqual, accountNumbers.HourlyRate, frontNumbersDown.RateFrom, 'не совпали HourlyRate аккаунта и фронта From');
 
-        VD.IWant(VD.VToEqual, accountNumbers.TravelTime, frontNumbersDown.TravelTimeFrom, 'не совпали TravelTime аккаунта и фронта From');
+        VD.IWant(VD.ToEqual, accountNumbers.TravelTime, frontNumbersDown.TravelTimeFrom, 'не совпали TravelTime аккаунта и фронта From');
 
-        VD.IWant(VD.VToEqual, accountNumbers.TotalMin, frontNumbersDown.QuoteMinFrom, 'не совпали TotalMin аккаунта и фронта From');
-        VD.IWant(VD.VToEqual, accountNumbers.TotalMax, frontNumbersDown.QuoteMaxFrom, 'не совпали TotalMax аккаунта и фронта From');
-        VD.IWant(VD.VToEqual, accountNumbers.Fuel, frontNumbersDown.FuelFrom, 'не совпали Fuel аккаунта и борда From');
-        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinFrom, 'не совпали JobTimeMin аккаунта и фронта From');
-        VD.IWant(VD.VToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxFrom, 'не совпали JobTimeMax аккаунта и фронта From');
+        VD.IWant(VD.ToEqual, accountNumbers.TotalMin, frontNumbersDown.QuoteMinFrom, 'не совпали TotalMin аккаунта и фронта From');
+        VD.IWant(VD.ToEqual, accountNumbers.TotalMax, frontNumbersDown.QuoteMaxFrom, 'не совпали TotalMax аккаунта и фронта From');
+        VD.IWant(VD.ToEqual, accountNumbers.Fuel, frontNumbersDown.FuelFrom, 'не совпали Fuel аккаунта и борда From');
+        VD.IWant(VD.ToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinFrom, 'не совпали JobTimeMin аккаунта и фронта From');
+        VD.IWant(VD.ToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxFrom, 'не совпали JobTimeMax аккаунта и фронта From');
     }
 
     function SetManager(name) {
@@ -1027,7 +1027,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep (5);
         SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
         driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-            VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+            VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
         }), config.timeout);
         SF.sleep(1);
     }
@@ -1042,7 +1042,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                 ReservationSee=SF.cleanPrice(text);
             });
             SF.sleep(1);
-            VD.IWant(VD.VToEqual, ReservationSee, ReservationPrice, 'Резервация на аккаунте не совпала');
+            VD.IWant(VD.ToEqual, ReservationSee, ReservationPrice, 'Резервация на аккаунте не совпала');
         }
         SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
         SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
@@ -1054,7 +1054,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.WaitWhileSpinner ();
         SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
         driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-            VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+            VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
         }), config.timeout);
     }
     function ConfirmRequestInAccount_NoReservation() {
@@ -1073,7 +1073,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@class="confirm"]'));
         SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
         driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-            VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+            VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
         }), config.timeout);
     }
 //Permissions for Sales --- start
@@ -1382,7 +1382,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             helpersForCommission: []
         };
         EditRequestPayroll_RememberManager(managerName, boardNumbers.Payroll.managerForCommission);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.forCommission),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.forCommission),
             Math.floor(boardNumbers.Total
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
             'Не совпал ForCommission менеджера');
@@ -1394,29 +1394,29 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         EditRequestPayroll_RememberForeman(V.foremanName, boardNumbers.Payroll.foremanForCommission);
         MF.EditRequest_PayrollGetForemansTotal(boardNumbers.Payroll.foremanForCommission);
 
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
             Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
             'Не совпал Tips формена');
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices.forCommission),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices.forCommission),
             Math.floor(boardNumbers.AdServices),
             'Не совпал Extras формена');
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing.forCommission),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing.forCommission),
             Math.floor(boardNumbers.Packing),
             'Не совпал Packing формена');
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.fromTotal.forCommission),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.fromTotal.forCommission),
             Math.floor(boardNumbers.Total
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
             'Не совпал FromTotal формена');
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Daily.forCommission),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Daily.forCommission),
             Math.floor(10),
             'Не совпал Daily формена');
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Hourly.percent),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Hourly.percent),
             Math.floor(10),
             'Не совпал Hourly формена');
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
             Math.floor(10),
             'Не совпал Bonus формена');
-        // VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.forCommission),
+        // VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.forCommission),
         //     Math.floor(boardNumbers.Quote/boardNumbers.HourlyRate),
         //     'Не совпал LaborTime формена');
         SF.sleep(1);
@@ -1438,7 +1438,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office),
             (Math.floor(boardNumbers.Total
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips)/2),
             'Не совпал ForCommission менеджера');
@@ -1453,7 +1453,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         //     boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
         // }));
         // SF.sleep(1);
-        // VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
+        // VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
         //     Math.floor(boardNumbers.Tips / 4),
         //     'Не совпал Tips формена');
 
@@ -1464,7 +1464,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
             Math.floor(boardNumbers.AdServices),
             'Не совпал Extras формена');
 
@@ -1474,7 +1474,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
             Math.floor(boardNumbers.Packing),
             'Не совпал Packing формена');
 
@@ -1502,7 +1502,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         //     boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
         // }));
         // SF.sleep(1);
-        // VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
+        // VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
         //     Math.floor(boardNumbers.Tips / 4),
         //     'Не совпал Tips формена');
 
@@ -1512,7 +1512,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
             Math.floor(boardNumbers.AdServices),
             'Не совпал Extras формена');
 
@@ -1522,7 +1522,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.VToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
             Math.floor(boardNumbers.Packing),
             'Не совпал Packing формена');
 
@@ -1899,14 +1899,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             }),config.timeout);
     }
     function ValidatePendingStorageRequest(storageNumbers, boardNumbersTo, boardNumbersFrom){
-        VD.IWant(VD.VToEqual, storageNumbers.inDate.Day, boardNumbersTo.moveDate.Day,'день въезда не совпал');
-        VD.IWant(VD.VToEqual, storageNumbers.inDate.Month, boardNumbersTo.moveDate.Month,'месяц въезда не совпал');
-        VD.IWant(VD.VToEqual, storageNumbers.inDate.Year, boardNumbersTo.moveDate.Year,'год въезда не совпал');
-        VD.IWant(VD.VToEqual, storageNumbers.outDate.Day, boardNumbersFrom.moveDate.Day,'день выезда не совпал');
-        VD.IWant(VD.VToEqual, storageNumbers.outDate.Month, boardNumbersFrom.moveDate.Month,'месяц выезда не совпал');
-        VD.IWant(VD.VToEqual, storageNumbers.outDate.Year, boardNumbersFrom.moveDate.Year,'год выезда не совпал');
-        VD.IWant(VD.VToEqual, storageNumbers.cbf, boardNumbersTo.cbf,'объём не совпал');
-        VD.IWant(VD.VToEqual, storageNumbers.prepaid, boardNumbersTo.prepaid,'предоплата не совпала');
+        VD.IWant(VD.ToEqual, storageNumbers.inDate.Day, boardNumbersTo.moveDate.Day,'день въезда не совпал');
+        VD.IWant(VD.ToEqual, storageNumbers.inDate.Month, boardNumbersTo.moveDate.Month,'месяц въезда не совпал');
+        VD.IWant(VD.ToEqual, storageNumbers.inDate.Year, boardNumbersTo.moveDate.Year,'год въезда не совпал');
+        VD.IWant(VD.ToEqual, storageNumbers.outDate.Day, boardNumbersFrom.moveDate.Day,'день выезда не совпал');
+        VD.IWant(VD.ToEqual, storageNumbers.outDate.Month, boardNumbersFrom.moveDate.Month,'месяц выезда не совпал');
+        VD.IWant(VD.ToEqual, storageNumbers.outDate.Year, boardNumbersFrom.moveDate.Year,'год выезда не совпал');
+        VD.IWant(VD.ToEqual, storageNumbers.cbf, boardNumbersTo.cbf,'объём не совпал');
+        VD.IWant(VD.ToEqual, storageNumbers.prepaid, boardNumbersTo.prepaid,'предоплата не совпала');
     }
     function RememberCarrier(carrierData) {
         driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.name"]\').val()').then(function (text) {
@@ -1996,7 +1996,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Service Type:")]/following-sibling::td[1]')).getText().then(function(type){
             LocalMoveAdminCalc.Type = type;
-            VD.IWant (VD.VToEqual, type, "Moving", "Сервис тайп не совпал, должен быть Moving");
+            VD.IWant (VD.ToEqual, type, "Moving", "Сервис тайп не совпал, должен быть Moving");
         }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//td[contains(text(), "TRUCK:")]/following-sibling::td[1]')).getText().then(function(truck){
             LocalMoveAdminCalc.Trucks = truck;

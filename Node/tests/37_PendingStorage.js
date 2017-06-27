@@ -97,8 +97,8 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
 
 condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт';
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-        VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
-        VD.IWant(VD.VToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
+        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }));
     LF.MakeSignInContract();
     LF.MakeSignInContract();
@@ -176,8 +176,8 @@ condition.nowWeDoing = 'Найти вторую работу, зайти в Inve
 condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
     SF.waitForVisible(By.xpath('//div[@id="main-contract"]//div[@class="empty-signature"]'));
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-        VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
-        VD.IWant(VD.VToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
+        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }), config.timeout);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
@@ -219,14 +219,14 @@ condition.nowWeDoing="Зайти в Storsge pending, найти реквест";
 
     V.storageNumbers={};
     LF.RememberStorageNumbers(V.storageNumbers);
-    VD.INeed(VD.VToEqual, V.storageNumbers.IdMoving, V.boardNumbersTo.Id, 'номер реквеста не совпадает');
+    VD.INeed(VD.ToEqual, V.storageNumbers.IdMoving, V.boardNumbersTo.Id, 'номер реквеста не совпадает');
     SF.sleep(1);
     LF.ValidatePendingStorageRequest(V.storageNumbers, V.boardNumbersTo, V.boardNumbersFrom);
     MF.EditStorage_SelectMoveIn ();
     MF.EditStorage_UpdateStorage ();
     MF.EditStorage_OpenDocuments ();
     driver.wait(driver.executeScript('return $(\'tr[ng-repeat="doc in data.user_info.documents track by $index"]\').length').then(function(count){
-        VD.IWant(VD.VNotToEqual, count,0,'нет документов');
+        VD.IWant(VD.NotToEqual, count,0,'нет документов');
     }),config.timeout);
     SF.sleep(1);
     MF.EditStorage_OpenLedger ();
@@ -245,7 +245,7 @@ condition.nowWeDoing="Зайти в Storsge pending, найти реквест";
         V.storageNumbers.balance = SF.cleanPrice(text);
     });
     SF.sleep(2);
-    VD.IWant(VD.VToEqual, V.storageNumbers.balance, 0, 'баланс не нулевой');
+    VD.IWant(VD.ToEqual, V.storageNumbers.balance, 0, 'баланс не нулевой');
     SF.sleep(1);
 
     //=========================закончили писать тест=============================

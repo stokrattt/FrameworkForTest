@@ -79,7 +79,7 @@ condition.nowWeDoing = 'идем в аккаунт букать третью р�
     LF.LoginToAccountAsClient (V.client3);
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.Id3+'")]/following-sibling::td[1]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.Id3+'")]/following-sibling::td[1]')).getText().then(function(Status){
-        VD.IWant(VD.VToEqual,Status,'Not Confirmed');
+        VD.IWant(VD.ToEqual,Status,'Not Confirmed');
     }),config.timeout);
     SF.click(By.xpath('//td[contains(text(),"'+V.Id3+'")]/following-sibling::td/button[contains(text(),"View")]'));
     MF.Account_ClickViewRequest ();
@@ -90,11 +90,11 @@ condition.nowWeDoing = 'идем в аккаунт букать третью р�
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку проверять или два реквеста ушли в дата пендинг';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
-        VD.IWant (VD.VToEqual, text, 'Date Pending', 'первый реквест не ушел в дата пендинг а должен был');
+        VD.IWant (VD.ToEqual, text, 'Date Pending', 'первый реквест не ушел в дата пендинг а должен был');
     }), config.timeout);
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id2 + '")]/../td[2]/span')).getText().then(function (text) {
-        VD.IWant (VD.VToEqual, text, 'Date Pending', 'второй реквест не ушел в дата пендинг а должен был');
+        VD.IWant (VD.ToEqual, text, 'Date Pending', 'второй реквест не ушел в дата пендинг а должен был');
     }), config.timeout);
     SF.sleep(1);
     MF.Board_LogoutAdmin ();

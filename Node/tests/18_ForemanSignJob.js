@@ -88,7 +88,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     if (V.boardNumbers.Balance !== 0) {
         JS.scroll('div.BalanceCost:visible');
     }
-    VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+    VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     // LF.closeEditRequest ();
     // MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================

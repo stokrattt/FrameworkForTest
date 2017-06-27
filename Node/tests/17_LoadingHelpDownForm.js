@@ -46,10 +46,10 @@ condition.nowWeDoing = 'пошли в аккаунт';
 condition.nowWeDoing = 'сравниваем данные калькулятора и акка';
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
-    VD.IWant(VD.VToEqual, V.accountNumbers.CrewSize, V.frontNumbersLoadingDown.Crew, 'не совпали CrewSize аккаунта и фронта');
-    VD.IWant(VD.VToEqual, V.accountNumbers.HourlyRate, V.frontNumbersLoadingDown.Rate, 'не совпали HourlyRate аккаунта и фронта');
-    VD.IWant(VD.VToEqual, V.accountNumbers.TravelTime, V.frontNumbersLoadingDown.TravelTime, 'не совпали TravelTime аккаунта и фронта');
-    VD.IWant(VD.VToEqual, V.accountNumbers.Trucks, V.frontNumbersLoadingDown.Truck, 'не совпали Trucks аккаунта и фронта');
+    VD.IWant(VD.ToEqual, V.accountNumbers.CrewSize, V.frontNumbersLoadingDown.Crew, 'не совпали CrewSize аккаунта и фронта');
+    VD.IWant(VD.ToEqual, V.accountNumbers.HourlyRate, V.frontNumbersLoadingDown.Rate, 'не совпали HourlyRate аккаунта и фронта');
+    VD.IWant(VD.ToEqual, V.accountNumbers.TravelTime, V.frontNumbersLoadingDown.TravelTime, 'не совпали TravelTime аккаунта и фронта');
+    VD.IWant(VD.ToEqual, V.accountNumbers.Trucks, V.frontNumbersLoadingDown.Truck, 'не совпали Trucks аккаунта и фронта');
 
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
@@ -103,7 +103,7 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
     MF.WaitWhileSpinner ();
     SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     LF.LogoutFromAccount ();
 

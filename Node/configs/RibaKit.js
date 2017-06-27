@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 60000;
 
     config.suite = [
-        './tests/30_StorageTenant.js'
+        './tests/CustomTrackSpeed.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

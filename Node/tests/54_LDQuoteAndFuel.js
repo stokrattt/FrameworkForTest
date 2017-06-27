@@ -46,11 +46,11 @@ condition.nowWeDoing = 'создаем лонг дистанс реквест и
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     V.quote = V.boardNumbers.cbf * 10;
-    VD.IWant(VD.VToEqual,V.boardNumbers.Quote, V.quote, 'квота не правильно посчиталась');
+    VD.IWant(VD.ToEqual,V.boardNumbers.Quote, V.quote, 'квота не правильно посчиталась');
     V.fuel = (V.boardNumbers.Quote * 10) / 100;
-    VD.IWant(VD.VToEqual,V.boardNumbers.Fuel, V.fuel, 'fuel не правильно посчитался');
+    VD.IWant(VD.ToEqual,V.boardNumbers.Fuel, V.fuel, 'fuel не правильно посчитался');
     V.total = V.fuel + V.quote;
-    VD.IWant(VD.VToEqual,V.boardNumbers.Total, V.total, 'total не правильно посчитался');
+    VD.IWant(VD.ToEqual,V.boardNumbers.Total, V.total, 'total не правильно посчитался');
     SF.sleep(1);
 
 condition.nowWeDoing = 'добавляем комнаты и опять пересчитываем фуел, квоту и тотал';
@@ -60,11 +60,11 @@ condition.nowWeDoing = 'добавляем комнаты и опять пере
     V.boardNumbersAddRoom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddRoom);
     V.quoteAddRoom = V.boardNumbersAddRoom.cbf * 10;
-    VD.IWant(VD.VToEqual,V.boardNumbersAddRoom.Quote, V.quoteAddRoom, 'квота не правильно посчиталась после добавления комнат');
+    VD.IWant(VD.ToEqual,V.boardNumbersAddRoom.Quote, V.quoteAddRoom, 'квота не правильно посчиталась после добавления комнат');
     V.fuelAddRoom = (V.boardNumbersAddRoom.Quote * 10) / 100;
-    VD.IWant(VD.VToEqual,V.boardNumbersAddRoom.Fuel, V.fuelAddRoom, 'fuel не правильно посчитался после добавления комнат');
+    VD.IWant(VD.ToEqual,V.boardNumbersAddRoom.Fuel, V.fuelAddRoom, 'fuel не правильно посчитался после добавления комнат');
     V.totalAddRoom = V.fuelAddRoom + V.quoteAddRoom;
-    VD.IWant(VD.VToEqual,V.boardNumbersAddRoom.Total, V.totalAddRoom, 'total не правильно посчитался после добавления комнат');
+    VD.IWant(VD.ToEqual,V.boardNumbersAddRoom.Total, V.totalAddRoom, 'total не правильно посчитался после добавления комнат');
     SF.sleep(1);
 
 condition.nowWeDoing = 'добавляем инвенторий и опять пересчитываем фуел, квоту и тотал';
@@ -73,11 +73,11 @@ condition.nowWeDoing = 'добавляем инвенторий и опять п
     V.boardNumbersAddInventory = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddInventory);
     V.quoteAddInventory = V.boardNumbersAddInventory.cbf * 10;
-    VD.IWant(VD.VToEqual,V.boardNumbersAddInventory.Quote, V.quoteAddInventory, 'квота не правильно посчиталась после добавления инвентория');
+    VD.IWant(VD.ToEqual,V.boardNumbersAddInventory.Quote, V.quoteAddInventory, 'квота не правильно посчиталась после добавления инвентория');
     V.fuelAddInventory = (V.boardNumbersAddInventory.Quote * 10) / 100;
-    VD.IWant(VD.VToEqual,V.boardNumbersAddInventory.Fuel, V.fuelAddInventory, 'fuel не правильно посчитался после добавления инвентория');
+    VD.IWant(VD.ToEqual,V.boardNumbersAddInventory.Fuel, V.fuelAddInventory, 'fuel не правильно посчитался после добавления инвентория');
     V.totalAddInventory = V.fuelAddInventory + V.quoteAddInventory;
-    VD.IWant(VD.VToEqual,V.boardNumbersAddInventory.Total, V.totalAddInventory, 'total не правильно посчитался после добавления инвентория');
+    VD.IWant(VD.ToEqual,V.boardNumbersAddInventory.Total, V.totalAddInventory, 'total не правильно посчитался после добавления инвентория');
     SF.sleep(1);
 
 condition.nowWeDoing = 'добавляем пакинг и сервисы и проверяем что гранд тотал верный';
@@ -86,7 +86,7 @@ condition.nowWeDoing = 'добавляем пакинг и сервисы и п�
     V.boardNumbersAddServices = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddServices);
     V.totalAllServices = V.boardNumbersAddInventory.Quote + V.boardNumbersAddInventory.Fuel + V.boardNumbersAddServices.Packing + V.boardNumbersAddServices.AdServices;
-    VD.IWant(VD.VToEqual,V.boardNumbersAddServices.Total, V.totalAllServices, 'total не правильно посчитался после добавления всех сервисов и инвентория');
+    VD.IWant(VD.ToEqual,V.boardNumbersAddServices.Total, V.totalAllServices, 'total не правильно посчитался после добавления всех сервисов и инвентория');
     SF.sleep(1);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();

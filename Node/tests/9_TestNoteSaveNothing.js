@@ -25,7 +25,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//div[@class="modal-content"]'));
     SF.sleep (3);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="message.label == \'Notes\'"]')).getText().then(function(text) {
-      VD.IWant(VD.VToEqual, text, 'Notes was update');
+      VD.IWant(VD.ToEqual, text, 'Notes was update');
     }),config.timeout);
     SF.click(By.xpath('//button[@ng-click="update(request)"]'));
     JS.waitForNotExist('div.toast-success');
@@ -34,7 +34,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
-      VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');
+      VD.IWant(VD.ToEqual, text, V.note, 'Не совпали заметочки.');
     }),config.timeout);
     SF.sleep(1);
     SF.click(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
@@ -52,7 +52,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
-        VD.IWant(VD.VToEqual, text, V.note, 'Не совпали заметочки.');
+        VD.IWant(VD.ToEqual, text, V.note, 'Не совпали заметочки.');
     }),config.timeout);
     SF.sleep(1);
     JS.click('button[ng-click=\\"UpdateRequest()\\"]');

@@ -31,7 +31,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenRequest(V.accountNumbers.Id);
     V.boardNumbers={};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-    VD.IWant(VD.VToEqual, V.accountNumbers.InventoryCbf, V.boardNumbers.cbf,'Не совпали cbf аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbers.InventoryCbf, V.boardNumbers.cbf,'Не совпали cbf аккаунта и борда');
     LF.addInventoryBoard (V.boardNumbers);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
@@ -47,7 +47,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_CheckRequestStatus_Pending(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
     LF.RememberAccountNumbers(V.accountNumbers);
-    VD.IWant(VD.VToEqual, V.accountNumbers.cbf, V.boardNumbers.InventoryCubicFit);
+    VD.IWant(VD.ToEqual, V.accountNumbers.cbf, V.boardNumbers.InventoryCubicFit);
     SF.sleep(2);
 
     //=========================закончили писать тест=============================

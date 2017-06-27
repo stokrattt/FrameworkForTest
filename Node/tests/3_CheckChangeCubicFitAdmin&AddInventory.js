@@ -19,7 +19,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     Debug.pause ();
     V.boardNumbersNew={};
     MF.EditRequest_RememberCbf(V.boardNumbersNew);
-    VD.IWant(VD.VNotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
     V.boardNumbers = {};
     V.boardNumbersNew = {};
     MF.EditRequest_RememberCbf(V.boardNumbers);
@@ -30,14 +30,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_AddRoomNumber(7);
     SF.sleep (2);
     MF.EditRequest_RememberCbf(V.boardNumbersNew);
-    VD.IWant(VD.VNotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
 
     condition.nowWeDoing = 'включили калькулятор';
     MF.EditRequest_SwitchCalculator();
     LF.addInventoryBoard (V.boardNumbers);
     MF.EditRequest_RememberCbf(V.boardNumbers);
     SF.sleep (2);
-    VD.IWant (VD.VToEqual, V.boardNumbers.cbf, V.boardNumbers.InventoryCubicFit, 'Кубик фит не совпадает с инвенторием, а должен');
+    VD.IWant (VD.ToEqual, V.boardNumbers.cbf, V.boardNumbers.InventoryCubicFit, 'Кубик фит не совпадает с инвенторием, а должен');
 
     SF.endOfTest();
 };

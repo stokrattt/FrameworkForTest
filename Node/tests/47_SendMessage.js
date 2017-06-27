@@ -34,7 +34,7 @@ condition.nowWeDoing = 'зашли в админку идем в раздел с
     SF.click (By.xpath('//tr[@ng-click="showComments(request)"]/td[contains(text(), "'+V.accountNumbers.Id+'")]'));
     MF.WaitWhileBusy ();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+ V.client.name +'")]/../following-sibling::div[1]//p/p')).getText().then(function (text) {
-        VD.IWant (VD.VToEqual, V.toAdmin, text, 'не нашло текст который мы отправили от клиента админу');
+        VD.IWant (VD.ToEqual, V.toAdmin, text, 'не нашло текст который мы отправили от клиента админу');
     }),config.timeout);
     SF.sleep(1);
     V.toClientFromAdmin = SF.randomBukva(6) + '_toClientFromAdmin';
@@ -57,7 +57,7 @@ condition.nowWeDoing = 'зашли в реквест';
     MF.Account_OpenRequest (V.accountNumbers.Id);
     MF.Account_OpenMessage();
     driver.wait(driver.findElement(By.xpath('//a[contains(text(), "'+V.adminName+'")]/following-sibling::span[2]/p/p')).getText().then(function (text) {
-        VD.IWant (VD.VToEqual, V.toClientFromAdmin, text, 'не нашло текст который мы отправили клиенту от админа');
+        VD.IWant (VD.ToEqual, V.toClientFromAdmin, text, 'не нашло текст который мы отправили клиенту от админа');
     }),config.timeout);
     SF.sleep(1);
     V.toSalesFromClient = SF.randomBukva(6) + '_toSalesFromClient';
@@ -70,7 +70,7 @@ condition.nowWeDoing = 'Идем под сейлсом и проверяем ч�
     SF.click (By.xpath('//tr[@ng-click="showComments(request)"]/td[contains(text(), "'+V.accountNumbers.Id+'")]'));
     MF.WaitWhileBusy ();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+ V.client.name +'")]/../following-sibling::div[1]//p/p')).getText().then(function (text) {
-        VD.IWant (VD.VToEqual, V.toSalesFromClient, text, 'не нашло смс который мы отправили от клиента сейлсу');
+        VD.IWant (VD.ToEqual, V.toSalesFromClient, text, 'не нашло смс который мы отправили от клиента сейлсу');
     }),config.timeout);
     SF.sleep(1);
     V.toClientFromSales = SF.randomBukva(6) + '_toClientFromSales';
@@ -84,7 +84,7 @@ condition.nowWeDoing = 'Идем под клиентом и проверяем �
     MF.Account_OpenRequest (V.accountNumbers.Id);
     MF.Account_OpenMessage();
     driver.wait(driver.findElement(By.xpath('//a[contains(text(), "JackSales")]/following-sibling::span[2]/p/p')).getText().then(function (text) {
-        VD.IWant (VD.VToEqual, V.toClientFromSales, text, 'не нашло текст который мы отправили клиенту от sales');
+        VD.IWant (VD.ToEqual, V.toClientFromSales, text, 'не нашло текст который мы отправили клиенту от sales');
     }),config.timeout);
     SF.sleep(1);
     // LF.LogoutFromAccount ();

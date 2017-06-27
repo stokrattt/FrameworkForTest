@@ -56,14 +56,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
             V.countSales=count;
         }),config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.countSales, 1,'не сохранился Sale');
+    VD.IWant(VD.ToEqual, V.countSales, 1,'не сохранился Sale');
     SF.click(By.xpath('//a[@ng-click="select(tabs[1])"][contains(text(),"Foremen")]'));
     driver.wait(driver.executeScript('return $(\'select[ng-model="selected.foreman[foremanIndex]"]:visible  option[selected="selected"]:contains("'+V.foremanName+'")\').length;')
         .then(function(count){
             V.countForeman=count;
         }),config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.countForeman, 1,'не сохранился Foreman');
+    VD.IWant(VD.ToEqual, V.countForeman, 1,'не сохранился Foreman');
     SF.sleep(2);
 
     //=========================закончили писать тест=============================

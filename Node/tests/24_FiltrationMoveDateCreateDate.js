@@ -176,13 +176,13 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     MF.WaitWhileBusy ();
 
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]')).getText().then(function (id1) {
-        VD.IWant (VD.VToEqual, V.Id1, id1, 'не нашел реквест1 по фильтрации create date')
+        VD.IWant (VD.ToEqual, V.Id1, id1, 'не нашел реквест1 по фильтрации create date')
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id2 + '")]')).getText().then(function (id2) {
-        VD.IWant (VD.VToEqual, V.Id2, id2, 'не нашел реквест2 по фильтрации create date')
+        VD.IWant (VD.ToEqual, V.Id2, id2, 'не нашел реквест2 по фильтрации create date')
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id3 + '")]')).getText().then(function (id3) {
-        VD.IWant (VD.VToEqual, V.Id3, id3, 'не нашел реквест3 по фильтрации create date')
+        VD.IWant (VD.ToEqual, V.Id3, id3, 'не нашел реквест3 по фильтрации create date')
     }),config.timeout);
     SF.sleep (2);
 
@@ -197,13 +197,13 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     MF.WaitWhileBusy ();
 
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id4Long + '")]')).getText().then(function (id4Long) {
-        VD.IWant (VD.VToEqual, V.Id4Long, id4Long, 'не нашел реквест4 по фильтрации по Move date')
+        VD.IWant (VD.ToEqual, V.Id4Long, id4Long, 'не нашел реквест4 по фильтрации по Move date')
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id5Long + '")]')).getText().then(function (id5Long) {
-        VD.IWant (VD.VToEqual, V.Id5Long, id5Long, 'не нашел реквест5 по фильтрации по Move date')
+        VD.IWant (VD.ToEqual, V.Id5Long, id5Long, 'не нашел реквест5 по фильтрации по Move date')
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id6Long + '")]')).getText().then(function (id6Long) {
-        VD.IWant (VD.VToEqual, V.Id6Long, id6Long, 'не нашел реквест6 по фильтрации по Move date')
+        VD.IWant (VD.ToEqual, V.Id6Long, id6Long, 'не нашел реквест6 по фильтрации по Move date')
     }),config.timeout);
     SF.sleep(2);
 condition.nowWeDoing = 'идем удалять созданные реквесты';

@@ -67,31 +67,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Moving") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-            VD.IWant(VD.VToEqual,array.length,2,'не работает настройка Local Moving');
+            VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Local Moving');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Moving With Storage") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Moving With Storage');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Moving With Storage');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Loading Help") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,2,'не работает настройка Loading Help');
+        VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Loading Help');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Unloading Help") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,2,'не работает настройка Unloading Help');
+        VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Unloading Help');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Flat Rate") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Flat Rate');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Flat Rate');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Overnight") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,2,'не работает настройка Overnight');
+        VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Overnight');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Long Distance") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Long Distance');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Long Distance');
     }),config.timeout);
     SF.sleep(1);
 
@@ -103,31 +103,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Moving") and ' +
         'not(contains(text(),"Storage"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,1,'не работает настройка Local Moving');
+        VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Local Moving');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Moving & Storage")]'))
         .then(function(array){
-        VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Moving & Storage');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Moving & Storage');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Loading")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,1,'не работает настройка Loading');
+            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Loading');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Unloading")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,1,'не работает настройка Unloading');
+            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Unloading');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Flat")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Flat');
+            VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Flat');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Overnight")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Overnight');
+            VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Overnight');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Long")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,1,'не работает настройка Long');
+            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Long');
         }),config.timeout);
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
@@ -176,31 +176,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Moving") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Local Moving');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Local Moving');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Moving With Storage") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,2,'не работает настройка Moving With Storage');
+        VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Moving With Storage');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Loading Help") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Loading Help');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Loading Help');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Unloading Help") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Unloading Help');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Unloading Help');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Flat Rate") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,2,'не работает настройка Flat Rate');
+        VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Flat Rate');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Overnight") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,2,'не работает настройка Overnight');
+        VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Overnight');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Long Distance") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Long Distance');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Long Distance');
     }),config.timeout);
     SF.sleep(1);
 
@@ -212,31 +212,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Moving") and ' +
         'not(contains(text(),"Storage"))]')).then(function(array){
-        VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Local Moving');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Local Moving');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Moving & Storage")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,1,'не работает настройка Moving & Storage');
+            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Moving & Storage');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Loading")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Loading');
+            VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Loading');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Unloading")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Unloading');
+            VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Unloading');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Flat")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,1,'не работает настройка Flat');
+            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Flat');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Overnight")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,1,'не работает настройка Overnight');
+            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Overnight');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Long")]'))
         .then(function(array){
-            VD.IWant(VD.VToEqual,array.length,0,'не работает настройка Long');
+            VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Long');
         }),config.timeout);
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();

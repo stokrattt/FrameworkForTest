@@ -36,7 +36,7 @@ condition.nowWeDoing = 'Создаем реквест и ставим созда
 
 condition.nowWeDoing = 'идем на дашборд и проверяем что у реквеста стоит флаг созданный';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили');
+        VD.IWant(VD.ToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили');
     }),config.timeout);
     SF.sleep(0.5);
     driver.navigate().refresh();
@@ -44,7 +44,7 @@ condition.nowWeDoing = 'идем на дашборд и проверяем чт�
 condition.nowWeDoing = 'обновляем страницу и проверяем что флаг остался, открываем реквест ставим нот конферм и сохраняем';
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили после обновления страницы');
+        VD.IWant(VD.ToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили после обновления страницы');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Board_OpenRequest (V.boardNumbers.Id);
@@ -58,7 +58,7 @@ condition.nowWeDoing = 'обновляем страницу и проверяе�
 condition.nowWeDoing = 'пошли на страницу нот конферм и смотрим что флаг есть';
     MF.Board_OpenNotConfirmed ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили на странице нот конферм');
+        VD.IWant(VD.ToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили на странице нот конферм');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Board_OpenAllRequest ();
@@ -68,7 +68,7 @@ condition.nowWeDoing = 'открываем страницу всех рекве�
     MF.WaitWhileBusy ();
     Debug.pause ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.VToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили на странице Request Page (filtration page)');
+        VD.IWant(VD.ToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили на странице Request Page (filtration page)');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Board_OpenRequest (V.boardNumbers.Id);
@@ -82,7 +82,7 @@ condition.nowWeDoing = 'идем на дашборд и на страницу н
     MF.Board_OpenDashboard ();
     MF.Board_OpenNotConfirmed ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.VNotToEqual, text, 'TEST FLAG', 'не удалился флаг на странице нот конферм');
+        VD.IWant(VD.NotToEqual, text, 'TEST FLAG', 'не удалился флаг на странице нот конферм');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Board_OpenSideBar ();

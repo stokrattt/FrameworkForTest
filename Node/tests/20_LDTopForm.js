@@ -82,11 +82,11 @@ condition.nowWeDoing = 'зашли на админку для сравнения
     }),config.timeout);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     SF.sleep (2);
-    VD.IWant(VD.VToEqual, V.accountNumbersLD.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
-    VD.IWant(VD.VToEqual, V.accountNumbersLD.moveDate.Month, V.boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
-    VD.IWant(VD.VToEqual, V.accountNumbersLD.moveDate.Year, V.boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
-    VD.IWant(VD.VToEqual, V.accountNumbersLD.Total, V.boardNumbers.Total, 'не совпали Total аккаунта и борда');
-    VD.IWant(VD.VToEqual, V.accountNumbersLD.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLD.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLD.moveDate.Month, V.boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLD.moveDate.Year, V.boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLD.Total, V.boardNumbers.Total, 'не совпали Total аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLD.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
@@ -139,7 +139,7 @@ condition.nowWeDoing = 'зашли на админку второй раз дл�
         V.boardNumbersCubFit = SF.cleanPrice (text);
     }),config.timeout);
     SF.sleep (2);
-    VD.IWant(VD.VToEqual, V.boardNumbersCubFit, V.accountNumbersLDWithInvent.CubicFit, 'Кубик фит не совпадает с аккаунтом');
+    VD.IWant(VD.ToEqual, V.boardNumbersCubFit, V.accountNumbersLDWithInvent.CubicFit, 'Кубик фит не совпадает с аккаунтом');
 
     V.boardNumbers = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
@@ -152,11 +152,11 @@ condition.nowWeDoing = 'зашли на админку второй раз дл�
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     SF.sleep (2);
 
-    VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
-    VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.moveDate.Month, V.boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
-    VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.moveDate.Year, V.boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
-    VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.Total, V.boardNumbers.Total, 'не совпали Total аккаунта и борда');
-    VD.IWant(VD.VToEqual, V.accountNumbersLDWithInvent.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDWithInvent.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDWithInvent.moveDate.Month, V.boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDWithInvent.moveDate.Year, V.boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDWithInvent.Total, V.boardNumbers.Total, 'не совпали Total аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDWithInvent.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     SF.sleep (1);
     // MF.EditRequest_SaveChanges ();
     // LF.closeEditRequest ();

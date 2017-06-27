@@ -57,7 +57,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]')).getText().then(function(text){
         V.storageName = text;
-        VD.IWant(VD.VToEqual, V.storageName, 'test', 'Starage Name не совпали');
+        VD.IWant(VD.ToEqual, V.storageName, 'test', 'Starage Name не совпали');
     }),config.timeout);
 
     condition.nowWeDoing = 'Заходим в реквест , виставляем Delivery day и Schedule day и LD status';
@@ -103,32 +103,32 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[9]')).getText().then(function(text){
         V.readyForDelivery = text;
-        VD.IWant(VD.VToEqual, V.readyForDelivery, 'Ready', 'Ready for Delivery должен бить Ready');
+        VD.IWant(VD.ToEqual, V.readyForDelivery, 'Ready', 'Ready for Delivery должен бить Ready');
     }),config.timeout);
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]')).getText().then(function(text){
         V.pickupFrom =  SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.pickupFrom, '234234234242402200', 'picupFrom не совпали');
+        VD.IWant(VD.ToEqual, V.pickupFrom, '234234234242402200', 'picupFrom не совпали');
     }),config.timeout);
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[5]')).getText().then(function(text){
         V.deliveryTo =  SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.deliveryTo, '3465456456432132', 'delivery to не совпали');
+        VD.IWant(VD.ToEqual, V.deliveryTo, '3465456456432132', 'delivery to не совпали');
     }),config.timeout);
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[8]')).getText().then(function(text){
         V.statusLD =  text;
-        VD.IWant(VD.VToEqual, V.statusLD, 'LD', 'LD status не совпали');
+        VD.IWant(VD.ToEqual, V.statusLD, 'LD', 'LD status не совпали');
     }),config.timeout);
 
 
-    // VD.IWant(VD.VToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
-    // VD.IWant(VD.VToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
-    // VD.IWant(VD.VToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
+    // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
+    // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
+    // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
     // V.SITScheduleDate = SF.parseDateInSIT(V.request.moveDate);
     // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.SITScheduleDate +'")]/..//div[9]')).getText().then(function(text){
     //     V.scheduleDate  =  text;
-    //     VD.IWant(VD.VToEqual, V.scheduleDate, V.SITScheduleDate, 'schedule Date не совпали');
+    //     VD.IWant(VD.ToEqual, V.scheduleDate, V.SITScheduleDate, 'schedule Date не совпали');
     // }),config.timeout);
     SF.endOfTest();
 

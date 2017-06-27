@@ -104,12 +104,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Balance:")]/..//div')).getText().then(function(text){
         V.requestBalanceAfter = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.requestBalanceAfter, 0.00, 'Баланс в окне реквеста должен бить 0 после добавления работи в трип');
+        VD.IWant(VD.ToEqual, V.requestBalanceAfter, 0.00, 'Баланс в окне реквеста должен бить 0 после добавления работи в трип');
     }),config.timeout);
 
     driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Payment:")]/..//div')).getText().then(function(text){
         V.requestPaymentAfter = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.requestPaymentAfter, V.tpCollected, 'Пеймент должен бить равен тпКолектед');
+        VD.IWant(VD.ToEqual, V.requestPaymentAfter, V.tpCollected, 'Пеймент должен бить равен тпКолектед');
     }),config.timeout);
     SF.sleep(2);
     LF.closeEditRequest ();
@@ -117,7 +117,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]')).getText().then(function(text){
         V.cleanTPCollected = SF.cleanPrice(text);
         console.log(V.cleanTPCollected);
-        VD.IWant(VD.VToEqual, V.tpCollected, V.cleanTPCollected, 'не совпали TP Collected в клоузинге c Payment в модалке реквеста');
+        VD.IWant(VD.ToEqual, V.tpCollected, V.cleanTPCollected, 'не совпали TP Collected в клоузинге c Payment в модалке реквеста');
     }),config.timeout);
     SF.click(By.xpath('//div[@ng-click="openRateModal(item)"]'));
     V.ratePerCf= 4;
@@ -161,27 +161,27 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.totalTPCollected = V.somePayment + V.tpCollected;
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id)"]')).getText().then(function(text){
         V.cleanTotalTPCollected = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.totalTPCollected, V.cleanTotalTPCollected, 'не совпали TPcollected после добавления кастомного пеймента');
+        VD.IWant(VD.ToEqual, V.totalTPCollected, V.cleanTotalTPCollected, 'не совпали TPcollected после добавления кастомного пеймента');
     }),config.timeout);
     SF.sleep(1);
     V.jobCost = V.volumeCf * V.ratePerCf;
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openVolumeModal(item)"]/following-sibling::div[1]')).getText().then(function(text){
         V.cleanJobCost = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.jobCost, V.cleanJobCost, 'не совпали Job Cost');
+        VD.IWant(VD.ToEqual, V.jobCost, V.cleanJobCost, 'не совпали Job Cost');
     }),config.timeout);
     SF.sleep(2);
 
     V.jobTotal = V.jobCost + V.parkingCost;
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="addServices(item, $index)"]/following-sibling::div[1]')).getText().then(function(text){
         V.cleanJobTotal = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.jobTotal, V.cleanJobTotal, 'не совпали Total Job Cost');
+        VD.IWant(VD.ToEqual, V.jobTotal, V.cleanJobTotal, 'не совпали Total Job Cost');
     }),config.timeout);
     SF.sleep(2);
 
     V.balance = V.totalTPCollected - V.jobTotal;
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openVolumeModal(item)"]/following-sibling::div[last()]')).getText().then(function(text){
         V.cleanBalance = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.balance, V.cleanBalance, 'не совпали Balance');
+        VD.IWant(VD.ToEqual, V.balance, V.cleanBalance, 'не совпали Balance');
     }),config.timeout);
     SF.sleep(2);
 
@@ -189,11 +189,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('span:contains(\\"Log\\")');
     SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//b[contains(text(),"Field rate_per_cf was changed to 4")]')).getText().then(function(text){
-        VD.IWant(VD.VToEqual, text, 'Field rate_per_cf was changed to 4', 'не совпали cubic feet в клозингу и в логах');
+        VD.IWant(VD.ToEqual, text, 'Field rate_per_cf was changed to 4', 'не совпали cubic feet в клозингу и в логах');
     }),config.timeout);
 
     driver.wait(driver.findElement(By.xpath('//b[contains(text(),"Field volume_cf was changed to 350")]')).getText().then(function(text){
-        VD.IWant(VD.VToEqual, text, 'Field volume_cf was changed to 350', 'не совпали volume CF в клозингу и в логах');
+        VD.IWant(VD.ToEqual, text, 'Field volume_cf was changed to 350', 'не совпали volume CF в клозингу и в логах');
     }),config.timeout);
     SF.sleep(3);
 

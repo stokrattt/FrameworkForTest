@@ -44,7 +44,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.id('tab_Moving Insurance'));
     SF.sleep(2);
     driver.wait(driver.findElements(By.xpath('//p[@ng-bind-html="vm.basicSettings.insurance_text"]')).then(function (len) {
-        VD.IWant(VD.VToEqual, (len.length), 1, 'не нашло moving insurance на аккаунте')
+        VD.IWant(VD.ToEqual, (len.length), 1, 'не нашло moving insurance на аккаунте')
     }),config.timeout);
     SF.sleep(2);
     LF.ConfirmRequestInAccount_WithReservation();

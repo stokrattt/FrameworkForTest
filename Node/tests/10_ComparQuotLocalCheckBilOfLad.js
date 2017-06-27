@@ -34,8 +34,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         'following-sibling::td[1]//div/div/div')).getText().then(function(text){
             V.logNumbers.QuoteMin=SF.cleanPrice(text.substring(0,text.indexOf('-')));
             V.logNumbers.QuoteMax=SF.cleanPrice(text.substring(text.indexOf('-')+1));
-            VD.IWant(VD.VToEqual, V.logNumbers.QuoteMin, V.boardNumbers.TotalMin);
-            VD.IWant(VD.VToEqual, V.logNumbers.QuoteMax, V.boardNumbers.TotalMax);
+            VD.IWant(VD.ToEqual, V.logNumbers.QuoteMin, V.boardNumbers.TotalMin);
+            VD.IWant(VD.ToEqual, V.logNumbers.QuoteMax, V.boardNumbers.TotalMax);
     });
     SF.sleep(1);
     MF.EditRequest_OpenRequest ();

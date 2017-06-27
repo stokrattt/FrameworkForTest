@@ -36,9 +36,9 @@ condition.nowWeDoing = 'считаем квоту от времени и гра�
     V.QuoteLaborTravelRate = ((V.LaborTime + V.boardNumbers.TravelTime)/60)*V.boardNumbers.HourlyRate;
     V.boardNumbersClose = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersClose);
-    VD.IWant (VD.VToEqual, V.boardNumbersClose.QuoteMax, V.QuoteLaborTravelRate, 'не правильно посчитало квоту по формуле лабор+травел*rate');
+    VD.IWant (VD.ToEqual, V.boardNumbersClose.QuoteMax, V.QuoteLaborTravelRate, 'не правильно посчитало квоту по формуле лабор+травел*rate');
     V.TotalSum = V.boardNumbersClose.QuoteMax + V.boardNumbersClose.Fuel;
-    VD.IWant (VD.VToEqual, V.boardNumbersClose.Total, V.TotalSum, 'не правильно посчитало гранд  по формуле фуел + квота');
+    VD.IWant (VD.ToEqual, V.boardNumbersClose.Total, V.TotalSum, 'не правильно посчитало гранд  по формуле фуел + квота');
     SF.sleep(2);
 
 condition.nowWeDoing = 'добавляем два паймента, один кастомный, один карточкой, так чтобы баланс был равен 0 и закрываем реквест';
@@ -82,7 +82,7 @@ condition.nowWeDoing = 'идем в коферм работы на борде,о
     MF.EditRequest_CloseJob();
     V.boardNumbersCloseJob = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersCloseJob);
-    VD.IWant(VD.VToEqual,V.boardNumbersCloseJob.Balance, 0, 'баланс не ноль');
+    VD.IWant(VD.ToEqual,V.boardNumbersCloseJob.Balance, 0, 'баланс не ноль');
     SF.sleep(2);
     // LF.closeEditRequest ();
     // MF.Board_LogoutAdmin ();

@@ -24,12 +24,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_CloseModal();
     V.summQuote = (parseFloat((V.boardNumbers.QuoteMin + V.boardNumbers.QuoteMax)/2)).toFixed(2);
     V.calcFuel = (V.summQuote * V.boardNumbers.FuelPerc/100).toFixed(2);
-    VD.IWant(VD.VToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан неправильно');
+    VD.IWant(VD.ToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан неправильно');
     SF.sleep (1);
 
     V.boardNumbersNew={};
     MF.EditRequest_RememberCbf(V.boardNumbersNew);
-    VD.IWant(VD.VNotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
     V.boardNumbers = {};
     V.boardNumbersNew = {};
     MF.EditRequest_RememberCbf(V.boardNumbers);
@@ -40,14 +40,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_AddRoomNumber(7);
     SF.sleep (2);
     MF.EditRequest_RememberCbf(V.boardNumbersNew);
-    VD.IWant(VD.VNotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
 
     condition.nowWeDoing = 'включили калькулятор';
     MF.EditRequest_SwitchCalculator();
     LF.addInventoryBoard (V.boardNumbers);
     MF.EditRequest_RememberCbf(V.boardNumbers);
     SF.sleep (2);
-    VD.IWant (VD.VToEqual, V.boardNumbers.cbf, V.boardNumbers.InventoryCubicFit, 'Кубик фит не совпадает с инвенторием, а должен');
+    VD.IWant (VD.ToEqual, V.boardNumbers.cbf, V.boardNumbers.InventoryCubicFit, 'Кубик фит не совпадает с инвенторием, а должен');
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
 
@@ -57,14 +57,14 @@ condition.nowWeDoing = 'идем в нот коферм и проверяем б
     MF.WaitWhileBusy ();
     SF.sleep(63);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"request in requests track by $index\"]:visible').length").then(function (text) {
-        VD.IWant (VD.VNotToEqual, text, 0, 'пропали реквесты после того как выбрали Move date');
+        VD.IWant (VD.NotToEqual, text, 0, 'пропали реквесты после того как выбрали Move date');
     }),config.timeout);
     SF.sleep(1);
     // SF.select(By.xpath('//select[@ng-model="vm.conf_filter"]'), 1);
     // MF.WaitWhileBusy ();
     // SF.sleep(63);
     // driver.wait(driver.executeScript("return $('tr[ng-repeat=\"request in requests track by $index\"]:visible').length").then(function (text) {
-    //     VD.IWant (VD.VNotToEqual, text, 0, 'пропали реквесты после того как выбрали Booked date');
+    //     VD.IWant (VD.NotToEqual, text, 0, 'пропали реквесты после того как выбрали Booked date');
     // }),config.timeout);
     // SF.sleep(1);
 

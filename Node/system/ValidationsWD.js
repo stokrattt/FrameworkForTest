@@ -4,12 +4,16 @@ module.exports = function (system, condition) {
         var s = f && ((fn.name && ['', fn.name]) || fn.toString().match(/function ([^\(]+)/));
         return (!f && 'not a function') || (s && s[1] || 'anonymous');
     }
-
-    function VToEqual (value1, value2) {
-        this.name='';
+    function ALessB(a,b){
+        return a<b;
+    }
+	function ALessOrEqualB(a,b){
+		return a<=b;
+	}
+    function ToEqual (value1, value2) {
         return (value1 == value2);
     }
-    function VNotToEqual (value1, value2) {
+    function NotToEqual (value1, value2) {
         return (value1 != value2);
     }
     function IWant (func, value1, value2, e) {
@@ -43,9 +47,11 @@ module.exports = function (system, condition) {
         }
     }
     return {
-        VToEqual:VToEqual,
-        VNotToEqual:VNotToEqual,
+        ToEqual:ToEqual,
+        NotToEqual:NotToEqual,
         IWant:IWant,
-        INeed:INeed
+        INeed:INeed,
+		ALessB:ALessB,
+		ALessOrEqualB:ALessOrEqualB
     };
 };

@@ -35,7 +35,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.boardNumbersWithRes.ReservationPrice = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual,V.boardNumbersWithRes.ReservationPrice, 150,'Резервация не равно 150');
+    VD.IWant(VD.ToEqual,V.boardNumbersWithRes.ReservationPrice, 150,'Резервация не равно 150');
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();
@@ -91,7 +91,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.boardNumbersNoRes.ReservationPrice = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual,V.boardNumbersNoRes.ReservationPrice, 0,'Резервация не равно 0');
+    VD.IWant(VD.ToEqual,V.boardNumbersNoRes.ReservationPrice, 0,'Резервация не равно 0');
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();

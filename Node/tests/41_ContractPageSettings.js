@@ -79,7 +79,7 @@ condition.nowWeDoing = 'проверяем настройку Credit Card proces
         SF.sleep(2);
         MF.Contract_WaitBillOfLading ();
         driver.wait(driver.executeScript("return $('td p:contains(\"Credit Card processing fee:\")').length").then(function (check) {
-            VD.IWant (VD.VToEqual, check, 0, 'настройка Credit Card processing fee не отключилась');
+            VD.IWant (VD.ToEqual, check, 0, 'настройка Credit Card processing fee не отключилась');
         }),config.timeout);
         SF.sleep (1);
     } else {
@@ -96,7 +96,7 @@ condition.nowWeDoing = 'проверяем настройку Credit Card proces
         MF.Contract_OpenBillOfLading ();
         MF.Contract_WaitBillOfLading ();
         driver.wait(driver.executeScript("return $('td p:contains(\"Credit Card processing fee:\")').length").then(function (check) {
-            VD.IWant (VD.VToEqual, check, 1, 'настройка Credit Card processing fee не включилась');
+            VD.IWant (VD.ToEqual, check, 1, 'настройка Credit Card processing fee не включилась');
         }),config.timeout);
         SF.sleep (1);
     }
@@ -119,7 +119,7 @@ condition.nowWeDoing = 'проверяем настройку Custom';
         MF.Contract_OpenBillOfLading ();
         MF.Contract_WaitBillOfLading ();
         driver.wait(driver.executeScript("return $('tr[ng-if=\"contract_page.paymentTax.customTax.state\"]').length").then(function (check) {
-            VD.IWant (VD.VToEqual, check, 1, 'настройка Custom не включилась');
+            VD.IWant (VD.ToEqual, check, 1, 'настройка Custom не включилась');
         }),config.timeout);
         SF.sleep (1);
     } else {
@@ -136,7 +136,7 @@ condition.nowWeDoing = 'проверяем настройку Custom';
         MF.Contract_OpenBillOfLading ();
         MF.Contract_WaitBillOfLading ();
         driver.wait(driver.executeScript("return $('tr[ng-if=\"contract_page.paymentTax.customTax.state\"]').length").then(function (check) {
-            VD.IWant (VD.VToEqual, check, 0, 'настройка Custom не отключилась');
+            VD.IWant (VD.ToEqual, check, 0, 'настройка Custom не отключилась');
         }),config.timeout);
         SF.sleep (1);
     }
@@ -159,7 +159,7 @@ condition.nowWeDoing = 'проверяем настройку CASH (DISCOUNT)';
         MF.Contract_OpenBillOfLading ();
         MF.Contract_WaitBillOfLading ();
         driver.wait(driver.executeScript("return $('td p:contains(\"Cash (discount):\")').length").then(function (check) {
-            VD.IWant (VD.VToEqual, check, 0, 'настройка CASH (DISCOUNT) не отключилась');
+            VD.IWant (VD.ToEqual, check, 0, 'настройка CASH (DISCOUNT) не отключилась');
         }),config.timeout);
         SF.sleep (1);
     } else {
@@ -176,7 +176,7 @@ condition.nowWeDoing = 'проверяем настройку CASH (DISCOUNT)';
         MF.Contract_OpenBillOfLading ();
         MF.Contract_WaitBillOfLading ();
         driver.wait(driver.executeScript("return $('td p:contains(\"Cash (discount):\")').length").then(function (check) {
-            VD.IWant (VD.VToEqual, check, 1, 'настройка CASH (DISCOUNT) не включилась');
+            VD.IWant (VD.ToEqual, check, 1, 'настройка CASH (DISCOUNT) не включилась');
         }),config.timeout);
         SF.sleep (1);
     }

@@ -54,7 +54,7 @@ condition.nowWeDoing = 'пошли на дашборд, открываем ре�
     SF.sleep(1);
     V.boardNumbersDiscount = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersDiscount);
-    VD.IWant (VD.VNotToEqual, V.boardNumbers.TotalMin, V.boardNumbersDiscount.TotalMin, 'скидка не применилась');
+    VD.IWant (VD.NotToEqual, V.boardNumbers.TotalMin, V.boardNumbersDiscount.TotalMin, 'скидка не применилась');
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
@@ -136,7 +136,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
         V.TotalLessWithDiscount = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant (VD.VNotToEqual, V.TotalLess, V.TotalLessWithDiscount, 'скидка-купон на контракте не применилась');
+    VD.IWant (VD.NotToEqual, V.TotalLess, V.TotalLessWithDiscount, 'скидка-купон на контракте не применилась');
     SF.sleep(1);
     MF.Contract_ClickPay();
     SF.click(By.xpath('//div[@ng-click="tipsSelected()"]'));
@@ -145,7 +145,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
         V.Payment = SF.cleanPrice (text);
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant (VD.VToEqual, V.Payment, V.TotalLessWithDiscount, 'в модальном окне при оплате скидка-купон на контракте не применилась');
+    VD.IWant (VD.ToEqual, V.Payment, V.TotalLessWithDiscount, 'в модальном окне при оплате скидка-купон на контракте не применилась');
     SF.sleep(1);
     MF.Contract_ClickPaymentInfo();
     SF.click(By.xpath('//div[@ng-click="choosePayment(\'checkPay\');"]'));
@@ -154,7 +154,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
         V.PaymentCheck = SF.cleanPrice (text);
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant (VD.VToEqual, V.PaymentCheck, V.TotalLessWithDiscount, 'в модальном окне при оплате Check скидка-купон на контракте не применилась');
+    VD.IWant (VD.ToEqual, V.PaymentCheck, V.TotalLessWithDiscount, 'в модальном окне при оплате Check скидка-купон на контракте не применилась');
     SF.sleep(1);
     SF.send (By.xpath('//input[@ng-model="paymentCheck.check_num"]'), 56556566);
     SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
@@ -178,7 +178,7 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
         V.PaymentAccount = SF.cleanPrice (text);
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant (VD.VToEqual, V.PaymentAccount, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент не совпала оплата которая была на контракте');
+    VD.IWant (VD.ToEqual, V.PaymentAccount, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент не совпала оплата которая была на контракте');
     SF.sleep(1);
     SF.click(By.xpath('//tr[@ng-repeat="receipt in vm.request.receipts track by $index"]/td[4]'));
     SF.waitForLocated (By.xpath('//div[@class="payment-receipt-modal ng-scope printSection"]'));
@@ -187,7 +187,7 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
         V.PaymentReceipt = SF.cleanPrice (text);
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant (VD.VToEqual, V.PaymentReceipt, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент в ресите не совпала оплата которая была на контракте');
+    VD.IWant (VD.ToEqual, V.PaymentReceipt, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент в ресите не совпала оплата которая была на контракте');
     SF.sleep(1);
     // SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     // LF.LogoutFromAccount ();

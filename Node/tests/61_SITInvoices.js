@@ -179,7 +179,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.receiptsAmount = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.amount, V.receiptsAmount, 'не совпали Amount');
+        VD.IWant(VD.ToEqual, V.amount, V.receiptsAmount, 'не совпали Amount');
     }),config.timeout)
     SF.click(By.xpath('//div[@ng-click="showList(item)"]'));
     condition.nowWeDoing = 'Проверяем есть ли в вкладке Invoices инвоис';
@@ -187,7 +187,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.invoicesAmount = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.amount, V.invoicesAmount, 'не совпали Amount');
+        VD.IWant(VD.ToEqual, V.amount, V.invoicesAmount, 'не совпали Amount');
     }),config.timeout)
     SF.click(By.xpath('//div[@ng-click="showList(item)"]'));
     condition.nowWeDoing = 'удаляем инвоис';

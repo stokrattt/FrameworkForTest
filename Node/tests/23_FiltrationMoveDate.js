@@ -75,19 +75,19 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     MF.WaitWhileBusy ();
 
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]')).getText().then(function (id1) {
-        VD.IWant (VD.VToEqual, V.Id1, id1, 'не нашел реквест по фильтрации1')
+        VD.IWant (VD.ToEqual, V.Id1, id1, 'не нашел реквест по фильтрации1')
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id2 + '")]')).getText().then(function (id2) {
-        VD.IWant (VD.VToEqual, V.Id2, id2, 'не нашел реквест по фильтрации2')
+        VD.IWant (VD.ToEqual, V.Id2, id2, 'не нашел реквест по фильтрации2')
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id3 + '")]')).getText().then(function (id3) {
-        VD.IWant (VD.VToEqual, V.Id3, id3, 'не нашел реквест по фильтрации3')
+        VD.IWant (VD.ToEqual, V.Id3, id3, 'не нашел реквест по фильтрации3')
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id4 + '")]')).getText().then(function (id4) {
-        VD.IWant (VD.VToEqual, V.Id4, id4, 'не нашел реквест по фильтрации4')
+        VD.IWant (VD.ToEqual, V.Id4, id4, 'не нашел реквест по фильтрации4')
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id5 + '")]')).getText().then(function (id5) {
-        VD.IWant (VD.VToEqual, V.Id5, id5, 'не нашел реквест по фильтрации5')
+        VD.IWant (VD.ToEqual, V.Id5, id5, 'не нашел реквест по фильтрации5')
     }),config.timeout);
     SF.sleep(2);
 condition.nowWeDoing = 'идем удалять созданные реквесты';

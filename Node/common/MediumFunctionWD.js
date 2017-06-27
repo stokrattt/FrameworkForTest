@@ -41,7 +41,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function MailRu_CheckEmailExistBySubject(subject){
         driver.wait(driver.findElements(By.xpath('//a[@data-subject="'+subject+'"]')).then(function(elements){
-            VD.IWant(VD.VToEqual, elements.length,1,'письмо не дошло');
+            VD.IWant(VD.ToEqual, elements.length,1,'письмо не дошло');
         }),config.timeout);
     }
 
@@ -207,6 +207,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//a[@ui-sref="settings.templatebuilder"]'));
         SF.sleep(3);
     }
+	function Board_OpenSettingsCalculator() {
+		Board_OpenSettingsGeneral();
+		SF.click(By.xpath('//a[@ui-sref="settings.calculator"]'));
+		SF.waitForVisible(By.xpath('//h3[contains(text(),"Test Calculator")]'));
+		SF.sleep(3);
+	}
     function Board_OpenDashboard() {
         SF.click(By.xpath('//a[@ui-sref="dashboard"]'));
         SF.sleep(2);
@@ -315,6 +321,45 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		WaitWhileBusy();
     }
 
+    //==============================CALCULATOR SETTINGS===========================
+    function CalculatorSettings_OpenBasicSettings(){
+		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[2]'));
+    }
+	function CalculatorSettings_OpenTravelTime(){
+        SF.click(By.xpath('//h1[contains(text(),"General Settings")]'));
+		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[4]'));
+		SF.waitForVisible(By.xpath("//h1[contains(text(),'Travel Time')]"));
+	}
+    function CalculatorSettings_CustomTrackSpeedTurnOff(){
+		driver.wait(driver.findElement(By.xpath('//input[@ng-change="switchTruckSpeedEnabled()"]')).getAttribute('class').then(
+		    function(value){
+		        if (value.indexOf('ng-not-empty')!=-1){
+		            driver.findElement(By.xpath('//input[@ng-change="switchTruckSpeedEnabled()"]/following-sibling::span[1]')).click();
+                }
+		    }
+        ),config.timeout);
+		SF.sleep(1);
+    }
+	function CalculatorSettings_CustomTrackSpeedTurnOn(){
+		driver.wait(driver.findElement(By.xpath('//input[@ng-change="switchTruckSpeedEnabled()"]')).getAttribute('class').then(
+			function(value){
+				if (value.indexOf('ng-not-empty')==-1){
+					driver.findElement(By.xpath('//input[@ng-change="switchTruckSpeedEnabled()"]/following-sibling::span[1]')).click();
+				}
+			}
+		),config.timeout);
+		SF.sleep(1);
+	}
+	function CalculatorSettings_SetCustomTrackSpeed(speed){
+		SF.clear(By.xpath('//input[@ng-model="vm.calcSettings.customTrackSpeed.customSpeed"]'));
+	    SF.send(By.xpath('//input[@ng-model="vm.calcSettings.customTrackSpeed.customSpeed"]'), speed);
+		SF.click(By.xpath('//input[@ng-model="vm.calcSettings.customTrackSpeed.customSpeed"]/../preceding-sibling::*[1]'));
+    }
+	function CalculatorSettings_SetCustomTrackSpeedBorder(border){
+		SF.clear(By.xpath('//input[@ng-model="vm.calcSettings.customTrackSpeed.useWhenDistMoreThan"]'));
+		SF.send(By.xpath('//input[@ng-model="vm.calcSettings.customTrackSpeed.useWhenDistMoreThan"]'), border);
+		SF.click(By.xpath('//input[@ng-model="vm.calcSettings.customTrackSpeed.useWhenDistMoreThan"]/../preceding-sibling::*[1]'));
+	}
     //==============================ACCOUNT=======================================
 
     function Account_SubmitFlatRateAfterAddInventory() {
@@ -348,13 +393,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_CheckRequestStatus_NotConfirmed(Id) {
         SF.waitForVisible(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td[1]'));
         driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
-            VD.IWant(VD.VToEqual, Status, 'Not Confirmed');
+            VD.IWant(VD.ToEqual, Status, 'Not Confirmed');
         }), config.timeout);
     }
     function Account_CheckRequestStatus_Pending(Id) {
         SF.waitForVisible(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td[1]'));
         driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td[1]')).getText().then(function (Status) {
-            VD.IWant(VD.VToEqual, Status, 'Pending');
+            VD.IWant(VD.ToEqual, Status, 'Pending');
         }), config.timeout);
     }
 
@@ -525,7 +570,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Contract_CheckLoadBillOfLadding() {
         driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
-            VD.IWant (VD.VToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
+            VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
         }),config.timeout);
     }
     function Contract_ReviewClickStar(stars){
@@ -920,7 +965,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElements(By.xpath('//div[@ng-show="tabs[0].selected"]//span[' +
             'contains(text(),\'Mail was send to "'+receiver+'".\') and ' +
             'contains(text(),\'Subject: "'+Subject+'\')]')).then(function(array){
-            VD.IWant(VD.VToEqual, array.length,1,'имейл '+Subject+' не был отправлен на '+receiver+' или отправлен несколько раз');
+            VD.IWant(VD.ToEqual, array.length,1,'имейл '+Subject+' не был отправлен на '+receiver+' или отправлен несколько раз');
         }), config.timeout);
     }
 
@@ -1191,6 +1236,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenProfitLoss: Board_OpenProfitLoss,
 		Board_OpenRequest: Board_OpenRequest,
 		Board_OpenFirstRequest: Board_OpenFirstRequest,
+		Board_OpenSettingsCalculator: Board_OpenSettingsCalculator,
+        //====================================SETTINGS CALCULATOR===========================
+        CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
+		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
+		CalculatorSettings_CustomTrackSpeedTurnOff: CalculatorSettings_CustomTrackSpeedTurnOff,
+		CalculatorSettings_CustomTrackSpeedTurnOn: CalculatorSettings_CustomTrackSpeedTurnOn,
+		CalculatorSettings_SetCustomTrackSpeed: CalculatorSettings_SetCustomTrackSpeed,
+		CalculatorSettings_SetCustomTrackSpeedBorder: CalculatorSettings_SetCustomTrackSpeedBorder,
         //====================================ACCOUNT=======================================
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,

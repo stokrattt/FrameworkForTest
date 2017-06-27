@@ -90,7 +90,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Invoice")]')).getText().then(function(text){
         V.storageInvoiceTemplateInStorages = text;
-        VD.IWant(VD.VToEqual, V.storageInvoiceTemplateInStorages, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
+        VD.IWant(VD.ToEqual, V.storageInvoiceTemplateInStorages, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
     }),config.timeout);
     SF.sleep (2);
 
@@ -98,7 +98,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"your storage fee is now 2 days overdue")]')).getText().then(function(text){
         V.storageReminder1InStorages = text;
-        VD.IWant(VD.VToEqual, V.storageReminder1InStorages, V.storageReminder1, 'не совпали темплейти Reminder 1');
+        VD.IWant(VD.ToEqual, V.storageReminder1InStorages, V.storageReminder1, 'не совпали темплейти Reminder 1');
     }),config.timeout);
     SF.sleep (2);
 
@@ -106,7 +106,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"your storage fee is now 4 days overdue")]')).getText().then(function(text){
         V.storageReminder2InStorages = text;
-        VD.IWant(VD.VToEqual, V.storageReminder2InStorages, V.storageReminder2, 'не совпали темплейти Reminder 2');
+        VD.IWant(VD.ToEqual, V.storageReminder2InStorages, V.storageReminder2, 'не совпали темплейти Reminder 2');
     }),config.timeout);
     SF.sleep (2);
 
@@ -114,7 +114,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"your storage fee is now 6 days overdue")]')).getText().then(function(text){
         V.storageReminder3InStorages = text;
-        VD.IWant(VD.VToEqual, V.storageReminder3InStorages, V.storageReminder3, 'не совпали темплейти Reminder 3');
+        VD.IWant(VD.ToEqual, V.storageReminder3InStorages, V.storageReminder3, 'не совпали темплейти Reminder 3');
     }),config.timeout);
     SF.sleep (2);
 
@@ -122,7 +122,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"your storage monthly fee is now 7 days overdue")]')).getText().then(function(text){
         V.feeStorageInvoiceTemplateInStorages = text;
-        VD.IWant(VD.VToEqual, V.feeStorageInvoiceTemplateInStorages, V.feeStorageInvoiceTemplate, 'не совпали темплейти Fee Storage Invoice');
+        VD.IWant(VD.ToEqual, V.feeStorageInvoiceTemplateInStorages, V.feeStorageInvoiceTemplate, 'не совпали темплейти Fee Storage Invoice');
     }),config.timeout);
     SF.sleep (2);
     SF.click (By.xpath('//button[@ng-click="closeModal()"]'));
@@ -153,7 +153,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (3);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Invoice")]')).getText().then(function(text){
         V.storageInvoiceTemplateInTenants = text;
-        VD.IWant(VD.VToEqual, V.storageInvoiceTemplateInTenants, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
+        VD.IWant(VD.ToEqual, V.storageInvoiceTemplateInTenants, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
     }),config.timeout);
     SF.sleep (2);
 

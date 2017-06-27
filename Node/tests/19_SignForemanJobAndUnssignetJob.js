@@ -85,7 +85,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     if (V.boardNumbers.Balance !== 0) {
         JS.scroll('div.BalanceCost:visible');
     }
-    VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+    VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
 
     SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal();"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
@@ -111,13 +111,13 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
 condition.nowWeDoing = 'идем на форемана проверить что он удалился с  работы';
     SF.sleep (3);
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.VToEqual, check, 0, 'фореман не удалился с реквеста');
+        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
     }),config.timeout);
     SF.sleep (1);
     SF.click(By.xpath('//a[@ui-sref="foreman.done"]'));
     SF.sleep (5);
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.VToEqual, check, 0, 'фореман не удалился с реквеста');
+        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
     }),config.timeout);
     SF.sleep (1);
     LF.LogoutFromBoardForeman();

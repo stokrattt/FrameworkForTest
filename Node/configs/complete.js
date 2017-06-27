@@ -85,7 +85,8 @@ module.exports = function(config,V) {
         './tests/68_SITPickUpDelivery.js',
         './tests/70_SITAddTripPersonallyForeman.js',
 		'./tests/71_ManualEmailing.js',
-		'./tests/72_ChangingRateAfterConfirming.js'
+		'./tests/72_ChangingRateAfterConfirming.js',
+        './tests/73_CustomTrackSpeed.js'
 
 
     ];

@@ -161,8 +161,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт';
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-        VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
-        VD.IWant(VD.VToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
+        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }));
     LF.MakeSignInContract();
     LF.MakeSignInContract();
@@ -228,8 +228,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
     MF.Contract_WaitBillOfLading();
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-        VD.IWant(VD.VToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
-        VD.IWant(VD.VToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
+        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }));
     LF.MakeSignInContract();
     LF.MakeSignInContract();
@@ -268,7 +268,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersTo);
     MF.EditRequest_ScrollDown();
-    VD.IWant(VD.VToEqual, V.boardNumbersTo.Balance, 0, 'Баланс после закрытия не равен 0');
+    VD.IWant(VD.ToEqual, V.boardNumbersTo.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersTo);
     MF.EditRequest_CloseModal();
@@ -285,7 +285,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersFrom);
     MF.EditRequest_ScrollDown();
-    VD.IWant(VD.VToEqual, V.boardNumbersFrom.Balance, 0, 'Баланс после закрытия не равен 0');
+    VD.IWant(VD.ToEqual, V.boardNumbersFrom.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersFrom);
     MF.EditRequest_CloseModal();
@@ -300,7 +300,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     };
     driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.accountNumbersTo.Id)).then(function (text) {
         V.payrollNumbersTo.Foreman.Total = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.payrollNumbersTo.Foreman.Total, V.boardNumbersTo.Payroll.foremanForCommission.total, 'не совпали цифры ToStorage в Payroll foreman\n' +
+        VD.IWant(VD.ToEqual, V.payrollNumbersTo.Foreman.Total, V.boardNumbersTo.Payroll.foremanForCommission.total, 'не совпали цифры ToStorage в Payroll foreman\n' +
             'id=' + V.accountNumbersTo.Id);
     }), config.timeout);
     SF.sleep(1);
@@ -310,7 +310,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     };
     driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.accountNumbersFrom.Id)).then(function (text) {
         V.payrollNumbersFrom.Foreman.Total = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.payrollNumbersFrom.Foreman.Total, V.boardNumbersFrom.Payroll.foremanForCommission.total, 'не совпали цифры FromStorage в Payroll foreman\n' +
+        VD.IWant(VD.ToEqual, V.payrollNumbersFrom.Foreman.Total, V.boardNumbersFrom.Payroll.foremanForCommission.total, 'не совпали цифры FromStorage в Payroll foreman\n' +
             'id=' + V.accountNumbersFrom.Id);
     }), config.timeout);
     SF.sleep(1);
@@ -324,14 +324,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.payrollNumbersTo.Sale.Total = SF.cleanPrice(text);
     }), config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.payrollNumbersTo.Sale.Total, V.boardNumbersTo.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbersTo.Sale.Total, V.boardNumbersTo.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.accountNumbersTo.Id);
     LF.selectDateInPayroll(V.boardNumbersFrom.moveDate);
     driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.accountNumbersFrom.Id)).then(function (text) {
         V.payrollNumbersFrom.Sale.Total = SF.cleanPrice(text);
     }), config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.payrollNumbersFrom.Sale.Total, V.boardNumbersFrom.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbersFrom.Sale.Total, V.boardNumbersFrom.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.accountNumbersFrom.Id);
 
 

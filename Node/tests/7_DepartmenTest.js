@@ -193,9 +193,9 @@ condition.nowWeDoing = 'заходим под админом и создаем �
             };
         }.toString().substring(12)
         ).then(function(counts){
-            VD.IWant(VD.VNotToEqual, counts.Foreman, 0, 'не нашло имя форемана');
-            VD.IWant(VD.VNotToEqual, counts.Helper, 0, 'не нашло имя хелпера');
-            VD.IWant(VD.VNotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
+            VD.IWant(VD.NotToEqual, counts.Foreman, 0, 'не нашло имя форемана');
+            VD.IWant(VD.NotToEqual, counts.Helper, 0, 'не нашло имя хелпера');
+            VD.IWant(VD.NotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
     });
     Debug.pause ();
     SF.sleep(1);

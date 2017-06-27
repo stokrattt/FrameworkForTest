@@ -81,9 +81,9 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
         LF.addToCleanerJob(V.request.Id);
     }), config.timeout);
 condition.nowWeDoing = 'сравниваем данные калькулятора и реквеста';
-    VD.IWant(VD.VToEqual, V.LDAdminCalc.Total, V.boardNumbers.Total, 'не совпали Total калькулятора и борда');
-    VD.IWant(VD.VToEqual, V.LDAdminCalc.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel калькулятора и борда');
-    VD.IWant(VD.VToEqual, V.LDAdminCalc.Quote, V.boardNumbers.Quote, 'не совпали Quote калькулятора и борда');
+    VD.IWant(VD.ToEqual, V.LDAdminCalc.Total, V.boardNumbers.Total, 'не совпали Total калькулятора и борда');
+    VD.IWant(VD.ToEqual, V.LDAdminCalc.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel калькулятора и борда');
+    VD.IWant(VD.ToEqual, V.LDAdminCalc.Quote, V.boardNumbers.Quote, 'не совпали Quote калькулятора и борда');
     SF.sleep (2);
     SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
     MF.WaitWhileBusy ();
@@ -137,7 +137,7 @@ condition.nowWeDoing = 'идём в логи';
         V.logNumbers.Quote = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.logNumbers.Quote, V.boardNumbersWithAddServices.Total, 'не совпал гранд тотал в письме и в реквесте');
+    VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.boardNumbersWithAddServices.Total, 'не совпал гранд тотал в письме и в реквесте');
     SF.sleep(1);
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
@@ -159,14 +159,14 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
         }
     }),config.timeout);
     SF.sleep (1);
-    VD.IWant (VD.VToEqual, V.boardNumbersWithAddServices.Total, V.accountNumbersLD.Total, 'не совпал гранд тотал мувборда и аккаунта');
+    VD.IWant (VD.ToEqual, V.boardNumbersWithAddServices.Total, V.accountNumbersLD.Total, 'не совпал гранд тотал мувборда и аккаунта');
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
     SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//div//h2[contains(text(),"Grand Total")]/..')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
         }),config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.logNumbers.Quote, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
+    VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
@@ -194,7 +194,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     SF.sleep (5);
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.VToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     SF.sleep(1);
     // LF.LogoutFromAccount ();

@@ -122,7 +122,7 @@ condition.nowWeDoing = 'идем в диспач ищем работу, пров
     if (V.boardNumbers.Balance !== 0) {
         JS.scroll('div.BalanceCost:visible');
     }
-    VD.IWant(VD.VToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+    VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     SF.click(By.xpath('//div[@id="invoice"]//a[@ng-click="select(tabs[1])"]'));
     driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
@@ -148,7 +148,7 @@ condition.nowWeDoing = 'идем в пейрол ищем форемана и п
     SF.sleep(2);
     driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.boardNumbers.Id)).then(function (text) {
         V.payrollNumbersTotal = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.payrollNumbersTotal, V.RequestPayrollTotal, 'не совпали цифры новосозданного форемана в Payroll foreman' + V.boardNumbers.Id);
+        VD.IWant(VD.ToEqual, V.payrollNumbersTotal, V.RequestPayrollTotal, 'не совпали цифры новосозданного форемана в Payroll foreman' + V.boardNumbers.Id);
     }), config.timeout);
     SF.sleep(1);
 

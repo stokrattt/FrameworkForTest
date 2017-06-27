@@ -121,7 +121,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="payroll.foreman.mileage"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.VToEqual, text, V.mileage, 'mileage не совпали');
+        VD.IWant(VD.ToEqual, text, V.mileage, 'mileage не совпали');
     }),config.timeout);
     V.dailyAmount = 80;
     V.totalDays = 5;
@@ -135,7 +135,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="payroll.foreman.total_daily"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.VToEqual, text, V.totalDaily, 'total Daily не совпали');
+        VD.IWant(VD.ToEqual, text, V.totalDaily, 'total Daily не совпали');
     }),config.timeout);
 
     V.hourlyRate = 12;
@@ -150,7 +150,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="payroll.foreman.total_hourly"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.VToEqual, text, V.totalHourly, 'total Hourly не совпали');
+        VD.IWant(VD.ToEqual, text, V.totalHourly, 'total Hourly не совпали');
     }),config.timeout);
 
     V.mileageRate = 5;
@@ -160,7 +160,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="payroll.foreman.total_mileage"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.VToEqual, text, V.totalMileage, 'total Mileage не совпали');
+        VD.IWant(VD.ToEqual, text, V.totalMileage, 'total Mileage не совпали');
     }),config.timeout);
 
     SF.click(By.xpath('//h2[contains(text(), "Driver Expenses")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
@@ -244,7 +244,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total Payroll:")]')).getText().then(function(text){
         V.payroll = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.totalPayroll, V.payroll, 'total Payroll не совпали');
+        VD.IWant(VD.ToEqual, V.totalPayroll, V.payroll, 'total Payroll не совпали');
     }),config.timeout);
 
     condition.nowWeDoing = 'Создаем Add TP Delivery, заполняем поля и проверям рассчети';
@@ -291,12 +291,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
         V.cleanTpJobCost = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.cleanTpJobCost, V.tpJobCost, 'Job cost не совпали');
+        VD.IWant(VD.ToEqual, V.cleanTpJobCost, V.tpJobCost, 'Job cost не совпали');
     }),config.timeout);
 
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_total"]')).getAttribute('value').then(function (text) {
         V.cleanTpTotalJob = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.cleanTpTotalJob, V.tpTotalJob, 'Total Job не совпали');
+        VD.IWant(VD.ToEqual, V.cleanTpTotalJob, V.tpTotalJob, 'Total Job не совпали');
     }),config.timeout);
 
     V.tpAddress = SF.randomCifra(10);
@@ -330,7 +330,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.tpToReceive = V.tpTotalJob - V.tpPayment;
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.cleanTpToReceive = SF.cleanPrice(text);
-        VD.IWant(VD.VToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
+        VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
     }),config.timeout);
 
     SF.click(By.xpath('//button[@ng-click="openModal(\'new\')"]'));

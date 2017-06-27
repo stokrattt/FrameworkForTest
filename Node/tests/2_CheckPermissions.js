@@ -39,12 +39,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenSettings();
     V.requestSale={};
     MF.EditRequest_RememberSale(V.requestSale);
-    VD.IWant (VD.VToEqual, V.requestAdmin.SaleName, V.requestSale.SaleName, 'Сейлсы не совпадают на админке и на менеджере');
+    VD.IWant (VD.ToEqual, V.requestAdmin.SaleName, V.requestSale.SaleName, 'Сейлсы не совпадают на админке и на менеджере');
 
     MF.EditRequest_SetSaleNumber(2);
     V.requestNew={};
     MF.EditRequest_RememberSale(V.requestNew);
-    VD.IWant (VD.VNotToEqual, V.requestNew.SaleName, V.requestSale.SaleName, 'пермишины не сработали, так как сейл не изменился');
+    VD.IWant (VD.NotToEqual, V.requestNew.SaleName, V.requestSale.SaleName, 'пермишины не сработали, так как сейл не изменился');
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetSizeOfMoveNumber(8);
     MF.EditRequest_SaveChanges();
@@ -55,7 +55,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.SearchRequest={};
     SF.sleep(2);
     MF.Board_GetFirstFoundedId(V.SearchRequest);
-    VD.IWant (VD.VToEqual, V.requestAdmin.Id, V.SearchRequest.Id, 'Поиск по другим пермишинам не работает');
+    VD.IWant (VD.ToEqual, V.requestAdmin.Id, V.SearchRequest.Id, 'Поиск по другим пермишинам не работает');
     SF.sleep(1);
     SF.endOfTest();
 };

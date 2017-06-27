@@ -64,21 +64,21 @@ condition.nowWeDoing = 'идем в леджер и создаем инвойс'
     SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
         V.due = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.due, 1000, 'не совпал тотал с введенной суммой')
+        VD.IWant (VD.ToEqual, V.due, 1000, 'не совпал тотал с введенной суммой')
     }), config.timeout);
     SF.click (By.xpath('//input[@ng-model="invoice.discount"]'));
     SF.send (By.xpath('//input[@ng-model="invoice.discount"]'), 10);
     SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
         V.discount = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.discount, 900, 'не посчитал дискаунт с введенной суммы')
+        VD.IWant (VD.ToEqual, V.discount, 900, 'не посчитал дискаунт с введенной суммы')
     }), config.timeout);
     SF.click (By.xpath('//input[@ng-model="invoice.tax"]'));
     SF.send (By.xpath('//input[@ng-model="invoice.tax"]'), 10);
     SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
         V.tax = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.tax, 990, 'не посчитал tax с введенной суммы')
+        VD.IWant (VD.ToEqual, V.tax, 990, 'не посчитал tax с введенной суммы')
     }), config.timeout);
     SF.click(By.xpath('//textarea[@ng-model="invoice.notes"]'));
     SF.click(By.xpath('//a[@ng-click="sendInvoice()"]'));
@@ -107,21 +107,21 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
     SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
         V.dueRate = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.dueRate, 1000, 'не совпал тотал с введенной суммой')
+        VD.IWant (VD.ToEqual, V.dueRate, 1000, 'не совпал тотал с введенной суммой')
     }), config.timeout);
     SF.click (By.xpath('//input[@ng-model="invoice.discount"]'));
     SF.send (By.xpath('//input[@ng-model="invoice.discount"]'), 10);
     SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
         V.discountRate = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.discountRate, 900, 'не посчитал дискаунт с введенной суммы')
+        VD.IWant (VD.ToEqual, V.discountRate, 900, 'не посчитал дискаунт с введенной суммы')
     }), config.timeout);
     SF.click (By.xpath('//input[@ng-model="invoice.tax"]'));
     SF.send (By.xpath('//input[@ng-model="invoice.tax"]'), 10);
     SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Due")]/following-sibling::div')).getText().then(function (text) {
         V.taxRate = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.taxRate, 990, 'не посчитал tax с введенной суммы')
+        VD.IWant (VD.ToEqual, V.taxRate, 990, 'не посчитал tax с введенной суммы')
     }), config.timeout);
     SF.click(By.xpath('//textarea[@ng-model="invoice.notes"]'));
     SF.click(By.xpath('//button[@ng-click="saveAsDraft()"]'));
@@ -132,7 +132,7 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
     MF.WaitWhileToaster();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Balance :")]/span')).getText().then(function (text) {
         V.balanceTenant = SF.cleanPrice (text);
-        VD.IWant (VD.VToEqual, V.balanceTenant, -780, 'баланс не совпадает с суммой оплаты')
+        VD.IWant (VD.ToEqual, V.balanceTenant, -780, 'баланс не совпадает с суммой оплаты')
     }),config.timeout);
     Debug.pause();
 

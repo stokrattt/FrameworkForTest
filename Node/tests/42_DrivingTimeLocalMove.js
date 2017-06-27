@@ -75,7 +75,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
 condition.nowWeDoing = 'сравниваем данные которые были в калькуляторе при создании и внутри реквеста, первый раз';
     LF.Validation_Compare_CalcLocalMove_Admin (V.LocalMoveAdminCalc, V.boardNumbersClean);
     driver.wait(driver.findElement(By.xpath('//span[@ng-click="showWarningBeforeSendEmail()"]/following-sibling::div[1]')).getText().then(function (text) {
-        VD.IWant (VD.VToEqual, text, "LOCAL MOVE", 'тип реквеста не совпал, должен быть локал мув');
+        VD.IWant (VD.ToEqual, text, "LOCAL MOVE", 'тип реквеста не совпал, должен быть локал мув');
     }),config.timeout);
     MF.EditRequest_RememberId (V.request);
     MF.EditRequest_OpenClient ();
@@ -123,9 +123,9 @@ condition.nowWeDoing = 'идем в логи проверять что клие�
         }
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.logNumbers.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в логах и борда');
-    VD.IWant(VD.VToEqual, V.logNumbers.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в логах и борда');
-    VD.IWant(VD.VToEqual, V.logNumbers.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в логах и борда');
+    VD.IWant(VD.ToEqual, V.logNumbers.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в логах и борда');
+    VD.IWant(VD.ToEqual, V.logNumbers.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в логах и борда');
+    VD.IWant(VD.ToEqual, V.logNumbers.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в логах и борда');
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
@@ -153,9 +153,9 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
         V.ConfirmationPage.Fuel = SF.cleanPrice(text.substring(text.indexOf('$')));
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.VToEqual, V.ConfirmationPage.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда');
-    VD.IWant(VD.VToEqual, V.ConfirmationPage.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда');
-    VD.IWant(VD.VToEqual, V.ConfirmationPage.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда');
+    VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда');
+    VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда');
+    VD.IWant(VD.ToEqual, V.ConfirmationPage.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда');
     Debug.pause ();
     LF.LogoutFromAccount ();
 

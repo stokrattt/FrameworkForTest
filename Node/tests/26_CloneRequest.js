@@ -81,19 +81,19 @@ condition.nowWeDoing = 'ждем и добавляем инвентория';
 condition.nowWeDoing = 'идем открывать первый реквест и проверять что клон не затер данные первого';
     MF.Board_OpenNotConfirmed();
     MF.Board_OpenRequest (V.request.Id);
-    VD.IWant (VD.VNotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitClone, 'клон затер cubic fit первого реквеста');
-    VD.IWant (VD.VNotToEqual, V.sizemove, V.sizemoveClone, 'клон затер sizemove первого реквеста');
+    VD.IWant (VD.NotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitClone, 'клон затер cubic fit первого реквеста');
+    VD.IWant (VD.NotToEqual, V.sizemove, V.sizemoveClone, 'клон затер sizemove первого реквеста');
     driver.wait(driver.findElement(By.id('edit-moving-from')).getText().then(function (text){
-        VD.IWant (VD.VNotToEqual, text, 'From Addres Clone', 'клон затер adress from первого реквеста');
+        VD.IWant (VD.NotToEqual, text, 'From Addres Clone', 'клон затер adress from первого реквеста');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]')).getText().then(function (text){
-        VD.IWant (VD.VNotToEqual, text, 'To Addres Clone', 'клон затер adress to первого реквеста');
+        VD.IWant (VD.NotToEqual, text, 'To Addres Clone', 'клон затер adress to первого реквеста');
     }),config.timeout);
-    VD.IWant(VD.VNotToEqual, V.boardNumbers.QuoteMin, V.boardNumbersClone.QuoteMin, 'совпали QuoteMin первого реквеста и клона, хотя не должно было');
-    VD.IWant(VD.VNotToEqual, V.boardNumbers.QuoteMax, V.boardNumbersClone.QuoteMax, 'совпали QuoteMax первого реквеста и клона, хотя не должно было');
-    VD.IWant(VD.VNotToEqual, V.boardNumbers.TotalMin, V.boardNumbersClone.TotalMin, 'совпали TotalMin первого реквеста и клона, хотя не должно было');
-    VD.IWant(VD.VNotToEqual, V.boardNumbers.TotalMax, V.boardNumbersClone.TotalMax, 'совпали TotalMax первого реквеста и клона, хотя не должно было');
-    VD.IWant(VD.VNotToEqual, V.boardNumbers.Fuel, V.boardNumbersClone.Fuel, 'совпали Fuel первого реквеста и клона, хотя не должно было');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.QuoteMin, V.boardNumbersClone.QuoteMin, 'совпали QuoteMin первого реквеста и клона, хотя не должно было');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.QuoteMax, V.boardNumbersClone.QuoteMax, 'совпали QuoteMax первого реквеста и клона, хотя не должно было');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.TotalMin, V.boardNumbersClone.TotalMin, 'совпали TotalMin первого реквеста и клона, хотя не должно было');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.TotalMax, V.boardNumbersClone.TotalMax, 'совпали TotalMax первого реквеста и клона, хотя не должно было');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.Fuel, V.boardNumbersClone.Fuel, 'совпали Fuel первого реквеста и клона, хотя не должно было');
     SF.sleep(2);
     // LF.closeEditRequest ();
     // MF.Board_LogoutAdmin ();

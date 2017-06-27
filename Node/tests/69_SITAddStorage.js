@@ -123,19 +123,19 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     LF.RememberStorage(V.storage3);
 
-    VD.IWant(VD.VNotToEqual,V.storage.name, V.storage2.name,'Поля совпадают');
-    VD.IWant(VD.VNotToEqual,V.storage.address, V.storage2.address,'Поля совпадают');
-    VD.IWant(VD.VNotToEqual,V.storage.zip, V.storage2.zip,'Поля совпадают');
-    VD.IWant(VD.VNotToEqual,V.storage.email, V.storage2.email,'Поля совпадают');
-    VD.IWant(VD.VNotToEqual,V.storage.notes, V.storage2.notes,'Поля совпадают');
-    VD.IWant(VD.VNotToEqual,V.storage.phone, V.storage2.phone,'Поля совпадают');
+    VD.IWant(VD.NotToEqual,V.storage.name, V.storage2.name,'Поля совпадают');
+    VD.IWant(VD.NotToEqual,V.storage.address, V.storage2.address,'Поля совпадают');
+    VD.IWant(VD.NotToEqual,V.storage.zip, V.storage2.zip,'Поля совпадают');
+    VD.IWant(VD.NotToEqual,V.storage.email, V.storage2.email,'Поля совпадают');
+    VD.IWant(VD.NotToEqual,V.storage.notes, V.storage2.notes,'Поля совпадают');
+    VD.IWant(VD.NotToEqual,V.storage.phone, V.storage2.phone,'Поля совпадают');
 
-    VD.IWant(VD.VToEqual,V.storage3.name, V.storage2.name,'Поля не совпадают');
-    VD.IWant(VD.VToEqual,V.storage3.address, V.storage2.address,'Поля не совпадают');
-    VD.IWant(VD.VToEqual,V.storage3.zip, V.storage2.zip,'Поля не совпадают');
-    VD.IWant(VD.VToEqual,V.storage3.email, V.storage2.email,'Поля не совпадают');
-    VD.IWant(VD.VToEqual,V.storage3.notes, V.storage2.notes,'Поля не совпадают');
-    VD.IWant(VD.VToEqual,-SF.cleanPrice(V.storage3.phone), V.storage2.phone,'Поля не совпадают');
+    VD.IWant(VD.ToEqual,V.storage3.name, V.storage2.name,'Поля не совпадают');
+    VD.IWant(VD.ToEqual,V.storage3.address, V.storage2.address,'Поля не совпадают');
+    VD.IWant(VD.ToEqual,V.storage3.zip, V.storage2.zip,'Поля не совпадают');
+    VD.IWant(VD.ToEqual,V.storage3.email, V.storage2.email,'Поля не совпадают');
+    VD.IWant(VD.ToEqual,V.storage3.notes, V.storage2.notes,'Поля не совпадают');
+    VD.IWant(VD.ToEqual,-SF.cleanPrice(V.storage3.phone), V.storage2.phone,'Поля не совпадают');
     SF.sleep(4);
     JS.click('span:contains(\\"Save\\")');
     // SF.click(By.xpath('//button[@ng-click="create()"]'));

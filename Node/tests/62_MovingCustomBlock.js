@@ -33,7 +33,7 @@ condition.nowWeDoing = 'создаем локал мув, пендинг, и и�
     SF.waitForLocated (By.id('tab_Move Overview'));
     SF.sleep(5);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
-        VD.IWant(VD.VToEqual, text, 1, 'не нашло кастомный блок для мувинга пендинг на аккаунте');
+        VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга пендинг на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     SF.openTab (0);
@@ -48,7 +48,7 @@ condition.nowWeDoing = 'выключаем кастомный блок пенд�
     SF.sleep(1);
     MF.Account_Refresh ();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
-        VD.IWant(VD.VToEqual, text, 0, 'не отключило кастомный блок для мувинга пендинг на аккаунте');
+        VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга пендинг на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     SF.openTab (0);
@@ -80,14 +80,14 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.sleep(1);
     MF.Account_Refresh ();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
-        VD.IWant(VD.VToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте');
+        VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     JS.scroll("a[ng-click=\"vm.Logout()\"]");
     SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
     SF.sleep(3);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
-        VD.IWant(VD.VToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
+        VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
@@ -103,13 +103,13 @@ condition.nowWeDoing = 'выключаем кастомный блок not confi
     SF.sleep(1);
     MF.Account_Refresh ();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
-        VD.IWant(VD.VToEqual, text, 0, 'не отключило кастомный блок для мувинга not confirmed на аккаунте');
+        VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга not confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
     SF.sleep(3);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
-        VD.IWant(VD.VToEqual, text, 0, 'не отключило кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
+        VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
@@ -141,13 +141,13 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     SF.sleep(1);
     MF.Account_Refresh ();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
-        VD.IWant(VD.VToEqual, text, 1, 'не нашло кастомный блок для мувинга confirmed на аккаунте');
+        VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickViewConfirmationPage ();
     SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
-        VD.IWant(VD.VToEqual, text, 1, 'не нашло кастомный блок для мувинга confirmed на аккаунте на confirmation page');
+        VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
@@ -163,12 +163,12 @@ condition.nowWeDoing = 'выключаем кастомный блок confirmed
     SF.sleep(1);
     MF.Account_Refresh ();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
-        VD.IWant(VD.VToEqual, text, 0, 'не отключило кастомный блок для мувинга confirmed на аккаунте');
+        VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickViewConfirmationPage ();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
-        VD.IWant(VD.VToEqual, text, 0, 'не отключило кастомный блок для мувинга confirmed на аккаунте на confirmation page');
+        VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
     SF.openTab (0);
