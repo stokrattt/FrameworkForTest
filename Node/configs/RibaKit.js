@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 60000;
 
     config.suite = [
-        './tests/ChangingRateAfterConfirming.js'
+        './tests/30_StorageTenant.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

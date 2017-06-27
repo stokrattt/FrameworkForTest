@@ -108,5 +108,10 @@ module.exports = function(config,V) {
     V.foremanEmail = 'TestForeman@mail.com';
     V.managerName = 'emilia clark';
     V.managerFirstName = 'emilia';
+	V.testMail = {
+		login: 'test.boston',
+		mail: 'test.boston@mail.ru',
+		password: 'YLZ60tO^ycpz'
+	};
 
 };
