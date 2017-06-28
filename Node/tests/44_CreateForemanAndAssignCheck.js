@@ -28,7 +28,6 @@ condition.nowWeDoing = 'создаем форемана, и ставим ему 
     V.foremanPass = 123;
     SF.send (By.xpath('//input[@ng-model="request.login"]'), V.foremanAccount);
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.foremanPass);
-    SF.send (By.xpath('//input[@ng-model="request.email"]'), V.foremanAccount);
     SF.click (By.xpath('//li[@ng-click="activeMainTab = 2"]'));
     SF.select(By.xpath('//select[@ng-model="rateCommission[trueIndex].option"]'), "Hourly Rate");
     SF.clear (By.xpath('//input[@ng-model="rateCommission[$index].input"]'));

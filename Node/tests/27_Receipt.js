@@ -98,6 +98,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
+    SF.sleep(3);
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');

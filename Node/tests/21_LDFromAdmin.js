@@ -105,6 +105,7 @@ condition.nowWeDoing = 'ждем инвентория';
     SF.sleep (4);
     // MF.EditRequest_AddAdditionalServicesFullPack ();
     MF.EditRequest_AddPacking ();
+
 condition.nowWeDoing = 'запоминаем данные после добавления всех сервисов ';
     V.boardNumbersWithAddServices = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersWithAddServices);
@@ -120,7 +121,9 @@ condition.nowWeDoing = 'запоминаем данные после добав�
     LF.closeEditRequest ();
     // MF.Board_OpenDashboard();
     MF.Board_OpenNotConfirmed();
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
+
 condition.nowWeDoing = 'идём в логи';
     MF.EditRequest_OpenLogs();
 
@@ -142,6 +145,7 @@ condition.nowWeDoing = 'идём в логи';
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
+
 condition.nowWeDoing = 'идем в аккаунт букать работу и сравнивать данные';
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     MF.Account_CheckRequestStatus_NotConfirmed (V.request.Id);

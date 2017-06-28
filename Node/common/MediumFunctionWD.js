@@ -673,6 +673,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.click('label[ng-click=\\"OpenPaymentModal();\\"]:visible');
         SF.waitForVisible (By.xpath('//div[@class="inside_box"]'));
         SF.sleep (3);
+        WaitWhileBusy();
     }
 
     function EditRequest_SetToNotConfirmed() {

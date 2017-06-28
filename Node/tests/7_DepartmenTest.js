@@ -26,7 +26,6 @@ condition.nowWeDoing='Создаем менеджера*************************
     V.managerPass = 123;
     SF.send (By.xpath('//input[@ng-model="request.login"]'), V.managerAccount);
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.managerPass);
-    SF.send (By.xpath('//input[@ng-model="request.email"]'), V.managerAccount);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     MF.WaitWhileBusy();
     MF.WaitWhileToaster ();
@@ -53,7 +52,6 @@ condition.nowWeDoing='Создаем сейлса*******************************
     V.salesPass = 123;
     SF.send (By.xpath('//input[@ng-model="request.login"]'), V.salesAccount);
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.salesPass);
-    SF.send (By.xpath('//input[@ng-model="request.email"]'), V.salesAccount);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     MF.WaitWhileBusy ();
     MF.WaitWhileToaster ();
@@ -119,7 +117,6 @@ condition.nowWeDoing='Создаем форемана***************************
     V.foremanPass = 123;
     SF.send (By.xpath('//input[@ng-model="request.login"]'), V.foremanAccount);
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.foremanPass);
-    SF.send (By.xpath('//input[@ng-model="request.email"]'), V.foremanAccount);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
    // SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "foremantest testforeman")]'));
     MF.WaitWhileBusy ();
