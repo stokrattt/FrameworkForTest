@@ -66,8 +66,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Board_LogoutAdmin() {
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.toast-message');
-        JS.scroll('a[ng-click=\"vm.Logout()\"]');
-        WaitWhileBusy ();
+		WaitWhileBusy ();
+		SF.sleep(1);
+		JS.scroll('a[ng-click=\"vm.Logout()\"]');
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
         SF.sleep(1);
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
@@ -981,7 +982,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//span[contains(text(),"'+group+'")]/../../a[@ng-click="toggleOpen()"]'));
         SF.sleep(1);
 		SF.click(By.xpath('//span[contains(text(),"'+group+'")]/../../a[@ng-click="toggleOpen()"]/../../../div[contains(@class,"collapse")]' +
-            '/div/div/h3[contains(text(),"'+name+'")]/..'));
+            '/div/div/h4[contains(text(),"'+name+'")]/..'));
 		SF.click(By.xpath('//span[contains(text(),"'+group+'")]/../../a[@ng-click="toggleOpen()"]'));
     }
     function EditRequest_MailDialog_SetSubject(number, text){
