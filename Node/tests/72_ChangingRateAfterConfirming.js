@@ -11,8 +11,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	condition.nowWeDoing = 'создаём реквест localMoving';
+	V.boardNumbers={HourlyRate:120};
 	LF.CreateLocalMovingFromBoard(V.client);
-	V.boardNumbers={};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 	MF.EditRequest_SetToConfirmed();
@@ -20,8 +20,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_OpenSettingsRates();
-	driver.wait(driver.executeScript(JSstep.changeAllDetermPrices(V.boardNumbers.HourlyRate, 999)),config.timeout);
+	V.targets=[];
+	driver.wait(driver.executeScript(JSstep.findAllDetermPrices(V.boardNumbers.HourlyRate)).then(function(array) {
+		V.targets=array;
+	}),config.timeout);
 	SF.sleep(1);
+	console.log(V.targets);
+	for (var t in V.targets) {
+		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
+		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),999);
+	}
 	MF.Board_OpenDashboard();
 	MF.Board_OpenConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
@@ -30,8 +38,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	VD.IWant(VD.ToEqual, V.boardNumbers.HourlyRate, V.boardNumbers2.HourlyRate, 'Изменился rate');
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_OpenSettingsRates();
-	driver.wait(driver.executeScript(JSstep.changeAllDetermPrices(999, V.boardNumbers.HourlyRate)),config.timeout);
+	V.targets2=[];
+	driver.wait(driver.executeScript(JSstep.findAllDetermPrices(999)).then(function(array) {
+		V.targets2=array;
+	}),config.timeout);
 	SF.sleep(1);
+	VD.IWant(VD.NotToEqual, V.targets2.length, 0, 'какая-то фигня с соххранением настроек Rates');
+	for (var t in V.targets) {
+		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
+		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),V.boardNumbers.HourlyRate);
+	}
 	MF.Board_OpenDashboard();
 
 	//=========================закончили писать тест=============================
