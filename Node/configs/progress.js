@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/72_ChangingRateAfterConfirming.js'];
+    config.suite = ['./tests/71_ManualEmailing.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;

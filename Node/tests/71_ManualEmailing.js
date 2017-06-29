@@ -13,12 +13,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_MailDialog_SetSubject(1, V.subject);
 	MF.EditRequest_MailDialog_ClickSend();
 	MF.EditRequest_CloseEditRequest();
+	MF.WaitWhileToaster ();
 	MF.Board_LogoutAdmin();
 
 	condition.nowWeDoing = 'открываем тестовую почту и ищем письмо';
 	SF.get('http://mail.ru');
 	MF.MailRu_Login(V.testMail.login, V.testMail.password);
 	MF.MailRu_CheckEmailExistBySubject(V.subject);
+	SF.sleep(3);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
