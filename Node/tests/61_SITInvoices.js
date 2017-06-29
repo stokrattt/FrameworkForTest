@@ -193,6 +193,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'удаляем инвоис';
     JS.click('span:contains(\\"Payment details\\")');
     SF.sleep(2);
+    SF.click(By.xpath('//md-switch[@ng-change="setHideZero()"]'));
+    SF.sleep(4);
     SF.click(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="removeInvoice(item.invoice_id)"]'));
