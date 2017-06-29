@@ -65,7 +65,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         }
     }while ((V.count==0)&&(!V.last)&&(!V.found));
 
-    VD.INeed(VD.VToEqual, V.found, true, 'не нашёл нужный storage');
+    VD.INeed(VD.ToEqual, V.found, true, 'не нашёл нужный storage');
 
     SF.click(By.xpath('//div[text()="'+ V.storage.name +'"]'));
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
@@ -116,7 +116,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         }
     }while ((V.count2==0)&&(!V.last2)&&(!V.found2));
 
-    VD.INeed(VD.VToEqual, V.found, true, 'не нашёл нужный storage');
+    VD.INeed(VD.ToEqual, V.found, true, 'не нашёл нужный storage');
 
     SF.click(By.xpath('//div[text()="'+ V.storage2.name +'"]'));
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
