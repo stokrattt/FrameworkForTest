@@ -49,6 +49,7 @@ module.exports = function(config,V) {
         './tests/52_AllFlatRate.js',
         './tests/32_AllMovingWithStorage.js',
         './tests/33_AddCarrier.js',
+        './tests/70_SITAddTripPersonallyForeman.js',
         './tests/34_ContractPageCustomBlock.js',
         './tests/35_InventoryLocalMoving.js',
         './tests/36_DatePending.js',
@@ -83,7 +84,6 @@ module.exports = function(config,V) {
         './tests/67_EditRequestPayrollAdding.js',
         './tests/69_SITAddStorage.js',
         './tests/68_SITPickUpDelivery.js',
-        './tests/70_SITAddTripPersonallyForeman.js',
 		'./tests/71_ManualEmailing.js',
 		'./tests/72_ChangingRateAfterConfirming.js',
         './tests/73_CustomTrackSpeed.js'

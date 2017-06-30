@@ -257,7 +257,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="tp.delivery_job_id"]'), V.tpDeliveryJobId);
     SF.click(By.xpath('//md-select[@ng-model="selectedCarrier"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//div[contains(text(), "Tester")]'));
+    SF.click(By.xpath('//div[contains(text(), "'+ V.carrierNew2.name +'")]'));
     SF.sleep(2);
     V.customer = SF.randomBukva(6) + '_t';
     V.tpDeliveryEmail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
