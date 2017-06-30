@@ -66,6 +66,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(2);
+    Debug.pause ();
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy ();
     LF.findTestForemanInPayroll('formen test1');
@@ -76,7 +77,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.starkForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep (3);
-
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

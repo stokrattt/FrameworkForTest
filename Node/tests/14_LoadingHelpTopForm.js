@@ -61,7 +61,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.clientNoRes.passwd = 123;
 
     SF.get(V.frontURL);
-    LF.FullSmallCalcAsUnloading(V.clientNoRes);
+    LF.FullSmallCalcAsLoading(V.clientNoRes);
 
     condition.nowWeDoing='зашли первый раз в аккаунт NoRes';
     SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));

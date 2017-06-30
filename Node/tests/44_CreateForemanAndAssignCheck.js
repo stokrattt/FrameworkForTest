@@ -157,7 +157,7 @@ condition.nowWeDoing='идем удалять форемана';
     MF.Board_OpenSettingsDepartment ();
     SF.sleep(2);
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
-    SF.sleep(2);
+    SF.sleep(4);
     MF.WaitWhileBusy ();
     driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(" + V.foremanFirstName + ")').dblclick();"),config.timeout);
     SF.sleep (3);

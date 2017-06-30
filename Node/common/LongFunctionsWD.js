@@ -68,8 +68,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
     function FullSmallCalcAsUnloading(client){
+        SF.sleep(5);
         JS.click("input#extra-service");
+        SF.sleep(1.5);
         JS.select('select#edit-service',4);
+        SF.sleep(1.5);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
         SF.sleep(2);
@@ -138,8 +141,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
     function FullSmallCalcAsLoading(client){
+        SF.sleep(3);
         JS.click("input#extra-service");
+        SF.sleep(1.5);
         JS.select('select#edit-service',3);
+        SF.sleep(1.5);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
         SF.sleep(2);
@@ -1188,6 +1194,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']/option[contains(text(),'"+ForemanName+"')]"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
+        JS.scroll('a[ng-click=\"super.vm.assignTeam()\"]');
         driver.wait(
             driver.findElements(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']")).then(function (count) {
                 if (count.length > 0) {

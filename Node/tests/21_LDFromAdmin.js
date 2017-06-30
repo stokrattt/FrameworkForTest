@@ -166,8 +166,9 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     VD.IWant (VD.ToEqual, V.boardNumbersWithAddServices.Total, V.accountNumbersLD.Total, 'не совпал гранд тотал мувборда и аккаунта');
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
     SF.sleep (2);
-    driver.wait(driver.findElement(By.xpath('//div//h2[contains(text(),"Grand Total")]/..')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
+        console.log(V.ConfirmationTotal);
         }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
@@ -195,6 +196,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();
+    MF.WaitWhileSpinner ();
     SF.sleep (5);
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){

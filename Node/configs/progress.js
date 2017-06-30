@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/71_ManualEmailing.js'];
+    config.suite = ['./tests/52_AllFlatRate.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
@@ -15,6 +15,11 @@ module.exports = function(config,V) {
     V.foremanEmail = 'TestForeman@mail.com';
     V.adminEmail = 'test@boston.com';//сюда будут прилетать все письма
     V.managerName = 'emilia clark';
+    V.testMail = {
+        login: 'test.boston',
+        mail: 'test.boston@mail.ru',
+        password: 'YLZ60tO^ycpz'
+    };
 
 
 };
