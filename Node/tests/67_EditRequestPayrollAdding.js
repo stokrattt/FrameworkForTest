@@ -34,20 +34,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbers.Payroll = {
         managerForCommission: {},
         foremanForCommission: {},
-        starkForCommission: {}
+		foreman2ForCommission: {}
     };
-    V.managerName = 'emilia clark';
     MF.EditRequest_OpenPayroll();
     MF.EditRequest_PayrollAddManager(V.managerName);
     MF.EditRequest_PayrollSetManagerCommission('emilia clark','Office Commission', 123, 80);
     LF.EditRequestPayroll_RememberManager(V.managerName, V.boardNumbers.Payroll.managerForCommission);
     //open Foreman tab
     MF.EditRequest_PayrollOpenForemanTab();
+    V.foremanName2 = 'Foreman Riba';
     LF.EditRequestPayroll_RememberForeman(V.foremanName, V.boardNumbers.Payroll.foremanForCommission);
-    MF.EditRequest_PayrollAddForeman('formen test1');
-    MF.EditRequest_PayrollAddForemanCommission('formen test1', 'Bonus');
-    MF.EditRequest_PayrollSetForemanCommission('formen test1','Bonus',7,90);
-    LF.EditRequestPayroll_RememberForeman('formen test1', V.boardNumbers.Payroll.starkForCommission);
+    MF.EditRequest_PayrollAddForeman(V.foremanName2);
+    MF.EditRequest_PayrollAddForemanCommission(V.foremanName2, 'Bonus');
+    MF.EditRequest_PayrollSetForemanCommission(V.foremanName2,'Bonus',7,90);
+    LF.EditRequestPayroll_RememberForeman(V.foremanName2, V.boardNumbers.Payroll.foreman2ForCommission);
     //submit payroll
 	MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
@@ -57,26 +57,28 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.findSaleInPayroll(V.managerName);
     V.payrollNumbers = {
         Sale:{},
-        Foreman:{}
+        Foreman:{},
+		Foreman2:{}
     };
-    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.boardNumbers.Id)).then(function (text) {
-        V.payrollNumbers.Sale.Total = SF.cleanPrice(text);
-    }), config.timeout);
-    SF.sleep(1);
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(2);
     Debug.pause ();
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy ();
-    LF.findTestForemanInPayroll('formen test1');
-    driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.boardNumbers.Id)).then(function (text) {
-        V.payrollNumbers.Foreman.Total = SF.cleanPrice(text);
-    }), config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.starkForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
+    LF.findTestForemanInPayroll(V.foremanName);
+    MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep (3);
+	MF.Payroll_ClickAllDepartment();
+	MF.WaitWhileBusy ();
+	LF.findTestForemanInPayroll(V.foremanName2);
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman2);
+	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman2.Total, V.boardNumbers.Payroll.foreman2ForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
+		'id=' + V.boardNumbers.Id);
+	SF.sleep (2);
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

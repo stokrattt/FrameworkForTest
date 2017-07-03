@@ -1,9 +1,9 @@
 module.exports = function(config,V) {
 
-    config.timeout = 60000;
+    config.timeout = 20000;
 
     config.suite = [
-        './tests/73_CustomTrackSpeed.js'
+        './tests/67_EditRequestPayrollAdding.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

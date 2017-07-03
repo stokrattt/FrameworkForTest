@@ -1106,6 +1106,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.clear(By.xpath('//input[@ng-model="misc.amount"]'));
         SF.send(By.xpath('//input[@ng-model="misc.amount"]'), suma);
     }
+    function Payroll_getTotalById(Id, storage){
+		driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+Id+'")]/../td[last()]')).getText().then(
+		    function(text){
+				console.log("нашли тотал "+text);
+				storage.Total=SF.cleanPrice(text);
+            }
+        ),config.timeout);
+		SF.sleep(1);
+    }
+
     //================================FRONT SITE======================================
     function FrontSite_GoToAccount() {
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
@@ -1386,6 +1396,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         PayrollMiscPayment_ClickAmountDeduct: PayrollMiscPayment_ClickAmountDeduct,
         PayrollMiscPayment_ClickAmountPaid: PayrollMiscPayment_ClickAmountPaid,
         PayrollMiscPayment_SendAmountSumm: PayrollMiscPayment_SendAmountSumm,
+		Payroll_getTotalById: Payroll_getTotalById,
         //==================================SCHEDULE========================================
         Schedule_SetReservationLocalTo: Schedule_SetReservationLocalTo,
         //==================================DEPARTMENT======================================
