@@ -13,6 +13,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'Идем в настройки и создаем флаг';
     MF.Board_OpenSettingsGeneral ();
+    SF.sleep(2);
     SF.click(By.linkText('Company Flags'));
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="vm.addNewFlag(); vm.addFlag = true"]'));
@@ -87,8 +88,9 @@ condition.nowWeDoing = 'идем на дашборд и на страницу н
     SF.sleep(0.5);
     MF.Board_OpenSideBar ();
     MF.Board_OpenSettingsGeneral ();
-
+    Debug.pause();
 condition.nowWeDoing = 'идем в настройки и удаляем наш флаг';
+    SF.sleep(2);
     SF.click(By.linkText('Company Flags'));
     SF.sleep(2);
     SF.click(By.xpath('//tr[@ng-repeat="values in vm.companyFlags track by $index"][last()]/td[4]//i'));

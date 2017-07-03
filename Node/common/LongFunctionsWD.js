@@ -237,7 +237,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
     function AccountUnloadingEnterAddress() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
-        SF.sleep(1);
+        SF.sleep(2);
         SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Address To');
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         JS.waitForExist('button.confirm:contains("Update")');

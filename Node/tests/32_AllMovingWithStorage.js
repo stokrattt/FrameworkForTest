@@ -74,6 +74,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_Check1EmailExist(V.client.email, "Change status to Not Confirmed");
     LF.closeEditRequest();
     MF.WaitWhileBusy ();
+    SF.sleep(2);
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);

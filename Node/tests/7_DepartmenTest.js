@@ -12,8 +12,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSettingsDepartment ();
 
 condition.nowWeDoing='Создаем менеджера***********************************************';
+    MF.WaitWhileBusy();
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
     SF.sleep(3);
+    MF.WaitWhileBusy();
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
     V.managerFirstName1 = "mantest";
@@ -284,7 +286,7 @@ condition.nowWeDoing='идем удалять менеджера';
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();
     MF.WaitWhileToaster ();
-    // MF.WaitWhileBusy ();
+    MF.WaitWhileBusy ();
 
     // LF.LogoutFromBoardForeman ();
 

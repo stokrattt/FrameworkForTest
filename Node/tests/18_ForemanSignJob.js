@@ -32,6 +32,10 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
+    driver.wait(driver.executeScript("return $('a[ng-click=\"vm.unAssignTeam()\"]:visible').length").then(function (check) {
+        VD.IWant (VD.ToEqual, check, 1, 'не нашло кнопку аннасайн после того как отправили фореману работу в диспач');
+    }),config.timeout);
+    Debug.pause();
     MF.Board_LogoutAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     // LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);

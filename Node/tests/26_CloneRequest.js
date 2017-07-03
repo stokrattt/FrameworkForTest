@@ -80,6 +80,7 @@ condition.nowWeDoing = 'ждем и добавляем инвентория';
     LF.closeEditRequest ();
 condition.nowWeDoing = 'идем открывать первый реквест и проверять что клон не затер данные первого';
     MF.Board_OpenNotConfirmed();
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.request.Id);
     VD.IWant (VD.NotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitClone, 'клон затер cubic fit первого реквеста');
     VD.IWant (VD.NotToEqual, V.sizemove, V.sizemoveClone, 'клон затер sizemove первого реквеста');

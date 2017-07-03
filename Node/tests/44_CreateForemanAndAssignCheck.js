@@ -159,7 +159,9 @@ condition.nowWeDoing='идем удалять форемана';
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(4);
     MF.WaitWhileBusy ();
-    driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(" + V.foremanFirstName + ")').dblclick();"),config.timeout);
+    // driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(" + V.foremanFirstName + "):visible').dblclick();"),config.timeout);
+    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "' + V.foremanFirstName + '")]'))).doubleClick().perform();
+
     SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();

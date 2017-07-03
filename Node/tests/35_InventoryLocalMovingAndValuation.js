@@ -29,6 +29,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
     MF.Board_OpenRequest(V.accountNumbers.Id);
+
+    condition.nowWeDoing = 'добавляем valuation';
+    SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
+    SF.waitForLocated (By.xpath('//button[@ng-click="saveValuation()"]'));
+    SF.sleep(1);
+    SF.click(By.xpath('//input[@id="full-protection"]/..'));
+    SF.click(By.xpath('//input[@ng-model="valuation.amount.liability"]'));
+    SF.send(By.xpath('//input[@ng-model="valuation.amount.liability"]'), 10570);
+    SF.click(By.xpath('//td[@ng-repeat="(key, value) in amoutValuation"][2]/div'));
+    SF.click (By.xpath('//button[@ng-click="saveValuation()"]'));
+    MF.SweetConfirm ();
+    MF.WaitWhileBusy ();
     V.boardNumbers={};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     VD.IWant(VD.ToEqual, V.accountNumbers.InventoryCbf, V.boardNumbers.cbf,'Не совпали cbf аккаунта и борда');
@@ -47,6 +59,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_CheckRequestStatus_Pending(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
     LF.RememberAccountNumbers(V.accountNumbers);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.request_all_data.valuation.lability_amount"]')).getText().then(function (text) {
+        text = SF.cleanPrice (text);
+        VD.IWant (VD.ToEqual, text, 10570, 'не совпал full valuation с тем что выставили на админке в реквесте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Valuation charge")]/following-sibling::div')).getText().then(function (text) {
+        text = SF.cleanPrice (text);
+        VD.IWant (VD.ToEqual, text, V.boardNumbers.Valuation, 'не совпал valuation charge с тем что на админке в реквесте');
+    }),config.timeout);
     VD.IWant(VD.ToEqual, V.accountNumbers.cbf, V.boardNumbers.InventoryCubicFit);
     SF.sleep(2);
 

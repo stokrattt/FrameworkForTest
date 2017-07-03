@@ -51,7 +51,7 @@ module.exports = function(config,V) {
         './tests/33_AddCarrier.js',
         './tests/70_SITAddTripPersonallyForeman.js',
         './tests/34_ContractPageCustomBlock.js',
-        './tests/35_InventoryLocalMoving.js',
+        './tests/35_InventoryLocalMovingAndValuation.js',
         './tests/36_DatePending.js',
         './tests/37_PendingStorage.js',
         './tests/38_CustomPayrollInRequest.js',

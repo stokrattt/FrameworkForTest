@@ -45,7 +45,12 @@ condition.nowWeDoing = 'запомнили данные в аке и сравн�
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
 condition.nowWeDoing = 'зашли под админом заполнили данные и сравниваем с акком первый реквест';
-    MF.Board_OpenRequest(V.accountNumbersTo.Id); /********************************************************************/
+    MF.Board_OpenRequest(V.accountNumbersTo.Id);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "service_type")]')).getText().then(function (text) {
+        VD.IWant (VD.ToEqual, text, 'MOVE TO STORAGE', 'не нашло или не совпал сервис тип реквеста сторадж TO');
+        console.log(text);
+    }),config.timeout);
+    SF.sleep(0.5);
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
 
@@ -61,7 +66,12 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'сравниваем с акком второй реквест';
-    MF.Board_OpenRequest(V.accountNumbersFrom.Id); /********************************************************************/
+    MF.Board_OpenRequest(V.accountNumbersFrom.Id);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "service_type")]')).getText().then(function (text) {
+        VD.IWant (VD.ToEqual, text, 'MOVE TO STORAGE', 'не нашло или не совпал сервис тип реквеста сторадж TO');
+        console.log(text);
+    }),config.timeout);
+    SF.sleep(0.5);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
@@ -88,14 +98,6 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
-    // MF.SweetConfirm ();
-    // SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
-    // SF.click (By.id('edit-moving-from'));
-    // SF.send (By.id('edit-moving-from'), 'kuda edem');
-    // // SF.send (By.id('edit-moving-from-apt'), 324535);
-    // SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    // SF.sleep(2);
-    // MF.SweetConfirm ();
 
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
@@ -121,15 +123,7 @@ condition.nowWeDoing = 'букаем вторую работу мувинга и
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
-    // MF.SweetConfirm ();
-    // SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
-    // SF.click (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
-    // SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
-    // // SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
-    // SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    // SF.sleep(2);
-    // MF.SweetConfirm ();
-    // MF.SweetConfirm ();
+
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);

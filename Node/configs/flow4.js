@@ -8,7 +8,7 @@ module.exports = function(config,V) {
         './tests/22_WeDontMoveToThisState.js',
         './tests/33_AddCarrier.js',
         './tests/34_ContractPageCustomBlock.js',
-        './tests/35_InventoryLocalMoving.js',
+        './tests/35_InventoryLocalMovingAndValuation.js',
         './tests/36_DatePending.js',
         './tests/45_MovStorAddInventConfirmClient.js',
         './tests/47_SendMessage.js',
