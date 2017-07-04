@@ -1,9 +1,9 @@
 module.exports = function(config,V) {
 
-    config.timeout = 20000;
+    config.timeout = 40000;
 
     config.suite = [
-        './tests/67_EditRequestPayrollAdding.js'
+        './tests/1_AllLocalMoving.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

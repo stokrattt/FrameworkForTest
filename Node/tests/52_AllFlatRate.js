@@ -248,11 +248,9 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
     V.payrollNumbersPickup = {
         Foreman:{}, Sale:{}, Helper:{}
     };
-    driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.FRId)).then(function (text) {
-        V.payrollNumbersPickup.Foreman.Total = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Foreman.Total, V.boardNumbersPickup.Payroll.foremanForCommission.total, 'не совпали цифры Pickup в Payroll foreman\n' +
-            'id=' + V.FRId);
-    }), config.timeout);
+	MF.Payroll_getTotalById(V.FRId, V.payrollNumbersPickup.Foreman);
+	VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Foreman.Total, V.boardNumbersPickup.Payroll.foremanForCommission.total, 'не совпали цифры Pickup в Payroll foreman\n' +
+			'id=' + V.FRId);
     SF.sleep(1);
 
     condition.nowWeDoing = 'выбираем цифры helper pickup';
@@ -288,12 +286,9 @@ condition.nowWeDoing = 'начинаем проверять чувачком и�
     V.payrollNumbersDelivery = {
         Foreman:{}, Sale:{}, Helper:{}
     };
-    driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.FRId)).then(function (text) {
-        V.payrollNumbersDelivery.Foreman.Total = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.payrollNumbersDelivery.Foreman.Total, V.boardNumbersDelivery.Payroll.foremanForCommission.total, 'не совпали цифры delivery в Payroll foreman\n' +
-            'id=' + V.FRId);
-    }), config.timeout);
-    SF.sleep(1);
+	MF.Payroll_getTotalById(V.FRId, V.payrollNumbersPickup.Foreman);
+	VD.IWant(VD.ToEqual, V.payrollNumbersDelivery.Foreman.Total, V.boardNumbersDelivery.Payroll.foremanForCommission.total, 'не совпали цифры delivery в Payroll foreman\n' +
+		'id=' + V.FRId);
 
 condition.nowWeDoing = 'выбираем цифры helper delivery';
     now = new Date();

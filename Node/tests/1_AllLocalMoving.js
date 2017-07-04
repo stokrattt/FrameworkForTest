@@ -156,23 +156,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.payrollNumbers = {
         Foreman:{}, Sale:{}
     };
-    driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.boardNumbers.Id)).then(function (text) {
-        V.payrollNumbers.Foreman.Total = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
-            'id=' + V.boardNumbers.Id);
-    }), config.timeout);
-    SF.sleep(1);
-
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
+	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
+		'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
 
     condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll(V.managerName);
-    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.boardNumbers.Id)).then(function (text) {
-        V.payrollNumbers.Sale.Total = SF.cleanPrice(text);
-    }), config.timeout);
-    SF.sleep(1);
-
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(3);

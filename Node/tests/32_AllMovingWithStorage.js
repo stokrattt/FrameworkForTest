@@ -300,39 +300,27 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.payrollNumbersTo = {
         Foreman:{}, Sale:{}
     };
-    driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.accountNumbersTo.Id)).then(function (text) {
-        V.payrollNumbersTo.Foreman.Total = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.payrollNumbersTo.Foreman.Total, V.boardNumbersTo.Payroll.foremanForCommission.total, 'не совпали цифры ToStorage в Payroll foreman\n' +
-            'id=' + V.accountNumbersTo.Id);
-    }), config.timeout);
-    SF.sleep(1);
+	MF.Payroll_getTotalById(V.accountNumbersTo.Id, V.payrollNumbersTo.Foreman);
+	VD.IWant(VD.ToEqual, V.payrollNumbersTo.Foreman.Total, V.boardNumbersTo.Payroll.foremanForCommission.total, 'не совпали цифры ToStorage в Payroll foreman\n' +
+		'id=' + V.accountNumbersTo.Id);
     LF.selectDateInPayroll(V.boardNumbersFrom.moveDate);
     V.payrollNumbersFrom = {
         Foreman:{}, Sale:{}
     };
-    driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.accountNumbersFrom.Id)).then(function (text) {
-        V.payrollNumbersFrom.Foreman.Total = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.payrollNumbersFrom.Foreman.Total, V.boardNumbersFrom.Payroll.foremanForCommission.total, 'не совпали цифры FromStorage в Payroll foreman\n' +
-            'id=' + V.accountNumbersFrom.Id);
-    }), config.timeout);
-    SF.sleep(1);
+	MF.Payroll_getTotalById(V.accountNumbersFrom.Id, V.payrollNumbersFrom.Foreman);
+	VD.IWant(VD.ToEqual, V.payrollNumbersFrom.Foreman.Total, V.boardNumbersFrom.Payroll.foremanForCommission.total, 'не совпали цифры ToStorage в Payroll foreman\n' +
+		'id=' + V.accountNumbersFrom.Id);
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
 
     condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('emilia clark');
     LF.selectDateInPayroll(V.boardNumbersTo.moveDate);
-    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.accountNumbersTo.Id)).then(function (text) {
-        V.payrollNumbersTo.Sale.Total = SF.cleanPrice(text);
-    }), config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.payrollNumbersTo.Sale.Total, V.boardNumbersTo.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
-        'id=' + V.accountNumbersTo.Id);
-    LF.selectDateInPayroll(V.boardNumbersFrom.moveDate);
-    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.accountNumbersFrom.Id)).then(function (text) {
-        V.payrollNumbersFrom.Sale.Total = SF.cleanPrice(text);
-    }), config.timeout);
-    SF.sleep(1);
+	MF.Payroll_getTotalById(V.accountNumbersTo.Id, V.payrollNumbersTo.Sale);
+	VD.IWant(VD.ToEqual, V.payrollNumbersTo.Sale.Total, V.boardNumbersTo.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+		'id=' + V.accountNumbersTo.Id);
+    LF.selectDateInPayroll(V.accountNumbersFrom.moveDate);
+	MF.Payroll_getTotalById(V.boardNumbersFrom.Id, V.payrollNumbersFrom.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbersFrom.Sale.Total, V.boardNumbersFrom.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.accountNumbersFrom.Id);
     SF.sleep(3);

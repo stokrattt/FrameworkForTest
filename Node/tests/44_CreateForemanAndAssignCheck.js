@@ -145,11 +145,11 @@ condition.nowWeDoing = 'идем в пейрол ищем форемана и п
     SF.sleep(1);
     MF.WaitWhileBusy ();
     SF.sleep(2);
-    driver.wait(driver.executeScript(JSstep.Payroll_GetForemanTotalForRequest(V.boardNumbers.Id)).then(function (text) {
-        V.payrollNumbersTotal = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.payrollNumbersTotal, V.RequestPayrollTotal, 'не совпали цифры новосозданного форемана в Payroll foreman' + V.boardNumbers.Id);
-    }), config.timeout);
-    SF.sleep(1);
+	V.payrollNumbers = {
+		Foreman:{}, Sale:{}
+	};
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
+	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.RequestPayrollTotal, 'не совпали цифры новосозданного форемана в Payroll foreman' + V.boardNumbers.Id);
 
 condition.nowWeDoing='идем удалять форемана';
     // MF.Board_OpenSideBar ();
