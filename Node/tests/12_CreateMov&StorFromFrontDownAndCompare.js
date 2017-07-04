@@ -68,7 +68,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
 condition.nowWeDoing = 'сравниваем с акком второй реквест';
     MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "service_type")]')).getText().then(function (text) {
-        VD.IWant (VD.ToEqual, text, 'MOVE TO STORAGE', 'не нашло или не совпал сервис тип реквеста сторадж TO');
+        VD.IWant (VD.ToEqual, text, 'MOVE FROM STORAGE', 'не нашло или не совпал сервис тип реквеста сторадж FROM');
         console.log(text);
     }),config.timeout);
     SF.sleep(0.5);

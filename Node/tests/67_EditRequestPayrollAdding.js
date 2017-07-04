@@ -42,7 +42,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.EditRequestPayroll_RememberManager(V.managerName, V.boardNumbers.Payroll.managerForCommission);
     //open Foreman tab
     MF.EditRequest_PayrollOpenForemanTab();
-    V.foremanName2 = 'Foreman Riba';
+    V.foremanName2 = 'Foreman Flow1';
     LF.EditRequestPayroll_RememberForeman(V.foremanName, V.boardNumbers.Payroll.foremanForCommission);
     MF.EditRequest_PayrollAddForeman(V.foremanName2);
     MF.EditRequest_PayrollAddForemanCommission(V.foremanName2, 'Bonus');

@@ -16,7 +16,7 @@ module.exports = function(config,V) {
         './tests/2_CheckPermissions.js',
         // './tests/11_CheckBillOfLadding.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
-        './tests/51_ServiceTypesOnOff.js',
+        // './tests/51_ServiceTypesOnOff.js',  /нужно переделать
         './tests/DefaultSettings.js',
         './tests/10_ComparQuotLocalCheckBilOfLad.js',
         './tests/12_CreateMov&StorFromFrontDownAndCompare.js',
@@ -43,7 +43,7 @@ module.exports = function(config,V) {
         // './tests/28_CalcWarnAndTurnOffWhenManual.js',
         './tests/29_CheckFewMoverForUserCalcOffManual.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
-        './tests/30_StorageTenant.js',
+        // './tests/30_StorageTenant.js',   /отключили функционал
         './tests/31_FlateRateBooking.js',
         './tests/49_FlatRateLocalMove.js',
         './tests/52_AllFlatRate.js',

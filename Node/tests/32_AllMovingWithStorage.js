@@ -335,7 +335,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.payrollNumbersFrom.Sale.Total, V.boardNumbersFrom.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.accountNumbersFrom.Id);
-
+    SF.sleep(3);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
