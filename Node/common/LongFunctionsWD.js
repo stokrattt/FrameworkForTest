@@ -1544,45 +1544,45 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
     }
     function findTestForemanInPayroll(ForemanName) {
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"foreman")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"foreman")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+ ForemanName +'")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+ ForemanName +'")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"'+ ForemanName +'")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"'+ ForemanName +'")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
     }
     function findFlatRateDeliveryForemanInPayroll() {
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"foreman")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"foreman")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"foreman")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"FlatRate Foreman")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"FlatRate Foreman")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"FlatRate Foreman")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"FlatRate Foreman")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
     }
     function findSaleInPayroll(name) {
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"sales")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"sales")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"sales")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"sales")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"' + name + '")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"' + name + '")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"' + name + '")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"' + name + '")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
     }
     function findHelperInPayroll(name) {
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"helper")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"helper")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"helper")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"helper")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"' + name + '")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"' + name + '")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"' + name + '")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"' + name + '")]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
         SF.sleep(2);
