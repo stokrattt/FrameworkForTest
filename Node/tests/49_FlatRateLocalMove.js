@@ -137,10 +137,11 @@ condition.nowWeDoing = 'выбираем цифры формена';
 
 condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('JackSales do not delete');
-    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.request.Id)).then(function (text) {
-        V.payrollNumbers.Sale.Total = SF.cleanPrice(text);
-    }), config.timeout);
-    SF.sleep(1);
+    // driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.request.Id)).then(function (text) {
+    //     V.payrollNumbers.Sale.Total = SF.cleanPrice(text);
+    // }), config.timeout);
+    // SF.sleep(1);
+    MF.Payroll_getTotalById(V.request.Id, V.payrollNumbers.Sale);
 
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.request.Id);
@@ -149,10 +150,11 @@ condition.nowWeDoing = 'выбираем цифры helper';
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
     LF.findHelperInPayroll('Test Helper1');
-    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.request.Id)).then(function (text) {
-        V.payrollNumbers.Helper.Total = SF.cleanPrice(text);
-    }), config.timeout);
-    SF.sleep(1);
+    // driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.request.Id)).then(function (text) {
+    //     V.payrollNumbers.Helper.Total = SF.cleanPrice(text);
+    // }), config.timeout);
+    // SF.sleep(1);
+    MF.Payroll_getTotalById(V.request.Id, V.payrollNumbers.Helper);
 
     VD.IWant(VD.ToEqual, V.payrollNumbers.Helper.Total, (V.boardNumbers.Payroll.helpersForCommission.total/2), 'не нашло этой работы у хелпера или не совпали цифры в Payroll helper\n' +
         'id=' + V.request.Id);

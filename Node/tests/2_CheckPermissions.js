@@ -5,7 +5,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    V.SalesLogin = ('JackSales');
+    V.SalesLogin = ('jack2@ya.com');
     V.SalesPass = ('123');
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

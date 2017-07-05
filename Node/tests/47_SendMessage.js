@@ -6,7 +6,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
-    V.SalesLogin = "JackSales";
+    V.SalesLogin = "jack2@ya.com";
     V.Salespass = ('123');
 
     //=========================начинаем писать тест=============================

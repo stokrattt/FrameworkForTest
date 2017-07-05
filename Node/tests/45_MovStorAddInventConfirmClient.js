@@ -15,10 +15,11 @@ condition.nowWeDoing = 'создаем мув и сторадж с верхне�
     MF.FrontSite_GoToAccount();
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(5);
+    SF.sleep(2);
     MF.WaitWhileBusy();
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
+    SF.sleep(6);
     V.accountNumbersTo = {};
     LF.RememberAccountNumbers(V.accountNumbersTo);
     LF.addToCleanerJob(V.accountNumbersTo.Id);

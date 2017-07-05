@@ -16,10 +16,12 @@ condition.nowWeDoing = 'идем в админку проверяем что с�
     JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
+    SF.sleep(3);
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
 condition.nowWeDoing = 'создаем Flat Rate реквест';
     LF.CreateFlatRateDownForm(V.client);
+
 condition.nowWeDoing = 'перешли в аккаунт добавляем опции';
     MF.Account_ClickViewRequest();
     let now = new Date();

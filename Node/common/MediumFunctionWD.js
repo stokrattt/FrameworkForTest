@@ -1064,8 +1064,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function Payroll_GoToWorkerJobs(foremanName) {
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+ foremanName +'")]'));
-        SF.click(By.xpath('//table[@id="datatable"]//td[contains(text(),"'+ foremanName +'")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"'+ foremanName +'")]'));
+        SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"'+ foremanName +'")]'));
         WaitWhileBusy ();
     }
     function Payroll_OpenPayCheckCash() {

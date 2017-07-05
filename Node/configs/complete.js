@@ -5,7 +5,7 @@ module.exports = function(config,V) {
         // './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',
         './tests/4_CheckFuelCFitInventOffCalc.js',
         './tests/7_DepartmenTest.js',
-        './tests/5_ReservationMov&Stor.js',
+        // './tests/5_ReservationMov&Stor.js',
         './tests/DefaultSettings.js',
         './tests/21_LDFromAdmin.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
