@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 40000;
 
     config.suite = [
-        './tests/32_AllMovingWithStorage.js'
+        './tests/71_ManualEmailing.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

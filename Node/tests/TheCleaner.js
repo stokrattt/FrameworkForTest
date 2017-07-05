@@ -48,7 +48,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
                 JS.waitForNotExist('div.busyoverlay:visible');
             }
 
-            SF.select(By.xpath('//select[@id="edit-status"]'), 14);
+            SF.select(By.xpath('//select[@id="edit-status"]'), 22);
             SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
             JS.waitForExist('button[ng-click="update(request)"]:visible');
             SF.click(By.xpath('//button[@ng-click="update(request)"]'));
