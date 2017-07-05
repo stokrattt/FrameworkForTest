@@ -838,6 +838,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function EditRequest_CloseModal() {
         SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
+        SweetConfirm();
         SF.sleep(2);
     }
 
