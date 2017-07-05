@@ -486,7 +486,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Contract_DeclarationValueA() {
-        SF.select(By.xpath('//select[@ng-model="data.declarationValue.selected"]'), 'a');
+		WaitWhileBusy();
+		SF.select(By.xpath('//select[@ng-model="data.declarationValue.selected"]'), 'a');
     }
 
     function Contract_ClickPay() {
@@ -518,10 +519,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[contains(@ng-click,"saveFile()")]'));
         JS.waitForNotExist("button[ng-click=\"saveFile()\"]");
         JS.waitForNotExist('div.busyoverlay:visible');
+        WaitWhileBusy();
         SF.sleep(2);
     }
 
     function Contract_Submit() {
+        WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
         SF.sleep(2);
         SweetConfirm();

@@ -1247,7 +1247,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
     }
     function MakeSignInContract() {
-        SF.click(By.xpath('//div[@id="main-contract"]//div[@class="empty-signature"]'));
+		MF.WaitWhileBusy();
+		SF.click(By.xpath('//div[@id="main-contract"]//div[@class="empty-signature"]'));
         MakeSignJS("signatureCanvas");
         SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
         SF.sleep(2);
