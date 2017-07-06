@@ -69,6 +69,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy ();
     LF.findTestForemanInPayroll(V.foremanName);
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
+    SF.sleep(2);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
 	MF.Payroll_ClickAllDepartment();

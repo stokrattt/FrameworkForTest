@@ -44,7 +44,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     }), config.timeout);
     SF.clear(By.id('edit-start-time'));
     SF.send(By.id('edit-start-time'), V.time);
-    SF.sleep (1);
+    SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
@@ -63,11 +63,11 @@ condition.nowWeDoing = 'создаем третий реквест, ставим
     }), config.timeout);
     SF.clear(By.id('edit-start-time'));
     SF.send(By.id('edit-start-time'), V.time);
-    SF.sleep (1);
+    SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
-    MF.EditRequest_OpenClient ()
+    MF.EditRequest_OpenClient ();
     SF.sleep (0.5);
     V.client3.passwd = 123;
     LF.SetClientPasswd (V.client3.passwd);

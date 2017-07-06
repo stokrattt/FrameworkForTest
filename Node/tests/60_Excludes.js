@@ -208,9 +208,8 @@ condition.nowWeDoing = 'выбираем цифры формена';
 
 condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('SalesExclude');
-    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.boardNumbers.Id)).then(function (text) {
-        V.payrollNumbers.Sale.Total = SF.cleanPrice(text);
-    }), config.timeout);
+
+    MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
@@ -220,16 +219,14 @@ condition.nowWeDoing = 'выбираем цифры хелпера';
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
     LF.findHelperInPayroll('Test Helper1');
-    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.boardNumbers.Id)).then(function (text) {
-        V.payrollNumbers.Helper.Total = SF.cleanPrice(text);
-    }), config.timeout);
+
+    MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Helper);
     SF.sleep(1);
 
     VD.IWant(VD.ToEqual, V.payrollNumbers.Helper.Total, (V.boardNumbers.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(1);
 
-    Debug.pause();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
