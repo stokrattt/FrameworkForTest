@@ -30,9 +30,6 @@ condition.nowWeDoing = 'запоминаем данные';
             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
     }), config.timeout);
     SF.sleep(1);
-
-    Debug.pause();
-
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);
     SF.click(By.linkText('View Request Page'));
