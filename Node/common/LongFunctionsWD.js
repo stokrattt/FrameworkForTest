@@ -3,6 +3,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
+		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
         V.frontNumbers = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
@@ -37,6 +38,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "90001");
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
+		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
         V.frontNumbers = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
@@ -75,6 +77,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1.5);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
+		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
         V.frontNumbers = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
@@ -110,6 +113,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "07304");
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
+		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
         V.frontNumbers = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
@@ -148,6 +152,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1.5);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
+		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
         V.frontNumbers = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
@@ -185,6 +190,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02032");
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02461");
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
+		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
         V.frontNumbers = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
@@ -193,6 +199,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }),config.timeout);
         SF.sleep(2);
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.deliveryDate\"]').focus();"),config.timeout);
+        JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
         driver.wait(driver.executeScript(JSstep.Click8DaysNewCalendar).then(function (D) {
             V.frontNumbers.deliveryDate = D;
@@ -625,6 +632,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
+        MF.WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="create()"]'));
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         SF.sleep(4);
@@ -1818,6 +1826,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (6);
+        SF.waitForVisible(By.id('edit-first-name'));
         SF.send(By.id('edit-first-name'), client.name);
         SF.send(By.id('edit-last-name'), client.fam);
 
