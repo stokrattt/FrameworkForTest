@@ -17,6 +17,17 @@ module.exports = function (system, config, By, until, constants, condition) {
         }
     }
 
+    function AddSelection(selector){
+        if (selector.using=='xpath') {
+			driver.wait(driver.executeScript("$x(\"" + selector.value + "\").css('box-shadow','0,0,2px,2px,#d6c700');"), config.timeout);
+		}
+    }
+	function RemoveSelection(selector){
+		if (selector.using=='xpath') {
+			driver.wait(driver.executeScript("$x(\"" + selector.value + "\").css('box-shadow','');"), config.timeout);
+		}
+	}
+
     function waitForExist(selector) {
         console.log("return $('" + selector + "').length");
         let timeStart = new Date().getTime();
