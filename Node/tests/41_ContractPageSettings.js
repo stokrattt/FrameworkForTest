@@ -33,7 +33,7 @@ condition.nowWeDoing = 'идем в диспач назначем команду
     LF.selectCrew(V.foremanName);
 
 condition.nowWeDoing = 'переходим сразу с диспача на контракт и подписываем его не до конца ';
-    driver.wait(driver.executeScript("window.open('http://stage.themoveboard.com:8005'+$('a:contains(\"View Contract\")').attr('href'));"),config.timeout);
+    driver.wait(driver.executeScript("window.open('"+''+"'+$('a:contains(\"View Contract\")').attr('href'));"),config.timeout);
     SF.openTab (1);
     MF.Contract_WaitConfirmationPage ();
     MF.Contract_OpenBillOfLading ();
