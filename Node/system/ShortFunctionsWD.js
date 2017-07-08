@@ -21,6 +21,23 @@ module.exports = function (system, config, By, until, constants, condition) {
             system.myEmitter.emit('event');
         }
     }
+	function MoveFlyingCircle(selector){
+        driver.findElement(selector).getLocation().then(function(location){
+			driver.wait(driver.executeScript("$('#FlyingCircle').css('top','"+location.y+"px');" +
+                "$('#FlyingCircle').css('left','"+location.x+"px');"), config.timeout);
+        });
+	}
+	function HideFlyingCircle() {
+		driver.wait(driver.executeScript("$('#FlyingCircle').css('display','none');"), config.timeout);
+	}
+	function ShowFlyingCircle() {
+		driver.wait(driver.executeScript("$('#FlyingCircle').css('display','block');"), config.timeout);
+	}
+	function AddFlyingCircle(){
+		driver.wait(driver.executeScript("$('body').append(\"<div id='FlyingCircle' style='border:10px double red; width:50px; height: 50px; border-radius: 50%; position: absolute; z-index=9999999;'></div>\");"), config.timeout);
+    }
+
+
     function waitForVisible (selector) {
         console.log('ждём ' + selector);
         driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), config.timeout)), config.timeout).then(function () {
@@ -92,15 +109,21 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
     function click(selector) {
         console.log('click: '+selector);
+		HideFlyingCircle();
+		MoveFlyingCircle(selector);
         driver.wait(driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), config.timeout)), config.timeout).click(), config.timeout)
-            .then(function () {
+            .then(function (alala) {
+				ShowFlyingCircle();
                 SFgo();
             });
         SFstop();
     }
     function send (selector, text) {
-        driver.wait(driver.wait(until.elementLocated(selector), config.timeout).sendKeys(text), config.timeout).then(function () {
-            SFgo();
+		HideFlyingCircle();
+		MoveFlyingCircle(selector);
+		driver.wait(driver.wait(until.elementLocated(selector), config.timeout).sendKeys(text), config.timeout).then(function () {
+			ShowFlyingCircle();
+			SFgo();
         });
         SFstop();
     }
@@ -113,6 +136,7 @@ module.exports = function (system, config, By, until, constants, condition) {
     function get (URL) {
         console.log('goto ' + URL);
         driver.wait(driver.get(URL), config.timeout).then(function () {
+            AddFlyingCircle();
             SFgo();
         });
         SFstop();
