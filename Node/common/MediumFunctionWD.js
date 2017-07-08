@@ -366,7 +366,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     //==============================ACCOUNT=======================================
 
     function Account_SubmitFlatRateAfterAddInventory() {
-        JS.scroll ('#conf_block:visible');
+        JS.scroll ('#conf_send,#conf_block :visible');
         SF.sleep (2);
         SF.click (By.xpath('//button[@ng-click="submitFlatRate()"]'));
         JS.waitForExist('button.confirm:contains("OK")');
@@ -377,10 +377,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForLocated (By.id('tab_Move Overview'));
         SF.sleep(2);
         WaitWhileBusy();
-    }
-    function Account_ClickViewConfirmationPage() {
-        SF.click(By.linkText('View confirmation page'));
-        SF.sleep(4);
     }
     function Account_ClickViewRequest() {
         SF.sleep(1);
