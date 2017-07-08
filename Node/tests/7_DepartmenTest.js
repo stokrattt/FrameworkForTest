@@ -32,7 +32,6 @@ condition.nowWeDoing='Создаем менеджера*************************
     MF.WaitWhileBusy();
     MF.WaitWhileToaster ();
     SF.sleep(3);
-    Debug.pause();
     //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "mantest testman")]'));
     //SF.sleep (3);
 
@@ -196,7 +195,6 @@ condition.nowWeDoing = 'заходим под админом и создаем �
             VD.IWant(VD.NotToEqual, counts.Helper, 0, 'не нашло имя хелпера');
             VD.IWant(VD.NotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
     });
-    Debug.pause ();
     SF.sleep(1);
     MF.Board_OpenSideBar ();
 condition.nowWeDoing='зашли в настройки департмента';
