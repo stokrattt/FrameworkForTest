@@ -164,6 +164,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     MF.WaitWhileBusy();
 
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
+    SF.sleep(2);
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
