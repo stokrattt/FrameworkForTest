@@ -178,6 +178,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSideBar();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
         SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+        SF.sleep(2);
     }
 	function Board_OpenSettingsRates() {
 		Board_OpenSideBar();
@@ -380,6 +381,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_ClickViewRequest() {
         SF.sleep(1);
+        SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
         SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
         SF.sleep(2);
         WaitWhileBusy ();
