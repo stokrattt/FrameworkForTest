@@ -88,6 +88,8 @@ module.exports = function(config,V) {
 		'./tests/72_ChangingRateAfterConfirming.js',
         './tests/73_CustomTrackSpeed.js',
         './tests/TheCleaner.js',//==============================уборка=========================
+        './tests/74_AddEmailsWhenCreatReq.js'
+
 
 
     ];
