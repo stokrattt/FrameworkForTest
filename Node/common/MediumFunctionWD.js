@@ -489,7 +489,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Contract_ClickPay() {
-        SF.click(By.xpath('//div[@ng-click="applyPayment(paymentButton())"]'));
+        SF.sleep(1);
+        // SF.click(By.xpath('//div[@ng-click="applyPayment(paymentButton())"]'));
+        JS.click('div[ng-click=\\"applyPayment(paymentButton())\\"]:visible');
     }
 
     function Contract_ClickTips10() {
@@ -876,8 +878,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
     }
     function EditRequest_AddPacking() {
+        WaitWhileBusy ();
         SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
         SF.waitForVisible (By.xpath('//div[@class="inside_box"]'));
+        WaitWhileBusy ();
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
         SF.sleep (0.5);
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));

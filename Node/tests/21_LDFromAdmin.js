@@ -180,6 +180,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
     SF.click (By.xpath('//button[@class="confirm"]'));
     SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
+    SF.sleep(2);
     SF.send (By.id('edit-moving-from'), 'otkuda edem');
     SF.send (By.id('edit-moving-from-apt'), 324535);
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'kuda edem');
