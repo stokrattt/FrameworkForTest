@@ -13,6 +13,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'идем в настройки фуела и добавляем две строки fuel by mileage';
     MF.Board_OpenSettingsGeneral();
+    SF.sleep(2);
     SF.click(By.linkText('Fuel Surcharge'));
     SF.sleep (2);
     JS.scroll ('a[ng-click="vm.select(tab)"]:contains("Basic")');

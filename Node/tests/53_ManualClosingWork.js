@@ -58,6 +58,8 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     MF.WaitWhileBusy ();
     V.cardInput = V.boardNumbersClose.Total - 100;
     SF.click(By.xpath('//a[@ng-click="addAuthPayment()"]'));
+    SF.sleep(2);
+
     SF.click (By.xpath('//input[@ng-model="charge_value.value"]'));
     SF.send (By.xpath('//input[@ng-model="charge_value.value"]'),V.cardInput);
     SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));

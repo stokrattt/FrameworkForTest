@@ -956,6 +956,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
     }
     function SetClientPasswd(passwd) {
+        SF.sleep(2);
         SF.send(By.xpath('//input[@ng-model="client.password"]'), passwd);
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         SF.sleep(3);
@@ -2021,7 +2022,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.wait(driver.findElement(By.xpath('//td[contains(text(), "MOVERS:")]/following-sibling::td[1]')).getText().then(function(crew){
             LocalMoveAdminCalc.CrewSize = SF.cleanPrice (crew);
         }),config.timeout);
-        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "TRAVEL TIME:")]/following-sibling::td[1]')).getText().then(function(text){
+        driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Travel Time:")]/following-sibling::td[1]')).getText().then(function(text){
             let hours = text.indexOf('hr') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('hr')));
             let minutes = text.indexOf('min') == -1 ? 0 : SF.cleanPrice(text.substring((text.indexOf('hr') + 1), text.indexOf('min')));
             LocalMoveAdminCalc.TravelTime = hours * 60 + minutes;

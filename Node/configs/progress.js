@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/37_PendingStorage.js'];
+    config.suite = ['./tests/53_ManualClosingWork.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;

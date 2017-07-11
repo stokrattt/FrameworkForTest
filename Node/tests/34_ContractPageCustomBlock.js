@@ -6,6 +6,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'идем в настройки контракт пейдж';
     MF.Board_OpenSettingsGeneral ();
+    SF.sleep(2);
     SF.click(By.linkText('Contract page'));
     SF.sleep (2);
     SF.click (By.xpath('//a[@href="/account/#/request/contract"]'));
