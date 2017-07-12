@@ -18,13 +18,13 @@ condition.nowWeDoing='Создаем менеджера*************************
     MF.WaitWhileBusy();
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
-    V.managerFirstName1 = "mantest";
-    V.managerLastName1 = "testman";
+    V.managerFirstName1 = SF.randomBukva(5)+ '_man';
+    V.managerLastName1 = SF.randomBukva(5) + '_man';
     SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.managerFirstName1);
     SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.managerLastName1);
     SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
     SF.click (By.linkText('Account'));
-    V.managerAccount = "mantest@ya.ya";
+    V.managerAccount = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.managerPass = 123;
     SF.send (By.xpath('//input[@ng-model="request.login"]'), V.managerAccount);
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.managerPass);
@@ -43,13 +43,13 @@ condition.nowWeDoing='Создали менеджера*************************
 condition.nowWeDoing='Создаем сейлса**************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
-    V.salesFirstName = "salestest";
-    V.salesLastName = "testsales";
+    V.salesFirstName = SF.randomBukva(5)+ '_sa';
+    V.salesLastName = SF.randomBukva(5)+ '_sa';
     SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.salesFirstName);
     SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.salesLastName);
     SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
     SF.click (By.linkText('Account'));
-    V.salesAccount = "sales@ya.ya";
+    V.salesAccount = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.salesPass = 123;
     SF.send (By.xpath('//input[@ng-model="request.login"]'), V.salesAccount);
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.salesPass);
@@ -108,13 +108,13 @@ condition.nowWeDoing='Создаем форемана***************************
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
     SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
     SF.sleep(2);
-    V.foremanFirstName = "foremantest";
-    V.foremanLastName = "testforeman";
+    V.foremanFirstName = SF.randomBukva(5)+ '_for';
+    V.foremanLastName = SF.randomBukva(5)+ '_for';
     SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.foremanFirstName);
     SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.foremanLastName);
     SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
     SF.click (By.linkText('Account'));
-    V.foremanAccount = "foremantest@ya.ya";
+    V.foremanAccount = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.foremanPass = 123;
     SF.send (By.xpath('//input[@ng-model="request.login"]'), V.foremanAccount);
     SF.send (By.xpath('//input[@ng-model="request.password"]'), V.foremanPass);
@@ -181,7 +181,7 @@ condition.nowWeDoing = 'заходим под админом и создаем �
 
     driver.executeScript (
         function () {
-            var a = $('option[ng-repeat="(uid, user) in vm.users.foreman | orderBy:\'name\'"]:contains("foremantest testforeman")').length;
+            var a = $('option[ng-repeat="(uid, user) in vm.users.foreman | orderBy:\'name\'"]:contains("'+V.foremanFirstName+'")').length;
             var b = $('option[ng-repeat="helper in helpers   | orderBy:\'name\'"]:contains("helpertest testhelper")').length;
             var c = $('option[ng-repeat="helper in helpers   | orderBy:\'name\'"]:contains("drivertest testdriver")').length;
             return {
@@ -204,7 +204,7 @@ condition.nowWeDoing='идем удалять форемана';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(3);
-    driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"foremantest testforeman\")').dblclick();"),config.timeout);
+    driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains("+V.foremanFirstName+")').dblclick();"),config.timeout);
     SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     SF.sleep(2);
@@ -268,7 +268,7 @@ condition.nowWeDoing='идем удалять сейлса';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SF.sleep(2);
-    driver.executeScript("$('.mdDataTable tbody tr td:contains(\"salestest testsales\")').dblclick();");
+    driver.executeScript("$('.mdDataTable tbody tr td:contains("+V.salesFirstName +")').dblclick();");
     SF.sleep (2);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();
@@ -279,7 +279,7 @@ condition.nowWeDoing='идем удалять менеджера';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
     SF.sleep(2);
-    driver.executeScript("$('.mdDataTable tbody tr td:contains(\"mantest testman\")').dblclick();");
+    driver.executeScript("$('.mdDataTable tbody tr td:contains(" +V.managerFirstName1 +")').dblclick();");
     SF.sleep (2);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();

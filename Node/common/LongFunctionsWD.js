@@ -576,7 +576,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//input[@id="email"]'), client.email);
         SF.send(By.xpath('//input[@id="password"]'), client.passwd);
         SF.click(By.xpath('//button[@type="submit"]'));
-        SF.sleep(2);
+        SF.sleep(4);
     }
     function OpenRequestFlatRate(request) {
         driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), config.timeout)
@@ -1015,14 +1015,15 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
     function ConfirmRequestInAccount_WithReservationWithAdress() {
         SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
+        SF.sleep(2);
         SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
         SF.sleep (0.5);
         SF.click (By.id('terms'));
         SF.click (By.id('cancel_policy'));
         SF.click (By.id('paybutton'));
-        SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+        SF.waitForLocated (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
         SF.click (By.xpath('//button[@class="confirm"]'));
-        SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
+        SF.waitForLocated (By.xpath('//div[@class="modal-body form-horizontal"]'));
         SF.send (By.id('edit-moving-from'), 'otkuda edem');
         SF.send (By.id('edit-moving-from-apt'), 324535);
         SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'kuda edem');
@@ -1260,7 +1261,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
 		SF.click(By.xpath('//div[@id="main-contract"]//div[@class="empty-signature"]'));
         MakeSignJS("signatureCanvas");
         SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
-        SF.sleep(2);
+        SF.sleep(3);
     }
     function MakeSignInInventory(step) {
         SF.click(By.xpath('//div[@id="step_inventoryMoving_'+step+'"]/div[@class="empty-signature"]/..'));

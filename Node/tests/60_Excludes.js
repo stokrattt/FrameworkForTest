@@ -50,11 +50,14 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }),config.timeout);
-    SF.click(By.xpath('//a[@ng-click="showAdditionalServicesRef.show = !showAdditionalServicesRef.show"]'));
-    SF.click(By.xpath('//li[@ng-click="addService(s)"][contains(text(), "Tip")]'));
+    SF.sleep(2);
+    JS.click('a[ng-click=\\"showAdditionalServicesRef.show = !showAdditionalServicesRef.show\\"]:visible');
+    // JS.click('li[ng-click=\\"addService(s)\\"]:contains(\\"Tip\\")');
+
+    SF.click(By.xpath('//div[@id="main-contract"]//li[@ng-click="addService(s)"][contains(text(), "Tip")]'));
     SF.sleep(3);
-    Debug.pause();
-    SF.clear(By.xpath('//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'));
+    // tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/
+    SF.clear(By.xpath('//div[@id="main-contract"]//input[@ng-model="service.extra_services[0].services_default_value"]'));
     SF.send(By.xpath('//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'), 200);
 
     LF.MakeSignInContract();

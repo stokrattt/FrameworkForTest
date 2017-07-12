@@ -263,7 +263,7 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
     // SF.sleep(1);
     MF.Payroll_getTotalById(V.FRId, V.payrollNumbersPickup.Helper);
 
-    VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Helper.Total, V.boardNumbersPickup.Payroll.helpersForComission.total, 'не совпали цифры в Payroll pickup helper\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Helper.Total, (V.boardNumbersPickup.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll pickup helper\n' +
         'id=' + V.FRId);
     SF.sleep(1);
     MF.Payroll_ClickAllDepartment();

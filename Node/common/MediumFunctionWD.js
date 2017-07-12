@@ -190,6 +190,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 	}
     function Board_OpenSettingsAccountPageCustomBlock() {
         SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
+        SF.sleep(3);
         SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][5]'));
         SF.sleep(2);
     }
@@ -417,6 +418,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Account_OpenRequest(Id) {
+	    WaitWhileBusy ();
         SF.click(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
         SF.sleep(2);
         WaitWhileBusy();
@@ -489,20 +491,24 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Contract_ClickPay() {
+        WaitWhileBusy ();
         SF.sleep(1);
         // SF.click(By.xpath('//div[@ng-click="applyPayment(paymentButton())"]'));
         JS.click('div[ng-click=\\"applyPayment(paymentButton())\\"]:visible');
     }
 
     function Contract_ClickTips10() {
+        SF.sleep(2);
         SF.click(By.xpath('//div[@ng-click="tipsPercChange(10)"]'));
     }
 
     function Contract_ClickAddTips() {
+        SF.sleep(2);
         SF.click(By.xpath('//div[contains(text(),"ADD TIPS")]/parent::div[@ng-click="tipsSelected()"]'));
     }
 
     function Contract_ClickPaymentInfo() {
+        SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
     }
 
@@ -511,6 +517,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Contract_UploadImage(path) {
+        SF.sleep(3);
         SF.send(By.xpath('//input[@id="inputImage"]'), path);
         SF.sleep(1);
     }

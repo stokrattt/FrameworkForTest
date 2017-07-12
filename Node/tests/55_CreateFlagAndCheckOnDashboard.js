@@ -16,6 +16,7 @@ condition.nowWeDoing = 'Идем в настройки и создаем фла�
     SF.sleep(2);
     SF.click(By.linkText('Company Flags'));
     SF.sleep(2);
+    JS.scroll ('h1:contains("General Settigs ")');
     SF.click(By.xpath('//button[@ng-click="vm.addNewFlag(); vm.addFlag = true"]'));
     SF.send(By.xpath('//input[@ng-model="vm.newFlag.name"]'), 'test flag');
     SF.clear(By.xpath('//input[@ng-model="vm.newFlag.color"]'));
@@ -65,7 +66,7 @@ condition.nowWeDoing = 'пошли на страницу нот конферм �
     MF.Board_OpenAllRequest ();
 
 condition.nowWeDoing = 'открываем страницу всех реквестов, смотрим что там есть наш флаг и что есть этот реквест, открываем реквест и удаляем флаг';
-    SF.click(By.xpath('//a[@title="test flag"][contains(text(),"test flag")]'));
+    SF.click(By.xpath('//span[contains(text(),"test flag")]'));
     MF.WaitWhileBusy ();
     Debug.pause ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
@@ -93,6 +94,8 @@ condition.nowWeDoing = 'идем в настройки и удаляем наш 
     SF.sleep(2);
     SF.click(By.linkText('Company Flags'));
     SF.sleep(2);
+    JS.scroll ('h1:contains("General Settigs ")');
+
     SF.click(By.xpath('//tr[@ng-repeat="values in vm.companyFlags track by $index"][last()]/td[4]//i'));
     MF.SweetConfirm ();
     SF.sleep(3);

@@ -45,8 +45,10 @@ condition.nowWeDoing = 'идём в настройки клонировать р
     SF.click(By.xpath('//div[contains(@class,"requestModal status_1")]//button[@ng-click="cancel()"]'));
     SF.sleep (2);
     LF.closeEditRequest ();
+    MF.WaitWhileBusy ();
 condition.nowWeDoing = 'проверяем что клон в пендинге и открываем его';
     MF.Board_RefreshDashboard();
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.IdClone);
     SF.sleep (2);
     SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));

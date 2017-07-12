@@ -37,7 +37,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		foreman2ForCommission: {}
     };
     MF.EditRequest_OpenPayroll();
+    SF.sleep(2);
     MF.EditRequest_PayrollAddManager(V.managerName);
+    SF.sleep(3);
     MF.EditRequest_PayrollSetManagerCommission('emilia clark','Office Commission', 123, 80);
     LF.EditRequestPayroll_RememberManager(V.managerName, V.boardNumbers.Payroll.managerForCommission);
     //open Foreman tab

@@ -64,8 +64,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.FullSmallCalcAsLoading(V.clientNoRes);
 
     condition.nowWeDoing='зашли первый раз в аккаунт NoRes';
-    SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.Account_ClickViewRequest ();
     SF.sleep(5);
     JS.waitForNotExist('div.busyoverlay:visible');
     LF.AccountLoadingEnterAddress();
