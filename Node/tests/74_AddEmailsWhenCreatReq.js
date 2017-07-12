@@ -72,7 +72,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }
     EditRequest_Check2EmailExist(V.adminEmail, "Happy Holiday");
     EditRequest_Check2EmailExist(V.adminEmail, "Thank You");
-
     SF.endOfTest();
 };
 
