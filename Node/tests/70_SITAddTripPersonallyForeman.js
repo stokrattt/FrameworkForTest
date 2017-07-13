@@ -52,7 +52,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
-    SF.send (By.xpath('//input[@ng-model="trip.data.details.description"]'), V.decription);
+    SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
     SF.send (By.xpath('//input[@ng-model="trip.data.details.internal_code"]'), V.internalCode);
     now = new Date();
     msInDay = 86400000;
