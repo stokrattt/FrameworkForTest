@@ -64,7 +64,7 @@ global.MyError = webdriver.error;
 
 function getNewDriver() {
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
-    newDriver = new webdriver.Builder()
+    var newDriver = new webdriver.Builder()
         .usingServer(SELENIUM_HOST)
         .withCapabilities({browserName: config.browser})
         .build();
@@ -96,7 +96,7 @@ var deleteFolderRecursive = function(path) {
 };
 
 webdriver.promise.controlFlow().on('uncaughtException', function (e) {
-    driver.wait(driver.takeScreenshot().then(function (image) {
+    global.driver.wait(global.driver.takeScreenshot().then(function (image) {
             let exist = system.fs.existsSync('reports/'+condition.testName);
             if (!exist) {system.fs.mkdirSync('reports/'+condition.testName);}
         condition.errorNumber++;
@@ -109,9 +109,10 @@ webdriver.promise.controlFlow().on('uncaughtException', function (e) {
             console.log('сделали скрин'.yellow);
             console.log('Произошла ошибка: '.red, e);
             if (!config.D) {
-                driver.quit();
-                console.log('закрыли браузер'.blue);
-                system.myEmitter.emit('event');
+                global.driver.quit().then(function(){
+					console.log('закрыли браузер'.blue);
+					system.myEmitter.emit('event');
+                });
             }
 
     }));
@@ -156,7 +157,7 @@ system.myEmitter.on('event', () => {
         condition.testName = getTestName(config.suite[condition.testN]);
         console.log(('next...'+condition.testN + ' '+condition.testName).yellow);
         deleteFolderRecursive('reports/'+condition.testName);
-        if (condition.testN>0) {driver=getNewDriver();}
+        if (condition.testN>0) {global.driver=getNewDriver();}
         condition.testN++;
         Fiber(function(){require(config.suite[condition.testN-1])
         (SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants);}).run();

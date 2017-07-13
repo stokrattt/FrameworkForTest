@@ -40,7 +40,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
     }
     function MailRu_CheckEmailExistBySubject(subject){
-        driver.wait(driver.findElements(By.xpath('//a[@data-subject="'+subject+'"]')).then(function(elements){
+        driver.wait(driver.wait(driver.findElements(By.xpath('//a[@data-subject="'+subject+'"]')),config.timeout).then(function(elements){
             VD.IWant(VD.ToEqual, elements.length,1,'письмо не дошло');
         }),config.timeout);
     }
@@ -887,8 +887,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_AddPacking() {
         WaitWhileBusy ();
         SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
-        SF.waitForVisible (By.xpath('//div[@class="inside_box"]'));
-        WaitWhileBusy ();
+        SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
         SF.sleep (0.5);
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));

@@ -16,6 +16,11 @@ module.exports = function (system, config, By, until, constants, condition) {
             fiber.run();
         }
     }
+	function MoveFlyingCircle(selector){
+		driver.wait(driver.executeScript("var a = $('"+selector+"').position();" +
+            "$('#FlyingCircle').css('top',a.top+'px');" +
+				"$('#FlyingCircle').css('left',a.left+'px');"), config.timeout);
+	}
 
     function waitForExist(selector) {
         console.log("return $('" + selector + "').length");
@@ -61,15 +66,17 @@ module.exports = function (system, config, By, until, constants, condition) {
         SFstop();
     }
 
-    function click(JQeurySelector) {
-        console.log('doing: ' + "$(\"" + JQeurySelector + "\").click();");
-        driver.wait(driver.executeScript("$(\"" + JQeurySelector + "\").click();"), config.timeout).then(function () {
+    function click(JQuerySelector) {
+		MoveFlyingCircle(JQuerySelector);
+        console.log('doing: ' + "$(\"" + JQuerySelector + "\").click();");
+        driver.wait(driver.executeScript("$(\"" + JQuerySelector + "\").click();"), config.timeout).then(function () {
             SFgo();
         });
         SFstop();
     }
 
     function select(JQuerySelector, OptionValue) {
+		MoveFlyingCircle(JQuerySelector);
         console.log('doing: ' + '$(\'' + JQuerySelector + ' option[value="' + OptionValue + '"]\').attr("selected","selected");');
         driver.wait(driver.executeScript('$(\'' + JQuerySelector + ' option[value="' + OptionValue + '"]\').attr("selected","selected");' +
             '$(\'' + JQuerySelector + '\').change();'), config.timeout)
@@ -80,6 +87,7 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
 
     function link(JQuerySelector) {
+		MoveFlyingCircle(JQuerySelector);
         console.log("doing: " + "return $('" + JQuerySelector + "').attr(\"href\");");
         driver.wait(driver.executeScript("location.assign($('" + JQuerySelector + "').attr(\"href\"));")
             .then(function () {
@@ -89,6 +97,7 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
 
     function scroll(JQselector) {
+		MoveFlyingCircle(JQselector);
         console.log('JSscroll: '+"$('" + JQselector + "').get(0).scrollIntoView();");
         driver.wait(driver.executeScript("$('" + JQselector + "').get(0).scrollIntoView();"), config.timeout).then(function () {
             SFgo();

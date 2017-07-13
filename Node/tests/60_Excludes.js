@@ -75,7 +75,12 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
-    SF.sleep(1);
+    SF.sleep(1);function HideFlyingCircle() {
+		driver.wait(driver.executeScript("$('#FlyingCircle').css('display','none');"), config.timeout);
+	}
+	function ShowFlyingCircle() {
+		driver.wait(driver.executeScript("$('#FlyingCircle').css('display','block');"), config.timeout);
+	}
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();

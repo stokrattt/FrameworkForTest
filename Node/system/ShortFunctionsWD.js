@@ -16,27 +16,37 @@ module.exports = function (system, config, By, until, constants, condition) {
             Debug.pause();
         } else {
             condition.Success = true;
-            driver.quit();
-            console.log('закрыли браузер'.blue);
-            system.myEmitter.emit('event');
+            global.driver.quit().then(function(){
+				console.log('закрыли браузер'.blue);
+				system.myEmitter.emit('event');
+            });
         }
     }
 	function MoveFlyingCircle(selector){
-        driver.findElement(selector).getLocation().then(function(location){
-			driver.wait(driver.executeScript("$('#FlyingCircle').css('top','"+location.y+"px');" +
-                "$('#FlyingCircle').css('left','"+location.x+"px');"), config.timeout);
-        });
-	}
-	function HideFlyingCircle() {
-		driver.wait(driver.executeScript("$('#FlyingCircle').css('display','none');"), config.timeout);
-	}
-	function ShowFlyingCircle() {
-		driver.wait(driver.executeScript("$('#FlyingCircle').css('display','block');"), config.timeout);
+		driver.wait(driver.wait(until.elementLocated(selector), config.timeout).getLocation().then(function(location){
+			driver.executeScript(
+			    "var circle = document.getElementById('FlyingCircle');" +
+                "circle.style.top='"+location.y-25+"px';" +
+                "circle.style.left='"+location.x-25+"px';"
+            );
+        }), config.timeout);
 	}
 	function AddFlyingCircle(){
-		driver.wait(driver.executeScript("$('body').append(\"<div id='FlyingCircle' style='border:10px double red; width:50px; height: 50px; border-radius: 50%; position: absolute; z-index=9999999; pointer-events: none;'></div>\");"), config.timeout);
+		driver.wait(driver.executeScript(
+		    "var circle = document.createElement('div');" +
+            "circle.id='FlyingCircle';" +
+            "circle.style.borderWidth = '10px';" +
+            "circle.style.borderStyle = 'double';" +
+            "circle.style.borderColor = 'red';" +
+            "circle.style.width = '50px';" +
+            "circle.style.height = '50px';" +
+            "circle.style.borderRadius = '50%';" +
+            "circle.style.position = 'absolute';" +
+            "circle.style.zIndex = '9999999999';" +
+            "circle.style.pointerEvents = 'none';" +
+            "document.body.appendChild(circle);"
+        ), config.timeout);
     }
-
 
     function waitForVisible (selector) {
         console.log('ждём ' + selector);
@@ -109,25 +119,22 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
     function click(selector) {
         console.log('click: '+selector);
-		//HideFlyingCircle();
 		MoveFlyingCircle(selector);
         driver.wait(driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), config.timeout)), config.timeout).click(), config.timeout)
             .then(function (alala) {
-				//ShowFlyingCircle();
                 SFgo();
             });
         SFstop();
     }
     function send (selector, text) {
-		//HideFlyingCircle();
 		MoveFlyingCircle(selector);
 		driver.wait(driver.wait(until.elementLocated(selector), config.timeout).sendKeys(text), config.timeout).then(function () {
-			//ShowFlyingCircle();
 			SFgo();
         });
         SFstop();
     }
     function clear (selector) {
+		MoveFlyingCircle(selector);
         driver.wait(driver.wait(until.elementLocated(selector), config.timeout).clear(), config.timeout).then(function () {
             SFgo();
         });
@@ -142,6 +149,7 @@ module.exports = function (system, config, By, until, constants, condition) {
         SFstop();
     }
     function select (selector, value) {
+		MoveFlyingCircle(selector);
         console.log('select ' + selector + '->' + value);
         driver.wait(until.elementLocated(selector), config.timeout).click();
         driver.wait(until.elementLocated(selector), config.timeout).findElement(selector)

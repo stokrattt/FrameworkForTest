@@ -1631,6 +1631,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
         SF.sleep (5);
+        Debug.pause();
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (7);
