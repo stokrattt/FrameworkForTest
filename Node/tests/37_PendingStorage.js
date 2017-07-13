@@ -231,6 +231,7 @@ condition.nowWeDoing="Зайти в Storsge pending, найти реквест";
     SF.sleep(1);
     MF.EditStorage_OpenLedger ();
     SF.click(By.xpath('//button[@ng-click="createInvoice()"]'));
+    SF.sleep(2);
     SF.send(By.xpath('//input[@ng-model="charge.name"]'),'testChagre');
     SF.send(By.xpath('//input[@ng-model="charge.description"]'),'testDesc');
     SF.send(By.xpath('//input[@ng-model="charge.cost"]'),V.storageNumbers.prepaid);

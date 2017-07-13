@@ -120,7 +120,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.statusLD =  text;
         VD.IWant(VD.ToEqual, V.statusLD, 'LD', 'LD status не совпали');
     }),config.timeout);
-
+    SF.sleep(2);
 
     // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
     // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');

@@ -95,6 +95,7 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     SF.click (By.id('paybutton'));
     MF.SweetConfirm();
     SF.waitForLocated (By.xpath('//div[@class="modal-body form-horizontal"]'));
+    SF.sleep(2);
     SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
     SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));

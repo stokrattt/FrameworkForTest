@@ -58,7 +58,7 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     SF.sleep(3);
     // tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/
     SF.clear(By.xpath('//div[@id="main-contract"]//input[@ng-model="service.extra_services[0].services_default_value"]'));
-    SF.send(By.xpath('//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'), 200);
+    SF.send(By.xpath('//div[@id="main-contract"]//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'), 200);
 
     LF.MakeSignInContract();
     LF.MakeSignInContract();

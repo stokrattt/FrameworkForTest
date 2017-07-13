@@ -181,7 +181,7 @@ condition.nowWeDoing = 'заходим под админом и создаем �
 
     driver.executeScript (
         function () {
-            var a = $('option[ng-repeat="(uid, user) in vm.users.foreman | orderBy:\'name\'"]:contains("'+V.foremanFirstName+'")').length;
+            var a = $('option[ng-repeat="(uid, user) in vm.users.foreman | orderBy:\'name\'"]:contains('+ V.foremanFirstName +')').length;
             var b = $('option[ng-repeat="helper in helpers   | orderBy:\'name\'"]:contains("helpertest testhelper")').length;
             var c = $('option[ng-repeat="helper in helpers   | orderBy:\'name\'"]:contains("drivertest testdriver")').length;
             return {

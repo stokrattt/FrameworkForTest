@@ -11,7 +11,7 @@ module.exports = function(config,V) {
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/6_WithoutReservationMov&Stor.js',
         './tests/SetReservationPrice.js',
-        './tests/9_TestNoteSaveNothing.js',
+        // './tests/9_TestNoteSaveNothing.js',   //нужно переделать
         './tests/1_AllLocalMoving.js',
         './tests/2_CheckPermissions.js',
         // './tests/11_CheckBillOfLadding.js',

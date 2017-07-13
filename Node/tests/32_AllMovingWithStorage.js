@@ -153,6 +153,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_SetRentalZip('02461');
     LF.MakeSignInRental();
     LF.payRentalInventory();
+    Debug.pause ();
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);

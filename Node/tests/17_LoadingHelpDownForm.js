@@ -81,6 +81,7 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
     MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
     MF.Account_OpenRequest (V.accountNumbers.Id);
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
+    SF.sleep(2);
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
@@ -88,6 +89,7 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
     SF.click (By.id('paybutton'));
     MF.SweetConfirm();
     SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
+    SF.sleep(2);
     SF.send (By.id('edit-moving-from'), 'otkuda edem');
     SF.send (By.id('edit-moving-from-apt'), 324535);
     SF.click (By.xpath('//button[@ng-click="update(client)"]'));

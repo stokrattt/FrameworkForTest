@@ -184,6 +184,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		Board_OpenSideBar();
 		SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
 		SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+		SF.sleep(2);
 		SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[3]'));
 		SF.waitForVisible(By.xpath('//input[@ng-change="vm.saveRates()"]'));
 		SF.sleep(1);
