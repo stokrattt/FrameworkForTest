@@ -1934,6 +1934,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.contact_person"]\').val()').then(function (text) {
             carrierData.contactPerson = text;
         }), config.timeout);
+        driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.contact_person_phone"]\').val()').then(function (text) {
+            carrierData.contactPersonPhone = text;
+        }), config.timeout);
         driver.wait(driver.executeScript('return $(\'textarea[ng-model="agentModel.data.address"]\').val()').then(function (text) {
             carrierData.address = text;
         }), config.timeout);

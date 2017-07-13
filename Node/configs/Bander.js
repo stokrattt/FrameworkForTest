@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/61_SITInvoices.js'];
+    config.suite = ['./tests/33_AddCarrier.js'];
 
     config.chainFail = false;
     config.timeout = 25000;
@@ -15,13 +15,16 @@ module.exports = function(config,V) {
      V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
     V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
     V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
+    // V.frontURL = 'http://stage.themoveboard.com:8005';                    //dev
+    // V.accountURL = 'http://stage.themoveboard.com:8005/account/#/login';  //dev
+    // V.adminURL = 'http://stage.themoveboard.com:8005/moveBoard/#/login';
     V.adminLogin = 'TestAdmin';
     V.adminPassword = 'test';
     V.foremanLogin = 'TestForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
     V.foremanEmail = 'TestForeman@mail.com';
-
+    V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
     // V.adminLogin = 'AdminFlow1';
     // V.adminPassword = 'test';
     // V.foremanLogin = 'ForemanFlow1';

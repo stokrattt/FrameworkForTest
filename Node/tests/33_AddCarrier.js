@@ -24,8 +24,10 @@ condition.nowWeDoing = 'Создаем карьера';
     SF.sleep(1);
     V.carrierNew.name = SF.randomBukva(6) + '_t';
     V.carrierNew.contactPerson = SF.randomBukva(6) + '_t';
+    V.carrierNew.contactPersonPhone = SF.randomCifra(10);
     SF.send (By.xpath('//input[@ng-model="agentModel.data.name"]'), V.carrierNew.name);
     SF.send (By.xpath('//input[@ng-model="agentModel.data.contact_person"]'), V.carrierNew.contactPerson);
+    SF.send (By.xpath('//input[@ng-model="agentModel.data.contact_person_phone"]'), V.carrierNew.contactPersonPhone);
     V.carrierNew.address = SF.randomBukva(6) + '_t';
     V.carrierNew.zipCode = "56743";
     SF.send (By.xpath('//textarea[@ng-model="agentModel.data.address"]'), V.carrierNew.address);
@@ -53,12 +55,15 @@ condition.nowWeDoing = 'Редактируем карьера';
     SF.sleep(3);
     V.carrierNew2.name = SF.randomBukva(6) + '_t';
     V.carrierNew2.contactPerson = SF.randomBukva(6) + '_t';
+    V.carrierNew2.contactPersonPhone = SF.randomCifra(10);
     SF.sleep(3);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.name"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.name"]'), V.carrierNew2.name);
     SF.sleep(1);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.contact_person"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.contact_person"]'), V.carrierNew2.contactPerson);
+    SF.clear (By.xpath('//input[@ng-model="agentModel.data.contact_person_phone"]'));
+    SF.send (By.xpath('//input[@ng-model="agentModel.data.contact_person_phone"]'), V.carrierNew2.contactPersonPhone);
 
     V.carrierNew2.address = SF.randomBukva(6) + '_t';
     V.carrierNew2.zipCode = "32142";
@@ -88,7 +93,6 @@ condition.nowWeDoing = 'Редактируем карьера';
     SF.send (By.xpath('//input[@ng-model="agentModel.data.web_site"]'), V.carrierNew2.webSite);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierNew2.phoneNumber1);
-    Debug.pause();
     SF.sleep(2);
     JS.click('span:contains(\\"Save\\")');
     SF.sleep(5);
@@ -101,6 +105,7 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     LF.RememberCarrier(V.carrierNew3);
     VD.IWant(VD.NotToEqual,V.carrierNew.name, V.carrierNew2.name,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.contactPerson, V.carrierNew2.contactPerson,'Поля совпадают');
+    VD.IWant(VD.NotToEqual,V.carrierNew.contactPersonPhone, V.carrierNew2.contactPersonPhone,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.address, V.carrierNew2.address,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.zipCode, V.carrierNew2.zipCode,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.perCf, V.carrierNew2.perCf,'Поля совпадают');
@@ -112,6 +117,7 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
 
     VD.IWant(VD.ToEqual,V.carrierNew3.name, V.carrierNew2.name,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.carrierNew3.contactPerson, V.carrierNew2.contactPerson,'Поля не совпадают');
+    VD.IWant(VD.ToEqual,-SF.cleanPrice(V.carrierNew3.contactPersonPhone), V.carrierNew2.contactPersonPhone,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.carrierNew3.address, V.carrierNew2.address,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.carrierNew3.zipCode, V.carrierNew2.zipCode,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.carrierNew3.perCf, V.carrierNew2.perCf,'Поля не совпадают');
@@ -120,7 +126,6 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     VD.IWant(VD.ToEqual,V.carrierNew3.eMail, V.carrierNew2.eMail,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.carrierNew3.webSite, V.carrierNew2.webSite,'Поля не совпадают');
     VD.IWant(VD.ToEqual,-SF.cleanPrice(V.carrierNew3.phoneNumber1), V.carrierNew2.phoneNumber1,'Поля не совпадают');
-    Debug.pause();
     SF.sleep(1);
     JS.click('span:contains(\\"Save\\")');
     SF.sleep(3);
