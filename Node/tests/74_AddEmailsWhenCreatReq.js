@@ -42,7 +42,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.click(By.xpath('//span[contains(.,"Default")]'));
     SF.sleep(1);
-    V.lstde = driver.findElements(By.xpath("//div[@ng-repeat='email in menu.templates']"));
     SF.click(By.xpath('//h4[contains(text(), "Review $50")][1]'));
     SF.sleep(1);
     SF.click(By.xpath('//h4[contains(text(), "Holiday test")][1]'));
@@ -52,8 +51,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath("//button[@ng-click='create()']"));
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     SF.sleep(4);
-    LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
-    SF.sleep (1);
     V.request.Id = {};
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
@@ -62,6 +59,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'идём в логи';
     MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.client.email, "Happy Holiday");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Thank You");
 
     function EditRequest_Check2EmailExist(receiver, Subject) {
         driver.wait(driver.findElements(By.xpath("//div[@class='log-content ng-scope']//span[" +
@@ -72,6 +71,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }
     EditRequest_Check2EmailExist(V.adminEmail, "Happy Holiday");
     EditRequest_Check2EmailExist(V.adminEmail, "Thank You");
+
     SF.endOfTest();
 };
 
