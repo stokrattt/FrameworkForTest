@@ -30,8 +30,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     MF.WaitWhileBusy ();
     SF.sleep(1);
-
-
     SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
     SF.sleep(2);
     SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
@@ -40,6 +38,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
     SF.click(By.xpath("//div[@ng-click='openMailDialog()']"));
     MF.WaitWhileBusy();
+
+    condition.nowWeDoing = 'добавляем письма';
     SF.click(By.xpath('//span[contains(.,"Default")]'));
     SF.sleep(1);
     SF.click(By.xpath('//h4[contains(text(), "Review $50")][1]'));
@@ -62,15 +62,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_Check1EmailExist(V.client.email, "Happy Holiday");
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank You");
 
-    function EditRequest_Check2EmailExist(receiver, Subject) {
-        driver.wait(driver.findElements(By.xpath("//div[@class='log-content ng-scope']//span[" +
-            'contains(text(),\'Mail was send to "'+receiver+'".\') and ' +
-            'contains(text(),\'Subject: "'+Subject+'\')]')).then(function(array){
-            VD.IWant(VD.ToEqual, array.length,2,'имейл '+Subject+' не был отправлен на '+receiver+' или отправлен несколько раз');
-        }), config.timeout);
-    }
-    EditRequest_Check2EmailExist(V.adminEmail, "Happy Holiday");
-    EditRequest_Check2EmailExist(V.adminEmail, "Thank You");
 
     SF.endOfTest();
 };
