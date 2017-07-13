@@ -23,8 +23,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     V.carrierName = SF.randomBukva(6) + '_t';
     V.carrierContactPerson = SF.randomBukva(6) + '_t';
+    V.carrierContactPersonPhone = SF.randomCifra(10);
     SF.send (By.xpath('//input[@ng-model="agentModel.data.name"]'), V.carrierName);
     SF.send (By.xpath('//input[@ng-model="agentModel.data.contact_person"]'), V.carrierContactPerson);
+    SF.send (By.xpath('//input[@ng-model="agentModel.data.contact_person_phone"]'), V.carrierContactPersonPhone);
     V.carrierAddress = SF.randomBukva(6) + '_t';
     V.carrierZipCode = "56743";
     SF.send (By.xpath('//textarea[@ng-model="agentModel.data.address"]'), V.carrierAddress);
@@ -43,8 +45,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.carrierPhoneNumber1 = SF.randomCifra(10);
     SF.send (By.xpath('//input[@ng-model="agentModel.data.web_site"]'), V.carrierWebSite);
     SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierPhoneNumber1);
+    SF.sleep(2);
     JS.click('span:contains(\\"Save\\")');
-    SF.sleep(3);
+    SF.sleep(5);
 
     condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
@@ -76,7 +79,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
-    SF.send (By.xpath('//input[@ng-model="trip.data.details.description"]'), V.decription);
+    SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
     now = new Date();
     msInDay = 86400000;
     future = new Date(now.getTime() + msInDay * 10);
@@ -193,11 +196,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'удаляем инвоис';
     JS.click('span:contains(\\"Payment details\\")');
     SF.sleep(2);
-    SF.click(By.xpath('//md-switch[@ng-change="setHideZero()"]'));
-    SF.sleep(4);
-    SF.click(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="removeInvoice(item.invoice_id)"]'));
+    // SF.click(By.xpath('//md-switch[@ng-change="setHideZero()"]'));
+    // SF.sleep(4);
+    // SF.click(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
+    // SF.sleep(2);
+    // SF.click(By.xpath('//button[@ng-click="removeInvoice(item.invoice_id)"]'));
 
     MF.Board_OpenSideBar ();
     MF.Board_OpenCarriersAndAgents ();
