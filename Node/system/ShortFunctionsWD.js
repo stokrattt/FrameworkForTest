@@ -119,7 +119,7 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
     function click(selector) {
         console.log('click: '+selector);
-		MoveFlyingCircle(selector);
+		//MoveFlyingCircle(selector);
         driver.wait(driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), config.timeout)), config.timeout).click(), config.timeout)
             .then(function (alala) {
                 SFgo();
@@ -127,14 +127,14 @@ module.exports = function (system, config, By, until, constants, condition) {
         SFstop();
     }
     function send (selector, text) {
-		MoveFlyingCircle(selector);
+		//MoveFlyingCircle(selector);
 		driver.wait(driver.wait(until.elementLocated(selector), config.timeout).sendKeys(text), config.timeout).then(function () {
 			SFgo();
         });
         SFstop();
     }
     function clear (selector) {
-		MoveFlyingCircle(selector);
+		//MoveFlyingCircle(selector);
         driver.wait(driver.wait(until.elementLocated(selector), config.timeout).clear(), config.timeout).then(function () {
             SFgo();
         });
@@ -143,13 +143,13 @@ module.exports = function (system, config, By, until, constants, condition) {
     function get (URL) {
         console.log('goto ' + URL);
         driver.wait(driver.get(URL), config.timeout).then(function () {
-            AddFlyingCircle();
+            //AddFlyingCircle();
             SFgo();
         });
         SFstop();
     }
     function select (selector, value) {
-		MoveFlyingCircle(selector);
+		//MoveFlyingCircle(selector);
         console.log('select ' + selector + '->' + value);
         driver.wait(until.elementLocated(selector), config.timeout).click();
         driver.wait(until.elementLocated(selector), config.timeout).findElement(selector)
