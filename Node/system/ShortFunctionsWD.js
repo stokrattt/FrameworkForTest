@@ -26,8 +26,8 @@ module.exports = function (system, config, By, until, constants, condition) {
 		driver.wait(driver.wait(until.elementLocated(selector), config.timeout).getLocation().then(function(location){
 			driver.executeScript(
 			    "var circle = document.getElementById('FlyingCircle');" +
-                "circle.style.top='"+location.y-25+"px';" +
-                "circle.style.left='"+location.x-25+"px';"
+                "circle.style.top='"+(isNaN(location.y)?0:(location.y-25))+"px';" +
+                "circle.style.left='"+(isNaN(location.x)?0:(location.x-25))+"px';"
             );
         }), config.timeout);
 	}
