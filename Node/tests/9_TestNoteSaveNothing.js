@@ -13,35 +13,30 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.request.Id = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id);
     }),config.timeout);
-    SF.click(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
-    SF.clear(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
+    Debug.pause();
+    SF.click(By.xpath('//div[contains(@class, "sales_notes")]'));
     V.note = SF.randomBukva(7);
-    SF.send(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'), V.note);
+    SF.send(By.xpath('//div[contains(@class, "sales_notes")]/div[2]/div[3]'), V.note);
+    MF.EditRequest_SaveNotes ();
+
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    LF.addToCleanerJob(V.request.Id);
-    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
-    SF.waitForVisible(By.xpath('//div[@class="modal-content"]'));
-    SF.sleep (3);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-if="message.label == \'Notes\'"]')).getText().then(function(text) {
-      VD.IWant(VD.ToEqual, text, 'Notes was update');
-    }),config.timeout);
-    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    JS.waitForNotExist('div.toast-success');
-    SF.sleep(4);
+    MF.EditRequest_SaveChanges ();
+
     LF.closeEditRequest ();
     MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {
       VD.IWant(VD.ToEqual, text, V.note, 'Не совпали заметочки.');
     }),config.timeout);
     SF.sleep(1);
-    SF.click(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
-    SF.clear(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'));
+    SF.click(By.xpath('//div[contains(@class, "sales_notes")]'));
+    SF.clear(By.xpath('//div[contains(@class, "sales_notes")]/div[2]/div[3]'));
     V.note = {};
     V.note = SF.randomBukva(10);
-    SF.send(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]'), V.note);
+    SF.send(By.xpath('//div[contains(@class, "sales_notes")]/div[2]/div[3]'), V.note);
+    MF.EditRequest_SaveNotes ();
 
     LF.addInventoryBoard ();
     MF.EditRequest_SetToNotConfirmed ();
@@ -51,7 +46,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_RefreshDashboard ();
     MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-model="request.inventory.move_details.admincomments"]//div[@ng-model="html"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, text, V.note, 'Не совпали заметочки.');
     }),config.timeout);
     SF.sleep(1);

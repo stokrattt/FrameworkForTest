@@ -1009,6 +1009,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_MailDialog_ClickSend(){
         SF.click(By.xpath('//a[@ng-click="sendEmailsAndClose()"]'));
     }
+    function EditRequest_SaveNotes() {
+        SF.click(By.xpath('//button[@ng-click="updateNote(note, $index)"]'));
+
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -1387,6 +1391,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		EditRequest_MailDialog_AddTemplate: EditRequest_MailDialog_AddTemplate,
 		EditRequest_MailDialog_SetSubject: EditRequest_MailDialog_SetSubject,
 		EditRequest_MailDialog_ClickSend:EditRequest_MailDialog_ClickSend,
+        EditRequest_SaveNotes:EditRequest_SaveNotes,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
