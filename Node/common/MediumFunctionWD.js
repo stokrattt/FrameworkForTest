@@ -1068,11 +1068,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function Payroll_ClickStepBackToNameWorker() {
-        JS.click('a[ng-click=\\"dTable=\'workers\';employee=\'\'\\"]:visible');
+        JS.click('a[ng-click="dTable=\\\'workers\\\';employee=\\\'\\\'"]:visible');
         WaitWhileBusy ();
     }
     function Payroll_ClickStepBackToAllDepartments() {
-        JS.click('a[ng-click=\\"dTable=\'departments\';employee=\'\'\\"]:visible');
+        JS.click('a[ng-click="dTable=\\\'departments\\\';employee=\\\'\\\'"]:visible');
         WaitWhileBusy ();
     }
     function Payroll_GoToWorkerJobs(foremanName) {
