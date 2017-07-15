@@ -33,6 +33,7 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
     SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
     SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
     JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
+    SF.sleep(1);
     MF.WaitWhileBusy ();
     SF.sleep (3);
 condition.nowWeDoing = 'добавляем инвенторий в акке';

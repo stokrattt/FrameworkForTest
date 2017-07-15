@@ -373,6 +373,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (2);
         SF.click (By.xpath('//button[@ng-click="submitFlatRate()"]'));
         JS.waitForExist('button.confirm:contains("OK")');
+        SF.sleep (2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
     }
     function Account_Refresh() {
