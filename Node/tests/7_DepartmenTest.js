@@ -179,22 +179,12 @@ condition.nowWeDoing = 'заходим под админом и создаем �
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
 
-    driver.executeScript (
-        function () {
-            var a = $('option[ng-repeat="(uid, user) in vm.users.foreman | orderBy:\'name\'"]:contains("'+ V.foremanFirstName +'")').length;
-            var b = $('option[ng-repeat="helper in helpers   | orderBy:\'name\'"]:contains("helpertest testhelper")').length;
-            var c = $('option[ng-repeat="helper in helpers   | orderBy:\'name\'"]:contains("drivertest testdriver")').length;
-            return {
-                Foreman:a,
-                Helper:b,
-                Driver:c
-            };
-        }.toString().substring(12)
-        ).then(function(counts){
-            VD.IWant(VD.NotToEqual, counts.Foreman, 0, 'не нашло имя форемана');
-            VD.IWant(VD.NotToEqual, counts.Helper, 0, 'не нашло имя хелпера');
-            VD.IWant(VD.NotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
-    });
+    driver.wait(driver.executeScript(JSstep.checkUserLocalDispach(V.foremanFirstName)).then(function(counts){
+        VD.IWant(VD.NotToEqual, counts.Foreman, 0, 'не нашло имя форемана');
+        VD.IWant(VD.NotToEqual, counts.Helper, 0, 'не нашло имя хелпера');
+        VD.IWant(VD.NotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
+    }),config.timeout);
+
     SF.sleep(1);
     MF.Board_OpenSideBar ();
 condition.nowWeDoing='зашли в настройки департмента';

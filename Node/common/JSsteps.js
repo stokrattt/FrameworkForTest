@@ -361,6 +361,21 @@ exports.getPackingsCostAccount = function () {
     } else {return '$0'}
 }.toString().substring(12);
 
+exports.checkUserLocalDispach = function(name){
+    var f=function() {
+        var name = "##";
+        var a = $('option[ng-repeat="(uid, user) in vm.users.foreman | orderBy:\'name\'"]:contains('+name+')').length;
+        var b = $('option[ng-repeat="helper in helpers   | orderBy:\'name\'"]:contains("helpertest testhelper")').length;
+        var c = $('option[ng-repeat="helper in helpers   | orderBy:\'name\'"]:contains("drivertest testdriver")').length;
+        return {
+            Foreman:a,
+            Helper:b,
+            Driver:c
+        };
+    }.toString().substring(12);
+    return f.replace(/##/, name);
+};
+
 exports.sendRequestNoParam = function(type, url){
     var f=function() {
         var type='##';

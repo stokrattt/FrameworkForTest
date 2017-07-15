@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/40_PayrollTableCheckSumJobs.js'];
+    config.suite = ['./tests/7_DepartmenTest.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
