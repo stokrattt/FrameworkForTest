@@ -31,6 +31,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.storage.zip = '02222';
     V.storage.notes = SF.randomBukva(10) + '_t';
     V.storage.phone = SF.randomCifra(10);
+    SF.click(By.xpath('//md-checkbox[@ng-model="newStorage.active"]'));
+    SF.sleep(3);
     SF.send (By.xpath('//input[@ng-model="newStorage.name"]'), V.storage.name);
     SF.send (By.xpath('//textarea[@ng-model="newStorage.address"]'), V.storage.address);
     SF.send (By.xpath('//input[@ng-model="newStorage.zip_code"]'), V.storage.zip);
@@ -136,7 +138,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.ToEqual,V.storage3.email, V.storage2.email,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.storage3.notes, V.storage2.notes,'Поля не совпадают');
     VD.IWant(VD.ToEqual,-SF.cleanPrice(V.storage3.phone), V.storage2.phone,'Поля не совпадают');
-    SF.sleep(4);
+    SF.click(By.xpath('//md-checkbox[@ng-model="newStorage.active"]'));
+    SF.sleep(5);
     JS.click('span:contains(\\"Save\\")');
     // SF.click(By.xpath('//button[@ng-click="create()"]'));
     JS.click('span:contains(\\"Save\\")');
