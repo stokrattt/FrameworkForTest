@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 40000;
 
     config.suite = [
-        './tests/DefaultSettings.js'
+        './tests/67_EditRequestPayrollAdding.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';

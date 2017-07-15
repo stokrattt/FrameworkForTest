@@ -1389,7 +1389,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.EditRequest_PayrollGetForemanCommission(name, 'Bonus', foremanForCommission.Bonus);
 
         for (let type in foremanForCommission){
-            if (foremanForCommission[type].forCommission != 'not Exist'){
+            if ((foremanForCommission[type].forCommission != 'not Exist')
+                &&(foremanForCommission[type].total!=undefined)){
+                console.log(('прибавляем к total '+foremanForCommission[type].total).blue);
                 foremanForCommission.Total+=foremanForCommission[type].total;
             }
         }
