@@ -16,10 +16,28 @@ module.exports = function (system, config, By, until, constants, condition) {
             fiber.run();
         }
     }
-	function MoveFlyingCircle(selector){
-		driver.wait(driver.executeScript("var a = $('"+selector+"').position();" +
-            "$('#FlyingCircle').css('top',a.top+'px');" +
-				"$('#FlyingCircle').css('left',a.left+'px');"), config.timeout);
+	function MoveFlyingCircle(selector) {
+		driver.wait(driver.executeScript(
+			"var circle = document.getElementById('FlyingCircle');" +
+			"if (circle==undefined){" +
+			"var circle = document.createElement('div');" +
+			"circle.id='FlyingCircle';" +
+			"circle.style.borderWidth = '10px';" +
+			"circle.style.borderStyle = 'double';" +
+			"circle.style.borderColor = 'red';" +
+			"circle.style.width = '50px';" +
+			"circle.style.height = '50px';" +
+			"circle.style.borderRadius = '50%';" +
+			"circle.style.position = 'absolute';" +
+			"circle.style.zIndex = '9999999999';" +
+			"circle.style.pointerEvents = 'none';" +
+			"document.body.appendChild(circle);" +
+			"}" +
+			"var circle = document.getElementById('FlyingCircle');" +
+			"var a = $('" + selector + "').position();" +
+			"circle.style.top=(isNaN(a.top) ? 0 : (a.top - 25)) + 'px';" +
+			"circle.style.left=(isNaN(a.left) ? 0 : (a.left - 25)) + 'px';"
+		), config.timeout);
 	}
 
     function waitForExist(selector) {
@@ -67,19 +85,19 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
 
     function click(JQuerySelector) {
-		//MoveFlyingCircle(JQuerySelector);
-        console.log('doing: ' + "$(\"" + JQuerySelector + "\").click();");
-        driver.wait(driver.executeScript("$(\"" + JQuerySelector + "\").click();"), config.timeout).then(function () {
+		MoveFlyingCircle(JQuerySelector);
+        console.log('doing: ' + "$('" + JQuerySelector + "').click();");
+        driver.wait(driver.executeScript("$('" + JQuerySelector + "').click();"), config.timeout).then(function () {
             SFgo();
         });
         SFstop();
     }
 
     function select(JQuerySelector, OptionValue) {
-		//MoveFlyingCircle(JQuerySelector);
-        console.log('doing: ' + '$(\'' + JQuerySelector + ' option[value="' + OptionValue + '"]\').attr("selected","selected");');
-        driver.wait(driver.executeScript('$(\'' + JQuerySelector + ' option[value="' + OptionValue + '"]\').attr("selected","selected");' +
-            '$(\'' + JQuerySelector + '\').change();'), config.timeout)
+		MoveFlyingCircle(JQuerySelector);
+        console.log("doing: " + "$('" + JQuerySelector + " option[value=\\'" + OptionValue + "\\']').attr('selected','selected');");
+        driver.wait(driver.executeScript("$('" + JQuerySelector + " option[value=\\'" + OptionValue + "\\']').attr('selected','selected');" +
+            "$('" + JQuerySelector + "').change();"), config.timeout)
             .then(function () {
                 SFgo();
             });
@@ -87,7 +105,7 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
 
     function link(JQuerySelector) {
-		//MoveFlyingCircle(JQuerySelector);
+		MoveFlyingCircle(JQuerySelector);
         console.log("doing: " + "return $('" + JQuerySelector + "').attr(\"href\");");
         driver.wait(driver.executeScript("location.assign($('" + JQuerySelector + "').attr(\"href\"));")
             .then(function () {
@@ -97,7 +115,7 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
 
     function scroll(JQselector) {
-		//MoveFlyingCircle(JQselector);
+		MoveFlyingCircle(JQselector);
         console.log('JSscroll: '+"$('" + JQselector + "').get(0).scrollIntoView();");
         driver.wait(driver.executeScript("$('" + JQselector + "').get(0).scrollIntoView();"), config.timeout).then(function () {
             SFgo();

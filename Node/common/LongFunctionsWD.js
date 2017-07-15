@@ -13,9 +13,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
         driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
         SF.sleep(1);
-        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        JS.click("ultrasmall-form div[ng-click=\\'openSlide();\\']");
         SF.sleep(1);
-        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+		JS.click("div[ng-click=\"MoveSizePreviewClick(\\'4\\')\"]");
         SF.sleep(1);
         JS.click("button.pull-right:first");
         SF.sleep(1);
@@ -23,7 +23,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+        JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
@@ -48,9 +48,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
         driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
         SF.sleep(1);
-        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        JS.click("ultrasmall-form div[ng-click=\\'openSlide();\\']");
         SF.sleep(1);
-        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+		JS.click("div[ng-click=\"MoveSizePreviewClick(\\'4\\')\"]");
         SF.sleep(1);
         JS.click("button.pull-right:first");
         SF.sleep(1);
@@ -58,7 +58,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+		JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
@@ -87,9 +87,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
         driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
         SF.sleep(1);
-        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        JS.click("ultrasmall-form div[ng-click=\\'openSlide();\\']");
         SF.sleep(1);
-        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+		JS.click("div[ng-click=\"MoveSizePreviewClick(\\'4\\')\"]");
         SF.sleep(1);
         JS.click("button.pull-right:first");
         SF.sleep(1);
@@ -97,7 +97,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+		JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
@@ -123,9 +123,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
         driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
         SF.sleep(1);
-        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        JS.click("ultrasmall-form div[ng-click=\\'openSlide();\\']");
         SF.sleep(1);
-        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+		JS.click("div[ng-click=\"MoveSizePreviewClick(\\'4\\')\"]");
         SF.sleep(1);
         JS.click("button.pull-right:first");
         SF.sleep(1);
@@ -133,7 +133,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+		JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
@@ -162,9 +162,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
         driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
         SF.sleep(1);
-        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        JS.click("ultrasmall-form div[ng-click=\\'openSlide();\\']");
         SF.sleep(1);
-        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+		JS.click("div[ng-click=\"MoveSizePreviewClick(\\'4\\')\"]");
         SF.sleep(1);
         JS.click("button.pull-right:first");
         SF.sleep(1);
@@ -172,7 +172,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+		JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
@@ -208,9 +208,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
         driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
         SF.sleep(1);
-        JS.click("ultrasmall-form div[ng-click='openSlide();']");
+        JS.click("ultrasmall-form div[ng-click=\\'openSlide();\\']");
         SF.sleep(1);
-        JS.click("div[ng-click='MoveSizePreviewClick(\\\\\'4\\\\\')']");
+		JS.click("div[ng-click=\"MoveSizePreviewClick(\\'4\\')\"]");
         SF.sleep(1);
         JS.click("button.pull-right:first");
         SF.sleep(1);
@@ -218,7 +218,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Continue2(\'step2\')\\"]');
+		JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);

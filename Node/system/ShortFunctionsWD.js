@@ -20,16 +20,33 @@ module.exports = function (system, config, By, until, constants, condition) {
 				console.log('закрыли браузер'.blue);
 				system.myEmitter.emit('event');
             });
-        }
-    }
-	function MoveFlyingCircle(selector){
-		driver.wait(driver.wait(until.elementLocated(selector), config.timeout).getLocation().then(function(location){
+		}
+	}
+
+	function MoveFlyingCircle(selector) {
+		driver.wait(driver.wait(until.elementLocated(selector), config.timeout).getLocation().then(function (location) {
 			driver.executeScript(
-			    "var circle = document.getElementById('FlyingCircle');" +
-                "circle.style.top='"+(isNaN(location.y)?0:(location.y-25))+"px';" +
-                "circle.style.left='"+(isNaN(location.x)?0:(location.x-25))+"px';"
-            );
-        }), config.timeout);
+				"var circle = document.getElementById('FlyingCircle');" +
+				"if (circle==undefined){" +
+				"var circle = document.createElement('div');" +
+				"circle.id='FlyingCircle';" +
+				"circle.style.borderWidth = '10px';" +
+				"circle.style.borderStyle = 'double';" +
+				"circle.style.borderColor = 'red';" +
+				"circle.style.width = '50px';" +
+				"circle.style.height = '50px';" +
+				"circle.style.borderRadius = '50%';" +
+				"circle.style.position = 'absolute';" +
+				"circle.style.zIndex = '9999999999';" +
+				"circle.style.pointerEvents = 'none';" +
+				"document.body.appendChild(circle);" +
+				"}" +
+				"var circle = document.getElementById('FlyingCircle');" +
+				"circle.style.top='" + (isNaN(location.y) ? 0 : (location.y - 25)) + "px';" +
+			    "circle.style.left='" + (isNaN(location.x) ? 0 : (location.x - 25)) + "px';"
+			)
+			;
+		}), config.timeout);
 	}
 	function AddFlyingCircle(){
 		driver.wait(driver.executeScript(
@@ -119,7 +136,7 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
     function click(selector) {
         console.log('click: '+selector);
-		//MoveFlyingCircle(selector);
+		MoveFlyingCircle(selector);
         driver.wait(driver.wait(until.elementIsVisible(driver.wait(until.elementLocated(selector), config.timeout)), config.timeout).click(), config.timeout)
             .then(function (alala) {
                 SFgo();
@@ -127,14 +144,14 @@ module.exports = function (system, config, By, until, constants, condition) {
         SFstop();
     }
     function send (selector, text) {
-		//MoveFlyingCircle(selector);
+		MoveFlyingCircle(selector);
 		driver.wait(driver.wait(until.elementLocated(selector), config.timeout).sendKeys(text), config.timeout).then(function () {
 			SFgo();
         });
         SFstop();
     }
     function clear (selector) {
-		//MoveFlyingCircle(selector);
+		MoveFlyingCircle(selector);
         driver.wait(driver.wait(until.elementLocated(selector), config.timeout).clear(), config.timeout).then(function () {
             SFgo();
         });
@@ -143,13 +160,13 @@ module.exports = function (system, config, By, until, constants, condition) {
     function get (URL) {
         console.log('goto ' + URL);
         driver.wait(driver.get(URL), config.timeout).then(function () {
-            //AddFlyingCircle();
+            AddFlyingCircle();
             SFgo();
         });
         SFstop();
     }
     function select (selector, value) {
-		//MoveFlyingCircle(selector);
+		MoveFlyingCircle(selector);
         console.log('select ' + selector + '->' + value);
         driver.wait(until.elementLocated(selector), config.timeout).click();
         driver.wait(until.elementLocated(selector), config.timeout).findElement(selector)
