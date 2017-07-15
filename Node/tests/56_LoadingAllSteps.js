@@ -168,12 +168,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('emilia clark');
-    driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.boardNumbers.Id)).then(function (text) {
-        V.payrollNumbers.Sale.Total = SF.cleanPrice(text);
-    }), config.timeout);
-    SF.sleep(1);
-
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
+	VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(2);
     SF.endOfTest();

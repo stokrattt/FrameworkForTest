@@ -60,7 +60,7 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     for (let i = 1, invCount = 1; i <= 7; i++) {
         SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//button[1]'));
         SF.sleep(1);
-        JS.click("ul#inventory-dropdown:visible li[ng-repeat=\\\"articles in  inventoryList | toArray | orderBy: 'title'  \\\"]:visible");
+        JS.click("ul#inventory-dropdown:visible li[ng-repeat=\"articles in  inventoryList | toArray | orderBy: \\'title\\'  \"]:visible");
         SF.select(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//select[1]'), "CP");
         SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//button[@ng-click="openCondition(data[fieldName].inventory[n], n)"]'));
         JS.waitForExist('button[ng-click=\\"addCondition(key)\\"]:has(div:contains(\\"burned\\")):visible');
@@ -73,7 +73,7 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     SF.clear(By.xpath('//input[@ng-model="data[fieldName].tapeNumbers"]'));
     SF.send(By.xpath('//input[@ng-model="data[fieldName].tapeNumbers"]'), 1);
     SF.click(By.xpath('//button[@id="btn-append-to-body"]'));
-    JS.click('li[ng-click=\\"data[fieldName].tapeColor = \'Green\'; saveInventory()\\"]');
+    JS.click('li[ng-click="data[fieldName].tapeColor = \\\'Green\\\'; saveInventory()"]');
     LF.MakeSignInInventory(0);
     LF.MakeSignInInventory(1);
     SF.click(By.xpath('//button[@ng-click="saveInventory(\'submit\')"]'));
