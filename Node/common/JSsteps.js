@@ -237,7 +237,7 @@ exports.ClickCustomDaysCalendar = function(period) {
         };
 
     }.toString().substring(12);
-    return f.substring(0,f.indexOf('##')-1)+period+f.substring(f.indexOf('##')+3);
+    return f.replace(/##/, period);
 };
 
 exports.selectTruck = function (hours) {
@@ -323,7 +323,7 @@ exports.selectTruck = function (hours) {
         }
         return selected ? number : -1;
     }.toString().substring(12);
-    return f.substring(0,f.indexOf('##')-1)+hours+f.substring(f.indexOf('##')+3);
+    return f.replace(/##/, hours);
 };
 
 exports.findAllDetermPrices = function (target){
@@ -370,9 +370,7 @@ exports.sendRequestNoParam = function(type, url){
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         request.send();
     }.toString().substring(12);
-    f=f.substring(0,f.indexOf('##')-1)+'"'+type+'"'+f.substring(f.indexOf('##')+3);
-    f=f.substring(0,f.indexOf('##')-1)+'"'+url+'"'+f.substring(f.indexOf('##')+3);
-    return f;
+    return f.replace(/##/, type).replace(/##/, url);
 };
 exports.payrollTableSum = function () {
     var clearText = function(dirtyText){return dirtyText.replace (/\$|,/gi,  ''); };

@@ -20,8 +20,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.loadingSelector = '//input[@ng-model="vm.basicSettings.services.loadingHelpOn"]';
     V.unloadingSelector = '//input[@ng-model="vm.basicSettings.services.unloadingHelpOn"]';
     V.storageSelector = '//input[@ng-model="vm.basicSettings.services.localMoveStorageOn"]';
-    V.flatSelector = '//input[@ng-model="vm.basicSettings.services.flatRateOn"]';
-    V.longSelector = '//input[@ng-model="vm.basicSettings.services.longDistanceOn"]';
+    V.flatSelector = '//input[@ng-model="vm.basicSettings.isflat_rate_miles"]';
+    V.longSelector = '//input[@ng-model="vm.basicSettings.islong_distance_miles"]';
 
     V.CompanyServices={};
     driver.wait(driver.findElements(By.xpath(V.localSelector+'/parent::div[contains(@class,"checked")]')).then(function(arr){

@@ -92,6 +92,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.linkText('Basic Settings'));
     SF.select(By.xpath('//select[@ng-model="vm.calcSettings.min_hours"]'),1);
     MF.Board_OpenCompanyServices();
+	//========================селекторы галочек
+	V.localSelector = '//input[@ng-model="vm.basicSettings.services.localMoveOn"]';
+	V.overnightSelector = '//input[@ng-model="vm.basicSettings.services.overnightStorageOn"]';
+	V.loadingSelector = '//input[@ng-model="vm.basicSettings.services.loadingHelpOn"]';
+	V.unloadingSelector = '//input[@ng-model="vm.basicSettings.services.unloadingHelpOn"]';
+	V.storageSelector = '//input[@ng-model="vm.basicSettings.services.localMoveStorageOn"]';
+	V.flatSelector = '//input[@ng-model="vm.basicSettings.isflat_rate_miles"]';
+	V.longSelector = '//input[@ng-model="vm.basicSettings.islong_distance_miles"]';
+
     V.CompanyServices={};
     JS.scroll ('h4:contains("Company Services Settings")');
     SF.sleep(2);
