@@ -6,6 +6,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
+    V.flagName = SF.randomBukvaSmall(6) + '_flag';
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
@@ -18,7 +19,7 @@ condition.nowWeDoing = 'Идем в настройки и создаем фла�
     SF.sleep(2);
     JS.scroll ('h1:contains("General Settigs ")');
     SF.click(By.xpath('//button[@ng-click="vm.addNewFlag(); vm.addFlag = true"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.newFlag.name"]'), 'test flag');
+    SF.send(By.xpath('//input[@ng-model="vm.newFlag.name"]'), V.flagName);
     SF.clear(By.xpath('//input[@ng-model="vm.newFlag.color"]'));
     SF.send(By.xpath('//input[@ng-model="vm.newFlag.color"]'), '#b8263a');
     SF.click(By.xpath('//button[@ng-click="vm.saveNewFlag(); "]'));
@@ -38,7 +39,7 @@ condition.nowWeDoing = 'Создаем реквест и ставим созда
 
 condition.nowWeDoing = 'идем на дашборд и проверяем что у реквеста стоит флаг созданный';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили');
+        VD.IWant(VD.ToEqual, text, V.flagName.toUpperCase(), 'не нашло флаг который мы выставили');
     }),config.timeout);
     SF.sleep(0.5);
     driver.navigate().refresh();
@@ -46,7 +47,7 @@ condition.nowWeDoing = 'идем на дашборд и проверяем чт�
 condition.nowWeDoing = 'обновляем страницу и проверяем что флаг остался, открываем реквест ставим нот конферм и сохраняем';
     SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили после обновления страницы');
+        VD.IWant(VD.ToEqual, text, V.flagName.toUpperCase(), 'не нашло флаг который мы выставили после обновления страницы');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Board_OpenRequest (V.boardNumbers.Id);
@@ -60,17 +61,16 @@ condition.nowWeDoing = 'обновляем страницу и проверяе�
 condition.nowWeDoing = 'пошли на страницу нот конферм и смотрим что флаг есть';
     MF.Board_OpenNotConfirmed ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили на странице нот конферм');
+        VD.IWant(VD.ToEqual, text, V.flagName.toUpperCase(), 'не нашло флаг который мы выставили на странице нот конферм');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Board_OpenAllRequest ();
 
 condition.nowWeDoing = 'открываем страницу всех реквестов, смотрим что там есть наш флаг и что есть этот реквест, открываем реквест и удаляем флаг';
-    SF.click(By.xpath('//span[contains(text(),"test flag")]'));
+    SF.click(By.xpath('//span[contains(text(),"'+V.flagName+'")]'));
     MF.WaitWhileBusy ();
-    Debug.pause ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'TEST FLAG', 'не нашло флаг который мы выставили на странице Request Page (filtration page)');
+        VD.IWant(VD.ToEqual, text, V.flagName.toUpperCase(), 'не нашло флаг который мы выставили на странице Request Page (filtration page)');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Board_OpenRequest (V.boardNumbers.Id);
@@ -84,12 +84,11 @@ condition.nowWeDoing = 'идем на дашборд и на страницу н
     MF.Board_OpenDashboard ();
     MF.Board_OpenNotConfirmed ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.boardNumbers.Id + '")]/..//div[@id="company-flag"]/span[1]')).getText().then(function (text) {
-        VD.IWant(VD.NotToEqual, text, 'TEST FLAG', 'не удалился флаг на странице нот конферм');
+        VD.IWant(VD.NotToEqual, text, V.flagName.toUpperCase(), 'не удалился флаг на странице нот конферм');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Board_OpenSideBar ();
     MF.Board_OpenSettingsGeneral ();
-    Debug.pause();
 condition.nowWeDoing = 'идем в настройки и удаляем наш флаг';
     SF.sleep(2);
     SF.click(By.linkText('Company Flags'));
