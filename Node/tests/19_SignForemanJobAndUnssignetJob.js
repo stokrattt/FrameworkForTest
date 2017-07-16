@@ -23,14 +23,32 @@ condition.nowWeDoing = 'конфермим работу';
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest();
     SF.sleep (2);
-condition.nowWeDoing = 'идем в диспач первый раз';
+condition.nowWeDoing = 'идем в диспач первый раз тут заодно проверяем цвет или меняется когда назначем или убираем команду';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
     MF.WaitWhileBusy ();
     SF.sleep(1);
     MF.WaitWhileBusy ();
-    MF.Dispatch_GridView();
-    LF.SelectRequestDispatch (V.request.Id);
+    Debug.pause();
+    SF.click(By.id('request_'+V.request.Id+''));
+    LF.selectCrew(V.foremanName);
+    driver.wait (driver.findElement(By.xpath('//div[@id="request_'+V.request.Id+'"]')).getCssValue("background-color").then(function (color) {
+        VD.IWant(VD.ToEqual, color, "rgba(251, 143, 80, 1)", 'после того как назначили команду цвет не стал оранжевым, а должен')
+    }),config.timeout);
+    SF.sleep(1);
+    JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
+    SF.click(By.xpath('//a[@ng-click="vm.unAssignTeam()"]'));
+    MF.SweetConfirm ();
+    MF.WaitWhileBusy ();
+    MF.WaitWhileToaster ();
+    driver.wait (driver.findElement(By.xpath('//div[@id="request_'+V.request.Id+'"]')).getCssValue("background-color").then(function (color) {
+        VD.IWant(VD.ToEqual, color, "rgba(144, 238, 144, 1)", 'после того как убрали команду цвет не стал зеленным, а должен')
+    }),config.timeout);
+    SF.sleep(1);
+    SF.click(By.id('request_'+V.request.Id+''));
+
+    // MF.Dispatch_GridView();
+    // LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
     MF.Board_LogoutAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
