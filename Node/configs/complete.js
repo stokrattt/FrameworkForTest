@@ -11,7 +11,7 @@ module.exports = function(config,V) {
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/6_WithoutReservationMov&Stor.js',
         './tests/SetReservationPrice.js',
-        './tests/9_TestNoteSaveNothing.js',   
+        './tests/9_TestNoteSaveNothing.js',
         './tests/1_AllLocalMoving.js',
         './tests/2_CheckPermissions.js',
         // './tests/11_CheckBillOfLadding.js',
@@ -43,7 +43,7 @@ module.exports = function(config,V) {
         // './tests/28_CalcWarnAndTurnOffWhenManual.js',
         './tests/29_CheckFewMoverForUserCalcOffManual.js',
         './tests/TheCleaner.js',//==============================уборка=========================
-        // './tests/30_StorageTenant.js',   /отключили функционал
+        './tests/30_StorageTenant.js',
         './tests/31_FlateRateBooking.js',
         './tests/49_FlatRateLocalMove.js',
         './tests/52_AllFlatRate.js',

@@ -32,8 +32,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(0.5);
     SF.click (By.xpath('//button[@ng-click="save()"]'));
     SF.sleep (5); //сохранялка
+    // JS.scroll('.pageheader');
+    // SF.click (By.xpath('//a[@href="/account/#/request/contract"]'));
+    // SF.openTab (1);
+    // SF.click (By.xpath('//li[@ng-click="vm.selectTab(id)"][contains(text(), "Additional Pages")]'));
+    // SF.sleep(1);
+    // driver.wait(driver.executeScript("if($('input[ng-model=\"tab.mainContract\"]:eq(1)').hasClass('ng-empty')){" +
+    //     "return true;}else{$('input[ng-model=\"tab.mainContract\"]:eq(1) ~span').click()}"),config.timeout);
+    // SF.sleep(0.5);
+    // SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
+    // MF.WaitWhileBusy ();
+    // MF.SweetConfirm ();
     SF.click(By.xpath('//a[@ui-sref="settings.calculator"]'));
     SF.sleep(2);
+
     SF.click(By.linkText('Basic Settings'));
     SF.sleep(1);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.calcauto\"]').hasClass('ng-not-empty')){" +

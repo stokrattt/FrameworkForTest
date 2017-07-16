@@ -438,6 +438,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		WaitWhileBusy();
 		SF.sleep(2);
         SF.click(By.xpath('//a[contains(text(),"View confirmation page")]'));
+        WaitWhileBusy();
     }
     function Account_CheckSignOnConfirmationPage(){
         SF.waitForVisible(By.xpath('//img[@ng-click="vm.openCardPhoto(image)"]'));
@@ -986,6 +987,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             VD.IWant(VD.ToEqual, array.length,1,'имейл '+Subject+' не был отправлен на '+receiver+' или отправлен несколько раз');
         }), config.timeout);
     }
+    function EditRequest_Check1EmailNotExist(receiver, Subject) {
+        driver.wait(driver.findElements(By.xpath('//div[@ng-show="tabs[0].selected"]//span[' +
+            'contains(text(),\'Mail was send to "'+receiver+'".\') and ' +
+            'contains(text(),\'Subject: "'+Subject+'\')]')).then(function(array){
+            VD.IWant(VD.ToEqual, array.length,0,'имейл '+Subject+' был отправлен на '+receiver+' хотя не должен был');
+        }), config.timeout);
+    }
 
     function EditRequest_OpenMailDialog(){
         SF.click(By.xpath('//i[@ng-click="openMailDialog()"]'));
@@ -1009,11 +1017,22 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_MailDialog_ClickSend(){
         SF.click(By.xpath('//a[@ng-click="sendEmailsAndClose()"]'));
     }
-    function EditRequest_SaveNotes() {
+    function EditRequest_SaveNotesSales() {
+        SF.sleep(3);
         SF.click(By.xpath('//button[@ng-click="updateNote(note, $index)"]'));
-
+        WaitWhileToaster ();
     }
 
+    function EditRequest_SaveNotesForeman() {
+        SF.sleep(3);
+        SF.click(By.xpath('//div[contains(@class, "foreman_notes")]/following-sibling::button[@ng-click="updateNote(note, $index)"]'));
+        WaitWhileToaster ();
+    }
+    function EditRequest_SaveNotesClient() {
+        SF.sleep(3);
+        SF.click(By.xpath('//div[contains(@class, "client_notes")]/following-sibling::button[@ng-click="updateNote(note, $index)"]'));
+        WaitWhileToaster ();
+    }
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
@@ -1391,7 +1410,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		EditRequest_MailDialog_AddTemplate: EditRequest_MailDialog_AddTemplate,
 		EditRequest_MailDialog_SetSubject: EditRequest_MailDialog_SetSubject,
 		EditRequest_MailDialog_ClickSend:EditRequest_MailDialog_ClickSend,
-        EditRequest_SaveNotes:EditRequest_SaveNotes,
+        EditRequest_SaveNotesSales:EditRequest_SaveNotesSales,
+        EditRequest_SaveNotesForeman:EditRequest_SaveNotesForeman,
+        EditRequest_SaveNotesClient:EditRequest_SaveNotesClient,
+        EditRequest_Check1EmailNotExist:EditRequest_Check1EmailNotExist,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
