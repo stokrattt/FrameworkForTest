@@ -29,7 +29,6 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     MF.WaitWhileBusy ();
     SF.sleep(1);
     MF.WaitWhileBusy ();
-    Debug.pause();
     SF.click(By.id('request_'+V.request.Id+''));
     LF.selectCrew(V.foremanName);
     driver.wait (driver.findElement(By.xpath('//div[@id="request_'+V.request.Id+'"]')).getCssValue("background-color").then(function (color) {
@@ -46,7 +45,7 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     }),config.timeout);
     SF.sleep(1);
     SF.click(By.id('request_'+V.request.Id+''));
-
+    SF.sleep(2);
     // MF.Dispatch_GridView();
     // LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
@@ -139,7 +138,6 @@ condition.nowWeDoing = 'идем на форемана проверить что
         VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
     }),config.timeout);
     SF.sleep (1);
-    LF.LogoutFromBoardForeman();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
