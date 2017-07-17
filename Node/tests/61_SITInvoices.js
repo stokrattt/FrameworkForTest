@@ -137,6 +137,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.sleep(4);
     SF.click(By.xpath('//button[@ng-click="back()"]'));
+    SF.sleep(5);
+    JS.click('span:contains(\\"Trip details\\")');
     SF.sleep(2);
     JS.click('span:contains(\\"Update\\")');
     SF.sleep(4);
