@@ -38,7 +38,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//input[@ng-model="sit.rooms"]'));
     SF.send(By.xpath('//input[@ng-model="sit.rooms"]'), V.SITRooms);
 
-    SF.send(By.xpath('//input[@ng-model="sit.date"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
+    SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
 
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     SF.sleep(3);
@@ -78,6 +78,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//md-select[@ng-model="request.ld_status"]'));
     SF.sleep(2);
     SF.click(By.xpath('//span[text()="LD"]'));
+    SF.sleep(3);
     LF.closeEditRequest ();
 
     condition.nowWeDoing = 'Заходим в PickUp и проверям по филтрам и по введенним даним';
