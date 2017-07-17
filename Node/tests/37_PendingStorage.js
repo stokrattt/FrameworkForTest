@@ -157,6 +157,7 @@ condition.nowWeDoing = 'Найти второй реквест, назначит
     MF.Dispatch_GridView ();
     LF.SelectRequestDispatch(V.boardNumbersFrom.Id);
     LF.selectCrew(V.foremanName);
+    Debug.pause();
     SF.sleep(2);
     MF.Board_LogoutAdmin();
 

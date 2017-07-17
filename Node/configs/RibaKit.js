@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 40000;
 
     config.suite = [
-        './tests/56_LoadingAllSteps.js'
+        './tests/52_AllFlatRate.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';
@@ -17,8 +17,8 @@ module.exports = function(config,V) {
     V.frontURL = 'http://89.223.29.231:8080/front_site/';
     V.accountURL = 'http://89.223.29.231:8080/account/#/login';
     V.adminURL = 'http://89.223.29.231:8080/moveBoard/#/login';
-    //V.adminLogin = 'RibaAdmin';
-	V.adminLogin = 'TestAdmin';
+    V.adminLogin = 'RibaAdmin';
+	//V.adminLogin = 'TestAdmin';
     V.adminPassword = 'test';
     V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';

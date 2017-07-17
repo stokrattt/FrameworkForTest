@@ -153,7 +153,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_SetRentalZip('02461');
     LF.MakeSignInRental();
     LF.payRentalInventory();
-    Debug.pause ();
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
@@ -218,7 +217,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Найти вторую работу у формена, зайти в Inventory, подтвердить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    Debug.pause();
     LF.OpenRequestDispatch(V.accountNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
