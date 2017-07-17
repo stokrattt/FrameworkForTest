@@ -44,7 +44,7 @@ module.exports = function(config,V) {
         './tests/29_CheckFewMoverForUserCalcOffManual.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/30_StorageTenant.js',
-        './tests/31_FlateRateBooking.js',
+        './tests/31_FlateRateBooking.js', /////////////////////////
         './tests/49_FlatRateLocalMove.js',
         './tests/52_AllFlatRate.js',
         './tests/32_AllMovingWithStorage.js',

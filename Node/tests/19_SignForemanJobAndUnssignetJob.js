@@ -44,11 +44,14 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
         VD.IWant(VD.ToEqual, color, "rgba(144, 238, 144, 1)", 'после того как убрали команду цвет не стал зеленным, а должен')
     }),config.timeout);
     SF.sleep(1);
+    SF.click(By.xpath('//i[@ng-click="vm.getByDate();"]'));
+    MF.WaitWhileBusy ();
     SF.click(By.id('request_'+V.request.Id+''));
     SF.sleep(2);
     // MF.Dispatch_GridView();
     // LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
+    Debug.pause();
     MF.Board_LogoutAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);

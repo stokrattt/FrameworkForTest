@@ -108,11 +108,14 @@ condition.nowWeDoing = 'ставим конферм, закрываем рабо
     SF.click(By.xpath('//button[@ng-click="goToRequest()"]'));
     SF.openTab (1);
     MF.Account_WaitForGreenTextAfterConfirm();
+    SF.sleep(3);
+    MF.WaitWhileBusy ();
     driver.wait(driver.findElement(By.xpath('//div[@ng-bind-html="noteClient"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, V.noteClientNew, 'не нашло или не совпали заметки clienta с реквеста с аккаунтом клиента');
     }),config.timeout);
     SF.sleep(1);
     MF.Account_ClickViewConfirmationPage ();
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//div[@ng-bind-html="noteClient"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, V.noteClientNew, 'не нашло или не совпали заметки clienta с реквеста na confirmation page');
     }),config.timeout);

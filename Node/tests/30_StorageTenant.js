@@ -2,8 +2,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     global.fiber = Fiber.current;
     V.client = {};
     V.storage = {};
-    V.client.name = SF.randomBukva(6) + '_t';
-    V.client.fam = SF.randomBukva(6) + '_t';
+    V.client.name = SF.randomBukva(6) + 'Name';
+    V.client.fam = SF.randomBukva(6) + 'Fam';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.long = SF.randomBukva(6) + 'Name ' + SF.randomBukva(6) + 'Fam';
@@ -87,8 +87,7 @@ condition.nowWeDoing = 'идем в леджер и создаем инвойс'
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     MF.WaitWhileToaster();
     SF.sleep(3);
-    // JS.click('a[ng-if=\\"bill.type == \'invoice\'\\"] i');
-    // SF.openTab (0);
+    
     SF.click(By.xpath('//button[@ng-click="proRate()"]'));
 
 condition.nowWeDoing = 'идем в леджер и создаем про рейт';
@@ -134,8 +133,52 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
         V.balanceTenant = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.balanceTenant, -780, 'баланс не совпадает с суммой оплаты')
     }),config.timeout);
-    Debug.pause();
-
+    SF.sleep(0.5);
+    SF.click(By.xpath('//td[contains(text(), "-930")]/a[@ng-if="bill.type == \'invoice\'"]/i'));
+    SF.click(By.xpath('//td[contains(text(), "-930")]/a[@ng-if="bill.type == \'invoice\'"]/i'));
+    SF.openTab(1);
+    SF.waitForLocated (By.xpath('//b[contains(text(), "Account Balance Due (USD):")]'));
+    SF.sleep(3);
+    driver.wait(driver.findElement(By.xpath('//b[contains(text(), "Account Balance Due (USD):")]/../span/b')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 780, 'не совпал баланс инвойса на аккаунте при оплате стораджа через акк');
+    }),config.timeout);
+    SF.click(By.xpath('//a[@ng-click="vm.invoicePayment();"]'));
+    JS.waitForExist('input[ng-model="payment.card_num"]');
+    SF.sleep(1);
+    SF.send(By.xpath('//input[@ng-model="payment.card_num"]'), 4111111111111111);
+    SF.send(By.xpath('//input[@ng-model="payment.exp_month"]'), 11);
+    SF.send(By.xpath('//input[@ng-model="payment.exp_year"]'), 20);
+    SF.clear(By.xpath('//input[@ng-model="payment.name"]'));
+    SF.send(By.xpath('//input[@ng-model="payment.firstName"]'), V.client.name);
+    SF.send(By.xpath('//input[@ng-model="payment.lastName"]'), V.client.fam);
+    SF.send(By.xpath('//input[@ng-model="secure.cvc"]'), 323);
+    SF.sleep(1);
+    SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+    MF.WaitWhileSpinner ();
+    SF.waitForLocated (By.xpath('//img[@ng-if="vm.invoicePaid"]'));
+    driver.navigate().refresh();
+    SF.waitForLocated (By.xpath('//img[@ng-if="vm.invoicePaid"]'));
+    SF.sleep(3);
+    driver.wait(driver.findElement(By.xpath('//b[contains(text(), "Account Balance Due (USD):")]/../span/b')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 0, 'баланс не стал нульом после оплаты инвойса');
+    }),config.timeout);
+    SF.sleep(2);
+    driver.close();
+    SF.openTab (0);
+    MF.EditStorage_CloseOpenModal();
+    SF.click(By.xpath('//span[@ng-click="pending.refreshPending();"]'));
+    MF.WaitWhileBusy ();
+    SF.click(By.xpath('//tr[@ng-click="pending.openModal(request, id)"]/td[contains(text(), "' + V.storage.Id + '")]'));
+    SF.click(By.xpath('//tr[@ng-click="pending.openModal(request, id)"]/td[contains(text(), "' + V.storage.Id + '")]'));
+    MF.WaitWhileBusy ();
+    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Balance Due")]/following-sibling::p')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 0, 'баланс не стал 0 на первой странице стораджа после оплаты инвойса')
+    }),config.timeout);
+    MF.EditStorage_OpenLedger();
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Balance :")]/span')).getText().then(function (text) {
+         VD.IWant (VD.ToEqual, SF.cleanPrice (text), 0, 'баланс на вкладке леджер не 0 после оплаты инвойса')
+    }),config.timeout);
+    SF.sleep(0.5);
 condition.nowWeDoing = 'добавляем лот намберс';
     MF.EditStorage_OpenLotNumbers();
     MF.EditStorage_AddLotNumber ();

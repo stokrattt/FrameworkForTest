@@ -2130,6 +2130,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         var options = { month: 'short', day: 'numeric', year: 'numeric' };
         V.changedateOut = (future.toLocaleDateString('en-US', options));
         SF.send(By.xpath('//input[@ng-model="data.rentals.moved_out_date"]'), V.changedateOut);
+        SF.click(By.xpath('//input[@ng-model="data.rentals.volume_cuft"]'));
+        SF.clear(By.xpath('//input[@ng-model="data.rentals.volume_cuft"]'));
+        SF.send(By.xpath('//input[@ng-model="data.rentals.volume_cuft"]'), 200);
         SF.click(By.xpath('//input[@ng-model="data.user_info.phone2"]'));
         SF.click(By.xpath('//button[@ng-click="createNewStorageRequest()"]'));
         MF.WaitWhileBusy ();
