@@ -64,7 +64,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.carrier_id"]'));
-    SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
+    SF.click(By.xpath('//div[text()="st1"]'));
     V.driverPhone = SF.randomCifra(10);
     V.driverName = SF.randomBukva(6) + '_t';
     V.notes = SF.randomBukva(25) + '_t';
@@ -102,21 +102,22 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.sleep(2);
     MF.WaitWhileBusy();
-    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Balance:")]/..//div')).getText().then(function(text){
-        V.requestBalanceAfter = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.requestBalanceAfter, 0.00, 'Баланс в окне реквеста должен бить 0 после добавления работи в трип');
-    }),config.timeout);
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
+    // driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Balance:")]/following-sibling::div')).getText().then(function(text){
+    //     V.requestBalanceAfter = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0.00, 'Баланс в окне реквеста должен бить 0 после добавления работи в трип');
+    // }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Payment:")]/..//div')).getText().then(function(text){
-        V.requestPaymentAfter = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.requestPaymentAfter, V.tpCollected, 'Пеймент должен бить равен тпКолектед');
-    }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Payment:")]/following-sibling::div')).getText().then(function(text){
+    //     V.requestPaymentAfter = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.boardNumbers.Payment, V.tpCollected, 'Пеймент должен бить равен тпКолектед');
+    // }),config.timeout);
     SF.sleep(2);
     LF.closeEditRequest ();
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id, item.balance)"]')).getText().then(function(text){
         V.cleanTPCollected = SF.cleanPrice(text);
-        console.log(V.cleanTPCollected);
         VD.IWant(VD.ToEqual, V.tpCollected, V.cleanTPCollected, 'не совпали TP Collected в клоузинге c Payment в модалке реквеста');
     }),config.timeout);
     SF.click(By.xpath('//div[@ng-click="openRateModal(item)"]'));
@@ -224,7 +225,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenCarriersAndAgents ();
     MF.Board_OpenSideBar ();
     SF.sleep(3);
-    SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
+    SF.click(By.xpath('//div[text()="st1"]'));
 
 
     condition.nowWeDoing = 'удаляем карьера';
