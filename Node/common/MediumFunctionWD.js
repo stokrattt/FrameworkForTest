@@ -225,6 +225,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function Board_RefreshDashboard(){
+		WaitWhileBusy ();
         SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
         WaitWhileBusy ();
         SF.sleep (3);
@@ -561,7 +562,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Contract_SetTapeColorGreen(color) {
         SF.click(By.xpath('//button[@id="btn-append-to-body"]'));
-        JS.click('li[ng-click=\\"data[fieldName].tapeColor = \'' + color + '\'; saveInventory()\\"]');
+        JS.click('li[ng-click="data[fieldName].tapeColor = \\\'' + color + '\\\'; saveInventory()"]');
     }
 
     function Contract_SubmitInventory() {

@@ -25,7 +25,6 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     SF.sleep(2);
     MF.EditRequest_OpenRequest ();
     SF.sleep(4);
-    Debug.pause ();
     MF.EditRequest_RememberId (V.request);
     LF.addToCleanerJob (V.request.Id);
     MF.EditRequest_SaveChanges ();
@@ -34,7 +33,6 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     V.boardNumbersDefault2 = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersDefault2);
     LF.Validation_Compare_Account_Admin (V.boardNumbersDefault2, V.boardNumbersDefault);
-    Debug.pause();
     MF.EditRequest_OpenSettings ();
 condition.nowWeDoing = 'идем в аккаунт и проверяем что там стоит дефолтный кубик фит';
     SF.click (By.xpath('//button[@ng-click="goToRequest()"]'));
@@ -77,6 +75,7 @@ condition.nowWeDoing = 'теперь выставляем кубик фит на
     V.boardNumbersCustom = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersCustom);
     MF.EditRequest_SaveChanges ();
+    Debug.pause();
     LF.closeEditRequest ();
     MF.Board_OpenRequest (V.request.Id);
     V.boardNumbersCustom2 = {};
