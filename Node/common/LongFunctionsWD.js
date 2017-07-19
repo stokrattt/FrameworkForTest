@@ -975,11 +975,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     function InvoiceOnlinePayment() {
         JS.waitForExist('input[ng-model="payment.card_num"]');
         SF.sleep(1);
+        SF.send(By.xpath('//input[@ng-model="payment.firstName"]'), "First Name");
         SF.send(By.xpath('//input[@ng-model="payment.lastName"]'), "Second Name");
         SF.send(By.xpath('//input[@ng-model="payment.card_num"]'), 4111111111111111);
         SF.send(By.xpath('//input[@ng-model="payment.exp_month"]'), 11);
         SF.send(By.xpath('//input[@ng-model="payment.exp_year"]'), 20);
         SF.send(By.xpath('//input[@ng-model="secure.cvc"]'), 323);
+        SF.send(By.xpath('//input[@ng-model="payment.billing_zip"]'), '02222');
         SF.sleep(1);
         SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
         MF.WaitWhileBusy ();
