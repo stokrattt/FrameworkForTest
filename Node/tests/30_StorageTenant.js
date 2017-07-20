@@ -148,10 +148,12 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
     SF.send(By.xpath('//input[@ng-model="payment.card_num"]'), 4111111111111111);
     SF.send(By.xpath('//input[@ng-model="payment.exp_month"]'), 11);
     SF.send(By.xpath('//input[@ng-model="payment.exp_year"]'), 20);
-    SF.clear(By.xpath('//input[@ng-model="payment.name"]'));
+    // SF.clear(By.xpath('//input[@ng-model="payment.name"]'));
+    // SF.sleep(2);
     SF.send(By.xpath('//input[@ng-model="payment.firstName"]'), V.client.name);
     SF.send(By.xpath('//input[@ng-model="payment.lastName"]'), V.client.fam);
     SF.send(By.xpath('//input[@ng-model="secure.cvc"]'), 323);
+    SF.send(By.xpath('//input[@ng-model="payment.billing_zip"]'), "02032");
     SF.sleep(1);
     SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
     MF.WaitWhileSpinner ();
