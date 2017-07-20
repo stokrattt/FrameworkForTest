@@ -262,20 +262,22 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.customer = SF.randomBukva(6) + '_t';
     V.tpDeliveryEmail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.tpDeliveryPhone1 = SF.randomCifra(10);
-    V.tpDeliveryPhone2 = SF.randomCifra(10);
     SF.send(By.xpath('//input[@ng-model="tp.details.customer"]'), V.customer);
     SF.send(By.xpath('//input[@ng-model="tp.details.email"]'), V.tpDeliveryEmail);
     SF.send(By.xpath('//input[@ng-model="tp.details.phones[$index]"]'), V.tpDeliveryPhone1);
-    SF.send(By.xpath('//input[@ng-model="tp.details.phones[$index]"]'), V.tpDeliveryPhone2);
     SF.sleep(2);
 
     V.tpDeliveryRatePerCF = 2;
     V.tpDeliveryVolumeCF = 80;
+    V.orderBalance = 150;
     SF.clear(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'), V.tpDeliveryRatePerCF);
     SF.send(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'), V.tpDeliveryRatePerCF);
     SF.sleep(1);
     SF.clear(By.xpath('//input[@ng-model="tp.closing.volume_cf"]'), V.tpDeliveryVolumeCF);
     SF.send(By.xpath('//input[@ng-model="tp.closing.volume_cf"]'), V.tpDeliveryVolumeCF);
+    SF.sleep(1);
+    SF.clear(By.xpath('//input[@ng-model="tp.closing.order_balance"]'), V.orderBalance);
+    SF.send(By.xpath('//input[@ng-model="tp.closing.order_balance"]'), V.orderBalance);
 
     SF.click(By.xpath('//div[@ng-click="addServices(tp)"]'));
     SF.sleep(3);
@@ -327,7 +329,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.sleep(2);
 
-    V.tpToReceive = V.tpTotalJob - V.tpPayment;
+    V.tpToReceive = V.tpTotalJob - V.tpPayment - V.orderBalance;
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.cleanTpToReceive = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
@@ -350,6 +352,52 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     // SF.click(By.xpath('//button[@ng-click="createTpDelivery()"]'));
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
+    SF.sleep(8);
+    condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
+    SF.click(By.xpath('//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
+    SF.sleep(3);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]')).getAttribute('value').then(function (text) {
+        V.cleanTpDeliveryRatePerCF = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanTpDeliveryRatePerCF, V.tpDeliveryRatePerCF, 'Rate per cf не совпали');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.volume_cf"]')).getAttribute('value').then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.tpDeliveryVolumeCF, 'Volume cf не совпали');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
+        V.cleanTpToReceive = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
+        V.cleanTpJobCost = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanTpJobCost, V.tpJobCost, 'Job cost не совпали');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_total"]')).getAttribute('value').then(function (text) {
+        V.cleanTpTotalJob = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanTpTotalJob, V.tpTotalJob, 'Total Job не совпали');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.tp_collected"]')).getAttribute('value').then(function (text) {
+        V.cleanColectedByUs = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanColectedByUs, V.orderBalance, 'Collected By us не совпали');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.order_balance"]')).getAttribute('value').then(function (text) {
+        V.cleanOrderBalance = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanOrderBalance, V.orderBalance, 'Order Balance cf не совпали');
+    }),config.timeout);
+
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.delivery_job_id"]')).getAttribute('value').then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.tpDeliveryJobId, 'Job Id cf не совпали');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.details.customer"]')).getAttribute('value').then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.customer, 'customer не совпали');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.details.email"]')).getAttribute('value').then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.tpDeliveryEmail, 'email cf не совпали');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.details.phones[$index]"]')).getAttribute('value').then(function (text) {
+        V.cleanTpDeliveryPhone1 = -SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanTpDeliveryPhone1, V.tpDeliveryPhone1, 'Phone cf не совпали');
+    }),config.timeout);
+
 
 
     SF.endOfTest();
