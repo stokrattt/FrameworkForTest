@@ -194,7 +194,8 @@ condition.nowWeDoing='идем удалять форемана';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(3);
-    driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains("+V.foremanFirstName+")').dblclick();"),config.timeout);
+    // driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains("+V.foremanFirstName+")').dblclick();"),config.timeout);
+    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.foremanFirstName+'")]'))).doubleClick().perform();
     SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     SF.sleep(2);
@@ -258,7 +259,9 @@ condition.nowWeDoing='идем удалять сейлса';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SF.sleep(2);
-    driver.executeScript("$('.mdDataTable tbody tr td:contains("+V.salesFirstName +")').dblclick();");
+    // driver.executeScript("$('.mdDataTable tbody tr td:contains("+V.salesFirstName +")').dblclick();");
+    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.salesFirstName+'")]'))).doubleClick().perform();
+
     SF.sleep (2);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();
@@ -269,7 +272,9 @@ condition.nowWeDoing='идем удалять менеджера';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
     SF.sleep(2);
-    driver.executeScript("$('.mdDataTable tbody tr td:contains(" +V.managerFirstName1 +")').dblclick();");
+    // driver.executeScript("$('.mdDataTable tbody tr td:contains(" +V.managerFirstName1 +")').dblclick();");
+    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.managerFirstName1+'")]'))).doubleClick().perform();
+
     SF.sleep (2);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();

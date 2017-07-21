@@ -226,6 +226,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_RefreshDashboard(){
 		WaitWhileBusy ();
+		SF.sleep(1);
+		WaitWhileBusy ();
         SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
         WaitWhileBusy ();
         SF.sleep (3);

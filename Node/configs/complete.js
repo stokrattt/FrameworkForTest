@@ -7,6 +7,7 @@ module.exports = function(config,V) {
         './tests/7_DepartmenTest.js',
         // './tests/5_ReservationMov&Stor.js',
         './tests/DefaultSettings.js',
+        './tests/47_SendMessage.js',
         './tests/21_LDFromAdmin.js',
         //'./tests/TheCleaner.js',//==============================уборка=========================
         './tests/6_WithoutReservationMov&Stor.js',
@@ -64,7 +65,6 @@ module.exports = function(config,V) {
         './tests/44_CreateForemanAndAssignCheck.js',
         './tests/45_MovStorAddInventConfirmClient.js',
         './tests/46_FuelByMileage.js',
-        './tests/47_SendMessage.js',        
         './tests/50_AddJobToTrip.js',
         './tests/53_ManualClosingWork.js',
         './tests/54_LDQuoteAndFuel.js',
