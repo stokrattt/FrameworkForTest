@@ -50,6 +50,11 @@ condition.nowWeDoing = 'зашли в реквест';
     SF.click (By.xpath('//div[@ng-show="::PermissionsServices.hasPermission(\'canSignedSales\');"]//ul[@class="dropdown-menu"]/li/a[contains(text(), "JackSales")]'));
     MF.SweetConfirm();
     SF.sleep (5);
+    MF.EditRequest_OpenLogs ();
+    MF.EditRequest_Check1EmailExist("info@lmmoving.com", "New Message From "+V.client.name+"");
+    MF.EditRequest_Check1EmailExist(V.client.email, "New Message From ");
+
+    Debug.pause();
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
