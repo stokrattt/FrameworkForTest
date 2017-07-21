@@ -17,7 +17,7 @@ module.exports = function(config,V) {
         './tests/2_CheckPermissions.js',
         // './tests/11_CheckBillOfLadding.js',
        // './tests/TheCleaner.js',//==============================уборка=========================
-        // './tests/51_ServiceTypesOnOff.js',  /нужно переделать
+        './tests/51_ServiceTypesOnOff.js',
         './tests/DefaultSettings.js',
         './tests/10_ComparQuotLocalCheckBilOfLad.js',
         './tests/12_CreateMov&StorFromFrontDownAndCompare.js',

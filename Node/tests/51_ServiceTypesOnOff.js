@@ -56,10 +56,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (!V.CompanyServices.Flat) {console.log('вкл Flat');SF.click(By.xpath(V.flatSelector+'/..'));}
     if (V.CompanyServices.Long) {console.log('выкл Long');SF.click(By.xpath(V.longSelector+'/..'));}
     JS.scroll ('div:contains("General Settings")');
-
+    SF.sleep(3);
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing='проверяем на фронте: включено ли только Local,Loading,Unloading,Long';
+    condition.nowWeDoing='проверяем на фронте: включено ли только Local,Loading,Unloading,Flat';
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
     SF.sleep(5);
@@ -83,19 +83,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Flat Rate") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Flat Rate');
+        VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Flat Rate');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Overnight") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Overnight');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Overnight');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Long Distance") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
         VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Long Distance');
     }),config.timeout);
     SF.sleep(1);
-
-    condition.nowWeDoing='проверяем на борде: включено ли только Local,Loading,Unloading,Long';
+    condition.nowWeDoing='проверяем на борде: включено ли только Local,Loading,Unloading,Flat';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_ClickCreate();
@@ -119,7 +118,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Flat")]'))
         .then(function(array){
-            VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Flat');
+            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Flat');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Overnight")]'))
         .then(function(array){
@@ -127,12 +126,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Long")]'))
         .then(function(array){
-            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Long');
+            VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Long');
         }),config.timeout);
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
 
-    condition.nowWeDoing='Включаем только Storage,Overnight,Flat';
+    condition.nowWeDoing='Включаем только Storage,Overnight,Long';
     MF.Board_OpenCompanyServices();
     JS.scroll ('h4:contains("Company Services Settings")');
     SF.sleep(2);
@@ -166,9 +165,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (!V.CompanyServices.Storage) {SF.click(By.xpath(V.storageSelector+'/..'));}
     if (V.CompanyServices.Flat) {SF.click(By.xpath(V.flatSelector+'/..'));}
     if (!V.CompanyServices.Long) {SF.click(By.xpath(V.longSelector+'/..'));}
+    SF.sleep(3);
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing='проверяем на фронте: включено ли только Storage,Overnight,Flat';
+    condition.nowWeDoing='проверяем на фронте: включено ли только Storage,Overnight,Long';
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
     SF.sleep(5);
@@ -192,7 +192,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Flat Rate") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Flat Rate');
+        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Flat Rate');
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Overnight") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
@@ -200,11 +200,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Long Distance") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
-        VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Long Distance');
+        VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Long Distance');
     }),config.timeout);
     SF.sleep(1);
-
-    condition.nowWeDoing='проверяем на борде: включено ли только Storage,Overnight,Flat';
+    condition.nowWeDoing='проверяем на борде: включено ли только Storage,Overnight,Long';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_ClickCreate();
@@ -228,7 +227,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Flat")]'))
         .then(function(array){
-            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Flat');
+            VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Flat');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Overnight")]'))
         .then(function(array){
@@ -236,7 +235,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Long")]'))
         .then(function(array){
-            VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Long');
+            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Long');
         }),config.timeout);
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
@@ -275,7 +274,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (!V.CompanyServices.Storage) {SF.click(By.xpath(V.storageSelector+'/..'));}
     if (!V.CompanyServices.Flat) {SF.click(By.xpath(V.flatSelector+'/..'));}
     if (!V.CompanyServices.Long) {SF.click(By.xpath(V.longSelector+'/..'));}
-    SF.sleep(2);
+    SF.sleep(3);
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
