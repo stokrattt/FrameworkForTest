@@ -119,7 +119,6 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
     SF.click (By.xpath('//div[@ng-show="::PermissionsServices.hasPermission(\'canSignedSales\');"]//ul[@class="dropdown-menu"]/li/a[contains(text(), "JackSales")]'));
     MF.SweetConfirm();
-    Debug.pause();
     SF.sleep (5);
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();

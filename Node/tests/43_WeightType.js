@@ -75,7 +75,6 @@ condition.nowWeDoing = 'теперь выставляем кубик фит на
     V.boardNumbersCustom = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersCustom);
     MF.EditRequest_SaveChanges ();
-    Debug.pause();
     LF.closeEditRequest ();
     MF.Board_OpenRequest (V.request.Id);
     V.boardNumbersCustom2 = {};

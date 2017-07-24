@@ -54,7 +54,6 @@ condition.nowWeDoing = 'создаем лонг дистанс реквест и
     V.total = V.fuel + V.quote;
     VD.IWant(VD.ToEqual,V.boardNumbers.Total, V.total, 'total не правильно посчитался');
     SF.sleep(1);
-    Debug.pause();
 condition.nowWeDoing = 'добавляем комнаты и опять пересчитываем фуел, квоту и тотал';
     MF.EditRequest_SetSizeOfMoveNumber (9);
     MF.EditRequest_SetAdressFrom ();

@@ -862,7 +862,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="select(tabs[5])"]'));
         SF.sleep(2);
         JS.waitForNotExist('div.busyoverlay:visible');
-        JS.waitForExist('div[ng-repeat="log in allLogs | orderBy: \\\'-date\\\' track by $index "]:eq(3)');
+        JS.waitForExist('div[ng-repeat="log in allLogs | orderBy: \\\'-id\\\' track by $index "]:eq(3)');
     }
 
     function EditRequest_ExpandPendingEmail(email) {

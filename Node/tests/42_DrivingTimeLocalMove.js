@@ -156,7 +156,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда');
-    Debug.pause ();
     LF.LogoutFromAccount ();
 
     //=========================закончили писать тест=============================

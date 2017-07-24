@@ -179,7 +179,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для конф
     SF.click(By.xpath('//div[@class="ibox loadinghelp"]//tr[@ng-repeat="confirmed in movingConfirmedBody"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
 
-    Debug.pause();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

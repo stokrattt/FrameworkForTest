@@ -65,7 +65,6 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     console.log(V.accountNumbersLD);
     SF.sleep(1);
     LF.addToCleanerJob(V.accountNumbersLD.Id);
-    Debug.pause();
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

@@ -25,7 +25,6 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     SF.sleep (2);
     SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
     SF.sleep (0.5);
-    Debug.pause ();
     SF.clear (By.xpath('//td[contains(text(), "319")]/../td[2]/input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].rate[codes]"]'));
     SF.sleep (0.5);
     SF.clear (By.xpath('//td[contains(text(), "515")]/../td[2]/input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].rate[codes]"]'));
@@ -121,7 +120,6 @@ condition.nowWeDoing = 'создаем реквест второй раз с ф�
     SF.send (By.id('edit-zip-code-to'), '50201');
     SF.sleep(2);
     MF.SweetConfirm();
-Debug.pause();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);

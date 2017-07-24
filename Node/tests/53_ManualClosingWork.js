@@ -40,7 +40,6 @@ condition.nowWeDoing = 'считаем квоту от времени и гра�
     V.TotalSum = V.boardNumbersClose.QuoteMax + V.boardNumbersClose.Fuel;
     VD.IWant (VD.ToEqual, V.boardNumbersClose.Total, V.TotalSum, 'не правильно посчитало гранд  по формуле фуел + квота');
     SF.sleep(2);
-    Debug.pause();
 condition.nowWeDoing = 'добавляем два паймента, один кастомный, один карточкой, так чтобы баланс был равен 0 и закрываем реквест';
     MF.EditRequest_OpenPayment();
     SF.click(By.xpath('//a[@ng-click="addCustomPayment()"]'));
@@ -80,7 +79,6 @@ condition.nowWeDoing = 'идем в коферм работы на борде,о
     MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.boardNumbers.Id);
     MF.EditRequest_CloseConfirmWork ();
-    Debug.pause();
     MF.EditRequest_CloseJob();
     V.boardNumbersCloseJob = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersCloseJob);

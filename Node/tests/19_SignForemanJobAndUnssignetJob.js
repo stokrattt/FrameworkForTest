@@ -44,7 +44,6 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
         VD.IWant(VD.ToEqual, color, "rgba(144, 238, 144, 1)", 'после того как убрали команду цвет не стал зеленным, а должен')
     }),config.timeout);
     SF.sleep(1);
-    Debug.pause();
     // JS.scroll('i[ng-click=\"vm.getByDate();\"]');
     // SF.click(By.xpath('//i[@ng-click="vm.getByDate();"]'));
     MF.WaitWhileBusy ();
@@ -53,7 +52,6 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     // MF.Dispatch_GridView();
     // LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
-    Debug.pause();
     MF.Board_LogoutAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
