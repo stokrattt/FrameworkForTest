@@ -77,7 +77,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     driver.actions().mouseMove(driver.findElement(By.xpath('//div[@ng-click="vm.editTemplate(template)"]'))).doubleClick().perform();
     SF.sleep (2);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"your storage monthly fee is now 7 days overdue")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Late Fee")]')).getText().then(function(text){
         V.feeStorageInvoiceTemplate = text;
     }),config.timeout);
     SF.sleep (2);
@@ -120,7 +120,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.click (By.xpath('//a[@ng-click="tabs.setTab(6)"]'));
     SF.sleep (2);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"your storage monthly fee is now 7 days overdue")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Late Fee")]')).getText().then(function(text){
         V.feeStorageInvoiceTemplateInStorages = text;
         VD.IWant(VD.ToEqual, V.feeStorageInvoiceTemplateInStorages, V.feeStorageInvoiceTemplate, 'не совпали темплейти Fee Storage Invoice');
     }),config.timeout);
@@ -141,12 +141,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (3);
     V.chargeName = SF.randomCifra(4) + '_t';
     V.chargeDescriptipn = SF.randomBukva(6) + '_t';
+    V.movingFrom = SF.randomBukva(10) + '_t';
     V.chargeCost = 10;
     V.chargeQty = 10;
     SF.send(By.xpath('//input[@ng-model="charge.name"]'), V.chargeName);
     SF.send(By.xpath('//input[@ng-model="charge.description"]'), V.chargeDescriptipn);
     SF.send(By.xpath('//input[@ng-model="charge.cost"]'), V.chargeCost);
     SF.send(By.xpath('//input[@ng-model="charge.qty"]'), V.chargeQty);
+    SF.send(By.xpath('//input[@ng-model="invoice.field_moving_from.thoroughfare"]'), V.movingFrom);
     SF.sleep (1);
     SF.click (By.xpath('//a[@ng-click="sendInvoice()"]'));
     MF.WaitWhileBusy();
