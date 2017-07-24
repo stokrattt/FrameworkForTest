@@ -121,6 +121,7 @@ condition.nowWeDoing = 'заполняем опции 2';
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
+
 condition.nowWeDoing = 'идем в акк под клиентом выбирать опцию';
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest (V.FRId);
@@ -128,7 +129,8 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     MF.Account_ChooseOptionFlatRate();
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
-    condition.nowWeDoing = 'пошли в админку 2 раз, ставить трак, нот конферм';
+
+condition.nowWeDoing = 'пошли в админку 2 раз, ставить трак, нот конферм';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
     MF.Board_OpenRequest (V.FRId);
@@ -141,9 +143,6 @@ condition.nowWeDoing = 'идем в акк под клиентом выбира�
     SF.clear(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
     SF.sleep (1);
-    // SF.clear(By.xpath('//input[@ng-model="deliveryDateSecondInput"]'));
-    // SF.send(By.xpath('//input[@ng-model="deliveryDateSecondInput"]'), V.changedateDelAdmin);
-    // driver.actions().sendKeys(Key.ENTER).perform();
 
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
