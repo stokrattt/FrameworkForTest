@@ -89,6 +89,8 @@ module.exports = function(config,V) {
         './tests/73_CustomTrackSpeed.js',
         //'./tests/TheCleaner.js',//==============================уборка=========================
         './tests/74_AddEmailsWhenCreatReq.js'
+        './tests/75_UnassignTeamAfter3Signature.js'
+        './tests/76_ContractWith4Signature.js'
 
     ];
     config.timeout = 60000;
@@ -109,6 +111,9 @@ module.exports = function(config,V) {
 	V.foremanLogin = 'TestForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
+    V.foremanLogin2 = 'ForemanFlow1';
+    V.foremanPassword2 = '123';
+    V.foremanName2 = 'Foreman Flow1';
     V.adminName = 'Test';
     V.foremanEmail = 'TestForeman@mail.com';
     V.managerName = 'emilia clark';
