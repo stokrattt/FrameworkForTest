@@ -89,8 +89,8 @@ module.exports = function(config,V) {
         './tests/73_CustomTrackSpeed.js',
         //'./tests/TheCleaner.js',//==============================уборка=========================
         './tests/74_AddEmailsWhenCreatReq.js',
-        './tests/75_UnassignTeamAfter3Signature.js',
-        './tests/76_ContractWith4Signature.js'
+        './tests/75_UnassTeamAfter3SignMake4Sign.js'
+
 
     ];
     config.timeout = 60000;
