@@ -77,7 +77,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }), config.timeout);
     LF.LogoutFromAccount ();
 
-    condition.nowWeDoing = 'второй раз в админке, локал диспатч';
+    condition.nowWeDoing = 'второй раз в админке, локал диспатч. Ещё выбираем Crew Settings Pickup';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
@@ -88,23 +88,57 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName);
     SF.click(By.xpath("//a[@ng-click='vm.openSettingsModal()']"));
-    SF.sleep (5);
+    SF.sleep (1);
     SF.click(By.xpath("//input[@name='pickup']"));
     SF.sleep (1);
     SF.click(By.xpath("//button[@ng-click='saveSettings()']"));
-    SF.sleep (5);
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'заходим под форменом, открываем контракт';
+    condition.nowWeDoing = 'заходим под 1м форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
+    driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
+        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
+    }),config.timeout);
+    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
+    MF.Contract_ReturnToForeman();
+    LF.LogoutFromBoardForeman();
+
+    condition.nowWeDoing = 'третий раз в админке, анассаин тим, ';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenLocalDispatch();
+    LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
+    MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
+    MF.Dispatch_GridView();
+    LF.SelectRequestDispatch(V.accountNumbers.Id);
+    MF.WaitWhileBusy ();
+    JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
+    SF.click(By.xpath('//a[@ng-click="vm.unAssignTeam()"]'));
+    SF.click(By.xpath('//button[contains (.,"Yes")]' ) );
+    MF.WaitWhileBusy();
+    LF.SelectRequestDispatch(V.accountNumbers.Id);
+    LF.selectCrew(V.foremanName2);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    MF.WaitWhileBusy ();
+    LF.closeEditRequest();
+    MF.Board_LogoutAdmin();
+
+    condition.nowWeDoing = 'заходим под 2м форменом, доподписываем контракт c 4 подписями в Details of Labor ';
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin2, V.foremanPassword2);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    MF.Contract_WaitConfirmationPage();
+    MF.Contract_OpenBillOfLading();
+    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
@@ -118,10 +152,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
-    SF.sleep(1);
+    SF.sleep(3);
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
+    // LF.Contract_ReviewGive(3, "test text for review");
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_Submit();
@@ -129,10 +164,5 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LogoutFromBoardForeman();
 
 
-
     SF.endOfTest();
 };
-
-
-
-
