@@ -195,6 +195,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][5]'));
         SF.sleep(2);
     }
+    function Board_OpenSettingsAccountPageCustomTooltips() {
+        SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
+        SF.sleep(3);
+        SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][6]'));
+        SF.sleep(2);
+    }
     function Board_OpenSettingsLongDistance() {
         SF.click(By.xpath('//a[@ui-sref="settings.longdistance"]'));
         SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
@@ -501,6 +507,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         // SF.click(By.xpath('//div[@ng-click="applyPayment(paymentButton())"]'));
         JS.click('div[ng-click=\\"applyPayment(paymentButton())\\"]:visible');
+        SF.sleep(1)
     }
 
     function Contract_ClickTips10() {
@@ -1286,6 +1293,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenTripPlanner: Board_OpenTripPlanner,
         Board_OpenCarriersAndAgents: Board_OpenCarriersAndAgents,
         Board_OpenSettingsAccountPageCustomBlock: Board_OpenSettingsAccountPageCustomBlock,
+        Board_OpenSettingsAccountPageCustomTooltips:Board_OpenSettingsAccountPageCustomTooltips,
         Board_OpenStatistic: Board_OpenStatistic,
         Board_OpenProfitLoss: Board_OpenProfitLoss,
 		Board_OpenRequest: Board_OpenRequest,
