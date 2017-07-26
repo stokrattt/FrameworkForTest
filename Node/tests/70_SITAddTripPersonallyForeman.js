@@ -135,7 +135,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="payroll.foreman.total_daily"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.ToEqual, text, V.totalDaily, 'total Daily не совпали');
+        V.сleanTotalDaily = SF.cleanPrice (text);
+        VD.IWant(VD.ToEqual, V.сleanTotalDaily, V.totalDaily, 'total Daily не совпали');
     }),config.timeout);
 
     V.hourlyRate = 12;
@@ -150,7 +151,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="payroll.foreman.total_hourly"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.ToEqual, text, V.totalHourly, 'total Hourly не совпали');
+        V.сleanTotalHourly = SF.cleanPrice (text);
+        VD.IWant(VD.ToEqual, V.сleanTotalHourly, V.totalHourly, 'total Hourly не совпали');
     }),config.timeout);
 
     V.mileageRate = 5;
@@ -160,7 +162,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="payroll.foreman.total_mileage"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.ToEqual, text, V.totalMileage, 'total Mileage не совпали');
+        V.сleanTotalMileage = SF.cleanPrice (text);
+        VD.IWant(VD.ToEqual, V.сleanTotalMileage, V.totalMileage, 'total Mileage не совпали');
     }),config.timeout);
 
     SF.click(By.xpath('//h2[contains(text(), "Driver Expenses")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
@@ -257,7 +260,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="tp.delivery_job_id"]'), V.tpDeliveryJobId);
     SF.click(By.xpath('//md-select[@ng-model="selectedCarrier"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//div[contains(text(), "'+ V.carrierNew2.name +'")]'));
+    SF.click(By.xpath('//div[contains(text(), "ner")]'));
     SF.sleep(2);
     V.customer = SF.randomBukva(6) + '_t';
     V.tpDeliveryEmail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
