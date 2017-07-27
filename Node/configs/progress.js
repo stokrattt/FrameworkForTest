@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/RezervedConfirmProcess.js'];
+    config.suite = ['./tests/76_RezervedConfirmProcess.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
