@@ -44,8 +44,8 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
         VD.IWant(VD.ToEqual, color, "rgba(144, 238, 144, 1)", 'после того как убрали команду цвет не стал зеленным, а должен')
     }),config.timeout);
     SF.sleep(1);
-    // JS.scroll('i[ng-click=\"vm.getByDate();\"]');
-    // SF.click(By.xpath('//i[@ng-click="vm.getByDate();"]'));
+    JS.scroll('i[ng-click=\"vm.getByDate();\"]');
+    SF.click(By.xpath('//i[@ng-click="vm.getByDate();"]'));
     MF.WaitWhileBusy ();
     SF.click(By.id('request_'+V.request.Id+''));
     SF.sleep(2);

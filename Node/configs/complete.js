@@ -4,6 +4,7 @@ module.exports = function(config,V) {
         './tests/48_Review.js',
         // './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',
         './tests/4_CheckFuelCFitInventOffCalc.js',
+        './tests/19_SignForemanJobAndUnssignetJob.js',
         './tests/7_DepartmenTest.js',
         // './tests/5_ReservationMov&Stor.js',
         './tests/DefaultSettings.js',
@@ -28,7 +29,6 @@ module.exports = function(config,V) {
        // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/15_OvernightDownForm.js',
         // './tests/8_SaveNothing.js',
-        './tests/19_SignForemanJobAndUnssignetJob.js',
         './tests/13_UnloadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
         './tests/16_UnloadHelpDownFront.js',
