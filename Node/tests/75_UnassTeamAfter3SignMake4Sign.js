@@ -87,11 +87,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName);
-    SF.click(By.xpath("//a[@ng-click='vm.openSettingsModal()']"));
-    SF.sleep (1);
-    SF.click(By.xpath("//input[@name='pickup']"));
-    SF.sleep (1);
-    SF.click(By.xpath("//button[@ng-click='saveSettings()']"));
+    SF.click(By.xpath('//a[@ng-click="vm.openSettingsModal()"]'));
+    MF.WaitWhileBusy();
+    SF.click(By.xpath('//input[@id="pickup"]'));
+    SF.click(By.xpath('//button[@ng-click="saveSettings()"]'));
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'заходим под 1м форменом, открываем контракт';
@@ -124,13 +123,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy ();
     JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
     SF.click(By.xpath('//a[@ng-click="vm.unAssignTeam()"]'));
-    SF.click(By.xpath('//button[contains (.,"Yes")]' ) );
+    MF.SweetConfirm();
     MF.WaitWhileBusy();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName2);
-    LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.WaitWhileBusy ();
-    LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'заходим под 2м форменом, доподписываем контракт c 4 подписями в Details of Labor ';
