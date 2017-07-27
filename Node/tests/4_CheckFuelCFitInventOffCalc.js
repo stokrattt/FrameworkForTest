@@ -49,9 +49,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     VD.IWant (VD.ToEqual, V.boardNumbers.cbf, V.boardNumbers.InventoryCubicFit, 'Кубик фит не совпадает с инвенторием, а должен');
     MF.EditRequest_SaveChanges ();
+    LF.RememberDigitsRequestBoard (V.boardNumbers);
     LF.closeEditRequest ();
 
-condition.nowWeDoing = 'идем в нот коферм и проверяем букед и move дейт';
+condition.nowWeDoing = 'идем в коферм и проверяем букед и move дейт';
     MF.Board_OpenConfirmed ();
     SF.select(By.xpath('//select[@ng-model="vm.conf_filter"]'), 2);
     MF.WaitWhileBusy ();
@@ -67,6 +68,45 @@ condition.nowWeDoing = 'идем в нот коферм и проверяем б
     //     VD.IWant (VD.NotToEqual, text, 0, 'пропали реквесты после того как выбрали Booked date');
     // }),config.timeout);
     // SF.sleep(1);
+condition.nowWeDoing = 'тут мы делаем оплату через кастомный паймент и потом ее отредактируем и проверим что цена меняется после редактирования ресита';
+    MF.Board_OpenPendingRequest ();
+    MF.WaitWhileBusy ();
+    MF.Board_OpenRequest (V.boardNumbers.Id);
+    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
+    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
+    MF.WaitWhileBusy ();
+    JS.click('a[ng-click=\\"addCustomPayment()\\"]:visible');
+    SF.waitForVisible (By.xpath('//form[@name="clientForm"]'));
+    SF.click (By.xpath('//input[@ng-model="receipt.amount"]'));
+    SF.send (By.xpath('//input[@ng-model="receipt.amount"]'),150);
+    SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
+    SF.sleep (1);
+    SF.click(By.xpath('//button[@ng-click="Save()"]'));
+    SF.sleep (1);
+    MF.WaitWhileToaster();
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep (1);
+    MF.WaitWhileBusy ();
+    JS.click('button[ng-click=\\"cancel()\\"]:visible');
+    MF.Board_OpenRequest (V.boardNumbers.Id);
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
+    VD.IWant(VD.ToEqual, 150, V.boardNumbers.Payment, 'не прошла оплата в реквесте');
+    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
+    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
+    MF.WaitWhileBusy();
+
+    driver.actions().mouseMove(driver.findElement(By.xpath('//tr[@ng-dblclick="showReceipt(receipt.id)"]'))).doubleClick().perform();
+    MF.WaitWhileBusy ();
+    SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));
+    SF.send(By.xpath('//input[@ng-model="receipt.amount"]'), 50);
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep (1);
+    MF.WaitWhileToaster();
+    JS.click('button[ng-click=\\"cancel()\\"]:visible');
+    MF.Board_OpenRequest (V.boardNumbers.Id);
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
+    VD.IWant(VD.ToEqual, 50, V.boardNumbers.Payment, 'не изменился паймент в реквесте после того как мы отредактировали ресит');
+    SF.sleep(2);
 
 //*******************************************************************************************
     SF.endOfTest();

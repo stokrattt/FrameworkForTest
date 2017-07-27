@@ -142,6 +142,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
         SF.sleep(3);
     }
+    function Board_OpenPendingRequest() {
+        SF.click(By.xpath('//div[@ng-click="vm.select(0)"]'));
+        SF.sleep(3);
+    }
     function Board_OpenConfirmed() {
         SF.click(By.xpath('//div[@ng-click="vm.select(2)"]'));
         SF.sleep(3);
@@ -1264,6 +1268,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenDashboard: Board_OpenDashboard,
         Board_OpenLocalDispatch: Board_OpenLocalDispatch,
         Board_OpenPayroll: Board_OpenPayroll,
+        Board_OpenPendingRequest:Board_OpenPendingRequest,
         Board_OpenNotConfirmed: Board_OpenNotConfirmed,
         Board_OpenConfirmed: Board_OpenConfirmed,
         Board_OpenSettingsSchedule: Board_OpenSettingsSchedule,
