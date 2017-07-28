@@ -10,14 +10,14 @@ module.exports = function(config,V) {
         './tests/DefaultSettings.js',
         './tests/47_SendMessage.js',
         './tests/21_LDFromAdmin.js',
-        //'./tests/TheCleaner.js',//==============================уборка=========================
+        './tests/TheCleaner.js',//==============================уборка=========================
         './tests/6_WithoutReservationMov&Stor.js',
         './tests/SetReservationPrice.js',
         './tests/9_TestNoteSaveNothing.js',
         './tests/1_AllLocalMoving.js',
         './tests/2_CheckPermissions.js',
         // './tests/11_CheckBillOfLadding.js',
-       // './tests/TheCleaner.js',//==============================уборка=========================
+       './tests/TheCleaner.js',//==============================уборка=========================
         './tests/51_ServiceTypesOnOff.js',
         './tests/DefaultSettings.js',
         './tests/10_ComparQuotLocalCheckBilOfLad.js',
@@ -26,7 +26,7 @@ module.exports = function(config,V) {
         './tests/17_LoadingHelpDownForm.js',
         './tests/14_LoadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
-       // './tests/TheCleaner.js',//==============================уборка=========================
+       './tests/TheCleaner.js',//==============================уборка=========================
         './tests/15_OvernightDownForm.js',
         // './tests/8_SaveNothing.js',
         './tests/13_UnloadingHelpTopForm.js',
@@ -34,7 +34,7 @@ module.exports = function(config,V) {
         './tests/16_UnloadHelpDownFront.js',
         './tests/DefaultSettings.js',
         './tests/20_LDTopForm.js',
-        //'./tests/TheCleaner.js',//==============================уборка=========================
+        './tests/TheCleaner.js',//==============================уборка=========================
         './tests/22_WeDontMoveToThisState.js',
         // './tests/23_FiltrationMoveDate.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
@@ -43,7 +43,7 @@ module.exports = function(config,V) {
         './tests/27_Receipt.js',
         // './tests/28_CalcWarnAndTurnOffWhenManual.js',
         './tests/29_CheckFewMoverForUserCalcOffManual.js',
-        //'./tests/TheCleaner.js',//==============================уборка=========================
+        './tests/TheCleaner.js',//==============================уборка=========================
         './tests/30_StorageTenant.js',
         './tests/31_FlateRateBooking.js', /////////////////////////
         './tests/49_FlatRateLocalMove.js',
@@ -57,7 +57,7 @@ module.exports = function(config,V) {
         './tests/37_PendingStorage.js',
         './tests/38_CustomPayrollInRequest.js',
         // './tests/39_CloneRequest.js',
-     //   './tests/TheCleaner.js',//==============================уборка=========================
+       './tests/TheCleaner.js',//==============================уборка=========================
         './tests/40_PayrollTableCheckSumJobs.js',
         './tests/41_ContractPageSettings.js',
         './tests/42_DrivingTimeLocalMove.js',
@@ -73,7 +73,7 @@ module.exports = function(config,V) {
         './tests/55_CreateFlagAndCheckOnDashboard.js',
         './tests/58_Discount.js',
         './tests/59_PayrollAddMiscCustomPayment.js',
-      //  './tests/TheCleaner.js',//==============================уборка=========================
+       './tests/TheCleaner.js',//==============================уборка=========================
         './tests/60_Excludes.js',
         './tests/61_SITInvoices.js',
         './tests/62_MovingCustomBlock.js',
@@ -87,7 +87,7 @@ module.exports = function(config,V) {
 		'./tests/71_ManualEmailing.js',
 		'./tests/72_ChangingRateAfterConfirming.js',
         './tests/73_CustomTrackSpeed.js',
-        //'./tests/TheCleaner.js',//==============================уборка=========================
+        './tests/TheCleaner.js',//==============================уборка=========================
         './tests/74_AddEmailsWhenCreatReq.js',
         './tests/75_UnassTeamAfter3SignMake4Sign.js',
         './tests/76_RezervedConfirmProcess.js'
