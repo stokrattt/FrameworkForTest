@@ -152,6 +152,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_SetRentalAddress('Address To');
     MF.Contract_SetRentalZip('02461');
     LF.MakeSignInRental();
+    MF.SweetConfirm ();
     LF.payRentalInventory();
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;

@@ -85,6 +85,7 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     SF.send(By.xpath('//input[@ng-model="data.agreement.address"]'), 'Address To');
     SF.send(By.xpath('//input[@ng-model="data.agreement.zipCode"]'), '02461');
     LF.MakeSignInRental();
+    MF.SweetConfirm ();
     LF.payRentalInventory(V.boardNumbersTo);
     JS.waitForExist('input#inputImage');
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {

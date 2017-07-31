@@ -45,8 +45,8 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     }),config.timeout);
     SF.sleep(1);
     JS.scroll('i[ng-click=\"vm.getByDate();\"]');
-    SF.click(By.xpath('//i[@ng-click="vm.getByDate();"]'));
-    MF.WaitWhileBusy ();
+    // SF.click(By.xpath('//i[@ng-click="vm.getByDate();"]'));
+    // MF.WaitWhileBusy ();
     SF.click(By.id('request_'+V.request.Id+''));
     SF.sleep(2);
     // MF.Dispatch_GridView();
