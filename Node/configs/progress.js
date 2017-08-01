@@ -1,8 +1,8 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/51_ServiceTypesOnOff.js'];
+    config.suite = ['./tests/75_UnassTeamAfter3SignMake4Sign.js'];
     config.chainFail = false;
     config.browser = 'chrome';
-    config.timeout = 25000;
+    config.timeout = 30000;
     //V.frontURL = 'http://stage.themoveboard.com:8005';                    //dev
     //V.accountURL = 'http://stage.themoveboard.com:8005/account/#/login';  //dev
     //V.adminURL = 'http://stage.themoveboard.com:8005/moveBoard/#/login';  //dev
