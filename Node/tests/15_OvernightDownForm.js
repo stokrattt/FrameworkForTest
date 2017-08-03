@@ -13,7 +13,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (4);
     LF.CreateOvernightDownForm (V.client);
 condition.nowWeDoing = 'запоминаем данные калькулятора PICK UP';
-    LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
+    // LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
 
 //     driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@ng-if="storageCalcResult.to.surcharge_fuel"]/span')).getText().then(function(text){
 //         V.frontNumbersOvernightDown_UP.FuelTo = SF.cleanPrice (text.replace('$', ''));
@@ -110,7 +110,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
     V.accountNumbersUp = {};
     LF.RememberAccountNumbers (V.accountNumbersUp);
     LF.addToCleanerJob(V.accountNumbersUp.Id);
-    LF.Validation_Compare_Account_Front_MovStorTo(V.accountNumbersUp,V.frontNumbersDown);
+    // LF.Validation_Compare_Account_Front_MovStorTo(V.accountNumbersUp,V.frontNumbersDown);
     MF.Account_ClickFromStorage ();
     V.accountNumbersDelivery = {};
     SF.sleep (0.5);

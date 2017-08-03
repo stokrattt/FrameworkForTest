@@ -53,6 +53,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.CreateLongDistanceFromBoard(V.client);
     MF.EditRequest_SetToConfirmed();
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
+
     SF.sleep(1);
 
     JS.step(JSstep.selectTruck(5));
@@ -95,7 +96,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.carrier_id"]'));
+    SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.ld_carrier_id"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierName +'"]'));
     V.driverPhone = SF.randomCifra(10);
     V.driverName = SF.randomBukva(6) + '_t';
@@ -152,6 +153,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//md-switch[@ng-model="hideZero"]'));
     SF.sleep(2);
     condition.nowWeDoing = 'вибираем карьера, вибираем работи и отправляем инвоис';
+    SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierName);
+    SF.sleep(4);
     SF.click(By.xpath('//div[text()="'+ V.carrierName +'"]'));
     SF.sleep(2);
     SF.click(By.xpath('//md-checkbox[@ng-model="selectAll"]'));
@@ -208,6 +211,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenCarriersAndAgents ();
     MF.Board_OpenSideBar ();
     SF.sleep(3);
+    SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierName);
+    SF.sleep(4);
     SF.click(By.xpath('//div[text()="'+ V.carrierName +'"]'));
 
     condition.nowWeDoing = 'удаляем карьера';

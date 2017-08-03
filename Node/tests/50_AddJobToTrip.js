@@ -63,7 +63,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.carrier_id"]'));
+    SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.ld_carrier_id"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     V.driverPhone = SF.randomCifra(10);
     V.driverName = SF.randomBukva(6) + '_t';

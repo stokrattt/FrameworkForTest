@@ -50,9 +50,12 @@ condition.nowWeDoing = 'Создаем карьера';
 
 condition.nowWeDoing = 'Редактируем карьера';
     SF.sleep(3);
+    SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew.name);
+    SF.sleep(4);
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
     SF.sleep(3);
+    //ng-model="searchTerm"
     V.carrierNew2.name = SF.randomBukva(6) + '_t';
     V.carrierNew2.contactPerson = SF.randomBukva(6) + '_t';
     V.carrierNew2.contactPersonPhone = SF.randomCifra(10);
@@ -98,6 +101,8 @@ condition.nowWeDoing = 'Редактируем карьера';
     SF.sleep(5);
 
 condition.nowWeDoing = 'сравниваем сохранились ли изменения';
+    SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew2.name);
+    SF.sleep(4);
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
     SF.sleep(1);
@@ -135,12 +140,14 @@ condition.nowWeDoing = 'Проверяем есть ли карьер в спи�
     MF.Board_OpenSideBar ();
     SF.click(By.xpath('//button[@ng-click="addTrip()"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.carrier_id"]'));
+    SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.ld_carrier_id"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     MF.Board_OpenSideBar ();
     MF.Board_OpenCarriersAndAgents ();
     MF.Board_OpenSideBar ();
     SF.sleep(3);
+    SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew2.name);
+    SF.sleep(4);
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
 
 // condition.nowWeDoing = 'удаляем карьера';

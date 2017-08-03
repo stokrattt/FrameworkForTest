@@ -1746,10 +1746,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Crew Size:")]/following-sibling::span')).getText().then(function (text) {
             frontNumbersDown.CrewFrom = SF.cleanPrice (text);
         }), config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Move from storage")]/..//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
             frontNumbersDown.RateFrom = text.indexOf('$', 4) == -1 ?
                 SF.cleanPrice(text) :
                 SF.cleanPrice(text.substring(text.indexOf('$', 4)));
+            // console.log(V.frontNumbersDown.RateFrom);
         }), config.timeout);
         driver.wait(driver.findElement(By.xpath('//span[@ng-if="!storageCalcResult.from.small_job"]')).getText().then(function (text) {
             let textMin = text.substring(0, text.indexOf('-'));
