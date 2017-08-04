@@ -125,8 +125,42 @@ condition.nowWeDoing = 'ставим конферм, закрываем рабо
         VD.IWant(VD.ToEqual, text, V.noteForemanNew, 'не нашло или не совпали заметки foremana с реквеста na confirmation page')
     }),config.timeout);
     SF.sleep(0.5);
-    // driver.close();
-    // SF.openTab (0);
+     SF.openTab (0);
+
+condition.nowWeDoing = 'тут проверим на сохранение нотсов при закрытии реквеста без нажатия кнопки сейв';
+    MF.EditRequest_OpenRequest ();
+    SF.clear(By.xpath('//div[contains(@class, "client_notes")]/div[2]/div[3]'));
+    V.noteClientNew1 = SF.randomBukva(10);
+    SF.send(By.xpath('//div[contains(@class, "client_notes")]/div[2]/div[3]'), V.noteClientNew1);
+    V.noteForemanNew1 = SF.randomBukva(10);
+    SF.click(By.xpath('//a[@ng-click="select(key)"][contains(text(), "Foreman notes")]'));
+    SF.clear(By.xpath('//div[contains(@class, "foreman_notes")]/div[2]/div[3]'));
+    SF.click(By.xpath('//div[contains(@class, "foreman_notes")]'));
+    SF.send(By.xpath('//div[contains(@class, "foreman_notes")]/div[2]/div[3]'), V.noteForemanNew1);
+    SF.click(By.xpath('//a[@ng-click="select(key)"][contains(text(), "Sales notes")]'));
+    SF.click(By.xpath('//div[contains(@class, "sales_notes")]'));
+    SF.clear(By.xpath('//div[contains(@class, "sales_notes")]/div[2]/div[3]'));
+    V.noteNew1 = SF.randomBukva(10);
+    SF.send(By.xpath('//div[contains(@class, "sales_notes")]/div[2]/div[3]'), V.noteNew1);
+    LF.closeEditRequest ();
+    MF.SweetConfirm ();
+    MF.Board_OpenConfirmed ();
+    MF.Board_OpenRequest(V.request.Id);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {
+        VD.IWant(VD.ToEqual, text, V.noteNew1, 'Не совпали заметочки сейлса после сохранения через закрытие реквеста');
+    }),config.timeout);
+    SF.sleep(1);
+    SF.click(By.xpath('//a[@ng-click="select(key)"][contains(text(), "Foreman notes")]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "foreman_notes")]')).getText().then(function(text) {
+        VD.IWant(VD.ToEqual, text, V.noteForemanNew1, 'Не совпали заметочки форемана после сохранения через закрытие реквеста');
+    }),config.timeout);
+    SF.sleep(1);
+    SF.click(By.xpath('//a[@ng-click="select(key)"][contains(text(), "Client notes")]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "client_notes")]/div[2]/div[3]')).getText().then(function(text) {
+        VD.IWant(VD.ToEqual, text, V.noteClientNew1, 'Не совпали заметочки clienta после сохранения через закрытие реквеста');
+    }),config.timeout);
+    SF.sleep(2);
+
 
     SF.endOfTest();
 };

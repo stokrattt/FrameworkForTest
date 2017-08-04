@@ -55,7 +55,6 @@ condition.nowWeDoing = 'Редактируем карьера';
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
     SF.sleep(3);
-    //ng-model="searchTerm"
     V.carrierNew2.name = SF.randomBukva(6) + '_t';
     V.carrierNew2.contactPerson = SF.randomBukva(6) + '_t';
     V.carrierNew2.contactPersonPhone = SF.randomCifra(10);
@@ -105,7 +104,7 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     SF.sleep(4);
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
-    SF.sleep(1);
+    SF.sleep(4);
 
     LF.RememberCarrier(V.carrierNew3);
     VD.IWant(VD.NotToEqual,V.carrierNew.name, V.carrierNew2.name,'Поля совпадают');
@@ -119,7 +118,8 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     VD.IWant(VD.NotToEqual,V.carrierNew.eMail, V.carrierNew2.eMail,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.webSite, V.carrierNew2.webSite,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.phoneNumber1, V.carrierNew2.phoneNumber1,'Поля совпадают');
-
+    SF.sleep(2);
+    console.log(V.carrierNew3);
     VD.IWant(VD.ToEqual,V.carrierNew3.name, V.carrierNew2.name,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.carrierNew3.contactPerson, V.carrierNew2.contactPerson,'Поля не совпадают');
     VD.IWant(VD.ToEqual,-SF.cleanPrice(V.carrierNew3.contactPersonPhone), V.carrierNew2.contactPersonPhone,'Поля не совпадают');

@@ -1033,18 +1033,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_SaveNotesSales() {
         SF.sleep(3);
-        SF.click(By.xpath('//button[@ng-click="updateNote(note, $index)"]'));
+        SF.click(By.xpath('//button[@ng-click="updateNote()"]'));
         WaitWhileToaster ();
     }
 
     function EditRequest_SaveNotesForeman() {
         SF.sleep(3);
-        SF.click(By.xpath('//div[contains(@class, "foreman_notes")]/following-sibling::button[@ng-click="updateNote(note, $index)"]'));
+        SF.click(By.xpath('//div[contains(@class, "foreman_notes")]/following-sibling::button[@ng-click="updateNote()"]'));
         WaitWhileToaster ();
     }
     function EditRequest_SaveNotesClient() {
         SF.sleep(3);
-        SF.click(By.xpath('//div[contains(@class, "client_notes")]/following-sibling::button[@ng-click="updateNote(note, $index)"]'));
+        SF.click(By.xpath('//div[contains(@class, "client_notes")]/following-sibling::button[@ng-click="updateNote()"]'));
         WaitWhileToaster ();
     }
     //=================================LOCAL DISPATCH============================

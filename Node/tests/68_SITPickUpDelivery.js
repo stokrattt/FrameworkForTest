@@ -75,12 +75,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
     SF.send(By.xpath('//input[@ng-model="scheduleDeliveryDate"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
-    SF.click(By.xpath('//md-select[@ng-model="request.ld_status"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//span[text()="LD"]'));
-    SF.sleep(3);
-    LF.closeEditRequest ();
+    SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
 
+    LF.closeEditRequest ();
+    SF.sleep(2);
     condition.nowWeDoing = 'Заходим в PickUp и проверям по филтрам и по введенним даним';
     MF.Board_OpenSideBar();
     SF.sleep(2);

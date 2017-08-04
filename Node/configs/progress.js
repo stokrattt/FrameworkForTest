@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/71_ManualEmailing.js'];
+    config.suite = ['./tests/9_TestNoteSaveNothing.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 30000;
@@ -18,6 +18,9 @@ module.exports = function(config,V) {
     V.foremanLogin = 'TestForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
+    V.foremanLogin2 = 'ForemanFlow1';
+    V.foremanPassword2 = '123';
+    V.foremanName2 = 'Foreman Flow1';
     V.adminName = 'Test';
     V.foremanEmail = 'TestForeman@mail.com';
     V.managerName = 'emilia clark';

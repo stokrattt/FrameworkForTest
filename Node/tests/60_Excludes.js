@@ -46,11 +46,12 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
-    driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
-        VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
-    }),config.timeout);
-    SF.sleep(2);
+    // driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
+    //     // VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+    //     VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
+    // }),config.timeout);
+    // SF.sleep(2);
+    Debug.pause();
     JS.click('a[ng-click=\\"showAdditionalServicesRef.show = !showAdditionalServicesRef.show\\"]:visible');
     // JS.click('li[ng-click=\\"addService(s)\\"]:contains(\\"Tip\\")');
 

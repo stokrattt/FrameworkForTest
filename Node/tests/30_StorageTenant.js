@@ -134,8 +134,13 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
         VD.IWant (VD.ToEqual, V.balanceTenant, -780, 'баланс не совпадает с суммой оплаты')
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.xpath('//td[contains(text(), "-930")]/a[@ng-if="bill.type == \'invoice\'"]/i'));
-    SF.click(By.xpath('//td[contains(text(), "-930")]/a[@ng-if="bill.type == \'invoice\'"]/i'));
+    Debug.pause();
+    SF.click(By.xpath('//tr[@ng-click="openModal(bill.bill_id, bill)"]//a[@ng-if="bill.type == \'invoice\'"]/i'));
+    SF.click(By.xpath('//tr[@ng-click="openModal(bill.bill_id, bill)"]//a[@ng-if="bill.type == \'invoice\'"]/i'));
+
+    // SF.click(By.xpath('//td[contains(text(), "-930")]/a[@ng-if="bill.type == \'invoice\'"]/i'));
+    // SF.click(By.xpath('//td[contains(text(), "-930")]/a[@ng-if="bill.type == \'invoice\'"]/i'));
+
     SF.openTab(1);
     SF.waitForLocated (By.xpath('//b[contains(text(), "Account Balance Due (USD):")]'));
     SF.sleep(3);

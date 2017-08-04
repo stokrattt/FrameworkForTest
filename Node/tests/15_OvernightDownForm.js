@@ -14,75 +14,78 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.CreateOvernightDownForm (V.client);
 condition.nowWeDoing = 'запоминаем данные калькулятора PICK UP';
     // LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
+    V.frontNumbersOvernightDown_UP = {};
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@ng-if="storageCalcResult.to.surcharge_fuel"]/span')).getText().then(function(text){
+        V.frontNumbersOvernightDown_UP.FuelTo = SF.cleanPrice (text.replace('$', ''));
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]/div[@ng-if="!storageCalcResult.to.small_job"]/span')).getText().then(function(text){
+        V.frontNumbersOvernightDown_UP.QuoteMinTo = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+        V.frontNumbersOvernightDown_UP.QuoteMaxTo = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.to.travelTime"]/span')).getText().then(function (text) {
+        V.frontNumbersOvernightDown_UP.TravelTimeTo = SF.cleanPrice(text.substring(text.indexOf('min')));
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[4]/span')).getText().then(function (text) {
+        V.frontNumbersOvernightDown_UP.OverStorTo = SF.cleanPrice (text.replace('$', ''));
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//h3[contains(text(), "Crew Size:")]/following-sibling::span')).getText().then(function (text) {
+        V.frontNumbersOvernightDown_UP.CrewTo = SF.cleanPrice (text);
+    }), config.timeout);
+    SF.sleep (1);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
+        V.frontNumbersOvernightDown_UP.RateTo = text.indexOf('$', 4) == -1 ?
+            SF.cleanPrice(text) :
+            SF.cleanPrice(text.substring(text.indexOf('$', 4)));
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="!storageCalcResult.to.small_job"]')).getText().then(function (text) {
+        let textMin = text.substring(0, text.indexOf('-'));
+        let textMax = text.substring(text.indexOf('-') + 1);
+        let hoursMin = textMin.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('Hrs')));
+        let minutesMin = textMin.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('Hrs') + 1), textMin.indexOf('Min')));
+        V.frontNumbersOvernightDown_UP.JobTimeMinTo = hoursMin * 60 + minutesMin;
+        let hoursMax = textMax.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('Hrs')));
+        let minutesMax = textMax.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('Hrs') + 1), textMax.indexOf('Min')));
+        V.frontNumbersOvernightDown_UP.JobTimeMaxTo = hoursMax * 60 + minutesMax;
+    }), config.timeout);
+    SF.sleep (2);
+    V.frontNumbersOvernightDown_Del = {};
 
-//     driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@ng-if="storageCalcResult.to.surcharge_fuel"]/span')).getText().then(function(text){
-//         V.frontNumbersOvernightDown_UP.FuelTo = SF.cleanPrice (text.replace('$', ''));
-//     }), config.timeout);
-//     driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]/div[@ng-if="!requestToStorage.small_job"]/span')).getText().then(function(text){
-//         V.frontNumbersOvernightDown_UP.QuoteMinTo = SF.cleanPrice(text.substring(0, text.indexOf('-')));
-//         V.frontNumbersOvernightDown_UP.QuoteMaxTo = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
-//     }), config.timeout);
-//     driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.to.travelTime"]/span')).getText().then(function (text) {
-//         V.frontNumbersOvernightDown_UP.TravelTimeTo = SF.cleanPrice(text.substring(text.indexOf('min')));
-//     }), config.timeout);
-//     driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[4]/span')).getText().then(function (text) {
-//         V.frontNumbersOvernightDown_UP.OverStorTo = SF.cleanPrice (text.replace('$', ''));
-//     }), config.timeout);
-//     driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//h3[contains(text(), "Crew Size:")]/following-sibling::span')).getText().then(function (text) {
-//         V.frontNumbersOvernightDown_UP.CrewTo = SF.cleanPrice (text);
-//     }), config.timeout);
-//     SF.sleep (1);
-//     driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
-//         V.frontNumbersOvernightDown_UP.RateTo = text.indexOf('$', 4) == -1 ?
-//             SF.cleanPrice(text) :
-//             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
-//     }), config.timeout);
-//     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!requestToStorage.small_job"]')).getText().then(function (text) {
-//         let textMin = text.substring(0, text.indexOf('-'));
-//         let textMax = text.substring(text.indexOf('-') + 1);
-//         let hoursMin = textMin.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('Hrs')));
-//         let minutesMin = textMin.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('Hrs') + 1), textMin.indexOf('Min')));
-//         V.frontNumbersOvernightDown_UP.JobTimeMinTo = hoursMin * 60 + minutesMin;
-//         let hoursMax = textMax.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('Hrs')));
-//         let minutesMax = textMax.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('Hrs') + 1), textMax.indexOf('Min')));
-//         V.frontNumbersOvernightDown_UP.JobTimeMaxTo = hoursMax * 60 + minutesMax;
-//     }), config.timeout);
-//     SF.sleep (2);
-//
-//
-// condition.nowWeDoing = 'запоминаем данные с калькулятора DELIVERY';
-//     driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[@ng-if="storageCalcResult.from.surcharge_fuel"]/span')).getText().then(function(text){
-//         V.frontNumbersOvernightDown_Del.FuelFrom = SF.cleanPrice (text.replace('$', ''));
-//     }), config.timeout);
-//     driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[@ng-if="!requestFromStorage.small_job"]/span')).getText().then(function(text){
-//         V.frontNumbersOvernightDown_Del.QuoteMinFrom = SF.cleanPrice(text.substring(0, text.indexOf('-')));
-//         V.frontNumbersOvernightDown_Del.QuoteMaxFrom = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
-//     }), config.timeout);
-//     driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.from.travelTime"]/span')).getText().then(function (text) {
-//         V.frontNumbersOvernightDown_Del.TravelTimeFrom = SF.cleanPrice(text.substring(text.indexOf('min')));
-//     }), config.timeout);
-//     /*driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[4]/span')).getText().then(function (text) {
-//         V.frontNumbersOvernightDown_Del.OverStorFrom = SF.cleanPrice (text.replace('$', ''));
-//     }), config.timeout);*/
-//     driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Crew Size:")]/following-sibling::span')).getText().then(function (text) {
-//         V.frontNumbersOvernightDown_Del.CrewFrom = SF.cleanPrice(text);
-//         console.log(V.frontNumbersOvernightDown_Del.CrewFrom);
-//     }), config.timeout);
-//     driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
-//         V.frontNumbersOvernightDown_Del.RateFrom = text.indexOf('$', 4) == -1 ?
-//             SF.cleanPrice(text) :
-//             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
-//     }), config.timeout);
-//     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!requestFromStorage.small_job"]')).getText().then(function (text) {
-//         let textMin = text.substring(0, text.indexOf('-'));
-//         let textMax = text.substring(text.indexOf('-') + 1);
-//         let hoursMin = textMin.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('Hrs')));
-//         let minutesMin = textMin.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('Hrs') + 1), textMin.indexOf('Min')));
-//         V.frontNumbersOvernightDown_Del.JobTimeMinFrom = hoursMin * 60 + minutesMin;
-//         let hoursMax = textMax.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('Hrs')));
-//         let minutesMax = textMax.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('Hrs') + 1), textMax.indexOf('Min')));
-//         V.frontNumbersOvernightDown_Del.JobTimeMaxFrom = hoursMax * 60 + minutesMax;
-//     }), config.timeout);
+condition.nowWeDoing = 'запоминаем данные с калькулятора DELIVERY';
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[@ng-if="storageCalcResult.from.surcharge_fuel"]/span')).getText().then(function(text){
+        V.frontNumbersOvernightDown_Del.FuelFrom = SF.cleanPrice (text.replace('$', ''));
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//div[@ng-if="!storageCalcResult.from.small_job"]/span')).getText().then(function(text){
+        V.frontNumbersOvernightDown_Del.QuoteMinFrom = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+        V.frontNumbersOvernightDown_Del.QuoteMaxFrom = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="storageCalcResult.from.travelTime"]/span')).getText().then(function (text) {
+        V.frontNumbersOvernightDown_Del.TravelTimeFrom = SF.cleanPrice(text.substring(text.indexOf('min')));
+    }), config.timeout);
+    /*driver.wait(driver.findElement(By.xpath('//div[@class="box_info to_storage storage"]//div[4]/span')).getText().then(function (text) {
+        V.frontNumbersOvernightDown_Del.OverStorFrom = SF.cleanPrice (text.replace('$', ''));
+    }), config.timeout);*/
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Crew Size:")]/following-sibling::span')).getText().then(function (text) {
+        V.frontNumbersOvernightDown_Del.CrewFrom = SF.cleanPrice(text);
+        console.log(V.frontNumbersOvernightDown_Del.CrewFrom);
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
+        V.frontNumbersOvernightDown_Del.RateFrom = text.indexOf('$', 4) == -1 ?
+            SF.cleanPrice(text) :
+            SF.cleanPrice(text.substring(text.indexOf('$', 4)));
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="!storageCalcResult.from.small_job"]')).getText().then(function (text) {
+        let textMin = text.substring(0, text.indexOf('-'));
+        let textMax = text.substring(text.indexOf('-') + 1);
+        let hoursMin = textMin.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMin.substring(0, textMin.indexOf('Hrs')));
+        let minutesMin = textMin.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMin.substring((textMin.indexOf('Hrs') + 1), textMin.indexOf('Min')));
+        V.frontNumbersOvernightDown_Del.JobTimeMinFrom = hoursMin * 60 + minutesMin;
+        let hoursMax = textMax.indexOf('Hrs') == -1 ? 0 : SF.cleanPrice(textMax.substring(0, textMax.indexOf('Hrs')));
+        let minutesMax = textMax.indexOf('Min') == -1 ? 0 : SF.cleanPrice(textMax.substring((textMax.indexOf('Hrs') + 1), textMax.indexOf('Min')));
+        V.frontNumbersOvernightDown_Del.JobTimeMaxFrom = hoursMax * 60 + minutesMax;
+    }), config.timeout);
+    SF.sleep(2);
+    console.log (V.frontNumbersOvernightDown_UP, V.frontNumbersOvernightDown_Del);
+    Debug.pause();
 /*condition.nowWeDoing = 'запоминаем данные Estimated Labor и Overnight Storage';
 
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info total storage"]//div/span')).getText().then(function(text){
@@ -110,7 +113,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
     V.accountNumbersUp = {};
     LF.RememberAccountNumbers (V.accountNumbersUp);
     LF.addToCleanerJob(V.accountNumbersUp.Id);
-    // LF.Validation_Compare_Account_Front_MovStorTo(V.accountNumbersUp,V.frontNumbersDown);
+    LF.Validation_Compare_Account_Front_MovStorTo(V.accountNumbersUp, V.frontNumbersOvernightDown_UP);
     MF.Account_ClickFromStorage ();
     V.accountNumbersDelivery = {};
     SF.sleep (0.5);
@@ -118,7 +121,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep(3);
     LF.RememberAccountNumbers(V.accountNumbersDelivery);
     LF.addToCleanerJob(V.accountNumbersDelivery.Id);
-    LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersDelivery,V.frontNumbersDown);
+    LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersDelivery, V.frontNumbersOvernightDown_Del);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
 

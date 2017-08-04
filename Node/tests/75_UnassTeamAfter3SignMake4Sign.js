@@ -126,6 +126,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//a[@ng-click="vm.unAssignTeam()"]'));
     MF.SweetConfirm();
     MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName2);
     MF.WaitWhileBusy ();

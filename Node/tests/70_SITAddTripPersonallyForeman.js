@@ -400,7 +400,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.cleanTpDeliveryPhone1 = -SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpDeliveryPhone1, V.tpDeliveryPhone1, 'Phone cf не совпали');
     }),config.timeout);
-
+    SF.sleep(3);
 
 
     SF.endOfTest();
