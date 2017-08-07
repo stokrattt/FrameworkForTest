@@ -87,7 +87,7 @@ condition.nowWeDoing = 'идем в леджер и создаем инвойс'
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     MF.WaitWhileToaster();
     SF.sleep(3);
-    
+    Debug.pause();
     SF.click(By.xpath('//button[@ng-click="proRate()"]'));
 
 condition.nowWeDoing = 'идем в леджер и создаем про рейт';

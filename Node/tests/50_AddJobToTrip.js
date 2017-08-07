@@ -114,12 +114,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.boardNumbers.Payment, V.tpCollected, 'Пеймент должен бить равен тпКолектед');
     // }),config.timeout);
     SF.sleep(2);
+    Debug.pause();
     LF.closeEditRequest ();
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id, item.balance)"]')).getText().then(function(text){
         V.cleanTPCollected = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.tpCollected, V.cleanTPCollected, 'не совпали TP Collected в клоузинге c Payment в модалке реквеста');
     }),config.timeout);
+    Debug.pause();
     SF.click(By.xpath('//div[@ng-click="openRateModal(item)"]'));
     V.ratePerCf= 4;
     SF.sleep(1);

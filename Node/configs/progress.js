@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/9_TestNoteSaveNothing.js'];
+    config.suite = ['./tests/6_WithoutReservationMov&Stor.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 30000;
