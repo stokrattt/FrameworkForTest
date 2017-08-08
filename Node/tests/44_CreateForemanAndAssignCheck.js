@@ -49,6 +49,19 @@ condition.nowWeDoing = 'создаем реквест, конфермим его
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
 
+
+    MF.Board_OpenSideBar ();
+    MF.Board_OpenSettingsGeneral();
+    SF.click(By.linkText('Contract page'));
+    SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.lessInitialContract\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"contract_page.lessInitialContract\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+    SF.click (By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep (5); //сохранялка
+
+
+
 condition.nowWeDoing = 'идем в диспач ищем работу и назначем ей созданного форемана';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch (V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
@@ -59,14 +72,7 @@ condition.nowWeDoing = 'идем в диспач ищем работу и наз
     SF.sleep (2);
     LF.selectCrew(V.foremanFirstName);
 
-    // SF.click (By.xpath('//select[@ng-model="vm.data.foreman"]'));
-    // SF.click(By.xpath('//select[@ng-model="vm.data.foreman"]/option[contains(text(), "'+V.foremanFirstName+'")]'));
-    // SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
-    // SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
-    // SF.click(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
-    // MF.WaitWhileToaster ();
-    // SF.sleep(2);
-    // MF.WaitWhileToaster ();
+
     SF.sleep(2);
     MF.Board_LogoutAdmin ();
 
@@ -80,11 +86,7 @@ condition.nowWeDoing = 'зашли  под созданным фореманом
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
     SF.sleep(1);
-    LF.MakeSignInContract();
-    LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
-    LF.MakeSignInContract();
-    LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
@@ -100,7 +102,6 @@ condition.nowWeDoing = 'зашли  под созданным фореманом
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
     SF.sleep (2);
-    LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_Submit();
     MF.Contract_ReturnToForeman();
@@ -167,6 +168,15 @@ condition.nowWeDoing='идем удалять форемана';
     MF.SweetConfirm ();
     MF.WaitWhileToaster ();
     SF.sleep(3);
+    MF.Board_OpenSideBar ();
+    MF.Board_OpenSettingsGeneral();
+    SF.click(By.linkText('Contract page'));
+    SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.lessInitialContract\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[ng-model=\"contract_page.lessInitialContract\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+    SF.click (By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep (5); //сохранялка
     // MF.WaitWhileBusy ();
     // SF.sleep (2);
     // MF.Board_LogoutAdmin ();
