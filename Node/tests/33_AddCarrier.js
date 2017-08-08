@@ -13,40 +13,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSideBar ();
     MF.Board_OpenCourier ();
     MF.Board_OpenSideBar ();
-    SF.sleep(2);
-    V.carrierNew={};
-    V.carrierNew2={};
-    V.carrierNew3={};
-
-condition.nowWeDoing = 'Создаем карьера';
-    SF.click(By.xpath('//button[@ng-click="addCarrier()"]'));
-    JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
-    SF.sleep(1);
-    V.carrierNew.name = SF.randomBukva(6) + '_t';
-    V.carrierNew.contactPerson = SF.randomBukva(6) + '_t';
-    V.carrierNew.contactPersonPhone = SF.randomCifra(10);
-    SF.send (By.xpath('//input[@ng-model="agentModel.data.name"]'), V.carrierNew.name);
-    SF.send (By.xpath('//input[@ng-model="agentModel.data.contact_person"]'), V.carrierNew.contactPerson);
-    SF.send (By.xpath('//input[@ng-model="agentModel.data.contact_person_phone"]'), V.carrierNew.contactPersonPhone);
-    V.carrierNew.address = SF.randomBukva(6) + '_t';
-    V.carrierNew.zipCode = "56743";
-    SF.send (By.xpath('//textarea[@ng-model="agentModel.data.address"]'), V.carrierNew.address);
-    SF.send (By.xpath('//input[@ng-model="agentModel.data.zip_code"]'), V.carrierNew.zipCode);
-    SF.click (By.xpath('//md-checkbox[@ng-model="agentModel.data.company_carrier"]'));
-    SF.click (By.xpath('//md-checkbox[@ng-model="agentModel.data.active"]'));
-    V.carrierNew.perCf = "2";
-    V.carrierNew.iccMc = SF.randomCifra(10);
-    SF.send (By.xpath('//input[@ng-model="agentModel.data.per_cf"]'), V.carrierNew.perCf);
-    SF.send (By.xpath('//input[@ng-model="agentModel.data.icc_mc_number"]'), V.carrierNew.iccMc);
-    V.carrierNew.usdot = SF.randomCifra(10);
-    V.carrierNew.eMail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    SF.send (By.xpath('//input[@ng-model="agentModel.data.usdot_number"]'), V.carrierNew.usdot);
-    SF.send (By.xpath('//input[@ng-model="agentModel.data.email"]'), V.carrierNew.eMail);
-    V.carrierNew.webSite = "fdsfd.com";
-    V.carrierNew.phoneNumber1 = SF.randomCifra(10);
-    SF.send (By.xpath('//input[@ng-model="agentModel.data.web_site"]'), V.carrierNew.webSite);
-    SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierNew.phoneNumber1);
-    JS.click('span:contains(\\"Save\\")');
+    SF.sleep(2)
+    LF.CreateCarrier();
 
 condition.nowWeDoing = 'Редактируем карьера';
     SF.sleep(3);
@@ -150,18 +118,18 @@ condition.nowWeDoing = 'Проверяем есть ли карьер в спи�
     SF.sleep(4);
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
 
-// condition.nowWeDoing = 'удаляем карьера';
-//     driver.wait(driver.executeScript('return location.toString();').then(function(url){
-//         let c='a';
-//         for (let i=0; i<url.length; i++) {
-//             if (url[i]=='/'){c=i;}
-//         }
-//         let id = url.substring(c+1);
-//         driver.executeScript(
-//             JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8084/server/long_distance_carrier/'+id)
-//         );
-//     }),config.timeout);
-//     SF.sleep(1);
+condition.nowWeDoing = 'удаляем карьера';
+    driver.wait(driver.executeScript('return location.toString();').then(function(url){
+        let c='a';
+        for (let i=0; i<url.length; i++) {
+            if (url[i]=='/'){c=i;}
+        }
+        let id = url.substring(c+1);
+        driver.executeScript(
+            JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8084/server/long_distance_carrier/'+id)
+        );
+    }),config.timeout);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
