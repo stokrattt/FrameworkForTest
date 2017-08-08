@@ -516,7 +516,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Contract_ClickTips10() {
         SF.sleep(2);
-        SF.click(By.xpath('//div[@ng-click="tipsPercChange(10)"]'));
+        SF.click(By.xpath('//div[@ng-click="tipsPercChange(10); editField(\'tipsPercent\');"]'));
     }
 
     function Contract_ClickAddTips() {
@@ -550,7 +550,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_Submit() {
         WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
-        SF.sleep(2);
+        SF.sleep(7);
         SweetConfirm();
     }
 

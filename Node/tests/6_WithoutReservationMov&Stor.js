@@ -29,6 +29,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_CloseEditRequest();
+    MF.Board_SearchRequest((V.boardNumbers.Id) + 1);
+    SF.sleep(3);
+    V.request.Id = (V.boardNumbers.Id) + 1;
+    MF.Board_SearchOpenRequest (V.request);
+    MF.EditRequest_SetToNotConfirmed();
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.EditRequest_SetAdressTo ();
+    MF.EditRequest_SaveChanges();
+    MF.EditRequest_CloseEditRequest();
+
+
     MF.Board_LogoutAdmin ();
 
     condition.nowWeDoing = 'идем в аккаунт букать работу без резервации';
@@ -38,10 +49,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(5);
     MF.WaitWhileBusy();
     LF.ConfirmRequestInAccount_NoReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
-    LF.LogoutFromAccount ();
+    MF.Account_ClickFromStorage ();
+    MF.WaitWhileBusy();
+    LF.ConfirmRequestInAccount_NoReservation();
+    MF.Account_WaitForGreenTextAfterConfirm();
+    // LF.LogoutFromAccount ();
     SF.endOfTest();
 };

@@ -40,7 +40,28 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//h2[contains(text(),"Are you sure you want set time manualy?")]'));
     SF.click(By.xpath('//button[contains(text(),"Yes, lel\'s do it!")]'));
     SF.sleep(1);
-    // LF.closeEditRequest ();
+    MF.EditRequest_OpenSettings ();
+    V.managerFirstName = 'emilia';
+
+    LF.SetManager(V.managerFirstName);
+    MF.EditRequest_OpenRequest ();
+    MF.EditRequest_SaveChanges();
+    LF.closeEditRequest ();
+    SF.click(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.request.Id2 + '")]/..' +
+        '//div[@ng-show="PermissionsServices.hasPermission(\'canSignedSales\');"]'));
+    SF.click(By.xpath('//span[contains(text(), "JackSales")]'));
+    MF.SweetConfirm();
+    MF.WaitWhileBusy ();
+    MF.WaitWhileToaster ();
+    MF.Board_OpenRequest(V.request.Id2);
+    MF.EditRequest_OpenLogs();
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in detail.text"]/' +
+        'span[@ng-if="item.text.search(\'Lot\') == -1 && item.text.search(\'Charges\') == -1 && item.text != \'client notes\'"]' +
+        '/span[2]/span[2]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'JackSales do not delete', 'в логах не отобразилась смена менеджера');
+    }),config.timeout);
+    SF.sleep(3);
+
     // MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
