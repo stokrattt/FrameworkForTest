@@ -1933,6 +1933,47 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.id("save-inventory"));
         SF.sleep (4);
     }
+
+    function addAdditionalInventoryBoard(boardNumbers) {
+        SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
+        JS.waitForExist('div.busyoverlay');
+        SF.sleep (5);
+        MF.WaitWhileBusy ();
+        JS.click('div[ng-repeat=\\"filter in filters\\"]:visible div:first');
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
+
+        if (boardNumbers!=undefined) {
+            driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcTotals.cfs > 0 && !isMobile"]')).getText().then(function (text) {
+                boardNumbers.InventoryCubicFit = SF.cleanPrice(text.replace('Total Estimated Cubic Feet: ', ''));
+            }), config.timeout);
+        }
+        SF.click(By.id("save-inventory"));
+        SF.sleep (4);
+    }
+
     function RememberStorageNumbers(storageNumbers) {
         driver.wait(driver.findElement(By.xpath('//div[@ng-if="data.rentals.move_request_id"]')).getText().then(function(text){
             storageNumbers.IdMoving = SF.cleanPrice(text);
@@ -2346,6 +2387,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         gotoSetingsLD: gotoSetingsLD,
         deletePendingRequest: deletePendingRequest,
         addInventoryBoard: addInventoryBoard,
+        addAdditionalInventoryBoard:addAdditionalInventoryBoard,
         RememberStorageNumbers: RememberStorageNumbers,
         ValidatePendingStorageRequest: ValidatePendingStorageRequest,
         RememberCarrier: RememberCarrier,

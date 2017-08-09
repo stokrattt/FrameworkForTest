@@ -63,6 +63,7 @@ condition.nowWeDoing = 'переходим с логов по ссылке в а
 
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что появились наши 5 звезд и текст';
     MF.Board_OpenReviewSettings ();
+    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.client.name+'")]/following-sibling::div[1]/p')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Review from email', 'не нашло наш текст для звезд, а может и звезды');
     }),config.timeout);
