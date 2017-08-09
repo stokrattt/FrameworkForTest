@@ -1,10 +1,10 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/50_AddJobToTrip.js'
+        './tests/56_LoadingAllSteps.js'
     ];
 
     config.chainFail = false;
-    config.timeout = 25000;
+    config.timeout = 35000;
     // V.frontURL = 'http://stage.themoveboard.com:8090/front_site/';
     // V.accountURL = 'http://stage.themoveboard.com:8090/account/#/login';
     // V.adminURL = 'http://stage.themoveboard.com:8090/moveBoard/#/login';
