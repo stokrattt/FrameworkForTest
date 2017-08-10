@@ -33,11 +33,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     LF.closeEditRequest ();
 
-    MF.Board_OpenSideBar();
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+    MF.Board_OpenSideBar ();
+    MF.Board_OpenCourier ();
+    MF.Board_OpenSideBar ();
     SF.sleep(2);
-    MF.Board_OpenTripPlanner();
-    MF.Board_OpenSideBar();
+    LF.CreateCarrier();
+    SF.sleep(2);
+    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
     SF.sleep(2);
 
     condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
@@ -167,7 +169,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
 
     SF.click(By.xpath('//h2[contains(text(), "Driver Expenses")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
-    // SF.click(By.xpath('//button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
     V.driverExpensesAmount = 50;
     SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]'));
@@ -260,7 +261,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="tp.delivery_job_id"]'), V.tpDeliveryJobId);
     SF.click(By.xpath('//md-select[@ng-model="selectedCarrier"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//div[contains(text(), "ner")]'));
+    SF.click(By.xpath('//div[contains(text(), "'+V.carrierNew.name+'")]'));
     SF.sleep(2);
     V.customer = SF.randomBukva(6) + '_t';
     V.tpDeliveryEmail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
@@ -323,7 +324,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
 
-    SF.click(By.xpath('//button[@ng-click="openNewPayment($event, 0)"]'));
+    SF.click(By.xpath('//button[@ng-click="openNewPayment($event, 0, tpId, [tpId], 1)"]'));
     SF.sleep(2);
     V.tpPayment = 200;
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
@@ -353,7 +354,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="updateSit()"]'));
     SF.sleep(2);
-    // SF.click(By.xpath('//button[@ng-click="createTpDelivery()"]'));
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
     SF.sleep(8);
     condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
