@@ -27,11 +27,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
-    SF.sleep(2);
+    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'))
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-    SF.sleep(3);
+    SF.sleep(2);
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
-    SF.sleep(3);
+    MF.WaitWhileBusy();
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//option[text()="test"]'));
     V.SITRooms = 1;
@@ -41,11 +41,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
 
     SF.click(By.xpath('//a[@ng-click="save()"]'));
-    SF.sleep(3);
+    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="UpdateRequestInvoice()"]'));
-    SF.sleep(3);
+    JS.waitForExist('button[ng-click="update(request)"]:visible');
+    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    SF.sleep(3);
+    JS.waitForExist("div.toast-success:visible");
     LF.closeEditRequest ();
 
     condition.nowWeDoing = 'Заходим в Jobs in SIT Проверям есть ли ета робота и совпали ли Storage NAme';
@@ -53,7 +54,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     MF.Board_OpenJobsInSIT();
     MF.Board_OpenSideBar();
-    SF.sleep(2);
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]')).getText().then(function(text){
         V.storageName = text;
@@ -67,9 +67,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     MF.WaitWhileBusy();
     SF.click(By.xpath('//a[@ng-click="select(tabs[2])"]'));
-    SF.sleep(4);
+    MF.WaitWhileBusy();
     SF.click(By.xpath('//input[@ng-model="delivery_disable"]'));
-    SF.sleep(3);
+    SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
     SF.sleep(2);
@@ -78,21 +78,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
 
     LF.closeEditRequest ();
-    SF.sleep(2);
     condition.nowWeDoing = 'Заходим в PickUp и проверям по филтрам и по введенним даним';
     MF.Board_OpenSideBar();
-    SF.sleep(2);
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
     SF.sleep(2);
     MF.Board_OpenPickup();
-    SF.sleep(2);
     MF.Board_OpenSideBar();
     SF.sleep(2);
     SF.click(By.xpath('//md-select[@ng-model="selectedStatus"]'));
-    SF.sleep(2);
+    SF.sleep(1);
     SF.click(By.xpath('//md-option[@ng-repeat="item in ldStatuses"]/div[text()="LD"]'));
-    SF.sleep(5);
-
     SF.click(By.xpath('//div[@ng-click="openModalFrom()"]'));
     SF.sleep(2);
     SF.click(By.xpath('//div[text()="MA - Massachusetts"]'));
@@ -119,8 +114,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.statusLD =  text;
         VD.IWant(VD.ToEqual, V.statusLD, 'LD', 'LD status не совпали');
     }),config.timeout);
-    SF.sleep(2);
-
     // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
     // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
     // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
