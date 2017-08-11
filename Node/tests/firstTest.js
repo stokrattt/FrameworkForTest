@@ -11,7 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get('http://stage.themoveboard.com/moveBoard/#/login');
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    Debug.pause();
+
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

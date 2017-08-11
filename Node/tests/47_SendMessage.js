@@ -25,7 +25,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, отправл�
     MF.Account_OpenMessage();
     V.toAdmin = SF.randomBukva(6) + '_toAdmin';
     MF.BoardAccount_SendMessage(V.toAdmin);
-    Debug.pause();
+
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -54,7 +54,7 @@ condition.nowWeDoing = 'зашли в реквест';
     MF.EditRequest_OpenLogs ();
     MF.EditRequest_Check1EmailExist("info@lmmoving.com", "New Message From "+V.client.name+"");
     MF.EditRequest_Check1EmailExist(V.client.email, "New Message From ");
-Debug.pause();
+
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);

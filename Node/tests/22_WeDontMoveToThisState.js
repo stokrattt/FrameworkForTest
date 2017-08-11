@@ -55,9 +55,9 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ве
         V.frontNumbers.moveDate = D;
     }));
     SF.sleep(1);
-    driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+    driver.executeScript("$('ultrasmall-form div[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
     SF.sleep(1);
-    SF.waitForVisible(By.xpath('//input[@ng-click="Continue2(\'step2\')"]'));
+    SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
     SF.sleep (4);
 condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы с вкл галкой ассепт алл квотс должно пускать иначе ошибка';
@@ -177,9 +177,9 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
         V.frontNumbers.moveDate = D;
     }),config.timeout);
     SF.sleep(1);
-    driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+    driver.executeScript("$('ultrasmall-form div[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
     SF.sleep(3);
-    SF.waitForVisible(By.xpath('//input[@ng-click="Continue2(\'step2\')"]'));
+    SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
 condition.nowWeDoing = 'создаем реквест с нижней формы третий раз, должно пускать, если нет то ошибка';
     SF.sleep (3);
@@ -254,9 +254,9 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     SF.sleep(2);
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar),config.timeout);
     SF.sleep(2);
-    driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+    driver.executeScript("$('ultrasmall-form div[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
     SF.sleep(2);
-    SF.waitForVisible(By.xpath('//input[@ng-click="Continue2(\'step2\')"]'));
+    SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
 condition.nowWeDoing = 'создаем реквест с нижней формы 4 раз в ту территорию в которую выставилу цену, должно пускать, если нет то ошибка';
     SF.sleep (4);

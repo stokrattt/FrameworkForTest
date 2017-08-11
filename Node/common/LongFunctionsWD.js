@@ -23,14 +23,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-        JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
+        JS.click('div[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -58,14 +58,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-		JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
+		JS.click('div[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -97,14 +97,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-		JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
+		JS.click('div[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -133,14 +133,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-		JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
+		JS.click('div[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -172,14 +172,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-		JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
+		JS.click('div[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -218,14 +218,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.select('ultrasmall-form select[ng-model="request.typeTo"]', 3);
         SF.sleep(1);
-		JS.click('input[ng-click="Continue2(\\\'step2\\\')"]');
+		JS.click('div[ng-click="Continue2(\\\'step2\\\')"]');
         SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('input[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     }
     function AccountLocalEnterAddress() {

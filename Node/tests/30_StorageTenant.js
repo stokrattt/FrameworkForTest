@@ -87,7 +87,7 @@ condition.nowWeDoing = 'идем в леджер и создаем инвойс'
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     MF.WaitWhileToaster();
     SF.sleep(3);
-    Debug.pause();
+
     SF.click(By.xpath('//button[@ng-click="proRate()"]'));
 
 condition.nowWeDoing = 'идем в леджер и создаем про рейт';
@@ -134,7 +134,7 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
         VD.IWant (VD.ToEqual, V.balanceTenant, -780, 'баланс не совпадает с суммой оплаты')
     }),config.timeout);
     SF.sleep(0.5);
-    Debug.pause();
+
     SF.click(By.xpath('//tr[@ng-click="openModal(bill.bill_id, bill)"]//a[@ng-if="bill.type == \'invoice\'"]/i'));
     SF.click(By.xpath('//tr[@ng-click="openModal(bill.bill_id, bill)"]//a[@ng-if="bill.type == \'invoice\'"]/i'));
 

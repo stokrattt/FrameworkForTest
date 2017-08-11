@@ -85,7 +85,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     }), config.timeout);
     SF.sleep(2);
     console.log (V.frontNumbersOvernightDown_UP, V.frontNumbersOvernightDown_Del);
-    Debug.pause();
+
 /*condition.nowWeDoing = 'запоминаем данные Estimated Labor и Overnight Storage';
 
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info total storage"]//div/span')).getText().then(function(text){

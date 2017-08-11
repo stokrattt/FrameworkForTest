@@ -132,7 +132,7 @@ condition.nowWeDoing = 'идём в логи';
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     // MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Long Distance Quote (Pending Status)");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Long Distance Quote (Not Confirmed Status)");
-    Debug.pause();
+
     V.logNumbers={};
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Long Distance Quote (Not Confirmed Status)")][contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +

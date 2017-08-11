@@ -20,7 +20,7 @@ condition.nowWeDoing = 'идем в админку в настройки рев�
     SF.select(By.xpath('//select[@ng-model="selectedDay"]'), 0);
     SF.click(By.xpath('//button[@ng-click="apply()"]'));
     SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(2);
+    SF.sleep(5);
 
 condition.nowWeDoing = 'создаем локал мув, конфермим его и закрываем работу';
     LF.CreateLocalMovingFromBoard (V.client);

@@ -389,12 +389,12 @@ exports.sendRequestNoParam = function(type, url){
 };
 exports.payrollTableSum = function () {
     var clearText = function(dirtyText){return dirtyText.replace (/\$|,/gi,  ''); };
-    var css = '.IdForTests1';
+    var css = '#print-area';
     var selector = css+' td:last-child';
     var sum = 0;
     var len =  $(selector).length-1;
     console.log('len '+len);
-    for(var i=0; i<len; i++){8/
+    for(var i=0; i<len; i++){
         console.log(Number(clearText($(selector)[i].innerHTML)));
         sum=sum+Number(clearText($(selector)[i].innerHTML));
     }

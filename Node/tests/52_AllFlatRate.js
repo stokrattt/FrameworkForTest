@@ -91,7 +91,7 @@ condition.nowWeDoing = 'пошли в админку, открыли рекве�
 condition.nowWeDoing = 'идем в акк подтвердить выбранную опцию';
     MF.Account_OpenRequest (V.FRId);
     MF.Account_ChooseOptionFlatRate();
-    Debug.pause();
+
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

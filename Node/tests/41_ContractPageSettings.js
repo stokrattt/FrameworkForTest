@@ -121,7 +121,7 @@ condition.nowWeDoing = 'проверяем настройку Custom';
         driver.wait(driver.executeScript("return $('tr[ng-if=\"contract_page.paymentTax.customTax.state\"]').length").then(function (check) {
             VD.IWant (VD.ToEqual, check, 1, 'настройка Custom не включилась');
         }),config.timeout);
-        Debug.pause();
+
         SF.sleep (1);
     } else {
         SF.openTab (2);

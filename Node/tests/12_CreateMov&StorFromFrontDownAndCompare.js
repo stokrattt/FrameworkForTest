@@ -19,7 +19,7 @@ condition.nowWeDoing = 'заполняем нижний калькулятор �
     SF.sleep(1);
 condition.nowWeDoing = 'запоминаем данные которые посчитал кальк';
     LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
-    Debug.pause();
+
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);
     SF.click(By.linkText('View Request Page'));
@@ -39,7 +39,7 @@ condition.nowWeDoing = 'запомнили данные в аке и сравн�
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersFrom,V.frontNumbersDown);
-    Debug.pause();
+
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
