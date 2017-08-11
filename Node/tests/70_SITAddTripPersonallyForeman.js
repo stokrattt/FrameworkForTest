@@ -330,10 +330,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
     SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.tpPayment);
     SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="save()"]'));
-    SF.sleep(2);
-
     V.tpToReceive = V.tpTotalJob - V.tpPayment - V.orderBalance;
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep(4);
+
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.cleanTpToReceive = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
@@ -356,6 +356,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
     SF.sleep(8);
+    JS.click('span:contains(\\"Trip details\\")');
+    SF.sleep(4);
     condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
     SF.click(By.xpath('//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.sleep(3);
