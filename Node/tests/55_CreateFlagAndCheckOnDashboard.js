@@ -22,8 +22,9 @@ condition.nowWeDoing = 'Идем в настройки и создаем фла�
     SF.send(By.xpath('//input[@ng-model="vm.newFlag.name"]'), V.flagName);
     SF.clear(By.xpath('//input[@ng-model="vm.newFlag.color"]'));
     SF.send(By.xpath('//input[@ng-model="vm.newFlag.color"]'), '#b8263a');
-    SF.click(By.xpath('//button[@ng-click="vm.saveNewFlag(); "]'));
-    SF.sleep(4);
+    SF.sleep(1);
+    SF.click(By.xpath('//button[@ng-click="vm.saveNewFlag();"]'));
+    SF.sleep(3);
     MF.WaitWhileBusy ();
 
 condition.nowWeDoing = 'Создаем реквест и ставим созданный флаг';

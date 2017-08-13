@@ -57,6 +57,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (V.CompanyServices.Long) {console.log('выкл Long');SF.click(By.xpath(V.longSelector+'/..'));}
     JS.scroll ('div:contains("General Settings")');
     SF.sleep(3);
+    MF.Board_Refresh ();
 
     MF.Board_LogoutAdmin();
 
@@ -169,7 +170,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (V.CompanyServices.Flat) {SF.click(By.xpath(V.flatSelector+'/..'));}
     if (!V.CompanyServices.Long) {SF.click(By.xpath(V.longSelector+'/..'));}
     SF.sleep(3);
-
+    MF.Board_Refresh ();
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing='проверяем на фронте: включено ли только Storage,Overnight,Long';

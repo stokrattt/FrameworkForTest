@@ -1,7 +1,9 @@
 module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
     function FullSmallCalcAsLocal(client) {
+        SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
-        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02032");
+        SF.sleep(2);
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
 		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
@@ -35,8 +37,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
     function FullSmallCalcAsLD (client) {
+        SF.sleep(2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "90001");
+        SF.sleep(1);
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
 		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
@@ -70,12 +74,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
     function FullSmallCalcAsUnloading(client){
-        SF.sleep(5);
+        SF.sleep(2);
         JS.click("input#extra-service");
         SF.sleep(1.5);
         JS.select('select#edit-service',4);
         SF.sleep(1.5);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02111");
+        SF.sleep(1);
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
 		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
@@ -109,9 +114,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
     function FullSmallCalcAsFlateRate(client) {
-        SF.sleep (4);
+        SF.sleep (2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02461");
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "07304");
+        SF.sleep(1);
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"));
 		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
@@ -151,6 +157,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.select('select#edit-service',3);
         SF.sleep(1.5);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02111");
+        SF.sleep(1);
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
 		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
@@ -189,6 +196,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.select('select#edit-service',2);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), "02032");
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), "02461");
+        SF.sleep(1);
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
 		JS.waitForExist('div.picker__box:visible');
         SF.sleep(2);
@@ -1671,7 +1679,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
         SF.sleep (5);
-        Debug.pause();
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
         SF.sleep (7);
@@ -2160,6 +2167,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep (0.5);
         SF.send (By.id('edit-zip-code-from'), '02461');
         SF.send (By.id('edit-zip-code-to'), '07304');
+        SF.sleep(1);
         JS.select ('#edit-size-move', 10);
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
