@@ -1,5 +1,6 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/47_SendMessage.js'];
+
+    config.suite = ['./tests/56_LoadingAllSteps.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 30000;

@@ -57,7 +57,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (V.CompanyServices.Long) {console.log('выкл Long');SF.click(By.xpath(V.longSelector+'/..'));}
     JS.scroll ('div:contains("General Settings")');
     SF.sleep(3);
-    Debug.pause();
+
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing='проверяем на фронте: включено ли только Local,Loading,Unloading,Flat';
@@ -95,7 +95,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Long Distance');
     }),config.timeout);
     SF.sleep(1);
-    Debug.pause();
+
     condition.nowWeDoing='проверяем на борде: включено ли только Local,Loading,Unloading,Flat';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -131,7 +131,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
             VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Long');
         }),config.timeout);
     SF.sleep(1);
-    Debug.pause();
+
     MF.EditRequest_CloseEditRequest();
 
     condition.nowWeDoing='Включаем только Storage,Overnight,Long';
@@ -169,7 +169,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (V.CompanyServices.Flat) {SF.click(By.xpath(V.flatSelector+'/..'));}
     if (!V.CompanyServices.Long) {SF.click(By.xpath(V.longSelector+'/..'));}
     SF.sleep(3);
-    Debug.pause();
+
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing='проверяем на фронте: включено ли только Storage,Overnight,Long';
@@ -207,7 +207,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Long Distance');
     }),config.timeout);
     SF.sleep(1);
-    Debug.pause();
+
     condition.nowWeDoing='проверяем на борде: включено ли только Storage,Overnight,Long';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -243,7 +243,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
             VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Long');
         }),config.timeout);
     SF.sleep(1);
-    Debug.pause();
+
     MF.EditRequest_CloseEditRequest();
 
     condition.nowWeDoing='Возвращаем как было';

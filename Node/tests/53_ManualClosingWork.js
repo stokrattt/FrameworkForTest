@@ -68,7 +68,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     MF.WaitWhileBusy ();
     SF.click(By.xpath('//div[contains(@class,"payment-receipt-modal")]/following-sibling::div[1]/button[@ng-click="cancel()"]'));
     SF.sleep(1);
-    Debug.pause();
+
     // SF.click(By.xpath('//div[@ng-show="receiptLoader"]/following-sibling::div[contains(@class,"modal-footer")]/button[@ng-click="cancel()" and contains(text(),"Cancel")]'));
     SF.click(By.xpath('//div[contains(@class,"modal-footer")]/button[@ng-click="cancel()" and contains(text(),"Cancel")]'));
 
