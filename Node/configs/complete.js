@@ -95,7 +95,7 @@ module.exports = function(config,V) {
 
 
     ];
-    config.timeout = 60000;
+    config.timeout = 80000;
     config.chainFail = false;
 	config.browser = 'chrome';
 	//V.frontURL = 'http://stage.themoveboard.com:8005';                    //dev
