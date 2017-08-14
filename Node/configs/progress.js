@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/51_ServiceTypesOnOff.js'];
+    config.suite = ['./tests/14_LoadingHelpTopForm.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 30000;

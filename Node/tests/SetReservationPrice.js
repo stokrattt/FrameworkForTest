@@ -14,11 +14,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
 
     SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
-    SF.sleep (2);
     SF.send (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), 150);
     SF.sleep (2);
     SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
+    SF.send (By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'), 500);
     SF.sleep(2);
+    SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.longReservationRate"]'));
+    SF.send (By.xpath('//input[@ng-model="vm.scheduleSettings.longReservationRate"]'), 500);
+    SF.sleep (2);
+    SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.ReservationRateIncreaseRate"]'));
+    SF.sleep(2);
+
+
     driver.navigate().refresh();
     SF.waitForLocated(By.linkText('Create Request'));
     SF.sleep (3);
