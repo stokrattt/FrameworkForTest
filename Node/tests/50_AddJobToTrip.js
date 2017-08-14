@@ -209,7 +209,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
     MF.Board_OpenCarriersAndAgents ();
     MF.Board_OpenSideBar ();
-    SF.sleep(3);
+    SF.sleep(3)
+    SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew.name);
+    SF.sleep(4);
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
 
     condition.nowWeDoing = 'удаляем карьера';
