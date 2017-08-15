@@ -42,8 +42,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Full Packing tooltip")]')).getText().then(function(text){
         V.fullPackingText = text;
     }),config.timeout);
+    Debug.pause();
     MF.Board_LogoutAdmin();
-
+console.log(V.jobTimeText);
     condition.nowWeDoing = 'первый раз в акаунте';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
@@ -80,6 +81,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Full Packing tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.fullPackingText, text, 'не совпали Full Packing tooltip');
     }),config.timeout);
+
 
 
     SF.endOfTest();

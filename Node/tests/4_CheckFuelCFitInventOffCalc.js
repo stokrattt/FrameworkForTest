@@ -84,7 +84,7 @@ condition.nowWeDoing = 'тут мы делаем оплату через кас�
     SF.click(By.xpath('//button[@ng-click="Save()"]'));
     SF.sleep (1);
     MF.WaitWhileToaster();
-    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    JS.click('button[ng-click=\\"save()\\"]:visible');
     SF.sleep (1);
     MF.WaitWhileBusy ();
     JS.click('button[ng-click=\\"cancel()\\"]:visible');
@@ -99,7 +99,7 @@ condition.nowWeDoing = 'тут мы делаем оплату через кас�
     MF.WaitWhileBusy ();
     SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));
     SF.send(By.xpath('//input[@ng-model="receipt.amount"]'), 50);
-    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    JS.click('button[ng-click=\\"save()\\"]:visible');
     SF.sleep (1);
     MF.WaitWhileToaster();
     JS.click('button[ng-click=\\"cancel()\\"]:visible');

@@ -33,7 +33,7 @@ condition.nowWeDoing = 'идем в леджер и создаем паймен�
     SF.click(By.xpath('//button[@ng-click="Save()"]'));
     SF.sleep (2);
     MF.WaitWhileToaster();
-    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    JS.click('button[ng-click=\\"save()\\"]:visible');
     SF.sleep (2);
     MF.WaitWhileBusy ();
     JS.click('a[ng-click=\\"addAuthPayment()\\"]:visible');

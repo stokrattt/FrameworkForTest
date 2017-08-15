@@ -52,7 +52,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     SF.click(By.xpath('//button[@ng-click="Save()"]'));
     MF.WaitWhileToaster();
     MF.WaitWhileBusy ();
-    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    JS.click('button[ng-click=\\"save()\\"]:visible');
     SF.sleep (2);
     MF.WaitWhileBusy ();
     V.cardInput = V.boardNumbersClose.Total - 100;
