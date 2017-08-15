@@ -32,11 +32,9 @@ condition.nowWeDoing='Создаем менеджера*************************
     MF.WaitWhileBusy();
     MF.WaitWhileToaster ();
     SF.sleep(3);
-    //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "mantest testman")]'));
-    //SF.sleep (3);
+
 
 condition.nowWeDoing='Создали менеджера****************************************';
-    //JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     SF.sleep(2);
 

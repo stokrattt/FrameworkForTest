@@ -1224,6 +1224,90 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//button[@class="confirm"]'));
         SweetConfirm();
         SF.sleep(2);
+        WaitWhileBusy ();
+    }
+    function Department_CreateUser() {
+        SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
+        WaitWhileBusy();
+        WaitWhileToaster ();
+        SF.sleep(3);
+    }
+
+    function Department_ClickCreateUser() {
+        SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
+        SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
+    }
+
+    function Department_SendFirstLastNameAndPhone(firstname, lastname, phone) {
+        SF.send (By.xpath('//input[@ng-model="request.firstName"]'), firstname);
+        SF.send (By.xpath('//input[@ng-model="request.lastName"]'), lastname);
+        SF.send(By.xpath('//input[@ng-model="request.phone1"]'), phone);
+    }
+    function Department_SendAccountNameAndPassword(loginName, password) {
+        SF.send (By.xpath('//input[@ng-model="request.login"]'), loginName);
+        SF.send (By.xpath('//input[@ng-model="request.password"]'), password);
+    }
+    function Department_User_OpenAccount() {
+        SF.click (By.linkText('Account'));
+    }
+    function Department_User_OpenNotificationTab() {
+        SF.click(By.linkText('Notifications'));
+    }
+    function Department_SendNotificationEmail(email) {
+        SF.send(By.xpath('//input[@ng-model="request.email"]'), email);
+    }
+    function Department_OpenManager() {
+        SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
+        SF.sleep(3);
+        WaitWhileBusy();
+    }
+    function Department_OpenDriver() {
+        SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
+        SF.sleep(3);
+        WaitWhileBusy();
+    }
+    function Department_OpenHelper() {
+        SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
+        SF.sleep(3);
+        WaitWhileBusy();
+    }
+    function Department_OpenForeman() {
+        SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
+        SF.sleep(3);
+        WaitWhileBusy();
+    }
+    function Department_OpenRateCommissions() {
+        SF.click (By.linkText('Rates & Commission'));
+    }
+    function Department_SendLocalMoveOfficeCom(number) {
+        SF.click(By.xpath('//input[@ng-model="request.localMoveRateCommissionInput1"]'));
+        SF.send(By.xpath('//input[@ng-model="request.localMoveRateCommissionInput1"]'), number);
+    }
+    function Department_SendLongDistanseOfficeCom(number) {
+        SF.click(By.xpath('//input[@ng-model="request.longDistanceMoveRateCommissionInput1"]'));
+        SF.send(By.xpath('//input[@ng-model="request.longDistanceMoveRateCommissionInput1"]'), number);
+    }
+    function Department_OpenAddServices() {
+        SF.click(By.xpath('//button[@ng-click="excludedAdditionalServices()"]'));
+        SF.sleep(3);
+    }
+    function Department_SaveAddServices() {
+        SF.click(By.xpath('//button[@ng-click="saveSettings()"]'));
+        SF.sleep(1);
+    }
+    function Department_ClickClosingPrice() {
+        SF.click(By.xpath('//input[@ng-model="request.estimatedClosingPrice"]'));
+    }
+    function Department_SelectCommissionFromTotal() {
+        SF.select(By.xpath('//select[@ng-model="rateCommission[trueIndex].option"]'), "Commission from total");
+        SF.sleep(1);
+    }
+    function Department_SendCommissionFromTotal(number) {
+        SF.click(By.xpath('//input[@ng-model="rateCommission[$index].input"]'));
+        SF.send(By.xpath('//input[@ng-model="rateCommission[$index].input"]'), number);
+    }
+    function Department_AddRowOnRates() {
+        SF.click(By.xpath('//div[@ng-click="addRow()"]'));
     }
 
     //==================================LONG DISTANCE SETTINGS==========================
@@ -1465,7 +1549,27 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Department_ClickCanSearchOtherLeads: Department_ClickCanSearchOtherLeads,
         Department_ClickCanEditOtherLeads: Department_ClickCanEditOtherLeads,
         Department_ClickCanAssignToOther: Department_ClickCanAssignToOther,
-        Department_SaveUser: Department_SaveUser
+        Department_SaveUser: Department_SaveUser,
+        Department_ClickCreateUser:Department_ClickCreateUser,
+        Department_SendFirstLastNameAndPhone:Department_SendFirstLastNameAndPhone,
+        Department_SendAccountNameAndPassword:Department_SendAccountNameAndPassword,
+        Department_User_OpenAccount:Department_User_OpenAccount,
+        Department_User_OpenNotificationTab:Department_User_OpenNotificationTab,
+        Department_SendNotificationEmail:Department_SendNotificationEmail,
+        Department_CreateUser:Department_CreateUser,
+        Department_OpenManager:Department_OpenManager,
+        Department_OpenRateCommissions:Department_OpenRateCommissions,
+        Department_SendLocalMoveOfficeCom:Department_SendLocalMoveOfficeCom,
+        Department_SendLongDistanseOfficeCom:Department_SendLongDistanseOfficeCom,
+        Department_OpenAddServices:Department_OpenAddServices,
+        Department_SaveAddServices:Department_SaveAddServices,
+        Department_OpenDriver:Department_OpenDriver,
+        Department_OpenHelper:Department_OpenHelper,
+        Department_OpenForeman:Department_OpenForeman,
+        Department_ClickClosingPrice:Department_ClickClosingPrice,
+        Department_SelectCommissionFromTotal:Department_SelectCommissionFromTotal,
+        Department_SendCommissionFromTotal:Department_SendCommissionFromTotal,
+        Department_AddRowOnRates:Department_AddRowOnRates
         //====================================TRIPS==========================================
 
     };

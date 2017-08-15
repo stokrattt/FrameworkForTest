@@ -2302,6 +2302,36 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }),config.timeout);
         SF.sleep(0,5);
     }
+    function Department_TurnOnAllCommission() {
+        MF.Department_AddRowOnRates();
+        SF.click(By.xpath('//div[@ng-hide="request.workerPosition == \'Manager\'' +
+            ' || request.workerPosition == \'Sales\' || request.workerPosition == \'Customer service\' ' +
+            '|| request.workerPosition.split(\' \')[0] == \'Customer\'"]/div[3]//input[@ng-model="rateCommission[$index].input"]'));
+        SF.send(By.xpath('//div[@ng-hide="request.workerPosition == \'Manager\'' +
+            ' || request.workerPosition == \'Sales\' || request.workerPosition == \'Customer service\' ' +
+            '|| request.workerPosition.split(\' \')[0] == \'Customer\'"]/div[3]//input[@ng-model="rateCommission[$index].input"]'), 10);
+        MF.Department_AddRowOnRates();
+        SF.click(By.xpath('//div[@ng-hide="request.workerPosition == \'Manager\'' +
+            ' || request.workerPosition == \'Sales\' || request.workerPosition == \'Customer service\' ' +
+            '|| request.workerPosition.split(\' \')[0] == \'Customer\'"]/div[4]//input[@ng-model="rateCommission[$index].input"]'));
+        SF.send(By.xpath('//div[@ng-hide="request.workerPosition == \'Manager\'' +
+            ' || request.workerPosition == \'Sales\' || request.workerPosition == \'Customer service\' ' +
+            '|| request.workerPosition.split(\' \')[0] == \'Customer\'"]/div[4]//input[@ng-model="rateCommission[$index].input"]'), 10);
+        MF.Department_AddRowOnRates();
+        SF.click(By.xpath('//div[@ng-hide="request.workerPosition == \'Manager\'' +
+            ' || request.workerPosition == \'Sales\' || request.workerPosition == \'Customer service\' ' +
+            '|| request.workerPosition.split(\' \')[0] == \'Customer\'"]/div[5]//input[@ng-model="rateCommission[$index].input"]'));
+        SF.send(By.xpath('//div[@ng-hide="request.workerPosition == \'Manager\'' +
+            ' || request.workerPosition == \'Sales\' || request.workerPosition == \'Customer service\' ' +
+            '|| request.workerPosition.split(\' \')[0] == \'Customer\'"]/div[5]//input[@ng-model="rateCommission[$index].input"]'), 10);
+        MF.Department_AddRowOnRates();
+        SF.click(By.xpath('//div[@ng-hide="request.workerPosition == \'Manager\'' +
+            ' || request.workerPosition == \'Sales\' || request.workerPosition == \'Customer service\' ' +
+            '|| request.workerPosition.split(\' \')[0] == \'Customer\'"]/div[6]//input[@ng-model="rateCommission[$index].input"]'));
+        SF.send(By.xpath('//div[@ng-hide="request.workerPosition == \'Manager\'' +
+            ' || request.workerPosition == \'Sales\' || request.workerPosition == \'Customer service\' ' +
+            '|| request.workerPosition.split(\' \')[0] == \'Customer\'"]/div[6]//input[@ng-model="rateCommission[$index].input"]'), 10);
+    }
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -2410,6 +2440,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         Payroll_DeleteAllPaycheckPaycashCycle: Payroll_DeleteAllPaycheckPaycashCycle,
         Payroll_SelectPeriod20Days: Payroll_SelectPeriod20Days,
         RememberPayrollNumbers_OutsideNameWorker: RememberPayrollNumbers_OutsideNameWorker,
-        RememberPayrollNumbers_InsideWorker: RememberPayrollNumbers_InsideWorker
+        RememberPayrollNumbers_InsideWorker: RememberPayrollNumbers_InsideWorker,
+//Departmnet
+        Department_TurnOnAllCommission:Department_TurnOnAllCommission
+
     };
 };
