@@ -2332,6 +2332,45 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             ' || request.workerPosition == \'Sales\' || request.workerPosition == \'Customer service\' ' +
             '|| request.workerPosition.split(\' \')[0] == \'Customer\'"]/div[6]//input[@ng-model="rateCommission[$index].input"]'), 10);
     }
+    function CreateGeneralDefaultStorage() {
+        SF.click(By.xpath('//div[@ng-click="storage.openModal()"]'));
+        SF.waitForLocated (By.xpath('//button[@ng-click="closeModal()"]'));
+        MF.WaitWhileBusy ();
+        SF.send(By.xpath('//input[@ng-model="modalSave.name"]'), 'Test Storage');
+        SF.send(By.xpath('//textarea[@ng-model="modalSave.address"]'), 'Pensilvania, 34532');
+        SF.send(By.xpath('//input[@ng-model="modalSave.zip"]'), '02032');
+        SF.send(By.xpath('//input[@ng-model="modalSave.phone1"]'), 1234567890);
+        SF.send(By.xpath('//input[@ng-model="modalSave.email"]'), 'test@ya.cc');
+        SF.click(By.xpath('//input[@ng-model="modalSave.tax"]'));
+        SF.send(By.xpath('//input[@ng-model="modalSave.tax"]'), 3);
+        SF.click(By.xpath('//input[@ng-model="modalSave.rate_per_cuft"]'));
+        SF.send(By.xpath('//input[@ng-model="modalSave.rate_per_cuft"]'), 10);
+        SF.click(By.xpath('//input[@ng-model="modalSave.late_fee"]'));
+        SF.send(By.xpath('//input[@ng-model="modalSave.late_fee"]'), 10);
+        SF.click(By.xpath('//input[@ng-model="modalSave.apply_late_fee_in"]'));
+        SF.send(By.xpath('//input[@ng-model="modalSave.apply_late_fee_in"]'), 1);
+        SF.clear (By.xpath('//input[@ng-model="modalSave.min_cuft"]'));
+        SF.click (By.xpath('//input[@ng-model="modalSave.min_cuft"]'));
+        SF.send (By.xpath('//input[@ng-model="modalSave.min_cuft"]'), 25);
+
+        SF.clear (By.xpath('//input[@ng-model="modalSave.reminder1Days"]'));
+        SF.click (By.xpath('//input[@ng-model="modalSave.reminder1Days"]'));
+        SF.send (By.xpath('//input[@ng-model="modalSave.reminder1Days"]'), 2);
+
+        SF.clear (By.xpath('//input[@ng-model="modalSave.reminder2Days"]'));
+        SF.click (By.xpath('//input[@ng-model="modalSave.reminder2Days"]'));
+        SF.send (By.xpath('//input[@ng-model="modalSave.reminder2Days"]'), 3);
+
+        SF.clear (By.xpath('//input[@ng-model="modalSave.reminder3Days"]'));
+        SF.click (By.xpath('//input[@ng-model="modalSave.reminder3Days"]'));
+        SF.send (By.xpath('//input[@ng-model="modalSave.reminder3Days"]'), 4);
+
+        SF.click(By.xpath('//input[@ng-model="modalSave.default"]'));
+        SF.click(By.xpath('//button[@ng-click="isUpdate? saveStorage() : addNewStorage()"]'));
+        MF.WaitWhileBusy();
+        SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
+        MF.WaitWhileBusy ();
+    }
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -2442,7 +2481,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberPayrollNumbers_OutsideNameWorker: RememberPayrollNumbers_OutsideNameWorker,
         RememberPayrollNumbers_InsideWorker: RememberPayrollNumbers_InsideWorker,
 //Departmnet
-        Department_TurnOnAllCommission:Department_TurnOnAllCommission
+        Department_TurnOnAllCommission:Department_TurnOnAllCommission,
+
+        CreateGeneralDefaultStorage:CreateGeneralDefaultStorage
+
 
     };
 };
