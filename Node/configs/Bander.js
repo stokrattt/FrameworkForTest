@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/77_CustomTooltips.js'
+        './tests/56_LoadingAllSteps.js'
     ];
 
     config.chainFail = false;

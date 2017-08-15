@@ -180,26 +180,26 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
 
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
-    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Customer '+V.client.name+' '+V.client.fam+' was login.")]')).getText().then(function(text){
-    // }),config.timeout);
-    //
-    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Customer '+V.client.name+' '+V.client.fam+' was login.")]')).getText().then(function(text){
-    // }),config.timeout);
-    //
-    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"User Visit Confirmation Page")]')).getText().then(function(text){
-    // }),config.timeout);
-    //
-    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request '+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
-    // }),config.timeout);
-    //
-    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Reservation received")]')).getText().then(function(text){
-    // }),config.timeout);
-    // SF.click (By.xpath('//button[@ng-click="checkAll()"]'));
-    // SF.sleep(3);
-    // SF.click (By.xpath('//button[@ng-click="openFilters = !openFilters"]'));
-    // SF.sleep(3);
-    // SF.click (By.xpath('//md-switch[@ng-change="turnAllNotifications()"]'));
-    // SF.sleep(2);
-    // SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Customer '+V.client.name+' '+V.client.fam+' was login.")]')).getText().then(function(text){
+    }),config.timeout);
+
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Customer '+V.client.name+' '+V.client.fam+' was login.")]')).getText().then(function(text){
+    }),config.timeout);
+
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"User Visit Confirmation Page")]')).getText().then(function(text){
+    }),config.timeout);
+
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request '+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
+    }),config.timeout);
+
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Reservation received")]')).getText().then(function(text){
+    }),config.timeout);
+    SF.click (By.xpath('//button[@ng-click="checkAll()"]'));
+    SF.sleep(3);
+    SF.click (By.xpath('//button[@ng-click="openFilters = !openFilters"]'));
+    SF.sleep(3);
+    SF.click (By.xpath('//md-switch[@ng-change="turnAllNotifications()"]'));
+    SF.sleep(2);
+    SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
     SF.endOfTest();
 };
