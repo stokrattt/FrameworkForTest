@@ -31,6 +31,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//a[@ng-click="select(tabs[7])"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="goToRequest()"]'));
     SF.sleep(2);
+    condition.nowWeDoing = 'Заходим на акаунт и проверяем Extra pickup и Extra Drop off';
     SF.click(By.xpath('//button[@ng-click="goToRequest()"]'));
     SF.openTab(1);
     SF.waitForVisible(By.xpath('//div[contains(text(), "Extra Drop off:")]/following-sibling::div'));
