@@ -61,11 +61,12 @@ condition.nowWeDoing = 'зашли в реквест';
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest (V.accountNumbers.Id);
     MF.Account_OpenMessage();
-    driver.wait(driver.findElement(By.xpath('//a[contains(text(), "'+V.adminName+'")]/following-sibling::span[2]/p/p')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "'+V.toClientFromAdmin+'")]')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, V.toClientFromAdmin, text, 'не нашло текст который мы отправили клиенту от админа');
     }),config.timeout);
-    SF.sleep(1);
+    SF.sleep(2);
     V.toSalesFromClient = SF.randomBukva(6) + '_toSalesFromClient';
+    SF.sleep(2);
     MF.BoardAccount_SendMessage(V.toSalesFromClient);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
@@ -82,6 +83,10 @@ condition.nowWeDoing = 'Идем под сейлсом и проверяем ч�
     // JS.scroll ('div[ng-click=\"markAllMessagesAsRead()\"]');
     JS.scroll ('h2:contains("Requests")');
     MF.BoardAccount_SendMessage(V.toClientFromSales);
+    MF.Board_OpenDashboard ();
+    MF.Board_OpenRequest (V.accountNumbers.Id);
+    MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.client.email, "New Message From JackSales");
     LF.LogoutFromBoardForeman ();
     SF.get(V.accountURL);
 condition.nowWeDoing = 'Идем под клиентом и проверяем что у него есть смс от сейлса';
