@@ -64,9 +64,8 @@ condition.nowWeDoing = 'зашли в реквест';
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "'+V.toClientFromAdmin+'")]')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, V.toClientFromAdmin, text, 'не нашло текст который мы отправили клиенту от админа');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     V.toSalesFromClient = SF.randomBukva(6) + '_toSalesFromClient';
-    SF.sleep(2);
     MF.BoardAccount_SendMessage(V.toSalesFromClient);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
@@ -87,6 +86,7 @@ condition.nowWeDoing = 'Идем под сейлсом и проверяем ч�
     MF.Board_OpenRequest (V.accountNumbers.Id);
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "New Message From JackSales");
+    LF.closeEditRequest();
     LF.LogoutFromBoardForeman ();
     SF.get(V.accountURL);
 condition.nowWeDoing = 'Идем под клиентом и проверяем что у него есть смс от сейлса';
