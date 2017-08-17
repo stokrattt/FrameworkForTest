@@ -82,7 +82,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck((V.boardNumbersNoRes.LaborTimeMax + V.boardNumbersNoRes.TravelTime)/60));
     SF.sleep(1);
     SF.click(By.xpath('//input[@ng-model="request.reservation_rate.value"]'));
-    SF.click(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
+    SF.click(By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'));
     SF.sleep(1);
     condition.nowWeDoing = 'сравниваем аккаунт и админку без резервации';
     LF.Validation_Compare_Account_Admin(V.accountNumbersNoRes,V.boardNumbersNoRes);

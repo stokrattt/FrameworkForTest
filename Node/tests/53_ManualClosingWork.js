@@ -49,11 +49,11 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     SF.send (By.xpath('//input[@ng-model="receipt.amount"]'),100);
     SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
     SF.sleep (1);
-    SF.click(By.xpath('//button[@ng-click="Save()"]'));
+    // SF.click(By.xpath('//button[@ng-click="Save()"]'));
     MF.WaitWhileToaster();
     MF.WaitWhileBusy ();
     JS.click('button[ng-click=\\"save()\\"]:visible');
-    SF.sleep (2);
+    SF.sleep (3);
     MF.WaitWhileBusy ();
     V.cardInput = V.boardNumbersClose.Total - 100;
     SF.click(By.xpath('//a[@ng-click="addAuthPayment()"]'));
@@ -65,6 +65,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     LF.FillCardPayModal ();
     JS.waitForExist('div.payment-receipt-modal');
     MF.WaitWhileToaster();
+    SF.sleep(2);
     MF.WaitWhileBusy ();
     SF.click(By.xpath('//div[contains(@class,"payment-receipt-modal")]/following-sibling::div[1]/button[@ng-click="cancel()"]'));
     SF.sleep(1);

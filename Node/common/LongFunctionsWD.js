@@ -1072,7 +1072,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
         SF.send (By.id('edit-moving-from'), 'otkuda edem');
         SF.send (By.id('edit-moving-from-apt'), 324535);
-        SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'kuda edem');
+        SF.send (By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'), 'kuda edem');
         SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
         SF.click (By.xpath('//button[@ng-click="update(client)"]'));
         SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
