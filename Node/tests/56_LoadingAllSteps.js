@@ -34,6 +34,24 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenSettingsDepartment();
+    MF.Board_OpenSideBar();
+    MF.WaitWhileBusy ();
+    SF.sleep(2);
+    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "Admin Flow1")]'))).doubleClick().perform();
+    SF.sleep (3);
+    SF.click(By.xpath('//li[@ng-click="activeMainTab = 6"]'));
+    SF.sleep(1);
+    driver.wait(driver.executeScript("if($('md-switch[ng-change=\"turnAllNotifications()\"]').hasClass('md-checked')){" +
+        "return true;}else{$('md-switch[ng-change=\"turnAllNotifications()\"]').click()}"),config.timeout);
+    SF.sleep(2);
+    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
+    MF.SweetConfirm ();
+    MF.WaitWhileToaster ();
+    SF.sleep(3);
+    MF.Board_OpenSideBar ();
+    MF.Board_OpenDashboard();
+
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
     SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="checkAll()"]'));
@@ -180,16 +198,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
 
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Customer '+V.client.name+' '+V.client.fam+' was login.")]')).getText().then(function(text){
-    }),config.timeout);
-
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Customer '+V.client.name+' '+V.client.fam+' was login.")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"User Visit Request")]')).getText().then(function(text){
     }),config.timeout);
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"User Visit Confirmation Page")]')).getText().then(function(text){
     }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request '+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request #'+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
     }),config.timeout);
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Reservation received")]')).getText().then(function(text){
