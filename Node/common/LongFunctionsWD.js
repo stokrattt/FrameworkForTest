@@ -127,7 +127,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             console.log(V.frontNumbers.moveDate);
         }),config.timeout);
         SF.sleep(2);
-        driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+		driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
         SF.sleep(1);
         JS.click("ultrasmall-form div[ng-click=\\'openSlide();\\']");
         SF.sleep(1);
@@ -1508,6 +1508,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             (Math.floor(boardNumbers.Total
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips)/2),
             'Не совпал ForCommission менеджера');
+        Debug.pause();
 
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
