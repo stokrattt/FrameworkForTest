@@ -129,6 +129,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
 
     condition.nowWeDoing = 'заходим в Storage Tenants, создаем инвоис и проверяем есть ли там темплейт и совпадает ли он';
+    MF.Board_OpenSideBar ();
+    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'storages.pending\', \'\')"]'));
+    SF.sleep (3);
     MF.Board_OpenStoragesTenant();
     MF.WaitWhileBusy();
     SF.sleep (2);
@@ -158,6 +161,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.storageInvoiceTemplateInTenants, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
     }),config.timeout);
     SF.sleep (2);
+    SF.click(By.xpath('//a[@ng-click="cancel()"]'));
+    SF.sleep (2);
+    SF.click(By.xpath('//button[@ng-click="cancel()"]'))
+    SF.sleep (2);
+    SF.click(By.xpath('//a[@ng-click="tabs.setTab(4)"]'));
+    SF.sleep (2);
+    SF.click(By.xpath('//button[@ng-click="sendEmail()"]'));
+    SF.sleep (2);
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Invoice")]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
+    }),config.timeout);
 
     SF.endOfTest();
 };
