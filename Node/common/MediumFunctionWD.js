@@ -1158,7 +1158,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send(By.xpath('//input[@ng-model="misc.amount"]'), suma);
     }
     function Payroll_getTotalById(Id, storage){
-		driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+Id+'")]/..//td[last()]')).getText().then(
+		driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+Id+'")]/../td[last()]')).getText().then(
 		    function(text){
 				console.log("нашли тотал "+text);
 				storage.Total=SF.cleanPrice(text);

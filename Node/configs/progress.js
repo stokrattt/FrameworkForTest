@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/79_ExtraFeeForAdditionalPickUp.js'];
+    config.suite = ['./tests/77_CustomTooltips.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 30000;
