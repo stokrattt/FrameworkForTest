@@ -2034,7 +2034,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             carrierData.zipCode = text;
         }), config.timeout);
         driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.per_cf"]\').val()').then(function (text) {
-            carrierData.perCf = text;
+            carrierData.perCf = SF.cleanPrice(text);
         }), config.timeout);
         driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.usdot_number"]\').val()').then(function (text) {
             carrierData.usdot = text;

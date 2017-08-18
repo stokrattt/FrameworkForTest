@@ -257,8 +257,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     JS.click('span:contains(\\"Add TP Delivery\\")');
     SF.sleep(2);
-    V.tpDeliveryJobId = SF.randomCifra(2);
+    V.tpDeliveryJobId = SF.randomCifra(1);
     SF.send(By.xpath('//input[@ng-model="tp.delivery_job_id"]'), V.tpDeliveryJobId);
+
     SF.click(By.xpath('//md-select[@ng-model="selectedCarrier"]'));
     SF.sleep(2);
     SF.click(By.xpath('//div[contains(text(), "'+V.carrierNew.name+'")]'));
@@ -359,7 +360,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('span:contains(\\"Trip details\\")');
     SF.sleep(4);
     condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
-    SF.click(By.xpath('//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
+    SF.click(By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]')).getAttribute('value').then(function (text) {
         V.cleanTpDeliveryRatePerCF = SF.cleanPrice(text);

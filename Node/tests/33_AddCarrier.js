@@ -108,7 +108,7 @@ condition.nowWeDoing = 'Проверяем есть ли карьер в спи�
     MF.Board_OpenSideBar ();
     SF.click(By.xpath('//button[@ng-click="addTrip()"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.ld_carrier_id"]'));
+    SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     MF.Board_OpenSideBar ();
     MF.Board_OpenCarriersAndAgents ();

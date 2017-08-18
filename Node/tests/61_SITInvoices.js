@@ -58,7 +58,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(1);
-    SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.ld_carrier_id"]'));
+    SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.sleep(1);
     V.driverPhone = SF.randomCifra(10);
@@ -88,8 +88,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//h3[contains(text(), "Trip Info")]'));
     SF.sleep(3);
     JS.click('span:contains(\\"Closing\\")');
-    SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item.job_id, item.balance)"]'));
-    SF.click(By.xpath('//div[@ng-click="showTpCollected(item.job_id, item.balance)"]'));
+    SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
+    SF.click(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     SF.waitForVisible(By.xpath('//h2[contains(text(), "Custom Payment")]'));
     SF.sleep(1);
     V.somePayment = 900;
@@ -98,7 +98,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.sleep(3);
     SF.click(By.xpath('//button[@ng-click="back()"]'));
-    SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item.job_id, item.balance)"]'));
+    SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     JS.click('span:contains(\\"Trip details\\")');
     SF.waitForVisible(By.xpath('//h3[contains(text(), "Trip Info")]'));
     JS.click('span:contains(\\"Update\\")');

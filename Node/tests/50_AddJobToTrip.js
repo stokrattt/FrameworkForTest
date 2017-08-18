@@ -57,7 +57,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//md-select[@ng-model="trip.data.carrier.ld_carrier_id"]'));
+    SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     V.driverPhone = SF.randomCifra(10);
     V.driverName = SF.randomBukva(6) + '_t';
@@ -115,7 +115,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     LF.closeEditRequest ();
     SF.sleep(2);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id, item.balance)"]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]')).getText().then(function(text){
         V.cleanTPCollected = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.tpCollected, V.cleanTPCollected, 'не совпали TP Collected в клоузинге c Payment в модалке реквеста');
     }),config.timeout);
@@ -147,7 +147,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'), V.parkingCost);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.sleep(3);
-    SF.click(By.xpath('//div[@ng-click="showTpCollected(item.job_id, item.balance)"]'));
+    SF.click(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     SF.sleep(3);
     V.somePayment = 100;
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
@@ -161,7 +161,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(4);
 
     V.totalTPCollected = V.somePayment + V.tpCollected;
-    driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item.job_id, item.balance)"]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]')).getText().then(function(text){
         V.cleanTotalTPCollected = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalTPCollected, V.cleanTotalTPCollected, 'не совпали TPcollected после добавления кастомного пеймента');
     }),config.timeout);
