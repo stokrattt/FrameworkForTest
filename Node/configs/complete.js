@@ -91,7 +91,7 @@ module.exports = function(config,V) {
         './tests/75_UnassTeamAfter3SignMake4Sign.js',
         './tests/76_RezervedConfirmProcess.js',
         './tests/44_CreateForemanAndAssignCheck.js',
-        './tests/77_CustomTooltips',
+        './tests/77_CustomTooltips.js',
         './tests/78_CheckRateAndTrucks.js',
         './tests/40_PayrollTableCheckSumJobs.js',
         './tests/79_ExtraFeeForAdditionalPickUp.js'

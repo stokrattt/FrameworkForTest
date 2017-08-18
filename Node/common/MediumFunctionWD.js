@@ -1119,9 +1119,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function Payroll_OpenPayCheckCash() {
-        SF.click(By.xpath('//tr[@ng-repeat="(id, dataObj) in userCurrentTbl.users_paychecks"]'));
+        SF.click(By.xpath('//tr[@ng-repeat="(id, dataObj) in userCurrentTbl.users_paychecks track by id"]'));
         SF.sleep(0.3);
-        SF.click(By.xpath('//tr[@ng-repeat="(id, dataObj) in userCurrentTbl.users_paychecks"]'));
+        SF.click(By.xpath('//tr[@ng-repeat="(id, dataObj) in userCurrentTbl.users_paychecks track by id"]'));
         SF.waitForLocated (By.xpath('//button[@ng-click="removePaycheck()"]'));
         WaitWhileBusy();
     }
