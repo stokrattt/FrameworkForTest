@@ -51,7 +51,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
     MF.Board_OpenSideBar ();
     MF.Board_OpenDashboard();
-
+    MF.WaitWhileToaster ();
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
     SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="checkAll()"]'));

@@ -36,6 +36,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'закрываем реквест и открываем и проверяем что заметочки сохранились';
     LF.closeEditRequest ();
     MF.WaitWhileBusy ();
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {
       VD.IWant(VD.ToEqual, text, V.note, 'Не совпали заметочки сейлса');

@@ -57,6 +57,8 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
         V.FRId = SF.cleanPrice(text);
     }),config.timeout);
     LF.LogoutFromAccount ();
+    driver.navigate().refresh();
+    SF.sleep (8);
     SF.get(V.adminURL);
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции 1';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
