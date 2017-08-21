@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/62_MovingCustomBlock.js'];
+    config.suite = ['./tests/80_OverBookingVol1.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 30000;

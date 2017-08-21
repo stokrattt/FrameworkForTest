@@ -139,14 +139,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.amount = SF.cleanPrice(text);
-    }),config.timeout)
+    }),config.timeout);
     SF.sleep(3);
     JS.click('span:contains(\\"Receipts\\")');
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.receiptsAmount = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.amount, V.receiptsAmount, 'не совпали Amount');
-    }),config.timeout)
+    }),config.timeout);
+    Debug.pause();
     SF.click(By.xpath('//div[@ng-click="showList(item)"]'));
     condition.nowWeDoing = 'Проверяем есть ли в вкладке Invoices инвоис';
     JS.click('span:contains(\\"Invoices\\")');

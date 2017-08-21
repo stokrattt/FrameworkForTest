@@ -58,6 +58,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     Debug.pause();
     SF.sleep (3);
     MF.WaitWhileBusy ();
+    MF.EditRequest_OpenPayment();
     V.cardInput = V.boardNumbersClose.Total - 100;
     SF.click(By.xpath('//a[@ng-click="addAuthPayment()"]'));
     SF.sleep(2);
@@ -69,6 +70,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     JS.waitForExist('div.payment-receipt-modal');
     MF.WaitWhileToaster();
     SF.sleep(2);
+    MF.WaitWhileBusy ();
     MF.WaitWhileBusy ();
     SF.click(By.xpath('//div[contains(@class,"payment-receipt-modal")]/following-sibling::div[1]/button[@ng-click="cancel()"]'));
     SF.sleep(1);

@@ -23,7 +23,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenSettings ();
     SF.click(By.xpath('//button[@ng-click="goToRequest()"]'));
     SF.openTab (1);
-    SF.waitForLocated (By.xpath('a[contains(text(), "Move Overview")]'));
+    SF.waitForLocated (By.xpath('//div[@class="Move Overview"]'));
+    MF.WaitWhileBusy ();
     V.accountNumbers = {};
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbers);

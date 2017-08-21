@@ -1166,17 +1166,17 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
 //Permissions for Sales --- end
     function closeEditRequest() {
-        JS.waitForNotExist("div.busyoverlay:visible");
+        // JS.waitForNotExist("div.busyoverlay:visible");
         JS.waitForNotExist('div.toast-message:visible');
-        JS.waitForNotExist('div.toast-top-right:visible');
+        // JS.waitForNotExist('div.toast-top-right:visible');
         JS.waitForNotExist('div.toast-success:visible');
         JS.waitForNotExist('div.visible-overflow');
         SF.sleep(2);
-        JS.waitForNotExist("div.busyoverlay:visible");
+        // JS.waitForNotExist("div.busyoverlay:visible");
         JS.waitForNotExist('div.toast-message:visible');
-        JS.waitForNotExist('div.toast-top-right:visible');
+        // JS.waitForNotExist('div.toast-top-right:visible');
         JS.waitForNotExist('div.toast-success:visible');
-        JS.waitForNotExist('div.visible-overflow');
+        // JS.waitForNotExist('div.visible-overflow');
         SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="cancel()"]'));
         SF.sleep(2);

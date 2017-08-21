@@ -240,8 +240,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		WaitWhileBusy ();
         SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
         WaitWhileBusy ();
-        SF.sleep (3);
-        WaitWhileBusy ();
+        SF.sleep (1);
     }
     function Board_SearchRequest(selector){
         SF.clear (By.id('gSearch'));

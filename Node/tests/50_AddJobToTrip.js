@@ -195,6 +195,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenCarriersAndAgents ();
     MF.Board_OpenSideBar ();
     SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));
+    SF.sleep(3);
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew.name);
     SF.waitForVisible(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
