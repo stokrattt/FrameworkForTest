@@ -37,27 +37,25 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSettingsDepartment();
     MF.Board_OpenSideBar();
     MF.WaitWhileBusy ();
-    SF.sleep(2);
-    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "Admin Flow1")]'))).doubleClick().perform();
-    SF.sleep (3);
+    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "Admin Flow1")]'))).doubleClick().perform()
+    SF.waitForVisible (By.xpath('//label[contains(text(),"Department:")]'));
     SF.click(By.xpath('//li[@ng-click="activeMainTab = 6"]'));
-    SF.sleep(1);
+    JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
     driver.wait(driver.executeScript("if($('md-switch[ng-change=\"turnAllNotifications()\"]').hasClass('md-checked')){" +
         "return true;}else{$('md-switch[ng-change=\"turnAllNotifications()\"]').click()}"),config.timeout);
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     MF.SweetConfirm ();
     MF.WaitWhileToaster ();
-    SF.sleep(3);
     MF.Board_OpenSideBar ();
     MF.Board_OpenDashboard();
     MF.WaitWhileToaster ();
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
-    SF.sleep(2);
+    JS.waitForExist ('button[ng-click=\\"checkAll()\\"]:visible');
     SF.click (By.xpath('//button[@ng-click="checkAll()"]'));
     SF.sleep(5);
     SF.click (By.xpath('//button[@ng-click="openFilters = !openFilters"]'));
-    SF.sleep(2);
+    JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
     driver.wait(driver.executeScript("if($('md-switch[ng-change=\"turnAllNotifications()\"]').hasClass('md-checked')){" +
         "return true;}else{$('md-switch[ng-change=\"turnAllNotifications()\"]').click()}"),config.timeout);
     SF.sleep(2);
@@ -198,23 +196,22 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
 
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"User Visit Request")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/following-sibling::div[contains(text(),"User Visit Request")]')).getText().then(function(text){
     }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"User Visit Confirmation Page")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/following-sibling::div[contains(text(),"User Visit Confirmation Page")]')).getText().then(function(text){
     }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request #'+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/following-sibling::div[contains(text(),"Request #'+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
     }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Reservation received")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/following-sibling::div[contains(text(),"Reservation received")]')).getText().then(function(text){
     }),config.timeout);
     SF.click (By.xpath('//button[@ng-click="checkAll()"]'));
-    SF.sleep(3);
+    SF.sleep(5);
     SF.click (By.xpath('//button[@ng-click="openFilters = !openFilters"]'));
-    SF.sleep(3);
+    JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
     SF.click (By.xpath('//md-switch[@ng-change="turnAllNotifications()"]'));
-    SF.sleep(2);
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
     SF.endOfTest();
 };
