@@ -797,6 +797,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send (By.xpath('//input[@ng-model="agentModel.data.web_site"]'), V.carrierNew.webSite);
         SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierNew.phoneNumber1);
         JS.click('span:contains(\\"Save\\")');
+        SF.waitForVisible (By.xpath('//input[@ng-model="searchTerm"]'));
     }
     function CreateLoadingHelpFromBoard(client) {
         SF.click(By.linkText('Create Request'));
