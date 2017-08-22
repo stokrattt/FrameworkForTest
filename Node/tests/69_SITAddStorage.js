@@ -16,12 +16,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Заходим в SIT Storages и создаем Storage';
     MF.Board_OpenSideBar();
-    SF.sleep(2);
     MF.BoardSIT_OpenStorages();
     MF.Board_OpenSideBar();
-    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="addStorage()"]'));
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//input[@ng-model="newStorage.name"]'));
+    SF.sleep(1);
     V.storage = {};
     V.storage2 = {};
     V.storage3 = {};
@@ -32,7 +31,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.storage.notes = SF.randomBukva(10) + '_t';
     V.storage.phone = SF.randomCifra(10);
     SF.click(By.xpath('//md-checkbox[@ng-model="newStorage.active"]'));
-    SF.sleep(3);
     SF.send (By.xpath('//input[@ng-model="newStorage.name"]'), V.storage.name);
     SF.send (By.xpath('//textarea[@ng-model="newStorage.address"]'), V.storage.address);
     SF.send (By.xpath('//input[@ng-model="newStorage.zip_code"]'), V.storage.zip);
@@ -41,35 +39,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="newStorage.notes"]'), V.storage.notes);
     SF.send (By.xpath('//input[@ng-model="newStorage.email"]'), V.storage.email);
     SF.send (By.xpath('//input[@ng-model="newStorage.phones[$index]"]'), V.storage.phone);
-    SF.sleep(4);
+    SF.sleep(1);
     JS.click('span:contains(\\"Save\\")');
-    // SF.click(By.xpath('//button[@ng-click="create()"]/span'));
 
     condition.nowWeDoing = 'Редактируем Storage';
-    SF.sleep(5);
-    // V.last=false;
-    // V.found=false;
-    // do {
-    //     driver.wait(driver.findElements(By.xpath('//div[text()="'+ V.storage.name +'"]')).then(function (elements) {
-    //         V.count = elements.length;
-    //         console.log(V.count);
-    //     }), config.timeout);
-    //     SF.sleep(1);
-    //     driver.wait(driver.findElements(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]/parent::li[contains(@class,"disabled")]')).then(function (elements) {
-    //         V.last = (elements.length==1);
-    //         console.log(V.last);
-    //     }), config.timeout);
-    //     SF.sleep(1);
-    //     if ((V.count == 0)&&(!V.last)) {
-    //         SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
-    //     } else {
-    //         V.found=true;
-    //     }
-    // }while ((V.count==0)&&(!V.last)&&(!V.found));
+    SF.waitForVisible (By.xpath('//input[@ng-model="searchTerm"]'));
 
-    // VD.INeed(VD.ToEqual, V.found, true, 'не нашёл нужный storage');
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.storage.name);
-    SF.sleep(4);
+    SF.waitForVisible (By.xpath('//div[text()="'+ V.storage.name +'"]'));
+    SF.sleep(2);
     SF.click(By.xpath('//div[text()="'+ V.storage.name +'"]'));
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
     SF.sleep(5);
@@ -96,32 +74,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="newStorage.phones[$index]"]'), V.storage2.phone);
     SF.sleep(4);
     JS.click('span:contains(\\"Save\\")');
-    // SF.click(By.xpath('//button[@ng-click="create()"]'));
-    SF.sleep(5);
+    SF.waitForVisible (By.xpath('//input[@ng-model="searchTerm"]'));
     condition.nowWeDoing = 'сравниваем сохранились ли изменения';
-    // V.last2=false;
-    // V.found2=false;
-    // do {
-    //     driver.wait(driver.findElements(By.xpath('//div[text()="'+ V.storage2.name +'"]')).then(function (elements) {
-    //         V.count2 = elements.length;
-    //         console.log(V.count2);
-    //     }), config.timeout);
-    //     SF.sleep(1);
-    //     driver.wait(driver.findElements(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]/parent::li[contains(@class,"disabled")]')).then(function (elements) {
-    //         V.last2 = (elements.length==1);
-    //         console.log(V.last2);
-    //     }), config.timeout);
-    //     SF.sleep(1);
-    //     if ((V.count == 0)&&(!V.last2)) {
-    //         SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
-    //     } else {
-    //         V.found2=true;
-    //     }
-    // }while ((V.count2==0)&&(!V.last2)&&(!V.found2));
-    //
-    // VD.INeed(VD.ToEqual, V.found, true, 'не нашёл нужный storage');
+
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.storage2.name);
-    SF.sleep(4);
+    SF.waitForVisible (By.xpath('//div[text()="'+ V.storage2.name +'"]'));
+    SF.sleep(2);
     SF.click(By.xpath('//div[text()="'+ V.storage2.name +'"]'));
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
     SF.sleep(2);
@@ -143,9 +101,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//md-checkbox[@ng-model="newStorage.active"]'));
     SF.sleep(5);
     JS.click('span:contains(\\"Save\\")');
-    // SF.click(By.xpath('//button[@ng-click="create()"]'));
-    JS.click('span:contains(\\"Save\\")');
-    SF.sleep(5);
+    SF.waitForVisible (By.xpath('//input[@ng-model="searchTerm"]'));
 
     condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
@@ -160,11 +116,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
-    SF.sleep(2);
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-    SF.sleep(3);
+    SF.sleep(2);
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
-    SF.sleep(3);
+    SF.waitForVisible (By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//option[text()="'+ V.storage2.name +'"]'));
 
