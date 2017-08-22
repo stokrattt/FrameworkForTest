@@ -119,6 +119,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     SF.sleep(2);
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
+    MF.WaitWhileBusy ();
     SF.waitForVisible (By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//option[text()="'+ V.storage2.name +'"]'));
