@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/69_SITAddStorage.js'
+        './tests/65_StorageEmailTemplate.js'
     ];
 
     config.chainFail = false;
