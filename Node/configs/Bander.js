@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/50_AddJobToTrip.js'
+        './tests/70_SITAddTripPersonallyForeman.js'
     ];
 
     config.chainFail = false;

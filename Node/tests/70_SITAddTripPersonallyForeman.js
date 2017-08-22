@@ -36,21 +36,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSideBar ();
     MF.Board_OpenCourier ();
     MF.Board_OpenSideBar ();
-    SF.sleep(2);
     LF.CreateCarrier();
-    SF.sleep(2);
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
-    SF.sleep(2);
 
     condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
     SF.click(By.xpath('//button[@ng-click="addTrip()"]'));
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
     SF.click(By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
     SF.click(By.xpath('//div[text()="Pending"]'));
     SF.click(By.xpath('//md-select[@ng-model="type"]'));
-    SF.sleep(1);
+    SF.waitForVisible (By.xpath('//div[text()="Foreman/Helper"]'));
     SF.click(By.xpath('//div[text()="Foreman/Helper"]'));
-    SF.sleep(3);
 
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
@@ -64,7 +60,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.dateEnd = (future.toLocaleDateString('en-US', options));
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.start"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.start"]/div/input'), V.dateStart);
-    SF.sleep(1);
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'), V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
@@ -72,39 +67,39 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.notes = SF.randomBukva(25) + '_t';
     SF.send (By.xpath('//textarea[@ng-model="trip.data.note"]'), V.notes);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.foreman"]'));
-    SF.sleep(1);
+    SF.waitForVisible (By.xpath('//div[text()="Test Foreman"]'));
     SF.click(By.xpath('//div[text()="Test Foreman"]'));
-    SF.sleep(2);
+    SF.sleep(1);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.helper"]'));
-    SF.sleep(1);
+    SF.waitForVisible (By.xpath('//div[text()="helper test1"]'));
     SF.click(By.xpath('//div[text()="helper test1"]'));
-    SF.sleep(1);
     SF.click(By.xpath('//div[text()="helper test2"]'));
     SF.click(By.xpath('//button[@ng-click="closeSelectBox($event)"]'));
-    SF.sleep(4);
+    SF.sleep(1);
 
     condition.nowWeDoing = 'Сохраняем трип и добавляем работу в трип';
     driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="createTrip(trip)"]'))).doubleClick().perform();
-    // SF.click(By.xpath('//button[@ng-click="createTrip(trip)"]'));
-    SF.sleep(4);
+    SF.waitForVisible (By.xpath('//span[contains(text(),"Trip updated!")]'));
+    SF.sleep(1);
     JS.click('span:contains(\\"Add Pickup/Delivery\\")');
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'), V.dateStart);
-    SF.sleep(1);
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'), V.dateEnd);
-    SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="search"]'));
+    SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
+    SF.sleep(1);
 
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
-    SF.sleep(2);
     JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.sleep(10);
+    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
+    SF.sleep(2);
 
     condition.nowWeDoing = 'Заходим в пейрол и заполняем и сравниваем циферки для формена';
     JS.click('span:contains(\\"Closing\\")');
-    SF.sleep(6);
+    SF.waitForVisible (By.xpath('//input[@ng-model="payroll.foreman.mileage_start"]'));
+    SF.sleep(2);
 
     V.mileageStart = 12;
     V.mileageEnd = 815;
@@ -169,31 +164,29 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
 
     SF.click(By.xpath('//h2[contains(text(), "Driver Expenses")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
-    SF.sleep(2);
+    SF.sleep(1);
     V.driverExpensesAmount = 50;
     SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]'));
     SF.sleep(2);
     SF.clear(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.driverExpensesAmount);
-    SF.sleep(2);
     SF.click(By.xpath('//div[@value="item.amount"]//button[@ng-click="update()"]'));
-    SF.sleep(4);
+    SF.sleep(2);
 
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
     V.cashAmount = 80;
     SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]/div/div[contains(text(),"$0.00")]'));
-    SF.sleep(2);
+    SF.sleep(1);
     SF.clear(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.cashAmount);
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//button[@ng-click="update()"]'));
-    SF.sleep(3);
+    SF.sleep(2);
 
 
     condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
-    SF.sleep(3);
     JS.click('md-tab-item[ng-click=\\"$mdTabsCtrl.select(tab.getIndex())\\"]:contains(\\"helper\\")');
-    SF.sleep(4);
+    SF.waitForVisible (By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
     SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
     SF.sleep(2);
     V.helper1DailyAmount = 60;
@@ -252,16 +245,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
 
     condition.nowWeDoing = 'Создаем Add TP Delivery, заполняем поля и проверям рассчети';
-    SF.sleep(2);
     JS.click('span:contains(\\"Add Pickup/Delivery\\")');
-    SF.sleep(2);
+    SF.sleep();
     JS.click('span:contains(\\"Add TP Delivery\\")');
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//input[@ng-model="tp.delivery_job_id"]'));
     V.tpDeliveryJobId = SF.randomCifra(1);
     SF.send(By.xpath('//input[@ng-model="tp.delivery_job_id"]'), V.tpDeliveryJobId);
 
     SF.click(By.xpath('//md-select[@ng-model="selectedCarrier"]'));
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//div[contains(text(), "'+V.carrierNew.name+'")]'));
     SF.click(By.xpath('//div[contains(text(), "'+V.carrierNew.name+'")]'));
     SF.sleep(2);
     V.customer = SF.randomBukva(6) + '_t';
@@ -270,7 +262,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="tp.details.customer"]'), V.customer);
     SF.send(By.xpath('//input[@ng-model="tp.details.email"]'), V.tpDeliveryEmail);
     SF.send(By.xpath('//input[@ng-model="tp.details.phones[$index]"]'), V.tpDeliveryPhone1);
-    SF.sleep(2);
 
     V.tpDeliveryRatePerCF = 2;
     V.tpDeliveryVolumeCF = 80;
@@ -285,16 +276,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="tp.closing.order_balance"]'), V.orderBalance);
 
     SF.click(By.xpath('//div[@ng-click="addServices(tp)"]'));
-    SF.sleep(3);
+    SF.waitForVisible (By.xpath('//li[contains(text(), "Parking Ticket")]'));
     JS.click('li:contains(\\"Parking Ticket\\")');
     V.parkingCost = 250;
     SF.clear(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'));
     SF.send(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'), V.parkingCost);
     SF.sleep(1);
     SF.click(By.xpath('//button[contains(text(), "Ok")]'));
-    SF.sleep(3);
+    SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.job_cost"]'));
     V.tpJobCost = V.tpDeliveryRatePerCF * V.tpDeliveryVolumeCF;
     V.tpTotalJob = V.tpJobCost + V.parkingCost;
+    SF.sleep(3);
 
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
         V.cleanTpJobCost = SF.cleanPrice(text);
@@ -319,21 +311,21 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.dateEnd = (future.toLocaleDateString('en-US', options));
     SF.clear(By.xpath('//md-datepicker[@ng-model="date_from"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="date_from"]/div/input'), V.dateStart);
-    SF.sleep(1);
     SF.clear(By.xpath('//md-datepicker[@ng-model="date_to"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="date_to"]/div/input'), V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
 
     SF.click(By.xpath('//button[@ng-click="openNewPayment($event, 0, tpId, [tpId], 1)"]'));
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//input[@ng-model="payment.amount"]'));
     V.tpPayment = 200;
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
     SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.tpPayment);
     SF.sleep(1);
     V.tpToReceive = V.tpTotalJob - V.tpPayment - V.orderBalance;
     SF.click(By.xpath('//button[@ng-click="save()"]'));
-    SF.sleep(4);
+    SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.to_receive"]'));
+    SF.sleep(5);
 
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.cleanTpToReceive = SF.cleanPrice(text);
@@ -342,26 +334,27 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.click(By.xpath('//button[@ng-click="openModal(\'new\')"]'));
     SF.click(By.xpath('//md-select[@ng-model="storage"]'));
-    SF.sleep(1);
+    SF.waitForVisible (By.xpath('//md-option[@ng-value="storage"]/div[contains(text(), "test")]'));
     SF.click(By.xpath('//md-option[@ng-value="storage"]/div[contains(text(), "test")]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//md-select[@ng-model="foreman"]'));
     SF.sleep(1);
+    SF.click(By.xpath('//md-select[@ng-model="foreman"]'));
+    SF.waitForVisible (By.xpath('//div[contains(text(), "Test Foreman")]'));
     SF.click(By.xpath('//div[contains(text(), "Test Foreman")]'));
-    SF.sleep(2);
+    SF.sleep(1);
     SF.clear(By.xpath('//md-datepicker[@ng-model="date"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="date"]/div/input'), V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="updateSit()"]'));
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//button[@ng-click="createTpDelivery()"]'));
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
-    SF.sleep(8);
+    SF.sleep(5);
     JS.click('span:contains(\\"Trip details\\")');
-    SF.sleep(4);
+    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
     condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
     SF.click(By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
-    SF.sleep(3);
+    SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'));
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]')).getAttribute('value').then(function (text) {
         V.cleanTpDeliveryRatePerCF = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpDeliveryRatePerCF, V.tpDeliveryRatePerCF, 'Rate per cf не совпали');
@@ -403,8 +396,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.cleanTpDeliveryPhone1 = -SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpDeliveryPhone1, V.tpDeliveryPhone1, 'Phone cf не совпали');
     }),config.timeout);
-    SF.sleep(3);
-
 
     SF.endOfTest();
 };
