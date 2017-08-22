@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/62_MovingCustomBlock.js'];
+    config.suite = ['./tests/payroll.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 30000;

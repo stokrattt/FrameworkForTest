@@ -405,6 +405,34 @@ exports.payrollTableSum = function () {
     return {sum:sum, balTop:balTop};
 }.toString().substring(12);
 
+
+exports.payrollTableMainPage = function (field, title) {
+    var f = function () {
+
+        var field = "##";
+        var title = "##";
+        var clearText = function (dirtyText) {
+            return dirtyText.replace(/\$|,/gi, '');
+        };
+        var css = '#print-area';
+        var selector = css + ' td[ng-show="columns.fields[\''+field+'\'].selected"]';
+        var sum = 0;
+        var len = $(selector).length - 1;
+        console.log('len ' + len);
+        for (var i = 0; i < len; i++) {
+            console.log(Number(clearText($(selector)[i].innerHTML)));
+            sum = sum + Number(clearText($(selector)[i].innerHTML));
+        }
+        sum = Math.round(sum * 100) / 100;
+        console.log('sum mus be ' + Number(clearText($(selector)[len].innerHTML)));
+        var balTop = Number(clearText($('div.total-payroll-panel  div.total-title:contains("'+title+'")').next().text()));
+        console.log('сверху написано ' + balTop);
+        return {sum:sum, balTop:balTop};
+    }.toString().substring(12);
+    return f.replace(/##/, field).replace(/##/, title);
+};
+
+
 exports.CheckSumsInContract = function () {
     var HowToLook = function (text) {
         console.log('грязный текст:'+text);
