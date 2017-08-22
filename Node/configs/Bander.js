@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/61_SITInvoices.js'
+        './tests/68_SITPickUpDelivery.js'
     ];
 
     config.chainFail = false;

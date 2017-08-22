@@ -29,7 +29,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SaveChanges();
     SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'))
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
@@ -51,10 +51,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Заходим в Jobs in SIT Проверям есть ли ета робота и совпали ли Storage NAme';
     MF.Board_OpenSideBar();
-    SF.sleep(2);
     MF.Board_OpenJobsInSIT();
     MF.Board_OpenSideBar();
 
+    SF.waitForVisible (By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]')).getText().then(function(text){
         V.storageName = text;
         VD.IWant(VD.ToEqual, V.storageName, 'test', 'Starage Name не совпали');
@@ -72,7 +72,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
-    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
     SF.send(By.xpath('//input[@ng-model="scheduleDeliveryDate"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
     SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
@@ -81,19 +80,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'Заходим в PickUp и проверям по филтрам и по введенним даним';
     MF.Board_OpenSideBar();
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
-    SF.sleep(2);
     MF.Board_OpenPickup();
     MF.Board_OpenSideBar();
-    SF.sleep(2);
     SF.click(By.xpath('//md-select[@ng-model="selectedStatus"]'));
     SF.sleep(1);
     SF.click(By.xpath('//md-option[@ng-repeat="item in ldStatuses"]/div[text()="LD"]'));
     SF.click(By.xpath('//div[@ng-click="openModalFrom()"]'));
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//div[text()="MA - Massachusetts"]'));
     SF.click(By.xpath('//div[text()="MA - Massachusetts"]'));
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
-    SF.sleep(5);
+    SF.waitForVisible (By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[9]'));
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[9]')).getText().then(function(text){
         V.readyForDelivery = text;
