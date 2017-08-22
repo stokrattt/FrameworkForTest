@@ -15,6 +15,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_CloseEditRequest();
 	MF.WaitWhileToaster ();
 	MF.Board_LogoutAdmin();
+	SF.sleep(60);
 
 	condition.nowWeDoing = 'открываем тестовую почту и ищем письмо';
 	SF.get('http://mail.ru');
