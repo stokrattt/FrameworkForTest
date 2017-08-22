@@ -13,23 +13,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSideBar ();
     MF.Board_OpenCourier ();
     MF.Board_OpenSideBar ();
-    SF.sleep(2)
     LF.CreateCarrier();
 
 condition.nowWeDoing = 'Редактируем карьера';
-    SF.sleep(3);
+    SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew.name);
-    SF.sleep(4);
+    SF.waitForVisible(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
-    SF.sleep(3);
+    SF.sleep(2);
     V.carrierNew2.name = SF.randomBukva(6) + '_t';
     V.carrierNew2.contactPerson = SF.randomBukva(6) + '_t';
     V.carrierNew2.contactPersonPhone = SF.randomCifra(10);
-    SF.sleep(3);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.name"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.name"]'), V.carrierNew2.name);
-    SF.sleep(1);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.contact_person"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.contact_person"]'), V.carrierNew2.contactPerson);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.contact_person_phone"]'));
@@ -65,14 +62,14 @@ condition.nowWeDoing = 'Редактируем карьера';
     SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierNew2.phoneNumber1);
     SF.sleep(2);
     JS.click('span:contains(\\"Save\\")');
-    SF.sleep(5);
+    SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));
 
 condition.nowWeDoing = 'сравниваем сохранились ли изменения';
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew2.name);
-    SF.sleep(4);
+    SF.waitForVisible(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.data.name\\"]');
-    SF.sleep(4);
+    SF.sleep(2);
 
     LF.RememberCarrier(V.carrierNew3);
     VD.IWant(VD.NotToEqual,V.carrierNew.name, V.carrierNew2.name,'Поля совпадают');
@@ -86,7 +83,6 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     VD.IWant(VD.NotToEqual,V.carrierNew.eMail, V.carrierNew2.eMail,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.webSite, V.carrierNew2.webSite,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.phoneNumber1, V.carrierNew2.phoneNumber1,'Поля совпадают');
-    SF.sleep(2);
     console.log(V.carrierNew3);
     VD.IWant(VD.ToEqual,V.carrierNew3.name, V.carrierNew2.name,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.carrierNew3.contactPerson, V.carrierNew2.contactPerson,'Поля не совпадают');
@@ -99,23 +95,22 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     VD.IWant(VD.ToEqual,V.carrierNew3.eMail, V.carrierNew2.eMail,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.carrierNew3.webSite, V.carrierNew2.webSite,'Поля не совпадают');
     VD.IWant(VD.ToEqual,-SF.cleanPrice(V.carrierNew3.phoneNumber1), V.carrierNew2.phoneNumber1,'Поля не совпадают');
-    SF.sleep(1);
     JS.click('span:contains(\\"Save\\")');
-    SF.sleep(3);
+    SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));
 condition.nowWeDoing = 'Проверяем есть ли карьер в списке при добалении трипа';
     MF.Board_OpenSideBar ();
     MF.Board_OpenTripPlanner ();
     MF.Board_OpenSideBar ();
     SF.click(By.xpath('//button[@ng-click="addTrip()"]'));
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
     SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     MF.Board_OpenSideBar ();
     MF.Board_OpenCarriersAndAgents ();
     MF.Board_OpenSideBar ();
-    SF.sleep(3);
+    SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew2.name);
-    SF.sleep(4);
+    SF.waitForVisible(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
 
 condition.nowWeDoing = 'удаляем карьера';
@@ -129,7 +124,6 @@ condition.nowWeDoing = 'удаляем карьера';
             JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8084/server/long_distance_carrier/'+id)
         );
     }),config.timeout);
-    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
