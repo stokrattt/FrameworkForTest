@@ -179,7 +179,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('span:contains(\\"Trip details\\")');
 
     condition.nowWeDoing = 'удаляем работу из трипа';
-    SF.waitForVisible(By.xpath('//div[@ng-click="openRequest(id)"]'));
+    SF.waitForLocated(By.xpath('//div[@ng-click="openRequest(id)"]'));
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
         V.ldJobId = text;
     }),config.timeout);

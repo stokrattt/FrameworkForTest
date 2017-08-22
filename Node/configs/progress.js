@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/payroll.js'];
+    config.suite = ['./tests/59_PayrollAddMiscCustomPayment.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 30000;
