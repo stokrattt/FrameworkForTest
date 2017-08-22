@@ -38,7 +38,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Создаем Трип';
     SF.click(By.xpath('//button[@ng-click="addTrip()"]'));
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
     SF.click(By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
     SF.click(By.xpath('//div[text()="Pending"]'));
     SF.sleep(1);
@@ -55,7 +55,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.start"]/div/input'), V.dateStart);
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'), V.dateEnd);
-    SF.sleep(2);
+    SF.sleep(1);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(1);
     SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
@@ -74,7 +74,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//div[contains(text(), "' + V.client.name + '")]'));
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'), V.dateStart);
-    SF.sleep(1);
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'), V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
@@ -83,10 +82,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"' + V.client.name + '")]/..//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
         V.ldJobId = text;
     }),config.timeout);
-    SF.sleep(2);
     JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.waitForVisible(By.xpath('//h3[contains(text(), "Trip Info")]'));
-    SF.sleep(3);
+    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
+    SF.sleep(2);
     JS.click('span:contains(\\"Closing\\")');
     SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     SF.click(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
@@ -112,11 +110,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     condition.nowWeDoing = 'вибираем карьера, вибираем работи и отправляем инвоис';
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew.name);
-    SF.sleep(4);
+    SF.waitForVisible (By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
-    SF.sleep(2);
+    SF.sleep(1);
     SF.click(By.xpath('//md-checkbox[@ng-model="selectAll"]'));
-    SF.sleep(2);
+    SF.waitForVisible (By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.balance)"]'));
     SF.click(By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.balance)"]'))
     SF.waitForVisible(By.xpath('//button[@ng-click="sendInvoice()"]'));
     SF.click(By.xpath('//button[@ng-click="sendInvoice()"]'));
@@ -140,9 +138,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.amount = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(3);
     JS.click('span:contains(\\"Receipts\\")');
-    SF.sleep(3);
+    SF.waitForVisible(By.xpath('//span[contains(text(), "Amount")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.receiptsAmount = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.amount, V.receiptsAmount, 'не совпали Amount');
@@ -151,7 +148,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[@ng-click="showList(item)"]'));
     condition.nowWeDoing = 'Проверяем есть ли в вкладке Invoices инвоис';
     JS.click('span:contains(\\"Invoices\\")');
-    SF.sleep(3);
+    SF.waitForVisible(By.xpath('//span[contains(text(), "Amount")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.invoicesAmount = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.amount, V.invoicesAmount, 'не совпали Amount');
@@ -164,9 +161,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSideBar ();
     MF.Board_OpenCarriersAndAgents ();
     MF.Board_OpenSideBar ();
-    SF.sleep(3);
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew.name);
-    SF.sleep(4);
+    SF.waitForVisible(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
 
     condition.nowWeDoing = 'удаляем карьера';
