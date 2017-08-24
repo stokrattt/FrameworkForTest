@@ -78,7 +78,6 @@ condition.nowWeDoing = 'очищаем старые заметки и вводи
 condition.nowWeDoing = 'переходим на табу нот конферм и проверяем что новые нотсы сохранились';
     MF.Board_OpenNotConfirmed ();
     MF.Board_RefreshDashboard ();
-    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, text, V.noteNew, 'Не совпали новые заметочки у сейлса после затирания старых');
@@ -143,8 +142,15 @@ condition.nowWeDoing = 'тут проверим на сохранение нот
     SF.clear(By.xpath('//div[contains(@class, "sales_notes")]/div[2]/div[3]'));
     V.noteNew1 = SF.randomBukva(10);
     SF.send(By.xpath('//div[contains(@class, "sales_notes")]/div[2]/div[3]'), V.noteNew1);
+    SF.click(By.xpath('//button[@ng-click="UpdateRequest()"]'));
+    SF.waitForVisible(By.xpath('//div[@class="modal-content"]'));
+    SF.sleep (1);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="message.label == \'custom\' || message.label == \'notes\'"]')).getText().then(function(text) {
+        VD.IWant(VD.ToEqual, text, 'Notes was changed');
+    }),config.timeout);
+    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    MF.WaitWhileBusy();
     LF.closeEditRequest ();
-    MF.SweetConfirm ();
     MF.Board_OpenConfirmed ();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {

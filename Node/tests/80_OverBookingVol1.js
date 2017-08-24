@@ -77,7 +77,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     MF.WaitWhileBusy();
     MF.EditRequest_OpenLogs ();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Overbooking")]/..//span[contains(text(), "Status was changed to date pending on requests:")]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'Status was changed to date pending on requests: '+V.Id1+','+V.Id2+'', 'не совпали реквесты которые ушли в дейт пендинг');
+        VD.IWant(VD.ToEqual, text, 'Status was changed to date pending on requests: '+V.Id1+', '+V.Id2+'', 'не совпали реквесты которые ушли в дейт пендинг');
     }),config.timeout);
     LF.closeEditRequest ();
     MF.WaitWhileBusy();
