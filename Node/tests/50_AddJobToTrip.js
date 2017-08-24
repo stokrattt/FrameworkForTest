@@ -136,7 +136,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.sleep(3);
     SF.click(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
-    SF.waitForVisible(By.xpath('//input[@ng-model="payment.amount"]'))
+    SF.waitForVisible(By.xpath('//input[@ng-model="payment.amount"]'));
     V.somePayment = 100;
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
     SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.somePayment);
@@ -188,7 +188,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//button[@ng-click="removeSelectedJobs()"]'));
     SF.sleep(2);
     JS.click('span:contains(\\"Update\\")');
-    SF.waitForVisible (By.xpath('//span[contains(text(),"Trip updated!")]'));
+    SF.sleep(2);
 
     MF.Board_OpenSideBar ();
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));

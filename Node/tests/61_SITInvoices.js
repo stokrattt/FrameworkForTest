@@ -144,7 +144,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.receiptsAmount = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.amount, V.receiptsAmount, 'не совпали Amount');
     }),config.timeout);
-    Debug.pause();
     SF.click(By.xpath('//div[@ng-click="showList(item)"]'));
     condition.nowWeDoing = 'Проверяем есть ли в вкладке Invoices инвоис';
     JS.click('span:contains(\\"Invoices\\")');

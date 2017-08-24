@@ -246,6 +246,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//button[@ng-click="openFilters = !openFilters"]'));
     JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
     SF.click (By.xpath('//md-switch[@ng-change="turnAllNotifications()"]'));
+    SF.sleep(1);
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
     SF.endOfTest();
 };
