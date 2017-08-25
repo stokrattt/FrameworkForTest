@@ -68,7 +68,6 @@ module.exports = function(config,V) {
         './tests/50_AddJobToTrip.js',
         './tests/53_ManualClosingWork.js',
         './tests/54_LDQuoteAndFuel.js',
-        './tests/56_LoadingAllSteps.js',
         './tests/57_UnloadingAllSteps.js',
         './tests/55_CreateFlagAndCheckOnDashboard.js',
         './tests/58_Discount.js',
@@ -95,8 +94,9 @@ module.exports = function(config,V) {
         './tests/77_CustomTooltips.js',
         './tests/78_CheckRateAndTrucks.js',
         './tests/40_PayrollTableCheckSumJobs.js',
-        './tests/79_ExtraFeeForAdditionalPickUp.js'
+        './tests/79_ExtraFeeForAdditionalPickUp.js',
         './tests/81_NewPackingAddCrew.js',
+        './tests/56_LoadingAllSteps.js',
         './tests/82_LDSetPrice.js'
 
 
