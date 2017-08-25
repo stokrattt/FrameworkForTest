@@ -26,6 +26,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
     JS.step(JSstep.selectTruck(5));
+    MF.WaitWhileBusy();
     V.perCubicFeet = '5';
     SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);

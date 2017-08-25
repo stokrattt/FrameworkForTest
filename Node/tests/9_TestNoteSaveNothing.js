@@ -32,6 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges ();
 condition.nowWeDoing = 'закрываем реквест и открываем и проверяем что заметочки сохранились';
     LF.closeEditRequest ();
@@ -78,6 +79,7 @@ condition.nowWeDoing = 'очищаем старые заметки и вводи
 condition.nowWeDoing = 'переходим на табу нот конферм и проверяем что новые нотсы сохранились';
     MF.Board_OpenNotConfirmed ();
     MF.Board_RefreshDashboard ();
+    MF.WaitWhileBusy();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, text, V.noteNew, 'Не совпали новые заметочки у сейлса после затирания старых');

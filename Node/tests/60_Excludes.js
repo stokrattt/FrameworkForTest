@@ -21,6 +21,7 @@ condition.nowWeDoing = 'Создаем локал мув, добавляем п�
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenSettings ();

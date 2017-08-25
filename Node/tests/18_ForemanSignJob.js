@@ -15,6 +15,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'запоминаем все данные';
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     LF.RememberDateFromRequest (V.boardNumbers);
     MF.EditRequest_RememberId (V.request);
     LF.addToCleanerJob(V.request.Id);

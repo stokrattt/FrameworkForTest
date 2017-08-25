@@ -20,6 +20,7 @@ condition.nowWeDoing = 'создаем реквест ';
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     LF.RememberDateFromRequest(V.boardNumbers);
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseConfirmWork();
@@ -51,6 +52,7 @@ condition.nowWeDoing = 'идем в локал диспач и меняем да
     SF.sleep(4);
     MF.EditRequest_WaitForBalanceVisible();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.SweetConfirm ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseConfirmWork();

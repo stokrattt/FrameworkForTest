@@ -111,6 +111,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Проверяем есть ли сторадж в реквести в SIT';
     JS.step(JSstep.selectTruck(5));
+    MF.WaitWhileBusy();
     V.perCubicFeet = '5';
     SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);

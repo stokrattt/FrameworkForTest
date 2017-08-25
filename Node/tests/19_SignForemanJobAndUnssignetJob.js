@@ -18,6 +18,7 @@ condition.nowWeDoing = 'зашли в админку и создаем рекв�
 condition.nowWeDoing = 'конфермим работу';
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressFrom ();
     MF.EditRequest_SaveChanges ();

@@ -43,6 +43,7 @@ condition.nowWeDoing = 'создаем реквест, конфермим его
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetAdressToFrom ();
     LF.addToCleanerJob (V.boardNumbers.Id);
     MF.EditRequest_SetToConfirmed ();

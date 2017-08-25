@@ -41,6 +41,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenRequest ();
 
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     LF.addToCleanerJob(V.accountNumbers.Id);
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressToFrom ();

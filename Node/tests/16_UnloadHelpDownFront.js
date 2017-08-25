@@ -53,6 +53,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     SF.sleep (1);
 condition.nowWeDoing = 'сравниваем аккаунт и админку';
     VD.IWant(VD.ToEqual, V.accountNumbers.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');

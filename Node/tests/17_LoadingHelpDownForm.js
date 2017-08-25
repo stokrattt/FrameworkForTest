@@ -58,7 +58,7 @@ condition.nowWeDoing = 'зашли под админом и сравниваем
     MF.Board_OpenRequest(V.accountNumbers.Id);
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    SF.sleep (1);
+    MF.WaitWhileBusy();
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
     MF.EditRequest_SetToNotConfirmed ();

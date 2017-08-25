@@ -20,6 +20,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.addToCleanerJob(V.boardNumbers.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime) / 60));
+    MF.WaitWhileBusy();
     JS.scroll('div.ServicesCost:visible');
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressToFrom ();

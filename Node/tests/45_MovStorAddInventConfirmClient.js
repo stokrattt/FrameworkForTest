@@ -40,6 +40,7 @@ condition.nowWeDoing = 'зашли в админку To storage ставим н�
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime) / 60));
+    MF.WaitWhileBusy();
     LF.Validation_Compare_Account_Admin(V.accountNumbersTo, V.boardNumbersTo);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
@@ -53,6 +54,7 @@ condition.nowWeDoing = 'To storage ставим нот конферм, адре�
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime) / 60));
+    MF.WaitWhileBusy();
     LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
     SF.sleep(1);
     MF.EditRequest_OpenSettings();

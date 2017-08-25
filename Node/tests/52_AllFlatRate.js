@@ -110,7 +110,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     SF.sleep (1);
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    SF.sleep (1);
+    MF.WaitWhileBusy();
     VD.IWant (VD.ToEqual, 5000, V.boardNumbers.Total, 'тотал не совпал с выбранной суммой' );
     MF.EditRequest_SetToNotConfirmed ();
     SF.sleep (2);

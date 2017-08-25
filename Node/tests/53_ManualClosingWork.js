@@ -16,6 +16,7 @@ condition.nowWeDoing= 'зосдаем локал мув и сразу его к�
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SetToConfirmed ();
     LF.addToCleanerJob (V.boardNumbers.Id);
@@ -59,6 +60,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     SF.sleep (3);
     MF.WaitWhileBusy ();
     MF.EditRequest_OpenPayment();
+    MF.WaitWhileBusy();
     V.cardInput = V.boardNumbersClose.Total - 100;
     SF.click(By.xpath('//a[@ng-click="addAuthPayment()"]'));
     SF.sleep(2);

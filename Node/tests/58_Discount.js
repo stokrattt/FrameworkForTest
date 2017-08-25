@@ -94,6 +94,7 @@ condition.nowWeDoing = 'пошли в админку второй раз, кон
     MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.accountNumbers.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();

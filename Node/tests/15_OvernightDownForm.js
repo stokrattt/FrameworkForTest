@@ -131,6 +131,7 @@ condition.nowWeDoing = 'зашли в админку';
     V.boardNumbersUp = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersUp);
     JS.step(JSstep.selectTruck((V.boardNumbersUp.LaborTimeMax + V.boardNumbersUp.TravelTime)/60));
+    MF.WaitWhileBusy();
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbersUp,V.boardNumbersUp);
     MF.EditRequest_SetToNotConfirmed ();
@@ -147,6 +148,7 @@ condition.nowWeDoing = 'зашли в админку';
     V.boardNumbersDelivery = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersDelivery);
     JS.step(JSstep.selectTruck((V.boardNumbersDelivery.LaborTimeMax + V.boardNumbersDelivery.TravelTime)/60));
+    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'сравниваем аккаунт и админку второй реквест';
     LF.Validation_Compare_Account_Admin(V.accountNumbersDelivery,V.boardNumbersDelivery);

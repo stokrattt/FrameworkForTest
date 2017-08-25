@@ -16,7 +16,7 @@ condition.nowWeDoing = 'создаем первый реквест';
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    SF.sleep(2);
+    MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('#edit-start-time').val()").then(function (text) {
         V.time = text;
     }),config.timeout);
@@ -97,7 +97,6 @@ condition.nowWeDoing = 'идем в админку проверять или д�
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'второй реквест не ушел в дата пендинг а должен был');
     }), 120000);
     SF.sleep(1);
-    MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

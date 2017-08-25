@@ -165,7 +165,7 @@ condition.nowWeDoing = 'заходим под админом и создаем �
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-
+    MF.WaitWhileBusy();
     LF.RememberDateFromRequest(V.boardNumbers);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();

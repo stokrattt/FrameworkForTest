@@ -113,6 +113,7 @@ condition.nowWeDoing = 'запоминаем данные после добав�
     MF.EditRequest_SetToNotConfirmed();
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
