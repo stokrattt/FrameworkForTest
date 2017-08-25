@@ -183,6 +183,7 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     LF.MakeSignInContract();
     MF.WaitWhileBusy ();
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
+    MF.WaitWhileBusy();
     MF.SweetConfirm ();
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman ();

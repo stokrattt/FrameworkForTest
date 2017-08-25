@@ -267,7 +267,7 @@ condition.nowWeDoing='идем удалять сейлса';
     MF.WaitWhileBusy ();
 
 condition.nowWeDoing='идем удалять менеджера';
-
+    MF.WaitWhileBusy();
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
     SF.sleep(2);
     // driver.executeScript("$('.mdDataTable tbody tr td:contains(" +V.managerFirstName1 +")').dblclick();");

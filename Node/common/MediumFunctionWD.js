@@ -254,7 +254,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
     }
     function Board_GetFirstFoundedId(request){
-        SF.waitForVisible(By.xpath('//div[@class="requestsid ng-binding"]'));
+        SF.waitForLocated(By.xpath('//div[@class="requestsid ng-binding"]'));
+        WaitWhileBusy();
         driver.wait(driver.findElement(By.xpath('//div[@class="requestsid ng-binding"]')).getText().then (function(text){
             request.Id = text;
         }), config.timeout);
@@ -549,7 +550,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_Submit() {
         WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
-        SF.sleep(7);
+        SF.sleep(5);
+        WaitWhileBusy();
         SweetConfirm();
     }
 
