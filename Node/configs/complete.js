@@ -96,7 +96,8 @@ module.exports = function(config,V) {
         './tests/78_CheckRateAndTrucks.js',
         './tests/40_PayrollTableCheckSumJobs.js',
         './tests/79_ExtraFeeForAdditionalPickUp.js'
-        './tests/81_NewPackingAddCrew.js'
+        './tests/81_NewPackingAddCrew.js',
+        './tests/82_LDSetPrice.js'
 
 
     ];
