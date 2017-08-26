@@ -80,7 +80,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Сохраняем трип и добавляем работу в трип';
     driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="createTrip(trip)"]'))).doubleClick().perform();
-    SF.waitForVisible (By.xpath('//span[contains(text(),"Trip updated!")]'));
+    JS.waitForNotExist('span.toast-message:visible');
+    // SF.waitForVisible (By.xpath('//span[contains(text(),"Trip updated!")]'));
     SF.sleep(1);
     JS.click('span:contains(\\"Add Pickup/Delivery\\")');
     SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
@@ -165,14 +166,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
 
     SF.click(By.xpath('//h2[contains(text(), "Driver Expenses")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
-    SF.sleep(1);
+    SF.sleep(2);
     V.driverExpensesAmount = 50;
     SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]'));
     SF.sleep(2);
     SF.clear(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.driverExpensesAmount);
     SF.click(By.xpath('//div[@value="item.amount"]//button[@ng-click="update()"]'));
-    SF.sleep(2);
+    SF.sleep(1);
 
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
@@ -182,7 +183,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.cashAmount);
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//button[@ng-click="update()"]'));
-    SF.sleep(2);
+    SF.sleep(1);
 
 
     condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
@@ -196,12 +197,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[@value="item.daily_amount"]//button[@ng-click="update()"]'));
     SF.sleep(4);
 
-    SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openTotalDaysEditDialog(item)"]'));
-    SF.sleep(2);
-    SF.clear(By.xpath('//div[@value="item.total_days"]//input[@ng-model="data.value"]'));
-    SF.send(By.xpath('//div[@value="item.total_days"]//input[@ng-model="data.value"]'), V.totalDays);
-    SF.click(By.xpath('//div[@value="item.total_days"]//button[@ng-click="update()"]'));
-    SF.sleep(4);
+    // SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openTotalDaysEditDialog(item)"]'));
+    // SF.sleep(2);
+    // SF.clear(By.xpath('//div[@value="item.total_days"]//input[@ng-model="data.value"]'));
+    // SF.send(By.xpath('//div[@value="item.total_days"]//input[@ng-model="data.value"]'), V.totalDays);
+    // SF.click(By.xpath('//div[@value="item.total_days"]//button[@ng-click="update()"]'));
+    // SF.sleep(4);
 
     SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openOtherEditDialog(item)"]'));
     SF.sleep(2);
@@ -220,12 +221,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.daily_amount"]//button[@ng-click="update()"]'));
     SF.sleep(4);
 
-    SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@ng-click="openTotalDaysEditDialog(item)"]'));
-    SF.sleep(2);
-    SF.clear(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.total_days"]//input[@ng-model="data.value"]'));
-    SF.send(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.total_days"]//input[@ng-model="data.value"]'), V.totalDays);
-    SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.total_days"]//button[@ng-click="update()"]'));
-    SF.sleep(4);
+    // SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@ng-click="openTotalDaysEditDialog(item)"]'));
+    // SF.sleep(2);
+    // SF.clear(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.total_days"]//input[@ng-model="data.value"]'));
+    // SF.send(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.total_days"]//input[@ng-model="data.value"]'), V.totalDays);
+    // SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.total_days"]//button[@ng-click="update()"]'));
+    // SF.sleep(4);
 
     SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@ng-click="openOtherEditDialog(item)"]'));
     SF.sleep(2);
@@ -351,7 +352,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
     SF.sleep(5);
     JS.click('span:contains(\\"Trip details\\")');
-    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
+    SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
+    SF.sleep(2);
     condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
     SF.click(By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'));

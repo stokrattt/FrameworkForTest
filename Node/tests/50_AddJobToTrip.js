@@ -66,7 +66,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Сохраняем трип и добавляем работу в трип';
     JS.click('span:contains(\\"Update\\")');
-    SF.waitForVisible (By.xpath('//span[contains(text(),"Trip updated!")]'));
+    JS.waitForNotExist('span.toast-message:visible');
+    // SF.waitForVisible (By.xpath('//span[contains(text(),"Trip updated!")]'));
     JS.click('span:contains(\\"Add Pickup/Delivery\\")');
     SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
