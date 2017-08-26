@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/82_LDSetPrice.js'
+        './tests/57_UnloadingAllSteps.js'
     ];
 
     config.chainFail = false;

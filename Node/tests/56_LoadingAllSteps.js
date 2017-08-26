@@ -52,7 +52,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileToaster ();
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
     JS.waitForExist('button[ng-click=\\"checkAll()\\"]:visible');
-    JS.click ('button[ng-click=\\"checkAll()\\"]');
+    JS.click ('button[ng-click=\\"checkAll()\\"]:visible');
     SF.sleep(5);
     SF.click (By.xpath('//button[@ng-click="openFilters = !openFilters"]'));
     JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
@@ -129,17 +129,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
-    LF.MakeSignInContract();
+    // LF.MakeSignInContract();
     SF.click(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'));
     SF.waitForVisible (By.xpath('//li[contains(text(), "04:00 PM")]'));
     SF.click(By.xpath('//li[contains(text(), "04:00 PM")]'));
     SF.sleep(1);
-    LF.MakeSignInContract();
+    // LF.MakeSignInContract();
     SF.click(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'));
     SF.waitForVisible (By.xpath('//div[4]/ul/li[contains(text(), "07:00 PM")]'));
     SF.click(By.xpath('//div[4]/ul/li[contains(text(), "07:00 PM")]'));
-    SF.sleep(1);
-    LF.MakeSignInContract();
+    // LF.MakeSignInContract();
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="crew in data.crews"]/td[4]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, '3', text, 'Не совпали Crew hours');
@@ -169,8 +168,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
-    LF.MakeSignInContract();
-    LF.MakeSignInContract();
+    // LF.MakeSignInContract();
+    // LF.MakeSignInContract();
     MF.Contract_Submit();
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
@@ -191,7 +190,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenPayroll();
     V.managerName = 'emilia clark';
     SF.sleep (2);
-
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
+    SF.sleep (2);
     SF.click(By.xpath('//div[@id="invoice"]/ul/li[2]'));
     SF.sleep (2);
     SF.select (By.xpath('//select[@ng-model="foreman.id"]'), 4);
@@ -200,9 +200,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.cleanTotalHW = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalHW, V.cleanTotalHW, 'Не совпали total hour на контракте и в малом пейроле');
     }),config.timeout);
-
-    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
-    SF.sleep (2);
     MF.EditRequest_CloseModal();
     MF.SweetConfirm();
     LF.closeEditRequest();
