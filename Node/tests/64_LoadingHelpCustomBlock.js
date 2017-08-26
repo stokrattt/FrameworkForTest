@@ -74,6 +74,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SetAdressFrom ();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
     SF.openTab (1);

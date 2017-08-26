@@ -25,7 +25,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep (1);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    SF.sleep (1);
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();

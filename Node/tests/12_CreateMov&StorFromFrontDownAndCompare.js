@@ -57,6 +57,7 @@ condition.nowWeDoing = 'зашли под админом заполнили да
 condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbersTo,V.boardNumbersTo);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SetAdressFrom ();
     MF.EditRequest_SaveChanges ();
@@ -77,6 +78,7 @@ condition.nowWeDoing = 'сравниваем с акком второй рекв
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbersFrom,V.boardNumbersFrom);
     JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SetAdressTo ();
     MF.EditRequest_SaveChanges ();

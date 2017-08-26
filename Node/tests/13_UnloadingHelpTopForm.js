@@ -29,6 +29,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbersWithRes = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersWithRes);
     JS.step(JSstep.selectTruck((V.boardNumbersWithRes.LaborTimeMax + V.boardNumbersWithRes.TravelTime)/60));
+    MF.WaitWhileBusy();
     condition.nowWeDoing = 'сравниваем аккаунт и админку с резервацией';
     LF.Validation_Compare_Account_Admin(V.accountNumbersWithRes,V.boardNumbersWithRes);
     driver.wait(driver.executeScript('return $("input#reserv_price").val()').then(function(text){
@@ -80,7 +81,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbersNoRes = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersNoRes);
     JS.step(JSstep.selectTruck((V.boardNumbersNoRes.LaborTimeMax + V.boardNumbersNoRes.TravelTime)/60));
-    SF.sleep(1);
+    MF.WaitWhileBusy();
     SF.click(By.xpath('//input[@ng-model="request.reservation_rate.value"]'));
     SF.click(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
     SF.sleep(1);

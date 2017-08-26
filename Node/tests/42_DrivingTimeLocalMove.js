@@ -97,6 +97,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, сравнив�
 condition.nowWeDoing = 'защли а админку второй раз, ставим нот конфем, трак, сохраняем, закрываем, открываем и сравниваем данные которые были первый раз в реквесте с данными после того как изменили статус';
     MF.Board_OpenRequest (V.request.Id);
     JS.step(JSstep.selectTruck((V.boardNumbersClean.LaborTimeMax + V.boardNumbersClean.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();

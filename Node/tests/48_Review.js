@@ -29,6 +29,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep(1);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     LF.addToCleanerJob (V.boardNumbers.Id);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
@@ -94,6 +95,7 @@ condition.nowWeDoing = 'теперь отключаем отсылание ре�
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep(1);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     LF.addToCleanerJob (V.boardNumbers.Id);
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SetToConfirmed ();

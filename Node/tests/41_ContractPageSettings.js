@@ -19,6 +19,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     MF.EditRequest_RememberId(V.request);
     LF.addToCleanerJob(V.request.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest ();

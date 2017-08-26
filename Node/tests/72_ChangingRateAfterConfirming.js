@@ -15,6 +15,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.CreateLocalMovingFromBoard(V.client);
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
 	MF.EditRequest_SetToConfirmed();
 	MF.EditRequest_SetAdressToFrom();
 	MF.EditRequest_SaveChanges();

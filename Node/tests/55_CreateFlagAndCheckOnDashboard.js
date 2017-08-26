@@ -53,6 +53,7 @@ condition.nowWeDoing = 'обновляем страницу и проверяе�
     SF.sleep(0.5);
     MF.Board_OpenRequest (V.boardNumbers.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SetToNotConfirmed ();
     LF.addToCleanerJob (V.boardNumbers.Id);

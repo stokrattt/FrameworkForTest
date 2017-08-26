@@ -56,6 +56,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime) / 60));
+    MF.WaitWhileBusy();
     JS.scroll('div.ServicesCost:visible');
     LF.Validation_Compare_Account_Admin(V.accountNumbersTo, V.boardNumbersTo);
     MF.EditRequest_OpenSettings();
@@ -80,6 +81,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime) / 60));
+    MF.WaitWhileBusy();
     MF.EditRequest_ScrollDown();
     LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
     MF.EditRequest_OpenSettings();

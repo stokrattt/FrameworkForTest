@@ -21,6 +21,7 @@ condition.nowWeDoing = 'Законфёрмить сразу реквест';
     LF.addToCleanerJob(V.boardNumbersTo.Id);
     LF.addToCleanerJob(V.boardNumbersTo.Id+1);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime) / 60));
+    MF.WaitWhileBusy();
     JS.scroll('div.ServicesCost:visible');
     MF.EditRequest_OpenSettings ();
     LF.SetManager('emilia');
@@ -141,6 +142,7 @@ condition.nowWeDoing = 'From storage, выставить трак, провер�
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime) / 60));
+    MF.WaitWhileBusy();
     JS.scroll('div.ServicesCost:visible');
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressTo ();

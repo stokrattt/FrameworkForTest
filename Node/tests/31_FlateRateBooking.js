@@ -148,7 +148,7 @@ condition.nowWeDoing = 'пошли в админку 2 раз, ставить т
 
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    SF.sleep (1);
+    MF.WaitWhileBusy();
     VD.IWant (VD.ToEqual, 5000, V.boardNumbers.Total, 'тотал не совпал с выбранной суммой' );
     MF.EditRequest_SetToNotConfirmed ();
     SF.click (By.xpath('//button[@ng-click="DeliveryDay()"]'));

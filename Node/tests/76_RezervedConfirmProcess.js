@@ -18,6 +18,7 @@ condition.nowWeDoing = 'создаем реквест, ставим нот ко�
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd(V.client.passwd);

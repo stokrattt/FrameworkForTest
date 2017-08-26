@@ -24,6 +24,7 @@ condition.nowWeDoing = 'создаем реквест и добавляем ра
 
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SF.cleanPrice (text);

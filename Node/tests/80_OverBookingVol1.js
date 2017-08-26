@@ -16,7 +16,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime*3)/60));
-    SF.sleep(2);
+    MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('#edit-start-time').val()").then(function (text) {
         V.time = text;
     }),config.timeout);
@@ -47,6 +47,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     SF.send(By.id('edit-start-time'), V.time);
     SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
@@ -66,6 +67,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     SF.send(By.id('edit-start-time'), V.time);
     SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressToFrom();
     JS.click('button[ng-click=\\"UpdateRequest()\\"]');
