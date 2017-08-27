@@ -129,16 +129,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
-    // LF.MakeSignInContract();
+    LF.MakeSignInContract();
     SF.click(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'));
     SF.waitForVisible (By.xpath('//li[contains(text(), "04:00 PM")]'));
     SF.click(By.xpath('//li[contains(text(), "04:00 PM")]'));
     SF.sleep(1);
-    // LF.MakeSignInContract();
+    LF.MakeSignInContract();
     SF.click(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'));
     SF.waitForVisible (By.xpath('//div[4]/ul/li[contains(text(), "07:00 PM")]'));
     SF.click(By.xpath('//div[4]/ul/li[contains(text(), "07:00 PM")]'));
-    // LF.MakeSignInContract();
+    SF.sleep(1);
+    LF.MakeSignInContract();
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="crew in data.crews"]/td[4]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, '3', text, 'Не совпали Crew hours');

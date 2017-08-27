@@ -26,6 +26,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
+    SF.click(By.xpath('//a[@ng-click="openModal()"]'));
+    JS.waitForExist('input[ng-model=\\"client.mail\\"]');
+    SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
+    V.client.newEmail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
+    SF.send(By.xpath('//input[@ng-model="client.mail"]'),V.client.newEmail);
+    JS.click('button[ng-click=\\"update(client)\\"]:visible');
+    MF.WaitWhileBusy();
+    SF.sleep(1);
+    driver.wait(driver.findElement(By.xpath('//address/i[@class="icon-envelope"]/following-sibling::span')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, V.client.newEmail, text, 'не совпали Email на акаунте после изменения на акаунте');
+    }),config.timeout);
 
     LF.LogoutFromAccount();
 
@@ -38,16 +49,22 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    MF.WaitWhileBusy();
 
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();
+    V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
+    SF.waitForVisible(By.xpath('//input[@ng-model="client.mail"]'));
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="client.mail"]')).getAttribute('value').then(function(text){
+        VD.IWant(VD.ToEqual, V.client.newEmail, text, 'не совпали client email в реквесте после изменения на акаунте');
+    }),config.timeout);
+    SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
+    SF.send(By.xpath('//input[@ng-model="client.mail"]'),V.client.email);
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenLogs();
-    MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
-    MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
-    MF.EditRequest_Check1EmailExist(V.client.email, "Unloading created (Pending)");
+    MF.EditRequest_Check1EmailExist(V.client.newEmail, "Thank you for submitting a quote.");
+    MF.EditRequest_Check1EmailExist(V.client.newEmail, "How To Work With Your New Account.");
+    MF.EditRequest_Check1EmailExist(V.client.newEmail, "Unloading created (Pending)");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
@@ -66,6 +83,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_OpenRequest(V.accountNumbers.Id);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
+    driver.wait(driver.findElement(By.xpath('//address/i[@class="icon-envelope"]/following-sibling::span')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, V.client.email, text, 'не совпали Email на акаунте после изменения на акаунте');
+    }),config.timeout);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
@@ -89,9 +109,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_OpenLogs();
-    MF.EditRequest_Check1EmailExist(V.client.email, "Unloading Confirmed");
+    MF.EditRequest_Check1EmailExist(V.client.newEmail2, "Unloading Confirmed");
     //MF.EditRequest_Check1EmailExist(V.client.email, "Complete the confirmation process");
-    MF.EditRequest_Check1EmailExist(V.client.email, 'New Message From emilia');
+    MF.EditRequest_Check1EmailExist(V.client.newEmail2, 'New Message From emilia');
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
     MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
     LF.closeEditRequest();
@@ -110,9 +130,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
-    // LF.MakeSignInContract();
-    // LF.MakeSignInContract();
-    // LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
@@ -126,8 +146,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
-    // LF.MakeSignInContract();
-    // LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
     MF.Contract_Submit();
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
@@ -167,9 +187,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.payrollNumbers = {
         Foreman:{}, Sale:{}
     };
-	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
-	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
-		'id=' + V.boardNumbers.Id);
+    MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
+        'id=' + V.boardNumbers.Id);
 
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
