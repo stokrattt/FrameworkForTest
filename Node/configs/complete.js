@@ -97,7 +97,8 @@ module.exports = function(config,V) {
         './tests/79_ExtraFeeForAdditionalPickUp.js',
         './tests/81_NewPackingAddCrew.js',
         './tests/56_LoadingAllSteps.js',
-        './tests/82_LDSetPrice.js'
+        './tests/82_LDSetPrice.js',
+        './tests/83_PayrollAllDepartment.js'
 
 
     ];

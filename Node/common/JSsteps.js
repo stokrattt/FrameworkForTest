@@ -425,7 +425,7 @@ exports.payrollTableMainPage = function (field, title) {
         }
         sum = Math.round(sum * 100) / 100;
         console.log('sum mus be ' + Number(clearText($(selector)[len].innerHTML)));
-        var balTop = Number(clearText($('div.total-payroll-panel  div.total-title:contains("'+title+'")').next().text()));
+        var balTop = Number(clearText($('div.total-payroll-panel  div.total-title:contains('+title+'):eq(0)').next().text()));
         console.log('сверху написано ' + balTop);
         return {sum:sum, balTop:balTop};
     }.toString().substring(12);
