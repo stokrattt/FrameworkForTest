@@ -169,8 +169,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
-    // LF.MakeSignInContract();
-    // LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
     MF.Contract_Submit();
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();

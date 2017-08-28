@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/57_UnloadingAllSteps.js'
+        './tests/50_AddJobToTrip.js'
     ];
 
     config.chainFail = false;
