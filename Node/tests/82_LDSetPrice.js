@@ -88,6 +88,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.newCubicFee =  V.CF - V.newMinCF;
     V.newModalQuote = V.newCubicFee * V.newStateRate +  V.newMinPrice;
     V.boardNumbers = {};
+    SF.sleep(2);
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     VD.IWant(VD.ToEqual, V.newModalQuote, V.boardNumbers.Quote, 'не совпали Quote');
     V.newGrandTotal = V.newModalQuote + V.boardNumbers.Fuel;

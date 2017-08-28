@@ -37,6 +37,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSettingsDepartment();
     MF.Board_OpenSideBar();
     MF.WaitWhileBusy ();
+    SF.sleep(2);
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "Admin Flow1")]'))).doubleClick().perform()
     SF.waitForVisible (By.xpath('//label[contains(text(),"Department:")]'));
     SF.click(By.xpath('//li[@ng-click="activeMainTab = 6"]'));
