@@ -68,10 +68,16 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
         V.frontNumbersOvernightDown_Del.CrewFrom = SF.cleanPrice(text);
         console.log(V.frontNumbersOvernightDown_Del.CrewFrom);
     }), config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
+    // driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
+    //     V.frontNumbersOvernightDown_Del.RateFrom = text.indexOf('$', 4) == -1 ?
+    //         SF.cleanPrice(text) :
+    //         SF.cleanPrice(text.substring(text.indexOf('$', 4)));
+    // }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]/span[contains(text(), "Delivery")]/..//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
         V.frontNumbersOvernightDown_Del.RateFrom = text.indexOf('$', 4) == -1 ?
             SF.cleanPrice(text) :
             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
+        console.log(V.frontNumbersOvernightDown_Del.RateFrom )
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!storageCalcResult.from.small_job"]')).getText().then(function (text) {
         let textMin = text.substring(0, text.indexOf('-'));
@@ -96,7 +102,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
         V.frontNumbersOvernightDown.OvernightStorageMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
         V.frontNumbersOvernightDown.OvernightStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
     }), config.timeout);
-*/
+*/  Debug.pause();
     SF.sleep(2);
     SF.click(By.id('submitRequestButton'));
     SF.sleep (4);
@@ -122,6 +128,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
     LF.RememberAccountNumbers(V.accountNumbersDelivery);
     LF.addToCleanerJob(V.accountNumbersDelivery.Id);
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersDelivery, V.frontNumbersOvernightDown_Del);
+    Debug.pause();
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
 

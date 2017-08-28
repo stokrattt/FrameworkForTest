@@ -46,6 +46,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     SF.send(By.id('edit-start-time'), V.time);
     SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
@@ -65,6 +66,7 @@ condition.nowWeDoing = 'создаем третий реквест, ставим
     SF.send(By.id('edit-start-time'), V.time);
     SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();

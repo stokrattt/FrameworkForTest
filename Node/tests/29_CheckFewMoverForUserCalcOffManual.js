@@ -47,6 +47,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenRequest ();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest ();
+    MF.WaitWhileBusy();
     SF.click(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.request.Id2 + '")]/..' +
         '//div[@ng-show="PermissionsServices.hasPermission(\'canSignedSales\');"]'));
     SF.click(By.xpath('//span[contains(text(), "JackSales")]'));
