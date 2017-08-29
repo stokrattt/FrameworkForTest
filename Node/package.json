@@ -9,9 +9,9 @@
   },
   "author": "",
   "dependencies": {
-    "selenium-webdriver": "^3.1.0",
-    "fibers": "^1.0.15",
+    "colors": "^1.1.2",
+    "fibers": "^2.0.0",
     "path": "^0.12.7",
-    "colors": "^1.1.2"
+    "selenium-webdriver": "^3.1.0"
   }
 }
