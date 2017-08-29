@@ -260,7 +260,7 @@ exports.selectTruck = function (hours) {
         console.log('need ' + needWidth);
 
         for (var number = 0, count = $(trucks).length; (number < count && !selected); number++) {
-            var arrayChaos = $('div.dhx_matrix_line:visible:eq("' + number + '") span[ng-repeat="current in parklot[tid]"],' +
+            var arrayChaos = $('div.dhx_matrix_line:visible:eq("' + number + '") span[ng-repeat="current in parklot[tid] track by $index"],' +
                 'div.dhx_matrix_line:visible:eq("' + number + '") [ng-repeat="current in fpl[tid] track by $index"],' +
                 'div.dhx_matrix_line:visible:eq("' + number + '") [ng-repeat="current in unconparklot[tid]"]');
             var array=[];
