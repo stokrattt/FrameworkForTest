@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 40000;
 
     config.suite = [
-        './tests/36_DatePending.js'
+        './tests/57_UnloadingAllSteps.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';
