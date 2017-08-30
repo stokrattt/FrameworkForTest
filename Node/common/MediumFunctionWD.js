@@ -216,6 +216,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ui-sref="settings.department"]'));
         SF.waitForVisible(By.xpath('//a[@ui-sref="settings.department"]'));
         SF.sleep(3);
+        WaitWhileBusy();
     }
     function Board_OpenSettingsTemplateBuilder() {
         Board_OpenSettingsGeneral();
@@ -550,7 +551,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_Submit() {
         WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
-        SF.sleep(5);
         WaitWhileBusy();
         SweetConfirm();
     }

@@ -94,13 +94,13 @@ condition.nowWeDoing='Создаем хелпера*****************************
     MF.WaitWhileBusy ();
     MF.WaitWhileToaster ();
     SF.sleep(3);
-    //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "helpertest testhelper")]'));
-    //SF.sleep(3);
+    MF.WaitWhileBusy ();
 
 condition.nowWeDoing='Создали хелпера**************************************';
   //  JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(2);
+    MF.WaitWhileBusy ();
 
 condition.nowWeDoing='Создаем форемана**************************************';
     SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
@@ -187,11 +187,11 @@ condition.nowWeDoing = 'заходим под админом и создаем �
     MF.Board_OpenSideBar ();
 condition.nowWeDoing='зашли в настройки департмента';
     MF.Board_OpenSettingsDepartment ();
-
+    MF.WaitWhileBusy ();
 condition.nowWeDoing='идем удалять форемана';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
-    SF.sleep(3);
+    MF.WaitWhileBusy ();
     // driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains("+V.foremanFirstName+")').dblclick();"),config.timeout);
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.foremanFirstName+'")]'))).doubleClick().perform();
     SF.sleep (3);
@@ -205,7 +205,7 @@ condition.nowWeDoing='идем удалять форемана';
 condition.nowWeDoing='идем удалять хелпера';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
-    SF.sleep(2);
+    MF.WaitWhileBusy ();
     let count=0;
     MF.WaitWhileBusy ();
     driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"helpertest testhelper\")').length;").then(function(c){
@@ -231,7 +231,7 @@ condition.nowWeDoing='идем удалять хелпера';
 condition.nowWeDoing='идем удалять драйвера';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
-    SF.sleep(2);
+    MF.WaitWhileBusy ();
     count=0;
     MF.WaitWhileBusy ();
     driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"drivertest testdriver\")').length;").then(function(c){
@@ -251,12 +251,12 @@ condition.nowWeDoing='идем удалять драйвера';
         }),config.timeout);
         SF.sleep(1);
     }
-    SF.sleep(1);
+    MF.WaitWhileBusy ();
 
 condition.nowWeDoing='идем удалять сейлса';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
-    SF.sleep(2);
+    MF.WaitWhileBusy ();
     // driver.executeScript("$('.mdDataTable tbody tr td:contains("+V.salesFirstName +")').dblclick();");
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.salesFirstName+'")]'))).doubleClick().perform();
 
@@ -269,7 +269,7 @@ condition.nowWeDoing='идем удалять сейлса';
 condition.nowWeDoing='идем удалять менеджера';
     MF.WaitWhileBusy();
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
-    SF.sleep(2);
+    MF.WaitWhileBusy ();
     // driver.executeScript("$('.mdDataTable tbody tr td:contains(" +V.managerFirstName1 +")').dblclick();");
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.managerFirstName1+'")]'))).doubleClick().perform();
 
