@@ -76,6 +76,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
     SF.send(By.xpath('//input[@ng-model="scheduleDeliveryDate"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
     SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
+    SF.sleep(2);
 
     LF.closeEditRequest ();
     condition.nowWeDoing = 'Заходим в PickUp и проверям по филтрам и по введенним даним';

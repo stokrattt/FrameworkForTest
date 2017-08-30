@@ -131,7 +131,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.openTab(1);
     SF.waitForVisible(By.xpath('//a[@ng-click="vm.invoicePayment();"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//a[@ng-click="vm.invoicePayment();"]'))
+    SF.click(By.xpath('//a[@ng-click="vm.invoicePayment();"]'));
     LF.InvoiceOnlinePayment();
     SF.openTab(0);
     condition.nowWeDoing = 'Проверяем есть ли в реситах оплачений инвоис';
@@ -139,20 +139,22 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.amount = SF.cleanPrice(text);
     }),config.timeout);
-    JS.click('span:contains(\\"Receipts\\")');
+    driver.wait(driver.executeScript("if($('md-switch[ng-change=\"setHideZero()\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('md-switch[ng-change=\"setHideZero()\"]').click()}"),config.timeout);
+    JS.waitForExist ('button[ng-click=\\"showMenu($mdMenu, $event)\\"]:visible');
+    SF.click(By.xpath('//button[@ng-click="showMenu($mdMenu, $event)"]'));
     SF.waitForVisible(By.xpath('//span[contains(text(), "Amount")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.receiptsAmount = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.amount, V.receiptsAmount, 'не совпали Amount');
     }),config.timeout);
-    SF.click(By.xpath('//div[@ng-click="showList(item)"]'));
     condition.nowWeDoing = 'Проверяем есть ли в вкладке Invoices инвоис';
     JS.click('span:contains(\\"Invoices\\")');
     SF.waitForVisible(By.xpath('//span[contains(text(), "Amount")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.invoicesAmount = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.amount, V.invoicesAmount, 'не совпали Amount');
-    }),config.timeout)
+    }),config.timeout);
     SF.click(By.xpath('//div[@ng-click="showList(item)"]'));
     condition.nowWeDoing = 'удаляем инвоис';
     JS.click('span:contains(\\"Payment details\\")');

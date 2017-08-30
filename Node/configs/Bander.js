@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/33_AddCarrier.js'
+        './tests/85_MovingAndStorageBinding.js'
     ];
 
     config.chainFail = false;

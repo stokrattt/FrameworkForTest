@@ -185,6 +185,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
         V.ldJobId = text;
     }),config.timeout);
+    SF.sleep(2);
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//div/div/md-checkbox[@ng-model="item.selected"]/div[1]'));
     JS.waitForExist ('button[ng-click=\\"removeSelectedJobs()\\"]:visible');
     SF.click (By.xpath('//button[@ng-click="removeSelectedJobs()"]'));

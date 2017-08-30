@@ -189,6 +189,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
     JS.click('md-tab-item[ng-click=\\"$mdTabsCtrl.select(tab.getIndex())\\"]:contains(\\"helper\\")');
     SF.waitForVisible (By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
+    SF.sleep(2);
     SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
     SF.sleep(2);
     V.helper1DailyAmount = 60;

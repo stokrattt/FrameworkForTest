@@ -193,7 +193,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.managerName = 'emilia clark';
     SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
-    SF.sleep (2);
     SF.click(By.xpath('//div[@id="invoice"]/ul/li[2]'));
     SF.sleep (2);
     SF.select (By.xpath('//select[@ng-model="foreman.id"]'), 4);
