@@ -1178,7 +1178,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.waitForNotExist('div.toast-success:visible');
         // JS.waitForNotExist('div.visible-overflow');
         SF.sleep(1);
-        SF.click(By.xpath('//*[contains(text(),"Salary & Commission")]/../..//button[@ng-click="cancel()"]'));
+        SF.click(By.xpath('//button[@ng-click="cancel()"]'));
         SF.sleep(2);
     }
     function SelectRequestDispatch(request) {
