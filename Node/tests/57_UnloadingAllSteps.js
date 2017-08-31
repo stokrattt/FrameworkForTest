@@ -109,9 +109,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_OpenLogs();
-    MF.EditRequest_Check1EmailExist(V.client.newEmail2, "Unloading Confirmed");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Unloading Confirmed");
     //MF.EditRequest_Check1EmailExist(V.client.email, "Complete the confirmation process");
-    MF.EditRequest_Check1EmailExist(V.client.newEmail2, 'New Message From emilia');
+    MF.EditRequest_Check1EmailExist(V.client.email, 'New Message From emilia');
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
     MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
     LF.closeEditRequest();
