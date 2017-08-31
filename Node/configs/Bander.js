@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/85_MovingAndStorageBinding.js'
+        './tests/84_MovingAndStorageBinding.js'
     ];
 
     config.chainFail = false;
