@@ -59,11 +59,11 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.click(By.xpath('//div[@class="custom-block moving"]//tr[@ng-repeat="pending_tab in movingPendingBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
     SF.click(By.xpath('//div[@class="custom-block moving"]//li[@ng-repeat="tab in service.tabs track by $index"][2]'));
-    driver.wait(driver.executeScript("if ($('div[class=\"custom-block moving\"] input[ng-model=\"not_confirmed_tab.showCustomBlock\"]').hasClass('ng-not-empty')){return true;} else {$('div[class=\"ibox moving\"]" +
-        " input[ng-model=\"not_confirmed.showCustomBlock\"] ~span').click()}"));
+    driver.wait(driver.executeScript("if ($('div[class=\"custom-block moving\"] input[ng-model=\"not_confirmed_tab.showCustomBlock\"]').hasClass('ng-not-empty')){return true;} else {$('div[class=\"custom-block moving\"]" +
+        " input[ng-model=\"not_confirmed_tab.showCustomBlock\"] ~span').click()}"));
     SF.sleep(1);
-    driver.wait(driver.executeScript("if ($('div[class=\"custom-block moving\"] input[ng-model=\"not_confirmed_tab.showOnConfirmationPage\"]').hasClass('ng-not-empty')){return true;} else {$('div[class=\"ibox moving\"]" +
-        " input[ng-model=\"not_confirmed.showOnConfirmationPage\"] ~span').click()}"));
+    driver.wait(driver.executeScript("if ($('div[class=\"custom-block moving\"] input[ng-model=\"not_confirmed_tab.showOnConfirmationPage\"]').hasClass('ng-not-empty')){return true;} else {$('div[class=\"custom-block moving\"]" +
+        " input[ng-model=\"not_confirmed_tab.showOnConfirmationPage\"] ~span').click()}"));
     SF.sleep(1);
     SF.click(By.xpath('//div[@class="custom-block moving"]//tr[@ng-repeat="not_confirmed_tab in movingNotConfirmedBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
@@ -115,7 +115,7 @@ condition.nowWeDoing = 'выключаем кастомный блок not confi
     SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
-    SF.sleep(1);
+    SF.sleep(3);
 
 condition.nowWeDoing = 'тут включаем чекбоксы для нот конферм* и переходим на вкладку конферм и включаем там чекбоксы и идем проверять в акк';
     SF.click(By.xpath('//div[@class="custom-block moving"]//input[@ng-model="not_confirmed_tab.showCustomBlock"]/following-sibling::span'));
@@ -123,11 +123,13 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     SF.click(By.xpath('//div[@class="custom-block moving"]//tr[@ng-repeat="not_confirmed_tab in movingNotConfirmedBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
     SF.click(By.xpath('//div[@class="custom-block moving"]//li[@ng-repeat="tab in service.tabs track by $index"][3]'));
-    driver.wait(driver.executeScript("if ($('div[class=\"custom-block moving\"] input[ng-model=\"confirmed_tab.showCustomBlock\"]').hasClass('ng-not-empty')){return true;} else {$('div[class=\"ibox moving\"]" +
-        " input[ng-model=\"confirmed.showCustomBlock\"] ~span').click()}"));
+    driver.wait(driver.executeScript("if ($('div[class=\"custom-block moving\"] input[ng-model=\"confirmed_tab.showCustomBlock\"]').hasClass('ng-not-empty')){" +
+        "return true;} else {$('div[class=\"custom-block moving\"]" +
+        " input[ng-model=\"confirmed_tab.showCustomBlock\"] ~span').click()}"));
     SF.sleep(1);
-    driver.wait(driver.executeScript("if ($('div[class=\"custom-block moving\"] input[ng-model=\"confirmed_tab.showOnConfirmationPage\"]').hasClass('ng-not-empty')){return true;} else {$('div[class=\"ibox moving\"]" +
-        " input[ng-model=\"confirmed.showOnConfirmationPage\"] ~span').click()}"));
+    driver.wait(driver.executeScript("if ($('div[class=\"custom-block moving\"] input[ng-model=\"confirmed_tab.showOnConfirmationPage\"]').hasClass('ng-not-empty')){" +
+        "return true;} else {$('div[class=\"custom-block moving\"]" +
+        " input[ng-model=\"confirmed_tab.showOnConfirmationPage\"] ~span').click()}"));
     SF.sleep(1);
     SF.click(By.xpath('//div[@class="custom-block moving"]//tr[@ng-repeat="confirmed_tab in movingConfirmedBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
@@ -153,7 +155,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
-    SF.sleep(1);
+    SF.sleep(3);
 
 condition.nowWeDoing = 'выключаем кастомный блок confirmed и идем проверять в акк';
     SF.click(By.xpath('//div[@class="custom-block moving"]//input[@ng-model="confirmed_tab.showCustomBlock"]/following-sibling::span'));
@@ -173,7 +175,7 @@ condition.nowWeDoing = 'выключаем кастомный блок confirmed
     }),config.timeout);
     SF.sleep(0.5);
     SF.openTab (0);
-    SF.sleep(1);
+    SF.sleep(3);
 
 condition.nowWeDoing = 'тут включаем чекбоксы для конферм* и все ';
     SF.click(By.xpath('//div[@class="custom-block moving"]//input[@ng-model="confirmed_tab.showCustomBlock"]/following-sibling::span'));

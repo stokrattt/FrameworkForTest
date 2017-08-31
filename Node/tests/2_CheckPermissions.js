@@ -13,7 +13,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'идем в настройки и ставим пермишины для сейлса';
     MF.Board_OpenSettingsDepartment();
     MF.Department_OpenSales();
+    MF.WaitWhileBusy ();
     MF.Department_OpenHuman("JackSales do not delete");
+    MF.WaitWhileBusy ();
     MF.Department_OpenMansPermissions();
     MF.Department_ClickPermissionsRequests();
     LF.PermissionsClear ();
@@ -41,10 +43,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_RememberSale(V.requestSale);
     VD.IWant (VD.ToEqual, V.requestAdmin.SaleName, V.requestSale.SaleName, 'Сейлсы не совпадают на админке и на менеджере');
 
-    MF.EditRequest_SetSaleNumber(2);
+    MF.EditRequest_SetSaleNumber(5);
     V.requestNew={};
     MF.EditRequest_RememberSale(V.requestNew);
     VD.IWant (VD.NotToEqual, V.requestNew.SaleName, V.requestSale.SaleName, 'пермишины не сработали, так как сейл не изменился');
+    Debug.pause();
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetSizeOfMoveNumber(8);
     MF.EditRequest_SaveChanges();

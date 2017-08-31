@@ -1449,6 +1449,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             helpersForCommission: []
         };
         EditRequestPayroll_RememberManager(managerName, boardNumbers.Payroll.managerForCommission);
+        SF.sleep(3);
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.forCommission),
             Math.floor(boardNumbers.Total
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
@@ -1457,8 +1458,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
+        SF.sleep(1);
         MF.EditRequest_PayrollOpenForemanTab();
         EditRequestPayroll_RememberForeman(V.foremanName, boardNumbers.Payroll.foremanForCommission);
+		SF.sleep(3);
         MF.EditRequest_PayrollGetForemansTotal(boardNumbers.Payroll.foremanForCommission);
 
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
