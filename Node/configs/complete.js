@@ -2,7 +2,7 @@ module.exports = function(config,V) {
     config.suite = [
        './tests/DefaultSettings.js',
         './tests/48_Review.js',
-        './tests/80_OverBookingVol1.js',
+       // './tests/80_OverBookingVol1.js',
         // './tests/3_CheckChangeCubicFitAdmin&AddInventory.js',
         './tests/4_CheckFuelCFitInventOffCalc.js',
         './tests/19_SignForemanJobAndUnssignetJob.js',
@@ -54,7 +54,7 @@ module.exports = function(config,V) {
         './tests/70_SITAddTripPersonallyForeman.js',
         './tests/34_ContractPageCustomBlock.js',
         './tests/35_InventoryLocalMovingAndValuation.js',
-        './tests/36_DatePending.js',
+      //  './tests/36_DatePending.js',
         './tests/37_PendingStorage.js',
         './tests/38_CustomPayrollInRequest.js',
         // './tests/39_CloneRequest.js',
