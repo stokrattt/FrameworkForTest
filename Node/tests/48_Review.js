@@ -37,7 +37,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseConfirmWork ();
-    MF.EditRequest_SetLaborTimeCloseJob ();
+    MF.EditRequest_SetLaborTimeCloseJob ('01:00');
     MF.EditRequest_CloseJob();
 
     MF.EditRequest_OpenLogs ();
@@ -101,7 +101,7 @@ condition.nowWeDoing = 'теперь отключаем отсылание ре�
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseConfirmWork ();
-    MF.EditRequest_SetLaborTimeCloseJob ();
+    MF.EditRequest_SetLaborTimeCloseJob ('01:00');
     MF.EditRequest_CloseJob();
 
     MF.EditRequest_OpenLogs ();

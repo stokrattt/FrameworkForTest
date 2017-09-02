@@ -53,8 +53,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'закрываем работу и переходим в на страницу bill of lading';
 
     MF.EditRequest_CloseConfirmWork();
-    MF.EditRequest_SetLaborTimeCloseJob();
 
+    MF.EditRequest_SetLaborTimeCloseJob('01:00');
+    Debug.pause();
     MF.EditRequest_CloseJob();
     MF.EditRequest_OpenContractCloseJob();
     SF.openTab (1);

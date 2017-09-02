@@ -26,7 +26,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseConfirmWork ();
-    MF.EditRequest_SetLaborTimeCloseJob ();
+    MF.EditRequest_SetLaborTimeCloseJob ('01:00');
     MF.EditRequest_CloseJob ();
 
     condition.nowWeDoing = 'добавить в пейролл людей и закрыть';

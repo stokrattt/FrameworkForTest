@@ -62,6 +62,7 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     SF.get(V.adminURL);
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции 1';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_Refresh();
     LF.OpenRequestFlatRate (V.FRId);
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
     SF.sleep (0.5);
@@ -142,9 +143,9 @@ condition.nowWeDoing = 'пошли в админку 2 раз, ставить т
     SF.click(By.xpath('//div[contains(@class, "dateRange ")]/input'));
     driver.executeScript(JSstep.Click8DaysCalendar);
     SF.sleep (1);
-    SF.clear(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
-    SF.sleep (1);
+    // SF.click(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
+    // SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
+    // SF.sleep (1);
 
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));

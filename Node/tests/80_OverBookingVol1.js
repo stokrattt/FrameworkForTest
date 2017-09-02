@@ -43,8 +43,8 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
         V.Id2 = SF.cleanPrice(text);
         LF.addToCleanerJob(V.Id2);
     }), config.timeout);
-    SF.clear(By.id('edit-start-time'));
-    SF.send(By.id('edit-start-time'), V.time);
+    MF.EditRequest_SetStartTime (V.time);
+
     SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
     MF.WaitWhileBusy();
@@ -63,8 +63,9 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
         V.Id3 = SF.cleanPrice(text);
         LF.addToCleanerJob(V.Id3);
     }), config.timeout);
-    SF.clear(By.id('edit-start-time'));
-    SF.send(By.id('edit-start-time'), V.time);
+
+    MF.EditRequest_SetStartTime (V.time);
+
     SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
     MF.WaitWhileBusy();

@@ -24,7 +24,7 @@ condition.nowWeDoing= 'зосдаем локал мув и сразу его к�
 
 condition.nowWeDoing = 'закрываем конферм работу, выставляем лабор тайм';
     MF.EditRequest_CloseConfirmWork ();
-    MF.EditRequest_SetLaborTimeCloseJob ();
+    MF.EditRequest_SetLaborTimeCloseJob ('01:00');
     driver.actions().sendKeys(Key.ENTER).perform();
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="invoice.work_time"]')).getAttribute('value').then(function (time) {

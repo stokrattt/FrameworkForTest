@@ -2179,7 +2179,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep (7);
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-        SF.sleep (4);
+        SF.sleep (6);
         SF.send(By.id('edit-first-name'), client.name);
         SF.send(By.id('edit-last-name'), client.fam);
         SF.sleep(0.3);

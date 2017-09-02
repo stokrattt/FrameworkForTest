@@ -17,24 +17,24 @@ condition.nowWeDoing = 'идем в пейролл и ставим дату в �
 
 condition.nowWeDoing = 'сравниваем все суммы снизу с суммами сверху';
     driver.wait(driver.executeScript(JSstep.payrollTableMainPage('jobs_count', 'Jobs')).then(function (summa) {
-        VD.IWant(VD.ToEqual, summa.sum, summa.balTop, 'All Departments: сумма Jobs снизу не совпадает с суммой Jobs сверху');
+        VD.IWant(VD.ToEqual, (summa.sum)/2, summa.balTop, 'All Departments: сумма Jobs снизу не совпадает с суммой Jobs сверху');
     }),config.timeout);
     driver.wait(driver.executeScript(JSstep.payrollTableMainPage('hours', 'Hours')).then(function (summa) {
-        VD.IWant(VD.ToEqual, summa.sum, summa.balTop, 'All Departments: сумма Hours снизу не совпадает с суммой Hours сверху');
+        VD.IWant(VD.ToEqual, (summa.sum)/2, summa.balTop, 'All Departments: сумма Hours снизу не совпадает с суммой Hours сверху');
     }),config.timeout);
     driver.wait(driver.executeScript(JSstep.payrollTableMainPage('materials', 'Packing')).then(function (summa) {
-        VD.IWant(VD.ToEqual, summa.sum, summa.balTop, 'All Departments: сумма Packing снизу не совпадает с суммой Packing сверху');
+        VD.IWant(VD.ToEqual, (summa.sum)/2, summa.balTop, 'All Departments: сумма Packing снизу не совпадает с суммой Packing сверху');
     }),config.timeout);
     driver.wait(driver.executeScript(JSstep.payrollTableMainPage('m_extra', 'Extra')).then(function (summa) {
-        VD.IWant(VD.ToEqual, summa.sum, summa.balTop, 'All Departments: сумма Extra снизу не совпадает с суммой Extra сверху');
+        VD.IWant(VD.ToEqual, (summa.sum)/2, summa.balTop, 'All Departments: сумма Extra снизу не совпадает с суммой Extra сверху');
     }),config.timeout);
     driver.wait(driver.executeScript(JSstep.payrollTableMainPage('total', 'Total')).then(function (summa) {
-        VD.IWant(VD.ToEqual, summa.sum, summa.balTop, 'All Departments: сумма Total снизу не совпадает с суммой Total сверху');
+        VD.IWant(VD.ToEqual, (summa.sum)/2, summa.balTop, 'All Departments: сумма Total снизу не совпадает с суммой Total сверху');
     }),config.timeout);
     driver.wait(driver.executeScript(JSstep.payrollTableMainPage('hours_pay', 'Paid')).then(function (summa) {
-        VD.IWant(VD.ToEqual, summa.sum, summa.balTop, 'All Departments: сумма Paid снизу не совпадает с суммой Paid сверху');
+        VD.IWant(VD.ToEqual, (summa.sum)/2, summa.balTop, 'All Departments: сумма Paid снизу не совпадает с суммой Paid сверху');
     }),config.timeout);
-
+    Debug.pause();
 condition.nowWeDoing = 'тут запускаем цикл на перебор всех категорий';
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(id, dataObj) in dataTbl track by $index\"]').length").then(function (depart) {
         V.department = depart;

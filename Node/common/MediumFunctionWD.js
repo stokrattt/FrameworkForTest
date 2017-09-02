@@ -551,7 +551,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_Submit() {
         WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
-        WaitWhileBusy();
+        SF.sleep(10);
         SweetConfirm();
     }
 
@@ -978,12 +978,21 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
         SF.sleep(3);
     }
-    function EditRequest_SetLaborTimeCloseJob(Time) {
-        SF.clear (By.xpath('//input[@ng-model="invoice.work_time"]'));
+    function EditRequest_SetLaborTimeCloseJob(time) {
+        WaitWhileBusy();
+        SF.click (By.xpath('//input[@ng-model="invoice.work_time"]'));
+        SF.click(By.xpath('//input[@ng-model="invoice.travel_time.value"]'));
+        SF.click (By.xpath('//input[@ng-model="invoice.work_time"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//div[contains(@class, "ui-timepicker-wrapper") and contains(@style,"display: block;")]/ul/li[contains(text(),"'+time+'")]'));
         JS.waitForNotExist ('div.busyoverlay:visible');
-        SF.send (By.xpath('//input[@ng-model="invoice.work_time"]'),
-            (Time==undefined?'01:00':Time));
-        JS.waitForNotExist ('div.busyoverlay:visible');
+    }
+    function EditRequest_SetStartTime(time) {
+        SF.click(By.id('edit-start-time'));
+        SF.click(By.id('edit-start-time2'));
+        SF.click(By.id('edit-start-time'));
+        SF.sleep(1);
+        SF.click(By.xpath('//div[contains(@class, "ui-timepicker-wrapper") and contains(@style,"display: block;")]/ul/li[contains(text(),"'+time+'")]'));
     }
     function EditRequest_CloseJob() {
         SF.click (By.xpath('//div[@ng-click="closeJob();"]'));
@@ -1515,6 +1524,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SaveNotesForeman:EditRequest_SaveNotesForeman,
         EditRequest_SaveNotesClient:EditRequest_SaveNotesClient,
         EditRequest_Check1EmailNotExist:EditRequest_Check1EmailNotExist,
+        EditRequest_SetStartTime:EditRequest_SetStartTime,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
