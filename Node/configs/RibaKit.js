@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.timeout = 40000;
 
     config.suite = [
-        './tests/57_UnloadingAllSteps.js'
+        './tests/1_AllLocalMoving.js'
     ];
     config.chainFail = false;
     config.browser = 'chrome';
@@ -11,10 +11,13 @@ module.exports = function(config,V) {
 	//V.frontURL = 'http://stage.themoveboard.com:8005';                    //dev
 	//V.accountURL = 'http://stage.themoveboard.com:8005/account/#/login';  //dev
 	//V.adminURL = 'http://stage.themoveboard.com:8005/moveBoard/#/login';  //dev
-	V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';        //rel
-	V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';  //rel
-	V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';  //rel
-    //V.frontURL = 'http://89.223.29.231:8080/front_site/';
+	//V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';        //rel
+	//V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';  //rel
+	//V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';  //rel
+	V.frontURL = 'http://localhost:8080/front_site/esquiremoving/';			//local
+	V.accountURL = 'http://localhost:8080/account/#/login';					//local
+	V.adminURL = 'http://localhost:8080/moveBoard/#/login';					//local
+	//V.frontURL = 'http://89.223.29.231:8080/front_site/';
     //V.accountURL = 'http://89.223.29.231:8080/account/#/login';
     //V.adminURL = 'http://89.223.29.231:8080/moveBoard/#/login';
     //V.adminLogin = 'RibaAdmin';

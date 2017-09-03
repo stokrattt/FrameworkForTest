@@ -262,7 +262,7 @@ exports.selectTruck = function (hours) {
         for (var number = 0, count = $(trucks).length; (number < count && !selected); number++) {
             var arrayChaos = $('div.dhx_matrix_line:visible:eq("' + number + '") span[ng-repeat="current in parklot[tid] track by $index"],' +
                 'div.dhx_matrix_line:visible:eq("' + number + '") [ng-repeat="current in fpl[tid] track by $index"],' +
-                'div.dhx_matrix_line:visible:eq("' + number + '") [ng-repeat="current in unconparklot[tid]"]');
+                'div.dhx_matrix_line:visible:eq("' + number + '") [ng-repeat="current in unconparklot[tid] track by $index"]');
             var array=[];
             var ChaosEnd=startDay;
             for (var m=0; m<arrayChaos.length; m++){
