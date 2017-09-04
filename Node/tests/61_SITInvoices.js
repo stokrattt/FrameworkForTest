@@ -130,7 +130,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//ng-md-icon[@icon="remove_red_eye"]'));
     SF.openTab(1);
     SF.waitForVisible(By.xpath('//a[@ng-click="vm.invoicePayment();"]'));
-    SF.sleep(2);
+    SF.sleep(3);
     SF.click(By.xpath('//a[@ng-click="vm.invoicePayment();"]'));
     LF.InvoiceOnlinePayment();
     SF.openTab(0);

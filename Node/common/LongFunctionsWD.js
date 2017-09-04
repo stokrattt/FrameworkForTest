@@ -782,6 +782,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         V.carrierNew.zipCode = "90001";
         SF.send (By.xpath('//textarea[@ng-model="agentModel.data.address"]'), V.carrierNew.address);
         SF.send (By.xpath('//input[@ng-model="agentModel.data.zip_code"]'), V.carrierNew.zipCode);
+        SF.sleep(1);
         SF.click (By.xpath('//md-checkbox[@ng-model="agentModel.data.company_carrier"]'));
         SF.click (By.xpath('//md-checkbox[@ng-model="agentModel.data.active"]'));
         V.carrierNew.perCf = "2";
@@ -796,6 +797,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         V.carrierNew.phoneNumber1 = SF.randomCifra(10);
         SF.send (By.xpath('//input[@ng-model="agentModel.data.web_site"]'), V.carrierNew.webSite);
         SF.send (By.xpath('//input[@ng-model="agentModel.data.phones[$index]"]'), V.carrierNew.phoneNumber1);
+        SF.sleep(1);
         JS.click('span:contains(\\"Save\\")');
         SF.waitForVisible (By.xpath('//input[@ng-model="searchTerm"]'));
     }

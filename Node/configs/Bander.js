@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/86_FlatRateHandClosingAndPayroll.js'
+        './tests/61_SITInvoices.js'
     ];
 
     config.chainFail = false;
