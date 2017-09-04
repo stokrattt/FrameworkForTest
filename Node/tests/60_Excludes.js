@@ -200,7 +200,7 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
     MF.EditRequest_CloseModal();
     // MF.SweetConfirm ();
     LF.closeEditRequest();
-
+    MF.Board_OpenSideBar ();
 condition.nowWeDoing = 'сейчас идём в пейролл';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
