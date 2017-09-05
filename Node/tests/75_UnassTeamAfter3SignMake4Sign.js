@@ -29,8 +29,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    V.managerFirstName = 'dima';
-
+    V.managerFirstName = 'emilia';
     MF.EditRequest_OpenSettings();
     LF.SetManager(V.managerFirstName);
     MF.EditRequest_OpenClient();
@@ -87,7 +86,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
-    LF.selectCrew(V.foremanName);
+    LF.selectCrew(V.foremanName2);
     SF.click(By.xpath('//a[@ng-click="vm.openSettingsModal()"]'));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//input[@id="pickup"]'));
@@ -95,7 +94,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'заходим под 1м форменом, открываем контракт';
-    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin2, V.foremanPassword2);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
@@ -129,18 +128,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
-    LF.selectCrew(V.foremanName2);
+    LF.selectCrew(V.foremanName);
     MF.WaitWhileBusy ();
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'заходим под 2м форменом, доподписываем контракт c 4 подписями в Details of Labor ';
-    LF.LoginToBoardAsCustomForeman(V.foremanLogin2, V.foremanPassword2);
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
+    SF.click(By.xpath('//input[@ng-model="crew.timer.timeOff"]'));
+    SF.click(By.xpath('//li[contains(text(), "00:15")]'));
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_ClickPay();
@@ -164,5 +165,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LogoutFromBoardForeman();
 
 
-    SF.endOfTest();
+        SF.endOfTest();
 };
+
