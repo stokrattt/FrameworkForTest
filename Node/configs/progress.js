@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/15_OvernightDownForm.js'];
+    config.suite = ['./tests/17_LoadHelpDownFormAndEquipFee.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

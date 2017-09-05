@@ -9,6 +9,38 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+condition.nowWeDoing = 'зашли под админом и включаем еквипмент фии';
+    MF.Board_OpenSettingsGeneral ();
+    SF.click(By.linkText('Extra Services'));
+    SF.sleep(3);
+    driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index,  value) in vm.equipment_fee.by_mileage\"]').length").then(function (check) {
+        V.FeeLength = check;
+        console.log(V.FeeLength);
+    }),config.timeout);
+    SF.sleep(1);
+    if (V.FeeLength != 0) {
+        for (let i=0; i < V.FeeLength; i++) {
+            SF.click (By.xpath('//div[@ng-click="vm.removeEquipmentFee(index)"]/i'));
+            MF.SweetConfirm ();
+            SF.sleep(1);
+        }
+    }
+
+    SF.clear(By.id('equipment-fee-name'));
+    SF.send(By.id('equipment-fee-name'), 'Travel charge');
+    SF.click(By.xpath('//button[@ng-click="vm.addNewEquipmentFee(); vm.addEquipmentFee = true"]'));
+    SF.sleep(1.5);
+    SF.send(By.xpath('//input[@ng-model="vm.newEquipmentFee.from"]'), '0');
+    SF.send(By.xpath('//input[@ng-model="vm.newEquipmentFee.to"]'), '50');
+    SF.click(By.xpath('//input[@ng-model="vm.newEquipmentFee.amount"]'));
+    SF.send(By.xpath('//input[@ng-model="vm.newEquipmentFee.amount"]'), '100');
+    SF.click(By.xpath('//button[@ng-click="vm.saveNewEquipmentFee(); "]'));
+    SF.sleep(5);
+
+    MF.Board_LogoutAdmin ();
+
     SF.get(V.frontURL);
     JS.waitForExist ('#loader');
     SF.sleep (4);
@@ -32,7 +64,12 @@ condition.nowWeDoing = 'запоминаем данные';
             SF.cleanPrice(text) :
             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
     }), config.timeout);
-
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="equipmentFee.amount"]/span')).getText().then(function (text) {
+        V.frontNumbersLoadingDown.travelCharge = SF.cleanPrice (text);
+    }),config.timeout);
+    SF.sleep(1);
+    console.log(V.frontNumbersLoadingDown);
+Debug.pause();
     SF.sleep(1);
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);
@@ -45,11 +82,17 @@ condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (3);
 condition.nowWeDoing = 'сравниваем данные калькулятора и акка';
     LF.RememberAccountNumbers (V.accountNumbers);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Travel charge:")]/following-sibling::div')).getText().then(function (text) {
+        V.accountNumbers.travelCharge = SF.cleanPrice (text);
+    }),config.timeout);
+    SF.sleep(1);
     LF.addToCleanerJob(V.accountNumbers.Id);
     VD.IWant(VD.ToEqual, V.accountNumbers.CrewSize, V.frontNumbersLoadingDown.Crew, 'не совпали CrewSize аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.HourlyRate, V.frontNumbersLoadingDown.Rate, 'не совпали HourlyRate аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.TravelTime, V.frontNumbersLoadingDown.TravelTime, 'не совпали TravelTime аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.Trucks, V.frontNumbersLoadingDown.Truck, 'не совпали Trucks аккаунта и фронта');
+    VD.IWant(VD.ToEqual, V.accountNumbers.travelCharge, V.frontNumbersLoadingDown.travelCharge, 'не совпали эквипмент фии аккаунта и фронта');
+
 
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
@@ -61,6 +104,7 @@ condition.nowWeDoing = 'зашли под админом и сравниваем
     MF.WaitWhileBusy();
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
+    VD.IWant(VD.ToEqual, V.accountNumbers.travelCharge, V.boardNumbers.AdServices, 'не совпали эквипмент фии аккаунта и мувборда');
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
@@ -81,6 +125,7 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
     MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
     MF.Account_OpenRequest (V.accountNumbers.Id);
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
+    Debug.pause();
     SF.sleep(2);
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
@@ -108,6 +153,26 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
         VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     LF.LogoutFromAccount ();
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
+condition.nowWeDoing = 'зашли под админом и удаляем еквипмент фии';
+    MF.Board_OpenSettingsGeneral ();
+    SF.click(By.linkText('Extra Services'));
+    SF.sleep(3);
+    driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index,  value) in vm.equipment_fee.by_mileage\"]').length").then(function (check) {
+        V.FeeLength = check;
+        console.log(V.FeeLength);
+    }),config.timeout);
+    SF.sleep(1);
+    if (V.FeeLength != 0) {
+        for (let i=0; i < V.FeeLength; i++) {
+            SF.click (By.xpath('//div[@ng-click="vm.removeEquipmentFee(index)"]/i'));
+            MF.SweetConfirm ();
+            SF.sleep(1);
+        }
+    }
+    SF.sleep(2);
 
     SF.endOfTest();
 };

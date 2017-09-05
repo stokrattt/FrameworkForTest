@@ -88,7 +88,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_Check1EmailExist(V.client.email, "YOUR MOVE IS CONFIRMED AND SCHEDULED!");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
     MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
-    Debug.pause();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 

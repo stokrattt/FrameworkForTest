@@ -97,7 +97,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_OpenAllRequest() {
         Board_OpenSideBar();
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'requests.child\', \'\')"]'));
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'requests.child\')"]'));
         WaitWhileBusy ();
     }
     function Board_OpenStorages() {
@@ -552,7 +552,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_Submit() {
         WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
-        SF.sleep(10);
+        SF.sleep(25);
         SweetConfirm();
     }
 
@@ -997,7 +997,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_CloseJob() {
         SF.click (By.xpath('//div[@ng-click="closeJob();"]'));
-        SF.sleep (2);
+        SF.sleep (5);
         JS.waitForNotExist ('div.busyoverlay:visible');
         JS.waitForNotExist('div.toast-success');
     }

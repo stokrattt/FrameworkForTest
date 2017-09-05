@@ -8,7 +8,7 @@ module.exports = function(config,V) {
         './tests/14_LoadingHelpTopForm.js',
         './tests/15_OvernightDownForm.js',
         './tests/16_UnloadHelpDownFront.js',
-        './tests/17_LoadingHelpDownForm.js',
+        './tests/17_LoadHelpDownFormAndEquipFee.js',
         './tests/41_ContractPageSettings.js',
         './tests/46_FuelByMileage.js',
         './tests/51_ServiceTypesOnOff.js',

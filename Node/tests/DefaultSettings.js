@@ -5,6 +5,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsGeneral();
+    SF.click(By.linkText('Extra Services'));
+    SF.sleep(3);
+    driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index,  value) in vm.equipment_fee.by_mileage\"]').length").then(function (check) {
+        V.FeeLength = check;
+        console.log(V.FeeLength);
+    }),config.timeout);
+    SF.sleep(1);
+    if (V.FeeLength != 0) {
+        for (let i=0; i < V.FeeLength; i++) {
+            SF.click (By.xpath('//div[@ng-click="vm.removeEquipmentFee(index)"]/i'));
+            MF.SweetConfirm ();
+            SF.sleep(2);
+        }
+    }
     SF.click(By.linkText('Fuel Surcharge'));
     SF.sleep (2);
     SF.clear (By.xpath('//input[@ng-model="vm.fuel_surcharge.def_local"]'));

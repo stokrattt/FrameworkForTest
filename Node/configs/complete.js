@@ -24,7 +24,6 @@ module.exports = function(config,V) {
         './tests/10_ComparQuotLocalCheckBilOfLad.js',
         './tests/12_CreateMov&StorFromFrontDownAndCompare.js',
         // './tests/18_ForemanSignJob.js',
-        './tests/17_LoadingHelpDownForm.js',
         './tests/14_LoadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
        // './tests/TheCleaner.js',//==============================уборка=========================
@@ -33,6 +32,8 @@ module.exports = function(config,V) {
         './tests/13_UnloadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
         './tests/16_UnloadHelpDownFront.js',
+        './tests/17_LoadHelpDownFormAndEquipFee.js',
+
         './tests/DefaultSettings.js',
         './tests/20_LDTopForm.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
@@ -96,12 +97,12 @@ module.exports = function(config,V) {
         './tests/40_PayrollTableCheckSumJobs.js',
         './tests/79_ExtraFeeForAdditionalPickUp.js',
         './tests/81_NewPackingAddCrew.js',
-        './tests/56_LoadingAllSteps.js',
         './tests/82_LDSetPrice.js',
         './tests/83_PayrollAllDepartment.js',
         './tests/84_MovingAndStorageBinding.js',
         './tests/85_SITAddTripTPDelivery.js'
 
+        './tests/56_LoadingAllSteps.js'
 
     ];
     config.timeout = 80000;
