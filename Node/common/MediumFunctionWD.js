@@ -266,6 +266,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.navigate().refresh();
         SF.waitForLocated(By.linkText('Create Request'));
         SF.sleep (3);
+        WaitWhileBusy();
     }
     function Board_OpenCourier() {
         SF.sleep(1);
