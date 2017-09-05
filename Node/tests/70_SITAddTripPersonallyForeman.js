@@ -17,6 +17,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
     MF.EditRequest_SetToConfirmed();
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
 
@@ -48,6 +50,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//md-select[@ng-model="type"]'));
     SF.waitForVisible (By.xpath('//div[text()="Foreman/Helper"]'));
     SF.click(By.xpath('//div[text()="Foreman/Helper"]'));
+    driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Trip Info #")]')).getText().then(function(text){
+        V.tripId = SF.cleanPrice(text);
+    }),config.timeout);
 
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
@@ -55,7 +60,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="trip.data.details.internal_code"]'), V.internalCode);
     now = new Date();
     msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 10);
+    future = new Date(now.getTime() + msInDay * 4);
     options = { month: 'numeric', day: 'numeric', year: 'numeric' };
     V.dateStart = (now.toLocaleDateString('en-US', options));
     V.dateEnd = (future.toLocaleDateString('en-US', options));
@@ -68,8 +73,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.notes = SF.randomBukva(25) + '_t';
     SF.send (By.xpath('//textarea[@ng-model="trip.data.note"]'), V.notes);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.foreman"]'));
-    SF.waitForVisible (By.xpath('//div[text()="Test Foreman"]'));
-    SF.click(By.xpath('//div[text()="Test Foreman"]'));
+    SF.waitForVisible (By.xpath('//div[text()="'+V.foremanName+'"]'));
+    SF.click(By.xpath('//div[text()="'+V.foremanName+'"]'));
     SF.sleep(1);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.helper"]'));
     SF.waitForVisible (By.xpath('//div[text()="helper test1"]'));
@@ -198,13 +203,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[@value="item.daily_amount"]//button[@ng-click="update()"]'));
     SF.sleep(4);
 
-    // SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openTotalDaysEditDialog(item)"]'));
-    // SF.sleep(2);
-    // SF.clear(By.xpath('//div[@value="item.total_days"]//input[@ng-model="data.value"]'));
-    // SF.send(By.xpath('//div[@value="item.total_days"]//input[@ng-model="data.value"]'), V.totalDays);
-    // SF.click(By.xpath('//div[@value="item.total_days"]//button[@ng-click="update()"]'));
-    // SF.sleep(4);
-
     SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openOtherEditDialog(item)"]'));
     SF.sleep(2);
     V.helper1Other = 30;
@@ -222,13 +220,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.daily_amount"]//button[@ng-click="update()"]'));
     SF.sleep(4);
 
-    // SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@ng-click="openTotalDaysEditDialog(item)"]'));
-    // SF.sleep(2);
-    // SF.clear(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.total_days"]//input[@ng-model="data.value"]'));
-    // SF.send(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.total_days"]//input[@ng-model="data.value"]'), V.totalDays);
-    // SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.total_days"]//button[@ng-click="update()"]'));
-    // SF.sleep(4);
-
     SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@ng-click="openOtherEditDialog(item)"]'));
     SF.sleep(2);
     V.helper2Other = 45;
@@ -241,165 +232,218 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'сравниваем циферки общий пейрол';
 
     V.totalPayroll = V.totalMileage + V.totalHourly + V.totalDaily + V.totalCollected + V.driverExpensesAmount - V.cashAmount + V.helper1Total + V.helper2Total;
+    V.foremanTotal = V.totalPayroll - V.helper2Total - V.helper1Total;
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total Payroll:")]')).getText().then(function(text){
         V.payroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalPayroll, V.payroll, 'total Payroll не совпали');
     }),config.timeout);
-
-    condition.nowWeDoing = 'Создаем Add TP Delivery, заполняем поля и проверям рассчети';
-    JS.click('span:contains(\\"Add Pickup/Delivery\\")');
-    SF.sleep();
-    JS.click('span:contains(\\"Add TP Delivery\\")');
-    SF.waitForVisible (By.xpath('//input[@ng-model="tp.delivery_job_id"]'));
-    V.tpDeliveryJobId = SF.randomCifra(1);
-    SF.send(By.xpath('//input[@ng-model="tp.delivery_job_id"]'), V.tpDeliveryJobId);
-
-    SF.click(By.xpath('//md-select[@ng-model="selectedCarrier"]'));
-    SF.waitForVisible (By.xpath('//div[contains(text(), "'+V.carrierNew.name+'")]'));
-    SF.click(By.xpath('//div[contains(text(), "'+V.carrierNew.name+'")]'));
-    SF.sleep(2);
-    V.customer = SF.randomBukva(6) + '_t';
-    V.tpDeliveryEmail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    V.tpDeliveryPhone1 = SF.randomCifra(10);
-    SF.send(By.xpath('//input[@ng-model="tp.details.customer"]'), V.customer);
-    SF.send(By.xpath('//input[@ng-model="tp.details.email"]'), V.tpDeliveryEmail);
-    SF.send(By.xpath('//input[@ng-model="tp.details.phones[$index]"]'), V.tpDeliveryPhone1);
-
-    V.tpDeliveryRatePerCF = 2;
-    V.tpDeliveryVolumeCF = 80;
-    V.orderBalance = 150;
-    SF.clear(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'), V.tpDeliveryRatePerCF);
-    SF.send(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'), V.tpDeliveryRatePerCF);
+    SF.click(By.xpath('//button[@ng-click="submitPayroll()"]'));
+    SF.waitForVisible(By.xpath('//button[@ng-click="dialog.hide()"]'));
     SF.sleep(1);
-    SF.clear(By.xpath('//input[@ng-model="tp.closing.volume_cf"]'), V.tpDeliveryVolumeCF);
-    SF.send(By.xpath('//input[@ng-model="tp.closing.volume_cf"]'), V.tpDeliveryVolumeCF);
+    SF.click(By.xpath('//button[@ng-click="dialog.hide()"]'));
     SF.sleep(1);
-    SF.clear(By.xpath('//input[@ng-model="tp.closing.order_balance"]'), V.orderBalance);
-    SF.send(By.xpath('//input[@ng-model="tp.closing.order_balance"]'), V.orderBalance);
-
-    SF.click(By.xpath('//div[@ng-click="addServices(tp)"]'));
-    SF.waitForVisible (By.xpath('//li[contains(text(), "Parking Ticket")]'));
-    JS.click('li:contains(\\"Parking Ticket\\")');
-    V.parkingCost = 250;
-    SF.clear(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'));
-    SF.send(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'), V.parkingCost);
+    condition.nowWeDoing = 'сравниваем циферки c большим пейролом';
+    MF.Board_OpenPayroll();
+    LF.selectDateInPayroll(V.boardNumbers.moveDate);
+    LF.findTestForemanInPayroll(V.foremanName);
+    SF.waitForVisible(By.xpath('//td[contains(text(), "'+V.tripId+'")]'));
     SF.sleep(1);
-    SF.click(By.xpath('//button[contains(text(), "Ok")]'));
-    SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.job_cost"]'));
-    V.tpJobCost = V.tpDeliveryRatePerCF * V.tpDeliveryVolumeCF;
-    V.tpTotalJob = V.tpJobCost + V.parkingCost;
-    SF.sleep(3);
-
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
-        V.cleanTpJobCost = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanTpJobCost, V.tpJobCost, 'Job cost не совпали');
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[9]')).getText().then(function(text){
+        V.grandTotalPayroll = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.grandTotalPayroll, V.payroll, 'total Payroll не совпали в большом пейроле');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[10]')).getText().then(function(text){
+        V.hours = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.hours, V.totalHours, 'hours не совпали в большом пейроле');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[11]')).getText().then(function(text){
+        V.totalHourlyPayroll = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.totalHourlyPayroll, V.totalHourly, 'total hourly rate не совпали в большом пейроле');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[last()]')).getText().then(function(text){
+        V.totalForemanPayroll = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.totalForemanPayroll, V.foremanTotal, 'зарплата форемана в большом пейроле');
     }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_total"]')).getAttribute('value').then(function (text) {
-        V.cleanTpTotalJob = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanTpTotalJob, V.tpTotalJob, 'Total Job не совпали');
+    MF.Payroll_ClickAllDepartment();
+    // SF.click(By.xpath('//a[@ng-click="dTable=\'departments\';employee=\'\'"]'));
+    MF.WaitWhileBusy();
+    LF.findHelperInPayroll('helper test1');
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[9]')).getText().then(function(text){
+        V.grandTotalPayroll = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.grandTotalPayroll, V.payroll, 'total Payroll не совпали в большом пейроле');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[last()]')).getText().then(function(text){
+        V.helper1TotalPayroll = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.helper1TotalPayroll, V.helper1Total, 'зарплата helper1 в большом пейроле');
     }),config.timeout);
 
-    V.tpAddress = SF.randomCifra(10);
-    V.tpZip = '90001';
-    SF.send(By.xpath('//input[@ng-model="tp.details.address"]'), V.tpAddress);
-    SF.send(By.xpath('//input[@ng-model="tp.details.zip"]'), V.tpZip);
-    SF.sleep(3);
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 10);
-    options = { month: 'numeric', day: 'numeric', year: 'numeric' };
-    V.dateStart = (now.toLocaleDateString('en-US', options));
-    V.dateEnd = (future.toLocaleDateString('en-US', options));
-    SF.clear(By.xpath('//md-datepicker[@ng-model="date_from"]/div/input'));
-    SF.send(By.xpath('//md-datepicker[@ng-model="date_from"]/div/input'), V.dateStart);
-    SF.clear(By.xpath('//md-datepicker[@ng-model="date_to"]/div/input'));
-    SF.send(By.xpath('//md-datepicker[@ng-model="date_to"]/div/input'), V.dateEnd);
-    SF.click(By.xpath('//input[@ng-model="search"]'));
-    SF.sleep(2);
-
-    SF.click(By.xpath('//button[@ng-click="openNewPayment($event, 0, tpId, [tpId], 1)"]'));
-    SF.waitForVisible (By.xpath('//input[@ng-model="payment.amount"]'));
-    V.tpPayment = 200;
-    SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
-    SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.tpPayment);
-    SF.sleep(1);
-    V.tpToReceive = V.tpTotalJob - V.tpPayment - V.orderBalance;
-    SF.click(By.xpath('//button[@ng-click="save()"]'));
-    SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.to_receive"]'));
-    SF.sleep(5);
-
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
-        V.cleanTpToReceive = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
+    MF.Payroll_ClickAllDepartment();
+    MF.WaitWhileBusy();
+    LF.findHelperInPayroll('helper test2');
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[9]')).getText().then(function(text){
+        V.grandTotalPayroll = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.grandTotalPayroll, V.payroll, 'total Payroll не совпали в большом пейроле');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[last()]')).getText().then(function(text){
+        V.helper2TotalPayroll = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.helper2TotalPayroll, V.helper2Total, 'зарплата helper1 в большом пейроле');
     }),config.timeout);
 
-    SF.click(By.xpath('//button[@ng-click="openModal(\'new\')"]'));
-    SF.click(By.xpath('//md-select[@ng-model="storage"]'));
-    SF.waitForVisible (By.xpath('//md-option[@ng-value="storage"]/div[contains(text(), "test")]'));
-    SF.click(By.xpath('//md-option[@ng-value="storage"]/div[contains(text(), "test")]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//md-select[@ng-model="foreman"]'));
-    SF.waitForVisible (By.xpath('//div[contains(text(), "Test Foreman")]'));
-    SF.click(By.xpath('//div[contains(text(), "Test Foreman")]'));
-    SF.sleep(1);
-    SF.clear(By.xpath('//md-datepicker[@ng-model="date"]/div/input'));
-    SF.send(By.xpath('//md-datepicker[@ng-model="date"]/div/input'), V.dateEnd);
-    SF.click(By.xpath('//input[@ng-model="search"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="updateSit()"]'));
-    SF.waitForVisible (By.xpath('//button[@ng-click="createTpDelivery()"]'));
-    JS.click('button[ng-click=\\"createTpDelivery()\\"]');
-    SF.sleep(5);
-    JS.click('span:contains(\\"Trip details\\")');
-    SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
-    SF.sleep(2);
-    condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
-    SF.click(By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
-    SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'));
-    SF.sleep(2);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]')).getAttribute('value').then(function (text) {
-        V.cleanTpDeliveryRatePerCF = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanTpDeliveryRatePerCF, V.tpDeliveryRatePerCF, 'Rate per cf не совпали');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.volume_cf"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.ToEqual, text, V.tpDeliveryVolumeCF, 'Volume cf не совпали');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
-        V.cleanTpToReceive = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
-        V.cleanTpJobCost = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanTpJobCost, V.tpJobCost, 'Job cost не совпали');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_total"]')).getAttribute('value').then(function (text) {
-        V.cleanTpTotalJob = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanTpTotalJob, V.tpTotalJob, 'Total Job не совпали');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.tp_collected"]')).getAttribute('value').then(function (text) {
-        V.cleanColectedByUs = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanColectedByUs, V.orderBalance, 'Collected By us не совпали');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.order_balance"]')).getAttribute('value').then(function (text) {
-        V.cleanOrderBalance = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanOrderBalance, V.orderBalance, 'Order Balance cf не совпали');
-    }),config.timeout);
-
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.delivery_job_id"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.ToEqual, text, V.tpDeliveryJobId, 'Job Id cf не совпали');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.details.customer"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.ToEqual, text, V.customer, 'customer не совпали');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.details.email"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.ToEqual, text, V.tpDeliveryEmail, 'email cf не совпали');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.details.phones[$index]"]')).getAttribute('value').then(function (text) {
-        V.cleanTpDeliveryPhone1 = -SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanTpDeliveryPhone1, V.tpDeliveryPhone1, 'Phone cf не совпали');
-    }),config.timeout);
+    // condition.nowWeDoing = 'Создаем Add TP Delivery, заполняем поля и проверям рассчети';
+    // JS.click('span:contains(\\"Add Pickup/Delivery\\")');
+    // SF.sleep();
+    // JS.click('span:contains(\\"Add TP Delivery\\")');
+    // SF.waitForVisible (By.xpath('//input[@ng-model="tp.delivery_job_id"]'));
+    // V.tpDeliveryJobId = SF.randomCifra(1);
+    // SF.send(By.xpath('//input[@ng-model="tp.delivery_job_id"]'), V.tpDeliveryJobId);
+    //
+    // SF.click(By.xpath('//md-select[@ng-model="selectedCarrier"]'));
+    // SF.waitForVisible (By.xpath('//div[contains(text(), "'+V.carrierNew.name+'")]'));
+    // SF.click(By.xpath('//div[contains(text(), "'+V.carrierNew.name+'")]'));
+    // SF.sleep(2);
+    // V.customer = SF.randomBukva(6) + '_t';
+    // V.tpDeliveryEmail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
+    // V.tpDeliveryPhone1 = SF.randomCifra(10);
+    // SF.send(By.xpath('//input[@ng-model="tp.details.customer"]'), V.customer);
+    // SF.send(By.xpath('//input[@ng-model="tp.details.email"]'), V.tpDeliveryEmail);
+    // SF.send(By.xpath('//input[@ng-model="tp.details.phones[$index]"]'), V.tpDeliveryPhone1);
+    //
+    // V.tpDeliveryRatePerCF = 2;
+    // V.tpDeliveryVolumeCF = 80;
+    // V.orderBalance = 150;
+    // SF.clear(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'), V.tpDeliveryRatePerCF);
+    // SF.send(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'), V.tpDeliveryRatePerCF);
+    // SF.sleep(1);
+    // SF.clear(By.xpath('//input[@ng-model="tp.closing.volume_cf"]'), V.tpDeliveryVolumeCF);
+    // SF.send(By.xpath('//input[@ng-model="tp.closing.volume_cf"]'), V.tpDeliveryVolumeCF);
+    // SF.sleep(1);
+    // SF.clear(By.xpath('//input[@ng-model="tp.closing.order_balance"]'), V.orderBalance);
+    // SF.send(By.xpath('//input[@ng-model="tp.closing.order_balance"]'), V.orderBalance);
+    //
+    // SF.click(By.xpath('//div[@ng-click="addServices(tp)"]'));
+    // SF.waitForVisible (By.xpath('//li[contains(text(), "Parking Ticket")]'));
+    // JS.click('li:contains(\\"Parking Ticket\\")');
+    // V.parkingCost = 250;
+    // SF.clear(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'));
+    // SF.send(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'), V.parkingCost);
+    // SF.sleep(1);
+    // SF.click(By.xpath('//button[contains(text(), "Ok")]'));
+    // SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.job_cost"]'));
+    // V.tpJobCost = V.tpDeliveryRatePerCF * V.tpDeliveryVolumeCF;
+    // V.tpTotalJob = V.tpJobCost + V.parkingCost;
+    // SF.sleep(3);
+    //
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
+    //     V.cleanTpJobCost = SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual, V.cleanTpJobCost, V.tpJobCost, 'Job cost не совпали');
+    // }),config.timeout);
+    //
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_total"]')).getAttribute('value').then(function (text) {
+    //     V.cleanTpTotalJob = SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual, V.cleanTpTotalJob, V.tpTotalJob, 'Total Job не совпали');
+    // }),config.timeout);
+    //
+    // V.tpAddress = SF.randomCifra(10);
+    // V.tpZip = '90001';
+    // SF.send(By.xpath('//input[@ng-model="tp.details.address"]'), V.tpAddress);
+    // SF.send(By.xpath('//input[@ng-model="tp.details.zip"]'), V.tpZip);
+    // SF.sleep(3);
+    // now = new Date();
+    // msInDay = 86400000;
+    // future = new Date(now.getTime() + msInDay * 10);
+    // options = { month: 'numeric', day: 'numeric', year: 'numeric' };
+    // V.dateStart = (now.toLocaleDateString('en-US', options));
+    // V.dateEnd = (future.toLocaleDateString('en-US', options));
+    // SF.clear(By.xpath('//md-datepicker[@ng-model="date_from"]/div/input'));
+    // SF.send(By.xpath('//md-datepicker[@ng-model="date_from"]/div/input'), V.dateStart);
+    // SF.clear(By.xpath('//md-datepicker[@ng-model="date_to"]/div/input'));
+    // SF.send(By.xpath('//md-datepicker[@ng-model="date_to"]/div/input'), V.dateEnd);
+    // SF.click(By.xpath('//input[@ng-model="search"]'));
+    // SF.sleep(2);
+    //
+    // SF.click(By.xpath('//button[@ng-click="openNewPayment($event, 0, tpId, [tpId], 1)"]'));
+    // SF.waitForVisible (By.xpath('//input[@ng-model="payment.amount"]'));
+    // V.tpPayment = 200;
+    // SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
+    // SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.tpPayment);
+    // SF.sleep(1);
+    // V.tpToReceive = V.tpTotalJob - V.tpPayment - V.orderBalance;
+    // SF.click(By.xpath('//button[@ng-click="save()"]'));
+    // SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.to_receive"]'));
+    // SF.sleep(5);
+    //
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
+    //     V.cleanTpToReceive = SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
+    // }),config.timeout);
+    //
+    // SF.click(By.xpath('//button[@ng-click="openModal(\'new\')"]'));
+    // SF.click(By.xpath('//md-select[@ng-model="storage"]'));
+    // SF.waitForVisible (By.xpath('//md-option[@ng-value="storage"]/div[contains(text(), "test")]'));
+    // SF.click(By.xpath('//md-option[@ng-value="storage"]/div[contains(text(), "test")]'));
+    // SF.sleep(1);
+    // SF.click(By.xpath('//md-select[@ng-model="foreman"]'));
+    // SF.waitForVisible (By.xpath('//div[contains(text(), "Test Foreman")]'));
+    // SF.click(By.xpath('//div[contains(text(), "Test Foreman")]'));
+    // SF.sleep(1);
+    // SF.clear(By.xpath('//md-datepicker[@ng-model="date"]/div/input'));
+    // SF.send(By.xpath('//md-datepicker[@ng-model="date"]/div/input'), V.dateEnd);
+    // SF.click(By.xpath('//input[@ng-model="search"]'));
+    // SF.sleep(2);
+    // SF.click(By.xpath('//button[@ng-click="updateSit()"]'));
+    // SF.waitForVisible (By.xpath('//button[@ng-click="createTpDelivery()"]'));
+    // JS.click('button[ng-click=\\"createTpDelivery()\\"]');
+    // SF.sleep(5);
+    // JS.click('span:contains(\\"Trip details\\")');
+    // SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
+    // SF.sleep(2);
+    // condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
+    // SF.click(By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
+    // SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'));
+    // SF.sleep(2);
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]')).getAttribute('value').then(function (text) {
+    //     V.cleanTpDeliveryRatePerCF = SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual, V.cleanTpDeliveryRatePerCF, V.tpDeliveryRatePerCF, 'Rate per cf не совпали');
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.volume_cf"]')).getAttribute('value').then(function (text) {
+    //     VD.IWant(VD.ToEqual, text, V.tpDeliveryVolumeCF, 'Volume cf не совпали');
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
+    //     V.cleanTpToReceive = SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
+    //     V.cleanTpJobCost = SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual, V.cleanTpJobCost, V.tpJobCost, 'Job cost не совпали');
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_total"]')).getAttribute('value').then(function (text) {
+    //     V.cleanTpTotalJob = SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual, V.cleanTpTotalJob, V.tpTotalJob, 'Total Job не совпали');
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.tp_collected"]')).getAttribute('value').then(function (text) {
+    //     V.cleanColectedByUs = SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual, V.cleanColectedByUs, V.orderBalance, 'Collected By us не совпали');
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.order_balance"]')).getAttribute('value').then(function (text) {
+    //     V.cleanOrderBalance = SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual, V.cleanOrderBalance, V.orderBalance, 'Order Balance cf не совпали');
+    // }),config.timeout);
+    //
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.delivery_job_id"]')).getAttribute('value').then(function (text) {
+    //     VD.IWant(VD.ToEqual, text, V.tpDeliveryJobId, 'Job Id cf не совпали');
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.details.customer"]')).getAttribute('value').then(function (text) {
+    //     VD.IWant(VD.ToEqual, text, V.customer, 'customer не совпали');
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.details.email"]')).getAttribute('value').then(function (text) {
+    //     VD.IWant(VD.ToEqual, text, V.tpDeliveryEmail, 'email cf не совпали');
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.details.phones[$index]"]')).getAttribute('value').then(function (text) {
+    //     V.cleanTpDeliveryPhone1 = -SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual, V.cleanTpDeliveryPhone1, V.tpDeliveryPhone1, 'Phone cf не совпали');
+    // }),config.timeout);
 
     SF.endOfTest();
 };

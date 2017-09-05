@@ -174,11 +174,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.managerName = 'emilia clark';
     SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
-    Debug.pause();
     SF.sleep (2);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
-
     condition.nowWeDoing = 'сейчас идём в пейролл';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
