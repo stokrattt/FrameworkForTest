@@ -75,6 +75,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
     SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
     SF.send(By.xpath('//input[@ng-model="scheduleDeliveryDate"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
+    Debug.pause();
     SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
     SF.sleep(2);
 
@@ -93,6 +94,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
     SF.waitForVisible (By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[9]'));
+    SF.sleep(2);
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[9]')).getText().then(function(text){
         V.readyForDelivery = text;

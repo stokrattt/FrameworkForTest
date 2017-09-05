@@ -99,7 +99,8 @@ module.exports = function(config,V) {
         './tests/56_LoadingAllSteps.js',
         './tests/82_LDSetPrice.js',
         './tests/83_PayrollAllDepartment.js',
-        './tests/84_MovingAndStorageBinding.js'
+        './tests/84_MovingAndStorageBinding.js',
+        './tests/85_SITAddTripTPDelivery.js'
 
 
     ];

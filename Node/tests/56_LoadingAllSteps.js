@@ -202,6 +202,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.cleanTotalHW = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalHW, V.cleanTotalHW, 'Не совпали total hour на контракте и в малом пейроле');
     }),config.timeout);
+    Debug.pause();
     MF.EditRequest_CloseModal();
     MF.SweetConfirm();
     LF.closeEditRequest();
