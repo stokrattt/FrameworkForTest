@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
-        './tests/85_SITAddTripTPDelivery.js'
+        './tests/56_LoadingAllSteps.js'
     ];
 
     config.chainFail = false;

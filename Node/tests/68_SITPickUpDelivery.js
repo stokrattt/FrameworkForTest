@@ -19,6 +19,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SetToConfirmed();
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
+    SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
+    SF.sleep(1);
 
     condition.nowWeDoing = 'Закриваем роботу заходим в СІТ и заполняем поля';
     JS.step(JSstep.selectTruck(5));
@@ -75,8 +77,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
     SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
     SF.send(By.xpath('//input[@ng-model="scheduleDeliveryDate"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
-    Debug.pause();
-    SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
     SF.sleep(2);
 
     LF.closeEditRequest ();

@@ -88,7 +88,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.waitForNotExist('span.toast-message:visible');
     // SF.waitForVisible (By.xpath('//span[contains(text(),"Trip updated!")]'));
     SF.sleep(1);
-    JS.click('span:contains(\\"Add Pickup/Delivery\\")');
+    SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Add Pickup/Delivery")]'));
+    //JS.click('span:contains(\\"Add Pickup/Delivery\\")');
     SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'), V.dateStart);
@@ -96,17 +97,19 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'), V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
-    SF.sleep(1);
+    SF.sleep(2);
 
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
+    // SF.click(By.xpath('//button[@ng-click="addRequestsToTrip()"]'));
     JS.click('span:contains(\\"Add requests to trip\\")');
     SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
     SF.sleep(2);
 
     condition.nowWeDoing = 'Заходим в пейрол и заполняем и сравниваем циферки для формена';
-    JS.click('span:contains(\\"Closing\\")');
+    SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Closing")]'));
+    // JS.click('span:contains(\\"Closing\\")');
     SF.waitForVisible (By.xpath('//input[@ng-model="payroll.foreman.mileage_start"]'));
-    SF.sleep(2);
+    SF.sleep(3);
 
     V.mileageStart = 12;
     V.mileageEnd = 815;
@@ -192,9 +195,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 
     condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
-    JS.click('md-tab-item[ng-click=\\"$mdTabsCtrl.select(tab.getIndex())\\"]:contains(\\"helper\\")');
+    // JS.click('md-tab-item[ng-click=\\"$mdTabsCtrl.select(tab.getIndex())\\"]:contains(\\"helper\\")');
+    SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"helper")]'));
     SF.waitForVisible (By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
-    SF.sleep(2);
+    SF.sleep(3);
     SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
     SF.sleep(2);
     V.helper1DailyAmount = 60;
@@ -243,12 +247,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="dialog.hide()"]'));
     SF.sleep(1);
-    JS.click('span:contains(\\"Trip details\\")');
+    // JS.click('span:contains(\\"Trip details\\")');
+    SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Trip details")]'));
     SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
 
     condition.nowWeDoing = 'Создаем Add TP Delivery, заполняем поля и проверям рассчети';
     SF.sleep(2);
-    SF.click(By.xpath('//span[contains(text(),"Add TP Delivery")]'))
+    SF.click(By.xpath('//span[contains(text(),"Add TP Delivery")]'));
     // JS.click('span:contains(\\"Add Pickup/Delivery\\")');
     // SF.sleep();
     // JS.click('span:contains(\\"Add TP Delivery\\")');
@@ -351,9 +356,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="updateSit()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="createTpDelivery()"]'));
+    // SF.click(By.xpath('//button[@ng-click="createTpDelivery()"]'));
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
     SF.sleep(5);
-    JS.click('span:contains(\\"Trip details\\")');
+    SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Trip details")]'));
+    // JS.click('span:contains(\\"Trip details\\")');
     SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.sleep(2);
     condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
