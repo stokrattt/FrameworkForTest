@@ -200,12 +200,10 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
     MF.EditRequest_CloseModal();
     // MF.SweetConfirm ();
     LF.closeEditRequest();
-    MF.Board_OpenSideBar ();
+    Debug.pause();
 
 condition.nowWeDoing = 'сейчас идём в пейролл';
-    MF.Board_OpenPayroll();
-    SF.click(By.xpath("//a[@ng-click=\"vm.goToPage('dispatch.local', '')\"]"));
-    SF.sleep(1);
+
     SF.click(By.xpath("//a[@ui-sref=\"dispatch.payroll\"]"));
     WaitWhileBusy();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);

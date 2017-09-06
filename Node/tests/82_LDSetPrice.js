@@ -33,6 +33,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), V.stateRate);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(3);
+    Debug.pause();
     condition.nowWeDoing = 'Создаем ЛД работу и проверям min Price min Cubic fee и State rate а также Гранд Тотал';
     LF.CreateLongDistanceFromBoard(V.client);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function(text){
