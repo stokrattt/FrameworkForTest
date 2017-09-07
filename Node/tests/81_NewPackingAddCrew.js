@@ -96,6 +96,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     SF.click(By.xpath("//label[contains(text(),'Additional Helpers')]/following-sibling::div[@ng-repeat='addHelper in crew.helpers track by $index']/select[@ng-model='crew.helpers[$index]']//option[contains(text(),'helper test1')]"));
     SF.sleep(1);
+    SF.click(By.xpath('//a[@ng-click="vm.openSettingsModal($index)"]'));
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="rate.value"]')).getAttribute('value').then(function(text){
+        V.RateCrew = SF.cleanPrice(text);
+                    }),config.timeout);
+    SF.click(By.xpath('//button[@ng-click="saveSettings()"]'));
+    MF.WaitWhileBusy ();
     JS.click('a[ng-click=\\"vm.assignTeam(request)\\"]:visible');
     MF.WaitWhileBusy ();
     MF.Board_LogoutAdmin();
@@ -131,8 +138,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     SF.click(By.xpath('//a[@ng-click="addCrew()"]'));
+    MF.WaitWhileBusy ();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
+    driver.wait(driver.findElement(By.xpath('//th[contains(text(),"CREW 2")]/following-sibling::td[3]')).getText().then(function(text){
+        V.RateContr = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.RateCrew, V.RateContr, 'Rate не совпадает');
+    }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@id="main-contract"]//p[contains(text(),"total packing charges")]/../following-sibling::td')).getText().then(function(text){
         V.PackingContract = SF.cleanPrice(text);
         VD.IWant(VD.NotToEqual, V.PackingContract, V.cleanTotalPacking, 'Cовпали суммы коробок');

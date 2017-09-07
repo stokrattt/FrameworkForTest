@@ -46,7 +46,7 @@ condition.nowWeDoing = 'создаем ЛД реквест';
     SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
     SF.send(By.id("edit-zip-code-from"), "02032");
     SF.send(By.id("edit-zip-code-to"), "90001");
-    SF.sleep(4);
+    SF.sleep(6);
     SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
     SF.sleep(1);
     MF.WaitWhileBusy ();
