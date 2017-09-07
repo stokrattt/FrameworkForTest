@@ -132,7 +132,7 @@ module.exports = function(config,V) {
     V.foremanEmail = 'TestForeman@mail.com';
     V.managerName = 'emilia clark';
     V.managerFirstName = 'emilia';
-    V.ForgotPassword = 'xljaap@vvhd.tes';
+    V.ForgotPassword = 'uxrzla@hfgf.tes';
     V.ForgotPassword2 = 'fghdgfbdgf@gfhdgh.dsru';
 	V.testMail = {
 		login: 'test.boston',
