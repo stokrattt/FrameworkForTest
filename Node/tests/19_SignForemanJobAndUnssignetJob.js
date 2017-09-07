@@ -10,7 +10,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'зашли в админку и создаем реквест';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLoadingHelpFromBoard (V.client);
-    SF.sleep (2);
+    LF.addInventoryBoard ();
+    SF.sleep (3);
     V.boardNumbers={};
     LF.RememberDateFromRequest (V.boardNumbers);
     MF.EditRequest_RememberId (V.request);
@@ -55,14 +56,7 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
-    // JS.scroll('i[ng-click=\"vm.getByDate();\"]');
-    // // SF.click(By.xpath('//i[@ng-click="vm.getByDate();"]'));
-    // // MF.WaitWhileBusy ();
-    // SF.click(By.id('request_'+V.request.Id+''));
-    // SF.sleep(2);
-    // // MF.Dispatch_GridView();
-    // // LF.SelectRequestDispatch (V.request.Id);
-    // LF.selectCrew(V.foremanName);
+
     MF.Board_LogoutAdmin();
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);

@@ -994,7 +994,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
 
     function SetManager(name) {
-        SF.click(By.xpath('//button[contains(text(),"Assign sales person")]'));
+        SF.click(By.xpath('//button/span[contains(text(),"Assign sales person")]'));
         SF.click(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"' + name + '")]'));
         SF.sleep(1);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));
@@ -2340,7 +2340,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             '|| request.workerPosition.split(\' \')[0] == \'Customer\'"]/div[6]//input[@ng-model="rateCommission[$index].input"]'), 10);
     }
     function CreateGeneralDefaultStorage() {
-        SF.click(By.xpath('//div[@ng-click="storage.openModal()"]'));
+        SF.click(By.xpath('//a[@ng-click="storage.openModal()"]//div'));
         SF.waitForLocated (By.xpath('//button[@ng-click="closeModal()"]'));
         MF.WaitWhileBusy ();
         SF.send(By.xpath('//input[@ng-model="modalSave.name"]'), 'Test Storage');

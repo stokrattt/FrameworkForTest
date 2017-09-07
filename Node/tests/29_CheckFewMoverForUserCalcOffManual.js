@@ -59,7 +59,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in detail.text"]/' +
         'span[@ng-if="item.text.search(\'Lot\') == -1 && item.text.search(\'Charges\') == -1 && item.text != \'client notes\'"]' +
         '/span[2]/span[2]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'JackSales do not delete', 'в логах не отобразилась смена менеджера');
+        VD.IWant(VD.ToEqual, text, 'JackSales donotdelete', 'в логах не отобразилась смена менеджера');
     }),config.timeout);
     SF.sleep(3);
 

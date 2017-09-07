@@ -272,7 +272,7 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
     MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'проверяем цифры менеджера pickup';
-    LF.findSaleInPayroll('JackSales do not delete');
+    LF.findSaleInPayroll('JackSales donotdelete');
     // driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.FRId)).then(function (text) {
     //     V.payrollNumbersPickup.Sale.Total = SF.cleanPrice(text);
     // }), config.timeout);

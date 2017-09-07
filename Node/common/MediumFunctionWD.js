@@ -998,8 +998,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_CloseJob() {
         SF.click (By.xpath('//div[@ng-click="closeJob();"]'));
         SF.sleep (5);
-        JS.waitForNotExist ('div.busyoverlay:visible');
-        JS.waitForNotExist('div.toast-success');
+        WaitWhileBusy();
     }
     function EditRequest_OpenContractCloseJob() {
         driver.findElement(By.xpath('//a[contains(@class,"open_button_contract")]')).click();
@@ -1241,7 +1240,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
         WaitWhileBusy();
         WaitWhileToaster ();
-        SF.sleep(3);
+        SF.sleep(8);
     }
 
     function Department_ClickCreateUser() {
@@ -1262,7 +1261,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click (By.linkText('Account'));
     }
     function Department_User_OpenNotificationTab() {
-        SF.click(By.linkText('Notifications'));
+        SF.click(By.xpath('//li[@ng-click="activeMainTab = 6"]'));
     }
     function Department_SendNotificationEmail(email) {
         SF.send(By.xpath('//input[@ng-model="request.email"]'), email);

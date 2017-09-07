@@ -17,7 +17,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'зашли в настройки кастомных блоков мувинга для Pending и включаем их если они выключены';
     driver.wait(driver.executeScript("if ($('div[class=\"custom-block moving\"] tr[ng-repeat=\"pending_tab in movingPendingBody[$index]\"]" +
     " h3:contains(\"Show in account\") ~input').hasClass('ng-not-empty')){return true;} else {$('div[class=\"custom-block moving\"]" +
-    " tr[ng-repeat=\"pending_tab in movingPendingBody[$index]\"] h3:contains(\"Show in account\") ~span').click()}"));
+    " tr[ng-repeat=\"pending_tab in movingPendingBody[$index]\"] h3:contains(\"Show in account\") ~span').click()}"),config.timeout);
     SF.sleep(1);
     SF.click(By.xpath('//div[@class="custom-block moving"]//tr[@ng-repeat="pending_tab in movingPendingBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep (2);

@@ -25,7 +25,7 @@ condition.nowWeDoing = 'выставляем адреса и зип коды н�
     SF.clear(By.xpath('//input[@ng-model="vm.basicSettings.company_address"]'));
     SF.send(By.xpath('//input[@ng-model="vm.basicSettings.company_address"]'), 'Boston, 02135');
 
-    SF.select(By.xpath('//input[@ng-model="vm.basicSettings.main_state"]'), 'MA');
+    SF.select(By.xpath('//select[@ng-model="vm.basicSettings.main_state"]'), 'MA');
 
     SF.clear(By.xpath('//input[@ng-model="vm.basicSettings.parking_address"]'));
     SF.send(By.xpath('//input[@ng-model="vm.basicSettings.parking_address"]'), '02135');
@@ -56,6 +56,7 @@ condition.nowWeDoing = 'выставляем адреса и зип коды н�
     SF.send(By.xpath('//input[@ng-model="vm.basicSettings.long_distance_miles"]'), '325');
 
 condition.nowWeDoing = 'создаем траки 10 штук';
+    JS.scroll ('.pageheader');
     SF.click (By.linkText('Trucks'));
     SF.waitForLocated (By.xpath('button[@ng-click="vm.isAddTruck = true"]'));
     SF.click(By.xpath('//button[@ng-click="vm.isAddTruck = true"]'));
@@ -90,23 +91,22 @@ condition.nowWeDoing = 'создаем траки 10 штук';
     SF.send(By.xpath('//input[@ng-model="vm.new_truck.name"]'), "For Test10");
     SF.click(By.xpath('//div[@ng-click="vm.addTruck(vm.new_truck, false)"]'));
     SF.sleep(2);
-
 condition.nowWeDoing = 'включаем паймент если выключен';
     SF.click (By.linkText('Payments'));
-    JS.scroll ('h4:contains("Payments Settings")');
+    // JS.scroll ('h4:contains("Payments Settings")');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.AuthPaymentSSL\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.AuthPaymentSSL\"] ~span').click()}"),config.timeout);
     SF.clear(By.xpath('//input[@ng-model="vm.login_id"]'));
     SF.send(By.xpath('//input[@ng-model="vm.login_id"]'), '4s8A8m3Lj');
     SF.clear(By.xpath('//input[@ng-model="vm.transaction_key"]'));
     SF.send(By.xpath('//input[@ng-model="vm.transaction_key"]'), '66sqEb8Cb385y5Ea');
-
 condition.nowWeDoing = 'включаем маркетинг тулс';
     SF.click(By.linkText('Marketing Tools'));
     SF.sleep(0.5);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.promoTextOn\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.promoTextOn\"]').parent().click()}"),config.timeout);
     SF.sleep(0.5);
+    SF.click(By.xpath('//input[@ng-model="vm.basicSettings.promoTextOn"]'));
     SF.clear(By.xpath('//input[@ng-model="vm.basicSettings.promoText"]'));
     SF.send(By.xpath('//input[@ng-model="vm.basicSettings.promoText"]'), 'Promotion for all');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.localDistountOn\"]').hasClass('ng-not-empty')){" +
@@ -122,9 +122,9 @@ condition.nowWeDoing = 'включаем маркетинг тулс';
     SF.send(By.xpath('//input[@ng-model="vm.basicSettings.longDistanceDistount"]'), '25');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.globalShowCoupons\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.globalShowCoupons\"] ~span').click()}"),config.timeout);
-
     SF.click(By.xpath('//button[@ng-click="vm.createCoupon()"]'));
     SF.waitForLocated (By.xpath('//button[@ng-click="createNewCoupon()"]'));
+    SF.sleep(2);
     SF.click(By.xpath('//input[@ng-change="changeLimit()"]'));
     SF.click(By.xpath('//button[@ng-click="createNewCoupon()"]'));
     SF.sleep(3);
@@ -202,7 +202,7 @@ condition.nowWeDoing = 'создаем Test Helper 1';
     MF.Department_ClickCreateUser ();
     MF.Department_SendFirstLastNameAndPhone ('Test', 'Helper1', 12345678960);
     MF.Department_OpenRateCommissions ();
-    MF.Department_ClickClosingPrice ();
+    // MF.Department_ClickClosingPrice ();
     MF.Department_SelectCommissionFromTotal();
     MF.Department_SendCommissionFromTotal (10);
     SF.click(By.xpath('//input[@ng-model="request.excludeFuelMS"]/..'));
@@ -214,7 +214,7 @@ condition.nowWeDoing = 'создаем Test Helper 2';
     MF.Department_ClickCreateUser ();
     MF.Department_SendFirstLastNameAndPhone ('Test', 'Helper2', 12345678960);
     MF.Department_OpenRateCommissions ();
-    MF.Department_ClickClosingPrice ();
+    // MF.Department_ClickClosingPrice ();
     MF.Department_SelectCommissionFromTotal();
     MF.Department_SendCommissionFromTotal (10);
     SF.click(By.xpath('//input[@ng-model="request.excludeFuelMS"]/..'));
@@ -226,11 +226,10 @@ condition.nowWeDoing = 'создаем Test Helper 3';
     MF.Department_ClickCreateUser ();
     MF.Department_SendFirstLastNameAndPhone ('Test', 'Helper3', 12345678960);
     MF.Department_OpenRateCommissions ();
-    MF.Department_ClickClosingPrice ();
+    // MF.Department_ClickClosingPrice ();
     MF.Department_SelectCommissionFromTotal();
     MF.Department_SendCommissionFromTotal (10);
     MF.Department_CreateUser();
-
 condition.nowWeDoing = 'создаем FlatRateForeman';
     MF.Department_OpenForeman();
     MF.Department_ClickCreateUser ();
@@ -238,9 +237,10 @@ condition.nowWeDoing = 'создаем FlatRateForeman';
     MF.Department_User_OpenAccount();
     MF.Department_SendAccountNameAndPassword ('FlatRateForeman', '123');
     MF.Department_User_OpenNotificationTab();
-    MF.Department_SendNotificationEmail ('FlatRateForeman@mail.com');
+    SF.send(By.xpath('//input[@ng-model="request.field_notification_mail"]'), 'FlatRateForeman@mail.com');
+    // MF.Department_SendNotificationEmail ('FlatRateForeman@mail.com');
     MF.Department_OpenRateCommissions ();
-    MF.Department_ClickClosingPrice ();
+    // MF.Department_ClickClosingPrice ();
     MF.Department_SelectCommissionFromTotal();
     MF.Department_SendCommissionFromTotal (10);
     SF.click(By.xpath('//input[@ng-model="request.excludeFuelMS"]/..'));
@@ -249,7 +249,6 @@ condition.nowWeDoing = 'создаем FlatRateForeman';
     SF.click(By.xpath('//input[@ng-model="request.excludeAdditionalMS"]/..'));
     LF.Department_TurnOnAllCommission ();
     MF.Department_CreateUser();
-
 condition.nowWeDoing = 'создаем ForemanExclude';
     MF.Department_OpenForeman();
     MF.Department_ClickCreateUser ();
@@ -257,9 +256,10 @@ condition.nowWeDoing = 'создаем ForemanExclude';
     MF.Department_User_OpenAccount();
     MF.Department_SendAccountNameAndPassword ('ForemanExclude', '123');
     MF.Department_User_OpenNotificationTab();
-    MF.Department_SendNotificationEmail ('ForemanExclude@ya.com');
+    SF.send(By.xpath('//input[@ng-model="request.field_notification_mail"]'), 'ForemanExclude@ya.com');
+    // MF.Department_SendNotificationEmail ('ForemanExclude@ya.com');
     MF.Department_OpenRateCommissions ();
-    MF.Department_ClickClosingPrice ();
+    // MF.Department_ClickClosingPrice ();
     MF.Department_SelectCommissionFromTotal();
     MF.Department_SendCommissionFromTotal (10);
     SF.click(By.xpath('//input[@ng-model="request.excludeFuelMS"]/..'));
@@ -267,7 +267,6 @@ condition.nowWeDoing = 'создаем ForemanExclude';
     SF.click(By.xpath('//input[@ng-model="request.excludeAdditionalMS"]/..'));
     LF.Department_TurnOnAllCommission ();
     MF.Department_CreateUser();
-
 condition.nowWeDoing = 'создаем TEstForeman';
     MF.Department_OpenForeman();
     MF.Department_ClickCreateUser ();
@@ -275,9 +274,10 @@ condition.nowWeDoing = 'создаем TEstForeman';
     MF.Department_User_OpenAccount();
     MF.Department_SendAccountNameAndPassword ('TestForeman', '123');
     MF.Department_User_OpenNotificationTab();
-    MF.Department_SendNotificationEmail ('TestForeman@mail.com');
+    SF.send(By.xpath('//input[@ng-model="request.field_notification_mail"]'), 'TestForeman@mail.com');
+    // MF.Department_SendNotificationEmail ('TestForeman@mail.com');
     MF.Department_OpenRateCommissions ();
-    MF.Department_ClickClosingPrice ();
+    // MF.Department_ClickClosingPrice ();
     MF.Department_SelectCommissionFromTotal();
     MF.Department_SendCommissionFromTotal (10);
     SF.click(By.xpath('//input[@ng-model="request.excludeFuelMS"]/..'));
@@ -294,9 +294,9 @@ condition.nowWeDoing = 'создаем ForemanFlow1';
     MF.Department_User_OpenAccount();
     MF.Department_SendAccountNameAndPassword ('ForemanFlow1', '123');
     MF.Department_User_OpenNotificationTab();
-    MF.Department_SendNotificationEmail ('for@flow1.co');
+    SF.send(By.xpath('//input[@ng-model="request.field_notification_mail"]'), 'for@flow1.co');
+    // MF.Department_SendNotificationEmail ('for@flow1.co');
     MF.Department_CreateUser();
-
 condition.nowWeDoing = 'create default storage';
     MF.Board_OpenSideBar();
     MF.Board_OpenStorage();
