@@ -40,9 +40,9 @@ condition.nowWeDoing = 'идем в диспач назначать команд
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим под фореманом и подписываем контракт';
-    V.foremanLogin = 'ForemanExclude';
-    V.foremanPassword = 123;
-    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
+    V.foremanExcludeLogin = 'ForemanExclude';
+    V.foremanExcludePassword = 123;
+    LF.LoginToBoardAsCustomForeman(V.foremanExcludeLogin, V.foremanExcludePassword);
     LF.OpenRequestDispatch(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
@@ -205,7 +205,7 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
 condition.nowWeDoing = 'сейчас идём в пейролл';
 
     SF.click(By.xpath("//a[@ui-sref=\"dispatch.payroll\"]"));
-    WaitWhileBusy();
+    MF.WaitWhileBusy();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll(V.foremanName);
 
