@@ -116,7 +116,7 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     SF.sleep (2);
-    V.managerName = 'JackSales do not delete';
+    V.managerName = 'JackSales donotdelete';
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
     SF.sleep (2);
     MF.EditRequest_CloseModal();
@@ -138,7 +138,7 @@ condition.nowWeDoing = 'выбираем цифры формена';
     MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'выбираем цифры менеджера';
-    LF.findSaleInPayroll('JackSales do not delete');
+    LF.findSaleInPayroll('JackSales donotdelete');
     // driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.request.Id)).then(function (text) {
     //     V.payrollNumbers.Sale.Total = SF.cleanPrice(text);
     // }), config.timeout);

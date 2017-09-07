@@ -14,7 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSettingsDepartment();
     MF.Department_OpenSales();
     MF.WaitWhileBusy ();
-    MF.Department_OpenHuman("JackSales do not delete");
+    MF.Department_OpenHuman("JackSales donotdelete");
     MF.WaitWhileBusy ();
     MF.Department_OpenMansPermissions();
     MF.Department_ClickPermissionsRequests();

@@ -205,7 +205,7 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
 condition.nowWeDoing = 'сейчас идём в пейролл';
 
     SF.click(By.xpath("//a[@ui-sref=\"dispatch.payroll\"]"));
-    WaitWhileBusy();
+    MF.WaitWhileBusy();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll(V.foremanName);
 
