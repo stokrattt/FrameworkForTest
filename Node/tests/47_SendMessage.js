@@ -54,7 +54,9 @@ condition.nowWeDoing = 'зашли в реквест';
     MF.EditRequest_OpenLogs ();
     MF.EditRequest_Check1EmailExist("info@lmmoving.com", "New Message From "+V.client.name+"");
     MF.EditRequest_Check1EmailExist(V.client.email, "New Message From ");
-
+    condition.nowWeDoing = 'проверяем красный кружочек о новом сообщении';
+       driver.wait(driver.findElement(By.xpath('//span[@ng-show="request.messages"]')).getText().then(function (text) {
+    }),config.timeout);
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
