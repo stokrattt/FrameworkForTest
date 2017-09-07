@@ -170,7 +170,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.cleanTpToReceive = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
+        VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали 1');
     }),config.timeout);
 
     SF.click(By.xpath('//button[@ng-click="openModal(\'new\')"]'));
@@ -208,7 +208,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.cleanTpToReceive = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали');
+        VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали 2');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
         V.cleanTpJobCost = SF.cleanPrice(text);
@@ -323,14 +323,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.newCleanTpToReceive = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.newCleanTpToReceive, V.newTpToReceive, 'to receive не совпали');
+        VD.IWant(VD.ToEqual, V.newCleanTpToReceive, V.newTpToReceive, 'to receive не совпали 3');
     }),config.timeout);
 
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
     SF.sleep(5);
     //SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Trip details")]'));
     SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
-    SF.sleep(2);
+    SF.sleep(4);
     condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
     SF.click(By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'));
@@ -344,7 +344,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.newCleanTpToReceive = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.newCleanTpToReceive, V.newTpToReceive, 'to receive не совпали');
+        VD.IWant(VD.ToEqual, V.newCleanTpToReceive, V.newTpToReceive, 'to receive не совпали 4');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
         V.newCleanTpJobCost = SF.cleanPrice(text);
