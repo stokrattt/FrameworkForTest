@@ -101,6 +101,7 @@ module.exports = function(config,V) {
         './tests/83_PayrollAllDepartment.js',
         './tests/84_MovingAndStorageBinding.js',
         './tests/85_SITAddTripTPDelivery.js',
+        './tests/86_SITAddPersonallyForemanTripPayroll.js',
 
         './tests/56_LoadingAllSteps.js'
 
