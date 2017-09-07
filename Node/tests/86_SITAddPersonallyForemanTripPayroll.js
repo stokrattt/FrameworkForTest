@@ -447,7 +447,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.newPayroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newTotalPayroll, V.newPayroll, 'total Payroll не совпали');
     }),config.timeout);
-    condition.nowWeDoing = 'мабмитим и опять проверяем';
+    condition.nowWeDoing = 'сабмитим и опять проверяем';
     SF.click(By.xpath('//button[@ng-click="submitPayroll()"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="dialog.hide()"]'));
     SF.sleep(1);
