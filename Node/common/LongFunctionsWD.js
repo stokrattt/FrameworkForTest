@@ -994,7 +994,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
 
     function SetManager(name) {
-        SF.click(By.xpath('//button[contains(text(),"Assign sales person")]'));
+        JS.click('button:contains("Assign sales person"):visible');
+        // SF.click(By.xpath('//button[contains(text(),"Assign sales person")]'));
         SF.click(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"' + name + '")]'));
         SF.sleep(1);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));

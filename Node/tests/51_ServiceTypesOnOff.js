@@ -60,7 +60,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_Refresh ();
 Debug.pause();
     MF.Board_LogoutAdmin();
-
+    SF.sleep(3);
     condition.nowWeDoing='проверяем на фронте: включено ли только Local,Loading,Unloading,Flat';
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
@@ -173,7 +173,7 @@ Debug.pause();
     MF.Board_Refresh ();
 Debug.pause();
     MF.Board_LogoutAdmin();
-
+SF.sleep(3);
     condition.nowWeDoing='проверяем на фронте: включено ли только Storage,Overnight,Long';
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');

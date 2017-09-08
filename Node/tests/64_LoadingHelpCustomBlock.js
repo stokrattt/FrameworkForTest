@@ -125,7 +125,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     SF.click(By.xpath('//div[@class="custom-block loadinghelp"]//li[@ng-repeat="tab in service.tabs track by $index"][3]'));
     SF.sleep(1.5);
     driver.wait(driver.executeScript("if ($('div[class=\"custom-block loadinghelp\"] input[ng-model=\"confirmed_tab.showCustomBlock\"]').hasClass('ng-not-empty')){return true;} else {$('div[class=\"custom-block loadinghelp\"]" +
-        " input[ng-model=\"confirmed.showCustomBlock\"] ~span').click()}"));
+        " input[ng-model=\"confirmed_tab.showCustomBlock\"] ~span').click()}"));
     SF.sleep(1);
     driver.wait(driver.executeScript("if ($('div[class=\"custom-block loadinghelp\"] input[ng-model=\"confirmed_tab.showOnConfirmationPage\"]').hasClass('ng-not-empty')){return true;} else {$('div[class=\"custom-block loadinghelp\"]" +
         " input[ng-model=\"confirmed_tab.showOnConfirmationPage\"] ~span').click()}"));
