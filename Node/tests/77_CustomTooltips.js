@@ -24,7 +24,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Job Time")]')).getText().then(function(text){
         V.jobTimeText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Labor Time start ")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Labor Time starts")]')).getText().then(function(text){
         V.laborTimeText = text;
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Travel Time - time added to Labor Time")]')).getText().then(function(text){

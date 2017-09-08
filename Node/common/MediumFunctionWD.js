@@ -205,6 +205,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][6]'));
         SF.sleep(2);
     }
+    function Board_OpenSettingsAccountPageFlatRate() {
+        SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
+        SF.sleep(3);
+        SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][2]'));
+        SF.sleep(2);
+    }
     function Board_OpenSettingsLongDistance() {
         SF.click(By.xpath('//a[@ui-sref="settings.longdistance"]'));
         SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
@@ -1393,6 +1399,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenCarriersAndAgents: Board_OpenCarriersAndAgents,
         Board_OpenSettingsAccountPageCustomBlock: Board_OpenSettingsAccountPageCustomBlock,
         Board_OpenSettingsAccountPageCustomTooltips:Board_OpenSettingsAccountPageCustomTooltips,
+        Board_OpenSettingsAccountPageFlatRate: Board_OpenSettingsAccountPageFlatRate,
         Board_OpenStatistic: Board_OpenStatistic,
         Board_OpenProfitLoss: Board_OpenProfitLoss,
 		Board_OpenRequest: Board_OpenRequest,

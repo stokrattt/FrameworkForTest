@@ -155,6 +155,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.invoicesAmount = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.amount, V.invoicesAmount, 'не совпали Amount');
     }),config.timeout);
+    SF.sleep(2);
     SF.click(By.xpath('//div[@ng-click="showList(item)"]'));
     condition.nowWeDoing = 'удаляем инвоис';
     JS.click('span:contains(\\"Payment details\\")');

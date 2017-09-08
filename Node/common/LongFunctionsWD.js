@@ -729,8 +729,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         console.log('создали реквест');
     }
     function CreateLongDistanceFromBoard(client) {
-        if (client.zipFrom == undefined) {client.zipFrom='02032';}
-        if (client.zipTo == undefined) {client.zipTo='90001';}
+        client.zipFrom='02222';
+        if (!client.zipTo == '75320') {client.zipTo='90001';}
         SF.click(By.linkText('Create Request'));
         SF.sleep(3);
         SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:7"]'));

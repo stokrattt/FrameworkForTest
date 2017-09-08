@@ -108,7 +108,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[5]')).getText().then(function(text){
         V.deliveryTo =  SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.deliveryTo, '3465456456432132', 'delivery to не совпали');
+        VD.IWant(VD.ToEqual, V.deliveryTo, '3465456456490001', 'delivery to не совпали');
     }),config.timeout);
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[8]')).getText().then(function(text){

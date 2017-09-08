@@ -47,7 +47,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.storage.name);
     SF.waitForVisible (By.xpath('//div[text()="'+ V.storage.name +'"]'));
-    SF.sleep(2);
+    SF.sleep(3);
     SF.click(By.xpath('//div[text()="'+ V.storage.name +'"]'));
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
     SF.sleep(5);
