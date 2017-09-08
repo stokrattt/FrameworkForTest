@@ -1,6 +1,7 @@
 module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
     global.fiber = Fiber.current;
-
+    V.ForgotPassword = 'xljaap@vvhd.tes';
+    V.ForgotPassword2 = 'fghdgfbdgf@gfhdgh.dsru';
     SF.get(V.adminURL);
     SF.click (By.xpath('//small[contains(text(),"Forgot password?")]'));
     SF.sleep(1);
