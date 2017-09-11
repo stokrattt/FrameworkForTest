@@ -26,8 +26,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.sleep(5);
     V.accountNumbers={};
+
     LF.RememberAccountNumbers(V.accountNumbers);
-    LF.addToCleanerJob(V.accountNumbers.Id);
+    //LF.addToCleanerJob(V.accountNumbers.Id);
 
     LF.LogoutFromAccount();
 
