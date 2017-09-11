@@ -133,7 +133,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     SF.sleep(1);
     SF.click(By.xpath('//div[@class="custom-block moving"]//tr[@ng-repeat="confirmed_tab in movingConfirmedBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
-
+Debug.pause();
     MF.Board_SearchRequest(V.boardNumbers.Id);
     SF.sleep(3);
     MF.Board_SearchOpenRequest (V.boardNumbers);

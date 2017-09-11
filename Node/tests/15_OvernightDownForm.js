@@ -102,7 +102,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
         V.frontNumbersOvernightDown.OvernightStorageMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
         V.frontNumbersOvernightDown.OvernightStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
     }), config.timeout);
-*/  Debug.pause();
+*/
     SF.sleep(2);
     SF.click(By.id('submitRequestButton'));
     SF.sleep (4);
@@ -128,7 +128,6 @@ condition.nowWeDoing = 'пошли в аккаунт';
     LF.RememberAccountNumbers(V.accountNumbersDelivery);
     LF.addToCleanerJob(V.accountNumbersDelivery.Id);
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersDelivery, V.frontNumbersOvernightDown_Del);
-    Debug.pause();
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
 
