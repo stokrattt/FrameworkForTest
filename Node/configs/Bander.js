@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/54_LDQuoteAndFuel.js'
+    config.suite = ['./tests/69_SITAddStorage.js'
 
     ];
 

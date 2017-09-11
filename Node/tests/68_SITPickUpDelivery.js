@@ -8,7 +8,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     V.client.zipFrom = '02222';
-    V.client.zipTo = '32132';
+    V.client.zipTo = '90001';
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
