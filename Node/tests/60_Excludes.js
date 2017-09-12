@@ -129,7 +129,7 @@ condition.nowWeDoing = 'тут открываем пейрол в реквест
     SF.sleep(1);
 
 condition.nowWeDoing = 'проверяем фореманан в пейроле в реквесте';
-    SF.click(By.xpath('//li[@heading="Foremen"]/a'));
+    SF.click(By.xpath('//li[@heading="Foreman"]/a'));
     driver.wait(driver.executeScript('return $(\'input[ng-model="foreman.for_commission"]\').val()').then(function (text) {
         V.boardNumbers.Payroll.foremanForCommission.office = SF.cleanPrice(text);
     }),config.timeout);

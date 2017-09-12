@@ -1520,7 +1520,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
-        SF.click(By.xpath('//li[@heading="Foremen"]/a'));
+        SF.click(By.xpath('//li[@heading="Foreman"]/a'));
         // driver.wait(driver.executeScript('return ' +
         //     '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
         // ).then(function (text) {
@@ -1569,7 +1569,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         };
         SF.sleep(3);
 
-        SF.click(By.xpath('//li[@heading="Foremen"]/a'));
+        SF.click(By.xpath('//li[@heading="Foreman"]/a'));
         // driver.wait(driver.executeScript('return ' +
         //     '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
         // ).then(function (text) {
