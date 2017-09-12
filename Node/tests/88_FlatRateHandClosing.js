@@ -84,6 +84,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     MF.EditRequest_OpenRequest();
     SF.sleep(2);
+    SF.clear (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'));
+    SF.send (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'), 3000);
+    SF.click(By.xpath('//label[@ng-click="OpenSurchargeModal();"]'));
+    SF.waitForVisible(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
+    SF.sleep(2);
+    SF.clear(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
+    SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'), 50);
+    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
+    MF.WaitWhileToaster ();
+    SF.sleep(2);
     MF.EditRequest_SetToConfirmed();
     JS.step(JSstep.selectTruck(5));
     MF.EditRequest_SetAdressToFrom();
@@ -178,7 +188,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         Foreman2:{}
     };
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, '1 не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(2);
     MF.Payroll_ClickAllDepartment();
@@ -186,14 +196,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.findTestForemanInPayroll(V.foremanName);
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
     SF.sleep(2);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.Total, '2 не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
+    Debug.pause();
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy ();
     LF.findTestForemanInPayroll(V.foremanName2);
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman2);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman2.Total, V.boardNumbers.Payroll.foreman2ForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman2.Total, V.boardNumbers.Payroll.foreman2ForCommission.Total, '3 не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
+
     SF.sleep (2);
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSettingsAccountPageFlatRate();
