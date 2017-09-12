@@ -774,7 +774,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             'td[contains(text(),"'+type+'")]/..//input[@ng-model="sale.rate"]'),percent);
     }
     function EditRequest_PayrollOpenForemanTab() {
-        SF.click(By.xpath('//li[@heading="Foremen"]/a'));
+        SF.click(By.xpath('//li[@heading="Foreman"]/a'));
         WaitWhileBusy();
     }
     function EditRequest_PayrollSetForemanCommission(name, type, forCommission, percent){
