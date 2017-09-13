@@ -58,7 +58,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.countSales, 1,'не сохранился Sale');
-    SF.click(By.xpath('//a[@ng-click="select(tabs[1])"][contains(text(),"Foremen")]'));
+    SF.click(By.xpath('//a[@ng-click="select(tabs[1])"][contains(text(),"Foreman")]'));
     driver.wait(driver.executeScript('return $(\'select[ng-model="selected.foreman[foremanIndex]"]:visible  option[selected="selected"]:contains("'+V.foremanName+'")\').length;')
         .then(function(count){
             V.countForeman=count;
