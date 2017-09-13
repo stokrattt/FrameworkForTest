@@ -104,7 +104,8 @@ module.exports = function(config,V) {
         './tests/86_SITAddPersonallyForemanTripPayroll.js',
         './tests/87_ForgotPassword.js',
 
-        './tests/56_LoadingAllSteps.js'
+        './tests/56_LoadingAllSteps.js',
+        './tests/88_FlatRateHandClosing.js'
 
     ];
     config.timeout = 80000;
