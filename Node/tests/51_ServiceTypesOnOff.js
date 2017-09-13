@@ -176,9 +176,9 @@ Debug.pause();
 SF.sleep(3);
     condition.nowWeDoing='проверяем на фронте: включено ли только Storage,Overnight,Long';
     SF.get(V.frontURL);
-    JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
-    SF.sleep(5);
-    SF.click(By.xpath('//input[@ng-change="serviceneed = true"]/..'));
+    JS.waitForExist('select[ng-model=\\"request.serviceType\\"]:visible');
+    SF.sleep(8);
+    // SF.click(By.xpath('//input[@ng-change="serviceneed = true"]/..'));
 
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Moving") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){

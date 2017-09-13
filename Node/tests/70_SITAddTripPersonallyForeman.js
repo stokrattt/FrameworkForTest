@@ -104,6 +104,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('span:contains(\\"Add requests to trip\\")');
     SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
     SF.sleep(2);
+    SF.click(By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
+    SF.click(By.xpath('//div[text()="Delivered/Closed"]'));
+    SF.sleep(2);
 
     condition.nowWeDoing = 'Заходим в пейрол и заполняем и сравниваем циферки для формена';
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Closing")]'));

@@ -69,11 +69,11 @@ console.log(V.jobTimeText);
         VD.IWant(VD.ToEqual, V.fuelSurchargeText, text, 'не совпали Fuel Surcharge Tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.myselfPacking.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.myselfPackingText, text, 'не совпали Myself Packing Tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.partialPacking.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//h5[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.partialPackingText, text, 'не совпали Partial Packing tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-if="vm.tooltipData.fullPacking.isDisplay"]'));
