@@ -1301,7 +1301,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         JS.click('a[ng-click=\\"super.vm.assignTeam()\\"]:visible');
         MF.WaitWhileBusy ();
-        JS.waitForExist('div.toast-success');
+        // JS.waitForExist('div.toast-success');
         SF.sleep(2);
         JS.waitForNotExist('div.toast-success');
         SF.sleep(2);
