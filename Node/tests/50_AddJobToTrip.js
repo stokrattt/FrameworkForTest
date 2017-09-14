@@ -136,14 +136,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'));
     SF.send(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'), V.parkingCost);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
-    SF.sleep(3);
+    SF.sleep(5);
     SF.click(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     SF.waitForVisible(By.xpath('//input[@ng-model="payment.amount"]'));
     V.somePayment = 100;
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
     SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.somePayment);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
-    SF.sleep(3);
+    SF.sleep(5);
     SF.click(By.xpath('//button[@ng-click="back()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     SF.sleep(2);
