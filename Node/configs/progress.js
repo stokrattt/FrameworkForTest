@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/31_FlateRateBooking.js'];
+    config.suite = ['./tests/58_Discount.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

@@ -11,6 +11,7 @@ condition.nowWeDoing = 'зашли в админку и создаем рекв�
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLoadingHelpFromBoard (V.client);
     LF.addInventoryBoard ();
+    // LF.addAdditionalInventoryBoard();
     SF.sleep (3);
     V.boardNumbers={};
     LF.RememberDateFromRequest (V.boardNumbers);
@@ -18,7 +19,7 @@ condition.nowWeDoing = 'зашли в админку и создаем рекв�
     LF.addToCleanerJob(V.request.Id);
 condition.nowWeDoing = 'конфермим работу';
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    JS.step(JSstep.selectTruck(3));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressFrom ();

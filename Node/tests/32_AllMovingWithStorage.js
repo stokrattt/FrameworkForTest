@@ -278,7 +278,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersTo);
     MF.EditRequest_CloseModal();
-    // MF.SweetConfirm ();
+    MF.SweetConfirm ();
     LF.closeEditRequest();
 
     condition.nowWeDoing="найти второй реквест, проверить и запомнить Payroll";
