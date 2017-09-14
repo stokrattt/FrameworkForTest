@@ -63,7 +63,7 @@ module.exports = function(config,V) {
         './tests/41_ContractPageSettings.js',
         './tests/42_DrivingTimeLocalMove.js',
         './tests/43_WeightType.js',
-
+        './tests/75_UnassTeamAfter3SignMake4Sign.js',
         './tests/45_MovStorAddInventConfirmClient.js',
         './tests/46_FuelByMileage.js',
         './tests/50_AddJobToTrip.js',
@@ -89,7 +89,6 @@ module.exports = function(config,V) {
         // './tests/73_CustomTrackSpeed.js',
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/74_AddEmailsWhenCreatReq.js',
-        './tests/75_UnassTeamAfter3SignMake4Sign.js',
         './tests/76_RezervedConfirmProcess.js',
         './tests/44_CreateForemanAndAssignCheck.js',
         './tests/77_CustomTooltips.js',

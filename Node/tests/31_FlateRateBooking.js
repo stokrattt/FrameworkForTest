@@ -50,9 +50,9 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     SF.sleep(2);
     MF.Account_SubmitFlatRateAfterAddInventory ();
     JS.scroll ('a[ng-click=\\"vm.Logout()\\"]');
-    driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.inventory_weight.cfs"]')).getText().then(function (text) {
-        V.accountFRCubicFit = SF.cleanPrice(text.substring(0, text.indexOf('c')));
-    }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.inventory_weight.cfs"]')).getText().then(function (text) {
+    //     V.accountFRCubicFit = SF.cleanPrice(text.substring(0, text.indexOf('c')));
+    // }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.FRId = SF.cleanPrice(text);
     }),config.timeout);
