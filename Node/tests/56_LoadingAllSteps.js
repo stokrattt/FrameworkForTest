@@ -195,11 +195,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.managerName = 'emilia clark';
     SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
-    SF.click(By.xpath('//div[@id="invoice"]/ul/li[2]'));
-    SF.sleep (2);
-    SF.select (By.xpath('//select[@ng-model="foreman.id"]'), 4);
-    SF.sleep (1);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="foreman.for_commission"]')).getAttribute('value').then(function (text) {
+    // SF.click(By.xpath('//div[@id="invoice"]/ul/li[2]'));
+    // SF.sleep (2);
+    // SF.select (By.xpath('//select[@ng-model="foreman.id"]'), 4);
+    // SF.sleep (1);
+    MF.EditRequest_PayrollOpenForemanTab();
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"$35.00")]/../../td[3]/input[@ng-model="foreman.for_commission"]')).getAttribute('value').then(function (text) {
         V.cleanTotalHW = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalHW, V.cleanTotalHW, 'Не совпали total hour на контракте и в малом пейроле');
     }),config.timeout);
