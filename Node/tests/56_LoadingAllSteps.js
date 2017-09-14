@@ -205,7 +205,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.totalHW, V.cleanTotalHW, 'Не совпали total hour на контракте и в малом пейроле');
     }),config.timeout);
     MF.EditRequest_CloseModal();
-    MF.SweetConfirm();
+    //MF.SweetConfirm();
     LF.closeEditRequest();
 
     condition.nowWeDoing = 'сейчас идём в пейролл';
