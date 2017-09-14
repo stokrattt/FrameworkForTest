@@ -104,7 +104,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="saveSettings()"]'));
     MF.WaitWhileBusy ();
     JS.click('a[ng-click=\\"vm.assignTeam(request)\\"]:visible');
+    MF.WaitWhileBusy();
     MF.WaitWhileToaster();
+    MF.WaitWhileToaster();
+    SF.sleep(2);
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, и сумму коробок в бил оф лендинг ';
