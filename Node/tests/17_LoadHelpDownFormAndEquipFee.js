@@ -38,9 +38,10 @@ condition.nowWeDoing = 'зашли под админом и включаем е�
     SF.send(By.xpath('//input[@ng-model="vm.newEquipmentFee.amount"]'), '100');
     SF.click(By.xpath('//button[@ng-click="vm.saveNewEquipmentFee(); "]'));
     SF.sleep(5);
+    MF.Board_Refresh ();
 
     MF.Board_LogoutAdmin ();
-
+    SF.sleep(3);
     SF.get(V.frontURL);
     JS.waitForExist ('#loader');
     SF.sleep (4);
@@ -172,7 +173,8 @@ condition.nowWeDoing = 'зашли под админом и удаляем ек�
             SF.sleep(1);
         }
     }
-    SF.sleep(2);
+    SF.sleep(3);
+    MF.Board_LogoutAdmin ();
 
     SF.endOfTest();
 };

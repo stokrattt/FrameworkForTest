@@ -90,7 +90,7 @@ module.exports = function(config,V) {
         './tests/TheCleaner.js',//==============================уборка=========================
         './tests/74_AddEmailsWhenCreatReq.js',
         './tests/76_RezervedConfirmProcess.js',
-        './tests/44_CreateForemanAndAssignCheck.js',
+        // './tests/44_CreateForemanAndAssignCheck.js',
         './tests/77_CustomTooltips.js',
         './tests/78_CheckRateAndTrucks.js',
         './tests/40_PayrollTableCheckSumJobs.js',

@@ -141,13 +141,14 @@ condition.nowWeDoing = 'второй раз в аккаунте, сравнив�
     SF.sleep(2);
 condition.nowWeDoing = 'перешли на конфирмейшн пейдж и сравним данные с бордом';
     V.ConfirmationPage = {};
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Estimated Quote")]/following-sibling::div[1]/div/div/div')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Estimated Quote")]/following-sibling::div[1]/div/div')).getText().then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
             V.ConfirmationPage.TotalMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
             V.ConfirmationPage.TotalMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
         } else {
             V.ConfirmationPage.Total = SF.cleanPrice(text);
         }
+        console.log(V.ConfirmationPage.TotalMax);
     }),config.timeout);
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){
@@ -157,7 +158,7 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда');
-    LF.LogoutFromAccount ();
+    SF.sleep(3);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
