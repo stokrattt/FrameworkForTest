@@ -50,9 +50,9 @@ condition.nowWeDoing = 'пошли в аккаунт';
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
     MF.Board_OpenRequest(V.accountNumbers.Id);
     V.boardNumbers = {};
-
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
