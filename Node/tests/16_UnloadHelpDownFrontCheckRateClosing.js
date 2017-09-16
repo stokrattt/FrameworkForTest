@@ -70,7 +70,16 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
     VD.IWant(VD.ToEqual, V.accountNumbers.Trucks, V.boardNumbers.Trucks, 'не совпали Trucks аккаунта и борда');
     VD.IWant(VD.ToEqual, V.accountNumbers.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin аккаунта и борда');
     VD.IWant(VD.ToEqual, V.accountNumbers.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
-    VD.IWant(VD.ToEqual, V.accountNumbers.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');    MF.EditRequest_SetToNotConfirmed ();
+    VD.IWant(VD.ToEqual, V.accountNumbers.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
+    MF.EditRequest_SetToNotConfirmed ();
+ condition.nowWeDoing = 'выключаем калькулятор и меняем рейт';
+    SF.click(By.xpath('//span[@ng-click="switchCalc()"]'));
+    SF.clear(By.xpath('//input[@ng-model="request.rate.value"]'));
+    SF.send(By.xpath('//input[@ng-model="request.rate.value"]'), 50);
+    SF.sleep(3);
+    V.boardNumbersAfterChangeRate = {};
+    LF.RememberDigitsRequestBoard (V.boardNumbersAfterChangeRate);
+
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
@@ -89,6 +98,10 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
 condition.nowWeDoing = 'зашли под клиентом букаем  работу';
     MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
     MF.Account_OpenRequest (V.accountNumbers.Id);
+    MF.WaitWhileBusy();
+    V.accountNumbersAfterChangeRate = {};
+    LF.RememberAccountNumbers (V.accountNumbersAfterChangeRate );
+    LF.Validation_Compare_Account_Admin (V.boardNumbersAfterChangeRate, V.accountNumbersAfterChangeRate);
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
     SF.sleep(2);
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
@@ -117,6 +130,16 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
         VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     LF.LogoutFromAccount ();
+
+    SF.get (V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.WaitWhileBusy();
+    MF.Board_OpenConfirmed ();
+    MF.Board_OpenRequest(V.accountNumbers.Id);
+    MF.EditRequest_CloseConfirmWork();
+    SF.sleep(2);
+    VD.IWant(VD.ToEqual, 50, V.boardNumbersAfterChangeRate.HourlyRate, 'рейт не изменился после того как перешли в табу клозинг');
+    SF.sleep(2);
 
     SF.endOfTest();
 };

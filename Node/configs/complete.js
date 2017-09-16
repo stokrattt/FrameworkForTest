@@ -31,7 +31,7 @@ module.exports = function(config,V) {
         // './tests/8_SaveNothing.js',
         './tests/13_UnloadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
-        './tests/16_UnloadHelpDownFront.js',
+        './tests/16_UnloadHelpDownFrontCheckRateClosing.js',
         './tests/17_LoadHelpDownFormAndEquipFee.js',
 
         './tests/DefaultSettings.js',
@@ -84,7 +84,7 @@ module.exports = function(config,V) {
         './tests/67_EditRequestPayrollAdding.js',
         './tests/69_SITAddStorage.js',
         './tests/68_SITPickUpDelivery.js',
-		'./tests/71_ManualEmailing.js',
+		// './tests/71_ManualEmailing.js',
 		'./tests/72_ChangingRateAfterConfirming.js',
         // './tests/73_CustomTrackSpeed.js',
         './tests/TheCleaner.js',//==============================уборка=========================
@@ -104,7 +104,8 @@ module.exports = function(config,V) {
         './tests/87_ForgotPassword.js',
 
         './tests/56_LoadingAllSteps.js',
-        './tests/88_FlatRateHandClosing.js'
+        './tests/88_FlatRateHandClosing.js',
+        './tests/89_DraftRequest.js'
 
     ];
     config.timeout = 80000;
