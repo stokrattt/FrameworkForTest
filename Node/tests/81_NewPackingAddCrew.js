@@ -113,6 +113,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, и сумму коробок в бил оф лендинг ';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     MF.WaitWhileBusy();
+    SF.sleep(1);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Custom Packing:")]')).getText().then(function(text){
@@ -166,6 +167,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
+    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_Submit();

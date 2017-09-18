@@ -53,7 +53,7 @@ condition.nowWeDoing = 'зашли в реквест';
     MF.SweetConfirm();
     SF.sleep (5);
     MF.EditRequest_OpenLogs ();
-    MF.EditRequest_Check1EmailExist("info@lmmoving.com", "New Message From "+V.client.name+"");
+    MF.EditRequest_Check1EmailExist("test.boston@mail.ru", "New Message From "+V.client.name+"");
     MF.EditRequest_Check1EmailExist(V.client.email, "New Message From ");
     condition.nowWeDoing = 'проверяем красный кружочек о новом сообщении';
        driver.wait(driver.findElement(By.xpath('//span[@ng-show="request.messages"]')).getText().then(function (text) {
