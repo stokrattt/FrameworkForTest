@@ -238,7 +238,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'сравниваем циферки общий пейрол';
 
-    V.totalPayroll = V.totalMileage + V.totalHourly + V.totalDaily + V.totalCollected + V.driverExpensesAmount - V.cashAmount + V.helper1Total + V.helper2Total;
+    V.totalPayroll = V.totalMileage + V.totalHourly + V.totalDaily - V.totalCollected + V.driverExpensesAmount - V.cashAmount + V.helper1Total + V.helper2Total;
     V.foremanTotal = V.totalPayroll - V.helper2Total - V.helper1Total;
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total Payroll:")]')).getText().then(function(text){
