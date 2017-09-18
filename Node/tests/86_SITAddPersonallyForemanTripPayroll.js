@@ -171,7 +171,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.driverExpensesAmount);
     SF.click(By.xpath('//div[@value="item.amount"]//button[@ng-click="update()"]'));
-    SF.sleep(1);
+    SF.sleep(3);
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
     V.cashAmount = 80;
