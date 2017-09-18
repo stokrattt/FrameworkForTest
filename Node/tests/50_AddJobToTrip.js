@@ -143,7 +143,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
     SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.somePayment);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
-    SF.sleep(5);
+    SF.sleep(8);
     SF.click(By.xpath('//button[@ng-click="back()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     SF.sleep(2);

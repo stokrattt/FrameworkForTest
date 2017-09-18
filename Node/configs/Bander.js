@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/1_AllLocalMoving.js'
+    config.suite = ['./tests/88_FlatRateHandClosing.js'
 
     ];
 

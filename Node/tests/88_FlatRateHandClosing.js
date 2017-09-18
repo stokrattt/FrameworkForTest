@@ -81,7 +81,32 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     /**************************иногда выскакивает иногда нет************/
 
     MF.SweetConfirm ();
+    /*********************************************************************************************/
+    MF.EditRequest_OpenClient ();
+    LF.SetClientPasswd (V.client.passwd);
+    LF.closeEditRequest ();
+    MF.Board_LogoutAdmin ();
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient (V.client);
+    condition.nowWeDoing = 'идем в акк подтвердить выбранную опцию';
+    MF.Account_OpenRequest (V.FRId);
+    MF.Account_ChooseOptionFlatRate();
 
+    LF.LogoutFromAccount ();
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
+    condition.nowWeDoing = 'идем в админку ставить нот конферм, трак....';
+    MF.Board_OpenRequest (V.FRId);
+    SF.sleep(1);
+    MF.EditRequest_SetToConfirmed();
+    SF.sleep (1);
+    MF.EditRequest_SetAdressToFrom ();
+    SF.click(By.xpath('//div[contains(@class, "dateRange ")]/input'));
+    driver.executeScript(JSstep.Click8DaysCalendar);
+    SF.sleep (1);
+    SF.clear(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
+    SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
     MF.EditRequest_OpenRequest();
     SF.sleep(2);
     SF.clear (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'));
@@ -95,33 +120,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileToaster ();
     SF.sleep(4);
     MF.EditRequest_SetToConfirmed();
-    JS.step(JSstep.selectTruck(5));
-    MF.EditRequest_SetAdressToFrom();
+    SF.sleep (1);
     V.boardNumbers = {};
-    LF.RememberDigitsRequestBoard(V.boardNumbers);
-    SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
-    SF.waitForVisible(By.xpath('//button[@ng-click="delete(client)"]'));
-    SF.send(By.xpath('//input[@ng-model="client.password"]'), V.client.passwd);
-    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
-    SF.waitForVisible(By.xpath('//div[contains(text(),"Client info was updated")]'));
-    MF.EditRequest_OpenRequest();
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime());
-    options = { month: 'long', day: 'numeric', year: 'numeric' };
-    V.changedateDelAdmin = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//input[@ng-model="deliveryDateInput"]'), V.changedateDelAdmin);
-    SF.send(By.xpath('//input[@ng-model="deliveryDateSecondInput"]'), V.changedateDelAdmin);
-
-    SF.click(By.xpath('//input[@ng-model="request.dstart_time1.value"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//li[contains(text(), "12:00 AM")]'));
-    MF.WaitWhileBusy ();
-    // SF.click(By.xpath('//input[@ng-model="request.dstart_time2.value"]'));
-    // SF.sleep(1);
-    // SF.click(By.xpath('//li[contains(text(), "02:00 AM")]'));
-    // MF.WaitWhileBusy ();
-    // MF.EditRequest_SaveChanges();
+    LF.RememberDigitsRequestBoard (V.boardNumbers);
+    SF.sleep(2);
+    /**************************************************************************************************************/
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    SF.sleep(3);
 
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     SF.sleep(1);
@@ -145,39 +150,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_PayrollAddForeman(V.foremanName);
     MF.EditRequest_PayrollAddForemanCommission(V.foremanName, 'Bonus', 150, 60);
     LF.EditRequestPayroll_RememberForeman(V.foremanName, V.boardNumbers.Payroll.foremanForCommission);
-    // MF.EditRequest_PayrollAddForeman(V.foremanName2);
-    // MF.EditRequest_PayrollSetForemanCommission(V.foremanName2,'Bonus',7,90);
-    // LF.EditRequestPayroll_RememberForeman(V.foremanName2, V.boardNumbers.Payroll.foreman2ForCommission);
-    //submit payroll
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
-
-    // SF.click(By.xpath('//h2[contains(text(),"Delivery")]/..//div[@ng-click="closeJob(\'Delivery Done\');"]'));
-    // MF.WaitWhileBusy ();
-    // SF.click(By.xpath('//h2[contains(text(),"Delivery")]/..//div[@ng-click="openSalaryCommisionModal(\'deliveryCrew\');"]'));
-    // V.boardNumbers.PayrollDelivery = {
-    //     managerForCommission: {},
-    //     foremanForCommission: {},
-    //     foreman2ForCommission: {}
-    // };
-    // SF.sleep(6);
-    // MF.EditRequest_PayrollAddManager(V.managerName);
-    // SF.sleep(3);
-    // MF.EditRequest_PayrollSetManagerCommission('emilia clark','Office Commission', 120, 70);
-    // LF.EditRequestPayroll_RememberManager(V.managerName, V.boardNumbers.PayrollDelivery.managerForCommission);
-    // MF.EditRequest_PayrollOpenForemanTab();
-    // V.foremanName2 = 'Foreman Flow1';
-    // LF.EditRequestPayroll_RememberForeman(V.foremanName, V.boardNumbers.PayrollDelivery.foremanForCommission);
-    // MF.EditRequest_PayrollAddForeman(V.foremanName2);
-    // MF.EditRequest_PayrollAddForemanCommission(V.foremanName2, 'Bonus');
-    // MF.EditRequest_PayrollSetForemanCommission(V.foremanName2,'Bonus',6,80);
-    // LF.EditRequestPayroll_RememberForeman(V.foremanName2, V.boardNumbers.PayrollDelivery.foreman2ForCommission);
-    // //submit payroll
-    // MF.EditRequest_PayrollSubmit();
-    // MF.EditRequest_CloseModal();
-
-
-
 
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenPayroll();
@@ -201,10 +175,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy ();
-    // LF.findTestForemanInPayroll(V.foremanName2);
-    // MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman2);
-    // VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman2.Total, V.boardNumbers.Payroll.foreman2ForCommission.Total, '3 не совпали цифры в Payroll foreman\n' +
-    //     'id=' + V.boardNumbers.Id);
 
     SF.sleep (2);
     MF.Board_OpenSettingsGeneral();
