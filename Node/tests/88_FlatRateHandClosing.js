@@ -65,8 +65,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     msInDay = 86400000;
     future = new Date(now.getTime() + msInDay * 4);
     options = { month: 'long', day: 'numeric', year: 'numeric' };
-    V.changedateDelAdmin = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//input[@ng-model="option.delivery"]'), V.changedateDelAdmin);
+    V.newChangedateDelAdmin = (future.toLocaleDateString('en-US', options));
+    SF.send(By.xpath('//input[@ng-model="option.delivery"]'), V.newChangedateDelAdmin);
     SF.select (By.xpath('//select[@ng-model="option.deltime1"]'), 5);
     SF.select (By.xpath('//select[@ng-model="option.deltime2"]'), 6);
     SF.send(By.xpath('//input[@ng-model="option.rate"]'), 5000);
@@ -189,8 +189,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToAccountAsClient (V.client);
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));
     SF.sleep(2);
-    // SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    // SF.sleep(2);
+    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+    SF.sleep(2);
+    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Pickup Date:")]/../following-sibling::div/div[2]')).getText().then(function(text){
+    //     VD.IWant(VD.ToEqual, '08:00 AM - 4:00 AM', text, 'не совпали цифры Pick up start time');
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Delivery Date:")]/../following-sibling::div/div[2]')).getText().then(function(text){
+    //     VD.IWant(VD.ToEqual, '5:00 AM - 6:00 AM', text, 'не совпали Delivery start time');
+    // }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Pickup Date:")]/following-sibling::div')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, V.changedateUpAdmin, text, 'не совпала Pick up дата');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Delivery Date:")]/following-sibling::div')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, V.newChangedateDelAdmin, text, 'не совпала Delivery up дата');
+    }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//p[contains(text(),"Flat Rate Quote Explanation")]')).then(function(arr){
         V.QuoteExplanation=(arr.length==1);
     }),config.timeout);
