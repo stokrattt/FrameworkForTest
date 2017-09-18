@@ -19,7 +19,7 @@ condition.nowWeDoing = 'зашли в админку и создаем рекв�
     LF.addToCleanerJob(V.request.Id);
 condition.nowWeDoing = 'конфермим работу';
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-    JS.step(JSstep.selectTruck(3));
+    JS.step(JSstep.selectTruck(9));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressFrom ();
@@ -32,6 +32,7 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     MF.WaitWhileBusy ();
     SF.sleep(1);
     MF.WaitWhileBusy ();
+    SF.sleep(2);
     SF.click(By.id('request_'+V.request.Id+''));
     LF.selectCrew(V.foremanName);
     driver.wait (driver.findElement(By.xpath('//div[@id="request_'+V.request.Id+'"]')).getCssValue("background-color").then(function (color) {

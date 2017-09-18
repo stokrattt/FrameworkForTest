@@ -348,6 +348,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		WaitWhileBusy();
     }
 
+    function Board_CreateDraftRequest() {
+        SF.click(By.xpath('//button[@ng-click="createDraft()"]'));
+        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+        WaitWhileBusy();
+        SF.sleep(2);
+        WaitWhileBusy();
+    }
     //==============================CALCULATOR SETTINGS===========================
     function CalculatorSettings_OpenBasicSettings(){
 		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[2]'));
@@ -927,7 +934,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
         SF.waitForVisible (By.id('extra-service-modal'));
         SF.sleep(3);
-        SF.click(By.xpath('//label[@ng-model="packing_service"][3]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         WaitWhileBusy ();
         SF.sleep (2);
@@ -1405,6 +1414,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		Board_OpenRequest: Board_OpenRequest,
 		Board_OpenFirstRequest: Board_OpenFirstRequest,
 		Board_OpenSettingsCalculator: Board_OpenSettingsCalculator,
+        Board_CreateDraftRequest:Board_CreateDraftRequest,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
