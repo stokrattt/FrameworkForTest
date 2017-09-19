@@ -37,16 +37,12 @@ condition.nowWeDoing = 'идем в локал диспач и меняем да
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenConfirmWork();
 
-    SF.clear (By.xpath('//input[@ng-model="moveDateInput"]'));
     SF.click (By.xpath('//input[@ng-model="moveDateInput"]'));
-    let now = new Date();
-    let msInDay = 86400000;
-    let future = new Date(now.getTime() + msInDay * 8);
-    let options = { day: 'numeric', month: 'long', year: 'numeric' };
-    V.dateDispach = (future.toLocaleDateString('en-US', options));
-    SF.send (By.xpath('//input[@ng-model="moveDateInput"]'), V.dateDispach);
-    driver.actions().sendKeys(Key.ENTER).perform();
-    SF.click (By.xpath('//button[contains(@class, "ui-datepicker-close")]'));
+    driver.wait(driver.executeScript(JSstep.Click31DaysCalendar).then(function (calDate) {
+        V.request.moveDate = calDate;
+    }),config.timeout);
+    MF.WaitWhileBusy();
+
     SF.sleep (6);
     LF.RememberDateFromRequest(V.boardNumbers);
     SF.sleep(4);
@@ -65,8 +61,7 @@ condition.nowWeDoing = 'ищем второй раз в диспатче рек�
     MF.WaitWhileBusy ();
     LF.OpenRequestDispatch (V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
-    // LF.closeEditRequest();
-    // MF.Board_LogoutAdmin ();
+
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
