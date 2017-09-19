@@ -62,9 +62,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="client.mail"]'),V.client.email);
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenLogs();
-    MF.EditRequest_Check1EmailExist(V.client.newEmail, "Thank you for submitting a quote.");
-    MF.EditRequest_Check1EmailExist(V.client.newEmail, "How To Work With Your New Account.");
-    MF.EditRequest_Check1EmailExist(V.client.newEmail, "Unloading created (Pending)");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Unloading created (Pending)");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
