@@ -219,7 +219,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(4);
     V.helper2Total = V.helper2DailyAmount * V.totalDays + V.helper2Other;
     condition.nowWeDoing = 'сравниваем циферки общий пейрол';
-    V.totalPayroll = V.totalMileage + V.totalHourly + V.totalDaily + V.totalCollected + V.driverExpensesAmount - V.cashAmount + V.helper1Total + V.helper2Total;
+    V.totalPayroll = V.totalMileage + V.totalHourly + V.totalDaily - V.totalCollected + V.driverExpensesAmount - V.cashAmount + V.helper1Total + V.helper2Total;
     V.foremanTotal = V.totalPayroll - V.helper2Total - V.helper1Total;
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total Payroll:")]')).getText().then(function(text){
@@ -443,7 +443,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.other"]//button[@ng-click="update()"]'));
     SF.sleep(4);
     V.newHelper2Total = V.newHelper2DailyAmount * V.newTotalDays + V.newHelper2Other;
-    V.newTotalPayroll = V.newTotalMileage + V.newTotalHourly + V.newTotalDaily + V.newTotalCollected + V.newDriverExpensesAmount - V.newCashAmount + V.newHelper1Total + V.newHelper2Total;
+    V.newTotalPayroll = V.newTotalMileage + V.newTotalHourly + V.newTotalDaily - V.newTotalCollected + V.newDriverExpensesAmount - V.newCashAmount + V.newHelper1Total + V.newHelper2Total;
     V.newForemanTotal = V.newTotalPayroll - V.newHelper2Total - V.newHelper1Total;
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total Payroll:")]')).getText().then(function(text){
