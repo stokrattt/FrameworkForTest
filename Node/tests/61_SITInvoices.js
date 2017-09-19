@@ -95,7 +95,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
     SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.somePayment);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
-    SF.sleep(5);
+    SF.waitForVisible (By.xpath('//div[contains(text(), "$'+V.somePayment+'.00")]'));
+    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="back()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     JS.click('span:contains(\\"Trip details\\")');
