@@ -48,6 +48,7 @@ module.exports = function(config,V) {
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/30_StorageTenant.js',
         './tests/31_FlateRateBooking.js', /////////////////////////
+        './tests/88_FlatRateHandClosing.js',
         './tests/49_FlatRateLocalMove.js',
         './tests/52_AllFlatRate.js',
         './tests/32_AllMovingWithStorage.js',
@@ -104,7 +105,6 @@ module.exports = function(config,V) {
         './tests/87_ForgotPassword.js',
 
         './tests/56_LoadingAllSteps.js',
-        './tests/88_FlatRateHandClosing.js',
         './tests/89_DraftRequest.js'
 
     ];
