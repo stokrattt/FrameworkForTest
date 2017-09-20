@@ -113,7 +113,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, и сумму коробок в бил оф лендинг ';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     MF.WaitWhileBusy();
-    SF.sleep(1);
+    MF.WaitWhileBusy();
+    SF.sleep(2);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Custom Packing:")]')).getText().then(function(text){
@@ -152,7 +153,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@id="main-contract"]//p[contains(text(),"total packing charges")]/../following-sibling::td')).getText().then(function(text){
         V.PackingContract = SF.cleanPrice(text);
-        VD.IWant(VD.NotToEqual, V.PackingContract, V.cleanTotalPacking, 'Cовпали суммы коробок');
+        VD.IWant(VD.ToEqual, V.PackingContract, V.cleanTotalPacking, 'Не совпали суммы коробок');
     }),config.timeout);
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
