@@ -15,7 +15,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'идем в пейрол вводи дату в промежутке 20 дней и нажимаем update payroll cache';
     MF.Board_OpenPayroll ();
     LF.Payroll_SelectPeriod20Days();
-    MF.Board_Refresh ();
+    // MF.Board_Refresh ();
     // MF.Payroll_UpdateCache ();
 
 condition.nowWeDoing = 'заходим у форемана и счтаем сначала сумму в таблице и сравниваем с итого, перед этим удаляем все пейчеки если есть и миск пайменты';
@@ -25,6 +25,7 @@ condition.nowWeDoing = 'заходим у форемана и счтаем сн�
     SF.sleep(2);
     LF.Payroll_DeleteAllMiscPaymentCycle ();
     JS.scroll('div.total-payroll-panel div.total-title:contains(\"Paid\")');
+    MF.Payroll_RefreshTable ();
 
     driver.wait(driver.executeScript(JSstep.payrollTableSum).then(function (summa) {
         VD.IWant(VD.ToEqual, summa.sum, summa.balTop, 'Не совпали сумма посчитанная в таблице с балансом сверху внутри чувачка');
