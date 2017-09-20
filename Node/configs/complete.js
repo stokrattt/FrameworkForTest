@@ -103,6 +103,7 @@ module.exports = function(config,V) {
         './tests/85_SITAddTripTPDelivery.js',
         './tests/86_SITAddPersonallyForemanTripPayroll.js',
         './tests/87_ForgotPassword.js',
+        './tests/90_ChangeEmailUser.js',
 
         './tests/56_LoadingAllSteps.js',
         './tests/89_DraftRequest.js'
@@ -133,9 +134,7 @@ module.exports = function(config,V) {
     V.foremanEmail = 'TestForeman@mail.com';
     V.managerName = 'emilia clark';
     V.managerFirstName = 'emilia';
-    V.ForgotPassword = 'uxrzla@hfgf.tes';
-    V.ForgotPassword2 = 'fghdgfbdgf@gfhdgh.dsru';
-	V.testMail = {
+    V.testMail = {
 		login: 'test.boston',
 		mail: 'test.boston@mail.ru',
 		password: 'YLZ60tO^ycpz'
