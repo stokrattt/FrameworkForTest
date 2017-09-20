@@ -124,7 +124,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     // LF.Contract_ReviewGive(3, "test text for review");
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    MF.Contract_Submit();
+    V.contractNumbers = {};
+    MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
@@ -143,10 +144,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     SF.sleep (2);
-    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
+    Debug.pause();
     SF.sleep (2);
     MF.EditRequest_CloseModal();
-    MF.SweetConfirm ();
+    // MF.SweetConfirm ();
     LF.closeEditRequest();
 
     condition.nowWeDoing = 'сейчас идём в пейролл';

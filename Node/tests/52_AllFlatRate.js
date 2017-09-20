@@ -182,6 +182,12 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.WaitWhileBusy ();
+    V.contractNumbersPickup = {};
+    driver.wait(driver.executeScript('return $(\'tr[ng-if="contract_page.paymentTax.creditCharge.state"] span\').text()').then(function (text) {
+        V.contractNumbersPickup.CreditCardPercentSumm = SF.cleanPrice(text);
+        console.log(V.contractNumbersPickup.CreditCardPercentSumm);
+    }),config.timeout);
+    SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
     MF.WaitWhileBusy();
     MF.SweetConfirm ();
@@ -232,7 +238,7 @@ condition.nowWeDoing = 'возвращаемся в диспач, проверя
     V.boardNumbersPickup = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersPickup);
     MF.EditRequest_OpenPayrollPickupFlatRate ();
-    LF.RememberAndValidatePayroll_In_EditRequestFlatRatePickup(V.boardNumbersPickup);
+    LF.RememberAndValidatePayroll_In_EditRequestFlatRatePickup(V.boardNumbersPickup, V.contractNumbersPickup);
     SF.sleep (2);
     MF.EditRequest_CloseModal();
     V.boardNumbersDelivery = {};

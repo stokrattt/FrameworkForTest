@@ -562,11 +562,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
     }
 
-    function Contract_Submit() {
+    function Contract_Submit(contractNumbers) {
         WaitWhileBusy();
+        driver.wait(driver.executeScript('return $(\'tr[ng-if="contract_page.paymentTax.creditCharge.state"] span\').text()').then(function (text) {
+            contractNumbers.CreditCardPercentSumm = SF.cleanPrice(text);
+            console.log(contractNumbers.CreditCardPercentSumm);
+        }),config.timeout);
+        SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
         SF.sleep(25);
         SweetConfirm();
+
     }
 
     function Contract_ReturnToForeman() {

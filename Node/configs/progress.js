@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/67_EditRequestPayrollAdding.js'];
+    config.suite = ['./tests/40_PayrollTableCheckSumJobs.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

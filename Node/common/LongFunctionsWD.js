@@ -1445,7 +1445,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             }
         }
     }
-    function RememberAndValidatePayroll_In_EditRequest(managerName, boardNumbers) {
+    function RememberAndValidatePayroll_In_EditRequest(managerName, boardNumbers, contractNumbers) {
         boardNumbers.Payroll = {
             managerForCommission: {},
             foremanForCommission: {},
@@ -1455,7 +1455,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(3);
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.forCommission),
             Math.floor(boardNumbers.Total
-                - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
+                - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips - contractNumbers.CreditCardPercentSumm),
             'Не совпал ForCommission менеджера');
 
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
@@ -1478,7 +1478,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             'Не совпал Packing формена');
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.fromTotal.forCommission),
             Math.floor(boardNumbers.Total
-                - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips),
+                - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips- contractNumbers.CreditCardPercentSumm),
             'Не совпал FromTotal формена');
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Daily.forCommission),
             Math.floor(10),
@@ -1500,7 +1500,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }),config.timeout);
         SF.sleep(1);
     }
-    function RememberAndValidatePayroll_In_EditRequestFlatRatePickup(boardNumbers) {
+    function RememberAndValidatePayroll_In_EditRequestFlatRatePickup(boardNumbers, contractNumbers) {
         boardNumbers.Payroll = {
             managerForCommission: {},
             foremanForCommission: {},
@@ -1511,11 +1511,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office),
-            (Math.floor(boardNumbers.Total
-                - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips)/2),
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office), 5000,
+            // (Math.floor(boardNumbers.Total
+            //     - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips - contractNumbers.CreditCardPercentSumm)),
             'Не совпал ForCommission менеджера');
-        Debug.pause();
 
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);

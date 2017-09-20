@@ -150,6 +150,7 @@ condition.nowWeDoing = 'зашли в админку';
 
 
     LF.closeEditRequest ();
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.accountNumbersDelivery.Id); /********************************************************************/
     V.boardNumbersDelivery = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersDelivery);

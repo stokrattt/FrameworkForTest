@@ -95,6 +95,13 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_SaveImages();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
+    MF.WaitWhileBusy();
+    V.contractNumbers = {};
+    driver.wait(driver.executeScript('return $(\'tr[ng-if="contract_page.paymentTax.creditCharge.state"] span\').text()').then(function (text) {
+        V.contractNumbers.CreditCardPercentSumm = SF.cleanPrice(text);
+        console.log(V.contractNumbers.CreditCardPercentSumm);
+    }),config.timeout);
+    SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
     MF.WaitWhileBusy ();
     MF.SweetConfirm ();
@@ -117,7 +124,7 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     MF.EditRequest_OpenPayroll();
     SF.sleep (2);
     V.managerName = 'JackSales donotdelete';
-    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers,  V.contractNumbers);
     SF.sleep (2);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();

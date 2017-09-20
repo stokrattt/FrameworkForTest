@@ -191,7 +191,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_SaveImages();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    MF.Contract_Submit();
+    V.contractNumbersTo = {};
+    MF.Contract_Submit(V.contractNumbersTo);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
@@ -258,7 +259,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_SaveImages();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    MF.Contract_Submit();
+    V.contractNumbersFrom = {};
+    MF.Contract_Submit(V.contractNumbersFrom);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
@@ -276,9 +278,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbersTo.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
-    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersTo);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersTo, V.contractNumbersTo);
     MF.EditRequest_CloseModal();
-    MF.SweetConfirm ();
+    // MF.SweetConfirm ();
     LF.closeEditRequest();
 
     condition.nowWeDoing="найти второй реквест, проверить и запомнить Payroll";
@@ -294,7 +296,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbersFrom.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
-    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersFrom);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersFrom, V.contractNumbersFrom);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 

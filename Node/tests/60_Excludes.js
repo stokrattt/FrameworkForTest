@@ -88,7 +88,8 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     MF.Contract_SaveImages();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    MF.Contract_Submit();
+    V.contractNumbers = {};
+    MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
@@ -121,7 +122,7 @@ condition.nowWeDoing = 'тут открываем пейрол в реквест
     SF.sleep(1);
     VD.IWant(VD.ToEqual, Math.floor(V.boardNumbers.Payroll.managerForCommission.office),
         Math.floor(V.boardNumbers.Total
-            - V.boardNumbers.Packing - V.boardNumbers.Fuel - V.boardNumbers.Tips - 200),
+            - V.boardNumbers.Packing - V.boardNumbers.Fuel - V.boardNumbers.Tips - 200 - V.contractNumbers.CreditCardPercentSumm),
         'Не совпал ForCommission менеджера');
     driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
         V.boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
@@ -136,7 +137,7 @@ condition.nowWeDoing = 'проверяем фореманан в пейроле 
     SF.sleep(1);
     VD.IWant(VD.ToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.office),
         Math.floor(V.boardNumbers.Total
-            - V.boardNumbers.Packing - V.boardNumbers.Fuel - V.boardNumbers.Tips - 200),
+            - V.boardNumbers.Packing - V.boardNumbers.Fuel - V.boardNumbers.Tips - 200- V.contractNumbers.CreditCardPercentSumm),
         'Не совпал ForCommission foremana');
     driver.wait(driver.executeScript('return ' +
         '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
@@ -180,7 +181,7 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
     SF.sleep(1);
     VD.IWant(VD.ToEqual, Math.floor(V.boardNumbers.Payroll.helpersForComission.office),
         Math.floor(V.boardNumbers.Total
-            - V.boardNumbers.Fuel - V.boardNumbers.Tips - 200),
+            - V.boardNumbers.Fuel - V.boardNumbers.Tips - 200- V.contractNumbers.CreditCardPercentSumm),
         'Не совпал ForCommission хелпера');
     driver.wait(driver.executeScript('return ' +
         '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
