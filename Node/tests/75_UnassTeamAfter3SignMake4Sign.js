@@ -14,6 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
     SF.sleep(5);
+    LF.AccountLocalEnterAddress();
     MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
@@ -46,36 +47,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
     MF.Account_OpenRequest (V.accountNumbers.Id);
-    SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
-    SF.sleep(2);
-    SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
-    SF.sleep (0.5);
-    SF.click (By.id('terms'));
-    SF.click (By.id('cancel_policy'));
-    SF.click (By.id('paybutton'));
-    MF.SweetConfirm();
-    SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
-    SF.sleep(2);
-    SF.send (By.id('edit-moving-from'), 'otkuda edem');
-    SF.send (By.id('edit-moving-from-apt'), 324535);
-    SF.send (By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'), 'kuda edem');
-    SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep(2);
-    MF.SweetConfirm();
-    MF.SweetConfirm();
-    SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
-    LF.MakeSignJS('signatureCanvasReserv');
-    SF.sleep(0.5);
-    SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
-    SF.sleep (1);
-    LF.FillCardPayModal ();
-    MF.WaitWhileSpinner ();
-    SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    }), config.timeout);
-    LF.LogoutFromAccount ();
+    MF.WaitWhileBusy();
+    LF.ConfirmRequestInAccount_WithReservation();
+    MF.Account_WaitForGreenTextAfterConfirm();
+    LF.Account_CheckSignature();
+    LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'второй раз в админке, локал диспатч. Ещё выбираем Crew Settings Pickup';
     SF.get(V.adminURL);
@@ -157,12 +133,56 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
-    // LF.Contract_ReviewGive(3, "test text for review");
+    MF.WaitWhileBusy();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_Submit();
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
+
+    condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenLocalDispatch();
+    LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
+    MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
+    MF.Dispatch_GridView();
+    MF.Dispatch_ShowDoneJobs();
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    MF.EditRequest_WaitForBalanceVisible();
+    LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
+    MF.EditRequest_ScrollDown();
+    VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+    MF.EditRequest_OpenPayroll();
+    V.managerName = 'emilia clark';
+    SF.sleep (2);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
+    SF.sleep (2);
+    MF.EditRequest_CloseModal();
+    LF.closeEditRequest();
+
+    condition.nowWeDoing = 'сейчас идём в пейролл';
+    MF.Board_OpenPayroll();
+    LF.selectDateInPayroll(V.boardNumbers.moveDate);
+    LF.findTestForemanInPayroll(V.foremanName);
+
+    condition.nowWeDoing = 'выбираем цифры формена';
+    V.payrollNumbers = {
+        Foreman:{}, Sale:{}
+    };
+    MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
+        'id=' + V.boardNumbers.Id);
+    MF.Payroll_ClickAllDepartment();
+    MF.WaitWhileBusy();
+
+    condition.nowWeDoing = 'выбираем цифры менеджера';
+    LF.findSaleInPayroll(V.managerName);
+    MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+        'id=' + V.boardNumbers.Id);
+    SF.sleep(3);
+
 
 
         SF.endOfTest();
