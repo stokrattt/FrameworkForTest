@@ -64,6 +64,10 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     MF.SweetConfirm();
     MF.Contract_OpenBillOfLading();
     MF.Contract_WaitBillOfLading ();
-    MF.Contract_CheckLoadBillOfLadding();
+    //MF.Contract_CheckLoadBillOfLadding();
+    driver.wait(driver.findElement(By.xpath('//button[@ng-if="!data.isSubmitted"]')).getText().then(function(text) {
+        VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
+    }),config.timeout);
     SF.endOfTest();
 };
+
