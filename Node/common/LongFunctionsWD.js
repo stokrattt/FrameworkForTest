@@ -32,7 +32,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -69,7 +69,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"blockCalculateSmallForm = true;Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -109,7 +109,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -146,7 +146,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -186,7 +186,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"blockCalculateSmallForm = true;Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
     }
@@ -233,7 +233,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        JS.click('div[ng-click=\\"Calculate(1,\\\'Website\\\')\\"]');
+        JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     }
     function AccountLocalEnterAddress() {
