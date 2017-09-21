@@ -183,12 +183,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'удаляем работу из трипа';
     SF.waitForLocated(By.xpath('//div[@ng-click="openRequest(id)"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
-        V.ldJobId = text;
-    }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
+    //     V.ldJobId = text;
+    // }),config.timeout);
     SF.sleep(3);
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//div/div/md-checkbox[@ng-model="item.selected"]/div[1]'));
     JS.waitForExist ('button[ng-click=\\"removeSelectedJobs()\\"]:visible');
+    SF.sleep(1);
     SF.click (By.xpath('//button[@ng-click="removeSelectedJobs()"]'));
     SF.sleep(2);
     JS.click('span:contains(\\"Update\\")');
