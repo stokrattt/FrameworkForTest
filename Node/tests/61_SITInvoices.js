@@ -142,8 +142,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.executeScript("if($('md-switch[ng-change=\"setHideZero()\"]').hasClass('ng-empty')){" +
         "return true;}else{$('md-switch[ng-change=\"setHideZero()\"]').click()}"),config.timeout);
-    JS.waitForExist ('button[ng-click=\\"showMenu($mdMenu, $event)\\"]:visible');
-    SF.click(By.xpath('//button[@ng-click="showMenu($mdMenu, $event)"]'));
+    // JS.waitForExist ('button[ng-click=\\"showMenu($mdMenu, $event)\\"]:visible');
+    // SF.sleep(1);
+    // SF.click(By.xpath('//button[@ng-click="showMenu($mdMenu, $event)"]'));
     SF.waitForVisible(By.xpath('//span[contains(text(), "Amount")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.receiptsAmount = SF.cleanPrice(text);
