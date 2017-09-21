@@ -32,6 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
     SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
     SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
+    Debug.pause();
     JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
     SF.sleep(1);
     MF.WaitWhileBusy ();

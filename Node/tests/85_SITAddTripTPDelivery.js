@@ -159,6 +159,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.click(By.xpath('//button[@ng-click="openNewPayment($event, 0, tpId, [tpId], 1)"]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="payment.amount"]'));
+    SF.sleep(2);
     V.tpPayment = 200;
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
     SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.tpPayment);
@@ -172,7 +173,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.cleanTpToReceive = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали 1');
     }),config.timeout);
-
+    Debug.pause();
     SF.click(By.xpath('//button[@ng-click="openModal(\'new\')"]'));
     SF.click(By.xpath('//md-select[@ng-model="storage"]'));
     SF.waitForVisible (By.xpath('//md-option[@ng-value="storage"]/div[contains(text(), "test")]'));
@@ -210,6 +211,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.cleanTpToReceive = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали 2');
     }),config.timeout);
+    Debug.pause();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
         V.cleanTpJobCost = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpJobCost, V.tpJobCost, 'Job cost не совпали');

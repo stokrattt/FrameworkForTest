@@ -15,16 +15,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
-    MF.EditRequest_SetToConfirmed();
+
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
 
-    JS.step(JSstep.selectTruck(5));
-    MF.WaitWhileBusy();
+
     V.perCubicFeet = '5';
     SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
+    JS.step(JSstep.selectTruck(5));
+    MF.WaitWhileBusy();
+    MF.EditRequest_SetToConfirmed();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest ();
     MF.Board_OpenSideBar ();

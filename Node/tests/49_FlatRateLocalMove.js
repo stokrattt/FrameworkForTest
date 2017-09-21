@@ -103,7 +103,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     }),config.timeout);
     SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
-    MF.WaitWhileBusy ();
+    SF.sleep(25);
     MF.SweetConfirm ();
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman ();
