@@ -22,7 +22,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
     SF.sleep(5);
-    MF.WaitWhileBusy();
+
     LF.AccountUnloadingEnterAddress();
     V.req1={};
     LF.RememberAccountNumbers(V.req1);
@@ -50,7 +50,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
     SF.sleep(5);
-    MF.WaitWhileBusy();
     MF.Account_ClickPartialPacking();
     LF.AccountLocalEnterAddress();
     MF.WaitWhileBusy();
@@ -95,6 +94,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.NewEmail = text;
         VD.IWant(VD.ToEqual, V.NewClient.email, V.NewEmail,'не поменялся email');
     }),config.timeout);
+    Debug.pause();
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
     SF.sleep(2);

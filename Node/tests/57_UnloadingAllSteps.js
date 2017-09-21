@@ -148,7 +148,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_SaveImages();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    MF.Contract_Submit();
+    V.contractNumbers = {};
+    MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
@@ -173,7 +174,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenPayroll();
     V.managerName = 'emilia clark';
     SF.sleep (2);
-    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
     SF.sleep (2);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();

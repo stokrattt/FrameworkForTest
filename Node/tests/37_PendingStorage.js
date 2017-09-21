@@ -129,7 +129,8 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
 
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    MF.Contract_Submit();
+    V.contractNumbers = {};
+    MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
@@ -208,7 +209,8 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
 
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    MF.Contract_Submit();
+    V.contractNumbersFrom = {};
+    MF.Contract_Submit(V.contractNumbersFrom);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 

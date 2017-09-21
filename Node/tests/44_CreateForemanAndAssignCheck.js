@@ -104,7 +104,8 @@ condition.nowWeDoing = 'зашли  под созданным фореманом
     MF.Contract_SaveImages();
     SF.sleep (2);
     LF.MakeSignInContract();
-    MF.Contract_Submit();
+    V.contractNumbers = {};
+    MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
     LF.LoginToBoardAs_Roma4ke_Admin ();

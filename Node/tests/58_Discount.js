@@ -164,7 +164,8 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     SF.sleep(3);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    MF.Contract_Submit();
+    V.contractNumbers = {};
+    MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
     SF.get(V.accountURL);

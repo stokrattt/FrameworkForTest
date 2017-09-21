@@ -91,7 +91,8 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     // LF.Contract_ReviewGive(3, "test text for review");
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    MF.Contract_Submit();
+    V.contractNumbers = {};
+    MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 condition.nowWeDoing = 'идем в админку в диспач второй раз, удалить форемана';
