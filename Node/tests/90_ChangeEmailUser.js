@@ -104,10 +104,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.NewClient);
     MF.WaitWhileBusy();
+
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.req1.Id+'")]')).getText().then(function(text){
-    }), config.timeout, 'не наидена 1я работа');
+        V.firstRequestId = text;
+        VD.IWant(VD.ToEqual, V.req1.Id, V.firstRequestId, 'не наидена работа 1');
+    }),config.timeout);
+
+
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text){
-    }), config.timeout, 'не наидена 2я работа');
+        V.secondRequest = text;
+        VD.IWant(VD.ToEqual, V.accountNumbers.Id, V.secondRequest, 'не наидена работа 2');
+    }),config.timeout);
 
 
     SF.endOfTest();
