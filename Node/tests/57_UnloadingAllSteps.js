@@ -53,7 +53,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();
-    V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     SF.waitForVisible(By.xpath('//input[@ng-model="client.mail"]'));
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="client.mail"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.client.newEmail, text, 'не совпали client email в реквесте после изменения на акаунте');
