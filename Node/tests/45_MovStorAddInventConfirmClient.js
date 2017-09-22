@@ -49,6 +49,7 @@ condition.nowWeDoing = 'зашли в админку To storage ставим н�
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
+    MF.WaitWhileBusy();
 condition.nowWeDoing = 'To storage ставим нот конферм, адрес и выставляем кубик фит в настройках с инвенторием и запоминаем данные с инвентори';
     MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     V.boardNumbersFrom = {};

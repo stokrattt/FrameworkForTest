@@ -1,4 +1,5 @@
-module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
+// import {Key} from "selenium-webdriver/lib/input";
+module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants) {
     global.fiber = Fiber.current;
     V.client = {};
     V.client.name = SF.randomBukva(6) + '_t';
@@ -29,8 +30,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.addInventoryBoard();
     MF.EditRequest_AddPacking ();
     MF.EditRequest_AddAdditionalServicesFullPack ();
-    SF.clear(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
-    SF.sleep(0.3);
+    SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
+    driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
+
     SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");
     MF.EditRequest_SetAdressToFrom ();
     SF.sleep(12);

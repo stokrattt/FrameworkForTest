@@ -34,7 +34,6 @@ condition.nowWeDoing = 'сравниваем все суммы снизу с с�
     driver.wait(driver.executeScript(JSstep.payrollTableMainPage('hours_pay', 'Paid')).then(function (summa) {
         VD.IWant(VD.ToEqual, (summa.sum), summa.balTop, 'All Departments: сумма Paid снизу не совпадает с суммой Paid сверху');
     }),config.timeout);
-    //Debug.pause();
 condition.nowWeDoing = 'тут запускаем цикл на перебор всех категорий';
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(id, dataObj) in dataTbl track by $index\"]').length").then(function (depart) {
         V.department = depart;

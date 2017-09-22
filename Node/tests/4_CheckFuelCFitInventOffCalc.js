@@ -71,6 +71,7 @@ condition.nowWeDoing = 'идем в коферм и проверяем буке�
 condition.nowWeDoing = 'тут мы делаем оплату через кастомный паймент и потом ее отредактируем и проверим что цена меняется после редактирования ресита';
     MF.Board_OpenPendingRequest ();
     MF.WaitWhileBusy ();
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.boardNumbers.Id);
     SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
     SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
@@ -103,6 +104,7 @@ condition.nowWeDoing = 'тут мы делаем оплату через кас�
     SF.sleep (1);
     MF.WaitWhileToaster();
     JS.click('button[ng-click=\\"cancel()\\"]:visible');
+    MF.WaitWhileBusy();
     MF.Board_OpenRequest (V.boardNumbers.Id);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     VD.IWant(VD.ToEqual, 50, V.boardNumbers.Payment, 'не изменился паймент в реквесте после того как мы отредактировали ресит');

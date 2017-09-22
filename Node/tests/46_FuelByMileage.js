@@ -84,10 +84,9 @@ condition.nowWeDoing = 'создаем локал мув где расстоян
     SF.sleep (2);
 
 condition.nowWeDoing = 'меняем зип код в реквесте, чтобы расстояние было в промежутке 100 - 140 миль и проверяем фуель';
-    SF.clear(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
-    MF.WaitWhileBusy ();
-    SF.click(By.xpath('//button[@class="confirm"]'));
-    MF.WaitWhileBusy ();
+
+    SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
+    driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
     SF.sleep(0.3);
     SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");
     SF.sleep(10);

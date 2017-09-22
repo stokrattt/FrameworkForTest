@@ -72,7 +72,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.click(By.xpath('//div[@class="custom-block movingstorage"]//tr[@ng-repeat="pending_tab in movingPendingBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
     SF.click(By.xpath('//div[@class="custom-block movingstorage"]//li[@ng-repeat="tab in service.tabs track by $index"][2]'));
-    SF.sleep(1.5);
+    SF.sleep(2);
     driver.wait(driver.executeScript("if ($('div[class=\"custom-block movingstorage\"] input[ng-model=\"not_confirmed_tab.showCustomBlock\"]').hasClass('ng-not-empty')){" +
         "return true;} else {$('div[class=\"custom-block movingstorage\"]" +
         " input[ng-model=\"not_confirmed_tab.showCustomBlock\"] ~span').click()}"));

@@ -50,13 +50,10 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     SF.send (By.xpath('//input[@ng-model="receipt.amount"]'),100);
     SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
     SF.sleep (1);
-    Debug.pause();
     SF.click(By.xpath('//button[@ng-click="Save()"]'));
     MF.WaitWhileToaster();
     MF.WaitWhileBusy ();
-    Debug.pause();
     JS.click('button[ng-click=\\"save()\\"]:visible');
-    Debug.pause();
     SF.sleep (3);
     MF.WaitWhileBusy ();
     MF.EditRequest_OpenPayment();

@@ -94,7 +94,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.NewEmail = text;
         VD.IWant(VD.ToEqual, V.NewClient.email, V.NewEmail,'не поменялся email');
     }),config.timeout);
-    Debug.pause();
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
     SF.sleep(2);

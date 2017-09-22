@@ -40,7 +40,6 @@ condition.nowWeDoing = 'зашли в админку идем в раздел с
     SF.sleep(1);
     V.toClientFromAdmin = SF.randomBukva(6) + '_toClientFromAdmin';
     MF.BoardAccount_SendMessage(V.toClientFromAdmin);
-    Debug.pause();
     MF.Board_OpenDashboard ();
     MF.Board_OpenRequest (V.accountNumbers.Id);
 condition.nowWeDoing = 'зашли в реквест';

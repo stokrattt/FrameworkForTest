@@ -145,7 +145,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenPayroll();
     SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
-    Debug.pause();
     SF.sleep (2);
     MF.EditRequest_CloseModal();
     // MF.SweetConfirm ();

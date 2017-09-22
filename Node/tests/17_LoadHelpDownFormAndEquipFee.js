@@ -70,7 +70,6 @@ condition.nowWeDoing = 'запоминаем данные';
     }),config.timeout);
     SF.sleep(1);
     console.log(V.frontNumbersLoadingDown);
-Debug.pause();
     SF.sleep(1);
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);
@@ -126,7 +125,6 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
     MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
     MF.Account_OpenRequest (V.accountNumbers.Id);
     SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
-    Debug.pause();
     SF.sleep(2);
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
