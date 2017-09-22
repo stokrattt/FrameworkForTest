@@ -25,6 +25,48 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'Закриваем роботу заходим в СІТ и заполняем поля';
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
+    SF.sleep(1);
+    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
+    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
+    MF.WaitWhileBusy();
+    SF.click(By.xpath('//a[@ng-click="addCustomPayment()"]'));
+    SF.waitForLocated (By.xpath('//input[@ng-model="receipt.amount"]'));
+    MF.WaitWhileBusy();
+    SF.sleep(1);
+    V.cashPayment = 100;
+    SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));
+    SF.send(By.xpath('//input[@ng-model="receipt.amount"]'), V.cashPayment);
+    SF.click(By.xpath('//button[@ng-click="Save()"]'));
+    SF.waitForLocated (By.xpath('//input[@ng-model="receipt.account_number"]'));
+    MF.WaitWhileBusy();
+    SF.sleep(2);
+    JS.click('button[ng-click=\\"save()\\"]:visible');
+    MF.WaitWhileBusy();
+    SF.sleep(1);
+    driver.wait(driver.findElement(By.xpath('//label[@ng-click="OpenPaymentModal();"]/following-sibling::div')).getText().then(function(text){
+        V.cleanPayment = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanPayment, V.cashPayment, 'не совпали Payment в модалке реквеста до включения галочки pending');
+    }),config.timeout);
+    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
+    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total")]')).getText().then(function(text){
+        V.cleanTotal = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanTotal, V.cashPayment, 'не совпали Payment и тотал в модалке реквеста до включения галочки pending');
+    }),config.timeout);
+    SF.click(By.xpath('//input[@ng-click="changePending(receipt)"]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total")]')).getText().then(function(text){
+        V.cleanTotal = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, '0', V.cleanTotal, 'тотал после включения галочки pending должен бить 0');
+    }),config.timeout);
+    SF.click(By.xpath('//button[contains(text(), "Ok")]'));
+    MF.WaitWhileBusy();
+    SF.sleep(1);
+    driver.wait(driver.findElement(By.xpath('//label[@ng-click="OpenPaymentModal();"]/following-sibling::div')).getText().then(function(text){
+        V.cleanPayment = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanPayment, '0', 'Payment в модалке реквеста после включения галочки pending должен бить 0');
+    }),config.timeout);
+    MF.WaitWhileBusy();
     V.perCubicFeet = '5';
     SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);

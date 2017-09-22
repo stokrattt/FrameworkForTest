@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/50_AddJobToTrip.js'
+    config.suite = ['./tests/68_SITPickUpDelivery.js'
 
     ];
 
