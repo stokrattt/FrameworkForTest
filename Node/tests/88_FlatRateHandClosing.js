@@ -32,7 +32,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
     SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
     SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
-    Debug.pause();
     JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
     SF.sleep(1);
     MF.WaitWhileBusy ();
@@ -92,6 +91,26 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'идем в акк подтвердить выбранную опцию';
     MF.Account_OpenRequest (V.FRId);
     MF.Account_ChooseOptionFlatRate();
+    SF.click(By.xpath('//i[@class="icon-pencil"]'));
+    SF.sleep(3);
+    SF.click(By.xpath('//i[@ng-click="extraPickup=true"]'));
+    SF.sleep(1);
+    SF.send(By.xpath('//input[@ng-value="request.field_extra_pickup.postal_code"]'),'02461');
+    SF.select(By.xpath('//select[@ng-value="request.field_extra_pickup.organisation_name"]'),2);
+    SF.click(By.xpath('//i[@ng-click="extraDropoff=true"]'));
+    SF.sleep(1);
+    SF.send(By.xpath('//input[@ng-value="request.field_extra_dropoff.postal_code"]'),'07304');
+    SF.select(By.xpath('//select[@ng-value="request.field_extra_dropoff.organisation_name"]'),3);
+    SF.click(By.xpath('//label[contains(text(),"Move Date")]'));
+    SF.sleep(1);
+    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+    SF.waitForVisible(By.xpath('//button[@class="confirm"]'));
+    SF.sleep(1);
+    SF.click(By.xpath('//button[@class="confirm"]'));
+    MF.WaitWhileBusy();
+    SF.waitForVisible(By.xpath('//button[contains(text(),"OK")]'));
+    SF.click(By.xpath('//button[contains(text(),"OK")]'));
+    SF.sleep(2);
 
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
@@ -128,6 +147,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.sleep(3);
+    driver.wait(driver.findElement(By.xpath('//select[@ng-model="request.field_extra_pickup.organisation_name"]')).getAttribute("value").then(function(text){
+        VD.IWant(VD.ToEqual, text, 2, 'не совпали extra pick up етажи на акаунте и мувборде');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//select[@ng-model="request.field_extra_dropoff.organisation_name"]')).getAttribute("value").then(function(text){
+        VD.IWant(VD.ToEqual, text, 3, 'не совпали drop off етажи на акаунте и мувборде');
+    }),config.timeout);
 
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     SF.sleep(1);
