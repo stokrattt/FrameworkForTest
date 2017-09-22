@@ -55,7 +55,6 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     MF.EditRequest_CloseConfirmWork();
 
     MF.EditRequest_SetLaborTimeCloseJob('01:00');
-    Debug.pause();
     MF.EditRequest_CloseJob();
     MF.EditRequest_OpenContractCloseJob();
     SF.openTab (1);

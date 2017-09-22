@@ -201,7 +201,6 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
     MF.EditRequest_CloseModal();
     // MF.SweetConfirm ();
     LF.closeEditRequest();
-    Debug.pause();
 
 condition.nowWeDoing = 'сейчас идём в пейролл';
 

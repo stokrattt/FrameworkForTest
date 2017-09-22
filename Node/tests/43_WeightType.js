@@ -73,7 +73,6 @@ condition.nowWeDoing = 'теперь выставляем кубик фит на
     SF.send(By.xpath('//input[@ng-model="request.custom_weight.value"]'), 1500);
     MF.EditRequest_OpenRequest ();
     SF.sleep(5);
-    Debug.pause();
     V.boardNumbersCustom = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersCustom);
     MF.EditRequest_SaveChanges ();

@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/85_SITAddTripTPDelivery.js'];
+    config.suite = ['./tests/73_CustomTrackSpeed.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

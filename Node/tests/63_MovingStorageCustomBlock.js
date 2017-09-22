@@ -83,7 +83,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.sleep(1);
     SF.click(By.xpath('//div[@class="custom-block movingstorage"]//tr[@ng-repeat="not_confirmed_tab in movingNotConfirmedBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
-    Debug.pause();
     MF.Board_SearchRequest(V.accountNumbersTo.Id);
     SF.sleep(3);
     MF.Board_SearchOpenRequest (V.accountNumbersTo);
