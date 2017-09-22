@@ -157,6 +157,13 @@ module.exports = function (system, config, By, until, constants, condition) {
         });
         SFstop();
     }
+    function reset (selector) {
+        MoveFlyingCircle(selector);
+        driver.wait(driver.wait(until.elementLocated(selector), config.timeout).reset(), config.timeout).then(function () {
+            SFgo();
+        });
+        SFstop();
+    }
     function get (URL) {
         console.log('goto ' + URL);
         driver.wait(driver.get(URL), config.timeout).then(function () {
@@ -283,6 +290,7 @@ module.exports = function (system, config, By, until, constants, condition) {
         parseDateInSIT:parseDateInSIT,
         FindMonthInString:FindMonthInString,
         FindShortMonthInString: FindShortMonthInString,
-        openTab:openTab
+        openTab:openTab,
+        reset:reset
     };
 };

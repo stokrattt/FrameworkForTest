@@ -94,7 +94,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy ();
     SF.click(By.xpath('//select[@ng-model="crew.helpers[$index]"]'));
     SF.sleep(1);
-    SF.click(By.xpath("//label[contains(text(),'Additional Helpers')]/following-sibling::div[@ng-repeat='addHelper in crew.helpers track by $index']/select[@ng-model='crew.helpers[$index]']//option[contains(text(),'helper test1')]"));
+    SF.click(By.xpath("//label[contains(text(),'Additional Helpers')]/following-sibling::div" +
+        "[@ng-repeat='addHelper in crew.helpers track by $index']/select[@ng-model='crew.helpers[$index]']//option[contains(text(),'helper test1')]"));
     SF.sleep(1);
     SF.click(By.xpath('//a[@ng-click="vm.openSettingsModal($index)"]'));
     MF.WaitWhileBusy();

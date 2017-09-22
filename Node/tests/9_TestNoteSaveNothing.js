@@ -122,6 +122,7 @@ condition.nowWeDoing = 'ставим конферм, закрываем рабо
         VD.IWant(VD.ToEqual, text, V.noteClientNew, 'не нашло или не совпали заметки clienta с реквеста na confirmation page');
     }),config.timeout);
     SF.sleep(1);
+    JS.scroll('i[ng-if="!showNotes"]');
     SF.click(By.xpath('//i[@ng-if="!showNotes"]'));
     driver.wait(driver.findElement(By.xpath('//div[@ng-bind-html="noteForeman"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, V.noteForemanNew, 'не нашло или не совпали заметки foremana с реквеста na confirmation page')
