@@ -119,6 +119,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
+    JS.scroll('span[ng-click="showDiscountInContract()"]');
     SF.click(By.xpath('//span[@ng-click="showDiscountInContract()"]'));
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
         V.TotalLess = SF.cleanPrice(text);
