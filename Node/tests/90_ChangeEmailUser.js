@@ -82,6 +82,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.EditRequest_OpenClient();
     SF.sleep(1);
+
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="client.field_primary_phone"]')).getAttribute('value').then(function(text) {
+        V.NewPhone = -SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.NewClient.phone, V.NewPhone,'не поменялся телефон');
+    }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="client.field_user_first_name"]')).getAttribute('value').then(function(text) {
         V.NewName = text;
         VD.IWant(VD.ToEqual, V.NewClient.name, V.NewName,'не поменялся first name');
@@ -94,25 +99,47 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.NewEmail = text;
         VD.IWant(VD.ToEqual, V.NewClient.email, V.NewEmail,'не поменялся email');
     }),config.timeout);
+
+    condition.nowWeDoing = 'Проверяем информацию о клиенте в заголовке реквеста(модалка)';
+    driver.wait(driver.findElement(By.xpath('//span[@class="email ng-binding"]')).getText().then(function(text) {
+        VD.IWant(VD.ToEqual, V.NewClient.email, text,'не поменялся email в модалке реквеста');
+    }),config.timeout);
+
+    driver.wait(driver.findElement(By.xpath('//span[@class="phone ng-binding"]')).getText().then(function(text) {
+        V.EdPhone = -SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.NewClient.phone, V.EdPhone,'не поменялся телефон в модалке реквеста');
+    }),config.timeout);
+
+
+        Debug.pause();
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
     SF.sleep(2);
     MF.Board_LogoutAdmin ();
 
-    condition.nowWeDoing = 'Идем в аккаунт проверить наличие 2х привязанных работ';
+    condition.nowWeDoing = 'Идем в аккаунт проверить наличие 2х реквестов, и новых данных клиента';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.NewClient);
     MF.WaitWhileBusy();
-
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//address/i[@class="icon-envelope"]/following-sibling::span')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, V.NewClient.email, text, 'не совпал Email  на акаунте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//address')).getText().then(function(text) {
+        V.AcPhone = -SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, ('0.'+V.NewClient.phone), V.AcPhone,'не поменялся телефон в аккаунте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//strong[@class="ng-binding"]')).getText().then(function(text) {
+        V.AcNameFamily = text;
+        VD.IWant(VD.ToEqual, (V.NewClient.name + ' ' + V.NewClient.fam), V.AcNameFamily,'не поменялись имя и фамилия в аккаунте');
+    }),config.timeout);
+      driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text){
+        V.secondRequest = text;
+        VD.IWant(VD.ToEqual, V.accountNumbers.Id, V.secondRequest, 'не наидена работа 2');
+    }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.req1.Id+'")]')).getText().then(function(text){
         V.firstRequestId = text;
         VD.IWant(VD.ToEqual, V.req1.Id, V.firstRequestId, 'не наидена работа 1');
-    }),config.timeout);
-
-
-    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text){
-        V.secondRequest = text;
-        VD.IWant(VD.ToEqual, V.accountNumbers.Id, V.secondRequest, 'не наидена работа 2');
     }),config.timeout);
 
 
