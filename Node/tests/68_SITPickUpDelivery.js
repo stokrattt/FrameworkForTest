@@ -113,6 +113,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.click(By.xpath('//a[@ng-click="select(tabs[2])"]'));
     MF.WaitWhileBusy();
+    SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="delivery_disable"]'));
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
