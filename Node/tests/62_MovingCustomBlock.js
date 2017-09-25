@@ -78,8 +78,9 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
     SF.openTab (1);
-    SF.sleep(1);
+    SF.sleep(0.5);
     MF.Account_Refresh ();
+    SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте');
     }),config.timeout);
