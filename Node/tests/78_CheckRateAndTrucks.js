@@ -16,6 +16,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.addAdditionalInventoryBoard ();
     LF.addAdditionalInventoryBoard ();
     LF.addAdditionalInventoryBoard ();
+    SF.sleep(4);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep(1);

@@ -17,14 +17,14 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     LF.RememberDigitsRequestBoard (V.boardNumbersDefault);
 
     LF.addInventoryBoard ();
-    SF.sleep (4);
+    SF.sleep (5);
     V.boardNumbersInventory = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersInventory);
     MF.EditRequest_OpenSettings ();
     SF.click (By.xpath('//div[@ng-click="selectList(1)"]'));
     SF.sleep(2);
     MF.EditRequest_OpenRequest ();
-    SF.sleep(4);
+    SF.sleep(5);
     MF.EditRequest_RememberId (V.request);
     LF.addToCleanerJob (V.request.Id);
     MF.EditRequest_SaveChanges ();
@@ -48,6 +48,7 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     SF.sleep (1);
     SF.click (By.xpath('//div[@ng-click="selectList(2)"]'));
     MF.EditRequest_OpenRequest ();
+    SF.sleep(5);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
     MF.Board_OpenRequest (V.request.Id);

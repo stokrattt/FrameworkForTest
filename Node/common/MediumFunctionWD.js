@@ -407,7 +407,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_Refresh() {
         driver.navigate().refresh();
         SF.waitForLocated (By.id('tab_Move Overview'));
-        SF.sleep(4);
+        SF.sleep(6);
         WaitWhileBusy();
     }
     function Account_ClickViewRequest() {
