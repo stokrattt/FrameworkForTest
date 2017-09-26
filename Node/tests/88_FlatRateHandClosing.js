@@ -27,7 +27,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     options = { day: 'numeric', month: 'short', year: 'numeric' };
     V.changedateDelivery = (future.toLocaleDateString('en-US', options));
     SF.send(By.xpath('//div[contains(@class, "dateRange delivery")]/input'), V.changedateDelivery);
-    SF.click(By.xpath('//div[contains(@class, "ng-pristine")]'));
+    SF.click(By.xpath('//h2[contains(text(), "Flat Rate Request")]'));
+    SF.sleep(2);
     SF.select (By.xpath('//select[@ng-model="details.current_door"]'), 30);
     SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
     SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");

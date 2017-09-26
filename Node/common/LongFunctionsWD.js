@@ -417,7 +417,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 60);
         SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
-        SF.sleep(1);
+        SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(5);
@@ -430,7 +430,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
         SF.select(By.xpath('//select[@id="new_door_to_parking"]'), 60);
         SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
-        SF.sleep(1);
+        SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(5);

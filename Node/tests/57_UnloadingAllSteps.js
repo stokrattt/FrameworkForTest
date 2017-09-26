@@ -26,6 +26,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
+    SF.sleep(2);
     SF.click(By.xpath('//a[@ng-click="openModal()"]'));
     JS.waitForExist('input[ng-model=\\"client.mail\\"]');
     SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
