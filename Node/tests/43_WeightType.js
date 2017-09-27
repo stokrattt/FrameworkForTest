@@ -17,14 +17,14 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     LF.RememberDigitsRequestBoard (V.boardNumbersDefault);
 
     LF.addInventoryBoard ();
-    SF.sleep (5);
+    SF.sleep (15); // ждет обновления фуела и квоты после добавления инвентаря, почему то долго начало обновлятся
     V.boardNumbersInventory = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersInventory);
     MF.EditRequest_OpenSettings ();
     SF.click (By.xpath('//div[@ng-click="selectList(1)"]'));
     SF.sleep(2);
     MF.EditRequest_OpenRequest ();
-    SF.sleep(5);
+    SF.sleep(3);
     MF.EditRequest_RememberId (V.request);
     LF.addToCleanerJob (V.request.Id);
     MF.EditRequest_SaveChanges ();
@@ -48,7 +48,7 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     SF.sleep (1);
     SF.click (By.xpath('//div[@ng-click="selectList(2)"]'));
     MF.EditRequest_OpenRequest ();
-    SF.sleep(5);
+    SF.sleep(6);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
     MF.Board_OpenRequest (V.request.Id);
@@ -56,6 +56,7 @@ condition.nowWeDoing = 'теперь выставляем кубик фит на
     V.boardNumbersInventory2 = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersInventory2);
     LF.Validation_Compare_Account_Admin (V.boardNumbersInventory, V.boardNumbersInventory2);
+    Debug.pause();
     MF.EditRequest_OpenSettings ();
 condition.nowWeDoing = 'идем в аккаунт и проверяем что там стоит инвентори кубик фит';
     SF.click (By.xpath('//button[@ng-click="goToRequest()"]'));
@@ -73,7 +74,7 @@ condition.nowWeDoing = 'теперь выставляем кубик фит на
     SF.click (By.xpath('//div[@ng-click="selectList(3)"]'));
     SF.send(By.xpath('//input[@ng-model="request.custom_weight.value"]'), 1500);
     MF.EditRequest_OpenRequest ();
-    SF.sleep(5);
+    SF.sleep(10);
     V.boardNumbersCustom = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersCustom);
     MF.EditRequest_SaveChanges ();

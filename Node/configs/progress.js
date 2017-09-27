@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/64_LoadingHelpCustomBlock.js'];
+    config.suite = ['./tests/89_DraftRequest.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;
@@ -13,7 +13,7 @@ module.exports = function(config,V) {
     //V.frontURL = 'http://89.223.29.231:8080/front_site/';
     //V.accountURL = 'http://89.223.29.231:8080/account/#/login';
     //V.adminURL = 'http://89.223.29.231:8080/moveBoard/#/login';
-    V.adminLogin = 'TestAdmin';
+    V.adminLogin = 'WorkAdmin';
     V.adminPassword = 'test';
     V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';

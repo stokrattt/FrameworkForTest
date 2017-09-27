@@ -114,7 +114,7 @@ module.exports = function(config,V) {
 	//V.adminURL = 'http://89.223.29.231:8080/moveBoard/#/login';
 	V.adminLogin = 'TestAdmin';
 	V.adminPassword = 'test';
-	V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
+	V.adminEmail = 'bostonflat.test@mail.ru';//сюда будут прилетать все письма
 	V.foremanLogin = 'TestForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
@@ -127,7 +127,7 @@ module.exports = function(config,V) {
     V.managerFirstName = 'emilia';
     V.testMail = {
 		login: 'test.boston',
-		mail: 'test.boston@mail.ru',
+		mail: 'bostonflat.test@mail.ru',
 		password: 'YLZ60tO^ycpz'
 	};
 

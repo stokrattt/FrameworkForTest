@@ -71,8 +71,8 @@ condition.nowWeDoing = 'добавляем комнаты и опять пере
 
 condition.nowWeDoing = 'добавляем инвенторий и опять пересчитываем фуел, квоту и тотал';
     LF.addInventoryBoard ();
-    SF.sleep(9);
-    Debug.pause();
+    SF.sleep(15); // ждем обновления фуела
+
     V.boardNumbersAddInventory = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddInventory);
     V.quoteAddInventory = V.boardNumbersAddInventory.cbf * 10;
