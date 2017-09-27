@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/34_ContractPageCustomBlock.js'
+    config.suite = ['./tests/88_FlatRateHandClosing.js'
 
     ];
 
@@ -37,4 +37,8 @@ module.exports = function(config,V) {
 
     V.managerName = 'emilia clark';
     V.managerFirstName = 'emilia';
+
+    V.foremanLogin2 = 'ForemanFlow1';
+    V.foremanPassword2 = '123';
+    V.foremanName2 = 'Foreman Flow1';
 };

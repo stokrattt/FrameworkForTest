@@ -18,17 +18,44 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     let now = new Date();
     let msInDay = 86400000;
     let future = new Date(now.getTime() + msInDay * 2);
-    let options = { day: 'numeric', month: 'short', year: 'numeric' };
-    V.changedateUp = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//div[contains(@class, "dateRange")]/input'), V.changedateUp);
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 3);
-    options = { day: 'numeric', month: 'short', year: 'numeric' };
-    V.changedateDelivery = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//div[contains(@class, "dateRange delivery")]/input'), V.changedateDelivery);
+    let second_future = new Date(now.getTime() + msInDay * 4);
+    let month = { month: 'numeric'};
+    let day = {day: 'numeric'};
+    V.firstMonth = (future.toLocaleDateString('en-US', month)) - 1;
+    V.firstDay = (future.toLocaleDateString('en-US', day));
+    V.secondMonth = (second_future.toLocaleDateString('en-US', month)) - 1;
+    V.secondDay = (second_future.toLocaleDateString('en-US', day));
+    SF.click(By.xpath('//h4[contains(text(),"Preferred Pick Up dates:")]/following-sibling::div[2]'));
+    SF.sleep(1);
+    SF.click(By.xpath('//td[@data-month="'+ V.firstMonth +'"]/a[contains(text(),"'+ V.firstDay +'")]'));
+    SF.click(By.xpath('//td[@data-month="'+ V.secondMonth +'"]/a[contains(text(),"'+ V.secondDay +'")]'));
     SF.click(By.xpath('//h2[contains(text(), "Flat Rate Request")]'));
     SF.sleep(2);
+
+    now = new Date();
+    msInDay = 86400000;
+    future = new Date(now.getTime() + msInDay * 5);
+    second_future = new Date(now.getTime() + msInDay * 7);
+    month = { month: 'numeric'};
+    day = {day: 'numeric'};
+    V.firstMonth = (future.toLocaleDateString('en-US', month)) - 1;
+    V.firstDay = (future.toLocaleDateString('en-US', day));
+    V.secondMonth = (second_future.toLocaleDateString('en-US', month)) - 1;
+    V.secondDay = (second_future.toLocaleDateString('en-US', day));
+    SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]'));
+    SF.sleep(1);
+    SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]//td[@data-month="'+ V.firstMonth +'"]/a[contains(text(),"'+ V.firstDay +'")]'));
+    SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]//td[@data-month="'+ V.secondMonth +'"]/a[contains(text(),"'+ V.secondDay +'")]'));
+    SF.click(By.xpath('//h2[contains(text(), "Flat Rate Request")]'));
+    SF.sleep(2);
+
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "dateRange")]/input')).getAttribute("value").then(function(text){
+       V.pickupDate = text;
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "dateRange delivery")]/input')).getAttribute("value").then(function(text){
+       V.deliveryDates = text;
+    }),config.timeout);
+
     SF.select (By.xpath('//select[@ng-model="details.current_door"]'), 30);
     SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
     SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
@@ -46,6 +73,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(1);
     LF.addToCleanerJob (V.FRId);
+    
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Pick Up:")]/following-sibling::div')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text, V.pickupDate, 'не совпали prefered pickupDate на акаунте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Delivery:")]/following-sibling::div')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text, V.deliveryDates, 'не совпали prefered deliveryDate на акаунте');
+    }),config.timeout);
+
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции';
@@ -216,20 +251,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToAccountAsClient (V.client);
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));
     SF.sleep(2);
-    // SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    // SF.sleep(2);
-    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Pickup Date:")]/../following-sibling::div/div[2]')).getText().then(function(text){
-    //     VD.IWant(VD.ToEqual, '08:00 AM - 4:00 AM', text, 'не совпали цифры Pick up start time');
-    // }),config.timeout);
-    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Delivery Date:")]/../following-sibling::div/div[2]')).getText().then(function(text){
-    //     VD.IWant(VD.ToEqual, '5:00 AM - 6:00 AM', text, 'не совпали Delivery start time');
-    // }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Pickup Date:")]/following-sibling::div')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, V.changedateUpAdmin, text, 'не совпала Pick up дата');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Delivery Date:")]/following-sibling::div')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, V.newChangedateDelAdmin, text, 'не совпала Delivery up дата');
-    }),config.timeout);
+
     driver.wait(driver.findElements(By.xpath('//p[contains(text(),"Flat Rate Quote Explanation")]')).then(function(arr){
         V.QuoteExplanation=(arr.length==1);
     }),config.timeout);
