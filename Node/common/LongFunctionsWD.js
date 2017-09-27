@@ -631,7 +631,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         console.log (V.request.mdate);
         SF.send(By.id("edit-zip-code-from"), client.zipFrom==undefined?"02032":client.zipFrom);
         SF.send(By.id("edit-zip-code-to"), client.zipTo==undefined?"02136":client.zipTo);
-        SF.sleep(4);
+        SF.sleep(5);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');

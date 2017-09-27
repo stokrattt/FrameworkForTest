@@ -58,7 +58,7 @@ condition.nowWeDoing = 'создаем лонг дистанс реквест и
 condition.nowWeDoing = 'добавляем комнаты и опять пересчитываем фуел, квоту и тотал';
     MF.EditRequest_SetSizeOfMoveNumber (9);
     MF.EditRequest_SetAdressFrom ();
-    SF.sleep(4);
+    SF.sleep(5);
     V.boardNumbersAddRoom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddRoom);
     V.quoteAddRoom = V.boardNumbersAddRoom.cbf * 10;
@@ -71,7 +71,8 @@ condition.nowWeDoing = 'добавляем комнаты и опять пере
 
 condition.nowWeDoing = 'добавляем инвенторий и опять пересчитываем фуел, квоту и тотал';
     LF.addInventoryBoard ();
-    SF.sleep(1);
+    SF.sleep(15); // ждем обновления фуела
+
     V.boardNumbersAddInventory = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddInventory);
     V.quoteAddInventory = V.boardNumbersAddInventory.cbf * 10;
@@ -84,6 +85,7 @@ condition.nowWeDoing = 'добавляем инвенторий и опять п
 
 condition.nowWeDoing = 'добавляем пакинг и сервисы и проверяем что гранд тотал верный';
     MF.EditRequest_AddPacking ();
+    SF.sleep(3);
     // MF.EditRequest_AddAdditionalServicesFullPack ();
     V.boardNumbersAddServices = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddServices);

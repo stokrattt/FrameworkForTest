@@ -101,11 +101,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
 
     condition.nowWeDoing = 'Проверяем информацию о клиенте в заголовке реквеста(модалка)';
-    driver.wait(driver.findElement(By.xpath('//span[@class="email ng-binding"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//span[contains(@class,"email")]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, V.NewClient.email, text,'не поменялся email в модалке реквеста');
     }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//span[@class="phone ng-binding"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//span[contains(@class,"phone")]')).getText().then(function(text) {
         V.EdPhone = -SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.NewClient.phone, V.EdPhone,'не поменялся телефон в модалке реквеста');
     }),config.timeout);
@@ -125,11 +125,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//address/i[@class="icon-envelope"]/following-sibling::span')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.NewClient.email, text, 'не совпал Email  на акаунте');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//address')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//strong[contains(text(),"'+ V.NewClient.name + ' ' + V.NewClient.fam +'")]/../following-sibling::address')).getText().then(function(text) {
         V.AcPhone = -SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, ('0.'+V.NewClient.phone), V.AcPhone,'не поменялся телефон в аккаунте');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//strong[@class="ng-binding"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//strong[contains(text(),"'+ V.NewClient.name + ' ' + V.NewClient.fam +'")]')).getText().then(function(text) {
         V.AcNameFamily = text;
         VD.IWant(VD.ToEqual, (V.NewClient.name + ' ' + V.NewClient.fam), V.AcNameFamily,'не поменялись имя и фамилия в аккаунте');
     }),config.timeout);
