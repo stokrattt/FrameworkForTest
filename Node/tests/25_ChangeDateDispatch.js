@@ -25,39 +25,41 @@ condition.nowWeDoing = 'создаем реквест ';
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseConfirmWork();
     LF.closeEditRequest();
-condition.nowWeDoing = 'идем в локал диспач и меняем дату';
-    MF.Board_OpenLocalDispatch();
-    LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
+condition.nowWeDoing = 'идем в конфернутные работы и меняем дату';
+    MF.Board_OpenConfirmed();
+    MF.Board_OpenRequest(V.request.Id);
+   // MF.Board_OpenLocalDispatch();
+  //  LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
+   // MF.WaitWhileBusy ();
+  //  SF.sleep(1);
     MF.WaitWhileBusy ();
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    MF.Dispatch_GridView();
-    JS.scroll ('i[ng-click=\\"vm.getByDate();\\"]');
-    LF.OpenRequestDispatch (V.request.Id);
+  //  MF.Dispatch_GridView();
+  //  JS.scroll ('i[ng-click=\\"vm.getByDate();\\"]');
+  //  LF.OpenRequestDispatch (V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenConfirmWork();
-
+    SF.sleep(1);
     SF.click (By.xpath('//input[@ng-model="moveDateInput"]'));
     driver.wait(driver.executeScript(JSstep.Click31DaysCalendar).then(function (calDate) {
         V.request.moveDate = calDate;
     }),config.timeout);
     MF.WaitWhileBusy();
-
     SF.sleep (6);
     LF.RememberDateFromRequest(V.boardNumbers);
     SF.sleep(4);
     MF.EditRequest_WaitForBalanceVisible();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    MF.SweetConfirm ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseConfirmWork();
     LF.closeEditRequest();
 condition.nowWeDoing = 'ищем второй раз в диспатче реквест с другой датой и проверяем поменялась ли она, если не открылся реквест значит его там нету и дата не поменялась';
+    MF.Board_OpenLocalDispatch();
     SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
     MF.WaitWhileBusy ();
     SF.sleep(1);
+    MF.Dispatch_GridView();
     MF.WaitWhileBusy ();
     LF.OpenRequestDispatch (V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
@@ -66,3 +68,4 @@ condition.nowWeDoing = 'ищем второй раз в диспатче рек�
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
+
