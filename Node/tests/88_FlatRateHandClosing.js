@@ -21,14 +21,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     let second_future = new Date(now.getTime() + msInDay * 4);
     let month = { month: 'numeric'};
     let day = {day: 'numeric'};
-    V.firstMonth = (future.toLocaleDateString('en-US', month)) - 1;
-    V.firstDay = (future.toLocaleDateString('en-US', day));
-    V.secondMonth = (second_future.toLocaleDateString('en-US', month)) - 1;
-    V.secondDay = (second_future.toLocaleDateString('en-US', day));
+    V.firstDate = {};
+    V.secondDate = {};
+    V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
+    V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+    V.secondDate.Month = (second_future.toLocaleDateString('en-US', month)) - 1;
+    V.secondDate.Day = (second_future.toLocaleDateString('en-US', day));
     SF.click(By.xpath('//h4[contains(text(),"Preferred Pick Up dates:")]/following-sibling::div[2]'));
     SF.sleep(1);
-    SF.click(By.xpath('//td[@data-month="'+ V.firstMonth +'"]/a[contains(text(),"'+ V.firstDay +'")]'));
-    SF.click(By.xpath('//td[@data-month="'+ V.secondMonth +'"]/a[contains(text(),"'+ V.secondDay +'")]'));
+    MF.PreferredPickUpDate(V.firstDate, V.secondDate);
     SF.click(By.xpath('//h2[contains(text(), "Flat Rate Request")]'));
     SF.sleep(2);
 
@@ -38,14 +39,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     second_future = new Date(now.getTime() + msInDay * 7);
     month = { month: 'numeric'};
     day = {day: 'numeric'};
-    V.firstMonth = (future.toLocaleDateString('en-US', month)) - 1;
-    V.firstDay = (future.toLocaleDateString('en-US', day));
-    V.secondMonth = (second_future.toLocaleDateString('en-US', month)) - 1;
-    V.secondDay = (second_future.toLocaleDateString('en-US', day));
+    V.firstDate = {};
+    V.secondDate = {};
+    V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
+    V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+    V.secondDate.Month = (second_future.toLocaleDateString('en-US', month)) - 1;
+    V.secondDate.Day = (second_future.toLocaleDateString('en-US', day));
     SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]'));
     SF.sleep(1);
-    SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]//td[@data-month="'+ V.firstMonth +'"]/a[contains(text(),"'+ V.firstDay +'")]'));
-    SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]//td[@data-month="'+ V.secondMonth +'"]/a[contains(text(),"'+ V.secondDay +'")]'));
+    MF.PreferredDeliveryDate(V.firstDate, V.secondDate);
     SF.click(By.xpath('//h2[contains(text(), "Flat Rate Request")]'));
     SF.sleep(2);
 
@@ -73,7 +75,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(1);
     LF.addToCleanerJob (V.FRId);
-    
+
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Pick Up:")]/following-sibling::div')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.pickupDate, 'не совпали prefered pickupDate на акаунте');
     }),config.timeout);
