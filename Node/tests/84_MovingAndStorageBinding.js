@@ -57,6 +57,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(6);
     SF.click(By.xpath('//div[contains(@class,modalId'+V.boardNumbers1.Id+')]//img[@ng-click="OpenModal(request.storage_id || request.request_all_data.baseRequestNid)"]'));
     SF.waitForVisible(By.xpath('//a[contains(text(),"Request #'+V.boardNumbers2.Id+'")]/../../../following-sibling::div//div[@ng-click="chooseTruck(tid)"]'));
+    MF.WaitWhileBusy();
     SF.click(By.xpath('//div[contains(@class, "modalId_'+V.boardNumbers2.Id+'")]//i[@ng-click="openRelinkModal()"]'));
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="secondRequestNid"]')).getAttribute('value').then(function(text){
