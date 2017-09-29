@@ -95,7 +95,7 @@ condition.nowWeDoing = 'тут мы делаем оплату через кас�
     SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
     SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
     MF.WaitWhileBusy();
-
+    SF.sleep(2);
     driver.actions().mouseMove(driver.findElement(By.xpath('//tr[@ng-dblclick="showReceipt(receipt.id)"]'))).doubleClick().perform();
     MF.WaitWhileBusy ();
     SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));

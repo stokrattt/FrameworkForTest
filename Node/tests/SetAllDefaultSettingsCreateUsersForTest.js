@@ -17,7 +17,7 @@ condition.nowWeDoing = 'выставляем адреса и зип коды н�
     SF.send(By.xpath('//input[@ng-model="vm.basicSettings.company_name"]'), 'Stage Themovebaord');
 
     SF.clear(By.xpath('//input[@ng-model="vm.basicSettings.company_email"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.basicSettings.company_email"]'), 'test.boston@mail.ru');
+    SF.send(By.xpath('//input[@ng-model="vm.basicSettings.company_email"]'), 'bostonflat.test@mail.ru');
 
     SF.clear(By.xpath('//input[@ng-model="vm.basicSettings.company_phone"]'));
     SF.send(By.xpath('//input[@ng-model="vm.basicSettings.company_phone"]'), '(111) 111-11111');
