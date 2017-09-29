@@ -3,6 +3,7 @@ module.exports = function(config,V) {
        './tests/DefaultSettings.js',
         './tests/48_Review.js',
        './tests/80_OverBookingVol1.js',
+        './tests/91_Overbooking.js',
         './tests/4_CheckFuelCFitInventOffCalc.js',
         './tests/19_SignForemanJobAndUnssignetJob.js',
         './tests/7_DepartmenTest.js',
