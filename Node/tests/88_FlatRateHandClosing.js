@@ -13,7 +13,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.frontURL);
     LF.FullSmallCalcAsFlateRate (V.client);
 
-    condition.nowWeDoing = 'перешли в аккаунт добавляем опции';
+    condition.nowWeDoing = 'перешли в аккаунт добавляем опции и двойную preferred date';
     MF.Account_ClickViewRequest();
     let now = new Date();
     let msInDay = 86400000;
@@ -75,6 +75,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(1);
     LF.addToCleanerJob (V.FRId);
+    condition.nowWeDoing = 'проверяем двойную дату';
 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Pick Up:")]/following-sibling::div')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.pickupDate, 'не совпали prefered pickupDate на акаунте');
@@ -241,6 +242,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy ();
 
     SF.sleep (2);
+    condition.nowWeDoing = 'в админке включаем Quote Explanation';
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSettingsAccountPageFlatRate();
     driver.wait(driver.findElements(By.xpath('//h3[contains(text(),"Show Explanation Quote")]/following-sibling::input[contains(@class,"ng-not-empty")]')).then(function(arr){
@@ -248,7 +250,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     if (V.QuoteExplanation) {console.log('вкл Quote Explanation');SF.click(By.xpath('//input[@ng-model="vm.faAccountSettings.explanation"]/following-sibling::span'));}
     MF.Board_LogoutAdmin();
-    condition.nowWeDoing = 'первый раз в акаунте';
+    condition.nowWeDoing = 'в акаунте проверяем Quote Explanation';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));

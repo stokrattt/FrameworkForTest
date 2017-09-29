@@ -1,10 +1,10 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/88_FlatRateHandClosing.js'
+    config.suite = ['./tests/77_CustomTooltips.js'
 
     ];
 
     config.chainFail = false;
-    config.timeout = 65000;
+    config.timeout = 35000;
     // V.frontURL = 'http://stage.themoveboard.com:8090/front_site/';
     // V.accountURL = 'http://stage.themoveboard.com:8090/account/#/login';
     // V.adminURL = 'http://stage.themoveboard.com:8090/moveBoard/#/login';
