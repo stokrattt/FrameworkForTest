@@ -33,14 +33,9 @@ condition.nowWeDoing = 'создаем реквест ';
 condition.nowWeDoing = 'идем в конфернутные работы и меняем дату';
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest(V.request.Id);
-   // MF.Board_OpenLocalDispatch();
-  //  LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
-   // MF.WaitWhileBusy ();
-  //  SF.sleep(1);
+
     MF.WaitWhileBusy ();
-  //  MF.Dispatch_GridView();
-  //  JS.scroll ('i[ng-click=\\"vm.getByDate();\\"]');
-  //  LF.OpenRequestDispatch (V.request.Id);
+
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenConfirmWork();
     SF.sleep(1);
@@ -89,8 +84,6 @@ condition.nowWeDoing = 'ищем второй раз в диспатче рек�
         VD.INeed(VD.ToEqual, text, 0, 'пропала команда с диспача после того как зашли в аккаунт');
     }),config.timeout);
     SF.sleep(2);
-    // LF.OpenRequestDispatch (V.request.Id);>
-    // MF.EditRequest_WaitForBalanceVisible();
 
 
     //=========================закончили писать тест=============================

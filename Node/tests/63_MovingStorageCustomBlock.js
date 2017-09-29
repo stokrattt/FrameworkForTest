@@ -111,6 +111,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.sleep(0.5);
     SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
     SF.sleep(3);
+    MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To not confirmed на аккаунте на confirmation page');
     }),config.timeout);
@@ -123,6 +124,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.sleep(0.5);
     SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
     SF.sleep(3);
+    MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From not confirmed на аккаунте на confirmation page');
     }),config.timeout);

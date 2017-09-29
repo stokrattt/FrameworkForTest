@@ -108,8 +108,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('a[ng-click=\\"vm.assignTeam(request)\\"]:visible');
     MF.WaitWhileBusy();
     MF.WaitWhileToaster();
-    MF.WaitWhileToaster();
+
     SF.sleep(2);
+    MF.WaitWhileToaster();
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, и сумму коробок в бил оф лендинг ';

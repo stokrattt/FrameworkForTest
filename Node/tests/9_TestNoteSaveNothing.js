@@ -155,6 +155,7 @@ condition.nowWeDoing = 'тут проверим на сохранение нот
     MF.WaitWhileBusy();
     LF.closeEditRequest ();
     MF.Board_OpenConfirmed ();
+    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, text, V.noteNew1, 'Не совпали заметочки сейлса после сохранения через закрытие реквеста');
