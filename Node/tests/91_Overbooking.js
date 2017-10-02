@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    condition.nowWeDoing = 'первый раз в админке';
+    condition.nowWeDoing = 'в админке создаем первий реквест делаем его нот конферм,виключаем калькулятор , добавляем 2 трака';
     LF.CreateLocalMovingFromBoard(V.client);
 
     V.boardNumbers = {};
@@ -41,7 +41,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client2.phone = SF.randomCifra(10);
     V.client2.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
-    condition.nowWeDoing = 'создаем второй реквест, ставим нот конферм и выбираем трак такой же как у первого и время тоже самое';
+    condition.nowWeDoing = 'создаем второй реквест, ставим нот конферм и выбираем трак такой же как у первого только время другое';
     LF.CreateLocalMovingFromBoard(V.client2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id2 = SF.cleanPrice(text);
@@ -62,7 +62,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client3.phone = SF.randomCifra(10);
     V.client3.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
-    condition.nowWeDoing = 'создаем третий реквест, ставим нот конферм и выбираем трак такой же как у первого и время тоже самое';
+    condition.nowWeDoing = 'создаем третий реквест, ставим конферм и выбираем трак такой же как у первого и второго, и время чтоби косалось двох предидущих реквестов';
     LF.CreateLocalMovingFromBoard(V.client3);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id3 = SF.cleanPrice(text);
@@ -82,6 +82,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="update(request)"]'));
     JS.waitForExist("div.toast-success:visible");
     MF.WaitWhileBusy();
+    condition.nowWeDoing = 'проверяем логи';
     MF.EditRequest_OpenLogs ();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Overbooking")]/..//span[contains(text(), "Status was changed to date pending on requests:")]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Status was changed to date pending on requests: '+V.Id1+', '+V.Id2+'', 'не совпали реквесты которые ушли в дейт пендинг');
@@ -92,7 +93,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
 
 
-    condition.nowWeDoing = 'идем в админку проверять или два реквеста ушли в дата пендинг';
+    condition.nowWeDoing = 'идем в админку проверять или два первих реквеста реквеста ушли в дата пендинг';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'первый реквест не ушел в дата пендинг а должен был');
     }), 120000);
@@ -108,6 +109,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(1);
     LF.closeEditRequest ();
+    condition.nowWeDoing = 'идем в конфермнутие реквести проверить есть ли там третий реквест';
     MF.Board_OpenConfirmed ();
     MF.WaitWhileBusy();
     MF.Board_RefreshDashboard ();
