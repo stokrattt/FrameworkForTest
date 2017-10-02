@@ -499,11 +499,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         WaitWhileBusy ();
     }
-    function PreferredPickUpDate(firstDate, secondDate) {
+    function Account_PreferredPickUpDate(firstDate, secondDate) {
         SF.click(By.xpath('//td[@data-month="'+ firstDate.Month +'"]/a[contains(text(),"'+ firstDate.Day +'")]'));
         SF.click(By.xpath('//td[@data-month="'+ secondDate.Month +'"]/a[contains(text(),"'+ secondDate.Day +'")]'));
     }
-    function PreferredDeliveryDate(firstDate, secondDate) {
+    function Account_PreferredDeliveryDate(firstDate, secondDate) {
         SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]//td[@data-month="'+ firstDate.Month +'"]/a[contains(text(),"'+ firstDate.Day +'")]'));
         SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]//td[@data-month="'+ secondDate.Month +'"]/a[contains(text(),"'+ secondDate.Day +'")]'));
     }
@@ -1455,8 +1455,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ChooseOptionFlatRate: Account_ChooseOptionFlatRate,
         Account_Refresh: Account_Refresh,
         AccountConfirmationPage_ClickBackToRequest: AccountConfirmationPage_ClickBackToRequest,
-        PreferredPickUpDate: PreferredPickUpDate,
-        PreferredDeliveryDate: PreferredDeliveryDate,
+        Account_PreferredPickUpDate: Account_PreferredPickUpDate,
+        Account_PreferredDeliveryDate: Account_PreferredDeliveryDate,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,

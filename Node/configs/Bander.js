@@ -1,5 +1,5 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/91_Overbooking.js'
+    config.suite = ['./tests/56_LoadingAllSteps.js'
 
     ];
 

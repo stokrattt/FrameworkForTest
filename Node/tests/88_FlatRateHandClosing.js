@@ -29,7 +29,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.secondDate.Day = (second_future.toLocaleDateString('en-US', day));
     SF.click(By.xpath('//h4[contains(text(),"Preferred Pick Up dates:")]/following-sibling::div[2]'));
     SF.sleep(1);
-    MF.PreferredPickUpDate(V.firstDate, V.secondDate);
+    MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
     SF.click(By.xpath('//h2[contains(text(), "Flat Rate Request")]'));
     SF.sleep(2);
 
@@ -47,7 +47,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.secondDate.Day = (second_future.toLocaleDateString('en-US', day));
     SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]'));
     SF.sleep(1);
-    MF.PreferredDeliveryDate(V.firstDate, V.secondDate);
+    MF.Account_PreferredDeliveryDate(V.firstDate, V.secondDate);
     SF.click(By.xpath('//h2[contains(text(), "Flat Rate Request")]'));
     SF.sleep(2);
 
