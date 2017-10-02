@@ -137,9 +137,9 @@ condition.nowWeDoing = 'второй раз в аккаунте, сравнив�
     LF.RememberAccountNumbers (V.accountNumbersNotConfirm);
     LF.Validation_Compare_Account_Admin (V.accountNumbersNotConfirm, V.boardNumbersNotConfirmed);
     SF.sleep(1);
-    SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
-    SF.sleep(2);
-condition.nowWeDoing = 'перешли на конфирмейшн пейдж и сравним данные с бордом';
+    MF.Account_ClickProceedBookYourMove();
+
+    condition.nowWeDoing = 'перешли на конфирмейшн пейдж и сравним данные с бордом';
     V.ConfirmationPage = {};
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Estimated Quote")]/following-sibling::div[1]/div/div')).getText().then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {

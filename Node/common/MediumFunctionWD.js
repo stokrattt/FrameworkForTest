@@ -61,6 +61,61 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
 
+    ///===============================Create Request================================
+
+    function CreateRequest_SelectServiceType(number) {
+        SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:'+number+'"]'));
+    }
+    function CreateRequest_ClickMoveDateInput() {
+        SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+    }
+    function CreateRequest_SelectExtraRooms(number) {
+        SF.click(By.xpath('//ul[@class="chosen-choices"]'));
+        SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="'+number+'"]'));
+    }
+    function CreateRequest_SendZipToZipFrom(zipFrom, zipTo) {
+        SF.send(By.id("edit-zip-code-from"), zipFrom);
+        SF.send(By.id("edit-zip-code-to"), zipTo);
+        SF.sleep(4);
+    }
+    function CreateRequest_ClickCalculate() {
+        SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
+        WaitWhileBusy ();
+        SF.sleep(1);
+    }
+    function CreateRequest_ClickContinue() {
+        SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
+        SF.sleep(2);
+    }
+    function CreateRequest_SendClientInfo(client) {
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
+        WaitWhileBusy();
+    }
+    function CreateRequest_OpenMailDialog() {
+        SF.click(By.xpath("//div[@ng-click='openMailDialog()']"));
+        WaitWhileBusy();
+    }
+    function CreateRequest_ClickCreate() {
+        SF.click(By.xpath('//button[@ng-click="create()"]'));
+        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+        SF.sleep(2);
+        JS.waitForNotExist('div.busyoverlay:visible');
+    }
+
+    //====================================DISPACH=======================================
+
+    function Dispach_ClickUnassignTeam() {
+        SF.click(By.xpath('//a[@ng-click="vm.unAssignTeam()"]'));
+    }
+    function Dispach_ClickAddCrew() {
+        SF.click(By.xpath('//a[@title="Add crew"]'));
+        WaitWhileBusy ();
+    }
+
+
     ///===============================BOARD=========================================
 
     function Board_LogoutAdmin() {
@@ -244,7 +299,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Board_RefreshDashboard(){
 		WaitWhileBusy ();
 		SF.sleep(1);
-		WaitWhileBusy ();
         SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
         WaitWhileBusy ();
         SF.sleep (1);
@@ -355,6 +409,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         WaitWhileBusy();
     }
+    function Board_OpenReserved() {
+        SF.click(By.xpath('//div[@ng-click="vm.select(4)"]'));
+        WaitWhileBusy ();
+    }
+
     //==============================CALCULATOR SETTINGS===========================
     function CalculatorSettings_OpenBasicSettings(){
 		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[2]'));
@@ -506,6 +565,19 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_PreferredDeliveryDate(firstDate, secondDate) {
         SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]//td[@data-month="'+ firstDate.Month +'"]/a[contains(text(),"'+ firstDate.Day +'")]'));
         SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]//td[@data-month="'+ secondDate.Month +'"]/a[contains(text(),"'+ secondDate.Day +'")]'));
+    }
+
+    function Account_ClickProceedBookYourMove() {
+        SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
+        SF.sleep(3);
+    }
+    function Account_ClickIAgreeWithAll() {
+        SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
+        SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
+    }
+    function Account_ClickConfirmReservation() {
+        SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
+        SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     }
 
     //===================================CONTRACT===================================
@@ -798,6 +870,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//li[@heading="Foreman"]/a'));
         WaitWhileBusy();
     }
+    function EditRequest_PayrollOpenHelperTab() {
+        SF.click(By.xpath('//li[@heading="Helpers"]/a'));
+        WaitWhileBusy();
+    }
     function EditRequest_PayrollSetForemanCommission(name, type, forCommission, percent){
         SF.send(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
             '/../../../../../..//option[contains(text(),"'+type+'") and @selected="selected"]' +
@@ -1085,6 +1161,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(3);
         SF.click(By.xpath('//div[contains(@class, "client_notes")]/following-sibling::button[@ng-click="updateNote()"]'));
         WaitWhileToaster ();
+    }
+    function EditRequest_ClickViewRequest() {
+        SF.click(By.xpath('//button[@ng-click="goToRequest()"]'));
+    }
+    function EditRequest_OpenPaymentModalWindow() {
+        SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
+        SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
+        WaitWhileBusy ();
     }
     //=================================LOCAL DISPATCH============================
 
@@ -1384,6 +1468,23 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
         ProfitLoss_AddExpense: ProfitLoss_AddExpense,
 
+        //==================================CREATE REQUEST=================================
+
+        CreateRequest_SelectServiceType:CreateRequest_SelectServiceType,
+        CreateRequest_ClickMoveDateInput:CreateRequest_ClickMoveDateInput,
+        CreateRequest_SelectExtraRooms:CreateRequest_SelectExtraRooms,
+        CreateRequest_SendZipToZipFrom:CreateRequest_SendZipToZipFrom,
+        CreateRequest_ClickCalculate:CreateRequest_ClickCalculate,
+        CreateRequest_ClickContinue:CreateRequest_ClickContinue,
+        CreateRequest_SendClientInfo:CreateRequest_SendClientInfo,
+        CreateRequest_OpenMailDialog:CreateRequest_OpenMailDialog,
+        CreateRequest_ClickCreate:CreateRequest_ClickCreate,
+
+        //====================================DISPACH=======================================
+
+        Dispach_ClickUnassignTeam:Dispach_ClickUnassignTeam,
+        Dispach_ClickAddCrew:Dispach_ClickAddCrew,
+
         //------------------------------------BOARD=========================================
         Board_LogoutAdmin: Board_LogoutAdmin,
         Board_ClickCreate: Board_ClickCreate,
@@ -1429,6 +1530,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		Board_OpenFirstRequest: Board_OpenFirstRequest,
 		Board_OpenSettingsCalculator: Board_OpenSettingsCalculator,
         Board_CreateDraftRequest:Board_CreateDraftRequest,
+        Board_OpenReserved:Board_OpenReserved,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
@@ -1457,6 +1559,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         AccountConfirmationPage_ClickBackToRequest: AccountConfirmationPage_ClickBackToRequest,
         Account_PreferredPickUpDate: Account_PreferredPickUpDate,
         Account_PreferredDeliveryDate: Account_PreferredDeliveryDate,
+        Account_ClickProceedBookYourMove:Account_ClickProceedBookYourMove,
+        Account_ClickIAgreeWithAll:Account_ClickIAgreeWithAll,
+        Account_ClickConfirmReservation:Account_ClickConfirmReservation,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -1512,6 +1617,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_PayrollSetManagerCommission: EditRequest_PayrollSetManagerCommission,
         EditRequest_PayrollGetManagerCommission:EditRequest_PayrollGetManagerCommission,
         EditRequest_PayrollOpenForemanTab: EditRequest_PayrollOpenForemanTab,
+        EditRequest_PayrollOpenHelperTab:EditRequest_PayrollOpenHelperTab,
         EditRequest_PayrollGetForemansTotal: EditRequest_PayrollGetForemansTotal,
         EditRequest_PayrollSetForemanCommission: EditRequest_PayrollSetForemanCommission,
         EditRequest_PayrollGetForemanCommission: EditRequest_PayrollGetForemanCommission,
@@ -1558,6 +1664,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SaveNotesClient:EditRequest_SaveNotesClient,
         EditRequest_Check1EmailNotExist:EditRequest_Check1EmailNotExist,
         EditRequest_SetStartTime:EditRequest_SetStartTime,
+        EditRequest_ClickViewRequest:EditRequest_ClickViewRequest,
+        EditRequest_OpenPaymentModalWindow:EditRequest_OpenPaymentModalWindow,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

@@ -57,11 +57,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
 
-
-
-
-
-
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

@@ -25,7 +25,7 @@ condition.nowWeDoing = 'зашли в настройки кастомных бл
 condition.nowWeDoing = 'создаем мувинг сторадж, пендинг, и идем в аккаунт проверять что есть кастомный блок';
     LF.CreateMovAndStorFromBoard (V.client);
     MF.EditRequest_OpenSettings ();
-    SF.click(By.xpath('//button[@ng-click="goToRequest()"]'));
+    MF.EditRequest_ClickViewRequest ();
     SF.openTab (1);
     SF.sleep(5);
     MF.WaitWhileBusy();
@@ -109,8 +109,8 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To not confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
-    SF.sleep(3);
+    MF.Account_ClickProceedBookYourMove();
+
     MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To not confirmed на аккаунте на confirmation page');
@@ -122,8 +122,8 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From not confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
-    SF.sleep(3);
+    MF.Account_ClickProceedBookYourMove();
+
     MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From not confirmed на аккаунте на confirmation page');
@@ -145,8 +145,8 @@ condition.nowWeDoing = 'выключаем кастомный блок not confi
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж From not confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
-    SF.sleep(3);
+    MF.Account_ClickProceedBookYourMove();
+
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж From not confirmed на аккаунте на confirmation page');
     }),config.timeout);
@@ -157,8 +157,8 @@ condition.nowWeDoing = 'выключаем кастомный блок not confi
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж To not confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
-    SF.sleep(3);
+    MF.Account_ClickProceedBookYourMove();
+
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж To not confirmed на аккаунте на confirmation page');
     }),config.timeout);

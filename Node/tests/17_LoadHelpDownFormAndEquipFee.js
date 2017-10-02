@@ -124,8 +124,8 @@ condition.nowWeDoing = 'зашли под админом и сравниваем
 condition.nowWeDoing = 'зашли под клиенто и букаем работу';
     MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
     MF.Account_OpenRequest (V.accountNumbers.Id);
-    SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
-    SF.sleep(2);
+    MF.Account_ClickProceedBookYourMove();
+
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));

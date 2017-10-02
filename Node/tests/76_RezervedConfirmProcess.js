@@ -23,9 +23,7 @@ condition.nowWeDoing = 'создаем реквест, ставим нот ко�
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest ();
-    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
-    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
-    MF.WaitWhileBusy ();
+    MF.EditRequest_OpenPaymentModalWindow();
     SF.click(By.xpath('//a[@ng-click="addReservationPayment()"]'));
     SF.waitForLocated (By.xpath('//button[@ng-click="goStepTwo();"]'));
     SF.click (By.xpath('//button[@ng-click="goStepTwo();"]'));
@@ -33,8 +31,7 @@ condition.nowWeDoing = 'создаем реквест, ставим нот ко�
     JS.waitForExist ('button[ng-click=\\"cancel()\\"]:visible');
     JS.click('button[ng-click=\\"cancel()\\"]:visible');
     MF.Board_Refresh ();
-    SF.click(By.xpath('//div[@ng-click="vm.select(4)"]'));
-    MF.WaitWhileBusy ();
+    MF.Board_OpenReserved();
     MF.Board_OpenRequest (V.boardNumbers.Id);
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
@@ -43,14 +40,12 @@ condition.nowWeDoing = 'создаем реквест, ставим нот ко�
     MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest ();
-    SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
-    SF.sleep(2);
+    MF.Account_ClickProceedBookYourMove();
+
     JS.waitForExist('div.confirm');
     JS.scroll('div.confirm');
-    SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
-    SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
-    SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
-    SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+    MF.Account_ClickIAgreeWithAll();
+    MF.Account_ClickConfirmReservation();
     LF.MakeSignJS('signatureCanvasReserv');
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
 

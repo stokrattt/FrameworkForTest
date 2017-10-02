@@ -22,7 +22,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenSettings ();
-    SF.click(By.xpath('//button[@ng-click="goToRequest()"]'));
+    MF.EditRequest_ClickViewRequest ();
     SF.openTab (1);
     SF.waitForLocated (By.xpath('//div[@class="Move Overview"]'));
     MF.WaitWhileBusy ();

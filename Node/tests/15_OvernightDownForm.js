@@ -175,8 +175,8 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     SF.sleep(2);
     MF.WaitWhileBusy();
 
-    SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
-    SF.sleep(2);
+    MF.Account_ClickProceedBookYourMove();
+
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
@@ -199,7 +199,8 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
     SF.sleep (2);
 condition.nowWeDoing = 'букаем вторую работу овернайта';
-    SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
+    MF.Account_ClickProceedBookYourMove();
+
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));

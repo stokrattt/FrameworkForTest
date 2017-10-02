@@ -613,18 +613,16 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     function CreateLocalMovingFromBoard(client) {
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.busyoverlay:visible');
-        SF.click(By.linkText('Create Request'));
-        SF.sleep(2);
-        SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
-        SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+        MF.Board_ClickCreate();
+        MF.CreateRequest_SelectServiceType(1);
+        MF.CreateRequest_ClickMoveDateInput();
         V.request = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
             V.request.moveDate = calDate;
             console.log(V.request);
         }),config.timeout);
         SF.sleep(0.5);
-        SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-        SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+        MF.CreateRequest_SelectExtraRooms(1);
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
             V.request.mdate = (mdate);
         }),config.timeout);
@@ -632,12 +630,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.id("edit-zip-code-from"), client.zipFrom==undefined?"02032":client.zipFrom);
         SF.send(By.id("edit-zip-code-to"), client.zipTo==undefined?"02136":client.zipTo);
         SF.sleep(5);
-        SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
-        SF.sleep(1);
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.sleep(1);
-        SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-        SF.sleep(2);
+        MF.CreateRequest_ClickCalculate();
+        MF.CreateRequest_ClickContinue();
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
@@ -652,31 +646,23 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     function CreateFlatRateFromBoard(client) {
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.busyoverlay:visible');
-        SF.click(By.linkText('Create Request'));
-        SF.sleep(2);
-        SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:5"]'));
-        SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+        MF.Board_ClickCreate();
+        MF.CreateRequest_SelectServiceType(5);
+        MF.CreateRequest_ClickMoveDateInput();
         V.request = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
             V.request.moveDate = calDate;
             console.log(V.request);
         }),config.timeout);
         SF.sleep(0.5);
-        SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-        SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+        MF.CreateRequest_SelectExtraRooms(1);
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
             V.request.mdate = (mdate);
         }),config.timeout);
         console.log (V.request.mdate);
-        SF.send(By.id("edit-zip-code-from"), "02461");
-        SF.send(By.id("edit-zip-code-to"), "07304");
-        SF.sleep(4);
-        SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
-        SF.sleep(1);
-        JS.waitForNotExist('div.busyoverlay:visible');
-        SF.sleep(1);
-        SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-        SF.sleep(2);
+        MF.CreateRequest_SendZipToZipFrom("02461", "07304");
+        MF.CreateRequest_ClickCalculate();
+        MF.CreateRequest_ClickContinue();
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
@@ -688,10 +674,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         console.log('создали реквест');
     }
     function CreateMovAndStorFromBoard(client, period) {
-        SF.click(By.linkText('Create Request'));
-        SF.sleep(2);
-        SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:2"]'));
-        SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+        MF.Board_ClickCreate();
+        MF.CreateRequest_SelectServiceType(2);
+        MF.CreateRequest_ClickMoveDateInput();
         V.request = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
             V.request.moveDate = calDate;
@@ -712,15 +697,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }
 
         SF.sleep(0.5);
-        SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-        SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
-        SF.send(By.id("edit-zip-code-from"), "02032");
-        SF.send(By.id("edit-zip-code-to"), "02136");
-        SF.sleep(4);
-        SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
-        MF.WaitWhileBusy();
-        SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-        MF.WaitWhileBusy();
+        MF.CreateRequest_SelectExtraRooms(1);
+        MF.CreateRequest_SendZipToZipFrom("02032", "02136");
+        MF.CreateRequest_ClickCalculate();
+        MF.CreateRequest_ClickContinue();
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
@@ -733,27 +713,21 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     function CreateLongDistanceFromBoard(client) {
         if (client.zipFrom == undefined) {client.zipFrom='02032';}
         if (client.zipTo == undefined) {client.zipTo='90001';}
-        SF.click(By.linkText('Create Request'));
-        SF.sleep(3);
-        SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:7"]'));
-        SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+        MF.Board_ClickCreate();
+        MF.CreateRequest_SelectServiceType(7);
+        MF.CreateRequest_ClickMoveDateInput();
         V.request = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
             V.request.moveDate = calDate;
             console.log(V.request);
         }),config.timeout);
         SF.sleep(0.5);
-        SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-        SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+        MF.CreateRequest_SelectExtraRooms(1);
         SF.send(By.id("edit-zip-code-from"), client.zipFrom);
         SF.send(By.id("edit-zip-code-to"), client.zipTo);
         SF.sleep(4);
-        SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
-        SF.sleep(1);
-        MF.WaitWhileBusy ();
-        SF.sleep(1);
-        SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-        SF.sleep(2);
+        MF.CreateRequest_ClickCalculate();
+        MF.CreateRequest_ClickContinue();
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
@@ -804,24 +778,20 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.waitForVisible (By.xpath('//input[@ng-model="searchTerm"]'));
     }
     function CreateLoadingHelpFromBoard(client) {
-        SF.click(By.linkText('Create Request'));
-        SF.sleep(4);
-        SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:3"]'));
-        SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+        MF.Board_ClickCreate();
+        MF.CreateRequest_SelectServiceType(3);
+        MF.CreateRequest_ClickMoveDateInput();
         V.request = {};
         driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
             V.request.moveDate = calDate;
             console.log(V.request);
         }),config.timeout);
         SF.sleep(0.5);
-        SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-        SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+        MF.CreateRequest_SelectExtraRooms(1);
         SF.send(By.id("edit-zip-code-from"), "02032");
-        SF.sleep(1);
-        SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         SF.sleep(4);
-        MF.WaitWhileBusy ();
-        SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
+        MF.CreateRequest_ClickCalculate();
+        MF.CreateRequest_ClickContinue();
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
@@ -1100,8 +1070,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
     }
     function ConfirmRequestInAccount_WithReservation(ReservationPrice) {
-        SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
-        SF.sleep(2);
+        MF.Account_ClickProceedBookYourMove();
         JS.waitForExist('div.confirm');
         JS.scroll('div.confirm');
         if (ReservationPrice!=undefined) {
@@ -1112,8 +1081,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             SF.sleep(1);
             VD.IWant(VD.ToEqual, ReservationSee, ReservationPrice, 'Резервация на аккаунте не совпала');
         }
-        SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
-        SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
+        MF.Account_ClickIAgreeWithAll();
         SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
         SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
         MakeSignJS('signatureCanvasReserv');
@@ -1126,14 +1094,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }), config.timeout);
     }
     function ConfirmRequestInAccount_NoReservation() {
-        SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
-        SF.sleep(2);
+        MF.Account_ClickProceedBookYourMove();
         JS.waitForExist('div.confirm');
         JS.scroll('div.confirm');
-        SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
-        SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
-        SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
-        SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReservation"]'));
+        MF.Account_ClickIAgreeWithAll();
+        MF.Account_ClickConfirmReservation();
         MakeSignJS('signatureCanvasReservation');
         SF.click(By.xpath('//button[@ng-click="saveSignature()"]'));
         JS.waitForExist('button.confirm');
@@ -1495,8 +1460,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         //     Math.floor(boardNumbers.Quote/boardNumbers.HourlyRate),
         //     'Не совпал LaborTime формена');
         SF.sleep(1);
-        SF.click(By.xpath('//li[@heading="Helpers"]/a'));
-        SF.sleep(2);
+        MF.EditRequest_PayrollOpenHelperTab();
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.helpersForCommission.total = SF.cleanPrice(text);
         }),config.timeout);
@@ -1521,7 +1485,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
-        SF.click(By.xpath('//li[@heading="Foreman"]/a'));
+        MF.EditRequest_PayrollOpenForemanTab();
         // driver.wait(driver.executeScript('return ' +
         //     '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
         // ).then(function (text) {
@@ -1557,7 +1521,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
         });
         SF.sleep(1);
-        SF.click(By.xpath('//li[@heading="Helpers"]/a'));
+        MF.EditRequest_PayrollOpenHelperTab();
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
         }),config.timeout);
@@ -1570,7 +1534,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         };
         SF.sleep(3);
 
-        SF.click(By.xpath('//li[@heading="Foreman"]/a'));
+        MF.EditRequest_PayrollOpenForemanTab();
         // driver.wait(driver.executeScript('return ' +
         //     '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
         // ).then(function (text) {
@@ -1605,7 +1569,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
         });
         SF.sleep(1);
-        SF.click(By.xpath('//li[@heading="Helpers"]/a'));
+        MF.EditRequest_PayrollOpenHelperTab();
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
         }),config.timeout);

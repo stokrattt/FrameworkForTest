@@ -91,8 +91,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
-    SF.click(By.xpath('//a[@title="Add crew"]'));
-    MF.WaitWhileBusy ();
+    MF.Dispach_ClickAddCrew();
     SF.click(By.xpath('//select[@ng-model="crew.helpers[$index]"]'));
     SF.sleep(1);
     SF.click(By.xpath("//label[contains(text(),'Additional Helpers')]/following-sibling::div" +
@@ -115,9 +114,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, и сумму коробок в бил оф лендинг ';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
-    SF.sleep(3);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Custom Packing:")]')).getText().then(function(text){

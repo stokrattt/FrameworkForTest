@@ -11,14 +11,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToBoardAsAdmin();
     condition.nowWeDoing = 'первый раз в админке';
     LF.CreateLocalMovingFromBoard(V.client);
-    SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
-    SF.waitForVisible(By.xpath('//button[@ng-click="delete(client)"]'));
-    SF.send(By.xpath('//input[@ng-model="client.password"]'), V.client.passwd);
-    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
-    SF.waitForVisible(By.xpath('//div[contains(text(),"Client info was updated")]'));
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd(V.client.passwd);
     LF.closeEditRequest ();
-    MF.Board_OpenSideBar();
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+    MF.Board_OpenSettingsGeneral ();
     MF.Board_OpenSettingsAccountPageCustomTooltips();
     MF.Board_OpenSideBar();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Job Time")]')).getText().then(function(text){

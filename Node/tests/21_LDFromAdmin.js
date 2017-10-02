@@ -165,8 +165,8 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     }),config.timeout);
     SF.sleep (1);
     VD.IWant (VD.ToEqual, V.boardNumbersWithAddServices.Total, V.accountNumbersLD.Total, 'не совпал гранд тотал мувборда и аккаунта');
-    SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
-    SF.sleep (2);
+    MF.Account_ClickProceedBookYourMove();
+
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
         console.log(V.ConfirmationTotal);

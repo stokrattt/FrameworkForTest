@@ -47,18 +47,11 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
-    // driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-    //     // VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
-    //     VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
-    // }),config.timeout);
-    // SF.sleep(2);
 
     JS.click('a[ng-click=\\"showAdditionalServicesRef.show = !showAdditionalServicesRef.show\\"]:visible');
-    // JS.click('li[ng-click=\\"addService(s)\\"]:contains(\\"Tip\\")');
 
     SF.click(By.xpath('//div[@id="main-contract"]//li[@ng-click="addService(s)"][contains(text(), "Tip")]'));
     SF.sleep(3);
-    // tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/
     SF.clear(By.xpath('//div[@id="main-contract"]//input[@ng-model="service.extra_services[0].services_default_value"]'));
     SF.send(By.xpath('//div[@id="main-contract"]//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'), 200);
 
@@ -130,7 +123,7 @@ condition.nowWeDoing = 'тут открываем пейрол в реквест
     SF.sleep(1);
 
 condition.nowWeDoing = 'проверяем фореманан в пейроле в реквесте';
-    SF.click(By.xpath('//li[@heading="Foreman"]/a'));
+    MF.EditRequest_PayrollOpenForemanTab();
     driver.wait(driver.executeScript('return $(\'input[ng-model="foreman.for_commission"]\').val()').then(function (text) {
         V.boardNumbers.Payroll.foremanForCommission.office = SF.cleanPrice(text);
     }),config.timeout);
@@ -173,7 +166,7 @@ condition.nowWeDoing = 'проверяем фореманан в пейроле 
 
 condition.nowWeDoing = 'проверяем хелпера в пейроле в реквесте';
     SF.click(By.xpath('//li[@heading="Helpers"]/a'));
-    By.xpath('//div[@ng-repeat="helpers in helper track by $index"][1]//tr[@ng-repeat="helper in helpers.commissions track by $index"][1]/td[3]/input[@ng-model="helper.for_commission "]');
+    // By.xpath('//div[@ng-repeat="helpers in helper track by $index"][1]//tr[@ng-repeat="helper in helpers.commissions track by $index"][1]/td[3]/input[@ng-model="helper.for_commission "]');
     driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="helpers in helper track by $index"][1]' +
         '//tr[@ng-repeat="helper in helpers.commissions track by $index"][1]/td[3]/input[@ng-model="helper.for_commission"]')).getAttribute('value').then(function (text) {
         V.boardNumbers.Payroll.helpersForComission.office = SF.cleanPrice(text);

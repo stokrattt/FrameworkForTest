@@ -94,8 +94,8 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
     }), config.timeout);
     //*******************************************************************************
     MF.Account_OpenRequest (V.accountNumbersTo.Id);
-    SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
-    SF.sleep(2);
+    MF.Account_ClickProceedBookYourMove();
+
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
@@ -130,7 +130,8 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
     MF.Account_ClickFromStorage ();
     SF.sleep (2);
 condition.nowWeDoing = 'букаем вторую работу мувинга и стораджа';
-    SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
+    MF.Account_ClickProceedBookYourMove();
+
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));

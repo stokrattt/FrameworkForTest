@@ -58,9 +58,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.cleanGrandTotal, V.grandTotal, 'не совпали Grand Total 2');
     }),config.timeout);
     condition.nowWeDoing = 'Меняем в реквесте min Price min Cubic fee и State rate и снова проверям гранд тотал';
-    SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
-    SF.sleep(2);
-    JS.waitForNotExist('div.busyoverlay:visible');
+
+    MF.EditRequest_OpenRequest();
     V.newMinCF = 50;
     V.newMinPrice = 40;
     V.newStateRate = 10;
@@ -99,6 +98,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Minimum Price was changed")]/../../following-sibling::span//span[contains(text(), "$'+ V.newMinPrice +'")]')).getText().then(function(text){
     }),config.timeout);
-
+    SF.sleep(2);
     SF.endOfTest();
 };

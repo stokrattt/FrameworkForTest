@@ -40,7 +40,7 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     }),config.timeout);
     SF.sleep(1);
     JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
-    SF.click(By.xpath('//a[@ng-click="vm.unAssignTeam()"]'));
+    MF.Dispach_ClickUnassignTeam();
     MF.SweetConfirm ();
     MF.WaitWhileBusy ();
     MF.WaitWhileToaster ();

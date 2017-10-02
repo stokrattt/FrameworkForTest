@@ -113,8 +113,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//a[@ng-click="addOption()"]'));
     SF.sleep (1);
     SF.click(By.xpath('//a[@ng-click="saveOptions()"]'));
-    SF.sleep (4);
-    MF.WaitWhileBusy ();
+    SF.sleep (2);
     MF.WaitWhileBusy ();
 
     /**************************иногда выскакивает иногда нет************/
@@ -143,9 +142,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//label[contains(text(),"Move Date")]'));
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="update(client)"]'));
-    SF.waitForVisible(By.xpath('//button[@class="confirm"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@class="confirm"]'));
+    MF.SweetConfirm();
     MF.WaitWhileBusy();
     SF.waitForVisible(By.xpath('//button[contains(text(),"OK")]'));
     SF.click(By.xpath('//button[contains(text(),"OK")]'));

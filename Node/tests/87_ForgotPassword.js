@@ -30,28 +30,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     LF.LogoutFromAccount ();
     SF.sleep(2);
-    //JS.waitForNotExist ('div[ng-if="loadingImg"]');
     SF.click (By.xpath('//small[contains(text(),"Forgot password?")]'));
     SF.sleep(1);
     SF.waitForVisible(By.xpath('//input[@id="email"]'));
     SF.sleep(1);
     SF.send(By.xpath('//input[@id="email"]'), V.client.newEmaila );
     SF.click(By.xpath('//button[@type="submit"]'));
-    SF.waitForVisible(By.xpath('//button[@class="confirm"]'));
-    SF.click(By.xpath('//button[@class="confirm"]'));
-    SF.sleep(4);
-
-
-
-   // SF.click (By.xpath('//small[contains(text(),"Forgot password?")]'));
-    //SF.sleep(1);
-    //SF.waitForVisible(By.xpath('//input[@id="email"]'));
-    //SF.sleep(1);
-   // SF.send(By.xpath('//input[@id="email"]'), V.ForgotPassword2 );
-   // SF.click(By.xpath('//button[@type="submit"]'));
-    //SF.waitForVisible(By.xpath('//div[@class="restore-email-error-message ng-binding"]'));
-
-
+    MF.SweetConfirm();
+    SF.sleep(2);
 
     SF.endOfTest();
 };

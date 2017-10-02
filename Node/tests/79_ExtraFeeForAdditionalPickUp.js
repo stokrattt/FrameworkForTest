@@ -44,11 +44,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Extra Dropoff")]/../../following-sibling::span//span[contains(text(), "'+V.extraDropOffAddress+'")]')).getText().then(function(text){
     }),config.timeout);
-    SF.click(By.xpath('//a[@ng-click="select(tabs[4])"]'));
-    SF.waitForVisible(By.xpath('//button[@ng-click="delete(client)"]'));
-    SF.send(By.xpath('//input[@ng-model="client.password"]'), V.client.passwd);
-    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
-    SF.waitForVisible(By.xpath('//div[contains(text(),"Client info was updated")]'));
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd(V.client.passwd);
     LF.closeEditRequest ();
 
     MF.Board_LogoutAdmin();
@@ -96,9 +93,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
 
     SF.click(By.xpath('//button[@ng-click="update(client)"]'));
-    SF.waitForVisible (By.xpath('//button[@class="confirm"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@class="confirm"]'));
+    MF.SweetConfirm();
     SF.waitForVisible (By.xpath('//button[contains(text(), "OK")]'));
     SF.sleep(1);
     SF.click(By.xpath('//button[contains(text(), "OK")]'));
@@ -123,7 +118,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_extra_dropoff.thoroughfare"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.newExtraDropOffAddress, text, 'extra Drop Off адрес должен бить равен');
     }),config.timeout);
-
+    SF.sleep(2);
 
     SF.endOfTest();
 };

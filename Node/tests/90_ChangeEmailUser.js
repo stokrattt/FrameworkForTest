@@ -71,11 +71,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
-    SF.sleep(3);
-    MF.WaitWhileBusy();
-    SF.click(By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
+    MF.Board_RefreshDashboard();
 
     condition.nowWeDoing = 'Проверяем привязку email к клиенту и изменение имени и фамилии, заходим во 2й реквест';
     MF.Board_OpenRequest(V.accountNumbers.Id);
@@ -110,8 +106,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.NewClient.phone, V.EdPhone,'не поменялся телефон в модалке реквеста');
     }),config.timeout);
 
-
-        Debug.pause();
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
     SF.sleep(2);
@@ -141,7 +135,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.firstRequestId = text;
         VD.IWant(VD.ToEqual, V.req1.Id, V.firstRequestId, 'не наидена работа 1');
     }),config.timeout);
-
+    SF.sleep(2);
 
     SF.endOfTest();
 };

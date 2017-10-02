@@ -107,7 +107,7 @@ condition.nowWeDoing = 'ставим конферм, закрываем рабо
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenSettings ();
     MF.EditRequest_SetSaleNumber (5);
-    SF.click(By.xpath('//button[@ng-click="goToRequest()"]'));
+    MF.EditRequest_ClickViewRequest ();
     SF.openTab (1);
     MF.Account_WaitForGreenTextAfterConfirm();
     SF.sleep(3);

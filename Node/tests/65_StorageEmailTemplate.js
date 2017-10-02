@@ -9,11 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
 
     condition.nowWeDoing = 'Логинимся и заходим в темплейт билдер';
-    SF.waitForVisible(By.xpath('//div[@ng-controller="LoginController"]//span[contains(text(),"Move")]'));
-    SF.send(By.xpath('//input[@id="email"]'), V.adminLogin);
-    SF.send(By.xpath('//input[@id="password"]'), V.adminPassword);
-    SF.click(By.xpath('//button[@type="submit"]'));
-    SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsTemplateBuilder();
     MF.WaitWhileBusy();
     SF.waitForVisible(By.xpath('//select[@ng-model="filterByKeyName.key_name"]'));

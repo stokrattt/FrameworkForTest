@@ -8,36 +8,23 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep (3);
 
-      condition.nowWeDoing = 'создаем ЛД реквест';
+condition.nowWeDoing = 'создаем ЛД реквест';
 
-    SF.click(By.linkText('Create Request'));
-    SF.sleep(5);
-    SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:7"]'));
-    SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+    MF.Board_ClickCreate();
+    MF.CreateRequest_SelectServiceType(7);
+    MF.CreateRequest_ClickMoveDateInput();
     V.request = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
         V.request.moveDate = calDate;
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
-    SF.send(By.id("edit-zip-code-from"), "02032");
-    SF.send(By.id("edit-zip-code-to"), "90001");
-    SF.sleep(4);
-    SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-    SF.sleep(2);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
-    SF.click(By.xpath("//div[@ng-click='openMailDialog()']"));
-    MF.WaitWhileBusy();
+    MF.CreateRequest_SelectExtraRooms(1);
+    MF.CreateRequest_SendZipToZipFrom("02032", "90001");
+    MF.CreateRequest_ClickCalculate();
+    MF.CreateRequest_ClickContinue();
+    MF.CreateRequest_SendClientInfo(V.client);
+    MF.CreateRequest_OpenMailDialog();
 
     condition.nowWeDoing = 'добавляем письма';
     SF.click(By.xpath('//span[contains(.,"Default")]'));
@@ -48,9 +35,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     SF.click(By.xpath('//div[@ng-hide="isSendEmails"]/a[@ng-click="save()"]'));
     SF.sleep(5);
-    SF.click(By.xpath("//button[@ng-click='create()']"));
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    SF.sleep(4);
+    MF.CreateRequest_ClickCreate();
     V.request.Id = {};
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);

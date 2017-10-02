@@ -31,7 +31,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         LF.addToCleanerJob(V.Id1);
     }), config.timeout);
 
-
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
@@ -47,8 +46,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.Id2 = SF.cleanPrice(text);
         LF.addToCleanerJob(V.Id2);
     }), config.timeout);
-
-    SF.sleep (3);
+    SF.sleep (1);
     MF.EditRequest_SetStartTime('01:00 PM');
     SF.click(By.xpath('//div[contains(text(),"ZAZ")]'));
     MF.WaitWhileBusy();
@@ -75,13 +73,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressToFrom();
-    JS.click('button[ng-click=\\"UpdateRequest()\\"]');
-    MF.SweetConfirm();
-    JS.waitForExist('button[ng-click="update(request)"]:visible');
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    JS.waitForExist("div.toast-success:visible");
-    MF.WaitWhileBusy();
+    MF.EditRequest_SaveChanges();
     condition.nowWeDoing = 'проверяем логи';
     MF.EditRequest_OpenLogs ();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Overbooking")]/..//span[contains(text(), "Status was changed to date pending on requests:")]')).getText().then(function (text) {
@@ -91,7 +83,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.Board_RefreshDashboard ();
     MF.WaitWhileBusy();
-
 
     condition.nowWeDoing = 'идем в админку проверять или два первих реквеста реквеста ушли в дата пендинг';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
@@ -118,17 +109,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }), 120000);
     SF.sleep(4);
     MF.Board_OpenRequest(V.Id3);
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    MF.WaitWhileBusy();
-    SF.sleep(2);
-    MF.WaitWhileBusy();
     SF.select(By.xpath('//select[@id="edit-status"]'), 22);
-    JS.click('button[ng-click=\\"UpdateRequest()\\"]');
-    JS.waitForExist('button[ng-click="update(request)"]:visible');
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    JS.waitForExist("div.toast-success:visible");
-    MF.WaitWhileBusy();
+    MF.EditRequest_SaveChanges();
 
     SF.endOfTest();
 };

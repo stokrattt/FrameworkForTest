@@ -25,10 +25,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'Закриваем роботу заходим в СІТ и заполняем поля';
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
-    SF.sleep(1);
-    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
-    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
-    MF.WaitWhileBusy();
+    MF.EditRequest_OpenPaymentModalWindow();
     SF.click(By.xpath('//a[@ng-click="addCustomPayment()"]'));
     SF.waitForLocated (By.xpath('//input[@ng-model="receipt.amount"]'));
     MF.WaitWhileBusy();
@@ -47,9 +44,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.cleanPayment = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanPayment, V.cashPayment, 'не совпали Payment в модалке реквеста до включения галочки pending');
     }),config.timeout);
-    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
-    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
-    MF.WaitWhileBusy();
+    MF.EditRequest_OpenPaymentModalWindow();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total")]')).getText().then(function(text){
         V.cleanTotal = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTotal, V.cashPayment, 'не совпали Payment и тотал в модалке реквеста до включения галочки pending');

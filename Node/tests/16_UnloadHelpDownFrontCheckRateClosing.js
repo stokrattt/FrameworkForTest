@@ -102,8 +102,8 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     V.accountNumbersAfterChangeRate = {};
     LF.RememberAccountNumbers (V.accountNumbersAfterChangeRate );
     LF.Validation_Compare_Account_Admin (V.boardNumbersAfterChangeRate, V.accountNumbersAfterChangeRate);
-    SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
-    SF.sleep(2);
+    MF.Account_ClickProceedBookYourMove();
+
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));

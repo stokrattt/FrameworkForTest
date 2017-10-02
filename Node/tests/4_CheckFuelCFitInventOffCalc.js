@@ -73,9 +73,7 @@ condition.nowWeDoing = 'тут мы делаем оплату через кас�
     MF.WaitWhileBusy ();
     MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.boardNumbers.Id);
-    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
-    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
-    MF.WaitWhileBusy ();
+    MF.EditRequest_OpenPaymentModalWindow();
     JS.click('a[ng-click=\\"addCustomPayment()\\"]:visible');
     SF.waitForVisible (By.xpath('//form[@name="clientForm"]'));
     SF.click (By.xpath('//input[@ng-model="receipt.amount"]'));
@@ -92,9 +90,7 @@ condition.nowWeDoing = 'тут мы делаем оплату через кас�
     MF.Board_OpenRequest (V.boardNumbers.Id);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     VD.IWant(VD.ToEqual, 150, V.boardNumbers.Payment, 'не прошла оплата в реквесте');
-    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
-    SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
-    MF.WaitWhileBusy();
+    MF.EditRequest_OpenPaymentModalWindow();
     SF.sleep(2);
     driver.actions().mouseMove(driver.findElement(By.xpath('//tr[@ng-dblclick="showReceipt(receipt.id)"]'))).doubleClick().perform();
     MF.WaitWhileBusy ();
