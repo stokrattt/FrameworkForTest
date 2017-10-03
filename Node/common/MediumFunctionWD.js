@@ -372,6 +372,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 	function Board_OpenRequest(request) {
 		WaitWhileBusy ();
+        WaitWhileBusy();
 		driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), config.timeout)
 			.getAttribute('class').then(function (classStr) {
 					if (classStr.indexOf('active_row') == -1) {
@@ -389,9 +390,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 			Fiber.yield();
 		}
 		SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-		WaitWhileBusy();
-		SF.sleep(2);
-		WaitWhileBusy();
+        SF.sleep(2);
+        WaitWhileBusy();
 	}
     function Board_OpenFirstRequest(){
 		SF.click(By.xpath('//td[@ng-click="requestEditModal(request)"]'));

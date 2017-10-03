@@ -73,7 +73,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressToFrom();
-    MF.EditRequest_SaveChanges();
+    JS.click('button[ng-click=\\"UpdateRequest()\\"]');
+    MF.SweetConfirm();
+    JS.waitForExist('button[ng-click="update(request)"]:visible');
+    SF.sleep(2);
+    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    JS.waitForExist("div.toast-success:visible");
+    MF.WaitWhileBusy();
     condition.nowWeDoing = 'проверяем логи';
     MF.EditRequest_OpenLogs ();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Overbooking")]/..//span[contains(text(), "Status was changed to date pending on requests:")]')).getText().then(function (text) {
