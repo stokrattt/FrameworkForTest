@@ -568,6 +568,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Account_ClickProceedBookYourMove() {
+        SF.sleep(1);
         SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
         SF.sleep(3);
     }
@@ -577,7 +578,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_ClickConfirmReservation() {
         SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
-        SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+        SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReservation"]'));
     }
 
     //===================================CONTRACT===================================

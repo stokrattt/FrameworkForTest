@@ -1101,9 +1101,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.Account_ClickConfirmReservation();
         MakeSignJS('signatureCanvasReservation');
         SF.click(By.xpath('//button[@ng-click="saveSignature()"]'));
-        JS.waitForExist('button.confirm');
-        SF.sleep(1);
-        SF.click(By.xpath('//button[@class="confirm"]'));
+        MF.SweetConfirm();
         SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
         driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
             VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
