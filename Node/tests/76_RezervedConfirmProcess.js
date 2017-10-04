@@ -45,7 +45,8 @@ condition.nowWeDoing = 'создаем реквест, ставим нот ко�
     JS.waitForExist('div.confirm');
     JS.scroll('div.confirm');
     MF.Account_ClickIAgreeWithAll();
-    MF.Account_ClickConfirmReservation();
+    SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
+    SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
 
@@ -59,8 +60,6 @@ condition.nowWeDoing = 'создаем реквест, ставим нот ко�
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed ();
     MF.Board_OpenRequest (V.boardNumbers.Id);
-
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

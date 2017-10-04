@@ -197,7 +197,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     JS.select ('#edit-size-move', 10);
     JS.select ('#edit-type-from', 2);
     JS.select ('#edit-type-to', 5);
-    SF.sleep (2);
+    SF.sleep (3);
     JS.click ('#calculate_btn');
     SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
     SF.sleep (5);

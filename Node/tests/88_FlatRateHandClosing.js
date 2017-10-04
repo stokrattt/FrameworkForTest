@@ -241,7 +241,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     condition.nowWeDoing = 'в админке включаем Quote Explanation';
     MF.Board_OpenSettingsGeneral();
-    MF.Board_OpenSideBar();
+    // MF.Board_OpenSideBar();
     MF.Board_OpenSettingsAccountPageFlatRate();
     driver.wait(driver.findElements(By.xpath('//h3[contains(text(),"Show Explanation Quote")]/following-sibling::input[contains(@class,"ng-not-empty")]')).then(function(arr){
         V.QuoteExplanation=(arr.length==1);
@@ -257,7 +257,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElements(By.xpath('//p[contains(text(),"Flat Rate Quote Explanation")]')).then(function(arr){
         V.QuoteExplanation=(arr.length==1);
     }),config.timeout);
-
+    SF.sleep(2);
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

@@ -456,6 +456,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     //==============================ACCOUNT=======================================
 
     function Account_SubmitFlatRateAfterAddInventory() {
+	    SF.sleep(2);
         JS.scroll ('#conf_send,#conf_block :visible');
         SF.sleep (2);
         SF.click (By.xpath('//button[@ng-click="submitFlatRate()"]'));
