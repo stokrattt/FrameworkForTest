@@ -6,6 +6,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
+    V.ForEmail = 'ivanforeman173@gmail.com';
+    V.googleloginFor =  'ivanforeman173';
+    V.googlePasFor =  'qwertyuio9';
+
+
+
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    condition.nowWeDoing = 'идем в департмент включить календарь для форемана';
+    MF.Board_OpenSettingsDepartment ();
+    MF.WaitWhileBusy();
+    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
+    MF.WaitWhileBusy ();
+    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "Test Foreman")]'))).doubleClick().perform();
+    SF.sleep (2);
+    SF.click (By.linkText('Account'));
+    SF.click (By.xpath('//input[@ng-model="gmail"]'));
+    SF.send (By.xpath('//input[@ng-model="gmail"]'), V.ForEmail);
+    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
+    MF.SweetConfirm();
+    MF.WaitWhileBusy();
+    MF.WaitWhileToaster ();
+    SF.sleep(4);
+
+
     SF.get(V.frontURL);
     condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLoading(V.client);
@@ -121,7 +146,36 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
+    condition.nowWeDoing = 'идем в гугл почту';
+    SF.get('http://gmail.com');
+    SF.sleep(10);
+    SF.send(By.xpath('//input[@type="email"]'),V.googleloginFor);
+    SF.sleep(2);
+    SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
+    SF.sleep(3);
+    SF.send(By.xpath('//input[@type="password"]'),V.googlePasFor );
+    SF.sleep(2);
+    SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
+    SF.sleep(10);
+
+    condition.nowWeDoing = 'проверяем в календаре, что работа пришла фореману';
+    SF.get('https://calendar.google.com/calendar');
+    SF.sleep(2);
+    SF.click(By.xpath('//div[contains(text(), "День")]'));
+    SF.click(By.xpath('//div[@id="navForward:2"]'));
+    SF.click(By.xpath('//div[@id="navForward:2"]'));
+    SF.click(By.xpath('//div[@id="navForward:2"]'));
+    SF.click(By.xpath('//div[@id="navForward:2"]'));
+    SF.sleep(5);
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text) {
+        V.Req1Cal = text;
+        VD.IWant(VD.ToEqual, ('#' +V.accountNumbers.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'фореману в календарь не пришла работа');
+    }),config.timeout);
+    SF.sleep(5);
+
+
     condition.nowWeDoing = 'заходим под форменом, открываем контракт';
+    SF.get(V.adminURL);
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
