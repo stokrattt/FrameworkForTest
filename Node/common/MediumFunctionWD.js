@@ -79,6 +79,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(4);
     }
     function CreateRequest_ClickCalculate() {
+        SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         WaitWhileBusy ();
         SF.sleep(1);
@@ -652,7 +653,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }),config.timeout);
         SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
-        SF.sleep(25);
+        SF.sleep(27);
         SweetConfirm();
 
     }

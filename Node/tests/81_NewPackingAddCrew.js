@@ -106,8 +106,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy ();
     JS.click('a[ng-click=\\"vm.assignTeam(request)\\"]:visible');
     MF.WaitWhileBusy();
+    SF.sleep(4);
     JS.waitForNotExist('div.toast-success:visible');
     JS.waitForNotExist('div.toast-message:visible');
+    JS.waitForNotExist('div.toast-top-right:visible');
+    JS.waitForNotExist('div.visible-overflow');
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, и сумму коробок в бил оф лендинг ';
@@ -140,6 +143,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
+    MF.WaitWhileBusy();
     SF.click(By.xpath('//a[@ng-click="addCrew()"]'));
     MF.WaitWhileBusy ();
     LF.MakeSignInContract();

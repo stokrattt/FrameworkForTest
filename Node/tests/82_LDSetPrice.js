@@ -41,6 +41,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text){
         V.CF = SF.cleanPrice(text);
     }),config.timeout);
+    Debug.pause();
     SF.sleep(1);
     V.cubicFee =  V.CF - V.minCF;
     V.modalQuote = V.cubicFee * V.stateRate +  V.minPrice;
@@ -58,7 +59,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.cleanGrandTotal, V.grandTotal, 'не совпали Grand Total 2');
     }),config.timeout);
     condition.nowWeDoing = 'Меняем в реквесте min Price min Cubic fee и State rate и снова проверям гранд тотал';
-
+Debug.pause();
     MF.EditRequest_OpenRequest();
     V.newMinCF = 50;
     V.newMinPrice = 40;
@@ -75,7 +76,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="min_weight"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.minCF, text, 'не совпали min CF');
     }),config.timeout);
-
+Debug.pause();
     SF.clear(By.xpath('//input[@ng-model="min_price"]'));
     SF.send(By.xpath('//input[@ng-model="min_price"]'), V.newMinPrice);
     SF.clear(By.xpath('//input[@ng-model="min_weight"]'));

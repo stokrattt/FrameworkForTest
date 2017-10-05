@@ -39,15 +39,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSideBar();
     MF.WaitWhileBusy ();
     SF.sleep(2);
-    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "Test Admin")]'))).doubleClick().perform()
+    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "Test Admin")]'))).doubleClick().perform();
     SF.waitForVisible (By.xpath('//label[contains(text(),"Department:")]'));
     SF.click(By.xpath('//li[@ng-click="activeMainTab = 6"]'));
     JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
+    SF.sleep(3);
     driver.wait(driver.executeScript("if($('md-switch[ng-change=\"turnAllNotifications()\"]').hasClass('md-checked')){" +
         "return true;}else{$('md-switch[ng-change=\"turnAllNotifications()\"]').click()}"),config.timeout);
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     MF.SweetConfirm ();
+    MF.WaitWhileBusy();
     MF.WaitWhileToaster ();
     MF.Board_OpenSideBar ();
     MF.Board_OpenDashboard();

@@ -11,25 +11,25 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (3);
 
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
-    // MF.Board_OpenSettingsGeneral();
-    // MF.Board_OpenSettingsLongDistance ();
-    // MF.LongDistanceSettings_ClickOnMapCaliforniya();
-    // driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
-    //     "return true;}else{" +
-    //     "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
-    // SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'));
-    // SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'), 200);
-    // SF.sleep (2);
-    // SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
-    // SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), 10);
-    // SF.sleep (2);
-    // driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-not-empty')){" +
-    //     "return true;}else{" +
-    //     "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
-    // SF.sleep (2);
-    // MF.LongDistanceSettings_SelectMABasedState();
-    // SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
-    // SF.sleep (2);
+    MF.Board_OpenSettingsGeneral();
+    MF.Board_OpenSettingsLongDistance ();
+    MF.LongDistanceSettings_ClickOnMapCaliforniya();
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{" +
+        "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
+    SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'));
+    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'), 200);
+    SF.sleep (2);
+    SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
+    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), 10);
+    SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{" +
+        "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
+    SF.sleep (2);
+    MF.LongDistanceSettings_SelectMABasedState();
+    SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
+    SF.sleep (2);
 
 condition.nowWeDoing = 'создаем ЛД реквест';
 
@@ -120,7 +120,7 @@ condition.nowWeDoing = 'запоминаем данные после добав�
     LF.SetClientPasswd (V.client.passwd);
 
     LF.closeEditRequest ();
-    // MF.Board_OpenDashboard();
+    MF.Board_OpenDashboard();
     MF.Board_OpenNotConfirmed();
     MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
@@ -143,6 +143,7 @@ condition.nowWeDoing = 'идём в логи';
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.boardNumbersWithAddServices.Total, 'не совпал гранд тотал в письме и в реквесте');
     SF.sleep(1);
+    Debug.pause();
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
