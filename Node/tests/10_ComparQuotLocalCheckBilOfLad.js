@@ -26,7 +26,40 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
 
-    condition.nowWeDoing = 'идём в логи';
+condition.nowWeDoing = 'тут выключаем кальк и меняем количество крю и проверяем пересчитывается ли квота';
+    MF.EditRequest_SwitchCalculator();
+    SF.clear(By.xpath('//input[@ng-model="request.crew.value"]'));
+    SF.send(By.xpath('//input[@ng-model="request.crew.value"]'), 5);
+    driver.wait(driver.findElements(By.xpath('//input[@ng-model="request.rate.value"]')).then(function(elements){
+        if (elements.length>0) {
+            elements[0].getAttribute('value').then(function (value) {
+                V.boardNumbers.HourlyRateCalcOff = SF.cleanPrice(value);
+            });
+        } else {
+            V.boardNumbers.HourlyRateCalcOff = 0;
+        }
+        console.log(V.boardNumbers.HourlyRateCalcOff);
+    }),config.timeout);
+    SF.sleep(1);
+    V.QuoteCalcOff = V.boardNumbers.HourlyRateCalcOff *5;
+    driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
+        if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
+            V.boardNumbers.QuoteMinCalcOff = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+            V.boardNumbers.QuoteMaxCalcOff = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
+        } else {
+            V.boardNumbers.QuoteCalcOff = SF.cleanPrice(text);
+        }
+    }),config.timeout);
+    SF.sleep(1);
+    VD.IWant(VD.ToEqual, V.QuoteCalcOff, V.boardNumbers.QuoteMaxCalcOff, 'при выключенном калькуляторе и смене крю не пересчитало квоту');
+condition.nowWeDoing = 'тут включаем кальк и тест пошел дальше и проверяем что при выклю кальк все стало как и было раньше';
+    MF.EditRequest_SwitchCalculator();
+    SF.sleep(4);
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
+
+condition.nowWeDoing = 'идём в логи';
     MF.EditRequest_OpenLogs();
     V.logNumbers={};
     MF.EditRequest_ExpandPendingEmail(V.client.email);
@@ -64,7 +97,7 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     MF.Contract_OpenBillOfLading();
     MF.Contract_WaitBillOfLading ();
     // MF.Contract_CheckLoadBillOfLadding();
-    driver.wait(driver.findElement(By.xpath('//button[@ng-if="!data.isSubmitted"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
     }),config.timeout);
     SF.endOfTest();

@@ -43,6 +43,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseEditRequest();
+    MF.WaitWhileBusy();
     MF.Board_LogoutAdmin();
 
     SF.get(V.accountURL);
