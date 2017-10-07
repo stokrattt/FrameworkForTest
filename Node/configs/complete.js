@@ -41,7 +41,7 @@ module.exports = function(config,V) {
         './tests/30_StorageTenant.js',
         './tests/31_FlateRateBooking.js', /////////////////////////
         './tests/88_FlatRateHandClosing.js',
-        './tests/49_FlatRateLocalMove.js',
+        './tests/49_FlatRateLocalMoveCheckSchedule.js',
         './tests/52_AllFlatRate.js',
         './tests/32_AllMovingWithStorage.js',
         './tests/33_AddCarrier.js',
@@ -94,7 +94,7 @@ module.exports = function(config,V) {
         './tests/86_SITAddPersonallyForemanTripPayroll.js',
         './tests/87_ForgotPassword.js',
         './tests/90_ChangeEmailUser.js',
-        './tests/42_DrivingTimeLocalMove.js',
+        './tests/42_DrivingTimeLocalMoveMarketToolsOFF.js',
 
         './tests/56_LoadingAllSteps.js',
         './tests/89_DraftRequest.js',

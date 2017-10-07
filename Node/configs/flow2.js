@@ -10,7 +10,7 @@ module.exports = function(config,V) {
         './tests/48_Review.js',
         './tests/38_CustomPayrollInRequest.js',
         './tests/40_PayrollTableCheckSumJobs.js',
-        './tests/42_DrivingTimeLocalMove.js',
+        './tests/42_DrivingTimeLocalMoveMarketToolsOFF.js',
         './tests/53_ManualClosingWork.js',
         './tests/TheCleaner.js'//==============================уборка=========================
 
