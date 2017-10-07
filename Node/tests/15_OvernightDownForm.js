@@ -197,6 +197,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     MF.EditRequest_OpenSettings();
     LF.SetManager(V.managerFirstName);
     LF.closeEditRequest ();
+    MF.WaitWhileBusy();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);

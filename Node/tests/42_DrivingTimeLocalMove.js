@@ -10,6 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'идем в настройки и выставляем настройки для драйвинг тайма и травел тайма';
     MF.Board_OpenSettingsGeneral ();
     SF.sleep(2);
@@ -18,6 +19,23 @@ condition.nowWeDoing = 'идем в настройки и выставляем �
         "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
     SF.clear (By.xpath('//input[@ng-model="vm.basicSettings.flat_rate_miles"]'));
     SF.send (By.xpath('//input[@ng-model="vm.basicSettings.flat_rate_miles"]'), 150);
+    JS.scroll('td:contains("Company Address")');
+
+condition.nowWeDoing = 'тут заходим в маркетинг тулс и выключаем их';
+    SF.click(By.linkText('Marketing Tools'));
+    SF.sleep(1);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.promoTextOn\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[ng-model=\"vm.basicSettings.promoTextOn\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.localDistountOn\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[ng-model=\"vm.basicSettings.localDistountOn\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]').click()}"),config.timeout);
+    SF.sleep(4);
+
+condition.nowWeDoing = 'тут идем в калькулятор и выставляем настройки для проверки драйвинг тайма';
     SF.click(By.xpath('//a[@ui-sref="settings.calculator"]'));
     SF.sleep(1);
     SF.click(By.linkText('Travel Time'));
@@ -35,6 +53,7 @@ condition.nowWeDoing = 'идем в настройки и выставляем �
     SF.click (By.xpath('//input[@ng-model="vm.calcSettings.flatTravelTime.radius"]'));
     SF.sleep(3);
     MF.Board_OpenDashboard ();
+
 condition.nowWeDoing = 'создаем локал мув с требуемыми зип кодами';
     MF.WaitWhileBusy ();
     SF.click(By.linkText('Create Request'));
@@ -58,6 +77,7 @@ condition.nowWeDoing = 'создаем локал мув с требуемыми
     SF.sleep(1);
     JS.waitForNotExist('div.busyoverlay:visible');
     SF.sleep(1);
+
 condition.nowWeDoing = 'запоминаем данные с калькулятора при создании реквеста';
     V.LocalMoveAdminCalc = {};
     LF.RememberLocalMoveDigitsCalc (V.LocalMoveAdminCalc);
@@ -72,6 +92,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     SF.sleep(4);
     V.boardNumbersClean = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersClean);
+
 condition.nowWeDoing = 'сравниваем данные которые были в калькуляторе при создании и внутри реквеста, первый раз';
     LF.Validation_Compare_CalcLocalMove_Admin (V.LocalMoveAdminCalc, V.boardNumbersClean);
     driver.wait(driver.findElement(By.xpath('//span[@ng-click="showWarningBeforeSendEmail()"]/following-sibling::div[1]')).getText().then(function (text) {
@@ -87,6 +108,7 @@ condition.nowWeDoing = 'сравниваем данные которые был�
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest(V.request.Id);
     MF.Account_ClickViewRequest ();
+
 condition.nowWeDoing = 'первый раз в аккаунте, сравниваем данные с бордом, все чистое, первый раз';
     V.accountNumbersClean = {};
     LF.RememberAccountNumbers (V.accountNumbersClean);
@@ -94,6 +116,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, сравнив�
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'защли а админку второй раз, ставим нот конфем, трак, сохраняем, закрываем, открываем и сравниваем данные которые были первый раз в реквесте с данными после того как изменили статус';
     MF.Board_OpenRequest (V.request.Id);
     JS.step(JSstep.selectTruck((V.boardNumbersClean.LaborTimeMax + V.boardNumbersClean.TravelTime)/60));
@@ -106,6 +129,7 @@ condition.nowWeDoing = 'защли а админку второй раз, ста
     V.boardNumbersNotConfirmed = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersNotConfirmed);
     LF.Validation_Compare_Account_Admin (V.boardNumbersClean, V.boardNumbersNotConfirmed);
+
 condition.nowWeDoing = 'идем в логи проверять что клиенту отправилось правильный гранд тотал и фуел';
     MF.EditRequest_OpenLogs ();
     V.logNumbers={};
@@ -132,6 +156,7 @@ condition.nowWeDoing = 'идем в логи проверять что клие�
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest(V.request.Id);
+
 condition.nowWeDoing = 'второй раз в аккаунте, сравниваем данные с бордом, те которые запомнили после статуса нот конферм';
     V.accountNumbersNotConfirm = {};
     LF.RememberAccountNumbers (V.accountNumbersNotConfirm);
@@ -155,9 +180,47 @@ condition.nowWeDoing = 'второй раз в аккаунте, сравнив�
         V.ConfirmationPage.Fuel = SF.cleanPrice(text.substring(text.indexOf('$')));
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда');
-    VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда');
-    VD.IWant(VD.ToEqual, V.ConfirmationPage.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда');
+    VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации');
+    VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда до резервации');
+    VD.IWant(VD.ToEqual, V.ConfirmationPage.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда до резервации');
+    SF.sleep(1);
+
+condition.nowWeDoing = 'тут букаем работу и опять сравниваем данные после резервации на конфирмейшн с аккаунтом';
+    MF.Account_ConfirmationBackToRequest ();
+    LF.ConfirmRequestInAccount_WithReservationWithAdress ();
+    MF.Account_ClickViewConfirmationPage ();
+
+    V.ConfirmationPageAfterConfirm = {};
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Estimated Quote")]/following-sibling::div[1]/div/div')).getText().then(function (text) {
+        if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
+            V.ConfirmationPageAfterConfirm.TotalMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+            V.ConfirmationPageAfterConfirm.TotalMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
+        } else {
+            V.ConfirmationPageAfterConfirm.Total = SF.cleanPrice(text);
+        }
+        console.log(V.ConfirmationPageAfterConfirm.TotalMax);
+    }),config.timeout);
+    SF.sleep(1);
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){
+        V.ConfirmationPageAfterConfirm.Fuel = SF.cleanPrice(text.substring(text.indexOf('$')));
+    }),config.timeout);
+    SF.sleep(1);
+    VD.IWant(VD.ToEqual, V.ConfirmationPageAfterConfirm.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда после резервации');
+    VD.IWant(VD.ToEqual, V.ConfirmationPageAfterConfirm.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда после резервации');
+    VD.IWant(VD.ToEqual, V.ConfirmationPageAfterConfirm.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда после резервации');
+    SF.sleep(1);
+    LF.LogoutFromAccount ();
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsAdmin (V.adminLogin, V.adminPassword);
+
+condition.nowWeDoing = 'возвращаемся на мувборд и включаем маркетинг тулс';
+    MF.Board_OpenSettingsGeneral ();
+    SF.sleep(2);
+    SF.click(By.linkText('Marketing Tools'));
+    SF.sleep(1);
+    JS.click('div input[ng-model=\"vm.basicSettings.promoTextOn\"]');
+    JS.click('div input[ng-model=\"vm.basicSettings.localDistountOn\"]');
+    JS.click('div input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]');
     SF.sleep(3);
 
     //=========================закончили писать тест=============================

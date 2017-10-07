@@ -133,13 +133,6 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
         VD.IWant (VD.ToEqual, V.paymentAmount2, V.payment2, 'оплата не совпала')
     }),config.timeout);
     SF.sleep (2);
-    //SF.click (By.xpath('//h2[contains(text(), "Receipt ")]/../../..//button[@ng-click="cancel()"]'));
-    ///SF.sleep(3);
-   // SF.click (By.xpath('//a[@ng-click="createInvoice()"]/../..//button[@ng-click="cancel()"]'));
-    //SF.sleep(2);
-    //LF.closeEditRequest ();
-    //MF.Board_LogoutAdmin ();
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

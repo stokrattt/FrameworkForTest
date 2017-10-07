@@ -17,7 +17,6 @@ module.exports = function(config,V) {
         './tests/1_AllLocalMoving.js',
         './tests/2_CheckPermissions.js',
        // './tests/TheCleaner.js',//==============================уборка=========================
-        './tests/51_ServiceTypesOnOff.js',
         './tests/DefaultSettings.js',
         './tests/10_ComparQuotLocalCheckBilOfLad.js',
         './tests/12_CreateMov&StorFromFrontDownAndCompare.js',
@@ -54,7 +53,6 @@ module.exports = function(config,V) {
         './tests/38_CustomPayrollInRequest.js',
        // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/41_ContractPageSettings.js',
-        './tests/42_DrivingTimeLocalMove.js',
         './tests/43_WeightType.js',
         './tests/75_UnassTeamAfter3SignMake4Sign.js',
         './tests/45_MovStorAddInventConfirmClient.js',
@@ -96,9 +94,11 @@ module.exports = function(config,V) {
         './tests/86_SITAddPersonallyForemanTripPayroll.js',
         './tests/87_ForgotPassword.js',
         './tests/90_ChangeEmailUser.js',
+        './tests/42_DrivingTimeLocalMove.js',
 
         './tests/56_LoadingAllSteps.js',
-        './tests/89_DraftRequest.js'
+        './tests/89_DraftRequest.js',
+        './tests/51_ServiceTypesOnOff.js',
 
     ];
     config.timeout = 80000;

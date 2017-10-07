@@ -100,6 +100,7 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
     }),config.timeout);
+    SF.sleep(2);
     SF.endOfTest();
 };
 

@@ -25,7 +25,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.CreateLocalMovingFromBoard(V.client);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id2 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id2);
+        LF.addToCleanerJob(V.request.Id3);
     }), config.timeout);
     MF.EditRequest_OpenClient ();
     SF.sleep (3);

@@ -655,7 +655,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
         SF.sleep(27);
         SweetConfirm();
-
     }
 
     function Contract_ReturnToForeman() {
