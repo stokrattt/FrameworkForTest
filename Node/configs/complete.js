@@ -126,6 +126,12 @@ module.exports = function(config,V) {
     V.foremanEmail = 'TestForeman@mail.com';
     V.managerName = 'emilia clark';
     V.managerFirstName = 'emilia';
+    V.ForEmail = 'ivanforeman173@gmail.com';
+    V.googleloginFor =  'ivanforeman173';
+    V.googlePasFor =  'qwertyuio9';
+    V.salesEmail = 'truks8158@gmail.com';
+    V.googleloginSale =  'truks8158';
+    V.googlePasSale =  'qwertyuio9';
     V.testMail = {
 		login: 'test.boston',
 		mail: 'bostonflat.test@mail.ru',
