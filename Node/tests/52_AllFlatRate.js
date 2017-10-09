@@ -36,6 +36,7 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
     SF.sleep(1);
     MF.WaitWhileBusy ();
     SF.sleep (3);
+
 condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.AccountFlatRateAddInventory();
     MF.Account_SubmitFlatRateAfterAddInventory ();
@@ -47,6 +48,7 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.addToCleanerJob (V.FRId);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
+
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequestFlatRate (V.FRId);
@@ -77,9 +79,6 @@ condition.nowWeDoing = 'пошли в админку, открыли рекве�
     SF.sleep (4);
     MF.WaitWhileBusy ();
     MF.WaitWhileBusy ();
-
-    /**************************иногда выскакивает иногда нет************/
-
     MF.SweetConfirm ();
     /*********************************************************************************************/
     MF.EditRequest_OpenClient ();
@@ -91,7 +90,6 @@ condition.nowWeDoing = 'пошли в админку, открыли рекве�
 condition.nowWeDoing = 'идем в акк подтвердить выбранную опцию';
     MF.Account_OpenRequest (V.FRId);
     MF.Account_ChooseOptionFlatRate();
-
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -115,6 +113,18 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     MF.EditRequest_SetToNotConfirmed ();
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();
+
+    V.boardNumbersDeliveryDate = {};
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="deliveryDateInput"]')).getAttribute("value").then(function (dateString) {
+        // dateString = dateString.toUpperCase();
+        V.boardNumbersDeliveryDate.moveDate = {};
+        V.boardNumbersDeliveryDate.moveDate.Month = SF.FindShortMonthInString(dateString);
+        V.boardNumbersDeliveryDate.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
+        V.boardNumbersDeliveryDate.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
+    }),config.timeout);
+    SF.sleep(1);
+    console.log(V.boardNumbersDeliveryDate);
+
     MF.EditRequest_OpenSettings ();
     SF.sleep(2);
     SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
@@ -124,6 +134,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
+
 condition.nowWeDoing = 'идем в акк под клиентом букать работу';
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest (V.FRId);
@@ -134,12 +145,11 @@ condition.nowWeDoing = 'идем в акк под клиентом букать 
         VD.IWant (VD.ToEqual, V.quoteFlatRate, 5000, 'не нашло цену флет рейт')
     }),config.timeout);
     SF.sleep(1);
-
     LF.ConfirmRequestInAccount_WithReservation ();
-
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    
 condition.nowWeDoing = 'идем в админку в диспач';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch (V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -148,9 +158,6 @@ condition.nowWeDoing = 'идем в админку в диспач';
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.FRId);
     LF.selectCrewFlatRatePickUp(V.foremanName);
-    SF.click(By.xpath('//li[@ng-click="vm.navigation.active = $index"]/a/span[contains(text(), "Delivery crew")]'));
-    SF.sleep(2);
-    LF.selectCrewFlatRateDelivery();
     MF.Board_LogoutAdmin ();
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
 
@@ -189,10 +196,24 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     }),config.timeout);
     SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
+    SF.sleep(25);
     MF.WaitWhileBusy();
     MF.SweetConfirm ();
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman ();
+
+condition.nowWeDoing = 'идем в диспач нзначить команду delivery';
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenLocalDispatch();
+    LF.findDayInLocalDispatch(V.boardNumbersDeliveryDate.moveDate.Year, V.boardNumbersDeliveryDate.moveDate.Month, V.boardNumbersDeliveryDate.moveDate.Day);
+    MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
+    MF.Dispatch_GridView();
+    LF.SelectRequestDispatch(V.FRId);
+    SF.click(By.xpath('//li[@ng-click="vm.navigation.active = $index"]/a/span[contains(text(), "Delivery crew")]'));
+    SF.sleep(2);
+    LF.selectCrewFlatRateDelivery();
+    MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing = 'заходим под вторым фореманом подписывать delivery контракт';
     LF.LoginToBoardAsForemanDeliveryFlatRate();
@@ -217,6 +238,7 @@ condition.nowWeDoing = 'заходим под вторым фореманом п
     LF.MakeSignInContract();
     MF.WaitWhileBusy ();
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({delivery: true, isBtn: true })"]'));
+    SF.sleep(25);
     MF.WaitWhileBusy ();
     MF.SweetConfirm ();
     MF.Contract_ReturnToForeman();
