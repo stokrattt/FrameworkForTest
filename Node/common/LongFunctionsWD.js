@@ -504,13 +504,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             if (text.indexOf("You save") !== -1) {
                 let t = text.substring(0, text.indexOf("You save"));
                 t = t.substring(t.indexOf('$', t.indexOf('$', t.indexOf('$') + 1) + 1));
-                V.accountNumbers.TotalMin = SF.cleanPrice(t.substring(0, t.indexOf('-')));
-                V.accountNumbers.TotalMax = SF.cleanPrice(t.substring(t.indexOf('-') + 1));
+                accountNumbers.TotalMin = SF.cleanPrice(t.substring(0, t.indexOf('-')));
+                accountNumbers.TotalMax = SF.cleanPrice(t.substring(t.indexOf('-') + 1));
             } else {
                 console.log('ещё не делали без скидок');
-                V.accountNumbers.TotalMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
-                V.accountNumbers.TotalMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
-                console.log(V.accountNumbers.TotalMin, V.accountNumbers.TotalMax);
+                accountNumbers.TotalMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+                accountNumbers.TotalMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+                console.log(accountNumbers.TotalMin, accountNumbers.TotalMax);
             }
         }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
