@@ -6,9 +6,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
-    V.ForEmail = 'ivanforeman173@gmail.com';
-    V.googleloginFor =  'ivanforeman173';
-    V.googlePasFor =  'qwertyuio9';
+
 
 
 
@@ -23,12 +21,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     SF.click (By.linkText('Account'));
     SF.click (By.xpath('//input[@ng-model="gmail"]'));
+    SF.clear (By.xpath('//input[@ng-model="gmail"]'));
+    MF.WaitWhileBusy();
+    SF.click (By.xpath('//input[@ng-model="gmail"]'));
     SF.send (By.xpath('//input[@ng-model="gmail"]'), V.ForEmail);
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     MF.SweetConfirm();
     MF.WaitWhileBusy();
     MF.WaitWhileToaster ();
     SF.sleep(4);
+    MF.Board_LogoutAdmin();
 
 
     SF.get(V.frontURL);
@@ -148,7 +150,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'идем в гугл почту';
     SF.get('http://gmail.com');
-    SF.sleep(10);
+    SF.sleep(13);
     SF.send(By.xpath('//input[@type="email"]'),V.googleloginFor);
     SF.sleep(2);
     SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
@@ -160,7 +162,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'проверяем в календаре, что работа пришла фореману';
     SF.get('https://calendar.google.com/calendar');
-    SF.sleep(2);
+    SF.sleep(3);
     SF.click(By.xpath('//div[contains(text(), "День")]'));
     SF.click(By.xpath('//div[@id="navForward:2"]'));
     SF.click(By.xpath('//div[@id="navForward:2"]'));
