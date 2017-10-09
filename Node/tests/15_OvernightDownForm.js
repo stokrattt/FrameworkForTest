@@ -6,9 +6,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-    V.salesEmail = 'truks8158@gmail.com';
-    V.googleloginSale =  'truks8158';
-    V.googlePasSale =  'qwertyuio9';
+
 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -20,6 +18,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "JackSales donotdelete")]'))).doubleClick().perform();
     SF.sleep (2);
     SF.click (By.linkText('Account'));
+    condition.nowWeDoing = 'сделать цикл';
+    SF.click (By.xpath('//input[@ng-model="gmail"]'));
+    SF.clear (By.xpath('//input[@ng-model="gmail"]'));
     SF.click (By.xpath('//input[@ng-model="gmail"]'));
     SF.send (By.xpath('//input[@ng-model="gmail"]'), V.salesEmail);
     MF.WaitWhileBusy();
