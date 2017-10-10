@@ -14,8 +14,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing='зашли первый раз в аккаунт';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(5);
-    MF.WaitWhileBusy();
     LF.AccountUnloadingEnterAddress();
     V.accountNumbersWithRes={};
     LF.RememberAccountNumbers(V.accountNumbersWithRes);
@@ -66,8 +64,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing='зашли первый раз в аккаунт NoRes';
     MF.Account_ClickViewRequest ();
-    SF.sleep(5);
-    JS.waitForNotExist('div.busyoverlay:visible');
+    MF.WaitWhileBusy();
     LF.AccountUnloadingEnterAddress();
     V.accountNumbersNoRes={};
     LF.RememberAccountNumbers(V.accountNumbersNoRes);

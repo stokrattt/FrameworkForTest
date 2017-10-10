@@ -61,8 +61,6 @@ condition.nowWeDoing = 'создаем реквест, конфермим его
     SF.click (By.xpath('//button[@ng-click="save()"]'));
     SF.sleep (5); //сохранялка
 
-
-
 condition.nowWeDoing = 'идем в диспач ищем работу и назначем ей созданного форемана';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch (V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
@@ -72,8 +70,6 @@ condition.nowWeDoing = 'идем в диспач ищем работу и наз
     LF.SelectRequestDispatch(V.boardNumbers.Id);
     SF.sleep (2);
     LF.selectCrew(V.foremanFirstName);
-
-
     SF.sleep(2);
     MF.Board_LogoutAdmin ();
 
@@ -132,9 +128,7 @@ condition.nowWeDoing = 'идем в диспач ищем работу, пров
     });
     SF.sleep(1);
     MF.EditRequest_CloseModal();
-    // MF.SweetConfirm ();
     LF.closeEditRequest();
-
 
 condition.nowWeDoing = 'идем в пейрол ищем форемана и проверяем комиссию';
     MF.Board_OpenPayroll();
@@ -155,14 +149,12 @@ condition.nowWeDoing = 'идем в пейрол ищем форемана и п
 	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.RequestPayrollTotal, 'не совпали цифры новосозданного форемана в Payroll foreman' + V.boardNumbers.Id);
 
 condition.nowWeDoing='идем удалять форемана';
-    // MF.Board_OpenSideBar ();
     SF.sleep(1);
     MF.Board_OpenSettingsDepartment ();
     SF.sleep(2);
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(4);
     MF.WaitWhileBusy ();
-    // driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(" + V.foremanFirstName + "):visible').dblclick();"),config.timeout);
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "' + V.foremanFirstName + '")]'))).doubleClick().perform();
 
     SF.sleep (3);
@@ -179,9 +171,6 @@ condition.nowWeDoing='идем удалять форемана';
     SF.sleep(0.5);
     SF.click (By.xpath('//button[@ng-click="save()"]'));
     SF.sleep (5); //сохранялка
-    // MF.WaitWhileBusy ();
-    // SF.sleep (2);
-    // MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

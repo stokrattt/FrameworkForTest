@@ -61,13 +61,7 @@ condition.nowWeDoing = 'идем в коферм и проверяем буке�
         VD.IWant (VD.NotToEqual, text, 0, 'пропали реквесты после того как выбрали Move date');
     }),config.timeout);
     SF.sleep(1);
-    // SF.select(By.xpath('//select[@ng-model="vm.conf_filter"]'), 1);
-    // MF.WaitWhileBusy ();
-    // SF.sleep(63);
-    // driver.wait(driver.executeScript("return $('tr[ng-repeat=\"request in requests track by $index\"]:visible').length").then(function (text) {
-    //     VD.IWant (VD.NotToEqual, text, 0, 'пропали реквесты после того как выбрали Booked date');
-    // }),config.timeout);
-    // SF.sleep(1);
+
 condition.nowWeDoing = 'тут мы делаем оплату через кастомный паймент и потом ее отредактируем и проверим что цена меняется после редактирования ресита';
     MF.Board_OpenPendingRequest ();
     MF.WaitWhileBusy ();

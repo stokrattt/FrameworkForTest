@@ -13,8 +13,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'первый раз в аккаунте, добавляю Partial Packing';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(5);
-    MF.WaitWhileBusy();
     MF.Account_ClickPartialPacking();
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();

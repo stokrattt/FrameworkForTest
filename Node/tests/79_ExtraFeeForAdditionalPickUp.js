@@ -94,16 +94,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.click(By.xpath('//button[@ng-click="update(client)"]'));
     MF.SweetConfirm();
-    SF.waitForVisible (By.xpath('//button[contains(text(), "OK")]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//button[contains(text(), "OK")]'));
+    MF.SweetConfirm();
     SF.sleep(1);
 
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest (V.boardNumbers.Id);
-
 
     driver.wait(driver.findElement(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_pickup\')"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.extraPickUpValue, text, 'extra PickUp Value должно бить равно');

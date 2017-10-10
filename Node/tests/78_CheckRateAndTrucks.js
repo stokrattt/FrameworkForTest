@@ -31,13 +31,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbers);
     SF.sleep(3);
-    // SF.openTab (0);
-    // SF.click(By.xpath('//span[@ng-click="switchCalc()"]/following-sibling::i'));
-    // MF.Board_OpenSettingsGeneral ();
-    // SF.click (By.linkText('Rates'));
-    // SF.sleep (3);
-
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

@@ -17,8 +17,6 @@ condition.nowWeDoing = 'заполняем калькулятор верхний
 condition.nowWeDoing = 'первый раз в аккаунте, отправляем смс админу';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(2);
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
@@ -81,7 +79,6 @@ condition.nowWeDoing = 'Идем под сейлсом и проверяем ч�
     }),config.timeout);
     SF.sleep(1);
     V.toClientFromSales = SF.randomBukva(6) + '_toClientFromSales';
-    // JS.scroll ('div[ng-click=\"markAllMessagesAsRead()\"]');
     JS.scroll ('h2:contains("Requests")');
     MF.BoardAccount_SendMessage(V.toClientFromSales);
     MF.Board_OpenDashboard ();
@@ -99,7 +96,6 @@ condition.nowWeDoing = 'Идем под клиентом и проверяем �
         VD.IWant (VD.ToEqual, V.toClientFromSales, text, 'не нашло текст который мы отправили клиенту от sales');
     }),config.timeout);
     SF.sleep(1);
-    // LF.LogoutFromAccount ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

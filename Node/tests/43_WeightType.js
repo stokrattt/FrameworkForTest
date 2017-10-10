@@ -34,6 +34,7 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     LF.RememberDigitsRequestBoard (V.boardNumbersDefault2);
     LF.Validation_Compare_Account_Admin (V.boardNumbersDefault2, V.boardNumbersDefault);
     MF.EditRequest_OpenSettings ();
+
 condition.nowWeDoing = 'идем в аккаунт и проверяем что там стоит дефолтный кубик фит';
     SF.click (By.xpath('//button[@ng-click="goToRequest()"]'));
     SF.openTab (1);
@@ -51,12 +52,12 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     SF.sleep(6);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
+    MF.WaitWhileBusy();
     MF.Board_OpenRequest (V.request.Id);
 condition.nowWeDoing = 'теперь выставляем кубик фит на инвентори, закрыли и открыли, сравнили, должны быть данные по инвентори все одинаковые';
     V.boardNumbersInventory2 = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersInventory2);
     LF.Validation_Compare_Account_Admin (V.boardNumbersInventory, V.boardNumbersInventory2);
-    Debug.pause();
     MF.EditRequest_OpenSettings ();
 condition.nowWeDoing = 'идем в аккаунт и проверяем что там стоит инвентори кубик фит';
     SF.click (By.xpath('//button[@ng-click="goToRequest()"]'));
@@ -93,10 +94,7 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     LF.RememberAccountNumbers (V.accountNumbersCustom);
     LF.Validation_Compare_Account_Admin (V.accountNumbersCustom, V.boardNumbersCustom2);
     SF.sleep (2);
-    // driver.close();
-    // SF.openTab (0);
-    // LF.closeEditRequest ();
-    // MF.Board_LogoutAdmin ();
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

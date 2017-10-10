@@ -20,7 +20,6 @@ condition.nowWeDoing = 'идем в пейрол вводи дату в пром
 
 condition.nowWeDoing = 'заходим у форемана и счтаем сначала сумму в таблице и сравниваем с итого, перед этим удаляем все пейчеки если есть и миск пайменты';
     LF.findTestForemanInPayroll(V.foremanName);
-    // MF.Board_OpenSideBar ();
     LF.Payroll_DeleteAllPaycheckPaycashCycle ();
     SF.sleep(2);
     LF.Payroll_DeleteAllMiscPaymentCycle ();
@@ -49,7 +48,6 @@ condition.nowWeDoing = 'выделяем все работы и делаем о�
     SF.sleep(1);
 
 condition.nowWeDoing = 'возвращаемся на шаг назад и проверяем что сумма которую оплатили кэшем отображается в пейд напротив имени форемана и что тотал равен 0';
-    // JS.scroll ('a[ng-click=\"dTable=\'workers\';employee=\'\'\"]');
     MF.Payroll_ClickStepBackToNameWorker ();
     V.payrollNumbersOutsideAfterPaidCash = {};
     LF.RememberPayrollNumbers_OutsideNameWorker (V.foremanName, V.payrollNumbersOutsideAfterPaidCash);
@@ -178,7 +176,6 @@ condition.nowWeDoing = 'возващаемся на шаг наз, провер�
     VD.IWant (VD.ToEqual, V.payrollNumbersOutsideAfterDeleteAllPayment.total, V.balanceDown, 'Тотал у форемана снаружи напротив имени чувака изменился с тем который был вначале до добавления и после удаления всех пайментов');
     VD.IWant (VD.ToEqual, V.payrollNumbersOutsideAfterDeleteAllPayment.paid, 0, 'пейд снаружи у чувачка не ноль, а должен быть нулем');
     SF.sleep(0,5);
-    // MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

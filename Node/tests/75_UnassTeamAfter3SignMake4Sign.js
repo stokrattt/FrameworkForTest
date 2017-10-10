@@ -13,7 +13,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(5);
     LF.AccountLocalEnterAddress();
     MF.WaitWhileBusy();
     V.accountNumbers={};
@@ -47,7 +46,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
     MF.Account_OpenRequest (V.accountNumbers.Id);
-    MF.WaitWhileBusy();
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.Account_CheckSignature();
@@ -183,8 +181,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(3);
-
-
 
         SF.endOfTest();
 };

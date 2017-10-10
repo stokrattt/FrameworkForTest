@@ -109,7 +109,6 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
     driver.wait(driver.findElement(By.xpath('//tbody/tr[1][@ng-click="prepareToDelete($index, receipt.id)"]/td[4]')).getText().then(function(text){
         V.payment1 = SF.cleanPrice (text);
     }),config.timeout);
-    //driver.wait(driver.executeScript("$('tbody tr:nth-child(1)[ng-click=\"prepareToDelete($index, receipt.id)\"]:visible').dblclick();"), config.timeout);
     driver.actions().mouseMove(driver.findElement(By.xpath('//tr[@ng-click="prepareToDelete($index, receipt.id)"]'))).doubleClick().perform();
     MF.WaitWhileBusy ();
     SF.waitForVisible (By.xpath('//span[contains(text(), "Amount: ")]'));

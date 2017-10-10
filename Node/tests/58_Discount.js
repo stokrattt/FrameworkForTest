@@ -14,15 +14,12 @@ condition.nowWeDoing = 'создаем локал мув с фронта с ве
     LF.FullSmallCalcAsLocal (V.client);
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(3);
-    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'добавляем два разы инвенторий и ставим фул паккинг и запоминаем данные';
     LF.AccountLocalAddInventory ();
     LF.AccountLocalAddAdditionalInventory ();
     SF.click(By.xpath('//input[@ng-model="vm.packing_service"]/following-sibling::span[contains(text(), "I need Full Packing")]'));
     SF.sleep(12);
-    MF.WaitWhileBusy ();
     V.accountNumbers = {};
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.LogoutFromAccount ();
@@ -193,8 +190,7 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
     SF.sleep(1);
     VD.IWant (VD.ToEqual, V.PaymentReceipt, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент в ресите не совпала оплата которая была на контракте');
     SF.sleep(1);
-    // SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    // LF.LogoutFromAccount ();
+
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

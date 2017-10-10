@@ -15,7 +15,6 @@ condition.nowWeDoing = 'Создаем локал мув, добавляем п�
     LF.CreateLocalMovingFromBoard (V.client);
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_AddPacking ();
-    // MF.EditRequest_AddAdditionalServicesFullPack ();
     MF.EditRequest_SetSizeOfMoveNumber (3);
     MF.EditRequest_AddValuation ();
     V.boardNumbers = {};
@@ -166,7 +165,6 @@ condition.nowWeDoing = 'проверяем фореманан в пейроле 
 
 condition.nowWeDoing = 'проверяем хелпера в пейроле в реквесте';
     SF.click(By.xpath('//li[@heading="Helpers"]/a'));
-    // By.xpath('//div[@ng-repeat="helpers in helper track by $index"][1]//tr[@ng-repeat="helper in helpers.commissions track by $index"][1]/td[3]/input[@ng-model="helper.for_commission "]');
     driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="helpers in helper track by $index"][1]' +
         '//tr[@ng-repeat="helper in helpers.commissions track by $index"][1]/td[3]/input[@ng-model="helper.for_commission"]')).getAttribute('value').then(function (text) {
         V.boardNumbers.Payroll.helpersForComission.office = SF.cleanPrice(text);
@@ -190,9 +188,7 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
         V.boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(1);
-
     MF.EditRequest_CloseModal();
-    // MF.SweetConfirm ();
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'сейчас идём в пейролл';

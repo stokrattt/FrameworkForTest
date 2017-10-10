@@ -43,8 +43,7 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
     SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
     SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
     JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
-    JS.waitForNotExist('div.busyoverlay:visible');
-    SF.sleep (3);
+    MF.WaitWhileBusy();
 condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.AccountFlatRateAddInventory();
     SF.sleep(2);
@@ -59,12 +58,9 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     driver.navigate().refresh();
     SF.sleep (5);
     SF.get(V.adminURL);
-    // LF.LogoutFromAccount ();
-    // SF.get(V.adminURL);
 
     condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции 1';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    // MF.Board_Refresh();
     LF.OpenRequestFlatRate (V.FRId);
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
     SF.sleep (0.5);
@@ -116,9 +112,7 @@ condition.nowWeDoing = 'заполняем опции 2';
     SF.sleep (2);
     SF.click(By.xpath('//a[@ng-click="saveOptions()"]'));
     SF.sleep (3);
-    JS.waitForNotExist('div.toast-message:visible');
-    JS.waitForNotExist('div.toast-success:visible');
-    /**************************иногда выскакивает иногда нет************/
+    MF.WaitWhileToaster();
     MF.SweetConfirm ();
     /*********************************************************************************************/
     MF.EditRequest_OpenClient ();
@@ -145,9 +139,6 @@ condition.nowWeDoing = 'пошли в админку 2 раз, ставить т
     SF.click(By.xpath('//div[contains(@class, "dateRange ")]/input'));
     driver.executeScript(JSstep.Click8DaysCalendar);
     SF.sleep (1);
-    // SF.click(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
-    // SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
-    // SF.sleep (1);
 
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
@@ -217,7 +208,7 @@ condition.nowWeDoing = 'идем в админку проверять что р�
                 }),config.timeout);
             }
 
-    // MF.Board_LogoutAdmin ();
+    SF.sleep(2);
     
     //=========================закончили писать тест=============================
     SF.endOfTest();

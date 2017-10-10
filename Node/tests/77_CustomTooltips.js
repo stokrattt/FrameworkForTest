@@ -168,6 +168,7 @@ console.log(V.jobTimeText);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.hipeakTooltip , V.hipeakTooltip2, 'не совпали HiPeak tooltip');
+    SF.sleep(2);
     
     SF.endOfTest();
 };

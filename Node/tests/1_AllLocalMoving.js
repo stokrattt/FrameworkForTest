@@ -12,8 +12,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
-    SF.sleep(5);
+    SF.sleep(2);
     MF.WaitWhileBusy();
     MF.Account_ClickPartialPacking();
     LF.AccountLocalEnterAddress();
@@ -55,7 +54,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';

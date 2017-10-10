@@ -20,8 +20,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_ClickViewRequest();
 
     MF.WaitWhileBusy();
-    SF.sleep(5);
-    MF.WaitWhileBusy();
     LF.AccountToStorageEnterAddress();
     LF.AccountLocalAddInventory();
     LF.AccountLocalDetails();
@@ -35,13 +33,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'запомнили цифры ToStorage идём на From';
     MF.Account_ClickFromStorage();
-    MF.WaitWhileBusy();
-    SF.sleep(5);
-    MF.WaitWhileBusy();
     LF.AccountFromStorageEnterAddress();
     V.accountNumbersFrom = {};
     MF.WaitWhileBusy();
-    SF.sleep(5);
+
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.LogoutFromAccount();
@@ -280,7 +275,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersTo, V.contractNumbersTo);
     MF.EditRequest_CloseModal();
-    // MF.SweetConfirm ();
     LF.closeEditRequest();
 
     condition.nowWeDoing="найти второй реквест, проверить и запомнить Payroll";

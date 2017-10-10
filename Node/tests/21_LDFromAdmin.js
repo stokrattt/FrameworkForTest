@@ -103,7 +103,6 @@ condition.nowWeDoing = 'ждем инвентория';
     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
     SF.click(By.id("save-inventory"));
     SF.sleep (4);
-    // MF.EditRequest_AddAdditionalServicesFullPack ();
     MF.EditRequest_AddPacking ();
 
 condition.nowWeDoing = 'запоминаем данные после добавления всех сервисов ';
@@ -131,11 +130,11 @@ condition.nowWeDoing = 'идём в логи';
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
-    // MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Long Distance Quote (Pending Status)");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Long Distance Quote (Not Confirmed Status)");
 
     V.logNumbers={};
-    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Long Distance Quote (Not Confirmed Status)")][contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
+    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Long Distance Quote (Not Confirmed Status)")]' +
+        '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
         'following-sibling::td[1]//div')).getText().then(function(text){
         V.logNumbers.Quote = SF.cleanPrice(text);
@@ -143,7 +142,6 @@ condition.nowWeDoing = 'идём в логи';
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.boardNumbersWithAddServices.Total, 'не совпал гранд тотал в письме и в реквесте');
     SF.sleep(1);
-    Debug.pause();
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
@@ -200,13 +198,11 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     SF.sleep (1);
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
-    SF.sleep (5);
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
         VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     SF.sleep(1);
-    // LF.LogoutFromAccount ();
 
 
     //=========================закончили писать тест=============================

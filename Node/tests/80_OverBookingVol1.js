@@ -87,7 +87,6 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     MF.Board_RefreshDashboard ();
     MF.WaitWhileBusy();
 
-
     condition.nowWeDoing = 'идем в админку проверять или два реквеста ушли в дата пендинг';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'первый реквест не ушел в дата пендинг а должен был');

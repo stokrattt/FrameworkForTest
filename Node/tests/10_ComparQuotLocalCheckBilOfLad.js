@@ -96,11 +96,36 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     MF.SweetConfirm();
     MF.Contract_OpenBillOfLading();
     MF.Contract_WaitBillOfLading ();
-    // MF.Contract_CheckLoadBillOfLadding();
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
     }),config.timeout);
     SF.sleep(2);
+    driver.close();
+    SF.openTab(0);
+    LF.closeEditRequest();
+    MF.Board_OpenLocalDispatch();
+    LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
+    MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
+    MF.Dispatch_GridView();
+    MF.Dispatch_ShowDoneJobs();
+
+    LF.SelectRequestDispatch(V.accountNumbers.Id);
+    LF.selectCrew(V.foremanName);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    MF.EditRequest_OpenLogs ();
+    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Send TO Foreman")]/../../../following-sibling::div[1]'));
+    SF.sleep(2);
+    SF.click(By.xpath('//a[contains(text(), "Auto login for Foreman")]'));
+    SF.sleep (3);
+    MF.WaitWhileBusy();
+    MF.Contract_OpenBillOfLading();
+    MF.Contract_WaitBillOfLading ();
+    driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
+        VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась через автологин форемана (автологин не сработал)')
+    }),config.timeout);
+    SF.sleep(2);
+
     SF.endOfTest();
 };
 

@@ -13,8 +13,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(5);
-    MF.WaitWhileBusy();
+
     MF.Account_ClickPartialPacking();
     LF.AccountUnloadingEnterAddress();
     LF.AccountLocalAddInventory();
@@ -110,7 +109,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Unloading Confirmed");
-    //MF.EditRequest_Check1EmailExist(V.client.email, "Complete the confirmation process");
     MF.EditRequest_Check1EmailExist(V.client.email, 'New Message From emilia');
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
     MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
@@ -163,11 +161,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_WaitForBalanceVisible();
-    // MF.EditRequest_OpenLogs();
-    // //MF.EditRequest_Check1EmailExist(V.client.email, "Complete the confirmation process");
-    // MF.EditRequest_Check1EmailExist(V.client.email,'Job is completed');
-    // MF.EditRequest_OpenRequest();
-    // MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');

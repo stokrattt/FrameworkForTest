@@ -56,7 +56,6 @@ condition.nowWeDoing = 'идем в акк букаем работу';
     }),config.timeout);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
-    MF.WaitWhileBusy();
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -218,14 +217,8 @@ condition.nowWeDoing = 'выбираем цифры helper';
     }), config.timeout);
     SF.sleep(8);
     if (V.current1 == V.Dates1) {
-        // now = new Date();
-        // msInDay = 86400000;
-        // future = new Date(now.getTime());
-        // options = { day: 'numeric' };
-        // V.datescedule = (future.toLocaleDateString('en-US', options));
-        // console.log(V.datescedule);
+
         JS.click('.pull-right:contains("' + V.boardNumbers.moveDate.Day + '")');
-        // SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.boardNumbers.moveDate.Day + '")]'));
         MF.WaitWhileBusy();
         SF.sleep(5);
         driver.wait(driver.executeScript("return $('div.line1:contains("+V.request.Id+")').length").then (function (checkSchedule) {
@@ -241,8 +234,6 @@ condition.nowWeDoing = 'выбираем цифры helper';
         }),config.timeout);
     }
     SF.sleep(2);
-
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

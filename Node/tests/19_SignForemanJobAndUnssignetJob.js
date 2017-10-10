@@ -11,7 +11,6 @@ condition.nowWeDoing = 'зашли в админку и создаем рекв�
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLoadingHelpFromBoard (V.client);
     LF.addInventoryBoard ();
-    // LF.addAdditionalInventoryBoard();
     SF.sleep (3);
     V.boardNumbers={};
     LF.RememberDateFromRequest (V.boardNumbers);

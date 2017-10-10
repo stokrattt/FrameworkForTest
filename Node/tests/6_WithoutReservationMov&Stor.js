@@ -50,12 +50,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     LF.ConfirmRequestInAccount_NoReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     MF.Account_ClickFromStorage ();
-    MF.WaitWhileBusy();
     LF.ConfirmRequestInAccount_NoReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     // LF.LogoutFromAccount ();

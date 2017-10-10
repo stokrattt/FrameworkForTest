@@ -36,8 +36,7 @@ condition.nowWeDoing = 'заполняем калькулятор верхний
     condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy ();
-    MF.WaitWhileBusy ();
-    SF.sleep(3);
+
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу';
     V.accountNumbersLD={};
     driver.wait(driver.executeScript('return $("div:contains(\\"Move Date (Pick Up Day):\\"):last").next().text()').then(function (dateString) {
@@ -99,7 +98,6 @@ condition.nowWeDoing = 'зашли на админку для сравнения
 condition.nowWeDoing = 'зашли в аккаунт и добавляем инвентори';
     MF.Account_CheckRequestStatus_Pending (V.accountNumbersLD.Id);
     MF.Account_OpenRequest (V.accountNumbersLD.Id);
-    // MF.Account_ClickViewRequest();
     LF.AccountLocalAddInventory();
     SF.sleep(5);
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу после добавления инвентори на аккаунте';
@@ -158,9 +156,7 @@ condition.nowWeDoing = 'зашли на админку второй раз дл�
     VD.IWant(VD.ToEqual, V.accountNumbersLDWithInvent.Total, V.boardNumbers.Total, 'не совпали Total аккаунта и борда');
     VD.IWant(VD.ToEqual, V.accountNumbersLDWithInvent.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     SF.sleep (1);
-    // MF.EditRequest_SaveChanges ();
-    // LF.closeEditRequest ();
-    // MF.Board_LogoutAdmin ();
+
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

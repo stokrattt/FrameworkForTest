@@ -16,8 +16,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'Зайти на аккаунт, добавить инвентарь, запомнить cbf';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(5);
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.AccountLocalAddInventory(V.accountNumbers);
     MF.Account_WaitForInventoryCheck();

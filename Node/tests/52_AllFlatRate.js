@@ -139,7 +139,6 @@ condition.nowWeDoing = 'идем в акк под клиентом букать 
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest (V.FRId);
     MF.WaitWhileBusy ();
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="showQuote"]/div[contains(text(), "Flat Rate")]/following-sibling::div[1]/div/span')).getText().then(function (text) {
         V.quoteFlatRate = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.quoteFlatRate, 5000, 'не нашло цену флет рейт')
@@ -149,7 +148,7 @@ condition.nowWeDoing = 'идем в акк под клиентом букать 
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    
+
 condition.nowWeDoing = 'идем в админку в диспач';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch (V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);

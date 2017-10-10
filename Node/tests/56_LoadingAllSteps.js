@@ -32,7 +32,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(4);
     MF.Board_LogoutAdmin();
 
-
     SF.get(V.frontURL);
     condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLoading(V.client);
@@ -40,23 +39,19 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(5);
-    MF.WaitWhileBusy();
     MF.Account_ClickPartialPacking();
     SF.sleep(2);
     LF.AccountLoadingEnterAddress();
-    SF.sleep(3);
+    SF.sleep(2);
     LF.AccountLocalAddInventory();
     LF.AccountLoadingDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
     MF.WaitWhileBusy();
-    SF.sleep(5);
     V.accountNumbers={};
 
     LF.RememberAccountNumbers(V.accountNumbers);
     //LF.addToCleanerJob(V.accountNumbers.Id);
-
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'первый раз в админке';
@@ -105,7 +100,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenLogs(); //===============================================================//
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
-    // MF.EditRequest_Check1EmailExist(V.client.email, "Loading created (Pending)");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
@@ -254,17 +248,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.managerName = 'emilia clark';
     SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
-    // SF.click(By.xpath('//div[@id="invoice"]/ul/li[2]'));
-    // SF.sleep (2);
-    // SF.select (By.xpath('//select[@ng-model="foreman.id"]'), 4);
-    // SF.sleep (1);
+
     MF.EditRequest_PayrollOpenForemanTab();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"$35.00")]/../../td[3]/input[@ng-model="foreman.for_commission"]')).getAttribute('value').then(function (text) {
         V.cleanTotalHW = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalHW, V.cleanTotalHW, 'Не совпали total hour на контракте и в малом пейроле');
     }),config.timeout);
     MF.EditRequest_CloseModal();
-    //MF.SweetConfirm();
     LF.closeEditRequest();
 
     condition.nowWeDoing = 'сейчас идём в пейролл';

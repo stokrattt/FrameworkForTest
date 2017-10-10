@@ -79,7 +79,7 @@ condition.nowWeDoing = 'запоминаем данные';
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (2);
     MF.Account_ClickViewRequest ();
-    SF.sleep (3);
+    SF.sleep (1);
 condition.nowWeDoing = 'сравниваем данные калькулятора и акка';
     LF.RememberAccountNumbers (V.accountNumbers);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Travel charge:")]/following-sibling::div')).getText().then(function (text) {

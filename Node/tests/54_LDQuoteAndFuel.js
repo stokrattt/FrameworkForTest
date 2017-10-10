@@ -86,7 +86,6 @@ condition.nowWeDoing = 'добавляем инвенторий и опять п
 condition.nowWeDoing = 'добавляем пакинг и сервисы и проверяем что гранд тотал верный';
     MF.EditRequest_AddPacking ();
     SF.sleep(3);
-    // MF.EditRequest_AddAdditionalServicesFullPack ();
     V.boardNumbersAddServices = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddServices);
     V.totalAllServices = V.boardNumbersAddInventory.Quote + V.boardNumbersAddInventory.Fuel + V.boardNumbersAddServices.Packing + V.boardNumbersAddServices.AdServices;
@@ -103,8 +102,7 @@ condition.nowWeDoing = 'сохранили и закрыли ревест. Ид�
     LF.RememberDigitsRequestBoard(V.boardNumbersLast);
     LF.Validation_Compare_Account_Admin (V.boardNumbersAddServices, V.boardNumbersLast);
     SF.sleep(2);
-    // LF.closeEditRequest ();
-    // MF.Board_LogoutAdmin ();
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

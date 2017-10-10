@@ -15,8 +15,6 @@ condition.nowWeDoing = 'создаем мув и сторадж с верхне�
     MF.FrontSite_GoToAccount();
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    SF.sleep(2);
-    MF.WaitWhileBusy();
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
     SF.sleep(6);
@@ -26,8 +24,6 @@ condition.nowWeDoing = 'создаем мув и сторадж с верхне�
     SF.sleep(1);
 condition.nowWeDoing = 'Идём на From запоминаем данные';
     MF.Account_ClickFromStorage();
-    MF.WaitWhileBusy();
-    SF.sleep(5);
     MF.WaitWhileBusy();
     V.accountNumbersFrom = {};
     LF.RememberAccountNumbers(V.accountNumbersFrom);
@@ -76,11 +72,8 @@ condition.nowWeDoing = 'идем в акк букаем первую работ�
     MF.Account_OpenRequest(V.accountNumbersTo.Id);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
-    MF.WaitWhileBusy();
 condition.nowWeDoing = 'идем букаем вторую работу и сравнивем данные, так как выставили кастомный кубик фит с инвентори для второй работы';
     MF.Account_ClickFromStorage();
-    MF.WaitWhileBusy();
-    SF.sleep(5);
     MF.WaitWhileBusy();
     V.accountNumbersFromWithInventory = {};
     LF.RememberAccountNumbers(V.accountNumbersFromWithInventory);

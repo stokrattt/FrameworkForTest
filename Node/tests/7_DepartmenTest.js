@@ -56,9 +56,7 @@ condition.nowWeDoing='Создаем сейлса*******************************
     MF.WaitWhileToaster ();
     SF.sleep(3);
 
-    //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "salestest testsales")]'));
 condition.nowWeDoing='Создали сейлса**************************************';
-    //JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
     SF.sleep(2);
 
@@ -74,11 +72,8 @@ condition.nowWeDoing='Создаем драйвера***************************
     MF.WaitWhileBusy ();
     MF.WaitWhileToaster ();
     SF.sleep(3);
-    //SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "drivertest testdriver")]'));
-    //SF.sleep(3);
 
 condition.nowWeDoing='Создали драйвера**************************************';
-   // JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
     SF.sleep(2);
 
@@ -97,7 +92,6 @@ condition.nowWeDoing='Создаем хелпера*****************************
     MF.WaitWhileBusy ();
 
 condition.nowWeDoing='Создали хелпера**************************************';
-  //  JS.waitForExist('div.toast-message');
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     SF.sleep(2);
     MF.WaitWhileBusy ();
@@ -150,7 +144,8 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     SF.send(By.xpath('//input[@id="password"]'), V.foremanPass);
     SF.click(By.xpath('//button[@type="submit"]'));
     SF.waitForLocated(By.id('datatable'));
-    SF.sleep (3);    LF.LogoutFromBoardForeman ();
+    SF.sleep (3);
+    LF.LogoutFromBoardForeman ();
 
     LF.LoginToBoardAs_Roma4ke_Admin ();
 condition.nowWeDoing = 'заходим под админом и создаем реквест';
@@ -192,7 +187,6 @@ condition.nowWeDoing='идем удалять форемана';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
     MF.WaitWhileBusy ();
-    // driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains("+V.foremanFirstName+")').dblclick();"),config.timeout);
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.foremanFirstName+'")]'))).doubleClick().perform();
     SF.sleep (3);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
@@ -257,7 +251,6 @@ condition.nowWeDoing='идем удалять сейлса';
 
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
     MF.WaitWhileBusy ();
-    // driver.executeScript("$('.mdDataTable tbody tr td:contains("+V.salesFirstName +")').dblclick();");
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.salesFirstName+'")]'))).doubleClick().perform();
 
     SF.sleep (2);
@@ -270,7 +263,6 @@ condition.nowWeDoing='идем удалять менеджера';
     MF.WaitWhileBusy();
     SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
     MF.WaitWhileBusy ();
-    // driver.executeScript("$('.mdDataTable tbody tr td:contains(" +V.managerFirstName1 +")').dblclick();");
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.managerFirstName1+'")]'))).doubleClick().perform();
 
     SF.sleep (2);
@@ -278,8 +270,6 @@ condition.nowWeDoing='идем удалять менеджера';
     MF.SweetConfirm ();
     MF.WaitWhileToaster ();
     MF.WaitWhileBusy ();
-
-    // LF.LogoutFromBoardForeman ();
 
     SF.endOfTest();
 };

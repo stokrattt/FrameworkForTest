@@ -100,8 +100,7 @@ condition.nowWeDoing = 'идем в настройки и удаляем наш 
     SF.click(By.xpath('//tr[@ng-repeat="values in vm.companyFlags track by $index"][last()]/td[4]//i'));
     MF.SweetConfirm ();
     SF.sleep(3);
-    // MF.WaitWhileBusy ();
-    // MF.Board_LogoutAdmin ();
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

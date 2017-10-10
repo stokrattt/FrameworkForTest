@@ -74,9 +74,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     SF.click(By.xpath('//div[contains(@class,"payment-receipt-modal")]/following-sibling::div[1]/button[@ng-click="cancel()"]'));
     SF.sleep(1);
 
-    // SF.click(By.xpath('//div[@ng-show="receiptLoader"]/following-sibling::div[contains(@class,"modal-footer")]/button[@ng-click="cancel()" and contains(text(),"Cancel")]'));
     SF.click(By.xpath('//div[contains(@class,"modal-footer")]/button[@ng-click="cancel()" and contains(text(),"Cancel")]'));
-
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
 
@@ -92,8 +90,7 @@ condition.nowWeDoing = 'идем в коферм работы на борде,о
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersCloseJob);
     VD.IWant(VD.ToEqual,V.boardNumbersCloseJob.Balance, 0, 'баланс не ноль');
     SF.sleep(2);
-    // LF.closeEditRequest ();
-    // MF.Board_LogoutAdmin ();
+
   //=========================закончили писать тест=============================
     SF.endOfTest();
 };

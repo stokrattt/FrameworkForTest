@@ -13,6 +13,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist ('.spinner:visible');
         SF.sleep(1);
     }
+    function WaitVisibleDashboard() {
+        SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+        WaitWhileBusy();
+    }
+    function WaitVisibleDashboardForeman() {
+        SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
+    }
 
     function SweetConfirm() {
         JS.waitForExist('button.confirm');
@@ -468,14 +475,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_Refresh() {
         driver.navigate().refresh();
         SF.waitForLocated (By.id('tab_Move Overview'));
-        SF.sleep(6);
+        SF.sleep(4);
         WaitWhileBusy();
     }
     function Account_ClickViewRequest() {
         SF.sleep(1);
         SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
         SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
-        SF.sleep(2);
         WaitWhileBusy ();
     }
 
@@ -511,7 +517,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_OpenRequest(Id) {
 	    WaitWhileBusy ();
         SF.click(By.xpath('//td[contains(text(),"' + Id + '")]/following-sibling::td/button[contains(text(),"View")]'));
-        SF.sleep(2);
         WaitWhileBusy();
     }
     function Account_OpenMessage() {
@@ -525,7 +530,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_ClickViewConfirmationPage() {
 		WaitWhileBusy();
-		SF.sleep(2);
         SF.click(By.xpath('//a[contains(text(),"View confirmation page")]'));
         WaitWhileBusy();
     }
@@ -581,6 +585,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickConfirmReservation() {
         SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
         SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReservation"]'));
+    }
+    function Account_SweetUpdateConfirm() {
+        JS.waitForExist('button.confirm:contains("Update")');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Update")]'));
+    }
+    function Account_OpenAdressModal() {
+        JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
+        SF.sleep(1);
     }
 
     //===================================CONTRACT===================================
@@ -1451,6 +1464,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
 
     return {
+        WaitVisibleDashboardForeman:WaitVisibleDashboardForeman,
+        WaitVisibleDashboard:WaitVisibleDashboard,
         WaitWhileToaster: WaitWhileToaster,
         WaitWhileBusy: WaitWhileBusy,
         WaitWhileSpinner: WaitWhileSpinner,
@@ -1564,6 +1579,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ClickProceedBookYourMove:Account_ClickProceedBookYourMove,
         Account_ClickIAgreeWithAll:Account_ClickIAgreeWithAll,
         Account_ClickConfirmReservation:Account_ClickConfirmReservation,
+        Account_SweetUpdateConfirm:Account_SweetUpdateConfirm,
+        Account_OpenAdressModal:Account_OpenAdressModal,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
