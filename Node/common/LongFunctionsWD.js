@@ -245,7 +245,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         MF.Account_SweetUpdateConfirm();
         MF.SweetConfirm();
-        SF.sleep(2);
+        MF.WaitWhileBusy();
     }
     function AccountUnloadingEnterAddress() {
         MF.Account_OpenAdressModal();
@@ -253,6 +253,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         MF.Account_SweetUpdateConfirm();
         MF.SweetConfirm();
+        MF.WaitWhileBusy();
     }
     function AccountLoadingEnterAddress() {
         MF.Account_OpenAdressModal();
@@ -261,6 +262,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         MF.Account_SweetUpdateConfirm();
         MF.SweetConfirm();
+        MF.WaitWhileBusy();
     }
     function AccountToStorageEnterAddress() {
         MF.Account_OpenAdressModal();
@@ -270,6 +272,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         MF.Account_SweetUpdateConfirm();
         MF.SweetConfirm();
+        MF.WaitWhileBusy();
     }
     function AccountFromStorageEnterAddress() {
         MF.Account_OpenAdressModal();
@@ -279,6 +282,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         MF.Account_SweetUpdateConfirm();
         MF.SweetConfirm();
+        MF.WaitWhileBusy();
     }
     function AccountFlatRateAddInventory() {
         JS.waitForExist('div[ng-repeat="filter in filters"]');
@@ -301,6 +305,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep (2);
     }
     function AccountLocalAddInventory(accountNumbers) {
+        MF.WaitWhileBusy();
         SF.click(By.id('tab_Inventory'));
         JS.waitForExist('div[ng-repeat="filter in filters"]');
         SF.sleep(5);
@@ -332,6 +337,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(3);
     }
     function AccountLocalAddAdditionalInventory() {
+        MF.WaitWhileBusy();
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
         JS.waitForExist('div[ng-repeat="filter in filters"]');
         SF.sleep(10);
@@ -1005,12 +1011,17 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('//button[@class="confirm"]'));
         SF.waitForLocated (By.xpath('//div[@class="modal-body form-horizontal"]'));
         SF.sleep(2);
+        SF.click (By.id('edit-moving-from'));
         SF.send (By.id('edit-moving-from'), 'otkuda edem');
+        SF.click (By.id('edit-moving-from-apt'));
         SF.send (By.id('edit-moving-from-apt'), 324535);
+        SF.click (By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'));
         SF.send (By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'), 'kuda edem');
+        SF.click (By.xpath('//input[@ng-value="request.apt_to.value"]'));
         SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
         SF.click (By.xpath('//button[@ng-click="update(client)"]'));
         MF.SweetConfirm();
+        SF.sleep(2);
         MF.SweetConfirm();
         SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
         MakeSignJS('signatureCanvasReserv');

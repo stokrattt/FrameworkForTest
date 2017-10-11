@@ -34,6 +34,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'запомнили цифры ToStorage идём на From';
     MF.Account_ClickFromStorage();
     LF.AccountFromStorageEnterAddress();
+    MF.WaitWhileBusy();
     V.accountNumbersFrom = {};
     MF.WaitWhileBusy();
 

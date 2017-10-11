@@ -56,7 +56,8 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
             V.accountNumbersLD.Total = SF.cleanPrice(t);
         } else {
             console.log('ещё не делали без скидок');
-        }
+            V.accountNumbersLD.Total = SF.cleanPrice(text);
+              }
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.accountNumbersLD.Id = SF.cleanPrice(text);
