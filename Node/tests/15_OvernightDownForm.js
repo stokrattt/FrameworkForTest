@@ -42,7 +42,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (4);
     LF.CreateOvernightDownForm (V.client);
 condition.nowWeDoing = 'запоминаем данные калькулятора PICK UP';
-    // LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
     V.frontNumbersOvernightDown_UP = {};
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@ng-if="storageCalcResult.to.surcharge_fuel"]/span')).getText().then(function(text){
         V.frontNumbersOvernightDown_UP.FuelTo = SF.cleanPrice (text.replace('$', ''));
@@ -97,11 +96,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
         V.frontNumbersOvernightDown_Del.CrewFrom = SF.cleanPrice(text);
         console.log(V.frontNumbersOvernightDown_Del.CrewFrom);
     }), config.timeout);
-    // driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
-    //     V.frontNumbersOvernightDown_Del.RateFrom = text.indexOf('$', 4) == -1 ?
-    //         SF.cleanPrice(text) :
-    //         SF.cleanPrice(text.substring(text.indexOf('$', 4)));
-    // }), config.timeout);
+
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]/span[contains(text(), "Delivery")]/..//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
         V.frontNumbersOvernightDown_Del.RateFrom = text.indexOf('$', 4) == -1 ?
             SF.cleanPrice(text) :
@@ -183,7 +178,7 @@ condition.nowWeDoing = 'зашли в админку';
 
     LF.closeEditRequest ();
     MF.WaitWhileBusy ();
-    MF.Board_OpenRequest(V.accountNumbersDelivery.Id); /********************************************************************/
+    MF.Board_OpenRequest(V.accountNumbersDelivery.Id);
     V.boardNumbersDelivery = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersDelivery);
     JS.step(JSstep.selectTruck((V.boardNumbersDelivery.LaborTimeMax + V.boardNumbersDelivery.TravelTime)/60));
@@ -242,21 +237,11 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
-    // // MF.SweetConfirm ();
-    // SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
-    // SF.click (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
-    // SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
-    // SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    // SF.sleep(2);
-    // //SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    // //SF.click (By.xpath('//button[@class="confirm"]'));
-    // MF.SweetConfirm ();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);
     SF.click (By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
-    //MF.SweetConfirm ();
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
     SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
@@ -266,8 +251,7 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     MF.WaitWhileBusy ();
     LF.LogoutFromAccount ();
 
-
-    condition.nowWeDoing = 'идем в гугл почту';
+condition.nowWeDoing = 'идем в гугл почту';
     SF.get('http://gmail.com');
     SF.sleep(10);
     SF.send(By.xpath('//input[@type="email"]'),V.googleloginSale);

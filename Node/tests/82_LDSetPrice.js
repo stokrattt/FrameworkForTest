@@ -13,7 +13,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,  V.adminPassword);
-    condition.nowWeDoing = 'Заходим в админку идем в Настройики лонг дистанса и виставляем min Price min Cubic fee и State rate для штата';
+
+condition.nowWeDoing = 'Заходим в админку идем в Настройики лонг дистанса и виставляем min Price min Cubic fee и State rate для штата';
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSettingsLongDistance ();
     SF.click(By.id('jqvmap1_tx'));
@@ -33,7 +34,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), V.stateRate);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(3);
-    condition.nowWeDoing = 'Создаем ЛД работу и проверям min Price min Cubic fee и State rate а также Гранд Тотал';
+
+condition.nowWeDoing = 'Создаем ЛД работу и проверям min Price min Cubic fee и State rate а также Гранд Тотал';
     LF.CreateLongDistanceFromBoard(V.client);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.stateRate, text, 'не совпали State rate');
@@ -49,7 +51,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.ToEqual, V.modalQuote, V.boardNumbers.Quote, 'не совпали Quote');
     V.grandTotal = V.modalQuote + V.boardNumbers.Fuel;
     VD.IWant(VD.ToEqual, V.grandTotal, V.boardNumbers.Total, 'не совпали Grand Total 1');
-    condition.nowWeDoing = 'Первий раз проверям логи';
+
+condition.nowWeDoing = 'Первий раз проверям логи';
     MF.EditRequest_OpenLogs();
     SF.click(By.xpath('//span[@ng-show="!allLogsShow[allLogsIndex]"]'));
     SF.sleep(1);
@@ -57,7 +60,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.cleanGrandTotal = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanGrandTotal, V.grandTotal, 'не совпали Grand Total 2');
     }),config.timeout);
-    condition.nowWeDoing = 'Меняем в реквесте min Price min Cubic fee и State rate и снова проверям гранд тотал';
+
+condition.nowWeDoing = 'Меняем в реквесте min Price min Cubic fee и State rate и снова проверям гранд тотал';
     MF.EditRequest_OpenRequest();
     V.newMinCF = 50;
     V.newMinPrice = 40;
@@ -66,7 +70,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.newStateRate);
     SF.sleep(1);
-Debug.pause();
     SF.click(By.xpath('//div[@ng-click="openMinWeight()"]'));
     SF.waitForVisible(By.xpath('//input[@ng-model="min_price"]'));
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="min_price"]')).getAttribute('value').then(function(text){
@@ -82,21 +85,89 @@ Debug.pause();
 
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
     SF.sleep(2);
-Debug.pause();
     V.newCubicFee =  V.CF - V.newMinCF;
     V.newModalQuote = V.newCubicFee * V.newStateRate +  V.newMinPrice;
     V.boardNumbers = {};
     SF.sleep(2);
-    LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
     VD.IWant(VD.ToEqual, V.newModalQuote, V.boardNumbers.Quote, 'не совпали Quote');
     V.newGrandTotal = V.newModalQuote + V.boardNumbers.Fuel;
     VD.IWant(VD.ToEqual, V.newGrandTotal, V.boardNumbers.Total, 'не совпали Grand Total 3');
     MF.EditRequest_OpenLogs();
-    condition.nowWeDoing = 'Второй раз проверям логи';
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Minimum Volume was changed")]/../../following-sibling::span//span[contains(text(), "'+ V.newMinCF +'c.f.")]')).getText().then(function(text){
+
+condition.nowWeDoing = 'Второй раз проверям логи, ставим трак и нот конферми закрываем реквест';
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Minimum Volume was changed")]/../../following-sibling::span//' +
+        'span[contains(text(), "'+ V.newMinCF +'c.f.")]')).getText().then(function(text){
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Minimum Price was changed")]/../../following-sibling::span//span[contains(text(), "$'+ V.newMinPrice +'")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Minimum Price was changed")]/../../following-sibling::span//' +
+        'span[contains(text(), "$'+ V.newMinPrice +'")]')).getText().then(function(text){
     }),config.timeout);
     SF.sleep(2);
+    MF.EditRequest_OpenRequest();
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
+    MF.EditRequest_SetToNotConfirmed();
+    MF.EditRequest_SetAdressToFrom();
+    MF.EditRequest_SaveChanges();
+    LF.closeEditRequest();
+
+condition.nowWeDoing = 'тут обновляем дашборд, открываем наш реквест нот конферм и сравниваем цифры, ' +
+    'смотрим чтобы все осталось как и было и что в логах письмо отправилось с правильным тоталом';
+    MF.Board_OpenDashboard();
+    MF.Board_Refresh ();
+    MF.Board_OpenNotConfirmed();
+    MF.Board_OpenRequest (V.boardNumbers.Id);
+    V.boardNumbersNotConfirm = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersNotConfirm);
+    LF.Validation_Compare_Account_Admin (V.boardNumbers, V.boardNumbersNotConfirm);
+
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
+        V.RateLDNotConfirm = rate;
+    }),config.timeout);
+
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd (V.client.passwd);
+    MF.EditRequest_OpenLogs ();
+    V.logNumbers={};
+    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Long Distance Quote (Not Confirmed Status)")]' +
+        '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
+    driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
+        'following-sibling::td[1]//div')).getText().then(function(text){
+        V.logNumbers.Quote = SF.cleanPrice(text);
+        console.log(V.logNumbers.Quote)
+    }),config.timeout);
+    SF.sleep(1);
+    VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.boardNumbersNotConfirm.Total, 'не совпал гранд тотал в письме и в реквесте');
+    LF.closeEditRequest();
+    MF.Board_LogoutAdmin();
+
+condition.nowWeDoing = 'идем в аккаунт, сначала сравниваем все числа с реквестом, потом букаем работу и после этого запоминаем числа после конферм и опять сравниваем данные ';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient (V.client);
+    MF.Account_OpenRequest(V.accountNumbers.Id);
+    V.accountNumbers={};
+    LF.RememberAccountNumbers(V.accountNumbers);
+    LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbersNotConfirm);
+    LF.ConfirmRequestInAccount_WithReservation();
+    MF.Account_WaitForGreenTextAfterConfirm();
+    V.accountNumbersConfirm={};
+    LF.RememberAccountNumbers(V.accountNumbersConfirm);
+    LF.Validation_Compare_Account_Admin (V.accountNumbersConfirm, V.boardNumbersNotConfirm);
+    LF.LogoutFromAccount();
+    SF.get(V.adminURL);
+
+condition.nowWeDoing = 'опять идем в админку открываем конфермутный реквест, сравниваем рейт, что остался такой же и все числа такие же';
+    LF.LoginToBoardAsCustom(V.adminLogin,  V.adminPassword);
+    MF.Board_OpenConfirmed();
+    MF.Board_OpenRequest (V.boardNumbers.Id);
+    V.boardNumbersConfirm = {};
+    LF.RememberDigitsRequestBoard (V.boardNumbersConfirm);
+    LF.Validation_Compare_Account_Admin (V.accountNumbersConfirm, V.boardNumbersConfirm);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
+        V.RateLDConfirm = rate;
+    }),config.timeout);
+    VD.IWant (VD.ToEqual, V.RateLDConfirm, V.RateLDNotConfirm, 'не свопал рейт который был в реквесте нот конферм с тем который стал после того как забукали работу');
+    SF.sleep(2);
+
     SF.endOfTest();
 };
