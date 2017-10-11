@@ -296,7 +296,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.helper2TotalPayroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.helper2TotalPayroll, V.helper2Total, 'зарплата helper1 в большом пейроле');
     }),config.timeout);
-
+    SF.sleep(2);
 
     SF.endOfTest();
 };

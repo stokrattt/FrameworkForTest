@@ -160,6 +160,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
             V.accountNumbersLD.Total = SF.cleanPrice(t);
         } else {
             console.log('ещё не делали без скидок');
+            V.accountNumbersLD.Total = SF.cleanPrice(text);
         }
     }),config.timeout);
     SF.sleep (1);

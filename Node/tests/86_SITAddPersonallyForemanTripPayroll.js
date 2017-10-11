@@ -542,7 +542,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.newPayroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newTotalPayroll, V.newPayroll, 'new total Payroll не совпали');
     }),config.timeout);
-
+    SF.sleep(2);
 
 
     SF.endOfTest();

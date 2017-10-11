@@ -161,6 +161,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //     V.scheduleDate  =  text;
     //     VD.IWant(VD.ToEqual, V.scheduleDate, V.SITScheduleDate, 'schedule Date не совпали');
     // }),config.timeout);
+    SF.sleep(2);
     SF.endOfTest();
 
 };

@@ -376,6 +376,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.newCleanTpDeliveryPhone1 = -SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpDeliveryPhone1, V.newTpDeliveryPhone1, 'Phone cf не совпали');
     }),config.timeout);
-
+    SF.sleep(2);
     SF.endOfTest();
 };
