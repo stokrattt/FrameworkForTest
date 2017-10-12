@@ -88,7 +88,6 @@ condition.nowWeDoing = 'зашли на админку для сравнения
     VD.IWant(VD.ToEqual, V.accountNumbersLD.Total, V.boardNumbers.Total, 'не совпали Total аккаунта и борда');
     VD.IWant(VD.ToEqual, V.accountNumbersLD.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     SF.sleep (2);
-    // MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);

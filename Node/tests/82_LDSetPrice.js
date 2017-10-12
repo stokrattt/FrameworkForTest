@@ -144,15 +144,69 @@ condition.nowWeDoing = 'тут обновляем дашборд, открыва
 condition.nowWeDoing = 'идем в аккаунт, сначала сравниваем все числа с реквестом, потом букаем работу и после этого запоминаем числа после конферм и опять сравниваем данные ';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
-    MF.Account_OpenRequest(V.accountNumbers.Id);
-    V.accountNumbers={};
-    LF.RememberAccountNumbers(V.accountNumbers);
-    LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbersNotConfirm);
+    MF.Account_OpenRequest(V.boardNumbers.Id);
+    MF.Account_ClickViewRequest();
+    SF.sleep(2);
+    V.accountNumbersLD={};
+    driver.wait(driver.executeScript('return $("div:contains(\\"Move Date (Pick Up Day):\\"):last").next().text()').then(function (dateString) {
+        dateString = dateString.toUpperCase();
+        V.accountNumbersLD.moveDate = {};
+        V.accountNumbersLD.moveDate.Month = SF.FindMonthInString(dateString);
+        V.accountNumbersLD.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
+        V.accountNumbersLD.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
+    }),config.timeout);
+    SF.sleep(2);
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Fuel Surcharge")]/../../div[2]')).getText().then(function (text) {
+        V.accountNumbersLD.Fuel = SF.cleanPrice(text);
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Long Distance Grand Total")]/following-sibling::div[1]')).getText().then(function (text) {
+        if (text.indexOf("You save") !== -1) {
+            let t = text.substring(0, text.indexOf("You save"));
+            t = t.substring(t.indexOf('$', t.indexOf('$', t.indexOf('$') + 1)));
+            V.accountNumbersLD.Total = SF.cleanPrice(t);
+        } else {
+            console.log('ещё не делали без скидок');
+            V.accountNumbersLD.Total = SF.cleanPrice(text);
+        }
+    }),config.timeout);
+    SF.sleep(2);
+console.log(V.accountNumbersLD.moveDate.Day);
+    VD.IWant(VD.ToEqual, V.accountNumbersLD.moveDate.Day, V.boardNumbersNotConfirm.moveDate.Day, 'не совпали даты аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLD.moveDate.Month, V.boardNumbersNotConfirm.moveDate.Month, 'не совпали даты аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLD.moveDate.Year, V.boardNumbersNotConfirm.moveDate.Year, 'не совпали даты аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLD.Total, V.boardNumbersNotConfirm.Total, 'не совпали Total аккаунта и борда');
+    VD.IWant(VD.ToEqual, V.accountNumbersLD.Fuel, V.boardNumbersNotConfirm.Fuel, 'не совпали Fuel аккаунта и борда');
+
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
-    V.accountNumbersConfirm={};
-    LF.RememberAccountNumbers(V.accountNumbersConfirm);
-    LF.Validation_Compare_Account_Admin (V.accountNumbersConfirm, V.boardNumbersNotConfirm);
+    V.accountNumbersLDConfirm={};
+    driver.wait(driver.executeScript('return $("div:contains(\\"Move Date (Pick Up Day):\\"):last").next().text()').then(function (dateString) {
+        dateString = dateString.toUpperCase();
+        V.accountNumbersLDConfirm.moveDate = {};
+        V.accountNumbersLDConfirm.moveDate.Month = SF.FindMonthInString(dateString);
+        V.accountNumbersLDConfirm.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
+        V.accountNumbersLDConfirm.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
+    }),config.timeout);
+    SF.sleep(2);
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Fuel Surcharge")]/../../div[2]')).getText().then(function (text) {
+        V.accountNumbersLDConfirm.Fuel = SF.cleanPrice(text);
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Long Distance Grand Total")]/following-sibling::div[1]')).getText().then(function (text) {
+        if (text.indexOf("You save") !== -1) {
+            let t = text.substring(0, text.indexOf("You save"));
+            t = t.substring(t.indexOf('$', t.indexOf('$', t.indexOf('$') + 1)));
+            V.accountNumbersLDConfirm.Total = SF.cleanPrice(t);
+        } else {
+            console.log('ещё не делали без скидок');
+            V.accountNumbersLDConfirm.Total = SF.cleanPrice(text);
+        }
+    }),config.timeout);
+    SF.sleep(2);
+    VD.IWant(VD.ToEqual, V.accountNumbersLDConfirm.moveDate.Day, V.boardNumbersNotConfirm.moveDate.Day, 'не совпали даты аккаунта и борда после конферм ');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDConfirm.moveDate.Month, V.boardNumbersNotConfirm.moveDate.Month, 'не совпали даты аккаунта и борда после конферм ');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDConfirm.moveDate.Year, V.boardNumbersNotConfirm.moveDate.Year, 'не совпали даты аккаунта и борда после конферм ');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDConfirm.Total, V.boardNumbersNotConfirm.Total, 'не совпали Total аккаунта и борда после конферм ');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDConfirm.Fuel, V.boardNumbersNotConfirm.Fuel, 'не совпали Fuel аккаунта и борда после конферм ');
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
 
@@ -162,10 +216,15 @@ condition.nowWeDoing = 'опять идем в админку открываем
     MF.Board_OpenRequest (V.boardNumbers.Id);
     V.boardNumbersConfirm = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersConfirm);
-    LF.Validation_Compare_Account_Admin (V.accountNumbersConfirm, V.boardNumbersConfirm);
+    VD.IWant(VD.ToEqual, V.accountNumbersLDConfirm.moveDate.Day, V.boardNumbersConfirm.moveDate.Day, 'не совпали даты аккаунта и борда после конферм ');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDConfirm.moveDate.Month, V.boardNumbersConfirm.moveDate.Month, 'не совпали даты аккаунта и борда после конферм ');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDConfirm.moveDate.Year, V.boardNumbersConfirm.moveDate.Year, 'не совпали даты аккаунта и борда после конферм ');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDConfirm.Total, V.boardNumbersConfirm.Total, 'не совпали Total аккаунта и борда после конферм ');
+    VD.IWant(VD.ToEqual, V.accountNumbersLDConfirm.Fuel, V.boardNumbersConfirm.Fuel, 'не совпали Fuel аккаунта и борда после конферм ');
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
         V.RateLDConfirm = rate;
     }),config.timeout);
+    SF.sleep(2);
     VD.IWant (VD.ToEqual, V.RateLDConfirm, V.RateLDNotConfirm, 'не свопал рейт который был в реквесте нот конферм с тем который стал после того как забукали работу');
     SF.sleep(2);
 
