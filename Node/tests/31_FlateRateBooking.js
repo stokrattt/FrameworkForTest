@@ -53,10 +53,11 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.FRId = SF.cleanPrice(text);
     }),config.timeout);
+    SF.sleep(10);
     LF.LogoutFromAccount ();
 
-    driver.navigate().refresh();
-    SF.sleep (5);
+    // driver.navigate().refresh();
+    // SF.sleep (5);
     SF.get(V.adminURL);
 
     condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции 1';

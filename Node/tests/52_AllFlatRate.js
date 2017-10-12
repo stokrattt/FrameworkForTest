@@ -44,7 +44,7 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.FRId = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(1);
+    SF.sleep(10);
     LF.addToCleanerJob (V.FRId);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);

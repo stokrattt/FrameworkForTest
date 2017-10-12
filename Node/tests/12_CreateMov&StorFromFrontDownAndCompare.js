@@ -66,6 +66,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'сравниваем с акком второй реквест';
+    MF.WaitWhileBusy();
     MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "service_type")]')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'MOVE FROM STORAGE', 'не нашло или не совпал сервис тип реквеста сторадж FROM');

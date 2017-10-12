@@ -1020,6 +1020,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('//input[@ng-value="request.apt_to.value"]'));
         SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
         SF.click (By.xpath('//button[@ng-click="update(client)"]'));
+        SF.sleep(2);
         MF.SweetConfirm();
         SF.sleep(2);
         MF.SweetConfirm();

@@ -46,7 +46,7 @@ condition.nowWeDoing = 'создаем ЛД реквест';
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Happy Holiday");
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank You");
-
+    SF.sleep(2);
 
     SF.endOfTest();
 };

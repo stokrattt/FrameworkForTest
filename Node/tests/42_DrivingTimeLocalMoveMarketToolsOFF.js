@@ -220,6 +220,7 @@ condition.nowWeDoing = 'возвращаемся на мувборд и вклю
     SF.sleep(1);
     JS.click('div input[ng-model=\"vm.basicSettings.promoTextOn\"]');
     JS.click('div input[ng-model=\"vm.basicSettings.localDistountOn\"]');
+    SF.sleep(1);
     JS.click('div input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]');
     SF.sleep(3);
 

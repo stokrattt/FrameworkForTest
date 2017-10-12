@@ -23,7 +23,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function SweetConfirm() {
         JS.waitForExist('button.confirm');
-        SF.sleep(2);
+        SF.sleep(2.5);
         SF.click(By.xpath('//button[@class="confirm"]'));
     }
 
