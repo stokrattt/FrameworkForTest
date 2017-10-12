@@ -23,6 +23,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
     MF.Board_OpenRequest(V.accountNumbers.Id);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
