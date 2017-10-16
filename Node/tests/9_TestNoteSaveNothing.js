@@ -78,8 +78,6 @@ condition.nowWeDoing = 'очищаем старые заметки и вводи
 
 condition.nowWeDoing = 'переходим на табу нот конферм и проверяем что новые нотсы сохранились';
     MF.Board_OpenNotConfirmed ();
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Board_RefreshDashboard ();
     MF.WaitWhileBusy();
     MF.Board_OpenRequest(V.request.Id);

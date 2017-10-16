@@ -68,11 +68,9 @@ condition.nowWeDoing = 'добавляем комнаты и опять пере
     V.totalAddRoom = V.fuelAddRoom + V.quoteAddRoom;
     VD.IWant(VD.ToEqual,V.boardNumbersAddRoom.Total, V.totalAddRoom, 'total не правильно посчитался после добавления комнат');
     SF.sleep(1);
-
 condition.nowWeDoing = 'добавляем инвенторий и опять пересчитываем фуел, квоту и тотал';
     LF.addInventoryBoard ();
     SF.sleep(15); // ждем обновления фуела
-
     V.boardNumbersAddInventory = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddInventory);
     V.quoteAddInventory = V.boardNumbersAddInventory.cbf * 10;
