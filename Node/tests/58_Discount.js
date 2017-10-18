@@ -40,15 +40,8 @@ condition.nowWeDoing = 'пошли на дашборд, открываем ре�
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
     MF.EditRequest_OpenRequest ();
-    SF.click(By.xpath('//label[@ng-click="OpenDiscountModal();"]'));
-    SF.waitForLocated (By.xpath('//button[@ng-click="openCouponModal()"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//input[@ng-model="request.request_all_data.add_money_discount"]'));
-    SF.send(By.xpath('//input[@ng-model="request.request_all_data.add_money_discount"]'), 500);
-    SF.click(By.xpath('//input[@ng-model="request.request_all_data.add_percent_discount"]'));
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    MF.SweetConfirm ();
-    SF.sleep(1);
+    MF.EditRequest_OpenDiscountModal();
+    MF.EditRequest_SendMoneyDiscount(500);
     V.boardNumbersDiscount = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersDiscount);
     VD.IWant (VD.NotToEqual, V.boardNumbers.TotalMin, V.boardNumbersDiscount.TotalMin, 'скидка не применилась');

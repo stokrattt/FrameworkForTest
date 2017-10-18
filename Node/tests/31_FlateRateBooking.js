@@ -56,8 +56,6 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     SF.sleep(10);
     LF.LogoutFromAccount ();
 
-    // driver.navigate().refresh();
-    // SF.sleep (5);
     SF.get(V.adminURL);
 
     condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции 1';
@@ -134,17 +132,20 @@ condition.nowWeDoing = 'пошли в админку 2 раз, ставить т
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
     MF.Board_OpenRequest (V.FRId);
+
+condition.nowWeDoing = 'добавляем дисконт';
+    MF.EditRequest_OpenDiscountModal();
+    MF.EditRequest_SendMoneyDiscount(500);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep (1);
     SF.click(By.xpath('//div[contains(@class, "dateRange ")]/input'));
     driver.executeScript(JSstep.Click8DaysCalendar);
     SF.sleep (1);
-
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    VD.IWant (VD.ToEqual, 5000, V.boardNumbers.Total, 'тотал не совпал с выбранной суммой' );
+    VD.IWant (VD.ToEqual, 4500, V.boardNumbers.Total, 'тотал не совпал с выбранной суммой');
     MF.EditRequest_SetToNotConfirmed ();
     SF.click (By.xpath('//button[@ng-click="DeliveryDay()"]'));
     MF.WaitWhileBusy ();
@@ -157,6 +158,13 @@ condition.nowWeDoing = 'пошли в админку 2 раз, ставить т
 
     MF.EditRequest_OpenLogs();
 
+    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"flat rate not confirm")]' +
+        '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
+    driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
+        'following-sibling::td[1]//div')).getText().then(function(text){
+        V.FlatRateQuote = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.FlatRateQuote, 4500, 'в письме клиенту не сработал дискаунт и тотал отправился неверный');
+    }),config.timeout);
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
@@ -165,13 +173,25 @@ condition.nowWeDoing = 'пошли в админку 2 раз, ставить т
     MF.Board_LogoutAdmin ();
     SF.get (V.accountURL);
     LF.LoginToAccountAsClient (V.client);
+
 condition.nowWeDoing = 'идем в акк под клиентом 2 раз букать работу';
     MF.Account_OpenRequest (V.FRId);
     SF.sleep(3);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Additional Discount")]/following-sibling::div[1]/div')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), '-500', 'не отобразился дискаунт на аккаунте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="showFlatRateQuote"]/span')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 4500, 'тотал не парвильный на аккаунте');
+    }),config.timeout);
     LF.ConfirmRequestInAccount_WithReservationWithAdress();
+    MF.Account_ClickViewConfirmationPage();
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.flatRateDiscount"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), '-500', 'не показало дисконт на конфирмейшн');
+    }),config.timeout);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'идем в админку проверять что работа конферм';
     MF.Board_OpenConfirmed ();
     MF.Board_OpenRequest (V.FRId);

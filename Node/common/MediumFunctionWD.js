@@ -23,7 +23,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function SweetConfirm() {
         JS.waitForExist('button.confirm');
-        SF.sleep(2.5);
+        SF.sleep(3);
         SF.click(By.xpath('//button[@class="confirm"]'));
     }
 
@@ -1185,6 +1185,20 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForLocated (By.xpath('//button[@ng-click="cancel()"]'));
         WaitWhileBusy ();
     }
+    function EditRequest_OpenDiscountModal() {
+        SF.click(By.xpath('//label[@ng-click="OpenDiscountModal();"]'));
+        SF.waitForLocated (By.xpath('//button[@ng-click="openCouponModal()"]'));
+        SF.sleep(2);
+    }
+    function EditRequest_SendMoneyDiscount(number) {
+        SF.click(By.xpath('//input[@ng-model="request.request_all_data.add_money_discount"]'));
+        SF.send(By.xpath('//input[@ng-model="request.request_all_data.add_money_discount"]'), number);
+        SF.click(By.xpath('//input[@ng-model="request.request_all_data.add_percent_discount"]'));
+        SF.click(By.xpath('//button[@ng-click="Apply()"]'));
+        SweetConfirm ();
+        SF.sleep(8);
+        WaitWhileToaster();
+    }
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
@@ -1685,6 +1699,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SetStartTime:EditRequest_SetStartTime,
         EditRequest_ClickViewRequest:EditRequest_ClickViewRequest,
         EditRequest_OpenPaymentModalWindow:EditRequest_OpenPaymentModalWindow,
+        EditRequest_OpenDiscountModal:EditRequest_OpenDiscountModal,
+        EditRequest_SendMoneyDiscount:EditRequest_SendMoneyDiscount,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
