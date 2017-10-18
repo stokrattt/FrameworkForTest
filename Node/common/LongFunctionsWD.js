@@ -986,6 +986,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"' + name + '")]'));
         SF.sleep(1);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));
+        SF.sleep(3);
         MF.WaitWhileToaster();
     }
     function SetClientPasswd(passwd) {
@@ -1922,15 +1923,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep (3);
         MF.WaitWhileBusy ();
         JS.click('div[ng-repeat=\\"filter in filters\\"]:visible div:first');
-        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-        SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
         SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
         SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
         SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));

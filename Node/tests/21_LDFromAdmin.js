@@ -32,25 +32,18 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     SF.sleep (2);
 
 condition.nowWeDoing = 'создаем ЛД реквест';
-
-    SF.click(By.linkText('Create Request'));
-    SF.sleep(5);
-    SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:7"]'));
-    SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+    MF.Board_ClickCreate();
+    MF.CreateRequest_SelectServiceType(7);
+    MF.CreateRequest_ClickMoveDateInput();
     V.request = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
         V.request.moveDate = calDate;
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
-    SF.send(By.id("edit-zip-code-from"), "02032");
-    SF.send(By.id("edit-zip-code-to"), "90001");
-    SF.sleep(6);
-    SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    SF.sleep(1);
+    MF.CreateRequest_SelectExtraRooms(1);
+    MF.CreateRequest_SendZipToZipFrom ('02032', '90001');
+    MF.CreateRequest_ClickCalculate();
+
 condition.nowWeDoing = 'запоминаем данные с калькулятора при создании реквеста';
     V.LDAdminCalc = {};
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "Long Distance Quote ")]/following-sibling::td[1]')).getText().then(function(quote){
@@ -64,45 +57,24 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     }),config.timeout);
     SF.sleep (1);
 
-    SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-    SF.sleep(2);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
-    SF.click(By.xpath('//button[@ng-click="create()"]'));
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    SF.sleep(4);
-    LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
+    MF.CreateRequest_ClickContinue();
+    MF.CreateRequest_SendClientInfo(V.client);
+    MF.CreateRequest_ClickCreate();
+    LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep (1);
     V.request.Id = {};
         driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id);
     }), config.timeout);
+
 condition.nowWeDoing = 'сравниваем данные калькулятора и реквеста';
     VD.IWant(VD.ToEqual, V.LDAdminCalc.Total, V.boardNumbers.Total, 'не совпали Total калькулятора и борда');
     VD.IWant(VD.ToEqual, V.LDAdminCalc.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel калькулятора и борда');
     VD.IWant(VD.ToEqual, V.LDAdminCalc.Quote, V.boardNumbers.Quote, 'не совпали Quote калькулятора и борда');
     SF.sleep (2);
-    SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
-    MF.WaitWhileBusy ();
-condition.nowWeDoing = 'ждем инвентория';
-    SF.sleep (7);
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    SF.click(By.id("save-inventory"));
-    SF.sleep (4);
+    LF.addInventoryBoard ();
+    LF.addAdditionalInventoryBoard();
     MF.EditRequest_AddPacking ();
 
 condition.nowWeDoing = 'запоминаем данные после добавления всех сервисов ';
@@ -117,7 +89,8 @@ condition.nowWeDoing = 'запоминаем данные после добав�
     MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
-
+    MF.EditRequest_OpenSettings();
+    LF.SetManager('emilia');
     LF.closeEditRequest ();
     MF.Board_OpenDashboard();
     MF.Board_OpenNotConfirmed();
@@ -151,8 +124,6 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     MF.Account_CheckRequestStatus_NotConfirmed (V.request.Id);
     MF.Account_OpenRequest (V.request.Id);
     MF.Account_ClickViewRequest ();
-    MF.WaitWhileBusy ();
-    SF.sleep(2);
     V.accountNumbersLD = {};
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Long Distance Grand Total")]/following-sibling::div[1]')).getText().then(function (text) {
         if (text.indexOf("You save") !== -1) {
@@ -166,45 +137,37 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     }),config.timeout);
     SF.sleep (1);
     VD.IWant (VD.ToEqual, V.boardNumbersWithAddServices.Total, V.accountNumbersLD.Total, 'не совпал гранд тотал мувборда и аккаунта');
-    MF.Account_ClickProceedBookYourMove();
-
+    LF.ConfirmRequestInAccount_WithReservationWithAdress();
+    MF.Account_ClickViewConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
         console.log(V.ConfirmationTotal);
         }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
-    SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
-    SF.sleep (0.5);
-    SF.click (By.id('terms'));
-    SF.click (By.id('cancel_policy'));
-    SF.click (By.id('paybutton'));
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    SF.waitForVisible (By.xpath('//div[@class="modal-body form-horizontal"]'));
+    LF.LogoutFromAccount();
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
+    MF.Board_SearchRequest(V.request.Id);
+    SF.sleep(3);
+    MF.Board_SearchOpenRequest (V.request);
+    MF.EditRequest_OpenDetails();
+    SF.click(By.xpath('//input[@ng-model="delivery_disable"]'));
     SF.sleep(2);
-    SF.send (By.id('edit-moving-from'), 'otkuda edem');
-    SF.send (By.id('edit-moving-from-apt'), 324535);
-    SF.send (By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'), 'kuda edem');
-    SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    SF.waitForVisible (By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
-    SF.click (By.xpath('//button[@class="confirm"]'));
-    SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
-    LF.MakeSignJS('signatureCanvasReserv');
-    SF.sleep(0.5);
-    SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
+    SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
+    driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
+    MF.EditRequest_SaveDetails();
+    MF.EditRequest_SaveChanges();
+    MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_CloseJob();
+    LF.closeEditRequest();
+    MF.Board_OpenPayroll();
+    LF.selectDateInPayroll(V.boardNumbers.moveDate);
+    LF.findSaleInPayroll(V.managerName);
+    driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
+        VD.INeed(VD.ToEqual, check, 1, 'лд работа не нашлась в пейроле');
+    }),config.timeout);
     SF.sleep (1);
-    LF.FillCardPayModal ();
-    MF.WaitWhileSpinner ();
-    SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    }), config.timeout);
-    SF.sleep(1);
 
 
     //=========================закончили писать тест=============================

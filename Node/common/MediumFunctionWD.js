@@ -1199,6 +1199,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(8);
         WaitWhileToaster();
     }
+    function EditRequest_OpenDetails() {
+        SF.click(By.xpath('//a[@ng-click="select(tabs[2])"]'));
+        WaitWhileBusy();
+        SF.sleep(1);
+    }
+    function EditRequest_SaveDetails() {
+        SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
+    }
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
@@ -1701,6 +1709,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenPaymentModalWindow:EditRequest_OpenPaymentModalWindow,
         EditRequest_OpenDiscountModal:EditRequest_OpenDiscountModal,
         EditRequest_SendMoneyDiscount:EditRequest_SendMoneyDiscount,
+        EditRequest_OpenDetails:EditRequest_OpenDetails,
+        EditRequest_SaveDetails:EditRequest_SaveDetails,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

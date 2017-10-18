@@ -67,7 +67,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'))
+    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     SF.waitForVisible (By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
@@ -106,14 +106,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.sleep(2);
     MF.WaitWhileBusy();
-    SF.click(By.xpath('//a[@ng-click="select(tabs[2])"]'));
-    MF.WaitWhileBusy();
-    SF.sleep(2);
+    MF.EditRequest_OpenDetails();
     SF.click(By.xpath('//input[@ng-model="delivery_disable"]'));
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
-    SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
+    MF.EditRequest_SaveDetails();
     SF.send(By.xpath('//input[@ng-model="scheduleDeliveryDate"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
     SF.sleep(2);
 
