@@ -492,6 +492,45 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
         console.log(accountNumbers);
     }
+
+    function RememberAccountNumbersLD(accountNumbersLD) {
+        driver.wait(driver.executeScript('return $("div:contains(\\"Move Date (Pick Up Day):\\"):last").next().text()').then(function (dateString) {
+            dateString = dateString.toUpperCase();
+            accountNumbersLD.moveDate = {};
+            accountNumbersLD.moveDate.Month = SF.FindMonthInString(dateString);
+            accountNumbersLD.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
+            accountNumbersLD.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[1]')).getText().then(function(text){
+                accountNumbersLD.cbf = SF.cleanPrice(text.substring(text.indexOf('Inventory')+9, text.indexOf('c.f.')));
+        }),config.timeout);
+
+        driver.wait(driver.executeScript(JSstep.getServicesCostAccount), config.timeout).then(function (ServicesText) {
+            accountNumbersLD.AdServices = SF.cleanPrice(ServicesText);
+        });
+        driver.wait(driver.executeScript(JSstep.getPackingsCostAccount), config.timeout).then(function (ServicesText) {
+            accountNumbersLD.Packing = SF.cleanPrice(ServicesText);
+        });
+        driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Fuel Surcharge")]/../../div[2]')).getText().then(function (text) {
+            accountNumbersLD.Fuel = SF.cleanPrice(text);
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Long Distance Grand Total")]/following-sibling::div[1]')).getText().then(function (text) {
+            if (text.indexOf("You save") !== -1) {
+                let t = text.substring(0, text.indexOf("You save"));
+                t = t.substring(t.indexOf('$', t.indexOf('$', t.indexOf('$') + 1)));
+                accountNumbersLD.Total = SF.cleanPrice(t);
+            } else {
+                console.log('ещё не делали без скидок');
+                accountNumbersLD.Total = SF.cleanPrice(text);
+            }
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
+            accountNumbersLD.Id = SF.cleanPrice(text);
+        }),config.timeout);
+        SF.sleep(1);
+        console.log(accountNumbersLD);
+
+    }
     function LogoutFromAccount() {
         JS.scroll("a[ng-click=\"vm.Logout()\"]");
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
@@ -901,6 +940,16 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant(VD.ToEqual, accountNumbers.TotalMin, boardNumbers.TotalMin, 'не совпали TotalMin аккаунта и борда');
         VD.IWant(VD.ToEqual, accountNumbers.TotalMax, boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
         VD.IWant(VD.ToEqual, accountNumbers.Fuel, boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
+    }
+
+    function Validation_Compare_Account_Admin_LongDistance(accountNumbersLD, boardNumbers) {
+        VD.IWant(VD.ToEqual, accountNumbersLD.moveDate.Day, boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда для лонг дистанса');
+        VD.IWant(VD.ToEqual, accountNumbersLD.moveDate.Month, boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда для лонг дистанса');
+        VD.IWant(VD.ToEqual, accountNumbersLD.moveDate.Year, boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда для лонг дистанса');
+        VD.IWant(VD.ToEqual, accountNumbersLD.Total, boardNumbers.Total, 'не совпали Total аккаунта и борда для лонг дистанса');
+        VD.IWant(VD.ToEqual, accountNumbersLD.Fuel, boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда для лонг дистанса');
+        VD.IWant(VD.ToEqual, accountNumbersLD.Packing, boardNumbers.Packing, 'не совпали Packing аккаунта и борда для лонг дистанса');
+        VD.IWant(VD.ToEqual, accountNumbersLD.AdServices, boardNumbers.AdServices, 'не совпали Services аккаунта и борда для лонг дистанса');
     }
 
     function Validation_Compare_Account_Front_MovStorTo(accountNumbers,frontNumbersDown) {
@@ -2318,6 +2367,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         AccountFromStorageEnterAddress: AccountFromStorageEnterAddress,
 		Account_CheckSignature: Account_CheckSignature,
         RememberAccountNumbers: RememberAccountNumbers,
+        RememberAccountNumbersLD:RememberAccountNumbersLD,
         LogoutFromAccount: LogoutFromAccount,
         LogoutFromBoardForeman: LogoutFromBoardForeman,
         LoginToBoardAsAdmin: LoginToBoardAsAdmin,
@@ -2346,6 +2396,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberFrontNumbersMovAndStorDown: RememberFrontNumbersMovAndStorDown,
         RememberLocalMoveDigitsCalc: RememberLocalMoveDigitsCalc,
         Validation_Compare_Account_Admin: Validation_Compare_Account_Admin,
+        Validation_Compare_Account_Admin_LongDistance:Validation_Compare_Account_Admin_LongDistance,
         Validation_Compare_Account_Front_MovStorTo: Validation_Compare_Account_Front_MovStorTo,
         Validation_Compare_Account_Front_MovStorFrom: Validation_Compare_Account_Front_MovStorFrom,
         Validation_Compare_CalcLocalMove_Admin: Validation_Compare_CalcLocalMove_Admin,

@@ -46,17 +46,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(0.5);
     SF.click (By.xpath('//button[@ng-click="save()"]'));
     SF.sleep (5); //сохранялка
-    // JS.scroll('.pageheader');
-    // SF.click (By.xpath('//a[@href="/account/#/request/contract"]'));
-    // SF.openTab (1);
-    // SF.click (By.xpath('//li[@ng-click="vm.selectTab(id)"][contains(text(), "Additional Pages")]'));
-    // SF.sleep(1);
-    // driver.wait(driver.executeScript("if($('input[ng-model=\"tab.mainContract\"]:eq(1)').hasClass('ng-empty')){" +
-    //     "return true;}else{$('input[ng-model=\"tab.mainContract\"]:eq(1) ~span').click()}"),config.timeout);
-    // SF.sleep(0.5);
-    // SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
-    // MF.WaitWhileBusy ();
-    // MF.SweetConfirm ();
+
     SF.click(By.xpath('//a[@ui-sref="settings.calculator"]'));
     SF.sleep(2);
 
@@ -170,6 +160,21 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
     SF.sleep(3);
+    // JS.scroll('td:contains("Company Address")');
+
+    condition.nowWeDoing = 'тут заходим в маркетинг тулс и выключаем их';
+    SF.click(By.linkText('Marketing Tools'));
+    SF.sleep(1);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.promoTextOn\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"vm.basicSettings.promoTextOn\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.localDistountOn\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"vm.basicSettings.localDistountOn\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]').click()}"),config.timeout);
+    SF.sleep(4);
     MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();

@@ -152,6 +152,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     MF.Account_OpenRequest (V.request.Id);
     MF.Account_ClickViewRequest ();
     MF.WaitWhileBusy ();
+    SF.sleep(2);
     V.accountNumbersLD = {};
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Long Distance Grand Total")]/following-sibling::div[1]')).getText().then(function (text) {
         if (text.indexOf("You save") !== -1) {
@@ -159,7 +160,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
             t = t.substring(t.indexOf('$', t.indexOf('$', t.indexOf('$') + 1)));
             V.accountNumbersLD.Total = SF.cleanPrice(t);
         } else {
-            console.log('ещё не делали без скидок');
+            console.log(V.accountNumbersLD.Total);
             V.accountNumbersLD.Total = SF.cleanPrice(text);
         }
     }),config.timeout);
