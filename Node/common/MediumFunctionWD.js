@@ -38,7 +38,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click (By.xpath('//button[@ng-click="addMessage()"]'));
         SF.sleep(2);
     }
-    //================================MAIL.RU=======================================
+    //================================MAIL.RU  and Gmail=======================================
     function MailRu_Login(login, password){
         SF.send(By.xpath('//input[@id="mailbox__login"]'),login);
         SF.send(By.xpath('//input[@id="mailbox__password"]'),password);
@@ -52,6 +52,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }),config.timeout);
     }
 
+    function Gmail_Login(login, password) {
+        SF.send(By.xpath('//input[@type="email"]'), login);
+        SF.sleep(2);
+        SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
+        SF.sleep(3);
+        SF.send(By.xpath('//input[@type="password"]'), password);
+        SF.sleep(2);
+        SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
+        SF.sleep(10);
+    }
 
     ///===============================Profit and loss===============================
 
@@ -108,9 +118,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function CreateRequest_ClickCreate() {
         SF.click(By.xpath('//button[@ng-click="create()"]'));
-        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        SF.sleep(2);
-        JS.waitForNotExist('div.busyoverlay:visible');
+        EditRequest_WaitForOpenRequest();
     }
 
     //====================================DISPACH=======================================
@@ -122,9 +130,44 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@title="Add crew"]'));
         WaitWhileBusy ();
     }
+    //=================================SIT==============================================
 
+    function SIT_ClickAddTrip() {
+        SF.click(By.xpath('//button[@ng-click="addTrip()"]'));
+        SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
+    }
+    function SIT_ChangeStatusTrip(status) {
+        SF.click(By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
+        SF.click(By.xpath('//div[text()="'+status+'"]'));
+        SF.sleep(1);
+    }
+    function SIT_SelectCarrierName(carriername) {
+        SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
+        SF.click(By.xpath('//div[text()="'+ carriername +'"]'));
+    }
+    function SIT_AddRequestToTrip() {
+        JS.click('span:contains(\\"Add requests to trip\\")');
+        SF.waitForVisible(By.xpath('//input[@ng-model="trip.data.carrier.driver_name"]'));
+        SF.sleep(2);
+    }
+    function SIT_GoToClosingTab() {
+        JS.click('span:contains(\\"Closing\\")');
+    }
+    function SIT_ClickTripDetails() {
+        JS.click('span:contains(\\"Trip details\\")');
+        SF.waitForVisible(By.xpath('//h3[contains(text(), "Trip Info")]'));
+    }
+    function SIT_ClickUpdateTrip() {
+        JS.click('span:contains(\\"Update\\")');
+        SF.sleep(2);
+        JS.waitForNotExist('span.toast-message:visible');
+    }
 
     ///===============================BOARD=========================================
+
+    function Board_ClickLongDistanceDispach() {
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+    }
 
     function Board_LogoutAdmin() {
         JS.waitForNotExist('div.toast-success');
@@ -194,7 +237,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath("//a[@ui-sref=\"dispatch.payroll\"]"));
         WaitWhileBusy();
     }
-    function Board_OpenReviewSettings() {
+    function Board_OpenReview() {
         Board_OpenSideBar ();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'statistics.byrole\', \'\')"]'));
         SF.click(By.xpath('//a[@ui-sref="statistics.reviews"]'));
@@ -318,9 +361,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_SearchOpenRequest(request) {
         SF.click(By.xpath('//div[@ng-bind-html="request.nid | searchfilter:search"]/span[contains(text(),"' + request.Id + '")]/..'));
-        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        WaitWhileBusy ();
-        SF.sleep(1);
+        EditRequest_WaitForOpenRequest();
     }
     function Board_GetFirstFoundedId(request){
         SF.waitForLocated(By.xpath('//div[@class="requestsid ng-binding"]'));
@@ -338,35 +379,35 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_OpenCourier() {
         SF.sleep(1);
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+        Board_ClickLongDistanceDispach();
         SF.sleep(1);
         SF.click(By.xpath('//a[@ui-sref="lddispatch.couriers"]'));
         SF.sleep(2);
     }
     function Board_OpenAgentFolio() {
         SF.sleep(1);
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+        Board_ClickLongDistanceDispach();
         SF.sleep(1);
         SF.click(By.xpath('//a[@ui-sref="lddispatch.agentFolio"]'));
         SF.sleep(2);
     }
     function Board_OpenJobsInSIT() {
         SF.sleep(1);
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+        Board_ClickLongDistanceDispach();
         SF.sleep(1);
         SF.click(By.xpath('//a[@ui-sref="lddispatch.sitJobs"]'));
         SF.sleep(2);
     }
     function BoardSIT_OpenStorages() {
         SF.sleep(1);
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+        Board_ClickLongDistanceDispach();
         SF.sleep(1);
         SF.click(By.xpath('//a[@ui-sref="lddispatch.lddispatchStorages"]'));
         SF.sleep(2);
     }
     function Board_OpenPickup() {
         SF.sleep(1);
-        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+        Board_ClickLongDistanceDispach();
         SF.sleep(1);
         SF.click(By.xpath('//a[@ui-sref="lddispatch.pick_up"]'));
         SF.sleep(2);
@@ -397,31 +438,30 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		if (!condition.busy) {
 			Fiber.yield();
 		}
-		SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        SF.sleep(2);
-        WaitWhileBusy();
+        EditRequest_WaitForOpenRequest();
 	}
     function Board_OpenFirstRequest(){
 		SF.click(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
 		SF.click(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
-		SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-		WaitWhileBusy();
-		SF.sleep(2);
-		WaitWhileBusy();
+        EditRequest_WaitForOpenRequest();
     }
 
     function Board_CreateDraftRequest() {
         SF.click(By.xpath('//button[@ng-click="createDraft()"]'));
-        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        WaitWhileBusy();
-        SF.sleep(2);
-        WaitWhileBusy();
+        EditRequest_WaitForOpenRequest();
     }
     function Board_OpenReserved() {
         SF.click(By.xpath('//div[@ng-click="vm.select(4)"]'));
         WaitWhileBusy ();
     }
-
+    function Board_OpenReviewSettings() {
+        SF.click(By.xpath('//button[@ng-click="openReviewSettings()"]'));
+        SF.waitForLocated (By.id('template-container'));
+    }
+    function BoardSettings_ClickFuelSurcharge() {
+        SF.click(By.linkText('Fuel Surcharge'));
+        SF.sleep (2);
+    }
     //==============================CALCULATOR SETTINGS===========================
     function CalculatorSettings_OpenBasicSettings(){
 		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[2]'));
@@ -594,6 +634,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_OpenAdressModal() {
         JS.click('span[ng-click=\\\"vm.openAddressModal()\\\"]:visible:first');
         SF.sleep(1);
+    }
+    function Account_WaitForLoadingAccount() {
+        SF.waitForLocated (By.xpath('//div[@class="Move Overview"]'));
+        SF.sleep (5);
     }
 
     //===================================CONTRACT===================================
@@ -1092,8 +1136,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function EditRequest_CloseConfirmWork() {
         SF.click (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-        JS.waitForNotExist ('div.busyoverlay:visible');
-        SF.sleep (0.5);
+        WaitWhileBusy();
     }
     function EditRequest_OpenConfirmWork() {
         SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
@@ -1206,6 +1249,41 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_SaveDetails() {
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
+    }
+    function EditRequest_ClickDefaultCubFit() {
+        SF.click (By.xpath('//div[@ng-click="selectList(1)"]'));
+        SF.sleep(2);
+    }
+    function EditRequest_ClickSizeInventory() {
+        SF.click (By.xpath('//div[@ng-click="selectList(2)"]'));
+    }
+    function EditRequest_ClickCustomCubFit() {
+        SF.click (By.xpath('//div[@ng-click="selectList(3)"]'));
+    }
+    function EditRequest_SendNumberCustomCubFit(number) {
+        SF.send(By.xpath('//input[@ng-model="request.custom_weight.value"]'), number);
+    }
+    function EditRequest_ClickFlatRateLocalMove() {
+        SF.click(By.xpath('//input[@ng-model="request.request_all_data.localMove"]/..'));
+    }
+    function EditRequest_SendFlatRateSumm(sum) {
+        SF.clear (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'));
+        SF.send (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'), sum);
+    }
+    function EditRequest_SendRateForLD(rate) {
+        SF.click(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
+        SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
+        SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), rate);
+        SF.sleep(1);
+    }
+    function EditRequest_WaitForOpenRequest() {
+        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+        WaitWhileBusy ();
+    }
+    function EditRequest_ClickAddCustomPayment() {
+        SF.click(By.xpath('//a[@ng-click="addCustomPayment()"]'));
+        // JS.click('a[ng-click=\\"addCustomPayment()\\"]:visible');
+        SF.waitForVisible (By.xpath('//form[@name="clientForm"]'));
     }
     //=================================LOCAL DISPATCH============================
 
@@ -1350,7 +1428,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Department_OpenHuman(name) {
         driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"" + name + "\")').dblclick();"), config.timeout);
-        SF.waitForLocated(By.linkText("Permissions"));
+        SF.waitForVisible (By.xpath('//label[contains(text(),"Department:")]'));
     }
 
     function Department_OpenMansPermissions() {
@@ -1469,6 +1547,24 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Department_AddRowOnRates() {
         SF.click(By.xpath('//div[@ng-click="addRow()"]'));
     }
+    function Department_ClearSendGmailAdress(mail) {
+        SF.click (By.xpath('//input[@ng-model="gmail"]'));
+        SF.clear (By.xpath('//input[@ng-model="gmail"]'));
+        SF.send (By.xpath('//input[@ng-model="gmail"]'), mail);
+    }
+    function Department_OpenNotificationTab() {
+        SF.click(By.xpath('//li[@ng-click="activeMainTab = 6"]'));
+        JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
+        SF.sleep(3);
+    }
+    function Department_DeleteUser() {
+        SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
+        SF.sleep(2);
+        WaitWhileBusy ();
+        SweetConfirm ();
+        WaitWhileToaster ();
+        WaitWhileBusy ();
+    }
 
     //==================================LONG DISTANCE SETTINGS==========================
 
@@ -1494,9 +1590,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SweetConfirm: SweetConfirm,
         SweetCancel: SweetCancel,
         BoardAccount_SendMessage: BoardAccount_SendMessage,
-        //==================================MAIL.RU=========================================
+        //==================================MAIL.RU and GMAIL=========================================
 		MailRu_Login:MailRu_Login,
 		MailRu_CheckEmailExistBySubject:MailRu_CheckEmailExistBySubject,
+        Gmail_Login:Gmail_Login,
         //==================================FRONT SITE======================================
         FrontSite_GoToAccount: FrontSite_GoToAccount,
         //==================================LONG DISTANCE SETTINGS==========================
@@ -1524,7 +1621,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Dispach_ClickUnassignTeam:Dispach_ClickUnassignTeam,
         Dispach_ClickAddCrew:Dispach_ClickAddCrew,
 
+        //------------------------------------SIT-------------------------------------------//
+
+        SIT_ClickAddTrip:SIT_ClickAddTrip,
+        SIT_ChangeStatusTrip:SIT_ChangeStatusTrip,
+        SIT_SelectCarrierName:SIT_SelectCarrierName,
+        SIT_AddRequestToTrip:SIT_AddRequestToTrip,
+        SIT_GoToClosingTab:SIT_GoToClosingTab,
+        SIT_ClickTripDetails:SIT_ClickTripDetails,
+        SIT_ClickUpdateTrip:SIT_ClickUpdateTrip,
+
         //------------------------------------BOARD=========================================
+        Board_ClickLongDistanceDispach:Board_ClickLongDistanceDispach,
         Board_LogoutAdmin: Board_LogoutAdmin,
         Board_ClickCreate: Board_ClickCreate,
         Board_OpenSideBar: Board_OpenSideBar,
@@ -1547,7 +1655,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_Refresh:Board_Refresh,
         Board_OpenMessage: Board_OpenMessage,
         Board_OpenSchedule: Board_OpenSchedule,
-        Board_OpenReviewSettings: Board_OpenReviewSettings,
+        Board_OpenReview: Board_OpenReview,
         Board_OpenSettingsLongDistance: Board_OpenSettingsLongDistance,
         Board_OpenAllRequest: Board_OpenAllRequest,
         Board_OpenStorages: Board_OpenStorages,
@@ -1570,6 +1678,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		Board_OpenSettingsCalculator: Board_OpenSettingsCalculator,
         Board_CreateDraftRequest:Board_CreateDraftRequest,
         Board_OpenReserved:Board_OpenReserved,
+        Board_OpenReviewSettings:Board_OpenReviewSettings,
+        BoardSettings_ClickFuelSurcharge:BoardSettings_ClickFuelSurcharge,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
@@ -1603,6 +1713,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ClickConfirmReservation:Account_ClickConfirmReservation,
         Account_SweetUpdateConfirm:Account_SweetUpdateConfirm,
         Account_OpenAdressModal:Account_OpenAdressModal,
+        Account_WaitForLoadingAccount:Account_WaitForLoadingAccount,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -1711,6 +1822,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SendMoneyDiscount:EditRequest_SendMoneyDiscount,
         EditRequest_OpenDetails:EditRequest_OpenDetails,
         EditRequest_SaveDetails:EditRequest_SaveDetails,
+        EditRequest_ClickDefaultCubFit:EditRequest_ClickDefaultCubFit,
+        EditRequest_ClickSizeInventory:EditRequest_ClickSizeInventory,
+        EditRequest_ClickCustomCubFit:EditRequest_ClickCustomCubFit,
+        EditRequest_SendNumberCustomCubFit:EditRequest_SendNumberCustomCubFit,
+        EditRequest_ClickFlatRateLocalMove:EditRequest_ClickFlatRateLocalMove,
+        EditRequest_SendFlatRateSumm:EditRequest_SendFlatRateSumm,
+        EditRequest_SendRateForLD:EditRequest_SendRateForLD,
+        EditRequest_WaitForOpenRequest:EditRequest_WaitForOpenRequest,
+        EditRequest_ClickAddCustomPayment:EditRequest_ClickAddCustomPayment,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
@@ -1766,7 +1886,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Department_ClickClosingPrice:Department_ClickClosingPrice,
         Department_SelectCommissionFromTotal:Department_SelectCommissionFromTotal,
         Department_SendCommissionFromTotal:Department_SendCommissionFromTotal,
-        Department_AddRowOnRates:Department_AddRowOnRates
+        Department_AddRowOnRates:Department_AddRowOnRates,
+        Department_ClearSendGmailAdress:Department_ClearSendGmailAdress,
+        Department_OpenNotificationTab:Department_OpenNotificationTab,
+        Department_DeleteUser:Department_DeleteUser
         //====================================TRIPS==========================================
 
     };

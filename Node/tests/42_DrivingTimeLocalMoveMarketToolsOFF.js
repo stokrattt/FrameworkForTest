@@ -88,8 +88,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
     SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
     SF.click(By.xpath('//button[@ng-click="create()"]'));
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    SF.sleep(4);
+    MF.EditRequest_WaitForOpenRequest();
     V.boardNumbersClean = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersClean);
 

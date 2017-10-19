@@ -11,9 +11,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что они включены';
+    MF.Board_OpenReview();
     MF.Board_OpenReviewSettings();
-    SF.click(By.xpath('//button[@ng-click="openReviewSettings()"]'));
-    SF.waitForLocated (By.id('template-container'));
     driver.wait(driver.executeScript("if($('input[ng-model=\"autoSend\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"autoSend\"] ~span').click()}"),config.timeout);
     SF.sleep(0.5);
@@ -59,10 +58,9 @@ condition.nowWeDoing = 'переходим с логов по ссылке в а
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
 
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что появились наши 5 звезд и текст';
-    MF.Board_OpenReviewSettings ();
+    MF.Board_OpenReview ();
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.client.name+'")]/following-sibling::div[1]/p')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Review from email', 'не нашло наш текст для звезд, а может и звезды');
@@ -70,8 +68,7 @@ condition.nowWeDoing = 'идем в админку в настройки рев�
     SF.sleep(1);
 
 condition.nowWeDoing = 'теперь отключаем отсылание ревью и создаем реквест и проверяем что ревью не отсылаются';
-    SF.click(By.xpath('//button[@ng-click="openReviewSettings()"]'));
-    SF.waitForLocated (By.id('template-container'));
+    MF.Board_OpenReviewSettings();
     driver.wait(driver.executeScript("if($('input[ng-model=\"autoSend\"]').hasClass('ng-empty')){" +
         "return true;}else{$('input[ng-model=\"autoSend\"] ~span').click()}"),config.timeout);
     SF.sleep(0.5);

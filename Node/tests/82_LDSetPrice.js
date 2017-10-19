@@ -66,10 +66,7 @@ condition.nowWeDoing = 'Меняем в реквесте min Price min Cubic fee
     V.newMinCF = 50;
     V.newMinPrice = 40;
     V.newStateRate = 10;
-    SF.click(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
-    SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.newStateRate);
-    SF.sleep(1);
+    MF.EditRequest_SendRateForLD (V.newStateRate);
     SF.click(By.xpath('//div[@ng-click="openMinWeight()"]'));
     SF.waitForVisible(By.xpath('//input[@ng-model="min_price"]'));
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="min_price"]')).getAttribute('value').then(function(text){

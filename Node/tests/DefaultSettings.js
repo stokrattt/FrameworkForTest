@@ -19,8 +19,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
             SF.sleep(2);
         }
     }
-    SF.click(By.linkText('Fuel Surcharge'));
-    SF.sleep (2);
+    MF.BoardSettings_ClickFuelSurcharge();
     SF.clear (By.xpath('//input[@ng-model="vm.fuel_surcharge.def_local"]'));
     SF.send (By.xpath('//input[@ng-model="vm.fuel_surcharge.def_local"]'), 10);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index, amount) in vm.surcharge\"]').length").then(function (check) {

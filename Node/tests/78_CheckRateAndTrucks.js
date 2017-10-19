@@ -24,9 +24,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenSettings ();
     MF.EditRequest_ClickViewRequest ();
     SF.openTab (1);
-    SF.waitForLocated (By.xpath('//div[@class="Move Overview"]'));
-    MF.WaitWhileBusy ();
-    SF.sleep(3);
+    MF.Account_WaitForLoadingAccount();
     V.accountNumbers = {};
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbers);

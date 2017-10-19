@@ -43,9 +43,7 @@ condition.nowWeDoing = 'считаем квоту от времени и гра�
     SF.sleep(2);
 condition.nowWeDoing = 'добавляем два паймента, один кастомный, один карточкой, так чтобы баланс был равен 0 и закрываем реквест';
     MF.EditRequest_OpenPayment();
-    SF.click(By.xpath('//a[@ng-click="addCustomPayment()"]'));
-    // JS.click('a[ng-click=\\"addCustomPayment()\\"]:visible');
-    SF.waitForVisible (By.xpath('//form[@name="clientForm"]'));
+    MF.EditRequest_ClickAddCustomPayment();
     SF.click (By.xpath('//input[@ng-model="receipt.amount"]'));
     SF.send (By.xpath('//input[@ng-model="receipt.amount"]'),100);
     SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));

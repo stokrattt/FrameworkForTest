@@ -21,8 +21,7 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     V.boardNumbersInventory = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersInventory);
     MF.EditRequest_OpenSettings ();
-    SF.click (By.xpath('//div[@ng-click="selectList(1)"]'));
-    SF.sleep(2);
+    MF.EditRequest_ClickDefaultCubFit();
     MF.EditRequest_OpenRequest ();
     SF.sleep(3);
     MF.EditRequest_RememberId (V.request);
@@ -36,10 +35,9 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     MF.EditRequest_OpenSettings ();
 
 condition.nowWeDoing = 'идем в аккаунт и проверяем что там стоит дефолтный кубик фит';
-    SF.click (By.xpath('//button[@ng-click="goToRequest()"]'));
+    MF.EditRequest_ClickViewRequest();
     SF.openTab (1);
-    SF.waitForLocated (By.xpath('//div[@class="Move Overview"]'));
-    SF.sleep (5);
+    MF.Account_WaitForLoadingAccount();
     V.accountNumbersDefault = {};
     LF.RememberAccountNumbers (V.accountNumbersDefault);
     LF.Validation_Compare_Account_Admin (V.accountNumbersDefault, V.boardNumbersDefault2);
@@ -47,7 +45,7 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     driver.close();
     SF.openTab (0);
     SF.sleep (1);
-    SF.click (By.xpath('//div[@ng-click="selectList(2)"]'));
+    MF.EditRequest_ClickSizeInventory();
     MF.EditRequest_OpenRequest ();
     SF.sleep(6);
     MF.EditRequest_SaveChanges ();
@@ -60,10 +58,9 @@ condition.nowWeDoing = 'теперь выставляем кубик фит на
     LF.Validation_Compare_Account_Admin (V.boardNumbersInventory, V.boardNumbersInventory2);
     MF.EditRequest_OpenSettings ();
 condition.nowWeDoing = 'идем в аккаунт и проверяем что там стоит инвентори кубик фит';
-    SF.click (By.xpath('//button[@ng-click="goToRequest()"]'));
+    MF.EditRequest_ClickViewRequest();
     SF.openTab (1);
-    SF.waitForLocated (By.xpath('//div[@class="Move Overview"]'));
-    SF.sleep (5);
+    MF.Account_WaitForLoadingAccount();
     V.accountNumbersInventory = {};
     LF.RememberAccountNumbers (V.accountNumbersInventory);
     LF.Validation_Compare_Account_Admin (V.accountNumbersInventory, V.boardNumbersInventory2);
@@ -72,8 +69,8 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     SF.openTab (0);
     SF.sleep (1);
 condition.nowWeDoing = 'теперь выставляем кубик фит на кастомный 1500, закрыли и открыли, сравнили, должны быть данные по кастому все одинаковые';
-    SF.click (By.xpath('//div[@ng-click="selectList(3)"]'));
-    SF.send(By.xpath('//input[@ng-model="request.custom_weight.value"]'), 1500);
+    MF.EditRequest_ClickCustomCubFit();
+    MF.EditRequest_SendNumberCustomCubFit(1500);
     MF.EditRequest_OpenRequest ();
     SF.sleep(10);
     V.boardNumbersCustom = {};
@@ -86,10 +83,9 @@ condition.nowWeDoing = 'теперь выставляем кубик фит на
     LF.Validation_Compare_Account_Admin (V.boardNumbersCustom, V.boardNumbersCustom2);
     MF.EditRequest_OpenSettings ();
 condition.nowWeDoing = 'идем в аккаунт и проверяем что там стоит кастомный кубик фит';
-    SF.click (By.xpath('//button[@ng-click="goToRequest()"]'));
+    MF.EditRequest_ClickViewRequest();
     SF.openTab (1);
-    SF.waitForLocated (By.xpath('//div[@class="Move Overview"]'));
-    SF.sleep (5);
+    MF.Account_WaitForLoadingAccount();
     V.accountNumbersCustom = {};
     LF.RememberAccountNumbers (V.accountNumbersCustom);
     LF.Validation_Compare_Account_Admin (V.accountNumbersCustom, V.boardNumbersCustom2);

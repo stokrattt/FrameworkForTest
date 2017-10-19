@@ -646,8 +646,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
         MF.WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="create()"]'));
-        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        MF.WaitWhileBusy();
+        MF.EditRequest_WaitForOpenRequest();
         console.log('создали реквест');
     }
     function CreateFlatRateFromBoard(client) {
@@ -675,8 +674,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
         SF.click(By.xpath('//button[@ng-click="create()"]'));
-        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        MF.WaitWhileBusy();
+        MF.EditRequest_WaitForOpenRequest();
         console.log('создали реквест');
     }
     function CreateMovAndStorFromBoard(client, period) {
@@ -712,8 +710,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
         SF.click(By.xpath('//button[@ng-click="create()"]'));
-        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        MF.WaitWhileBusy();
+        MF.EditRequest_WaitForOpenRequest();
         console.log('создали реквест');
     }
     function CreateLongDistanceFromBoard(client) {
@@ -740,8 +737,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
         MF.WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="create()"]'));
-        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        MF.WaitWhileBusy ();
+        MF.EditRequest_WaitForOpenRequest();
         console.log('создали реквест');
     }
     function CreateCarrier(){
@@ -802,8 +798,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
         SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
         SF.click(By.xpath('//button[@ng-click="create()"]'));
-        SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-        MF.WaitWhileBusy();
+        MF.EditRequest_WaitForOpenRequest();
         console.log('создали реквест');
     }
     function RememberDigitsRequestBoard_Up(boardNumbers) {
@@ -984,9 +979,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         JS.click('button:contains("Assign sales person"):visible');
         // SF.click(By.xpath('//button[contains(text(),"Assign sales person")]'));
         SF.click(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"' + name + '")]'));
+        MF.SweetConfirm();
         SF.sleep(1);
-        SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Confirm")]'));
-        SF.sleep(3);
         MF.WaitWhileToaster();
     }
     function SetClientPasswd(passwd) {

@@ -35,8 +35,7 @@ condition.nowWeDoing = 'идем в настройки выставляем дл
     SF.sleep (3);
     MF.Board_OpenSideBar ();
     MF.Board_OpenSettingsGeneral ();
-    SF.click(By.linkText('Fuel Surcharge'));
-    SF.sleep (2);
+    MF.BoardSettings_ClickFuelSurcharge();
     SF.click(By.xpath('//input[@ng-model="vm.fuel_surcharge.def_ld"]'));
     SF.send(By.xpath('//input[@ng-model="vm.fuel_surcharge.def_ld"]'), 10);
     SF.click(By.xpath('//input[@ng-model="vm.fuel_surcharge.settingsByMileageLD.amount"]'));

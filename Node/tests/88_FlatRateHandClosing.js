@@ -165,8 +165,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
     MF.EditRequest_OpenRequest();
     SF.sleep(2);
-    SF.clear (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'));
-    SF.send (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'), 3000);
+    MF.EditRequest_SendFlatRateSumm(3000);
     SF.click(By.xpath('//label[@ng-click="OpenSurchargeModal();"]'));
     SF.waitForVisible(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
     SF.sleep(2);

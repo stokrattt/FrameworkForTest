@@ -10,6 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.frontURL);
     SF.sleep (4);
+
 condition.nowWeDoing = 'заполняем нижний калькулятор на фронте';
     LF.CreateMovAndStorFromFrontDown (V.client);
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info general"]/div/span')).getText().then(function(text){
@@ -17,17 +18,19 @@ condition.nowWeDoing = 'заполняем нижний калькулятор �
         VD.IWant(VD.ToEqual, V.nameRequest, 'Moving & Storage', 'тип реквеста не совпал с созданным');
     }), config.timeout);
     SF.sleep(1);
+
 condition.nowWeDoing = 'запоминаем данные которые посчитал кальк';
     LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
-
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);
     SF.click(By.linkText('View Request Page'));
     SF.sleep(6);
     SF.openTab (1);
+
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (8);
     MF.Account_ClickViewRequest ();
+
 condition.nowWeDoing = 'запомнили данные в аке и сравниваем с калькулятором';
     LF.RememberAccountNumbers(V.accountNumbersTo);
     LF.addToCleanerJob(V.accountNumbersTo.Id);
@@ -38,7 +41,6 @@ condition.nowWeDoing = 'запомнили данные в аке и сравн�
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersFrom,V.frontNumbersDown);
-
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -93,63 +95,18 @@ condition.nowWeDoing = 'зашли под клиентом и букаем пе�
         VD.IWant(VD.ToEqual,Status,'Not Confirmed');
     }), config.timeout);
     MF.Account_OpenRequest (V.accountNumbersTo.Id);
-    MF.Account_ClickProceedBookYourMove();
-
-    SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
-    SF.sleep (0.5);
-    SF.click (By.id('terms'));
-    SF.click (By.id('cancel_policy'));
-    SF.click (By.id('paybutton'));
-
-    SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
-    LF.MakeSignJS('signatureCanvasReserv');
-    SF.sleep(0.5);
-    SF.sleep (1);
-    SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
-    SF.sleep (1);
-    LF.FillCardPayModal ();
-    MF.WaitWhileSpinner ();
-    SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    }), config.timeout);
+    LF.ConfirmRequestInAccount_WithReservation();
+    MF.Account_WaitForGreenTextAfterConfirm();
 
 condition.nowWeDoing = 'букаем вторую работу и проверяем подпись';
     MF.Account_ClickViewConfirmationPage ();
-    SF.click(By.xpath('//img[@ng-click="vm.openCardPhoto(image)"]'));
-    SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(2);
+    MF.Account_CheckSignOnConfirmationPage();
     MF.Account_ConfirmationBackToRequest ();
     MF.Account_ClickFromStorage ();
     SF.sleep (2);
+
 condition.nowWeDoing = 'букаем вторую работу мувинга и стораджа';
-    MF.Account_ClickProceedBookYourMove();
-
-    SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
-    SF.sleep (0.5);
-    SF.click (By.id('terms'));
-    SF.click (By.id('cancel_policy'));
-    SF.click (By.id('paybutton'));
-
-    SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
-    LF.MakeSignJS('signatureCanvasReserv');
-    SF.sleep(0.5);
-    SF.click (By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
-    SF.sleep (1);
-    LF.FillCardPayModal ();
-    MF.WaitWhileSpinner ();
-    SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    }), config.timeout);
-    MF.Account_ClickViewConfirmationPage ();
-    SF.click(By.xpath('//img[@ng-click="vm.openCardPhoto(image)"]'));
-    SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(2);
-
+    LF.ConfirmRequestInAccount_WithReservation();
+    MF.Account_WaitForGreenTextAfterConfirm();
     SF.endOfTest();
 };

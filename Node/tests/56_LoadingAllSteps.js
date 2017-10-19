@@ -7,36 +7,24 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
 
-
-
-
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    condition.nowWeDoing = 'идем в департмент включить календарь для форемана';
+
+condition.nowWeDoing = 'идем в департмент включить календарь для форемана';
     MF.Board_OpenSettingsDepartment ();
     MF.WaitWhileBusy();
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
-    MF.WaitWhileBusy ();
-    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "Test Foreman")]'))).doubleClick().perform();
-    SF.sleep (2);
-    SF.click (By.linkText('Account'));
-    SF.click (By.xpath('//input[@ng-model="gmail"]'));
-    SF.clear (By.xpath('//input[@ng-model="gmail"]'));
-    MF.WaitWhileBusy();
-    SF.click (By.xpath('//input[@ng-model="gmail"]'));
-    SF.send (By.xpath('//input[@ng-model="gmail"]'), V.ForEmail);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    MF.SweetConfirm();
-    MF.WaitWhileBusy();
-    MF.WaitWhileToaster ();
-    SF.sleep(4);
+    MF.Department_OpenForeman();
+    MF.Department_OpenHuman ("Test Foreman");
+    MF.Department_User_OpenAccount();
+    MF.Department_ClearSendGmailAdress(V.ForEmail);
+    MF.Department_SaveUser();
     MF.Board_LogoutAdmin();
-
     SF.get(V.frontURL);
-    condition.nowWeDoing = 'заполняем калькулятор верхний';
+
+condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLoading(V.client);
 
-    condition.nowWeDoing = 'первый раз в аккаунте';
+condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
     MF.Account_ClickPartialPacking();
@@ -49,30 +37,23 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_WaitForDetailsCheck();
     MF.WaitWhileBusy();
     V.accountNumbers={};
-
     LF.RememberAccountNumbers(V.accountNumbers);
     //LF.addToCleanerJob(V.accountNumbers.Id);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'первый раз в админке';
+condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsDepartment();
     MF.Board_OpenSideBar();
     MF.WaitWhileBusy ();
     SF.sleep(2);
-    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "Test Admin")]'))).doubleClick().perform();
-    SF.waitForVisible (By.xpath('//label[contains(text(),"Department:")]'));
-    SF.click(By.xpath('//li[@ng-click="activeMainTab = 6"]'));
-    JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
-    SF.sleep(3);
+    MF.Department_OpenHuman ("Test Admin");
+    MF.Department_OpenNotificationTab();
     driver.wait(driver.executeScript("if($('md-switch[ng-change=\"turnAllNotifications()\"]').hasClass('md-checked')){" +
         "return true;}else{$('md-switch[ng-change=\"turnAllNotifications()\"]').click()}"),config.timeout);
     SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    MF.SweetConfirm ();
-    MF.WaitWhileBusy();
-    MF.WaitWhileToaster ();
+    MF.Department_SaveUser();
     MF.Board_OpenSideBar ();
     MF.Board_OpenDashboard();
     MF.WaitWhileToaster ();
@@ -103,7 +84,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
-
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Loading Not Confirmed");
@@ -111,7 +91,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
+condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
@@ -123,7 +103,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'второй раз в админке, локал диспатч';
+condition.nowWeDoing = 'второй раз в админке, локал диспатч';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
@@ -142,19 +122,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'идем в гугл почту';
+condition.nowWeDoing = 'идем в гугл почту';
     SF.get('http://gmail.com');
     SF.sleep(13);
-    SF.send(By.xpath('//input[@type="email"]'),V.googleloginFor);
-    SF.sleep(2);
-    SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
-    SF.sleep(3);
-    SF.send(By.xpath('//input[@type="password"]'),V.googlePasFor );
-    SF.sleep(2);
-    SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
-    SF.sleep(10);
+    MF.Gmail_Login(V.googleloginFor, V.googlePasFor);
 
-    condition.nowWeDoing = 'проверяем в календаре, что работа пришла фореману';
+condition.nowWeDoing = 'проверяем в календаре, что работа пришла фореману';
     SF.get('https://calendar.google.com/calendar');
     SF.sleep(3);
     SF.click(By.xpath('//div[contains(text(), "День")]'));
@@ -170,7 +143,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(5);
 
 
-    condition.nowWeDoing = 'заходим под форменом, открываем контракт';
+condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
@@ -231,7 +204,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
-    condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
+condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -248,7 +221,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.managerName = 'emilia clark';
     SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
-
     MF.EditRequest_PayrollOpenForemanTab();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"$35.00")]/../../td[3]/input[@ng-model="foreman.for_commission"]')).getAttribute('value').then(function (text) {
         V.cleanTotalHW = SF.cleanPrice(text);
@@ -257,12 +229,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'сейчас идём в пейролл';
+condition.nowWeDoing = 'сейчас идём в пейролл';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll(V.foremanName);
 
-    condition.nowWeDoing = 'выбираем цифры формена';
+condition.nowWeDoing = 'выбираем цифры формена';
     V.payrollNumbers = {
         Foreman:{}, Sale:{}
     };
@@ -272,7 +244,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
 
-    condition.nowWeDoing = 'выбираем цифры менеджера';
+condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('emilia clark');
 	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
 	VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +

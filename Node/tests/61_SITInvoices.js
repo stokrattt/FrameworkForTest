@@ -28,8 +28,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
-    SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);
+    MF.EditRequest_SendRateForLD (V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest ();
@@ -38,11 +37,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSideBar();
 
     condition.nowWeDoing = 'Создаем Трип';
-    SF.click(By.xpath('//button[@ng-click="addTrip()"]'));
-    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
-    SF.click(By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
-    SF.click(By.xpath('//div[text()="Pending"]'));
-    SF.sleep(1);
+    MF.SIT_ClickAddTrip();
+    MF.SIT_ChangeStatusTrip('Pending');
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
     SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
@@ -59,8 +55,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(1);
-    SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
-    SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
+    MF.SIT_SelectCarrierName(V.carrierNew.name);
     SF.sleep(1);
     V.driverPhone = SF.randomCifra(10);
     V.driverName = SF.randomBukva(6) + '_t';
@@ -70,7 +65,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//textarea[@ng-model="trip.data.note"]'), V.notes);
 
     condition.nowWeDoing = 'Сохраняем трип и добавляем работу в трип';
-    JS.click('span:contains(\\"Update\\")');
+    MF.SIT_ClickUpdateTrip();
     JS.click('span:contains(\\"Add Pickup/Delivery\\")');
     SF.waitForVisible(By.xpath('//div[contains(text(), "' + V.client.name + '")]'));
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
@@ -83,10 +78,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"' + V.client.name + '")]/..//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
         V.ldJobId = text;
     }),config.timeout);
-    JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
-    SF.sleep(2);
-    JS.click('span:contains(\\"Closing\\")');
+    MF.SIT_AddRequestToTrip();
+    MF.SIT_GoToClosingTab();
     SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     SF.click(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     SF.waitForVisible(By.xpath('//h2[contains(text(), "Custom Payment")]'));
@@ -99,13 +92,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="back()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
-    JS.click('span:contains(\\"Trip details\\")');
-    SF.waitForVisible(By.xpath('//h3[contains(text(), "Trip Info")]'));
-    JS.click('span:contains(\\"Update\\")');
+    MF.SIT_ClickTripDetails();
+
+    MF.SIT_ClickUpdateTrip();
 
     condition.nowWeDoing = 'Заходим в Агент фолио';
     MF.Board_OpenSideBar ();
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+    MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenAgentFolio ();
     MF.Board_OpenSideBar ();
     SF.click(By.xpath('//md-switch[@ng-model="hideZero"]'));

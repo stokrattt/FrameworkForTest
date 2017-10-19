@@ -9,7 +9,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
-    condition.nowWeDoing = 'первый раз в админке';
+
+condition.nowWeDoing = 'первый раз в админке';
     LF.CreateLocalMovingFromBoard(V.client);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
@@ -39,14 +40,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.fullPackingText = text;
     }),config.timeout);
     MF.Board_LogoutAdmin();
-console.log(V.jobTimeText);
-    condition.nowWeDoing = 'первый раз в акаунте';
+
+condition.nowWeDoing = 'первый раз в акаунте';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));
     SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(3);
+    MF.Account_ClickViewRequest();
 
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.jobTime.isDisplay"]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Job Time = Labor Time + Travel Time")]')).getText().then(function(text){
@@ -112,15 +112,12 @@ console.log(V.jobTimeText);
     }),config.timeout);
 
     MF.Board_LogoutAdmin();
-
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
     SF.sleep(2);
-
     driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
     JS.waitForExist('div.picker__box:visible');
     SF.sleep(2);
-
     driver.wait(driver.executeScript(function(){
         return $('.calendarTypeTitle .datepickerGiantTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {

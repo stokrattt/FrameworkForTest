@@ -26,10 +26,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     MF.EditRequest_OpenPaymentModalWindow();
-    SF.click(By.xpath('//a[@ng-click="addCustomPayment()"]'));
-    SF.waitForLocated (By.xpath('//input[@ng-model="receipt.amount"]'));
-    MF.WaitWhileBusy();
-    SF.sleep(1);
+    MF.EditRequest_ClickAddCustomPayment();
     V.cashPayment = 100;
     SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));
     SF.send(By.xpath('//input[@ng-model="receipt.amount"]'), V.cashPayment);
@@ -63,11 +60,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
-    SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);
+    MF.EditRequest_SendRateForLD (V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
+    MF.EditRequest_WaitForOpenRequest();
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     SF.waitForVisible (By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
@@ -98,10 +94,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Заходим в реквест , виставляем Delivery day и Schedule day и LD status';
     SF.click(By.xpath('//div[contains(text(), "'+ V.client.name +'")]/..//div[@ng-click="openRequest(id)"]'));
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    MF.WaitWhileBusy();
-    SF.sleep(2);
-    MF.WaitWhileBusy();
+    MF.EditRequest_WaitForOpenRequest();
     MF.EditRequest_OpenDetails();
     SF.click(By.xpath('//input[@ng-model="delivery_disable"]'));
     SF.sleep(2);
@@ -114,7 +107,7 @@ Debug.pause();
     LF.closeEditRequest ();
     condition.nowWeDoing = 'Заходим в PickUp и проверям по филтрам и по введенним даним';
     MF.Board_OpenSideBar();
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+    MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenPickup();
     MF.Board_OpenSideBar();
     SF.click(By.xpath('//md-select[@ng-model="selectedStatus"]'));

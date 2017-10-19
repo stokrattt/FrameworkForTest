@@ -123,8 +123,6 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
         V.boardNumbersDeliveryDate.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
     }),config.timeout);
     SF.sleep(1);
-    console.log(V.boardNumbersDeliveryDate);
-
     MF.EditRequest_OpenSettings ();
     SF.sleep(2);
     SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));

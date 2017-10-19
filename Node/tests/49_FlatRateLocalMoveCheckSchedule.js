@@ -18,9 +18,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
 
     LF.CreateFlatRateFromBoard (V.client);
-    SF.click(By.xpath('//input[@ng-model="request.request_all_data.localMove"]/..'));
-    SF.clear (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'));
-    SF.send (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'), 3000);
+    MF.EditRequest_ClickFlatRateLocalMove();
+    MF.EditRequest_SendFlatRateSumm(3000);
     MF.EditRequest_SetAdressToFrom ();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
@@ -36,10 +35,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SetClientPasswd (V.client.passwd);
     MF.EditRequest_OpenSettings ();
     SF.sleep(2);
-    SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
-    SF.click (By.xpath('//div[@ng-show="::PermissionsServices.hasPermission(\'canSignedSales\');"]//ul[@class="dropdown-menu"]/li/a[contains(text(), "JackSales")]'));
-    MF.SweetConfirm();
-    SF.sleep (5);
+    LF.SetManager('JackSales');
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin();
     SF.get(V.accountURL);

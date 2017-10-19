@@ -7,114 +7,69 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     SF.get(V.adminURL);
-
     LF.LoginToBoardAs_Roma4ke_Admin();
     MF.Board_OpenSettingsDepartment ();
 
 condition.nowWeDoing='Создаем менеджера***********************************************';
     MF.WaitWhileBusy();
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
-    SF.sleep(3);
-    MF.WaitWhileBusy();
-    SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
-    SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
+    MF.Department_OpenManager();
+    MF.Department_ClickCreateUser();
     V.managerFirstName1 = SF.randomBukva(5)+ '_man';
     V.managerLastName1 = SF.randomBukva(5) + '_man';
-    SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.managerFirstName1);
-    SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.managerLastName1);
-    SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
-    SF.click (By.linkText('Account'));
+    MF.Department_SendFirstLastNameAndPhone (V.managerFirstName1, V.managerLastName1, '12345678960');
+    MF.Department_User_OpenAccount();
     V.managerAccount = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.managerPass = 123;
-    SF.send (By.xpath('//input[@ng-model="request.login"]'), V.managerAccount);
-    SF.send (By.xpath('//input[@ng-model="request.password"]'), V.managerPass);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    MF.WaitWhileBusy();
-    MF.WaitWhileToaster ();
-    SF.sleep(3);
-
+    MF.Department_SendAccountNameAndPassword(V.managerAccount, V.managerPass);
+    MF.Department_CreateUser();
 
 condition.nowWeDoing='Создали менеджера****************************************';
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
-    SF.sleep(2);
+    MF.Department_OpenSales();
 
 condition.nowWeDoing='Создаем сейлса**************************************';
-    SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
-    SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
+    MF.Department_ClickCreateUser();
     V.salesFirstName = SF.randomBukva(5)+ '_sa';
     V.salesLastName = SF.randomBukva(5)+ '_sa';
-    SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.salesFirstName);
-    SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.salesLastName);
-    SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
-    SF.click (By.linkText('Account'));
+    MF.Department_SendFirstLastNameAndPhone (V.salesFirstName, V.salesLastName, '12345678960');
+    MF.Department_User_OpenAccount();
     V.salesAccount = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.salesPass = 123;
-    SF.send (By.xpath('//input[@ng-model="request.login"]'), V.salesAccount);
-    SF.send (By.xpath('//input[@ng-model="request.password"]'), V.salesPass);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    MF.WaitWhileBusy ();
-    MF.WaitWhileToaster ();
-    SF.sleep(3);
+    MF.Department_SendAccountNameAndPassword(V.salesAccount, V.salesPass);
+    MF.Department_CreateUser();
 
 condition.nowWeDoing='Создали сейлса**************************************';
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
-    SF.sleep(2);
+    MF.Department_OpenDriver();
 
 condition.nowWeDoing='Создаем драйвера**************************************';
-    SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
-    SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
+    MF.Department_ClickCreateUser();
     V.driverFirstName = "drivertest";
     V.driverLastName = "testdriver";
-    SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.driverFirstName);
-    SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.driverLastName);
-    SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    MF.WaitWhileBusy ();
-    MF.WaitWhileToaster ();
-    SF.sleep(3);
+    MF.Department_SendFirstLastNameAndPhone (V.driverFirstName, V.driverLastName, '12345678960');
+    MF.Department_CreateUser();
 
 condition.nowWeDoing='Создали драйвера**************************************';
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
-    SF.sleep(2);
+    MF.Department_OpenHelper();
 
 condition.nowWeDoing='Создаем хелпера**************************************';
-    SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
-    SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
+    MF.Department_ClickCreateUser();
     V.helperFirstName = "helpertest";
     V.helperLastName = "testhelper";
-    SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.helperFirstName);
-    SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.helperLastName);
-    SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    MF.WaitWhileBusy ();
-    MF.WaitWhileToaster ();
-    SF.sleep(3);
-    MF.WaitWhileBusy ();
+    MF.Department_SendFirstLastNameAndPhone (V.helperFirstName, V.helperLastName, '12345678960');
+    MF.Department_CreateUser();
 
 condition.nowWeDoing='Создали хелпера**************************************';
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
-    SF.sleep(2);
-    MF.WaitWhileBusy ();
+    MF.Department_OpenForeman();
 
 condition.nowWeDoing='Создаем форемана**************************************';
-    SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
-    SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
-    SF.sleep(2);
+    MF.Department_ClickCreateUser();
     V.foremanFirstName = SF.randomBukva(5)+ '_for';
     V.foremanLastName = SF.randomBukva(5)+ '_for';
-    SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.foremanFirstName);
-    SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.foremanLastName);
-    SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
-    SF.click (By.linkText('Account'));
+    MF.Department_SendFirstLastNameAndPhone (V.foremanFirstName, V.foremanLastName, '12345678960');
+    MF.Department_User_OpenAccount();
     V.foremanAccount = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.foremanPass = 123;
-    SF.send (By.xpath('//input[@ng-model="request.login"]'), V.foremanAccount);
-    SF.send (By.xpath('//input[@ng-model="request.password"]'), V.foremanPass);
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-   // SF.waitForLocated (By.xpath('//table[@class="clients table table-striped mdDataTable"]//tr//td[contains(text(), "foremantest testforeman")]'));
-    MF.WaitWhileBusy ();
-    MF.WaitWhileToaster ();
-    SF.sleep(3);
+    MF.Department_SendAccountNameAndPassword(V.foremanAccount, V.foremanPass);
+    MF.Department_CreateUser();
 
 condition.nowWeDoing='Создали форемана**************************************';
 
@@ -146,8 +101,8 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     SF.waitForLocated(By.id('datatable'));
     SF.sleep (3);
     LF.LogoutFromBoardForeman ();
-
     LF.LoginToBoardAs_Roma4ke_Admin ();
+
 condition.nowWeDoing = 'заходим под админом и создаем реквест';
     LF.CreateLocalMovingFromBoard (V.client);
     SF.sleep (2);
@@ -164,42 +119,34 @@ condition.nowWeDoing = 'заходим под админом и создаем �
     LF.RememberDateFromRequest(V.boardNumbers);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
-    condition.nowWeDoing = 'идем в локал диспач';
+
+condition.nowWeDoing = 'идем в локал диспач';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
-
     driver.wait(driver.executeScript(JSstep.checkUserLocalDispach(V.foremanFirstName)).then(function(counts){
         VD.IWant(VD.NotToEqual, counts.Foreman, 0, 'не нашло имя форемана');
         VD.IWant(VD.NotToEqual, counts.Helper, 0, 'не нашло имя хелпера');
         VD.IWant(VD.NotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
     }),config.timeout);
-
     SF.sleep(1);
     MF.Board_OpenSideBar ();
+
 condition.nowWeDoing='зашли в настройки департмента';
     MF.Board_OpenSettingsDepartment ();
     MF.WaitWhileBusy ();
-condition.nowWeDoing='идем удалять форемана';
 
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
-    MF.WaitWhileBusy ();
+condition.nowWeDoing='идем удалять форемана';
+    MF.Department_OpenForeman();
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.foremanFirstName+'")]'))).doubleClick().perform();
     SF.sleep (3);
-    SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-    SF.sleep(2);
-    MF.WaitWhileBusy ();
-    MF.SweetConfirm ();
-    MF.WaitWhileToaster ();
-    MF.WaitWhileBusy ();
+    MF.Department_DeleteUser();
 
 condition.nowWeDoing='идем удалять хелпера';
-
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[5]/a'));
-    MF.WaitWhileBusy ();
+    MF.Department_OpenHelper();
     let count=0;
     MF.WaitWhileBusy ();
     driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"helpertest testhelper\")').length;").then(function(c){
@@ -209,11 +156,7 @@ condition.nowWeDoing='идем удалять хелпера';
     while (count>0){
         driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"helpertest testhelper\"):eq(0)').dblclick();"),config.timeout);
         SF.sleep (2);
-        SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-        MF.SweetConfirm ();
-        MF.WaitWhileToaster ();
-        MF.WaitWhileBusy ();
-        SF.sleep (2);
+        MF.Department_DeleteUser();
         driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"helpertest testhelper\")').length;").then(function(c){
             count=c;
         }),config.timeout);
@@ -223,9 +166,7 @@ condition.nowWeDoing='идем удалять хелпера';
     SF.sleep(1);
 
 condition.nowWeDoing='идем удалять драйвера';
-
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[4]/a'));
-    MF.WaitWhileBusy ();
+    MF.Department_OpenDriver();
     count=0;
     MF.WaitWhileBusy ();
     driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"drivertest testdriver\")').length;").then(function(c){
@@ -235,11 +176,7 @@ condition.nowWeDoing='идем удалять драйвера';
     while (count>0){
         driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"drivertest testdriver\"):eq(0)').dblclick();"),config.timeout);
         SF.sleep (2);
-        SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-        MF.SweetConfirm ();
-        MF.WaitWhileToaster ();
-        MF.WaitWhileBusy ();
-        SF.sleep (2);
+        MF.Department_DeleteUser();
         driver.wait(driver.executeScript("return $('.mdDataTable tbody tr td:contains(\"drivertest testdriver\")').length;").then(function(c){
             count=c;
         }),config.timeout);
@@ -248,28 +185,17 @@ condition.nowWeDoing='идем удалять драйвера';
     MF.WaitWhileBusy ();
 
 condition.nowWeDoing='идем удалять сейлса';
-
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
-    MF.WaitWhileBusy ();
+    MF.Department_OpenSales();
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.salesFirstName+'")]'))).doubleClick().perform();
-
     SF.sleep (2);
-    SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-    MF.SweetConfirm ();
-    MF.WaitWhileToaster ();
-    MF.WaitWhileBusy ();
+    MF.Department_DeleteUser();
 
 condition.nowWeDoing='идем удалять менеджера';
     MF.WaitWhileBusy();
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[2]/a'));
-    MF.WaitWhileBusy ();
+    MF.Department_OpenManager();
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "'+V.managerFirstName1+'")]'))).doubleClick().perform();
-
     SF.sleep (2);
-    SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
-    MF.SweetConfirm ();
-    MF.WaitWhileToaster ();
-    MF.WaitWhileBusy ();
+    MF.Department_DeleteUser();
 
     SF.endOfTest();
 };

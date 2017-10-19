@@ -50,9 +50,7 @@ condition.nowWeDoing = 'идём в логи, потом выставляем с
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd (V.client.passwd);
     MF.EditRequest_OpenRequest();
-    // MF.EditRequest_SwitchCalculator ();
-    SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), 15);
+    MF.EditRequest_SendRateForLD (15);
     SF.sleep(8); // save
     MF.EditRequest_RememberId (V.boardNumbersBeforeAddInvent);
     LF.RememberDigitsRequestBoard (V.boardNumbersBeforeAddInvent);

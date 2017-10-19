@@ -14,8 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'идем в настройки фуела и добавляем две строки fuel by mileage';
     MF.Board_OpenSettingsGeneral();
     SF.sleep(2);
-    SF.click(By.linkText('Fuel Surcharge'));
-    SF.sleep (2);
+    MF.BoardSettings_ClickFuelSurcharge();
     JS.scroll ('a[ng-click="vm.select(tab)"]:contains("Basic")');
     SF.sleep(2);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index, amount) in vm.surcharge\"]').length").then(function (check) {
@@ -47,36 +46,25 @@ condition.nowWeDoing = 'идем в настройки фуела и добав�
     SF.click(By.xpath('//button[@ng-click="vm.saveNewSurcharge();"]'));
     SF.sleep(5);
     MF.Board_Refresh ();
+
 condition.nowWeDoing = 'создаем локал мув где расстояние будет от 60 до 100 миль';
-    SF.click(By.linkText('Create Request'));
-    SF.sleep(2);
-    SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
-    SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+    MF.Board_ClickCreate();
+    MF.CreateRequest_SelectServiceType(1);
+    MF.CreateRequest_ClickMoveDateInput();
     V.request = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
         V.request.moveDate = calDate;
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.xpath('//ul[@class="chosen-choices"]'));
-    SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
+    MF.CreateRequest_SelectExtraRooms(1);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
         V.request.mdate = (mdate);
     }),config.timeout);
-    SF.send(By.id("edit-zip-code-from"), "02121");
-    SF.send(By.id("edit-zip-code-to"), "01452");
-    SF.sleep(4);
-    SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    SF.click(By.xpath('//button[@ng-click="step2 = false;step3 = true;"]'));
-    SF.sleep(2);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), V.client.name);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), V.client.fam);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), V.client.email);
-    SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), V.client.phone);
-    SF.click(By.xpath('//button[@ng-click="create()"]'));
-    SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-    SF.sleep(4);
+    MF.CreateRequest_SendZipToZipFrom('02121','01452');
+    MF.CreateRequest_ClickCalculate();
+    MF.CreateRequest_ClickContinue();
+    MF.CreateRequest_SendClientInfo(V.client);
+    MF.CreateRequest_ClickCreate();
     V.boardNumbers60_100 = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers60_100);
     SF.sleep(1);
@@ -84,7 +72,6 @@ condition.nowWeDoing = 'создаем локал мув где расстоян
     SF.sleep (2);
 
 condition.nowWeDoing = 'меняем зип код в реквесте, чтобы расстояние было в промежутке 100 - 140 миль и проверяем фуель';
-
     SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
     driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
     SF.sleep(0.3);

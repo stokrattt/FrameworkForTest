@@ -113,8 +113,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
-    SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);
+    MF.EditRequest_SendRateForLD (V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));

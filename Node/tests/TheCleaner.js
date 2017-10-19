@@ -9,9 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
             SF.send(By.xpath('//input[@ng-model="search"]'), V.cleanerJob[i]);
             SF.waitForVisible(By.xpath('//div[@ng-bind-html="request.nid | searchfilter:search"]/span[contains(text(),"' + V.cleanerJob[i] + '")]'));
             SF.click(By.xpath('//div[@ng-bind-html="request.nid | searchfilter:search"]/span[contains(text(),"' + V.cleanerJob[i] + '")]/..'));
-            SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
-            JS.waitForNotExist('div.busyoverlay:visible');
-            SF.sleep(2);
+            MF.EditRequest_WaitForOpenRequest();
 
             let Release = 0;
             driver.wait(driver.findElements(By.xpath('//span[@ng-click="ReleaseEdit()"]')).then(function (array) {

@@ -24,8 +24,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
-    SF.clear(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), V.perCubicFeet);
+    MF.EditRequest_SendRateForLD (V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
     SF.sleep(2);
@@ -38,12 +37,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenCourier ();
     MF.Board_OpenSideBar ();
     LF.CreateCarrier();
-    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'lddispatch.trip\', \'\')"]'));
+    MF.Board_ClickLongDistanceDispach();
     condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
-    SF.click(By.xpath('//button[@ng-click="addTrip()"]'));
-    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
-    SF.click(By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
-    SF.click(By.xpath('//div[text()="Pending"]'));
+    MF.SIT_ClickAddTrip();
+    MF.SIT_ChangeStatusTrip('Pending');
     SF.click(By.xpath('//md-select[@ng-model="type"]'));
     SF.waitForVisible (By.xpath('//div[text()="Foreman/Helper"]'));
     SF.click(By.xpath('//div[text()="Foreman/Helper"]'));
@@ -91,12 +88,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.sleep(2);
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
-    JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
-    SF.click(By.xpath('//div[text()="Delivered/Closed"]'));
-    SF.sleep(2);
+    MF.SIT_AddRequestToTrip();
+    MF.SIT_ChangeStatusTrip('Delivered/Closed');
+
     condition.nowWeDoing = 'Заходим в пейрол и заполняем и сравниваем циферки для формена';
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Closing")]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="payroll.foreman.mileage_start"]'));
