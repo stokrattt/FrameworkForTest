@@ -155,9 +155,15 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     SF.click(By.xpath('//input[@ng-model="delivery_disable"]'));
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
-    driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
+    let now = new Date();
+    let msInDay = 86400000;
+    let future = new Date(now.getTime() + msInDay * 4);
+    let options = { month: 'long', day: 'numeric', year: 'numeric' };
+    V.deliveryDay = (future.toLocaleDateString('en-US', options));
+    SF.send(By.xpath('//input[@ng-model="details.delivery"]'), V.deliveryDay);
     MF.EditRequest_SaveDetails();
-    MF.EditRequest_SaveChanges();
+
+    // MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork();
     MF.EditRequest_CloseJob();
     LF.closeEditRequest();
@@ -167,7 +173,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
         VD.INeed(VD.ToEqual, check, 1, 'лд работа не нашлась в пейроле');
     }),config.timeout);
-    SF.sleep (1);
+    SF.sleep (2);
 
 
     //=========================закончили писать тест=============================

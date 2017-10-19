@@ -9,7 +9,7 @@ module.exports = function(config,V) {
         './tests/7_DepartmenTest.js',
         './tests/DefaultSettings.js',
         './tests/47_SendMessage.js',
-        './tests/21_LDFromAdmin.js',
+        './tests/21_LDFromAdminCheckPayroll.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/6_WithoutReservationMov&Stor.js',
         './tests/SetReservationPrice.js',

@@ -4,7 +4,7 @@ module.exports = function(config,V) {
         './tests/7_DepartmenTest.js',//использует roma4ke
         './tests/44_CreateForemanAndAssignCheck.js',//использует roma4ke
         './tests/20_LDTopForm.js',
-        './tests/21_LDFromAdmin.js',
+        './tests/21_LDFromAdminCheckPayroll.js',
         './tests/22_WeDontMoveToThisState.js',
         './tests/33_AddCarrier.js',
         './tests/34_ContractPageCustomBlock.js',
