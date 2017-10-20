@@ -1266,7 +1266,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send(By.xpath('//input[@ng-model="request.custom_weight.value"]'), number);
     }
     function EditRequest_ClickFlatRateLocalMove() {
-        SF.click(By.xpath('//input[@ng-model="request.request_all_data.localMove"]/..'));
+        SF.click(By.xpath('//input[@ng-model="request.field_flat_rate_local_move.value"]/..'));
     }
     function EditRequest_SendFlatRateSumm(sum) {
         SF.clear (By.xpath('//input[@ng-model="request.flat_rate_quote.value"]'));

@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/19_SignForemanJobAndUnssignetJob.js'];
+    config.suite = ['./tests/49_FlatRateLocalMoveCheckSchedule.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

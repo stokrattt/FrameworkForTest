@@ -152,7 +152,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     SF.sleep(3);
     MF.Board_SearchOpenRequest (V.request);
     MF.EditRequest_OpenDetails();
-    SF.click(By.xpath('//input[@ng-model="delivery_disable"]'));
+    SF.click(By.xpath('//input[@ng-model="disableDeliveryDatesCheckbox.checkboxValue"]'));
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
     let now = new Date();

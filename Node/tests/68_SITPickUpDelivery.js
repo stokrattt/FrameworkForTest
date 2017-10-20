@@ -100,7 +100,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[contains(text(), "'+ V.client.name +'")]/..//div[@ng-click="openRequest(id)"]'));
     MF.EditRequest_WaitForOpenRequest();
     MF.EditRequest_OpenDetails();
-    SF.click(By.xpath('//input[@ng-model="delivery_disable"]'));
+    SF.click(By.xpath('//input[@ng-model="disableDeliveryDatesCheckbox.checkboxValue"]'));
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);

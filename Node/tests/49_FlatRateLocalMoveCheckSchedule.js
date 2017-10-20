@@ -30,7 +30,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_RememberId (V.request);
-    LF.addToCleanerJob (V.request.Id);
+    // LF.addToCleanerJob (V.request.Id);
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
     MF.EditRequest_OpenSettings ();
