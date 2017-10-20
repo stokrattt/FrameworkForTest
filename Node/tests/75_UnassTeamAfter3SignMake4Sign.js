@@ -71,7 +71,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
 
 condition.nowWeDoing = 'заходим под 1м форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin2, V.foremanPassword2);
-    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
@@ -110,7 +110,7 @@ condition.nowWeDoing = 'третий раз в админке, анассаин 
 
 condition.nowWeDoing = 'заходим под 2м форменом, доподписываем контракт c 4 подписями в Details of Labor ';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);

@@ -111,7 +111,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, и сумму коробок в бил оф лендинг ';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Custom Packing:")]')).getText().then(function(text){
         V.BoxCust2 = text;

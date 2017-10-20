@@ -42,7 +42,7 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     V.foremanExcludeLogin = 'ForemanExclude';
     V.foremanExcludePassword = 123;
     LF.LoginToBoardAsCustomForeman(V.foremanExcludeLogin, V.foremanExcludePassword);
-    LF.OpenRequestDispatch(V.boardNumbers.Id);
+    LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);

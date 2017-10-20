@@ -58,7 +58,7 @@ condition.nowWeDoing = 'идем в диспач первый раз';
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.request.Id);
+    LF.OpenRequestInForemanPage(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);

@@ -51,7 +51,7 @@ condition.nowWeDoing = 'Зайти в local Dispatch, найти первый р
 
 condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.boardNumbersTo.Id);
+    LF.OpenRequestInForemanPage(V.boardNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
     SF.click(By.xpath('//li[@id="tab_Inventory"]'));
     SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
@@ -166,7 +166,7 @@ condition.nowWeDoing = 'Найти второй реквест, назначит
 
 condition.nowWeDoing = 'Найти вторую работу, зайти в Inventory, подтвердить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.boardNumbersFrom.Id);
+    LF.OpenRequestInForemanPage(V.boardNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage ();
     SF.click(By.xpath('//li[@id="tab_Inventory"]'));
     SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));

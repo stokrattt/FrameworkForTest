@@ -146,7 +146,7 @@ condition.nowWeDoing = 'проверяем в календаре, что раб�
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);

@@ -135,7 +135,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.accountNumbersTo.Id);
+    LF.OpenRequestInForemanPage(V.accountNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
     LF.Contract_AddInventory(7);
@@ -218,7 +218,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Найти вторую работу у формена, зайти в Inventory, подтвердить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.accountNumbersFrom.Id);
+    LF.OpenRequestInForemanPage(V.accountNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
 

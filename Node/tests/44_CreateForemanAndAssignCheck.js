@@ -79,7 +79,7 @@ condition.nowWeDoing = 'зашли  под созданным фореманом
     SF.send(By.xpath('//input[@id="password"]'), '123');
     SF.click(By.xpath('//button[@type="submit"]'));
     SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
-    LF.OpenRequestDispatch(V.boardNumbers.Id);
+    LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
     SF.sleep(1);

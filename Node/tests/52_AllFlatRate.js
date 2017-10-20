@@ -159,7 +159,7 @@ condition.nowWeDoing = 'идем в админку в диспач';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
 
 condition.nowWeDoing = 'заходим под первым фореманом подписывать pick up контракт';
-    LF.OpenRequestDispatch(V.FRId);
+    LF.OpenRequestInForemanPage(V.FRId);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
     SF.sleep(1);
@@ -214,7 +214,7 @@ condition.nowWeDoing = 'идем в диспач нзначить команду
 
 condition.nowWeDoing = 'заходим под вторым фореманом подписывать delivery контракт';
     LF.LoginToBoardAsForemanDeliveryFlatRate();
-    LF.OpenRequestDispatch(V.FRId);
+    LF.OpenRequestInForemanPage(V.FRId);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
     SF.sleep(1);

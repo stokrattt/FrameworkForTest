@@ -7,6 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbers = {};
 
     SF.get(V.adminURL);
+
 condition.nowWeDoing = 'зашли в админку и создаем реквест';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLoadingHelpFromBoard (V.client);
@@ -16,6 +17,7 @@ condition.nowWeDoing = 'зашли в админку и создаем рекв�
     LF.RememberDateFromRequest (V.boardNumbers);
     MF.EditRequest_RememberId (V.request);
     LF.addToCleanerJob(V.request.Id);
+
 condition.nowWeDoing = 'конфермим работу';
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck(9));
@@ -25,6 +27,7 @@ condition.nowWeDoing = 'конфермим работу';
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest();
     SF.sleep (2);
+
 condition.nowWeDoing = 'идем в диспач первый раз тут заодно проверяем цвет или меняется когда назначем или убираем команду';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
@@ -57,11 +60,11 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
     LF.selectCrew(V.foremanName);
-
     MF.Board_LogoutAdmin();
+
 condition.nowWeDoing = 'заходим под форменом, открываем контракт и подписываем';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-    LF.OpenRequestDispatch(V.request.Id);
+    LF.OpenRequestInForemanPage(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
     SF.sleep(1);
@@ -94,6 +97,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
+
 condition.nowWeDoing = 'идем в админку в диспач второй раз, удалить форемана';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch ();
@@ -136,17 +140,36 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin();
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
+
 condition.nowWeDoing = 'идем на форемана проверить что он удалился с  работы';
     SF.sleep (3);
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
+        V.check = check;
     }),config.timeout);
+    if (V.check != 0) {
+        VD.INeed(VD.ToEqual, V.check, 0, 'фореман не удалился с реквеста');
+    } else {
+        SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
+        MF.WaitWhileBusy();
+        driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
+            VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
+        }),config.timeout);
+    }
     SF.sleep (1);
-    SF.click(By.xpath('//a[@ui-sref="foreman.done"]'));
-    SF.sleep (5);
+    SF.click(By.xpath('//a[@ui-sref="foreman.past"]'));
+    MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
+        V.check = check;
     }),config.timeout);
+    if (V.check != 0) {
+        VD.INeed(VD.ToEqual, V.check, 0, 'фореман не удалился с реквеста');
+    } else {
+        SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
+        MF.WaitWhileBusy();
+        driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
+            VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
+        }),config.timeout);
+    }
     SF.sleep (1);
 
     //=========================закончили писать тест=============================

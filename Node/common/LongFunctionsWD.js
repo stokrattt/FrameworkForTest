@@ -1198,6 +1198,22 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             Fiber.yield();
         }
     }
+    function OpenRequestInForemanPage(request) {
+        driver.wait(driver.executeScript("return $('td:contains("+request+")').length").then(function (len) {
+            V.foremanPage = len;
+        }),config.timeout);
+        if (V.foremanPage != 0) {
+            driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click(), config.timeout);
+            driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click(), config.timeout);
+
+        } else {
+            SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
+            MF.WaitWhileBusy();
+            driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click(), config.timeout);
+            driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + request + '")]')).click(), config.timeout);
+        }
+
+    }
     function selectCrew(ForemanName) {
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']"));
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'"+ForemanName+"')]"));
@@ -2406,6 +2422,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         closeEditRequest: closeEditRequest,
         SelectRequestDispatch: SelectRequestDispatch,
         OpenRequestDispatch: OpenRequestDispatch,
+        OpenRequestInForemanPage:OpenRequestInForemanPage,
         selectCrew: selectCrew,
         selectCrewFlatRatePickUp: selectCrewFlatRatePickUp,
         selectCrewFlatRateDelivery: selectCrewFlatRateDelivery,

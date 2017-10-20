@@ -245,7 +245,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElements(By.xpath('//h3[contains(text(),"Show Explanation Quote")]/following-sibling::input[contains(@class,"ng-not-empty")]')).then(function(arr){
         V.QuoteExplanation=(arr.length==1);
     }),config.timeout);
-    if (V.QuoteExplanation) {console.log('вкл Quote Explanation');SF.click(By.xpath('//input[@ng-model="vm.faAccountSettings.explanation"]/following-sibling::span'));}
+    if (V.QuoteExplanation) {console.log('вкл Quote Explanation');
+    SF.click(By.xpath('//input[@ng-model="vm.faAccountSettings.explanation"]/following-sibling::span'));}
     MF.Board_LogoutAdmin();
     condition.nowWeDoing = 'в акаунте проверяем Quote Explanation';
     SF.get(V.accountURL);
