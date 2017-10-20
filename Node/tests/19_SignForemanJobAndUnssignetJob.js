@@ -144,32 +144,24 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
 condition.nowWeDoing = 'идем на форемана проверить что он удалился с  работы';
     SF.sleep (3);
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        V.check = check;
+        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
     }),config.timeout);
-    if (V.check != 0) {
-        VD.INeed(VD.ToEqual, V.check, 0, 'фореман не удалился с реквеста');
-    } else {
-        SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
-        MF.WaitWhileBusy();
-        driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-            VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
-        }),config.timeout);
-    }
+    SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
+    MF.WaitWhileBusy();
+    driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
+        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
+    }),config.timeout);
     SF.sleep (1);
     SF.click(By.xpath('//a[@ui-sref="foreman.past"]'));
     MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        V.check = check;
+        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
     }),config.timeout);
-    if (V.check != 0) {
-        VD.INeed(VD.ToEqual, V.check, 0, 'фореман не удалился с реквеста');
-    } else {
-        SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
-        MF.WaitWhileBusy();
-        driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-            VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
-        }),config.timeout);
-    }
+    SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
+    MF.WaitWhileBusy();
+    driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
+        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
+    }),config.timeout);
     SF.sleep (1);
 
     //=========================закончили писать тест=============================
