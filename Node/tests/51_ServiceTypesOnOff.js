@@ -56,7 +56,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (!V.CompanyServices.Flat) {console.log('вкл Flat');SF.click(By.xpath(V.flatSelector+'/..'));}
     if (V.CompanyServices.Long) {console.log('выкл Long');SF.click(By.xpath(V.longSelector+'/..'));}
     JS.scroll ('div:contains("General Settings")');
-    SF.sleep(3);
+    SF.sleep(5);
     MF.Board_Refresh ();
     MF.Board_LogoutAdmin();
     SF.sleep(3);

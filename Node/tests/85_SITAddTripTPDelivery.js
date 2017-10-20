@@ -309,6 +309,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="openNewPayment($event, 0, tpId, [tpId], 1)"]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="payment.amount"]'));
+    SF.sleep(2);
     V.newTpPayment = 300;
     SF.clear(By.xpath('//input[@ng-model="payment.amount"]'));
     SF.send(By.xpath('//input[@ng-model="payment.amount"]'), V.newTpPayment);

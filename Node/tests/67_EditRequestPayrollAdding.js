@@ -17,6 +17,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SetAdressTo();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
+    SF.sleep(2);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges();

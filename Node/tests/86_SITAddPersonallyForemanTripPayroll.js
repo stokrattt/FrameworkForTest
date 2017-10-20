@@ -88,7 +88,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.sleep(2);
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
-    MF.SIT_AddRequestToTrip();
+    JS.click('span:contains(\\"Add requests to trip\\")');
+    SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
+    SF.sleep(2);
     MF.SIT_ChangeStatusTrip('Delivered/Closed');
 
     condition.nowWeDoing = 'Заходим в пейрол и заполняем и сравниваем циферки для формена';

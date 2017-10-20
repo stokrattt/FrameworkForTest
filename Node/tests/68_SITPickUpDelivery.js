@@ -73,12 +73,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.SITRooms = 1;
     SF.clear(By.xpath('//input[@ng-model="sit.rooms"]'));
     SF.send(By.xpath('//input[@ng-model="sit.rooms"]'), V.SITRooms);
-
+    SF.clear(By.xpath('//input[@ng-model="moveInDate"]'));
     SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
 
     SF.click(By.xpath('//a[@ng-click="save()"]'));
+    SF.sleep(4);
+    SF.click(By.xpath('//button[@ng-click="UpdateRequestInvoice()"]'));
+    JS.waitForExist('button[ng-click="update(request)"]:visible');
     SF.sleep(2);
-    MF.EditRequest_SaveChanges();
+    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+    JS.waitForExist("div.toast-success:visible");
     LF.closeEditRequest ();
 
     condition.nowWeDoing = 'Заходим в Jobs in SIT Проверям есть ли ета робота и совпали ли Storage NAme';
@@ -103,7 +107,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SaveDetails();
     SF.send(By.xpath('//input[@ng-model="scheduleDeliveryDate"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
     SF.sleep(2);
-Debug.pause();
     LF.closeEditRequest ();
     condition.nowWeDoing = 'Заходим в PickUp и проверям по филтрам и по введенним даним';
     MF.Board_OpenSideBar();

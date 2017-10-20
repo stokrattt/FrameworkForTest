@@ -23,7 +23,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, отправл�
     MF.Account_OpenMessage();
     V.toAdmin = SF.randomBukva(6) + '_toAdmin';
     MF.BoardAccount_SendMessage(V.toAdmin);
-
+    SF.sleep(5);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

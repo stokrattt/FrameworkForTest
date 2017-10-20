@@ -198,6 +198,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Board_OpenSideBar() {
+        WaitWhileBusy();
         SF.click(By.xpath("//button[@ng-click=\"toggleLeft()\"]"));
         SF.waitForVisible(By.xpath('//button[@ng-click="toggleLeft()"]'));
     }
