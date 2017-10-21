@@ -470,7 +470,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 	function CalculatorSettings_OpenTravelTime(){
         SF.click(By.xpath('//h1[contains(text(),"General Settings")]'));
-		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[4]'));
+		SF.click(By.xpath('(//a[contains(text(),"Travel Time")]'));
 		SF.waitForVisible(By.xpath("//h1[contains(text(),'Travel Time')]"));
 	}
     function CalculatorSettings_CustomTrackSpeedTurnOff(){

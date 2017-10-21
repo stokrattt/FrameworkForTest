@@ -81,7 +81,7 @@ condition.nowWeDoing = 'первый раз в акаунте';
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
     MF.Board_OpenSettingsCalculator();
-    SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[6]'));
+    SF.click(By.xpath('(//a[contains(text(), "Form Style")'));
     SF.waitForVisible(By.xpath("//span[contains(text(),'Datepicker tooltips')]"));
     SF.click(By.xpath("//span[contains(text(),'Datepicker tooltips')]"));
     SF.sleep(2);

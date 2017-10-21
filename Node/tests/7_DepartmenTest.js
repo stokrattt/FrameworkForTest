@@ -98,7 +98,7 @@ condition.nowWeDoing='Заходим под созданным foreman**********
     SF.send(By.xpath('//input[@id="email"]'), V.foremanAccount);
     SF.send(By.xpath('//input[@id="password"]'), V.foremanPass);
     SF.click(By.xpath('//button[@type="submit"]'));
-    SF.waitForLocated(By.id('datatable'));
+    SF.waitForLocated(By.xpath('//input[@ng-model="vm.pageParams.conditions.nid"]'));
     SF.sleep (3);
     LF.LogoutFromBoardForeman ();
     LF.LoginToBoardAs_Roma4ke_Admin ();
