@@ -51,6 +51,7 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
     MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
     MF.Board_OpenRequest (V.request.Id);
 condition.nowWeDoing = 'теперь выставляем кубик фит на инвентори, закрыли и открыли, сравнили, должны быть данные по инвентори все одинаковые';
     V.boardNumbersInventory2 = {};
@@ -77,6 +78,7 @@ condition.nowWeDoing = 'теперь выставляем кубик фит на
     LF.RememberDigitsRequestBoard (V.boardNumbersCustom);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
+    MF.WaitWhileBusy();
     MF.Board_OpenRequest (V.request.Id);
     V.boardNumbersCustom2 = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersCustom2);

@@ -55,7 +55,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(5);
+    SF.sleep(7);
 
     SF.waitForVisible(By.xpath('//div[contains(text(), "Extra Drop off:")]/following-sibling::div'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Extra Drop off:")]/following-sibling::div')).getText().then(function(text){

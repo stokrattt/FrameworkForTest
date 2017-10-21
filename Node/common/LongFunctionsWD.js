@@ -286,7 +286,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
     function AccountFlatRateAddInventory() {
         JS.waitForExist('div[ng-repeat="filter in filters"]');
-        SF.sleep(4);
+        SF.sleep(3);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
         SF.sleep(1);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
@@ -308,7 +308,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.WaitWhileBusy();
         SF.click(By.id('tab_Inventory'));
         JS.waitForExist('div[ng-repeat="filter in filters"]');
-        SF.sleep(5);
+        SF.sleep(3);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
         SF.sleep(1);
         SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
