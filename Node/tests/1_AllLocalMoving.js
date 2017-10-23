@@ -145,7 +145,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
     SF.sleep (2);
     MF.EditRequest_CloseModal();
-    // MF.SweetConfirm ();
     LF.closeEditRequest();
 
     condition.nowWeDoing = 'сейчас идём в пейролл';

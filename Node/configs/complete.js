@@ -98,6 +98,7 @@ module.exports = function(config,V) {
         './tests/56_LoadingAllSteps.js',
         './tests/89_DraftRequest.js',
         './tests/51_ServiceTypesOnOff.js',
+        './tests/92_PackingDay.js'
 
     ];
     config.timeout = 80000;

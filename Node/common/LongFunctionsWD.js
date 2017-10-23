@@ -801,6 +801,31 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.EditRequest_WaitForOpenRequest();
         console.log('создали реквест');
     }
+
+    function CreatePackingDayFromBoard(client) {
+        MF.Board_ClickCreate();
+        MF.CreateRequest_SelectServiceType(8);
+        MF.CreateRequest_ClickMoveDateInput();
+        V.request = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
+            V.request.moveDate = calDate;
+            console.log(V.request);
+        }),config.timeout);
+        SF.sleep(0.5);
+        MF.CreateRequest_SelectExtraRooms(1);
+        SF.send(By.id("edit-zip-code-from"), "02136");
+        SF.sleep(4);
+        MF.CreateRequest_ClickCalculate();
+        MF.CreateRequest_ClickContinue();
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
+        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
+        SF.click(By.xpath('//button[@ng-click="create()"]'));
+        MF.EditRequest_WaitForOpenRequest();
+        console.log('создали реквест');
+    }
+
     function RememberDigitsRequestBoard_Up(boardNumbers) {
         driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
             dateString = dateString.toUpperCase();
@@ -1899,8 +1924,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
     function addInventoryBoard(boardNumbers) {
         SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
-        MF.WaitWhileBusy();
-        SF.sleep (3);
+        SF.sleep (2);
         MF.WaitWhileBusy ();
         JS.click('div[ng-repeat=\\"filter in filters\\"]:visible div:first');
         SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
@@ -2379,6 +2403,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         CreateLocalMovingFromBoard: CreateLocalMovingFromBoard,
         CreateMovAndStorFromBoard: CreateMovAndStorFromBoard,
         CreateLoadingHelpFromBoard: CreateLoadingHelpFromBoard,
+        CreatePackingDayFromBoard:CreatePackingDayFromBoard,
         CreateFlatRateDownForm: CreateFlatRateDownForm,
         CreateStorageTenant: CreateStorageTenant,
         CreateFlatRateFromBoard: CreateFlatRateFromBoard,
