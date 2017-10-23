@@ -201,6 +201,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.MakeSignInContract();
     V.contractNumbers = {};
     MF.Contract_Submit(V.contractNumbers);
+    SF.sleep(2);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
