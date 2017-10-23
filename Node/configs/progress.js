@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/92_PackingDay.js'];
+    config.suite = ['./tests/PackingDayFromLocMove.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

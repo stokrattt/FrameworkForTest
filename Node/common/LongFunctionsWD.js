@@ -961,6 +961,22 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant(VD.ToEqual, accountNumbers.TotalMax, boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
         VD.IWant(VD.ToEqual, accountNumbers.Fuel, boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     }
+    function Validation_Compare_Account_Admin_PackingDay(accountNumbers,boardNumbers) {
+        VD.IWant(VD.NotToEqual, accountNumbers.moveDate.Day, boardNumbers.moveDate.Day, 'даты стали одинаковы, а должны быть разные');
+        VD.IWant(VD.ToEqual, accountNumbers.moveDate.Month, boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.moveDate.Year, boardNumbers.moveDate.Year, 'не совпали даты аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.CrewSize, boardNumbers.CrewSize, 'не совпали CrewSize аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.HourlyRate, boardNumbers.HourlyRate, 'не совпали HourlyRate аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.LaborTimeMin, boardNumbers.LaborTimeMin, 'не совпали LaborTimeMin аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.LaborTimeMax, boardNumbers.LaborTimeMax, 'не совпали LaborTimeMax аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.TravelTime, boardNumbers.TravelTime, 'не совпали TravelTime аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.Packing, boardNumbers.Packing, 'не совпали Packing аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.AdServices, boardNumbers.AdServices, 'не совпали Services аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.Trucks, boardNumbers.Trucks, 'не совпали Trucks аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.TotalMin, boardNumbers.TotalMin, 'не совпали TotalMin аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.TotalMax, boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
+        VD.IWant(VD.ToEqual, accountNumbers.Fuel, boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
+    }
 
     function Validation_Compare_Account_Admin_LongDistance(accountNumbersLD, boardNumbers) {
         VD.IWant(VD.ToEqual, accountNumbersLD.moveDate.Day, boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда для лонг дистанса');
@@ -1069,7 +1085,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(1);
     }
     function ConfirmRequestInAccount_WithReservationWithAdress() {
-        SF.click (By.xpath('//div[@class="field-status notconfirmed ng-scope"]/a'));
+        SF.click (By.xpath('//div[contains(@class, "notconfirmed")]/a'));
         SF.sleep(2);
         SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
         SF.sleep (0.5);
@@ -1101,7 +1117,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         FillCardPayModal ();
         MF.WaitWhileSpinner ();
         SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
-        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, "confirm")]/div')).getText().then(function(confirmed){
             VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
         }), config.timeout);
         SF.sleep(1);
@@ -1125,8 +1141,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
         FillCardPayModal();
         MF.WaitWhileSpinner ();
-        SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
-        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
+        SF.waitForVisible (By.xpath('//div[contains(@class, "confirm")]'));
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, "confirm")]/div')).getText().then(function(confirmed){
             VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
         }), config.timeout);
     }
@@ -1139,8 +1155,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MakeSignJS('signatureCanvasReservation');
         SF.click(By.xpath('//button[@ng-click="saveSignature()"]'));
         MF.SweetConfirm();
-        SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
-        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
+        SF.waitForVisible (By.xpath('//div[contains(@class, "confirm")]'));
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, "confirm")]/div')).getText().then(function(confirmed){
             VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
         }), config.timeout);
     }
@@ -2415,6 +2431,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberFrontNumbersMovAndStorDown: RememberFrontNumbersMovAndStorDown,
         RememberLocalMoveDigitsCalc: RememberLocalMoveDigitsCalc,
         Validation_Compare_Account_Admin: Validation_Compare_Account_Admin,
+        Validation_Compare_Account_Admin_PackingDay:Validation_Compare_Account_Admin_PackingDay,
         Validation_Compare_Account_Admin_LongDistance:Validation_Compare_Account_Admin_LongDistance,
         Validation_Compare_Account_Front_MovStorTo: Validation_Compare_Account_Front_MovStorTo,
         Validation_Compare_Account_Front_MovStorFrom: Validation_Compare_Account_Front_MovStorFrom,

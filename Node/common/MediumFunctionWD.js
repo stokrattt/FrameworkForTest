@@ -366,9 +366,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_WaitForOpenRequest();
     }
     function Board_GetFirstFoundedId(request){
-        SF.waitForLocated(By.xpath('//div[@class="requestsid ng-binding"]'));
+        SF.waitForLocated(By.xpath('//div[contains(@class, "requestsid")]'));
         WaitWhileBusy();
-        driver.wait(driver.findElement(By.xpath('//div[@class="requestsid ng-binding"]')).getText().then (function(text){
+        driver.wait(driver.findElement(By.xpath('//div[contains(@class, "requestsid")]')).getText().then (function(text){
             request.Id = text;
         }), config.timeout);
         SF.sleep(1);
@@ -641,6 +641,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForLocated (By.xpath('//div[@class="Move Overview"]'));
         SF.sleep (5);
     }
+    function Account_ViewPackingRequest() {
+        SF.click(By.xpath('//a[@ng-click="vm.goToNewRequest(vm.request.request_all_data.packing_request_id)"]'));
+        WaitWhileBusy();
+    }
 
     //===================================CONTRACT===================================
 
@@ -841,9 +845,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist('div.busy:visible');
         SF.sleep (15);
     }
+    function EditRequest_ClickCreatePAckingDay() {
+        SF.click(By.xpath('//button[@ng-click="createPackingDay()"]'));
+        SweetConfirm ();
+        WaitWhileBusy ();
+        JS.waitForNotExist('div.busy:visible');
+        SF.sleep (15);
+    }
     function EditRequest_WaitForVisibleCloneRequest() {
         SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
-        SF.sleep(1);
+        WaitWhileBusy();
     }
 
     function EditRequest_OpenClient() {
@@ -1287,6 +1298,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         // JS.click('a[ng-click=\\"addCustomPayment()\\"]:visible');
         SF.waitForVisible (By.xpath('//form[@name="clientForm"]'));
     }
+    function EditRequest_CloseCloneRequest() {
+        SF.click(By.xpath('//div[contains(@class,"requestModal status_1")]//button[@ng-click="cancel()"]'));
+        SF.sleep (2);
+    }
+    function EditRequest_OpenBindingPackingDayRequest() {
+        SF.click(By.xpath('//span[@ng-click="openBindingRequest(request.request_all_data.packing_request_id)"]'));
+    }
+    function EditRequest_OpenPackingRequestFromRequest() {
+        SF.click(By.xpath('//label[@ng-click="openBindingRequest(request.request_all_data.packing_request_id)"]'));
+    }
+
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
@@ -1716,6 +1738,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_SweetUpdateConfirm:Account_SweetUpdateConfirm,
         Account_OpenAdressModal:Account_OpenAdressModal,
         Account_WaitForLoadingAccount:Account_WaitForLoadingAccount,
+        Account_ViewPackingRequest:Account_ViewPackingRequest,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -1833,6 +1856,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SendRateForLD:EditRequest_SendRateForLD,
         EditRequest_WaitForOpenRequest:EditRequest_WaitForOpenRequest,
         EditRequest_ClickAddCustomPayment:EditRequest_ClickAddCustomPayment,
+        EditRequest_ClickCreatePAckingDay:EditRequest_ClickCreatePAckingDay,
+        EditRequest_CloseCloneRequest:EditRequest_CloseCloneRequest,
+        EditRequest_OpenBindingPackingDayRequest:EditRequest_OpenBindingPackingDayRequest,
+        EditRequest_OpenPackingRequestFromRequest:EditRequest_OpenPackingRequestFromRequest,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

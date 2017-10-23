@@ -48,10 +48,10 @@ condition.nowWeDoing = 'зашли под админом и включаем е�
 condition.nowWeDoing = 'заполняем нижний кальк';
     LF.CreateLoadingHelpDownForm (V.client);
 condition.nowWeDoing = 'запоминаем данные';
-    driver.wait(driver.findElement(By.xpath('//div[@class="box_info detailsinfo ng-scope"]/div/span')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "box_info")]/div/span')).getText().then(function (text) {
         V.frontNumbersLoadingDown.Crew = text.replace('Movers', '');
     }), config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@class="box_info detailsinfo ng-scope"]/div[2]/span')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "box_info")]/div[2]/span')).getText().then(function (text) {
         V.frontNumbersLoadingDown.Truck = SF.cleanPrice (text);
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcsettings.travelTime"]/span')).getText().then(function (text) {
@@ -60,7 +60,7 @@ condition.nowWeDoing = 'запоминаем данные';
         V.frontNumbersLoadingDown.TravelTime = hours * 60 + minutes;
     }), config.timeout);
     SF.sleep (1);
-    driver.wait(driver.findElement(By.xpath('//div[@class="box_info detailsinfo ng-scope"]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "box_info")]//div[@class="moving-date rate"]/span')).getText().then(function (text) {
         V.frontNumbersLoadingDown.Rate = text.indexOf('$', 4) == -1 ?
             SF.cleanPrice(text) :
             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
@@ -147,8 +147,8 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
     SF.sleep (1);
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
-    SF.waitForVisible (By.xpath('//div[@class="field-status confirm ng-scope"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm ng-scope"]/div')).getText().then(function(confirmed){
+    SF.waitForVisible (By.xpath('//div[contains(@class, "confirm")]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "confirm")]/div')).getText().then(function(confirmed){
         VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     LF.LogoutFromAccount ();

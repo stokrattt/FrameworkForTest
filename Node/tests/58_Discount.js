@@ -175,7 +175,7 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
     VD.IWant (VD.ToEqual, V.PaymentAccount, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент не совпала оплата которая была на контракте');
     SF.sleep(1);
     SF.click(By.xpath('//tr[@ng-repeat="receipt in vm.request.receipts track by $index"]/td[4]'));
-    SF.waitForLocated (By.xpath('//div[@class="payment-receipt-modal ng-scope printSection"]'));
+    SF.waitForLocated (By.xpath('//div[contains(@class, "payment-receipt-modal")]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount:")]/following-sibling::span')).getText().then(function (text) {
         V.PaymentReceipt = SF.cleanPrice (text);
