@@ -94,11 +94,12 @@ module.exports = function(config,V) {
         './tests/87_ForgotPassword.js',
         './tests/90_ChangeEmailUser.js',
         './tests/42_DrivingTimeLocalMoveMarketToolsOFF.js',
-
+        './tests/93_PackingDayFromLocMove.js',
+        './tests/92_PackingDay.js',
         './tests/56_LoadingAllSteps.js',
         './tests/89_DraftRequest.js',
         './tests/51_ServiceTypesOnOff.js',
-        './tests/92_PackingDay.js'
+
 
     ];
     config.timeout = 80000;
