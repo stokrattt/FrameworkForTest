@@ -100,7 +100,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep (1);
     MF.EditRequest_SetAdressToFrom ();
-    SF.click(By.xpath('//div[contains(@class, "dateRange ")]/input'));
+    SF.click(By.xpath('//div[contains(@class, "dateRange")]/input'));
     driver.executeScript(JSstep.Click8DaysCalendar);
     SF.sleep (1);
     SF.clear(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
