@@ -11,12 +11,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.frontURL);
     SF.sleep (6);
     LF.CreateUnloadingHelpDownForm (V.client);
+
 condition.nowWeDoing = 'запоминаем данные';
-    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "box_info")]/div/span')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Crew Size:")]/following-sibling::span')).getText().then(function (text) {
         V.frontNumbersUnloadingDown.Crew = text.replace('Movers', '');
     }), config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "box_info")]/div[2]/span')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Truck:")]/following-sibling::span')).getText().then(function (text) {
         V.frontNumbersUnloadingDown.Truck = SF.cleanPrice (text);
+        console.log(V.frontNumbersUnloadingDown.Truck);
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcsettings.travelTime"]/span')).getText().then(function (text) {
         let hours = text.indexOf('Hr') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('Hr')));
@@ -29,12 +31,14 @@ condition.nowWeDoing = 'запоминаем данные';
             SF.cleanPrice(text) :
             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
     }), config.timeout);
+    console.log(V.frontNumbersUnloadingDown);
     SF.sleep(1);
     SF.click(By.id('submitRequestButton'));
     SF.sleep (2);
     SF.click(By.linkText('View Request Page'));
     SF.sleep(4);
     SF.openTab (1);
+
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (3);
     MF.Account_ClickViewRequest();
@@ -45,7 +49,6 @@ condition.nowWeDoing = 'пошли в аккаунт';
     VD.IWant(VD.ToEqual, V.accountNumbers.HourlyRate, V.frontNumbersUnloadingDown.Rate, 'не совпали HourlyRate аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.TravelTime, V.frontNumbersUnloadingDown.TravelTime, 'не совпали TravelTime аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.Trucks, V.frontNumbersUnloadingDown.Truck, 'не совпали Trucks аккаунта и фронта');
-
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -57,6 +60,7 @@ condition.nowWeDoing = 'пошли в аккаунт';
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     SF.sleep (1);
+
 condition.nowWeDoing = 'сравниваем аккаунт и админку';
     VD.IWant(VD.ToEqual, V.accountNumbers.moveDate.Day, V.boardNumbers.moveDate.Day, 'не совпали даты аккаунта и борда');
     VD.IWant(VD.ToEqual, V.accountNumbers.moveDate.Month, V.boardNumbers.moveDate.Month, 'не совпали даты аккаунта и борда');
@@ -72,6 +76,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
     VD.IWant(VD.ToEqual, V.accountNumbers.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax аккаунта и борда');
     VD.IWant(VD.ToEqual, V.accountNumbers.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel аккаунта и борда');
     MF.EditRequest_SetToNotConfirmed ();
+
  condition.nowWeDoing = 'выключаем калькулятор и меняем рейт';
     SF.click(By.xpath('//span[@ng-click="switchCalc()"]'));
     SF.clear(By.xpath('//input[@ng-model="request.rate.value"]'));
@@ -79,22 +84,19 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
     SF.sleep(3);
     V.boardNumbersAfterChangeRate = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersAfterChangeRate);
-
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
-
     MF.EditRequest_OpenLogs();
-
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
-
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
+
 condition.nowWeDoing = 'зашли под клиентом букаем  работу';
     MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
     MF.Account_OpenRequest (V.accountNumbers.Id);
@@ -103,7 +105,6 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     LF.RememberAccountNumbers (V.accountNumbersAfterChangeRate );
     LF.Validation_Compare_Account_Admin (V.boardNumbersAfterChangeRate, V.accountNumbersAfterChangeRate);
     MF.Account_ClickProceedBookYourMove();
-
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
@@ -130,7 +131,6 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
         VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     LF.LogoutFromAccount ();
-
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.WaitWhileBusy();

@@ -7,6 +7,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     //=========================начинаем писать тест=============================
+
+condition.nowWeDoing = 'создаем три реквеста на одно чувачка и потом идем в один из ' +
+    'реквестов проверяем, что у него есть все вот эти работы созданные';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateMovAndStorFromBoard(V.client);
@@ -29,7 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }), config.timeout);
     MF.EditRequest_OpenClient ();
     SF.sleep (3);
-    driver.wait(driver.executeScript('return $("div:contains(\\"All Moves\\") tbody.ng-scope tr").length').then(function (length) {
+    driver.wait(driver.executeScript('return $("div:contains(\\"All Moves\\") tbody tr.request").length').then(function (length) {
         VD.IWant (VD.ToEqual, length, '3', 'на вкладке клиент нету всех работ данного юзера');
     }),config.timeout);
     SF.sleep(2);
@@ -42,7 +45,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     MF.EditRequest_OpenSettings ();
     V.managerFirstName = 'emilia';
-
     LF.SetManager(V.managerFirstName);
     MF.EditRequest_OpenRequest ();
     MF.EditRequest_SaveChanges();
@@ -64,8 +66,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, text, 'JackSales donotdelete', 'в логах не отобразилась смена менеджера');
     }),config.timeout);
     SF.sleep(3);
-
-    // MF.Board_LogoutAdmin ();
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

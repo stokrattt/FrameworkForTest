@@ -11,6 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'зашли под админом и включаем еквипмент фии';
     MF.Board_OpenSettingsGeneral ();
     SF.click(By.linkText('Extra Services'));
@@ -27,7 +28,6 @@ condition.nowWeDoing = 'зашли под админом и включаем е�
             SF.sleep(1);
         }
     }
-
     SF.clear(By.id('equipment-fee-name'));
     SF.send(By.id('equipment-fee-name'), 'Travel charge');
     SF.click(By.xpath('//button[@ng-click="vm.addNewEquipmentFee(); vm.addEquipmentFee = true"]'));
@@ -39,19 +39,20 @@ condition.nowWeDoing = 'зашли под админом и включаем е�
     SF.click(By.xpath('//button[@ng-click="vm.saveNewEquipmentFee(); "]'));
     SF.sleep(5);
     MF.Board_Refresh ();
-
     MF.Board_LogoutAdmin ();
     SF.sleep(3);
     SF.get(V.frontURL);
     JS.waitForExist ('#loader');
     SF.sleep (4);
+
 condition.nowWeDoing = 'заполняем нижний кальк';
     LF.CreateLoadingHelpDownForm (V.client);
+
 condition.nowWeDoing = 'запоминаем данные';
-    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "box_info")]/div/span')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Crew Size:")]/following-sibling::span')).getText().then(function (text) {
         V.frontNumbersLoadingDown.Crew = text.replace('Movers', '');
     }), config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "box_info")]/div[2]/span')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Truck:")]/following-sibling::span')).getText().then(function (text) {
         V.frontNumbersLoadingDown.Truck = SF.cleanPrice (text);
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcsettings.travelTime"]/span')).getText().then(function (text) {
@@ -76,10 +77,12 @@ condition.nowWeDoing = 'запоминаем данные';
     SF.click(By.linkText('View Request Page'));
     SF.sleep(4);
     SF.openTab (1);
+
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (2);
     MF.Account_ClickViewRequest ();
     SF.sleep (1);
+
 condition.nowWeDoing = 'сравниваем данные калькулятора и акка';
     LF.RememberAccountNumbers (V.accountNumbers);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Travel charge:")]/following-sibling::div')).getText().then(function (text) {
@@ -92,17 +95,17 @@ condition.nowWeDoing = 'сравниваем данные калькулятор
     VD.IWant(VD.ToEqual, V.accountNumbers.TravelTime, V.frontNumbersLoadingDown.TravelTime, 'не совпали TravelTime аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.Trucks, V.frontNumbersLoadingDown.Truck, 'не совпали Trucks аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.travelCharge, V.frontNumbersLoadingDown.travelCharge, 'не совпали эквипмент фии аккаунта и фронта');
-
-
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'зашли под админом и сравниваем данные акка и админки';
     MF.Board_OpenRequest(V.accountNumbers.Id);
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    condition.nowWeDoing = 'сравниваем аккаунт и админку';
+
+condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
     VD.IWant(VD.ToEqual, V.accountNumbers.travelCharge, V.boardNumbers.AdServices, 'не совпали эквипмент фии аккаунта и мувборда');
     MF.EditRequest_SetToNotConfirmed ();
@@ -110,22 +113,19 @@ condition.nowWeDoing = 'зашли под админом и сравниваем
     MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
-
     MF.EditRequest_OpenLogs();
-
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
-
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
+
 condition.nowWeDoing = 'зашли под клиенто и букаем работу';
     MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
     MF.Account_OpenRequest (V.accountNumbers.Id);
     MF.Account_ClickProceedBookYourMove();
-
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
@@ -173,6 +173,5 @@ condition.nowWeDoing = 'зашли под админом и удаляем ек�
     }
     SF.sleep(3);
     MF.Board_LogoutAdmin ();
-
     SF.endOfTest();
 };
