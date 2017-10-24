@@ -8,12 +8,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
-    condition.nowWeDoing = 'создаем флет рейт с верхней фронтовой формы';
 
+condition.nowWeDoing = 'создаем флет рейт с верхней фронтовой формы';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsFlateRate (V.client);
 
-    condition.nowWeDoing = 'перешли в аккаунт добавляем опции и двойную preferred date';
+condition.nowWeDoing = 'перешли в аккаунт добавляем опции и двойную preferred date';
     MF.Account_ClickViewRequest();
     let now = new Date();
     let msInDay = 86400000;
@@ -32,7 +32,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
     SF.click(By.xpath('//h2[contains(text(), "Flat Rate Request")]'));
     SF.sleep(2);
-
     now = new Date();
     msInDay = 86400000;
     future = new Date(now.getTime() + msInDay * 5);
@@ -50,14 +49,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_PreferredDeliveryDate(V.firstDate, V.secondDate);
     SF.click(By.xpath('//h2[contains(text(), "Flat Rate Request")]'));
     SF.sleep(2);
-
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "dateRange")]/input')).getAttribute("value").then(function(text){
        V.pickupDate = text;
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "dateRange delivery")]/input')).getAttribute("value").then(function(text){
        V.deliveryDates = text;
     }),config.timeout);
-
     SF.select (By.xpath('//select[@ng-model="details.current_door"]'), 30);
     SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
     SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
@@ -66,7 +63,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     MF.WaitWhileBusy ();
     SF.sleep (3);
-    condition.nowWeDoing = 'добавляем инвенторий в акке';
+
+condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.AccountFlatRateAddInventory();
     MF.Account_SubmitFlatRateAfterAddInventory ();
     JS.scroll ('a[ng-click=\\"vm.Logout()\\"]');
@@ -75,18 +73,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(1);
     LF.addToCleanerJob (V.FRId);
-    condition.nowWeDoing = 'проверяем двойную дату';
 
+condition.nowWeDoing = 'проверяем двойную дату';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Pick Up:")]/following-sibling::div')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.pickupDate, 'не совпали prefered pickupDate на акаунте');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Delivery:")]/following-sibling::div')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.deliveryDates, 'не совпали prefered deliveryDate на акаунте');
     }),config.timeout);
-
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
-    condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции';
+
+condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequestFlatRate (V.FRId);
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
@@ -115,18 +113,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//a[@ng-click="saveOptions()"]'));
     SF.sleep (2);
     MF.WaitWhileBusy ();
-
-    /**************************иногда выскакивает иногда нет************/
-
     MF.SweetConfirm ();
-    /*********************************************************************************************/
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
-    condition.nowWeDoing = 'идем в акк подтвердить выбранную опцию';
+
+condition.nowWeDoing = 'идем в акк подтвердить выбранную опцию';
     MF.Account_OpenRequest (V.FRId);
     MF.Account_ChooseOptionFlatRate();
     SF.click(By.xpath('//i[@class="icon-pencil"]'));
@@ -147,19 +142,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//button[contains(text(),"OK")]'));
     SF.click(By.xpath('//button[contains(text(),"OK")]'));
     SF.sleep(2);
-
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'идем в админку ставить нот конферм, трак....';
+condition.nowWeDoing = 'идем в админку ставить нот конферм, трак....';
     MF.Board_OpenRequest (V.FRId);
     SF.sleep(1);
     MF.EditRequest_SetToConfirmed();
     SF.sleep (1);
     MF.EditRequest_SetAdressToFrom ();
     SF.click(By.xpath('//div[@class="dateRange"]/input'));
-    driver.executeScript(JSstep.Click8DaysCalendar);
+    MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
     SF.sleep (1);
     SF.clear(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
@@ -188,7 +182,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//select[@ng-model="request.field_extra_dropoff.organisation_name"]')).getAttribute("value").then(function(text){
         VD.IWant(VD.ToEqual, text, 3, 'не совпали drop off етажи на акаунте и мувборде');
     }),config.timeout);
-
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="update(request)"]'));
@@ -213,7 +206,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.EditRequestPayroll_RememberForeman(V.foremanName, V.boardNumbers.Payroll.foremanForCommission);
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
-
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
@@ -236,9 +228,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy ();
-
     SF.sleep (2);
-    condition.nowWeDoing = 'в админке включаем Quote Explanation';
+
+condition.nowWeDoing = 'в админке включаем Quote Explanation';
     MF.Board_OpenSettingsGeneral();
     // MF.Board_OpenSideBar();
     MF.Board_OpenSettingsAccountPageFlatRate();
@@ -253,7 +245,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToAccountAsClient (V.client);
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));
     SF.sleep(2);
-
     driver.wait(driver.findElements(By.xpath('//p[contains(text(),"Flat Rate Quote Explanation")]')).then(function(arr){
         V.QuoteExplanation=(arr.length==1);
     }),config.timeout);
