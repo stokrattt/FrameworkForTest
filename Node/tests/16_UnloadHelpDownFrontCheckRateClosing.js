@@ -125,8 +125,8 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     SF.sleep (1);
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
-    SF.waitForVisible (By.xpath('//div[contains(@class, "confirm")]'));
-    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "confirm")]/div')).getText().then(function(confirmed){
+    SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
+    driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
         VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
     }), config.timeout);
     LF.LogoutFromAccount ();

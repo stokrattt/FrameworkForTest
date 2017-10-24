@@ -1117,7 +1117,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         FillCardPayModal ();
         MF.WaitWhileSpinner ();
         SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
-        driver.wait(driver.findElement(By.xpath('//div[contains(@class, "confirm")]/div')).getText().then(function(confirmed){
+        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
             VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
         }), config.timeout);
         SF.sleep(1);
@@ -1141,8 +1141,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
         FillCardPayModal();
         MF.WaitWhileSpinner ();
-        SF.waitForVisible (By.xpath('//div[contains(@class, "confirm")]'));
-        driver.wait(driver.findElement(By.xpath('//div[contains(@class, "confirm")]/div')).getText().then(function(confirmed){
+        SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
+        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
             VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
         }), config.timeout);
     }
@@ -1155,8 +1155,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MakeSignJS('signatureCanvasReservation');
         SF.click(By.xpath('//button[@ng-click="saveSignature()"]'));
         MF.SweetConfirm();
-        SF.waitForVisible (By.xpath('//div[contains(@class, "confirm")]'));
-        driver.wait(driver.findElement(By.xpath('//div[contains(@class, "confirm")]/div')).getText().then(function(confirmed){
+        SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
+        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
             VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
         }), config.timeout);
     }
