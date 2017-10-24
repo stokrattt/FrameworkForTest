@@ -177,7 +177,7 @@ condition.nowWeDoing = 'добавляем дисконт';
 condition.nowWeDoing = 'идем в акк под клиентом 2 раз букать работу';
     MF.Account_OpenRequest (V.FRId);
     SF.sleep(3);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Additional Discount")]/following-sibling::div[1]/div')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Discount")]/following-sibling::div[1]/div')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), '-500', 'не отобразился дискаунт на аккаунте');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="showFlatRateQuote"]/span')).getText().then(function (text) {

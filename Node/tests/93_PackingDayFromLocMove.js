@@ -48,11 +48,12 @@ condition.nowWeDoing = 'первый раз в админке открываем
         V.PackingDayID = SF.cleanPrice(text);
     }),config.timeout);
     MF.EditRequest_CloseCloneRequest();
+    MF.EditRequest_OpenRequest();
 
 condition.nowWeDoing = 'тут проверяем что наш пекинг открывается с реквеста по кнопке и закрываем оба реквеста';
     MF.EditRequest_OpenBindingPackingDayRequest();
     MF.EditRequest_WaitForVisibleCloneRequest();
-    LF.closeEditRequest();
+    JS.click('button[ng-click="cancel()"]:visible');
     MF.Board_RefreshDashboard();
     MF.WaitWhileBusy ();
 
@@ -67,7 +68,8 @@ condition.nowWeDoing = 'тут открываем наш пекинг дей и 
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenPackingRequestFromRequest();
-    MF.EditRequest_WaitForVisibleCloneRequest();
+    SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_2")]//a[@ng-click="select(tabs[0])"]'));
+    MF.WaitWhileBusy();
     JS.click('button[ng-click="cancel()"]:visible');
     MF.Board_LogoutAdmin();
 
@@ -80,15 +82,13 @@ condition.nowWeDoing = 'идем в аккаунт букать обе рабо�
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
+    SF.sleep(15); //ожидалка для оплаты пекинг дея
     MF.Account_ViewPackingRequest();
     V.packingdayAccount = {};
     LF.RememberAccountNumbers(V.packingdayAccount);
     LF.Validation_Compare_Account_Admin(V.packingdayAccount, V.packingday);
     LF.ConfirmRequestInAccount_WithReservation();
     SF.sleep(2);
-
-
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
