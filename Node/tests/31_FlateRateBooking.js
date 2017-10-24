@@ -139,7 +139,6 @@ condition.nowWeDoing = 'добавляем дисконт';
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep (1);
-    SF.click(By.xpath('//div[contains(@class, "dateRange")]/input'));
     SF.click(By.xpath('//div[@class="dateRange"]/input'));
     driver.executeScript(JSstep.Click8DaysCalendar);
     SF.sleep (1);
