@@ -28,6 +28,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('button[ng-click=\\"close()\\"]:visible');
     SF.sleep(1);
     LF.closeEditRequest();
+    SF.sleep(1);
     condition.nowWeDoing = 'Откриваем второй реквест и сравниваем айдишки по привязке, отвязиваем реквести';
     MF.Board_OpenRequest(V.boardNumbers2.Id);
 
