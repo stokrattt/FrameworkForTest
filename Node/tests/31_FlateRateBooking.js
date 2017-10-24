@@ -139,7 +139,7 @@ condition.nowWeDoing = 'добавляем дисконт';
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep (1);
-    SF.click(By.xpath('//div[contains(@class, "dateRange ")]/input'));
+    SF.click(By.xpath('//div[contains(@class, "dateRange")]/input'));
     driver.executeScript(JSstep.Click8DaysCalendar);
     SF.sleep (1);
     /**************************************************************************************************************/
@@ -149,7 +149,7 @@ condition.nowWeDoing = 'добавляем дисконт';
     MF.EditRequest_SetToNotConfirmed ();
     SF.click (By.xpath('//button[@ng-click="DeliveryDay()"]'));
     MF.WaitWhileBusy ();
-    SF.sleep (15);
+    SF.sleep (18);
     driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (check) {
         VD.IWant(VD.ToEqual, check, 1, 'трак (желтая линия, реквест) на таблице траков в реквесте не нашелся в деливери дейт');
     }),config.timeout);
