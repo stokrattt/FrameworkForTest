@@ -53,6 +53,7 @@ condition.nowWeDoing = 'зашли в реквест';
        driver.wait(driver.findElement(By.xpath('//span[@ng-show="request.messages"]')).getText().then(function (text) {
     }),config.timeout);
     LF.closeEditRequest ();
+    MF.WaitWhileToaster();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);

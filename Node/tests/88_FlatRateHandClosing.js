@@ -34,7 +34,7 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
     SF.sleep(2);
     now = new Date();
     msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 5);
+    future = new Date(now.getTime() + msInDay * 4);
     second_future = new Date(now.getTime() + msInDay * 7);
     month = { month: 'numeric'};
     day = {day: 'numeric'};
@@ -81,6 +81,7 @@ condition.nowWeDoing = 'проверяем двойную дату';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Delivery:")]/following-sibling::div')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.deliveryDates, 'не совпали prefered deliveryDate на акаунте');
     }),config.timeout);
+    SF.sleep(15);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
 
