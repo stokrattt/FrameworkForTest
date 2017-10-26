@@ -151,12 +151,12 @@ condition.nowWeDoing = 'редактируем поля и проверяем ц
 
 condition.nowWeDoing = 'Проверяем логи';
     JS.click('span:contains(\\"Log\\")');
-    SF.waitForVisible(By.xpath('//b[contains(text(),"Field rate_per_cf was changed to 4")]'));
-    driver.wait(driver.findElement(By.xpath('//b[contains(text(),"Field rate_per_cf was changed to 4")]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, 'Field rate_per_cf was changed to 4', 'не совпали cubic feet в клозингу и в логах');
+    SF.waitForVisible(By.xpath('//b[contains(text(),\'Field \"Rate per cf\" was changed from \"0\" to \"4\"\')]'));
+    driver.wait(driver.findElement(By.xpath('//b[contains(text(),\'Field \"Rate per cf\" was changed from \"0\" to \"4\"\')]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text, 'Field \"Rate per cf\" was changed from \"0\" to \"4\"', 'не совпали cubic feet в клозингу и в логах');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//b[contains(text(),"Field volume_cf was changed to 350")]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, 'Field volume_cf was changed to 350', 'не совпали volume CF в клозингу и в логах');
+    driver.wait(driver.findElement(By.xpath('//b[contains(text(),\'Field \"Volume cf\" was changed from \"275\" to \"350\"\')]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text, 'Field \"Volume cf\" was changed from \"275\" to \"350\"', 'не совпали volume CF в клозингу и в логах');
     }),config.timeout);
     MF.SIT_ClickTripDetails();
 

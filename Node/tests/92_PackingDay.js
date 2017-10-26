@@ -16,6 +16,7 @@ condition.nowWeDoing = 'создаем пекинг дей с фронта';
     LF.addInventoryBoard ();
     MF.EditRequest_SetAdressFrom ();
     MF.EditRequest_SetToNotConfirmed();
+    SF.sleep(2);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
@@ -29,16 +30,20 @@ condition.nowWeDoing = 'создаем пекинг дей с фронта';
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
-    MF.EditRequest_Check1EmailExist(V.client.email, "Request Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Packing Not Confirm Day");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     MF.EditRequest_Check1EmailExist(V.client.email, "Packing Day");
-    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Packing Day")]' +
+    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Packing Not Confirm Day")]' +
         '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Logistic")]/../../../../../../' +
         'following-sibling::td[1]//div')).getText().then(function(text){
-        V.PackingDayQuote = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.PackingDayQuote, V.boardNumbers.TotalMin, 'в письме клиенту не сработал дискаунт и тотал отправился неверный');
-    }),config.timeout);
+            V.PackingDayQuoteMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+            V.PackingDayQuotelMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
+        }),config.timeout);
+    SF.sleep(2);
+    VD.IWant(VD.ToEqual, V.PackingDayQuoteMin, V.boardNumbers.TotalMin, 'в письме клиенту  тотал min отправился неверный');
+    VD.IWant(VD.ToEqual, V.PackingDayQuotelMax, V.boardNumbers.TotalMax, 'в письме клиенту  тотал max отправился неверный');
+    Debug.pause();
     MF.EditRequest_CloseEditRequest();
     MF.Board_LogoutAdmin ();
 

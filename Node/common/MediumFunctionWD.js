@@ -1306,7 +1306,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//span[@ng-click="openBindingRequest(request.request_all_data.packing_request_id)"]'));
     }
     function EditRequest_OpenPackingRequestFromRequest() {
-        SF.click(By.xpath('//label[@ng-click="openBindingRequest(request.request_all_data.packing_request_id)"]'));
+        SF.click(By.xpath('//div[@ng-click="openBindingRequest(request.request_all_data.packing_request_id)"]'));
     }
 
     //=================================LOCAL DISPATCH============================
