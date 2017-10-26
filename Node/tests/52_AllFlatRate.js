@@ -84,6 +84,7 @@ condition.nowWeDoing = 'пошли в админку, открыли рекве�
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
     LF.closeEditRequest ();
+    MF.WaitWhileToaster();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);

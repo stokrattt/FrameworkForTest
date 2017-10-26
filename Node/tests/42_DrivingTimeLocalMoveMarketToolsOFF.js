@@ -216,10 +216,11 @@ condition.nowWeDoing = 'возвращаемся на мувборд и вклю
     MF.Board_OpenSettingsGeneral ();
     SF.sleep(2);
     SF.click(By.linkText('Marketing Tools'));
-    SF.sleep(1);
+    SF.sleep(2);
     JS.click('div input[ng-model=\"vm.basicSettings.promoTextOn\"]');
+    SF.sleep(3);
     JS.click('div input[ng-model=\"vm.basicSettings.localDistountOn\"]');
-    SF.sleep(1);
+    SF.sleep(3);
     JS.click('div input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]');
     SF.sleep(3);
 
