@@ -30,6 +30,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     SF.sleep(1);
     condition.nowWeDoing = 'Откриваем второй реквест и сравниваем айдишки по привязке, отвязиваем реквести';
+    MF.Board_RefreshDashboard();
     MF.Board_OpenRequest(V.boardNumbers2.Id);
 
     VD.IWant(VD.ToEqual, V.boardNumbers2.Id, V.secondRequestId, 'не совпали айдишки реквестов 1');
@@ -64,7 +65,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="secondRequestNid"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.boardNumbers1.Id, text, 'не совпали айдишки реквестов 3');
     }),config.timeout);
-
+    SF.sleep(2);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

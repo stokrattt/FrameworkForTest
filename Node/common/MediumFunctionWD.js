@@ -422,7 +422,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-class="{active:vm.isCurrent(\'carriers and agents\')}"]'));
     }
 	function Board_OpenRequest(request) {
-		WaitWhileBusy ();
+		// WaitWhileBusy ();
         WaitWhileBusy();
 		driver.wait(driver.wait(until.elementLocated(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + request + '")]/..')), config.timeout)
 			.getAttribute('class').then(function (classStr) {
@@ -571,7 +571,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     }
     function Account_ClickViewConfirmationPage() {
-		WaitWhileBusy();
+		// WaitWhileBusy();
         SF.click(By.xpath('//a[contains(text(),"View confirmation page")]'));
         WaitWhileBusy();
     }
@@ -716,7 +716,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }),config.timeout);
         SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
-        SF.sleep(30);
+        SF.sleep(33);
         SweetConfirm();
     }
 

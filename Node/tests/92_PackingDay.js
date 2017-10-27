@@ -82,11 +82,12 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     MF.Account_ConfirmationBackToRequest ();
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
-    MF.LogoutFromAccount();
+    LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'идем в админку в локал диспач и назначаем команду';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    Debug.pause();
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.WaitWhileBusy();

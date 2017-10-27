@@ -217,11 +217,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'сравниваем циферки общий пейрол';
     V.totalPayroll = V.totalMileage + V.totalHourly + V.totalDaily - V.totalCollected + V.driverExpensesAmount - V.cashAmount + V.helper1Total + V.helper2Total;
     V.foremanTotal = V.totalPayroll - V.helper2Total - V.helper1Total;
-
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total Payroll:")]')).getText().then(function(text){
         V.payroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalPayroll, V.payroll, 'total Payroll не совпали');
     }),config.timeout);
+    SF.sleep(2);
     condition.nowWeDoing = 'сабмитим пейрол, виходим и заходим обратно и проверяем сохранились ли изменения';
     SF.click(By.xpath('//button[@ng-click="submitPayroll()"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="dialog.hide()"]'));
@@ -446,6 +447,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.newPayroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newTotalPayroll, V.newPayroll, 'total Payroll не совпали');
     }),config.timeout);
+    Debug.pause();
     condition.nowWeDoing = 'сабмитим и опять проверяем';
     SF.click(By.xpath('//button[@ng-click="submitPayroll()"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="dialog.hide()"]'));
