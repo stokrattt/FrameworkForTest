@@ -41,7 +41,7 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     V.accountNumbersLD={};
     LF.RememberAccountNumbersLD(V.accountNumbersLD);
     SF.sleep(1);
-    LF.addToCleanerJob(V.accountNumbersLD.Id);
+    SF.sleep(15); //для вылогинивания нормального
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

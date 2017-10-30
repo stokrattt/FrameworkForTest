@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSettingsLongDistance ();
     JS.click('a:contains(\\"Extra Fee\\")');

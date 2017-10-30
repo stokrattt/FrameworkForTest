@@ -1028,7 +1028,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(2);
         SF.send(By.xpath('//input[@ng-model="client.password"]'), passwd);
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
-        SF.sleep(3);
+        MF.WaitWhileBusySymbol();
+        SF.sleep(1);
     }
     function FillCardPayModal() {
         JS.waitForExist('input[ng-model="payment.card_num"]');

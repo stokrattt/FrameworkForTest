@@ -8,6 +8,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist('.busyoverlay:visible');
         SF.sleep(1);
     }
+    function WaitWhileBusySymbol() {
+        SF.sleep(1);
+        JS.waitForNotExist('.busy-symbol:visible');
+        SF.sleep(1);
+    }
     function WaitWhileSpinner() {
         SF.sleep(1);
         JS.waitForNotExist ('.spinner:visible');
@@ -1614,6 +1619,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SweetConfirm: SweetConfirm,
         SweetCancel: SweetCancel,
         BoardAccount_SendMessage: BoardAccount_SendMessage,
+        WaitWhileBusySymbol:WaitWhileBusySymbol,
         //==================================MAIL.RU and GMAIL=========================================
 		MailRu_Login:MailRu_Login,
 		MailRu_CheckEmailExistBySubject:MailRu_CheckEmailExistBySubject,

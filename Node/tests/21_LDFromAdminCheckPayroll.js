@@ -162,7 +162,8 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     V.deliveryDay = (future.toLocaleDateString('en-US', options));
     SF.send(By.xpath('//input[@ng-model="details.delivery"]'), V.deliveryDay);
     MF.EditRequest_SaveDetails();
-
+    SF.sleep(3);
+    MF.WaitWhileToaster();
     // MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork();
     MF.EditRequest_CloseJob();
