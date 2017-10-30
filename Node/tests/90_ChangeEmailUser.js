@@ -32,7 +32,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'первый раз в админке, заходим в 1й реквест, запоминаем email';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.WaitWhileBusy();
     SF.sleep(1);
     MF.Board_OpenRequest(V.req1.Id);
     MF.EditRequest_OpenSettings();
@@ -68,6 +67,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="client.mail"]'),V.NewClient.email);
     SF.click(By.xpath('//button[@ng-click="update(client)"]'));
     SF.sleep(3);
+    MF.SweetConfirm();
+    MF.WaitWhileBusy();
     MF.WaitWhileToaster();
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
