@@ -110,7 +110,7 @@ condition.nowWeDoing = 'ставим конферм, закрываем рабо
     MF.EditRequest_ClickViewRequest ();
     SF.openTab (1);
     MF.Account_WaitForGreenTextAfterConfirm();
-    SF.sleep(3);
+    SF.sleep(7);
     MF.WaitWhileBusy ();
     driver.wait(driver.findElement(By.xpath('//div[@ng-bind-html="noteClient"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, V.noteClientNew, 'не нашло или не совпали заметки clienta с реквеста с аккаунтом клиента');

@@ -66,9 +66,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
     SF.send(By.xpath('//input[@ng-model="client.mail"]'),V.NewClient.email);
     SF.click(By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep(3);
+    SF.sleep(5);
     MF.SweetConfirm();
     MF.WaitWhileBusy();
+    MF.WaitWhileBusySymbol();
     MF.WaitWhileToaster();
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();

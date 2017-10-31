@@ -162,8 +162,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//h2[contains(text(), "Driver Expenses")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
     V.driverExpensesAmount = 50;
-    SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]'));
+    // SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]'));
     SF.sleep(2);
+    SF.click(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]'));
+    SF.sleep(4);
     SF.clear(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.driverExpensesAmount);
     SF.click(By.xpath('//div[@value="item.amount"]//button[@ng-click="update()"]'));
@@ -171,7 +173,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
     V.cashAmount = 80;
-    SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]/div/div[contains(text(),"$0.00")]'));
+    SF.click(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]/div/div[contains(text(),"$0.00")]'));
     SF.sleep(1);
     SF.clear(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.cashAmount);
@@ -284,11 +286,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.сleanTotalMileage = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.сleanTotalMileage, V.totalMileage, 'total Mileage не совпали');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]//div[contains(text(),"'+V.driverExpensesAmount+'")]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]' +
+        '//div[contains(text(),"'+V.driverExpensesAmount+'")]')).getText().then(function (text) {
         V.сleanDriverExpensesAmount = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.сleanDriverExpensesAmount, V.driverExpensesAmount, 'driverExpensesAmount не совпали');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]//div[contains(text(),"'+V.cashAmount+'")]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]' +
+        '//div[contains(text(),"'+V.cashAmount+'")]')).getText().then(function (text) {
         V.cleanCashAmount = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.cleanCashAmount, V.cashAmount, 'cashAmount не совпали');
     }),config.timeout);
@@ -388,7 +392,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.sleep(2);
     V.newDriverExpensesAmount = 30;
-    SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]'));
+    SF.click(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]'));
     SF.sleep(2);
     SF.clear(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.newDriverExpensesAmount);
@@ -397,7 +401,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.sleep(2);
     V.newCashAmount = 70;
-    SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]/div/div[contains(text(),"'+V.cashAmount+'")]'));
+    SF.click(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]/div/div[contains(text(),"'+V.cashAmount+'")]'));
     SF.sleep(1);
     SF.clear(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.newCashAmount);
@@ -509,11 +513,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.newCleanTotalMileage = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.newCleanTotalMileage, V.newTotalMileage, 'total Mileage не совпали');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]//div[contains(text(),"'+V.newDriverExpensesAmount+'")]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]//div[contains(text(),"'+V.newDriverExpensesAmount+'")]')).getText().then(function (text) {
         V.newCleanDriverExpensesAmount = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.newCleanDriverExpensesAmount, V.newDriverExpensesAmount, 'driverExpensesAmount не совпали');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]//div[contains(text(),"'+V.newCashAmount+'")]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]//div[contains(text(),"'+V.newCashAmount+'")]')).getText().then(function (text) {
         V.newCleanCashAmount = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.newCleanCashAmount, V.newCashAmount, 'cashAmount не совпали');
     }),config.timeout);

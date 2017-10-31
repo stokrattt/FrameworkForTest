@@ -99,6 +99,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'Заходим в реквест , виставляем Delivery day и Schedule day и LD status';
     SF.click(By.xpath('//div[contains(text(), "'+ V.client.name +'")]/..//div[@ng-click="openRequest(id)"]'));
     MF.EditRequest_WaitForOpenRequest();
+    //возможно потом нужно убрать 103 строку
+    MF.EditRequest_OpenConfirmWork ();
     MF.EditRequest_OpenDetails();
     SF.click(By.xpath('//input[@ng-model="disableDeliveryDatesCheckbox.checkboxValue"]'));
     SF.sleep(2);

@@ -16,10 +16,12 @@ condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
     MF.Account_ClickPartialPacking();
+    SF.sleep(3);
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
     MF.WaitWhileBusy();
+    SF.sleep(5);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
@@ -28,6 +30,7 @@ condition.nowWeDoing = 'первый раз в админке открываем
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbers.Id);
+    Debug.pause();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
@@ -82,7 +85,7 @@ condition.nowWeDoing = 'идем в аккаунт букать обе рабо�
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
-    SF.sleep(35); //ожидалка для оплаты пекинг дея
+    SF.sleep(60); //ожидалка для оплаты пекинг дея
     MF.Account_ViewPackingRequest();
     SF.sleep(3);
     V.packingdayAccount = {};

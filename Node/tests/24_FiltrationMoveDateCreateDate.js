@@ -51,10 +51,11 @@ condition.nowWeDoing = 'создаем реквест 4';
     SF.sleep(3);
     SF.click(By.xpath('//div[@class="step1"]//select[@name="move_service_type"]/option[@value="number:1"]'));
     SF.click(By.xpath('//input[@id="edit-move-date-datepicker-popup-0"]'));
+    SF.sleep(2);
     driver.wait(driver.executeScript(JSstep.Click31DaysCalendar).then(function (calDate) {
         V.moveDateLong = calDate;
     }),config.timeout);
-    SF.sleep(0.5);
+    SF.sleep(1);
     SF.click(By.xpath('//ul[@class="chosen-choices"]'));
     SF.click(By.xpath('//ul[@class="chosen-results"]/li[@data-option-array-index="1"]'));
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
