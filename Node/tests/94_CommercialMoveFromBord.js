@@ -8,56 +8,111 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
-
-condition.nowWeDoing = 'создаем пекинг дей с фронта';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    LF.CreatePackingDayFromBoard(V.client);
-    LF.addInventoryBoard ();
-    MF.EditRequest_SetAdressFrom ();
-    MF.EditRequest_SetToNotConfirmed();
-    SF.sleep(2);
+
+condition.nowWeDoing = 'создаем локал мув и добавляем кастомный комершиал мувсайз';
+    LF.CreateLocalMovingFromBoard (V.client);
+    MF.EditRequest_SetSizeOfMoveNumber (11);
+    SF.click(By.xpath('//input[@ng-model="query"]'));
+    SF.send(By.xpath('//input[@ng-model="query"]'), 'TestComercial');
+    driver.actions().sendKeys(Key.ENTER).perform();
+    MF.SweetConfirm();
+    SF.waitForLocated(By.xpath('//button[@ng-click="updateCommercialMoveSizes()"]'));
+    SF.click(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'));
+    SF.clear(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'));
+    SF.send(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'), 1000);
+    SF.click(By.xpath('//button[@ng-click="updateCommercialMoveSizes()"]'));
+    MF.WaitWhileBusy();
+
+condition.nowWeDoing = 'проверяем что сервис тип стал тоже комершиалом, также проверяем что кубик фит стал тем какой мы ввели, ' +
+    'идем в клиента инфо и добавляем company name и проверяем что вверху отобразился он. Также запоминаем все данные';
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.move_size.raw == 11"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал')
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text, '1000', 'после добавления мувсайза комершиал кубик фит не сменился')
+    }),config.timeout);
+    SF.sleep(0.5);
+    MF.EditRequest_OpenClient ();
+    SF.click(By.xpath('//input[@ng-model="request.field_commercial_company_name.value"]'));
+    SF.send(By.xpath('//input[@ng-model="request.field_commercial_company_name.value"]'), 'CompanyTestName');
+    LF.SetClientPasswd(V.client.passwd);
+    driver.wait(driver.findElement(By.xpath('//span[@class="client client-info"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'CompanyTestName', 'вверху реквеста не показалось company name');
+    }),config.timeout);
+    MF.EditRequest_OpenRequest();
+    MF.EditRequest_SetAdressToFrom();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
+
+condition.nowWeDoing = 'ставим трак нот конферм и идем в логи проверять, что есть все нужные письма и что квота клиенту правильная отправилась';
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
+    MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
-    MF.EditRequest_OpenClient();
-    V.client.passwd = 123;
-    LF.SetClientPasswd(V.client.passwd);
+    V.managerFirstName = 'emilia';
     MF.EditRequest_OpenSettings();
-    LF.SetManager('emilia');
+    LF.SetManager(V.managerFirstName);
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
-    MF.EditRequest_Check1EmailExist(V.client.email, "Packing Not Confirm Day");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Request Quote (Pending Status)");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
-    MF.EditRequest_Check1EmailExist(V.client.email, "Packing Day");
-    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Packing Not Confirm Day")]' +
+    MF.EditRequest_Check1EmailExist(V.client.email, "Request Local Quote (Not Confirmed Status)");
+    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Local Quote (Not Confirmed Status)")]' +
         '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
-    driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Logistic")]/../../../../../../' +
+    driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
         'following-sibling::td[1]//div')).getText().then(function(text){
-            V.PackingDayQuoteMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
-            V.PackingDayQuotelMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
-        }),config.timeout);
+        V.LogsQuoteMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
+        V.LogsQuotelMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
+    }),config.timeout);
     SF.sleep(2);
-    VD.IWant(VD.ToEqual, V.PackingDayQuoteMin, V.boardNumbers.TotalMin, 'в письме клиенту  тотал min отправился неверный');
-    VD.IWant(VD.ToEqual, V.PackingDayQuotelMax, V.boardNumbers.TotalMax, 'в письме клиенту  тотал max отправился неверный');
-    MF.EditRequest_CloseEditRequest();
-    MF.Board_LogoutAdmin ();
+    VD.IWant(VD.ToEqual, V.LogsQuoteMin, V.boardNumbers.TotalMin, 'в письме клиенту  тотал min отправился неверный');
+    VD.IWant(VD.ToEqual, V.LogsQuotelMax, V.boardNumbers.TotalMax, 'в письме клиенту  тотал max отправился неверный');
+    LF.closeEditRequest();
 
-condition.nowWeDoing = 'идем в аккаунт букать работу';
+condition.nowWeDoing = 'переходим на вкладку нот конферм, открываем наш реквест и еще раз сверяем данные которые были до закрытия';
+    MF.Board_OpenNotConfirmed();
+    MF.Board_RefreshDashboard();
+    MF.Board_OpenRequest(V.boardNumbers.Id);
+    V.boardNumbersNotConfirm = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersNotConfirm);
+    LF.Validation_Compare_Account_Admin (V.boardNumbers, V.boardNumbersNotConfirm);
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text, '1000', 'открыл нот конферм работу и смотрим что кубик фит остался 1000')
+    }),config.timeout);
+    SF.sleep(0.5);
+    LF.closeEditRequest();
+    MF.Board_LogoutAdmin();
+
+condition.nowWeDoing = 'идем в аккаунт букать работу и проверять что есть имя компании, сервис тип равен комершиал, что все числа сходятся' +
+    'вес тот же что и на борде';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
+    driver.wait(driver.findElement(By.xpath('//h4[@ng-if="isCompanyName"]/strong')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'CompanyTestName', 'не нашло company name на аккаунте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.move_size.raw == 11"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал')
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
+        V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('TestComercial ')+13, text.indexOf('c.f.')));
+        console.log(V.accountcbf);
+    }),config.timeout);
+    VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом');
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbers);
     MF.Account_ClickProceedBookYourMove();
 
 condition.nowWeDoing = 'перешли на конфирмейшн пейдж и сравним данные с бордом и потом букаем работу';
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.move_size.raw == 11"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал')
+    }),config.timeout);
     V.ConfirmationPage = {};
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Estimated Quote")]/following-sibling::div[1]/div/div')).getText().then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
@@ -66,12 +121,10 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
         } else {
             V.ConfirmationPage.Total = SF.cleanPrice(text);
         }
-        console.log(V.ConfirmationPage.TotalMax);
     }),config.timeout);
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){
         V.ConfirmationPage.Fuel = SF.cleanPrice(text.substring(text.indexOf('$')));
-        console.log(V.ConfirmationPage.Fuel);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации');
@@ -80,7 +133,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     SF.sleep(1);
     MF.Account_ConfirmationBackToRequest ();
     LF.ConfirmRequestInAccount_WithReservation();
-    MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'идем в админку в локал диспач и назначаем команду';
@@ -92,14 +144,6 @@ condition.nowWeDoing = 'идем в админку в локал диспач и
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
     LF.selectCrew(V.foremanName);
-    LF.OpenRequestDispatch(V.boardNumbers.Id);
-    MF.WaitWhileBusy ();
-    MF.EditRequest_OpenLogs();
-    MF.EditRequest_Check1EmailExist(V.client.email, "Packing Day");
-    MF.EditRequest_Check1EmailExist(V.client.email, "YOUR MOVE IS CONFIRMED AND SCHEDULED!");
-    MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
-    MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
-    LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
@@ -145,6 +189,13 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text, '1000', 'после подписания контракта в реквесте поменялся мув сайз зачем то')
+    }),config.timeout);
+    SF.sleep(0.5);
+
+    // to do добавить проверку на  мувсайз, что в инпуте тот который мы ввели
+
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     SF.sleep (2);
@@ -173,7 +224,11 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep(3);
+    SF.sleep(2);
+
+
+
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
