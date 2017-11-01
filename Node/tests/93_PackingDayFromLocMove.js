@@ -85,7 +85,7 @@ condition.nowWeDoing = 'идем в аккаунт букать обе рабо�
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
-    SF.sleep(60); //ожидалка для оплаты пекинг дея
+    SF.sleep(90); //ожидалка для оплаты пекинг дея
     MF.Account_ViewPackingRequest();
     SF.sleep(3);
     V.packingdayAccount = {};

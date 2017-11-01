@@ -218,7 +218,7 @@ condition.nowWeDoing = 'выбираем цифры helper';
         MF.WaitWhileBusy();
         SF.sleep(5);
         driver.wait(driver.executeScript("return $('div.line1:contains("+V.request.Id+")').length").then (function (checkSchedule) {
-            VD.INeed(VD.ToEqual, checkSchedule, 2, 'работа не нашлась в schedule по move date, реквест номер '+V.request.Id+'');
+            VD.INeed(VD.ToEqual, checkSchedule, 1, 'работа не нашлась в schedule по move date ' + V.boardNumbers.moveDate.Day + ', реквест номер '+V.request.Id+'');
         }),config.timeout);
     } else {
         SF.click(By.xpath('//i[@ng-click="vm.nextMonth()"]'));
@@ -226,7 +226,7 @@ condition.nowWeDoing = 'выбираем цифры helper';
         SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right")] and [contains(text(), "' + V.datescedule + '")]'));
         SF.sleep(5);
         driver.wait(driver.executeScript("return $('div.line1:contains("+V.request.Id+")').length").then (function (checkSchedule) {
-            VD.INeed(VD.ToEqual, checkSchedule, 2, '(проверка два) работа не нашлась в schedule по move date, реквест номер '+V.request.Id+'');
+            VD.INeed(VD.ToEqual, checkSchedule, 2, '(проверка два) работа не нашлась в schedule по move date ' + V.boardNumbers.moveDate.Day + ', реквест номер '+V.request.Id+'');
         }),config.timeout);
     }
     SF.sleep(2);
