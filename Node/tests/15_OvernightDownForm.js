@@ -33,6 +33,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.SweetConfirm();
     MF.WaitWhileBusy();
     MF.WaitWhileToaster ();
+    MF.WaitWhileToaster ();
     SF.sleep(3);
     MF.Board_LogoutAdmin();
 
