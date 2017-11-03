@@ -33,10 +33,8 @@ condition.nowWeDoing = 'запоминаем данные';
     }), config.timeout);
     console.log(V.frontNumbersUnloadingDown);
     SF.sleep(1);
-    SF.click(By.id('submitRequestButton'));
-    SF.sleep (2);
-    SF.click(By.linkText('View Request Page'));
-    SF.sleep(4);
+    MF.FrontSite_GoToConfirmation();
+    MF.FrontSite_ViewRequestPage();
     SF.openTab (1);
 
 condition.nowWeDoing = 'пошли в аккаунт';

@@ -32,6 +32,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
+        MF.FrontSite_SelectGoogleSearch();
         JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
@@ -69,6 +70,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(2);
+        MF.FrontSite_SelectGoogleSearch();
         JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
 
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
@@ -110,6 +112,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
+        MF.FrontSite_SelectGoogleSearch();
         JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
@@ -147,6 +150,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
+        MF.FrontSite_SelectGoogleSearch();
         JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
@@ -187,7 +191,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
-        SF.click(By.xpath('//div[@ng-click="blockCalculateSmallForm = true; Calculate(1,\'Website\')"]'));
+        MF.FrontSite_SelectGoogleSearch();
+        // SF.click(By.xpath('//div[@ng-click="blockCalculateSmallForm = true; Calculate(1,\'Website\')"]'));
+        JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
         //JS.click('div[ng-click=\\"blockCalculateSmallForm = true;Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
         JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
@@ -235,6 +241,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
         SF.sleep(1);
+        MF.FrontSite_SelectGoogleSearch();
         JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
         JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
     }
@@ -1679,88 +1686,52 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.WaitWhileBusy();
     }
     function CreateMovAndStorFromFrontDown(client) {
-        SF.click (By.xpath('//a[@href="#request"]'));
-        SF.sleep (2);
-        SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+        MF.FrontSite_ClickQuoteCalculator();
+        MF.FrontSite_ClickDesireMoveDate();
         V.request={};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
             V.request.moveDate = MovDateFront;
             console.log(V.request);
         }), config.timeout);
         SF.sleep (0.5);
-        SF.click (By.xpath('//label[contains(text(), "Service Type:")]/following-sibling::select/option[2]'));
-        SF.click (By.xpath('//label[contains(text(), "Desired Delivery Date:")]/following-sibling::input[1]'));
+        MF.FrontSite_SelectServiceType(2);
+        MF.FrontSite_ClickDeliveryDate();
         driver.wait(driver.executeScript(JSstep.Click8DaysNewCalendar).then(function(DelDateFront){
             V.request.DelDate = DelDateFront;
             console.log(V.request.DelDate);
         }), config.timeout);
         SF.send (By.id('edit-zip-code-from'), '02136');
         SF.send (By.id('edit-zip-code-to'), '02032');
-        JS.select ('#edit-size-move', 8);
-        JS.select ('#edit-type-from', 2);
-        JS.select ('#edit-type-to', 5);
-        SF.sleep (5);
-        JS.click ('#calculate_btn');
-        SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-        SF.sleep (7);
-        SF.send(By.id('edit-first-name'), client.name);
-        SF.send(By.id('edit-last-name'), client.fam);
-        SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
-        SF.sleep(0.3);
-        SF.send(By.id('edit-additional-phone'), client.phone);
-        SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
-        SF.sleep(0.3);
-        SF.send(By.id('edit-confirmemail'), client.email);
-        SF.click(By.id('prefeefe'));
-        SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
-        SF.select(By.xpath('//select[@ng-model="request.prefDelivery"]'), 3);
-        SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
-        SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(5);
-        JS.waitForNotExist ('div[ng-if="loadingImg"]');
-        SF.sleep(4);
+        MF.FrontDown_SelectMoveSize(8);
+        MF.FrontDown_SetEntrance();
+        MF.FrontSite_ClickCalculate();
+        MF.FrontSite_SetClientInfoDown(client);
+        MF.FrontSite_SelectPreferedStartTime();
+        MF.FrontSite_SelectPreferedDeliveryTime();
+        MF.FrontSite_SelectGoogleSearch();
+        MF.FrontSite_ClickGoToCalculatorResults();
     }
 
     function CreateOvernightDownForm(client){
-        SF.click (By.xpath('//a[@href="#request"]'));
-        SF.sleep (2);
-        SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+        MF.FrontSite_ClickQuoteCalculator();
+        MF.FrontSite_ClickDesireMoveDate();
         V.request={};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
             V.request.moveDate = MovDateFront;
             console.log(V.request);
         }), config.timeout);
         SF.sleep (0.5);
-        SF.click (By.xpath('//label[contains(text(), "Service Type:")]/following-sibling::select/option[6]'));
+        MF.FrontSite_SelectServiceType(6);
         SF.send (By.id('edit-zip-code-from'), '02136');
         SF.send (By.id('edit-zip-code-to'), '02032');
-        JS.select ('#edit-size-move', 8);
-        JS.select ('#edit-type-from', 2);
-        JS.select ('#edit-type-to', 5);
-        SF.sleep (5);
-        JS.click ('#calculate_btn');
-        SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-        SF.sleep (5);
-        SF.send(By.id('edit-first-name'), client.name);
-        SF.send(By.id('edit-last-name'), client.fam);
-        SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
-        SF.sleep(0.3);
-        SF.send(By.id('edit-additional-phone'), client.phone);
-        SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
-        SF.sleep(0.3);
-        SF.send(By.id('edit-confirmemail'), client.email);
-        SF.click(By.id('prefeefe'));
-        SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
-        SF.select(By.xpath('//select[@ng-model="request.prefDelivery"]'), 3);
-        SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
-        SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(2);
-        JS.waitForNotExist ('div[ng-if="loadingImg"]');
-        SF.sleep(4);
+        MF.FrontDown_SelectMoveSize(8);
+        MF.FrontDown_SetEntrance();
+        MF.FrontSite_ClickCalculate();
+        MF.FrontSite_SetClientInfoDown(client);
+        MF.FrontSite_SelectPreferedStartTime();
+        MF.FrontSite_SelectPreferedDeliveryTime();
+        MF.FrontSite_SelectGoogleSearch();
+        MF.FrontSite_ClickGoToCalculatorResults();
     }
 
     function RememberFrontNumbersMovAndStorDown(frontNumbersDown){
@@ -1841,82 +1812,45 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         console.log(frontNumbersDown);
     }
     function CreateLoadingHelpDownForm(client){
-        SF.click (By.xpath('//a[@href="#request"]'));
-        SF.sleep (2);
-        SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+        MF.FrontSite_ClickQuoteCalculator();
+        MF.FrontSite_ClickDesireMoveDate();
         V.request={};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
             V.request.moveDate = MovDateFront;
             console.log(V.request);
         }), config.timeout);
         SF.sleep (0.5);
-        SF.click (By.xpath('//label[contains(text(), "Service Type:")]/following-sibling::select/option[3]'));
+        MF.FrontSite_SelectServiceType(3);
         SF.send (By.id('edit-zip-code-from'), '02032');
-        JS.select ('#edit-size-move', 8);
-        JS.select ('#edit-type-from', 2);
-        JS.select ('#edit-type-to', 5);
-        SF.sleep (0.5);
-        JS.click ('#calculate_btn');
-        SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-        SF.sleep (5);
-        SF.send(By.id('edit-first-name'), client.name);
-        SF.send(By.id('edit-last-name'), client.fam);
-
-        SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
-        SF.sleep(0.3);
-        SF.send(By.id('edit-additional-phone'), client.phone);
-        SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
-        SF.sleep(0.3);
-        SF.send(By.id('edit-confirmemail'), client.email);
-        SF.click(By.id('prefeefe'));
-        SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
-        SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
-        SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(2);
-        JS.waitForNotExist ('div[ng-if="loadingImg"]');
-        SF.sleep(4);
+        MF.FrontDown_SelectMoveSize(8);
+        MF.FrontDown_SetEntrance();
+        MF.FrontSite_ClickCalculate();
+        MF.FrontSite_SetClientInfoDown(client);
+        MF.FrontSite_SelectPreferedStartTime();
+        SF.sleep(0.5);
+        MF.FrontSite_SelectGoogleSearch();
+        MF.FrontSite_ClickGoToCalculatorResults();
     }
     function CreateUnloadingHelpDownForm(client){
         JS.scroll('move-calculator');
-        SF.click (By.xpath('//a[@href="#request"]'));
-        SF.sleep (2);
-        SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+        MF.FrontSite_ClickQuoteCalculator();
+        MF.FrontSite_ClickDesireMoveDate();
         V.request={};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
             V.request.moveDate = MovDateFront;
             console.log(V.request);
         }), config.timeout);
         SF.sleep (0.5);
-        SF.click (By.xpath('//label[contains(text(), "Service Type:")]/following-sibling::select/option[4]'));
+        MF.FrontSite_SelectServiceType(4);
         SF.send (By.id('edit-zip-code-to'), '02032');
-        JS.select ('#edit-size-move', 8);
-        JS.select ('#edit-type-from', 2);
-        JS.select ('#edit-type-to', 5);
-        SF.sleep (0.5);
-        JS.click ('#calculate_btn');
-        SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-        SF.sleep (6);
+        MF.FrontDown_SelectMoveSize(8);
+        MF.FrontDown_SetEntrance();
+        MF.FrontSite_ClickCalculate();
         SF.waitForVisible(By.id('edit-first-name'));
-        SF.send(By.id('edit-first-name'), client.name);
-        SF.send(By.id('edit-last-name'), client.fam);
-
-        SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
-        SF.sleep(0.3);
-        SF.send(By.id('edit-additional-phone'), client.phone);
-        SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
-        SF.sleep(0.3);
-        SF.send(By.id('edit-confirmemail'), client.email);
-        SF.click(By.id('prefeefe'));
-        SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
-        SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
-        SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(2);
-        JS.waitForNotExist ('div[ng-if="loadingImg"]');
-        SF.sleep(4);
+        MF.FrontSite_SetClientInfoDown(client);
+        MF.FrontSite_SelectPreferedStartTime();
+        MF.FrontSite_SelectGoogleSearch();
+        MF.FrontSite_ClickGoToCalculatorResults();
     }
     function addToCleanerJob(Id){
         if (V.cleanerJob==undefined) {V.cleanerJob=[];}
@@ -2165,9 +2099,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     function CreateFlatRateDownForm(client) {
         SF.sleep (4);
         JS.scroll('move-calculator');
-        SF.click (By.xpath('//a[@href="#request"]'));
-        SF.sleep (2);
-        SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+        MF.FrontSite_ClickQuoteCalculator();
+        MF.FrontSite_ClickDesireMoveDate();
         V.request={};
         driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
             V.request.moveDate = MovDateFront;
@@ -2177,34 +2110,15 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.send (By.id('edit-zip-code-from'), '02461');
         SF.send (By.id('edit-zip-code-to'), '07304');
         SF.sleep(1);
-        JS.select ('#edit-size-move', 10);
-        JS.select ('#edit-type-from', 2);
-        JS.select ('#edit-type-to', 5);
-        SF.sleep (7);
-        JS.click ('#calculate_btn');
-        SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-        SF.sleep (6);
-        SF.send(By.id('edit-first-name'), client.name);
-        SF.send(By.id('edit-last-name'), client.fam);
-        SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
-        SF.sleep(0.3);
-        SF.send(By.id('edit-additional-phone'), client.phone);
-        SF.sleep(0.3);
-        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
-        SF.sleep(0.3);
-        SF.send(By.id('edit-confirmemail'), client.email);
-        SF.click(By.id('prefeefe'));
-        SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
-        SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
-        SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(2);
-        JS.waitForNotExist ('div[ng-if="loadingImg"]');
-        SF.sleep(4);
-        SF.click(By.id('submitRequestButton'));
-        SF.sleep (2);
-        SF.click(By.linkText('View Request Page'));
-        SF.sleep(7);
+        MF.FrontDown_SelectMoveSize(10);
+        MF.FrontDown_SetEntrance();
+        MF.FrontSite_ClickCalculate();
+        MF.FrontSite_SetClientInfoDown(client);
+        MF.FrontSite_SelectPreferedStartTime();
+        MF.FrontSite_SelectGoogleSearch();
+        MF.FrontSite_ClickGoToCalculatorResults();
+        MF.FrontSite_GoToConfirmation();
+        MF.FrontSite_ViewRequestPage();
     }
     function CreateStorageTenant(client) {
         SF.click(By.xpath('//button[@ng-click="pending.createModal()"]'));

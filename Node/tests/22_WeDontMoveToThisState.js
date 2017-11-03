@@ -62,9 +62,8 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ве
     SF.sleep (4);
 condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы с вкл галкой ассепт алл квотс должно пускать иначе ошибка';
     SF.sleep (3);
-    SF.click (By.xpath('//a[@href="#request"]'));
-    SF.sleep (2);
-    SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+    MF.FrontSite_ClickQuoteCalculator();
+    MF.FrontSite_ClickDesireMoveDate();
     V.request={};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
         V.request.moveDate = MovDateFront;
@@ -72,17 +71,11 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     SF.sleep (0.5);
     SF.send (By.id('edit-zip-code-from'), '02111');
     SF.send (By.id('edit-zip-code-to'), '50201');
-    JS.select ('#edit-size-move', 10);
-    JS.select ('#edit-type-from', 2);
-    JS.select ('#edit-type-to', 5);
-    SF.sleep (4);
-    JS.click ('#calculate_btn');
-    SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-    SF.sleep (6);
-    SF.click(By.id('prefeefe'));
-    SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
-    SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
-    SF.sleep (2);
+    MF.FrontDown_SelectMoveSize(10);
+    MF.FrontDown_SetEntrance();
+    MF.FrontSite_ClickCalculate();
+    MF.FrontSite_SelectPreferedStartTime();
+    MF.FrontSite_SelectGoogleSearch();
 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -114,8 +107,7 @@ condition.nowWeDoing = 'создаем реквест второй раз с ф�
     driver.navigate().refresh();
     SF.sleep (5);
 condition.nowWeDoing = 'создаем реквест второй раз с фронтовой нижней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
-    SF.click (By.xpath('//a[@href="#request"]'));
-    SF.sleep (2);
+    MF.FrontSite_ClickQuoteCalculator();
     SF.send (By.id('edit-zip-code-from'), '02111');
     SF.send (By.id('edit-zip-code-to'), '50201');
     SF.sleep(2);
@@ -183,9 +175,8 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     driver.navigate().refresh();
 condition.nowWeDoing = 'создаем реквест с нижней формы третий раз, должно пускать, если нет то ошибка';
     SF.sleep (3);
-    SF.click (By.xpath('//a[@href="#request"]'));
-    SF.sleep (2);
-    SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+    MF.FrontSite_ClickQuoteCalculator();
+    MF.FrontSite_ClickDesireMoveDate();
     V.request={};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
         V.request.moveDate = MovDateFront;
@@ -194,17 +185,11 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     SF.send (By.id('edit-zip-code-from'), '02111');
     SF.send (By.id('edit-zip-code-to'), '50201');
     SF.sleep(6);
-    JS.select ('#edit-size-move', 10);
-    JS.select ('#edit-type-from', 2);
-    JS.select ('#edit-type-to', 5);
-    SF.sleep (3);
-    JS.click ('#calculate_btn');
-    SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-    SF.sleep (5);
-    SF.click(By.id('prefeefe'));
-    SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
-    SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
-    SF.sleep (1);
+    MF.FrontDown_SelectMoveSize(10);
+    MF.FrontDown_SetEntrance();
+    MF.FrontSite_ClickCalculate();
+    MF.FrontSite_SelectPreferedStartTime();
+    MF.FrontSite_SelectGoogleSearch();
     driver.navigate().refresh();
     SF.sleep (3);
     SF.get (V.adminURL);
@@ -260,9 +245,8 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     driver.navigate().refresh();
 condition.nowWeDoing = 'создаем реквест с нижней формы 4 раз в ту территорию в которую выставилу цену, должно пускать, если нет то ошибка';
     SF.sleep (4);
-    SF.click (By.xpath('//a[@href="#request"]'));
-    SF.sleep (2);
-    SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+    MF.FrontSite_ClickQuoteCalculator();
+    MF.FrontSite_ClickDesireMoveDate();
     V.request={};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
         V.request.moveDate = MovDateFront;
@@ -271,16 +255,11 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     SF.send (By.id('edit-zip-code-from'), '02111');
     SF.send (By.id('edit-zip-code-to'), '50588');
     SF.sleep(6);
-    JS.select ('#edit-size-move', 10);
-    JS.select ('#edit-type-from', 2);
-    JS.select ('#edit-type-to', 5);
-    SF.sleep (2);
-    JS.click ('#calculate_btn');
-    SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-    SF.sleep (5);
-    SF.click(By.id('prefeefe'));
-    SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
-    SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
+    MF.FrontDown_SelectMoveSize(10);
+    MF.FrontDown_SetEntrance();
+    MF.FrontSite_ClickCalculate();
+    MF.FrontSite_SelectPreferedStartTime();
+    MF.FrontSite_SelectGoogleSearch();
     driver.navigate().refresh();
     SF.sleep (4);
 condition.nowWeDoing = 'создаем реквест с верхней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
@@ -292,8 +271,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     driver.navigate().refresh();
     SF.sleep (5);
 condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
-    SF.click (By.xpath('//a[@href="#request"]'));
-    SF.sleep (2);
+    MF.FrontSite_ClickQuoteCalculator();
     SF.send (By.id('edit-zip-code-from'), '02111');
     SF.send (By.id('edit-zip-code-to'), '50701');
     SF.sleep(3);
@@ -325,8 +303,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     driver.navigate().refresh();
     SF.sleep (5);
 condition.nowWeDoing = 'создаем реквест с нижней формы 6 раз, в территорию с указанной ценой и выключеной галкой Move to this state, должно выкинуть';
-    SF.click (By.xpath('//a[@href="#request"]'));
-    SF.sleep (2);
+    MF.FrontSite_ClickQuoteCalculator();
     SF.send (By.id('edit-zip-code-from'), '02111');
     SF.send (By.id('edit-zip-code-to'), '50588');
     SF.sleep(3);

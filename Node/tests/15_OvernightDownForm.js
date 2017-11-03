@@ -129,10 +129,8 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     }), config.timeout);
 */
     SF.sleep(2);
-    SF.click(By.id('submitRequestButton'));
-    SF.sleep (4);
-    SF.click(By.linkText('View Request Page'));
-    SF.sleep(4);
+    MF.FrontSite_GoToConfirmation();
+    MF.FrontSite_ViewRequestPage();
     SF.openTab (1);
 
 condition.nowWeDoing = 'пошли в аккаунт';

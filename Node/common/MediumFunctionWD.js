@@ -1619,11 +1619,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function FrontDown_SetEntrance() {
         JS.select ('#edit-type-from', 2);
         JS.select ('#edit-type-to', 5);
-        SF.sleep (5);
+        SF.sleep (4);
     }
     function FrontSite_ClickQuoteCalculator() {
         SF.click (By.xpath('//a[@href="#request"]'));
-        SF.sleep (4);
+        SF.sleep (3);
     }
     function FrontSite_ClickDesireMoveDate() {
         SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
@@ -1637,9 +1637,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function FrontSite_ClickCalculate() {
         JS.click ('#calculate_btn');
         SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
-        SF.sleep (8);
+        SF.sleep (6.5);
     }
-    function FrontSite_SetClientInfo(client) {
+    function FrontSite_SetClientInfoDown(client) {
         SF.send(By.id('edit-first-name'), client.name);
         SF.send(By.id('edit-last-name'), client.fam);
         SF.sleep(0.3);
@@ -1659,7 +1659,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.select(By.xpath('//select[@ng-model="request.prefDelivery"]'), 3);
     }
     function FrontSite_SelectGoogleSearch() {
-        SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
+        JS.select('select[ng-model="request.poll"]', 'Google search');
     }
     function FrontSite_ClickGoToCalculatorResults() {
         SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
@@ -2021,7 +2021,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         FrontSite_ClickDeliveryDate:FrontSite_ClickDeliveryDate,
         FrontSite_SelectServiceType:FrontSite_SelectServiceType,
         FrontSite_ClickCalculate:FrontSite_ClickCalculate,
-        FrontSite_SetClientInfo:FrontSite_SetClientInfo,
+        FrontSite_SetClientInfoDown:FrontSite_SetClientInfoDown,
         FrontSite_SelectPreferedStartTime:FrontSite_SelectPreferedStartTime,
         FrontSite_SelectPreferedDeliveryTime:FrontSite_SelectPreferedDeliveryTime,
         FrontSite_SelectGoogleSearch:FrontSite_SelectGoogleSearch,
