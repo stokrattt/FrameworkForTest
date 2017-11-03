@@ -42,9 +42,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//chart-statistic-tab[@ng-if="vm.halfYearProfit"]//p[@class="no-margins"]')).getText().then(function (text) {
         V.EstIncStat = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(3);
     condition.nowWeDoing = 'идем в профит анд лосс, сверяем Estimate Income';
     MF.Board_OpenProfitLoss ();
+    MF.WaitWhileBusy();
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[@class="panel-body redBox"]/span[1]')).getText().then(function(text) {
         V.EstIncPrLos = SF.cleanPrice(text);
