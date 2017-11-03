@@ -14,16 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'создаем локал мув и добавляем кастомный комершиал мувсайз';
     LF.CreateLocalMovingFromBoard (V.client);
     MF.EditRequest_SetSizeOfMoveNumber (11);
-    SF.click(By.xpath('//input[@ng-model="query"]'));
-    SF.send(By.xpath('//input[@ng-model="query"]'), 'TestComercial');
-    driver.actions().sendKeys(Key.ENTER).perform();
-    MF.SweetConfirm();
-    SF.waitForLocated(By.xpath('//button[@ng-click="updateCommercialMoveSizes()"]'));
-    SF.click(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'));
-    SF.clear(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'));
-    SF.send(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'), 1000);
-    SF.click(By.xpath('//button[@ng-click="updateCommercialMoveSizes()"]'));
-    MF.WaitWhileBusy();
+    MF.EditRequest_AddCustomCommersialMove('TestComercial', 1000);
 
 condition.nowWeDoing = 'проверяем что сервис тип стал тоже комершиалом, также проверяем что кубик фит стал тем какой мы ввели, ' +
     'идем в клиента инфо и добавляем company name и проверяем что вверху отобразился он. Также запоминаем все данные';
@@ -35,8 +26,7 @@ condition.nowWeDoing = 'проверяем что сервис тип стал �
     }),config.timeout);
     SF.sleep(0.5);
     MF.EditRequest_OpenClient ();
-    SF.click(By.xpath('//input[@ng-model="request.field_commercial_company_name.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.field_commercial_company_name.value"]'), 'CompanyTestName');
+    MF.EditRequest_ClientTabSendCompanyName('CompanyTestName');
     LF.SetClientPasswd(V.client.passwd);
     driver.wait(driver.findElement(By.xpath('//span[@class="client client-info"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'CompanyTestName', 'вверху реквеста не показалось company name');
@@ -97,7 +87,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
         VD.IWant(VD.ToEqual, text, 'CompanyTestName', 'не нашло company name на аккаунте');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.move_size.raw == 11"]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал')
+        VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('TestComercial ')+13, text.indexOf('c.f.')));
@@ -225,9 +215,6 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(2);
-
-
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

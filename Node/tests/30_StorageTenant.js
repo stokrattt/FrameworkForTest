@@ -87,7 +87,6 @@ condition.nowWeDoing = 'идем в леджер и создаем инвойс'
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     MF.WaitWhileToaster();
     SF.sleep(3);
-
     SF.click(By.xpath('//button[@ng-click="proRate()"]'));
 
 condition.nowWeDoing = 'идем в леджер и создаем про рейт';
@@ -166,7 +165,7 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
     driver.navigate().refresh();
     SF.waitForLocated (By.xpath('//img[@ng-if="vm.invoicePaid"]'));
     SF.sleep(3);
-    driver.wait(driver.findElement(By.xpath('//b[contains(text(), "Account Balance Due (USD):")]/../span/b')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//b[contains(text(), "Account Balance Credit (USD):")]/../span/b')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'баланс не стал нульом после оплаты инвойса');
     }),config.timeout);
     SF.sleep(2);

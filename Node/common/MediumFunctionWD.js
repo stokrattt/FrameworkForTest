@@ -1313,6 +1313,22 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_OpenPackingRequestFromRequest() {
         SF.click(By.xpath('//div[@ng-click="openBindingRequest(request.request_all_data.packing_request_id)"]'));
     }
+    function EditRequest_AddCustomCommersialMove(name, weight) {
+        SF.click(By.xpath('//input[@ng-model="query"]'));
+        SF.send(By.xpath('//input[@ng-model="query"]'), name);
+        driver.actions().sendKeys(Key.ENTER).perform();
+        SweetConfirm();
+        SF.waitForLocated(By.xpath('//button[@ng-click="updateCommercialMoveSizes()"]'));
+        SF.click(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'));
+        SF.clear(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'));
+        SF.send(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'), weight);
+        SF.click(By.xpath('//button[@ng-click="updateCommercialMoveSizes()"]'));
+        WaitWhileBusy();
+    }
+    function EditRequest_ClientTabSendCompanyName(name) {
+        SF.click(By.xpath('//input[@ng-model="request.field_commercial_company_name.value"]'));
+        SF.send(By.xpath('//input[@ng-model="request.field_commercial_company_name.value"]'), name);
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -1595,6 +1611,74 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
 
+    //===================================FRONT SITE======================================
+
+    function FrontDown_SelectMoveSize(sizeChislo) {
+        JS.select ('#edit-size-move', sizeChislo);
+    }
+    function FrontDown_SetEntrance() {
+        JS.select ('#edit-type-from', 2);
+        JS.select ('#edit-type-to', 5);
+        SF.sleep (5);
+    }
+    function FrontSite_ClickQuoteCalculator() {
+        SF.click (By.xpath('//a[@href="#request"]'));
+        SF.sleep (4);
+    }
+    function FrontSite_ClickDesireMoveDate() {
+        SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
+    }
+    function FrontSite_ClickDeliveryDate() {
+        SF.click (By.xpath('//label[contains(text(), "Desired Delivery Date:")]/following-sibling::input[1]'));
+    }
+    function FrontSite_SelectServiceType(number) {
+        SF.click (By.xpath('//label[contains(text(), "Service Type:")]/following-sibling::select/option['+number+']'));
+    }
+    function FrontSite_ClickCalculate() {
+        JS.click ('#calculate_btn');
+        SF.waitForLocated (By.xpath('//div[@class="form_block calc-form"]'));
+        SF.sleep (8);
+    }
+    function FrontSite_SetClientInfo(client) {
+        SF.send(By.id('edit-first-name'), client.name);
+        SF.send(By.id('edit-last-name'), client.fam);
+        SF.sleep(0.3);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.primaryPhone"]'), client.phone);
+        SF.sleep(0.3);
+        SF.send(By.id('edit-additional-phone'), client.phone);
+        SF.sleep(0.3);
+        SF.send(By.xpath('//div[@ng-if="!userLogin"]//input[@ng-model="request.email"]'), client.email);
+        SF.sleep(0.3);
+        SF.send(By.id('edit-confirmemail'), client.email);
+    }
+    function FrontSite_SelectPreferedStartTime() {
+        SF.click(By.id('prefeefe'));
+        SF.click (By.xpath('//div[@id="pref_popup"]//div[@class="select_item pre_2"]'));
+    }
+    function FrontSite_SelectPreferedDeliveryTime() {
+        SF.select(By.xpath('//select[@ng-model="request.prefDelivery"]'), 3);
+    }
+    function FrontSite_SelectGoogleSearch() {
+        SF.select(By.xpath('//select[@ng-model="request.poll"]'), 'Google search');
+    }
+    function FrontSite_ClickGoToCalculatorResults() {
+        SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
+        SF.sleep(5);
+        JS.waitForNotExist ('div[ng-if="loadingImg"]');
+        SF.sleep(4);
+    }
+    function FrontSite_SelectCommercialExtraRooms(value) {
+        JS.select('select[ng-model="request.field_commercial_extra_rooms"]', 'string:'+value+'');
+    }
+    function FrontSite_GoToConfirmation() {
+        SF.click(By.id('submitRequestButton'));
+        SF.sleep (2);
+    }
+    function FrontSite_ViewRequestPage() {
+        SF.click(By.linkText('View Request Page'));
+        SF.sleep(6);
+    }
+
     //==================================LONG DISTANCE SETTINGS==========================
 
     function LongDistanceSettings_ClickOnMapCaliforniya() {
@@ -1866,6 +1950,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_CloseCloneRequest:EditRequest_CloseCloneRequest,
         EditRequest_OpenBindingPackingDayRequest:EditRequest_OpenBindingPackingDayRequest,
         EditRequest_OpenPackingRequestFromRequest:EditRequest_OpenPackingRequestFromRequest,
+        EditRequest_AddCustomCommersialMove:EditRequest_AddCustomCommersialMove,
+        EditRequest_ClientTabSendCompanyName:EditRequest_ClientTabSendCompanyName,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
@@ -1924,7 +2010,26 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Department_AddRowOnRates:Department_AddRowOnRates,
         Department_ClearSendGmailAdress:Department_ClearSendGmailAdress,
         Department_OpenNotificationTab:Department_OpenNotificationTab,
-        Department_DeleteUser:Department_DeleteUser
+        Department_DeleteUser:Department_DeleteUser,
+
+        //====================================FRONT SITE====================================
+
+        FrontDown_SelectMoveSize:FrontDown_SelectMoveSize,
+        FrontDown_SetEntrance:FrontDown_SetEntrance,
+        FrontSite_ClickQuoteCalculator:FrontSite_ClickQuoteCalculator,
+        FrontSite_ClickDesireMoveDate:FrontSite_ClickDesireMoveDate,
+        FrontSite_ClickDeliveryDate:FrontSite_ClickDeliveryDate,
+        FrontSite_SelectServiceType:FrontSite_SelectServiceType,
+        FrontSite_ClickCalculate:FrontSite_ClickCalculate,
+        FrontSite_SetClientInfo:FrontSite_SetClientInfo,
+        FrontSite_SelectPreferedStartTime:FrontSite_SelectPreferedStartTime,
+        FrontSite_SelectPreferedDeliveryTime:FrontSite_SelectPreferedDeliveryTime,
+        FrontSite_SelectGoogleSearch:FrontSite_SelectGoogleSearch,
+        FrontSite_ClickGoToCalculatorResults:FrontSite_ClickGoToCalculatorResults,
+        FrontSite_SelectCommercialExtraRooms:FrontSite_SelectCommercialExtraRooms,
+        FrontSite_GoToConfirmation:FrontSite_GoToConfirmation,
+        FrontSite_ViewRequestPage:FrontSite_ViewRequestPage,
+
         //====================================TRIPS==========================================
 
     };
