@@ -139,6 +139,19 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(2);
 
+    condition.nowWeDoing = 'Идем в админку, заходим в реквест и удаляем юзера';
+    LF.LogoutFromAccount();
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.WaitWhileBusy();
+    MF.Board_OpenRequest(V.accountNumbers.Id);
+    MF.EditRequest_OpenClient();
+    SF.sleep(1);
+    SF.click(By.xpath('//button[@ng-click="delete(client)"]'));
+    MF.SweetConfirm();
+    MF.WaitWhileBusy();
+
+
     SF.endOfTest();
 };
 
