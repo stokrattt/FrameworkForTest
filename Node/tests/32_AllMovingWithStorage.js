@@ -10,15 +10,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
     V.managerName = 'emilia clark';
 
+condition.nowWeDoing = 'заполняем верхнюю форму как MovingWithStorage';
 
-    condition.nowWeDoing = 'заполняем верхнюю форму как MovingWithStorage';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsMovingWithStorage(V.client);
-    MF.FrontSite_GoToAccount();
-    condition.nowWeDoing = 'зашли первый раз в аккаунт';
+
+condition.nowWeDoing = 'зашли первый раз в аккаунт';
     MF.WaitWhileBusy ();
     MF.Account_ClickViewRequest();
-
     MF.WaitWhileBusy();
     LF.AccountToStorageEnterAddress();
     LF.AccountLocalAddInventory();
@@ -26,23 +25,21 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
     V.accountNumbersTo = {};
-
     LF.RememberAccountNumbers(V.accountNumbersTo);
     LF.addToCleanerJob(V.accountNumbersTo.Id);
     SF.sleep(1);
 
-    condition.nowWeDoing = 'запомнили цифры ToStorage идём на From';
+condition.nowWeDoing = 'запомнили цифры ToStorage идём на From';
     MF.Account_ClickFromStorage();
     LF.AccountFromStorageEnterAddress();
     MF.WaitWhileBusy();
     V.accountNumbersFrom = {};
     MF.WaitWhileBusy();
-
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
+condition.nowWeDoing = 'Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
     SF.get(V.adminURL);
     V.adminLogin = "TestAdmin";
     V.adminPassword = "test";
@@ -90,7 +87,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'Зайти в аккаунт и подтвердить первый реквест. Можно ещё раз сравнить все цифры с админкой';
+condition.nowWeDoing = 'Зайти в аккаунт и подтвердить первый реквест. Можно ещё раз сравнить все цифры с админкой';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbersTo.Id);
@@ -102,7 +99,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'Зайти в аккаунт и подтвердить второй реквест. Можно ещё раз сравнить все цифры с админкой';
+condition.nowWeDoing = 'Зайти в аккаунт и подтвердить второй реквест. Можно ещё раз сравнить все цифры с админкой';
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbersFrom.Id);
     MF.Account_OpenRequest(V.accountNumbersFrom.Id);
@@ -113,7 +110,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'Зайти в local Dispatch, найти первый реквест, назначить команду и отправить работу.';
+condition.nowWeDoing = 'Зайти в local Dispatch, найти первый реквест, назначить команду и отправить работу.';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
@@ -133,7 +130,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
+condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.accountNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
@@ -160,12 +157,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
 
-    condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт';
+condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт';
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         // VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }), config.timeout);
-
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -194,7 +190,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //*****************************************второй реквест******************************************
 
-    condition.nowWeDoing = 'From storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
+condition.nowWeDoing = 'From storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbersFrom.Id);
@@ -204,7 +200,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'Найти второй реквест, назначить команду и отправить работу.';
+condition.nowWeDoing = 'Найти второй реквест, назначить команду и отправить работу.';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
@@ -216,7 +212,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.selectCrew(V.foremanName);
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'Найти вторую работу у формена, зайти в Inventory, подтвердить состояния предметов, запомнить их';
+condition.nowWeDoing = 'Найти вторую работу у формена, зайти в Inventory, подтвердить состояния предметов, запомнить их';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.accountNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage();
@@ -228,7 +224,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.MakeSignInInventory(3);
     MF.Contract_SubmitInventory();
 
-    condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
+condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
     MF.Contract_WaitBillOfLading();
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
@@ -260,7 +256,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
-    condition.nowWeDoing="Вернуться в localDispatch, найти первый реквест, проверить и запомнить Payroll";
+condition.nowWeDoing="Вернуться в localDispatch, найти первый реквест, проверить и запомнить Payroll";
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbersTo.moveDate.Year, V.boardNumbersTo.moveDate.Month, V.boardNumbersTo.moveDate.Day);
@@ -278,7 +274,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
-    condition.nowWeDoing="найти второй реквест, проверить и запомнить Payroll";
+condition.nowWeDoing="найти второй реквест, проверить и запомнить Payroll";
     MF.Dispatch_WaitForCalendar();
     LF.findDayInLocalDispatch(V.boardNumbersFrom.moveDate.Year, V.boardNumbersFrom.moveDate.Month, V.boardNumbersFrom.moveDate.Day);
     MF.WaitWhileBusy();
@@ -295,7 +291,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'сейчас идём в пейролл и проверяем первую работы';
+condition.nowWeDoing = 'сейчас идём в пейролл и проверяем первую работы';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbersTo.moveDate);
     LF.findTestForemanInPayroll(V.foremanName);
@@ -315,7 +311,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
 
-    condition.nowWeDoing = 'выбираем цифры менеджера';
+condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('emilia clark');
     LF.selectDateInPayroll(V.boardNumbersTo.moveDate);
 	MF.Payroll_getTotalById(V.accountNumbersTo.Id, V.payrollNumbersTo.Sale);

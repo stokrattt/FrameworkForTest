@@ -1678,6 +1678,73 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.linkText('View Request Page'));
         SF.sleep(6);
     }
+    function FrontSiteSmallCalc_SendZipCode(zipFrom, zipTo) {
+        SF.sleep(2);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), zipFrom);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), zipTo);
+        SF.sleep(2);
+    }
+    function FrontSiteSmallCalc_ClickCalendar() {
+        driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
+        JS.waitForExist('div.picker__box:visible');
+        SF.sleep(2);
+    }
+    function FrontSiteSmallCalc_ClickContinue() {
+        SF.sleep(2);
+        driver.wait(driver.executeScript("$('ultrasmall-form input[ng-click=\"Continue1(\\\'step1\\\')\"]').click();"),config.timeout);
+        SF.sleep(1);
+    }
+    function FrontSiteSmallCalc_ClickChooseMoveSize() {
+        JS.click("ultrasmall-form div[ng-click=\\'openSlide();\\']");
+        SF.sleep(1);
+    }
+    function FrontSiteSmallCalc_SelectMoveSize(number) {
+        JS.click("div[ng-click=\"MoveSizePreviewClick(\\'"+number+"\\')\"]");
+        SF.sleep(1);
+    }
+    function FrontSiteSmallCalc_ClickDoneMoveSize() {
+        JS.click("button.pull-right:first");
+        SF.sleep(1);
+    }
+    function FrontSiteSmallCalc_SelectEntrance(from, to) {
+        JS.select('ultrasmall-form select[ng-model="request.typeFrom"]', from);
+        SF.sleep(1);
+        JS.select('ultrasmall-form select[ng-model="request.typeTo"]', to);
+        SF.sleep(1);
+    }
+    function FrontSiteSmallCalc_ClickContinueContractInfo() {
+        JS.click('div[ng-click="Continue2(\\\'step2\\\')"]');
+        SF.sleep(2);
+    }
+    function FrontSiteSmallCalc_SetClientInfo(client) {
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.first_name"]'), client.name);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
+        SF.sleep(1);
+    }
+    function FrontSiteSmallCalc_SubmitQuoteAndGoToAccount() {
+        JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
+        JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
+        JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
+    }
+    function FrontSiteSmallCalc_SendZipTo(zipTo) {
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), zipTo);
+        SF.sleep(1);
+    }
+    function FrontSiteSmallCalc_SendZipFrom(zipFrom) {
+        SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipFrom"]'), zipFrom);
+        SF.sleep(1);
+    }
+    function FrontSiteSmallCalc_ClickNeedStorageCheckbox() {
+        SF.sleep(2);
+        JS.click("input#extra-service");
+        SF.sleep(1.5);
+    }
+    function FrontSiteSmallCalc_SelectServiceType(number) {
+        JS.select('select#edit-service',number);
+        SF.sleep(1.5);
+    }
 
     //==================================LONG DISTANCE SETTINGS==========================
 
@@ -2029,6 +2096,20 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         FrontSite_SelectCommercialExtraRooms:FrontSite_SelectCommercialExtraRooms,
         FrontSite_GoToConfirmation:FrontSite_GoToConfirmation,
         FrontSite_ViewRequestPage:FrontSite_ViewRequestPage,
+        FrontSiteSmallCalc_SendZipCode:FrontSiteSmallCalc_SendZipCode,
+        FrontSiteSmallCalc_ClickCalendar:FrontSiteSmallCalc_ClickCalendar,
+        FrontSiteSmallCalc_ClickContinue:FrontSiteSmallCalc_ClickContinue,
+        FrontSiteSmallCalc_ClickChooseMoveSize:FrontSiteSmallCalc_ClickChooseMoveSize,
+        FrontSiteSmallCalc_SelectMoveSize:FrontSiteSmallCalc_SelectMoveSize,
+        FrontSiteSmallCalc_ClickDoneMoveSize:FrontSiteSmallCalc_ClickDoneMoveSize,
+        FrontSiteSmallCalc_SelectEntrance:FrontSiteSmallCalc_SelectEntrance,
+        FrontSiteSmallCalc_ClickContinueContractInfo:FrontSiteSmallCalc_ClickContinueContractInfo,
+        FrontSiteSmallCalc_SetClientInfo:FrontSiteSmallCalc_SetClientInfo,
+        FrontSiteSmallCalc_SubmitQuoteAndGoToAccount:FrontSiteSmallCalc_SubmitQuoteAndGoToAccount,
+        FrontSiteSmallCalc_SendZipTo:FrontSiteSmallCalc_SendZipTo,
+        FrontSiteSmallCalc_SendZipFrom:FrontSiteSmallCalc_SendZipFrom,
+        FrontSiteSmallCalc_ClickNeedStorageCheckbox:FrontSiteSmallCalc_ClickNeedStorageCheckbox,
+        FrontSiteSmallCalc_SelectServiceType:FrontSiteSmallCalc_SelectServiceType,
 
         //====================================TRIPS==========================================
 

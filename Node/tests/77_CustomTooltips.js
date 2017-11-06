@@ -115,9 +115,7 @@ condition.nowWeDoing = 'первый раз в акаунте';
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
     SF.sleep(2);
-    driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
-    JS.waitForExist('div.picker__box:visible');
-    SF.sleep(2);
+    MF.FrontSiteSmallCalc_ClickCalendar();
     driver.wait(driver.executeScript(function(){
         return $('.calendarTypeTitle .datepickerGiantTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
