@@ -32,6 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     MF.SweetConfirm();
     MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
     MF.WaitWhileToaster ();
     MF.WaitWhileToaster ();
     SF.sleep(3);
