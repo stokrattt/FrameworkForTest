@@ -86,11 +86,9 @@ condition.nowWeDoing = 'идем в админку, открываем рекв�
     LF.LoginToBoardAsCustom (V.adminLogin, V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbersTo.Id);
     MF.EditRequest_SetAdressFrom();
-
     driver.wait(driver.findElement(By.xpath('//li[@ng-click="removeItem($index)"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), '5200', 'не совпал или не нашелся выбраный при создании мувсайз реквест To');
     }),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.move_size.raw == 11"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал реквест To')
     }),config.timeout);
@@ -167,7 +165,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
         V.ConfirmationPageTo.cbf = SF.cleanPrice(text.substring(text.indexOf('Inventory')+9, text.indexOf('c.f.')));
         VD.IWant(VD.ToEqual, V.ConfirmationPageTo.cbf, V.accountcbfTo, 'на конфирмейшн пейдж ту стораджа не показало кубик фит инвентаря или показало неправильно');
     }),config.timeout);
-
     VD.IWant(VD.ToEqual, V.ConfirmationPageTo.TotalMin, V.boardNumbersTo.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации To storage');
     VD.IWant(VD.ToEqual, V.ConfirmationPageTo.TotalMax, V.boardNumbersTo.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда до резервации To storage');
     VD.IWant(VD.ToEqual, V.ConfirmationPageTo.Fuel, V.boardNumbersTo.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда до резервации To storage');
@@ -216,12 +213,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     SF.sleep(1);
     MF.Account_ConfirmationBackToRequest ();
     LF.ConfirmRequestInAccount_WithReservation();
-
-
-
-
-
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
