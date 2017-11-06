@@ -23,7 +23,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     driver.actions().mouseMove(driver.findElement(By.xpath('//div[@ng-click="vm.editTemplate(template)"]'))).doubleClick().perform();
     SF.waitForVisible(By.xpath('//label[contains(text(),"Template subject:")]'));
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Invoice")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Moving Invoice")]')).getText().then(function(text){
         V.storageInvoiceTemplate = text;
     }),config.timeout);
 
@@ -78,7 +78,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     SF.click (By.xpath('//a[@ng-click="tabs.setTab(2)"]'));
     SF.waitForVisible(By.xpath('//label[contains(text(),"Template subject:")]'));
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Invoice")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Moving Invoice")]')).getText().then(function(text){
         V.storageInvoiceTemplateInStorages = text;
         VD.IWant(VD.ToEqual, V.storageInvoiceTemplateInStorages, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
     }),config.timeout);
@@ -147,7 +147,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//a[@ng-click="sendInvoice()"]'));
     MF.WaitWhileBusy();
     SF.waitForVisible(By.xpath('//label[contains(text(),"Template subject:")]'));
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Invoice")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Moving Invoice")]')).getText().then(function(text){
         V.storageInvoiceTemplateInTenants = text;
         VD.IWant(VD.ToEqual, V.storageInvoiceTemplateInTenants, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
     }),config.timeout);
@@ -160,7 +160,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//button[@ng-click="sendEmail()"]'));
     SF.click(By.xpath('//button[@ng-click="sendEmail()"]'));
     SF.waitForVisible(By.xpath('//label[contains(text(),"Template subject:")]'));
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Invoice")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Moving Invoice")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
     }),config.timeout);
     SF.sleep(2);

@@ -70,7 +70,7 @@ condition.nowWeDoing = 'переходим на вкладку нот конфе
     LF.RememberDigitsRequestBoard(V.boardNumbersNotConfirm);
     LF.Validation_Compare_Account_Admin (V.boardNumbers, V.boardNumbersNotConfirm);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, '1000', 'открыл нот конферм работу и смотрим что кубик фит остался 1000')
+        VD.IWant(VD.ToEqual, text, '1000.00', 'открыл нот конферм работу и смотрим что кубик фит остался 1000')
     }),config.timeout);
     SF.sleep(0.5);
     LF.closeEditRequest();

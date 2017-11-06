@@ -108,6 +108,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         SF.click(By.xpath('//span[@ng-click="changeStepsOrder()"]/i[2]'));
         SF.sleep(3);
     }
+    // SF.click(By.linkText('Top Form Text'));
+    // SF.sleep(2);
+    // driver.wait(driver.executeScript("if ($('input[ng-model=\"vm.movecalcFormSettings.showHowDidYouHearAboutUsField\"]:visible').hasClass('ng-empty')){" +
+    //     "return true;} else {$('input[ng-model=\"vm.movecalcFormSettings.showHowDidYouHearAboutUsField\"]~span:visible').click()}"),config.timeout);
+    // SF.sleep(1);
+
     SF.click(By.linkText('Basic Settings'));
     SF.select(By.xpath('//select[@ng-model="vm.calcSettings.min_hours"]'),1);
     MF.Board_OpenCompanyServices();

@@ -49,6 +49,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
 
 condition.nowWeDoing = 'переходим с логов по ссылке в акк и ставим 5 звезд, подтверждаем';
     LF.LoginToAccountAsClient (V.client);
+    Debug.pause();
     SF.waitForLocated (By.id('reviews-moveboard'));
     SF.sleep(2);
     SF.click(By.xpath('//i[@ng-click="cancel()"]'));
