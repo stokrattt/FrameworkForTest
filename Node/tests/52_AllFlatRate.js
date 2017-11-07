@@ -139,8 +139,10 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     SF.sleep(1);
     MF.EditRequest_OpenSettings ();
     SF.sleep(2);
-    SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
-    SF.click (By.xpath('//div[@ng-show="::PermissionsServices.hasPermission(\'canSignedSales\');"]//ul[@class="dropdown-menu"]/li/a[contains(text(), "JackSales")]'));
+    // SF.click (By.xpath('//button[contains(@class,"sales-person-dropdown")]'));
+    SF.click (By.xpath('//span[@ng-show="currentManager.first_name"]'));
+    SF.click (By.xpath('//div[@ng-show="::showManagerDropdown(currentManager.first_name)"]//' +
+        'ul[@ng-show="showManagerDropdown(currentManager.first_name)"]/li/a[contains(text(), "JackSales")]'));
     MF.SweetConfirm();
     SF.sleep (5);
     LF.closeEditRequest ();

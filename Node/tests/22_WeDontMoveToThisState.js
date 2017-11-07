@@ -51,8 +51,10 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ве
     V.frontNumbers = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
         V.frontNumbers.moveDate = D;
-    }));
-    MF.FrontSiteSmallCalc_ClickContinue();
+    }),config.timeout);
+    SF.sleep(1);
+    driver.executeScript("$('ultrasmall-form div[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+    SF.sleep(1);
     SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
     SF.sleep (4);
@@ -160,7 +162,9 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
         V.frontNumbers.moveDate = D;
     }),config.timeout);
-    MF.FrontSiteSmallCalc_ClickContinue();
+    SF.sleep(1);
+    driver.executeScript("$('ultrasmall-form div[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+    SF.sleep(1);
     SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
 condition.nowWeDoing = 'создаем реквест с нижней формы третий раз, должно пускать, если нет то ошибка';
@@ -226,7 +230,9 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     SF.sleep(6);
     MF.FrontSiteSmallCalc_ClickCalendar();
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar),config.timeout);
-    MF.FrontSiteSmallCalc_ClickContinue();
+    SF.sleep(1);
+    driver.executeScript("$('ultrasmall-form div[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
+    SF.sleep(1);
     SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
 condition.nowWeDoing = 'создаем реквест с нижней формы 4 раз в ту территорию в которую выставилу цену, должно пускать, если нет то ошибка';

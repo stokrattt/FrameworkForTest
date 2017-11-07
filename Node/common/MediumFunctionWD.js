@@ -1721,7 +1721,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
-        SF.sleep(1);
+        SF.sleep(2);
     }
     function FrontSiteSmallCalc_SubmitQuoteAndGoToAccount() {
         JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');

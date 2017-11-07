@@ -111,6 +111,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             V.frontNumbers.deliveryDate = D;
             console.log(V.frontNumbers.deliveryDate);
         }),config.timeout);
+        SF.sleep(1);
         MF.FrontSiteSmallCalc_ClickContinue();
         MF.FrontSiteSmallCalc_ClickChooseMoveSize();
         MF.FrontSiteSmallCalc_SelectMoveSize(4);
@@ -899,7 +900,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
 
     function SetManager(name) {
-        JS.click('button:contains("Assign sales person"):visible');
+        // JS.click('span[ng-show="!currentManager.first_name"]:visible');
+        JS.click('div[ng-show="::showManagerDropdown(currentManager.first_name)"] button');
         // SF.click(By.xpath('//button[contains(text(),"Assign sales person")]'));
         SF.click(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"' + name + '")]'));
         MF.SweetConfirm();
