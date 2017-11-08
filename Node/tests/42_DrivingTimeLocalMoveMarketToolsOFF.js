@@ -63,6 +63,7 @@ condition.nowWeDoing = 'создаем локал мув с требуемыми
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
         V.request.moveDate = calDate;
     }),config.timeout);
+    SF.sleep(1);
     MF.CreateRequest_SelectExtraRooms(1);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function(mdate){
         V.request.mdate = (mdate);

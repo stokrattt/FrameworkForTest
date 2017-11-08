@@ -53,7 +53,7 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     // MF.WaitWhileBusy();
     SF.click(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.request.Id2 + '")]/..' +
         '//span[@ng-show="request.manager.first_name"]'));
-    JS.click('span:contains("JackSales"):visible');
+    JS.click('a:contains("JackSales"):visible');
     MF.SweetConfirm();
     MF.WaitWhileBusy ();
     MF.WaitWhileToaster ();
