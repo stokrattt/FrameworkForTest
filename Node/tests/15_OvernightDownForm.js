@@ -35,6 +35,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.WaitWhileToaster ();
     MF.WaitWhileToaster ();
+    JS.waitForNotExist('div.toast-message:visible');
     SF.sleep(3);
     MF.Board_LogoutAdmin();
 
