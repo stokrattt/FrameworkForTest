@@ -1074,8 +1074,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (1);
     }
     function EditRequest_SetSaleNumber(number) {
-        SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
-        SF.click (By.xpath('//div[@ng-show="::PermissionsServices.hasPermission(\'canSignedSales\');"]//ul[@class="dropdown-menu"]/li['+number+']'));
+        // SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
+        JS.click('div[ng-show="::showManagerDropdown(currentManager.first_name)"] button');
+        SF.click (By.xpath('//div[@ng-show="::showManagerDropdown(currentManager.first_name)"]//' +
+            'ul[@ng-show="showManagerDropdown(currentManager.first_name)"]/li['+number+']'));
         SweetConfirm();
         SF.sleep (5);
     }
