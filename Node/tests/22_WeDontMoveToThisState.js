@@ -52,9 +52,7 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ве
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
         V.frontNumbers.moveDate = D;
     }),config.timeout);
-    SF.sleep(1);
-    driver.executeScript("$('ultrasmall-form div[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
-    SF.sleep(1);
+    MF.FrontSiteSmallCalc_ClickContinue();
     SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
     SF.sleep (4);
@@ -66,9 +64,7 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
         V.request.moveDate = MovDateFront;
     }), config.timeout);
-    SF.sleep (0.5);
-    SF.send (By.id('edit-zip-code-from'), '02111');
-    SF.send (By.id('edit-zip-code-to'), '50201');
+    MF.FrontSiteDown_SendZipCode('02111', '50201');
     MF.FrontDown_SelectMoveSize(10);
     MF.FrontDown_SetEntrance();
     MF.FrontSite_ClickCalculate();
@@ -104,8 +100,7 @@ condition.nowWeDoing = 'создаем реквест второй раз с ф�
     SF.sleep (5);
 condition.nowWeDoing = 'создаем реквест второй раз с фронтовой нижней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
     MF.FrontSite_ClickQuoteCalculator();
-    SF.send (By.id('edit-zip-code-from'), '02111');
-    SF.send (By.id('edit-zip-code-to'), '50201');
+    MF.FrontSiteDown_SendZipCode('02111', '50201');
     SF.sleep(2);
     MF.SweetConfirm();
     SF.get(V.adminURL);
@@ -162,9 +157,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
         V.frontNumbers.moveDate = D;
     }),config.timeout);
-    SF.sleep(1);
-    driver.executeScript("$('ultrasmall-form div[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
-    SF.sleep(1);
+    MF.FrontSiteSmallCalc_ClickContinue();
     SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
 condition.nowWeDoing = 'создаем реквест с нижней формы третий раз, должно пускать, если нет то ошибка';
@@ -175,9 +168,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
         V.request.moveDate = MovDateFront;
     }), config.timeout);
-    SF.sleep (0.5);
-    SF.send (By.id('edit-zip-code-from'), '02111');
-    SF.send (By.id('edit-zip-code-to'), '50201');
+    MF.FrontSiteDown_SendZipCode('02111', '50201');
     SF.sleep(6);
     MF.FrontDown_SelectMoveSize(10);
     MF.FrontDown_SetEntrance();
@@ -230,9 +221,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     SF.sleep(6);
     MF.FrontSiteSmallCalc_ClickCalendar();
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar),config.timeout);
-    SF.sleep(1);
-    driver.executeScript("$('ultrasmall-form div[ng-click=\"Continue1(\\\'step1\\\')\"]').click();");
-    SF.sleep(1);
+    MF.FrontSiteSmallCalc_ClickContinue();
     SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
 condition.nowWeDoing = 'создаем реквест с нижней формы 4 раз в ту территорию в которую выставилу цену, должно пускать, если нет то ошибка';
@@ -243,9 +232,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
         V.request.moveDate = MovDateFront;
     }), config.timeout);
-    SF.sleep (0.5);
-    SF.send (By.id('edit-zip-code-from'), '02111');
-    SF.send (By.id('edit-zip-code-to'), '50588');
+    MF.FrontSiteDown_SendZipCode('02111', '50588');
     SF.sleep(6);
     MF.FrontDown_SelectMoveSize(10);
     MF.FrontDown_SetEntrance();
@@ -263,8 +250,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     SF.sleep (5);
 condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
     MF.FrontSite_ClickQuoteCalculator();
-    SF.send (By.id('edit-zip-code-from'), '02111');
-    SF.send (By.id('edit-zip-code-to'), '50701');
+    MF.FrontSiteDown_SendZipCode('02111', '50701');
     SF.sleep(3);
     MF.SweetConfirm();
     SF.sleep (3);
@@ -293,8 +279,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     SF.sleep (5);
 condition.nowWeDoing = 'создаем реквест с нижней формы 6 раз, в территорию с указанной ценой и выключеной галкой Move to this state, должно выкинуть';
     MF.FrontSite_ClickQuoteCalculator();
-    SF.send (By.id('edit-zip-code-from'), '02111');
-    SF.send (By.id('edit-zip-code-to'), '50588');
+    MF.FrontSiteDown_SendZipCode('02111', '50588');
     SF.sleep(3);
     MF.SweetConfirm();
     SF.sleep (1);

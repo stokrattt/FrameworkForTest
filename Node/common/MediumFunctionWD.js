@@ -1614,7 +1614,19 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     //===================================FRONT SITE======================================
-
+    function FrontSiteDown_SendZipCode(zipFrom, zipTo) {
+        SF.sleep(0.5);
+        SF.send (By.id('edit-zip-code-from'), zipFrom);
+        SF.send (By.id('edit-zip-code-to'), zipTo);
+    }
+    function FrontSiteDown_SendZipCodeFrom(zipFrom) {
+        SF.sleep(0.5);
+        SF.send (By.id('edit-zip-code-from'), zipFrom);
+    }
+    function FrontSiteDown_SendZipCodeTo(zipTo) {
+        SF.sleep(0.5);
+        SF.send (By.id('edit-zip-code-to'), zipTo);
+    }
     function FrontDown_SelectMoveSize(sizeChislo) {
         JS.select ('#edit-size-move', sizeChislo);
     }
@@ -2083,6 +2095,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
         //====================================FRONT SITE====================================
 
+        FrontSiteDown_SendZipCodeFrom:FrontSiteDown_SendZipCodeFrom,
+        FrontSiteDown_SendZipCodeTo:FrontSiteDown_SendZipCodeTo,
+        FrontSiteDown_SendZipCode:FrontSiteDown_SendZipCode,
         FrontDown_SelectMoveSize:FrontDown_SelectMoveSize,
         FrontDown_SetEntrance:FrontDown_SetEntrance,
         FrontSite_ClickQuoteCalculator:FrontSite_ClickQuoteCalculator,

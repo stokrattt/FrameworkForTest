@@ -72,7 +72,7 @@ condition.nowWeDoing = 'переходим на вкладку нот конфе
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, '1000.00', 'открыл нот конферм работу и смотрим что кубик фит остался 1000')
     }),config.timeout);
-    SF.sleep(0.5);
+    SF.sleep(4);
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
@@ -83,13 +83,13 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
-    driver.wait(driver.findElement(By.xpath('//h4[@ng-if="isCompanyName"]/strong')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//h4[@ng-if="moveSize == 11 && companyName.length"]/strong')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'CompanyTestName', 'не нашло company name на аккаунте');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.move_size.raw == 11"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
         V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('TestComercial ')+13, text.indexOf('c.f.')));
         console.log(V.accountcbf);
     }),config.timeout);
@@ -180,7 +180,7 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, '1000', 'после подписания контракта в реквесте поменялся мув сайз зачем то')
+        VD.IWant(VD.ToEqual, text, '1000.00', 'после подписания контракта в реквесте поменялся мув сайз зачем то')
     }),config.timeout);
     SF.sleep(0.5);
 

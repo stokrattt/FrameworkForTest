@@ -48,7 +48,6 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
 condition.nowWeDoing = 'зашли на админку для сравнения';
     SF.sleep (2);
     MF.Board_OpenRequest (V.accountNumbersLD.Id);
-
     V.boardNumbers = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
         dateString = dateString.toUpperCase();

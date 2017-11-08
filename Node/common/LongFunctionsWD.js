@@ -523,13 +523,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(5);
         MF.CreateRequest_ClickCalculate();
         MF.CreateRequest_ClickContinue();
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
-        MF.WaitWhileBusy();
-        SF.click(By.xpath('//button[@ng-click="create()"]'));
-        MF.EditRequest_WaitForOpenRequest();
+        MF.CreateRequest_SendClientInfo(client);
+        MF.CreateRequest_ClickCreate();
         console.log('создали реквест');
     }
     function CreateFlatRateFromBoard(client) {
@@ -552,12 +547,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.CreateRequest_SendZipToZipFrom("02461", "07304");
         MF.CreateRequest_ClickCalculate();
         MF.CreateRequest_ClickContinue();
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
-        SF.click(By.xpath('//button[@ng-click="create()"]'));
-        MF.EditRequest_WaitForOpenRequest();
+        MF.CreateRequest_SendClientInfo(client);
+        MF.CreateRequest_ClickCreate();
         console.log('создали реквест');
     }
     function CreateMovAndStorFromBoard(client, period) {
@@ -588,12 +579,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.CreateRequest_SendZipToZipFrom("02032", "02136");
         MF.CreateRequest_ClickCalculate();
         MF.CreateRequest_ClickContinue();
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
-        SF.click(By.xpath('//button[@ng-click="create()"]'));
-        MF.EditRequest_WaitForOpenRequest();
+        MF.CreateRequest_SendClientInfo(client);
+        MF.CreateRequest_ClickCreate();
         console.log('создали реквест');
     }
     function CreateLongDistanceFromBoard(client) {
@@ -614,13 +601,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(4);
         MF.CreateRequest_ClickCalculate();
         MF.CreateRequest_ClickContinue();
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
-        MF.WaitWhileBusy();
-        SF.click(By.xpath('//button[@ng-click="create()"]'));
-        MF.EditRequest_WaitForOpenRequest();
+        MF.CreateRequest_SendClientInfo(client);
+        MF.CreateRequest_ClickCreate();
         console.log('создали реквест');
     }
     function CreateCarrier(){
@@ -672,16 +654,12 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }),config.timeout);
         SF.sleep(0.5);
         MF.CreateRequest_SelectExtraRooms(1);
-        SF.send(By.id("edit-zip-code-from"), "02032");
+        MF.FrontSiteDown_SendZipCodeFrom('02032');
         SF.sleep(4);
         MF.CreateRequest_ClickCalculate();
         MF.CreateRequest_ClickContinue();
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
-        SF.click(By.xpath('//button[@ng-click="create()"]'));
-        MF.EditRequest_WaitForOpenRequest();
+        MF.CreateRequest_SendClientInfo(client);
+        MF.CreateRequest_ClickCreate();
         console.log('создали реквест');
     }
 
@@ -696,16 +674,12 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }),config.timeout);
         SF.sleep(0.5);
         MF.CreateRequest_SelectExtraRooms(1);
-        SF.send(By.id("edit-zip-code-from"), "02136");
+        MF.FrontSiteDown_SendZipCodeFrom('02136');
         SF.sleep(4);
         MF.CreateRequest_ClickCalculate();
         MF.CreateRequest_ClickContinue();
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_first_name"]'), client.name);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_user_last_name"]'), client.fam);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.mail"]'), client.email);
-        SF.send(By.xpath('//div[@class="step3"]//input[@ng-model="editrequest.account.fields.field_primary_phone"]'), client.phone);
-        SF.click(By.xpath('//button[@ng-click="create()"]'));
-        MF.EditRequest_WaitForOpenRequest();
+        MF.CreateRequest_SendClientInfo(client);
+        MF.CreateRequest_ClickCreate();
         console.log('создали реквест');
     }
 
@@ -1578,8 +1552,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             V.request.DelDate = DelDateFront;
             console.log(V.request.DelDate);
         }), config.timeout);
-        SF.send (By.id('edit-zip-code-from'), '02136');
-        SF.send (By.id('edit-zip-code-to'), '02032');
+        MF.FrontSiteDown_SendZipCode('02032', '02136');
         MF.FrontDown_SelectMoveSize(8);
         MF.FrontDown_SetEntrance();
         MF.FrontSite_ClickCalculate();
@@ -1600,8 +1573,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }), config.timeout);
         SF.sleep (0.5);
         MF.FrontSite_SelectServiceType(6);
-        SF.send (By.id('edit-zip-code-from'), '02136');
-        SF.send (By.id('edit-zip-code-to'), '02032');
+        MF.FrontSiteDown_SendZipCode('02032', '02136');
         MF.FrontDown_SelectMoveSize(8);
         MF.FrontDown_SetEntrance();
         MF.FrontSite_ClickCalculate();
@@ -1699,7 +1671,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }), config.timeout);
         SF.sleep (0.5);
         MF.FrontSite_SelectServiceType(3);
-        SF.send (By.id('edit-zip-code-from'), '02032');
+        MF.FrontSiteDown_SendZipCodeFrom('02032');
         MF.FrontDown_SelectMoveSize(8);
         MF.FrontDown_SetEntrance();
         MF.FrontSite_ClickCalculate();
@@ -1984,9 +1956,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             V.request.moveDate = MovDateFront;
             console.log(V.request);
         }), config.timeout);
-        SF.sleep (0.5);
-        SF.send (By.id('edit-zip-code-from'), '02461');
-        SF.send (By.id('edit-zip-code-to'), '07304');
+        MF.FrontSiteDown_SendZipCode('02461', '07304');
         SF.sleep(1);
         MF.FrontDown_SelectMoveSize(10);
         MF.FrontDown_SetEntrance();
