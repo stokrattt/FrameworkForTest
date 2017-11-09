@@ -160,12 +160,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//button[@ng-click="sendEmail()"]'));
     SF.click(By.xpath('//button[@ng-click="sendEmail()"]'));
 
-    //todo тут поменять темплейт на сторадж статемент
-
     SF.waitForVisible(By.xpath('//label[contains(text(),"Template subject:")]'));
-    // driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Moving Invoice")]')).getText().then(function(text){
-    //     VD.IWant(VD.ToEqual, text, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
-    // }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Statement URL")]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text, 'Storage Statement URL', 'не совпали темплейти Storage');
+    }),config.timeout);
     SF.sleep(2);
+    JS.click('a:contains("Preview Template"):visible');
+    MF.WaitWhileBusy();
+    JS.click('a:contains("vIEW INVOICE"):visible');
     SF.endOfTest();
 };
