@@ -66,6 +66,7 @@ condition.nowWeDoing = 'Идем в сторадж реквест FROM, и пр�
     'что кубик фит стал таким сколкьо инвентаря добавили, что пишется сервис тип с комершиал' +
         'что мувсайз комершиал вместе с инвентарем и запоминаем все числа';
     MF.Account_ClickFromStorage();
+    SF.sleep(10);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountcbfFrom = SF.cleanPrice(text.substring(text.indexOf('Inventory')+9, text.indexOf('c.f.')));
         VD.IWant(VD.ToEqual, V.accountcbfTo, V.accountcbfFrom, 'не совпал кубик фит мувинга From с мувинг To');

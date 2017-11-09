@@ -29,7 +29,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function SweetConfirm() {
         JS.waitForExist('button.confirm');
-        SF.sleep(3);
+        SF.sleep(3.5);
         SF.click(By.xpath('//button[@class="confirm"]'));
     }
 
@@ -635,7 +635,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_SweetUpdateConfirm() {
         JS.waitForExist('button.confirm:contains("Update")');
-        SF.sleep(2);
+        SF.sleep(2.5);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"Update")]'));
     }
     function Account_OpenAdressModal() {

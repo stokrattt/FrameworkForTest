@@ -100,6 +100,7 @@ module.exports = function(config,V) {
         './tests/89_DraftRequest.js',
         './tests/96_CommercialMoveFromFront.js',
         './tests/97_OutgoingEmailAndSignature.js',
+        './tests/99_PendingInfoInventoryTotal.js',
         './tests/98_RemindersForOtherPerson.js',
         './tests/56_LoadingAllSteps.js',
         './tests/95_Statistic.js',

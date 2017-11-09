@@ -173,7 +173,7 @@ condition.nowWeDoing = 'добавляем дисконт';
 
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"flat rate not confirm")]' +
         '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
-    driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
+    driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Flat Rate Quote")]/../../../../../../' +
         'following-sibling::td[1]//div')).getText().then(function(text){
         V.FlatRateQuote = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.FlatRateQuote, 4500, 'в письме клиенту не сработал дискаунт и тотал отправился неверный');
