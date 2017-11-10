@@ -1741,7 +1741,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
         MF.WaitWhileBusy();
         SF.sleep (3);
-        MF.WaitWhileBusy ();
+        // MF.WaitWhileBusy ();
         JS.click('div[ng-repeat=\\"filter in filters\\"]:visible div:first');
         SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
         SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));

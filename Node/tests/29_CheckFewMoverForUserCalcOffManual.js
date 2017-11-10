@@ -13,7 +13,7 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateMovAndStorFromBoard(V.client);
-    MF.EditRequest_OpenClient ();
+    // MF.EditRequest_OpenClient ();
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id1 = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id1);

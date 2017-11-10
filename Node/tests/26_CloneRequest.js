@@ -9,6 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'создаем реквест и добавляем разного';
     LF.CreateLocalMovingFromBoard (V.client);
     SF.sleep (2);
@@ -21,10 +22,8 @@ condition.nowWeDoing = 'создаем реквест и добавляем ра
     LF.addInventoryBoard (V.boardNumbers);
     MF.EditRequest_SetSizeOfMoveNumber (9);
     MF.EditRequest_SetAdressToFrom ();
-
-    LF.RememberDigitsRequestBoard(V.boardNumbers);
-    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    MF.WaitWhileBusy();
+    MF.EditRequest_AddPacking();
+    MF.EditRequest_AddAdditionalServicesFullPack();
     MF.EditRequest_SetToNotConfirmed ();
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SF.cleanPrice (text);
@@ -32,40 +31,36 @@ condition.nowWeDoing = 'создаем реквест и добавляем ра
     driver.wait(driver.findElement(By.xpath('//select[@id="edit-size-move"]')).getAttribute("value").then(function (text){
         V.sizemove = (text);
     }),config.timeout);
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges ();
+
 condition.nowWeDoing = 'идём в настройки клонировать реквест';
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickCloneRequest();
-
     MF.EditRequest_WaitForVisibleCloneRequest();
     driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.IdClone = SF.cleanPrice(text);
         LF.addToCleanerJob(V.IdClone);
     }),config.timeout);
-
     SF.click(By.xpath('//div[contains(@class,"requestModal status_1")]//button[@ng-click="cancel()"]'));
     SF.sleep (2);
     LF.closeEditRequest ();
     MF.WaitWhileBusy ();
+
 condition.nowWeDoing = 'проверяем что клон в пендинге и открываем его';
     MF.Board_RefreshDashboard();
     MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.IdClone);
     SF.sleep (2);
-    SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
-    JS.waitForExist('div.busyoverlay');
+    V.boardCloneForCompare = {};
+    LF.RememberDigitsRequestBoard (V.boardCloneForCompare);
+    SF.sleep(2);
+    LF.Validation_Compare_Account_Admin (V.boardNumbers, V.boardCloneForCompare);
+
 condition.nowWeDoing = 'ждем и добавляем инвентория';
-    SF.sleep (6);
-    MF.WaitWhileBusy ();
-    SF.click (By.xpath('//button[@ng-click="changeValue(1, item)"]'));
-    SF.click (By.xpath('//button[@ng-click="changeValue(1, item)"]'));
-    SF.click (By.xpath('//button[@ng-click="changeValue(1, item)"]'));
-    SF.click (By.xpath('//button[@ng-click="changeValue(1, item)"]'));
-    SF.click (By.xpath('//button[@ng-click="changeValue(1, item)"]'));
-    SF.click (By.xpath('//button[@ng-click="changeValue(1, item)"]'));
-    SF.click (By.xpath('//button[@ng-click="changeValue(1, item)"]'));
-    SF.click(By.id("save-inventory"));
-    SF.sleep (5);
+    LF.addAdditionalInventoryBoard();
     MF.EditRequest_SetSizeOfMoveNumber (6);
     SF.clear (By.id('edit-moving-from'));
     SF.send (By.id('edit-moving-from'), 'From Addres Clone');
@@ -81,6 +76,7 @@ condition.nowWeDoing = 'ждем и добавляем инвентория';
     LF.RememberDigitsRequestBoard(V.boardNumbersClone);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
+
 condition.nowWeDoing = 'идем открывать первый реквест и проверять что клон не затер данные первого';
     MF.Board_OpenNotConfirmed();
     MF.WaitWhileBusy ();
@@ -99,8 +95,7 @@ condition.nowWeDoing = 'идем открывать первый реквест 
     VD.IWant(VD.NotToEqual, V.boardNumbers.TotalMax, V.boardNumbersClone.TotalMax, 'совпали TotalMax первого реквеста и клона, хотя не должно было');
     VD.IWant(VD.NotToEqual, V.boardNumbers.Fuel, V.boardNumbersClone.Fuel, 'совпали Fuel первого реквеста и клона, хотя не должно было');
     SF.sleep(2);
-    // LF.closeEditRequest ();
-    // MF.Board_LogoutAdmin ();
+
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

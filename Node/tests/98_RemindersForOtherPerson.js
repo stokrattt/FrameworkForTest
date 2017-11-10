@@ -37,6 +37,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     MF.WaitWhileBusy();
     SF.click(By.xpath('//button[@ng-click="$ctrl.saveReminder()"]'));
+    SF.sleep(4);
     MF.WaitWhileToaster();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();

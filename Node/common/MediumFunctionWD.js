@@ -1096,6 +1096,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (0.5);
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
         SF.sleep (0.5);
+        JS.click('label[ng-model="packing_service"]:contains("Full Packing"):visible');
+        SF.sleep(0.5);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         WaitWhileBusy ();
         SF.sleep (3);

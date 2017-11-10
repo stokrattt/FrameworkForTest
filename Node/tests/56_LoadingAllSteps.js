@@ -253,16 +253,20 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     SF.sleep(2);
 
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/following-sibling::div[contains(text(),"User Visit Request")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
+        'following-sibling::div[contains(text(),"User Visit Request")]')).getText().then(function(text){
     }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/following-sibling::div[contains(text(),"User Visit Confirmation Page")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
+        'following-sibling::div[contains(text(),"User Visit Confirmation Page")]')).getText().then(function(text){
     }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/following-sibling::div[contains(text(),"Request #'+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
+        'following-sibling::div[contains(text(),"Request #'+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
     }),config.timeout);
 
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/following-sibling::div[contains(text(),"Reservation received")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
+        'following-sibling::div[contains(text(),"Reservation received")]')).getText().then(function(text){
     }),config.timeout);
     SF.click (By.xpath('//button[@ng-click="checkAll()"]'));
     SF.sleep(5);
