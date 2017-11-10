@@ -54,6 +54,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     if (!V.CompanyServices.Unloading) {console.log('вкл Unload');SF.click(By.xpath(V.unloadingSelector+'/..'));}
     if (V.CompanyServices.Storage) {console.log('выкл Stor');SF.click(By.xpath(V.storageSelector+'/..'));}
     if (!V.CompanyServices.Flat) {console.log('вкл Flat');SF.click(By.xpath(V.flatSelector+'/..'));}
+    SF.sleep(1);
     if (V.CompanyServices.Long) {console.log('выкл Long');SF.click(By.xpath(V.longSelector+'/..'));}
     JS.scroll ('div:contains("General Settings")');
     SF.sleep(5);

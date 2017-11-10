@@ -167,6 +167,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     JS.click('a:contains("Preview Template"):visible');
     MF.WaitWhileBusy();
-    JS.click('a:contains("vIEW INVOICE"):visible');
+    // JS.click('a:contains("vIEW INVOICE"):visible');
     SF.endOfTest();
 };

@@ -852,6 +852,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_ClickCreatePAckingDay() {
         SF.click(By.xpath('//button[@ng-click="createPackingDay()"]'));
+        SF.sleep(3);
         SweetConfirm ();
         WaitWhileBusy ();
         JS.waitForNotExist('div.busy:visible');
@@ -1331,6 +1332,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//input[@ng-model="request.field_commercial_company_name.value"]'));
         SF.send(By.xpath('//input[@ng-model="request.field_commercial_company_name.value"]'), name);
     }
+    function EditRequest_OpenRemainderWindow() {
+        SF.click(By.xpath('//span[@ng-click="openReminderBox()"]'));
+        WaitWhileBusy();
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -1772,6 +1777,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (2);
     }
 
+    //==============================REMAINDERS===========================================//
+
+
+
+
     //==================================TRIPS============================================
 
 
@@ -2033,6 +2043,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenPackingRequestFromRequest:EditRequest_OpenPackingRequestFromRequest,
         EditRequest_AddCustomCommersialMove:EditRequest_AddCustomCommersialMove,
         EditRequest_ClientTabSendCompanyName:EditRequest_ClientTabSendCompanyName,
+        EditRequest_OpenRemainderWindow:EditRequest_OpenRemainderWindow,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

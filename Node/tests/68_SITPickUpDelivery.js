@@ -145,9 +145,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.statusLD =  text;
         VD.IWant(VD.ToEqual, V.statusLD, 'LD', 'LD status не совпали');
     }),config.timeout);
-    // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
-    // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
-    // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
+    // // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
+    // // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
+    // // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
     // V.SITScheduleDate = SF.parseDateInSIT(V.request.moveDate);
     // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.SITScheduleDate +'")]/..//div[9]')).getText().then(function(text){
     //     V.scheduleDate  =  text;

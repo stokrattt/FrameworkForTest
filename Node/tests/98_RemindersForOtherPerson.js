@@ -17,10 +17,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_RememberId(V.requestAdmin);
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
-    SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//span[@ng-click="openReminderBox()"]'));
-    MF.WaitWhileBusy();
+    MF.EditRequest_OpenRequest();
+    MF.EditRequest_OpenRemainderWindow();
     SF.click(By.xpath('//select[@ng-model="$ctrl.uid"]//option[@label="emilia clark"]'));
     SF.click(By.xpath('//textarea[@name="description"]'));
     SF.send(By.xpath('//textarea[@name="description"]'),V.RemaindText);
@@ -40,9 +38,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.click(By.xpath('//button[@ng-click="$ctrl.saveReminder()"]'));
     MF.WaitWhileToaster();
-    MF.WaitWhileBusy();
     LF.closeEditRequest();
-    MF.WaitWhileBusy();
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'заходим за сеилса, сверяем римайдер, удаляем, проверяем что текст стал PAST';
@@ -60,7 +56,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//reminder-min[@ng-click="$ctrl.openDialog(reminder)"]')).getCssValue("background-color").then(function (color) {
         V.RemaindTextSales = color;
         VD.IWant(VD.ToEqual, V.RemaindTextAdmin, V.RemaindTextSales,'цвет римайндера не совпал');
-          }),config.timeout);
+    }),config.timeout);
     SF.sleep(4);
     SF.click(By.xpath('//button[@ng-click="$ctrl.reminder.dismiss();"]'));
     MF.WaitWhileToaster();
@@ -91,8 +87,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.RemaindText, V.RemaindText2,'римайндера нет в PAST');
     }),config.timeout);
     SF.sleep(2);
-
-
 
     SF.endOfTest();
 };
