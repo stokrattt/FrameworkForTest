@@ -32,12 +32,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     MF.SweetConfirm();
     MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
-    MF.WaitWhileToaster ();
-    MF.WaitWhileToaster ();
+    SF.sleep(10);
     JS.waitForNotExist('div.toast-message:visible');
     JS.waitForNotExist('div.toast-message:visible');
-    SF.sleep(3);
+
     MF.Board_LogoutAdmin();
 
 
@@ -309,8 +307,7 @@ condition.nowWeDoing = 'идем в гугл почту';
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     MF.SweetConfirm();
     MF.WaitWhileBusy();
-    MF.WaitWhileToaster ();
-    SF.sleep(3);
+
 
      SF.endOfTest();
 };

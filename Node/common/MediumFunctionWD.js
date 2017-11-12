@@ -1096,6 +1096,20 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (0.5);
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
         SF.sleep (0.5);
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        WaitWhileBusy ();
+        SF.sleep (3);
+    }
+    function EditRequest_AddPackingAndFullPAcking() {
+        WaitWhileBusy ();
+        SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
+        SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
+        SF.sleep (0.5);
         JS.click('label[ng-model="packing_service"]:contains("Full Packing"):visible');
         SF.sleep(0.5);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
@@ -2012,6 +2026,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenPayrollPickupFlatRate: EditRequest_OpenPayrollPickupFlatRate,
         EditRequest_OpenPayrollDeliveryFlatRate: EditRequest_OpenPayrollDeliveryFlatRate,
         EditRequest_AddPacking: EditRequest_AddPacking,
+        EditRequest_AddPackingAndFullPAcking:EditRequest_AddPackingAndFullPAcking,
         EditRequest_AddAdditionalServicesFullPack: EditRequest_AddAdditionalServicesFullPack,
         EditRequest_AddValuation: EditRequest_AddValuation,
 		EditRequest_OpenMailDialog: EditRequest_OpenMailDialog,

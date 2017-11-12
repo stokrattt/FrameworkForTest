@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/26_CloneRequest.js'];
+    config.suite = ['./tests/56_LoadingAllSteps.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;
@@ -26,11 +26,17 @@ module.exports = function(config,V) {
     V.foremanEmail = 'TestForeman@mail.com';
     V.managerName = 'emilia clark';
     V.managerFirstName = 'emilia';
+    V.ForEmail = 'ivanforeman173@gmail.com';
+    V.googleloginFor =  'ivanforeman173';
+    V.googlePasFor =  'qwertyuio9';
+    V.salesEmail = 'truks8158@gmail.com';
+    V.googleloginSale =  'truks8158';
+    V.googlePasSale =  'qwertyuio9';
     V.testMail = {
         login: 'test.boston',
         mail: 'bostonflat.test@mail.ru',
         password: 'YLZ60tO^ycpz'
-    };
+    }
 
 
 };

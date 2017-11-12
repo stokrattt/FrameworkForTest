@@ -1565,7 +1565,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             V.request.moveDate = MovDateFront;
             console.log(V.request);
         }), config.timeout);
-        SF.sleep (0.5);
+        SF.sleep (1);
         MF.FrontSite_SelectServiceType(6);
         MF.FrontSiteDown_SendZipCode('02032', '02136');
         MF.FrontDown_SelectMoveSize(8);

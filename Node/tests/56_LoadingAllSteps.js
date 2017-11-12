@@ -223,7 +223,7 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
     MF.EditRequest_PayrollOpenForemanTab();
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"$35.00")]/../../td[3]/input[@ng-model="foreman.for_commission"]')).getAttribute('value').then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"$40.00")]/../../td[3]/input[@ng-model="foreman.for_commission"]')).getAttribute('value').then(function (text) {
         V.cleanTotalHW = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalHW, V.cleanTotalHW, 'Не совпали total hour на контракте и в малом пейроле');
     }),config.timeout);

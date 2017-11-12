@@ -22,7 +22,7 @@ condition.nowWeDoing = 'создаем реквест и добавляем ра
     LF.addInventoryBoard (V.boardNumbers);
     MF.EditRequest_SetSizeOfMoveNumber (9);
     MF.EditRequest_SetAdressToFrom ();
-    MF.EditRequest_AddPacking();
+    MF.EditRequest_AddPackingAndFullPAcking();
     MF.EditRequest_AddAdditionalServicesFullPack();
     MF.EditRequest_SetToNotConfirmed ();
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
