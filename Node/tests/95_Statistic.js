@@ -10,7 +10,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    condition.nowWeDoing = 'запоминаем на дашборде кол-во конфермнутых работ по Move дата и Booked дата';
+
+condition.nowWeDoing = 'запоминаем на дашборде кол-во конфермнутых работ по Move дата и Booked дата';
     MF.Board_OpenConfirmed();
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="vm.select(2)"]//span[@ng-hide="vm.conf_filter == 2"]')).getText().then(function (text) {
@@ -24,8 +25,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
    //     V.BookBoard = SF.cleanPrice(text);
    // }),config.timeout);
 
-
-    condition.nowWeDoing = 'открываем статистику и проверяем там цифры, запоминаем Estimate Income';
+condition.nowWeDoing = 'открываем статистику и проверяем там цифры, запоминаем Estimate Income';
     MF.Board_OpenStatistic ();
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
@@ -51,7 +51,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.EstIncStat = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(3);
-    condition.nowWeDoing = 'идем в профит анд лосс, сверяем Estimate Income';
+
+condition.nowWeDoing = 'идем в профит анд лосс, сверяем Estimate Income';
     MF.Board_OpenProfitLoss ();
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
@@ -60,13 +61,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.EstIncPrLos, V.EstIncStat,'не совпал Estimate Income в профит анд лосс и статистике');
     }),config.timeout);
     SF.sleep(2);
-
     //driver.wait(driver.findElement(By.xpath('//div[@id="datatable-profit_info"]')).getText().then(function(text) {
        // V.BookPrLos = SF.cleanPrice(text);
       //  VD.IWant(VD.ToEqual, V.BookPrLos, V.BookBoard,'не совпали кол-во Booked работ в профит анд лосс и на дашборде');
     //}),config.timeout);
-
-
     SF.endOfTest();
 };
 

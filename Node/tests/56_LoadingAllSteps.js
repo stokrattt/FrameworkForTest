@@ -70,7 +70,6 @@ condition.nowWeDoing = 'первый раз в админке';
     SF.sleep(2);
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
     MF.Board_OpenRequest(V.accountNumbers.Id);
-
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
@@ -143,7 +142,6 @@ condition.nowWeDoing = 'проверяем в календаре, что раб�
         VD.IWant(VD.ToEqual, ('#' +V.accountNumbers.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'фореману в календарь не пришла работа');
     }),config.timeout);
     SF.sleep(5);
-
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     SF.get(V.adminURL);
@@ -253,20 +251,16 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
 	VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(2);
-
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
         'following-sibling::div[contains(text(),"User Visit Request")]')).getText().then(function(text){
     }),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
         'following-sibling::div[contains(text(),"User Visit Confirmation Page")]')).getText().then(function(text){
     }),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
         'following-sibling::div[contains(text(),"Request #'+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
     }),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
         'following-sibling::div[contains(text(),"Reservation received")]')).getText().then(function(text){
     }),config.timeout);

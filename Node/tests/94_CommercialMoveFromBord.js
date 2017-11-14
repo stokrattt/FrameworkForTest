@@ -184,7 +184,7 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     }),config.timeout);
     SF.sleep(0.5);
 
-    // to do добавить проверку на  мувсайз, что в инпуте тот который мы ввели
+    // todo добавить проверку на  мувсайз, что в инпуте тот который мы ввели
 
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();

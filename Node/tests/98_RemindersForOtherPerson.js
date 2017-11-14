@@ -10,7 +10,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.salesPassword = '123';
 
     SF.get(V.adminURL);
-    condition.nowWeDoing = 'создаем рекевст под оунером, добавляем римайндер, назначаем сеилса на римайндер';
+
+condition.nowWeDoing = 'создаем рекевст под оунером, добавляем римайндер, назначаем сеилса на римайндер';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
     V.requestAdmin={};
@@ -42,7 +43,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'заходим за сеилса, сверяем римайдер, удаляем, проверяем что текст стал PAST';
+condition.nowWeDoing = 'заходим за сеилса, сверяем римайдер, удаляем, проверяем что текст стал PAST';
     LF.LoginToBoardAsCustom(V.salesLogin, V.salesPassword);
     MF.Board_OpenRequest(V.requestAdmin.Id);
     SF.click(By.xpath('//span[@ng-click="openReminderBox()"]'));
@@ -73,7 +74,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.WaitWhileBusy();
 
-    condition.nowWeDoing = 'идем во вкладку римайндеры, и ищем римайндер в PAST';
+condition.nowWeDoing = 'идем во вкладку римайндеры, и ищем римайндер в PAST';
     SF.click(By.xpath('//div[@class="slide-panel-invoker"]'));
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
