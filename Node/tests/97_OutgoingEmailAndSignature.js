@@ -38,12 +38,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 
     condition.nowWeDoing = 'создаем реквест, назначаем нужного менеджера, проверяем Sales Signature и Email сеилса';
+    MF.Board_OpenDashboard();
     LF.CreateLocalMovingFromBoard(V.client);
     MF.EditRequest_OpenSettings();
     LF.SetManager('Rick');
     SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//span[@class="quick-send-emails"]'));
+    SF.sleep(2);
+    SF.click(By.xpath('//i[@uib-tooltip="Quick send emails"]'));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//span[contains(.,"Default")]'));
     SF.sleep(1);
