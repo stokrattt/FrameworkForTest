@@ -180,11 +180,10 @@ condition.nowWeDoing = 'второй раз в аккаунте, букаем р
     LF.RememberAccountNumbers(V.accountNumbersFromNotConfirm);
     LF.Validation_Compare_Account_Admin(V.accountNumbersFromNotConfirm, V.accountNumbersFrom);
     MF.Account_ClickProceedBookYourMove();
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Move Size")]/following-sibling::span[2]')).getText().then(function(text){
         V.accountcbfFromNotConfirm = SF.cleanPrice(text.substring(text.indexOf('Inventory')+9, text.indexOf('c.f.')));
         VD.IWant(VD.ToEqual, V.ConfirmationPageTo.cbf, V.accountcbfFrom, 'не совпал кубик фит мувинга From с мувинг To после нот конферм на работе From');
     }),config.timeout);
-    MF.Account_ClickProceedBookYourMove();
 
 condition.nowWeDoing = 'перешли на конфирмейшн пейдж и сравним данные с бордом и потом букаем работу From storage';
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.move_size.raw == 11"]')).getText().then(function (text) {
