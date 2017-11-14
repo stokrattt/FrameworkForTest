@@ -50,8 +50,10 @@ condition.nowWeDoing = 'первый раз в админке';
     SF.sleep(2);
     MF.Department_OpenHuman ("Test Admin");
     MF.Department_OpenNotificationTab();
-    driver.wait(driver.executeScript("if($('md-switch[ng-change=\"turnAllNotifications()\"]').hasClass('md-checked')){" +
-        "return true;}else{$('md-switch[ng-change=\"turnAllNotifications()\"]').click()}"),config.timeout);
+    //driver.wait(driver.executeScript("if($('md-switch[ng-change=\"turnAllNotifications()\"]').hasClass('md-checked')){" +
+       // "return true;}else{$('md-switch[ng-change=\"turnAllNotifications()\"]').click()}"),config.timeout);
+    driver.wait(driver.executeScript("if($('md-switch[ng-repeat=\"selectAllNotification in selectAllNotifications track by $index\"]').hasClass('md-checked')){" +
+        "return true;}else{$('md-switch[ng-repeat=\"selectAllNotification in selectAllNotifications track by $index\"]').click()}"),config.timeout);
     SF.sleep(2);
     MF.Department_SaveUser();
     MF.Board_OpenSideBar ();
