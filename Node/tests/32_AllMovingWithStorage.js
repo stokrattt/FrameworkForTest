@@ -33,6 +33,7 @@ condition.nowWeDoing = 'запомнили цифры ToStorage идём на Fr
     MF.Account_ClickFromStorage();
     LF.AccountFromStorageEnterAddress();
     MF.WaitWhileBusy();
+    SF.sleep(5);
     V.accountNumbersFrom = {};
     MF.WaitWhileBusy();
     LF.RememberAccountNumbers(V.accountNumbersFrom);

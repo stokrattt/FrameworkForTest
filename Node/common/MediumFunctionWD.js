@@ -1117,6 +1117,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (3);
     }
     function EditRequest_AddAdditionalServicesFullPack() {
+        SF.sleep(0.5);
         SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
         SF.waitForVisible (By.id('extra-service-modal'));
         SF.sleep(3);
@@ -1357,6 +1358,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Board_OpenLocalDispatch() {
         Board_OpenSideBar();
+        SF.sleep(0.5);
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'dispatch.local\', \'\')"]'));
         SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
         WaitWhileBusy();

@@ -33,7 +33,7 @@ condition.nowWeDoing = 'создаем реквест, назначаем нуж
     MF.EditRequest_OpenSettings();
     LF.SetManager('Rick');
     MF.EditRequest_OpenRequest();
-    SF.click(By.xpath('//span[@class="quick-send-emails"]'));
+    SF.click(By.xpath('//i[@ng-click="openMailDialog()"]'));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//span[contains(.,"Default")]'));
     SF.sleep(1);
