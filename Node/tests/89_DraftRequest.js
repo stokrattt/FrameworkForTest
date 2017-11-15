@@ -35,7 +35,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
 
     SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");
     MF.EditRequest_SetAdressToFrom ();
-    SF.sleep(12);
+    SF.sleep(18);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
