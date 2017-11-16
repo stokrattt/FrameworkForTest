@@ -23,7 +23,7 @@ condition.nowWeDoing = 'создаем рекевст под оунером, д�
     SF.click(By.xpath('//select[@ng-model="$ctrl.uid"]//option[@label="emilia clark"]'));
     SF.click(By.xpath('//textarea[@name="description"]'));
     SF.send(By.xpath('//textarea[@name="description"]'),V.RemaindText);
-    SF.click(By.xpath('//button[@ng-click="$ctrl.isPickerOpened = !$ctrl.isPickerOpened"]'));
+    SF.click(By.xpath('//input[@ng-model="$ctrl.date"]'));
     SF.click(By.xpath('//button[@ng-click="move(1)"]'));
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="select(dt.date)"]//span[contains(text(),"01")]'));
