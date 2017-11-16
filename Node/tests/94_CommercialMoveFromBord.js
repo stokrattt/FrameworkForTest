@@ -90,11 +90,10 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
         VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
-        V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('TestComercial')+13, text.indexOf('c.f.')));
+        V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('TestComercial ')+13, text.indexOf('c.f.')));
         console.log(V.accountcbf);
     }),config.timeout);
     VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом');
-    Debug.pause();
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbers);
