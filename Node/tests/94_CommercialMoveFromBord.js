@@ -93,6 +93,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
         V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('TestComercial ')+13, text.indexOf('c.f.')));
         console.log(V.accountcbf);
     }),config.timeout);
+    SF.sleep(1);
     VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом');
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
@@ -180,12 +181,13 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, '1000', 'после подписания контракта в реквесте поменялся мув сайз зачем то')
+        VD.IWant(VD.ToEqual, text, '1000', 'после подписания контракта в реквесте поменялся кубик фит зачем то')
     }),config.timeout);
     SF.sleep(0.5);
-
-    // todo добавить проверку на  мувсайз, что в инпуте тот который мы ввели
-
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="invoice.rate.value"]')).getAttribute('value').then(function (text) {
+        console.log(text);
+        VD.IWant(VD.ToEqual, text, V.boardNumbers.HourlyRate, 'не совпал рейт после подписи контракта в реквесте');
+    }),config.timeout);
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     SF.sleep (2);

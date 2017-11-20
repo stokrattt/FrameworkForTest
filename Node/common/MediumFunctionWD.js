@@ -530,7 +530,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
         SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"View request")]'));
         WaitWhileBusy ();
-        SF.sleep(2);
     }
 
     function Account_ClickPartialPacking() {
@@ -1049,7 +1048,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function EditRequest_CloseModal() {
         SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
-        //SweetConfirm();
+        // SweetConfirm();
         SF.sleep(2);
     }
 

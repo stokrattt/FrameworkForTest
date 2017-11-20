@@ -272,8 +272,9 @@ condition.nowWeDoing="Вернуться в localDispatch, найти первы
     VD.IWant(VD.ToEqual, V.boardNumbersTo.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersTo, V.contractNumbersTo);
-    MF.EditRequest_CloseModal();
-    LF.closeEditRequest();
+    SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
+    MF.SweetConfirm();
+    SF.sleep(2);    LF.closeEditRequest();
 
 condition.nowWeDoing="найти второй реквест, проверить и запомнить Payroll";
     MF.Dispatch_WaitForCalendar();
