@@ -26,7 +26,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.targets=array;
 	}),config.timeout);
 	SF.sleep(1);
-	console.log(V.targets);
 	for (var t in V.targets) {
 		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
 		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),999);

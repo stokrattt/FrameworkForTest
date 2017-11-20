@@ -86,7 +86,6 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     VD.IWant(VD.NotToEqual,V.carrierNew.eMail, V.carrierNew2.eMail,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.webSite, V.carrierNew2.webSite,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.phoneNumber1, V.carrierNew2.phoneNumber1,'Поля совпадают');
-    console.log(V.carrierNew3);
     VD.IWant(VD.ToEqual,V.carrierNew3.name, V.carrierNew2.name,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.carrierNew3.contactPerson, V.carrierNew2.contactPerson,'Поля не совпадают');
     VD.IWant(VD.ToEqual,-SF.cleanPrice(V.carrierNew3.contactPersonPhone), V.carrierNew2.contactPersonPhone,'Поля не совпадают');

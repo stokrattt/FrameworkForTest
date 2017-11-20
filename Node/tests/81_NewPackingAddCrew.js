@@ -80,7 +80,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     //V.boxCostAc = V.boardNumbers.Packing - V.cleanTotalPacking1;
     V.boxCostAc = V.boardNumbers.Packing - V.accountNumbers.Packing;
-    console.log(V.boxCostAc);
     // accountNumbers.Packing
 
     MF.WaitWhileBusy();

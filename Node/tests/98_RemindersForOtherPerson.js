@@ -34,7 +34,6 @@ condition.nowWeDoing = 'создаем рекевст под оунером, д�
     SF.click(By.xpath('//div[@style="background-color: rgb(128, 216, 255);"]'));
     driver.wait(driver.findElement(By.xpath('//div[@style="background-color: rgb(128, 216, 255);"]')).getCssValue("background-color").then(function (color) {
         V.RemaindTextAdmin = color;
-        console.log(V.RemaindTextAdmin);
     }),config.timeout);
     MF.WaitWhileBusy();
     SF.click(By.xpath('//button[@ng-click="$ctrl.saveReminder()"]'));

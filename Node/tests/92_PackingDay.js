@@ -66,12 +66,10 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
         } else {
             V.ConfirmationPage.Total = SF.cleanPrice(text);
         }
-        console.log(V.ConfirmationPage.TotalMax);
     }),config.timeout);
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){
         V.ConfirmationPage.Fuel = SF.cleanPrice(text.substring(text.indexOf('$')));
-        console.log(V.ConfirmationPage.Fuel);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации');

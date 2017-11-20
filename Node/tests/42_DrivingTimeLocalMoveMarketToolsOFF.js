@@ -160,7 +160,6 @@ condition.nowWeDoing = 'второй раз в аккаунте, сравнив�
         } else {
             V.ConfirmationPage.Total = SF.cleanPrice(text);
         }
-        console.log(V.ConfirmationPage.TotalMax);
     }),config.timeout);
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){
@@ -185,7 +184,6 @@ condition.nowWeDoing = 'тут букаем работу и опять срав�
         } else {
             V.ConfirmationPageAfterConfirm.Total = SF.cleanPrice(text);
         }
-        console.log(V.ConfirmationPageAfterConfirm.TotalMax);
     }),config.timeout);
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){

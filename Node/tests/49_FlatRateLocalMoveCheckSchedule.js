@@ -95,7 +95,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     V.contractNumbers = {};
     driver.wait(driver.executeScript('return $(\'tr[ng-if="contract_page.paymentTax.creditCharge.state"] span\').text()').then(function (text) {
         V.contractNumbers.CreditCardPercentSumm = SF.cleanPrice(text);
-        console.log(V.contractNumbers.CreditCardPercentSumm);
     }),config.timeout);
     SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
@@ -174,7 +173,6 @@ condition.nowWeDoing = 'выбираем цифры helper';
         let future = new Date(now.getTime());
         let options = {  month: 'long', year: 'numeric' };
         V.Dates = (future.toLocaleDateString('en-US', options));
-        console.log(V.Dates);
     }), config.timeout);
     SF.sleep(8);
     if (V.current == V.Dates) {
@@ -183,7 +181,6 @@ condition.nowWeDoing = 'выбираем цифры helper';
         future = new Date(now.getTime());
         options = { day: 'numeric' };
         V.datescedule = (future.toLocaleDateString('en-US', options));
-        console.log(V.datescedule);
         SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
         MF.WaitWhileBusy();
         SF.sleep(5);
@@ -200,7 +197,6 @@ condition.nowWeDoing = 'выбираем цифры helper';
         }),config.timeout);
     }
     SF.sleep(2);
-    console.log();
     condition.nowWeDoing = 'а теперь идем в календарь проверять что трак есть на календаре на дату на которую создали его';
     driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){
         V.current1 = date;
@@ -209,7 +205,6 @@ condition.nowWeDoing = 'выбираем цифры helper';
         let future = new Date(now.getTime() + msInDay * 3 );
         let options = {  month: 'long', year: 'numeric' };
         V.Dates1 = (future.toLocaleDateString('en-US', options));
-        console.log(V.Dates1);
     }), config.timeout);
     SF.sleep(8);
     if (V.current1 == V.Dates1) {

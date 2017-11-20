@@ -38,7 +38,6 @@ condition.nowWeDoing = 'тут выключаем кальк и меняем к�
         } else {
             V.boardNumbers.HourlyRateCalcOff = 0;
         }
-        console.log(V.boardNumbers.HourlyRateCalcOff);
     }),config.timeout);
     SF.sleep(1);
     V.QuoteCalcOff = V.boardNumbers.HourlyRateCalcOff *5;

@@ -91,7 +91,6 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
         V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('TestComercial ')+13, text.indexOf('c.f.')));
-        console.log(V.accountcbf);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом');
@@ -185,7 +184,6 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     }),config.timeout);
     SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="invoice.rate.value"]')).getAttribute('value').then(function (text) {
-        console.log(text);
         VD.IWant(VD.ToEqual, text, V.boardNumbers.HourlyRate, 'не совпал рейт после подписи контракта в реквесте');
     }),config.timeout);
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');

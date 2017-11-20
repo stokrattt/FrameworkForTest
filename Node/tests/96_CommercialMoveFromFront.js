@@ -16,14 +16,12 @@ condition.nowWeDoing = 'создаем с фронтового сайта мув
     V.request={};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function(MovDateFront){
         V.request.moveDate = MovDateFront;
-        console.log(V.request);
     }), config.timeout);
     SF.sleep (0.5);
     MF.FrontSite_SelectServiceType(2);
     MF.FrontSite_ClickDeliveryDate();
     driver.wait(driver.executeScript(JSstep.Click8DaysNewCalendar).then(function(DelDateFront){
         V.request.DelDate = DelDateFront;
-        console.log(V.request.DelDate);
     }), config.timeout);
     MF.CreateRequest_SendZipToZipFrom('02136', '02032');
     MF.FrontDown_SelectMoveSize(11);
@@ -52,7 +50,6 @@ condition.nowWeDoing = 'первый раз в аккаунте, добавля�
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountcbfTo = SF.cleanPrice(text.substring(text.indexOf('Inventory ')+9, text.indexOf('c.f.')));
-        console.log(V.accountcbfTo);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountMoveSize = text.substring('', text.indexOf('('));
@@ -156,7 +153,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
         } else {
             V.ConfirmationPageTo.Total = SF.cleanPrice(text);
         }
-        console.log(V.ConfirmationPageTo);
     }),config.timeout);
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){
@@ -197,7 +193,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
         } else {
             V.ConfirmationPageFrom.Total = SF.cleanPrice(text);
         }
-        console.log(V.ConfirmationPageFrom);
     }),config.timeout);
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){

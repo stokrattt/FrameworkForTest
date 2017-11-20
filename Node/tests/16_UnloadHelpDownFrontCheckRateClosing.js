@@ -18,7 +18,6 @@ condition.nowWeDoing = 'запоминаем данные';
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Truck:")]/following-sibling::span')).getText().then(function (text) {
         V.frontNumbersUnloadingDown.Truck = SF.cleanPrice (text);
-        console.log(V.frontNumbersUnloadingDown.Truck);
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcsettings.travelTime"]/span')).getText().then(function (text) {
         let hours = text.indexOf('Hr') == -1 ? 0 : SF.cleanPrice(text.substring(0, text.indexOf('Hr')));
@@ -31,7 +30,6 @@ condition.nowWeDoing = 'запоминаем данные';
             SF.cleanPrice(text) :
             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
     }), config.timeout);
-    console.log(V.frontNumbersUnloadingDown);
     SF.sleep(1);
     MF.FrontSite_GoToConfirmation();
     MF.FrontSite_ViewRequestPage();

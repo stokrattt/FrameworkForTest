@@ -9,7 +9,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index,  value) in vm.equipment_fee.by_mileage\"]').length").then(function (check) {
         V.FeeLength = check;
-        console.log(V.FeeLength);
     }),config.timeout);
     SF.sleep(1);
     if (V.FeeLength != 0) {

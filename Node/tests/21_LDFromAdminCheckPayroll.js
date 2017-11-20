@@ -131,7 +131,6 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
             t = t.substring(t.indexOf('$', t.indexOf('$', t.indexOf('$') + 1)));
             V.accountNumbersLD.Total = SF.cleanPrice(t);
         } else {
-            console.log(V.accountNumbersLD.Total);
             V.accountNumbersLD.Total = SF.cleanPrice(text);
         }
     }),config.timeout);
@@ -141,7 +140,6 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     MF.Account_ClickViewConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
-        console.log(V.ConfirmationTotal);
         }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');

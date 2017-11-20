@@ -96,14 +96,11 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     }), config.timeout);*/
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]//h3[contains(text(), "Crew Size:")]/following-sibling::span')).getText().then(function (text) {
         V.frontNumbersOvernightDown_Del.CrewFrom = SF.cleanPrice(text);
-        console.log(V.frontNumbersOvernightDown_Del.CrewFrom);
     }), config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, to_storage)]/span[contains(text(), "Delivery")]/..//h3[contains(text(), "Hourly Rate:")]/following-sibling::span')).getText().then(function (text) {
         V.frontNumbersOvernightDown_Del.RateFrom = text.indexOf('$', 4) == -1 ?
             SF.cleanPrice(text) :
             SF.cleanPrice(text.substring(text.indexOf('$', 4)));
-        console.log(V.frontNumbersOvernightDown_Del.RateFrom )
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!storageCalcResult.from.small_job"]')).getText().then(function (text) {
         let textMin = text.substring(0, text.indexOf('-'));
@@ -116,7 +113,6 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
         V.frontNumbersOvernightDown_Del.JobTimeMaxFrom = hoursMax * 60 + minutesMax;
     }), config.timeout);
     SF.sleep(2);
-    console.log (V.frontNumbersOvernightDown_UP, V.frontNumbersOvernightDown_Del);
 
 /*condition.nowWeDoing = 'запоминаем данные Estimated Labor и Overnight Storage';
 

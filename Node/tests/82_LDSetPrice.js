@@ -131,7 +131,6 @@ condition.nowWeDoing = 'тут обновляем дашборд, открыва
     driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
         'following-sibling::td[1]//div')).getText().then(function(text){
         V.logNumbers.Quote = SF.cleanPrice(text);
-        console.log(V.logNumbers.Quote)
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.boardNumbersNotConfirm.Total, 'не совпал гранд тотал в письме и в реквесте');

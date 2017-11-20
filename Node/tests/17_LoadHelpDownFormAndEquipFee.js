@@ -18,7 +18,6 @@ condition.nowWeDoing = 'зашли под админом и включаем е�
     SF.sleep(3);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index,  value) in vm.equipment_fee.by_mileage\"]').length").then(function (check) {
         V.FeeLength = check;
-        console.log(V.FeeLength);
     }),config.timeout);
     SF.sleep(1);
     if (V.FeeLength != 0) {
@@ -70,7 +69,6 @@ condition.nowWeDoing = 'запоминаем данные';
         V.frontNumbersLoadingDown.travelCharge = SF.cleanPrice (text);
     }),config.timeout);
     SF.sleep(1);
-    console.log(V.frontNumbersLoadingDown);
     SF.sleep(1);
     MF.FrontSite_GoToConfirmation();
     MF.FrontSite_ViewRequestPage();
@@ -159,7 +157,6 @@ condition.nowWeDoing = 'зашли под админом и удаляем ек�
     SF.sleep(3);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(index,  value) in vm.equipment_fee.by_mileage\"]').length").then(function (check) {
         V.FeeLength = check;
-        console.log(V.FeeLength);
     }),config.timeout);
     SF.sleep(1);
     if (V.FeeLength != 0) {

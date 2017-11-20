@@ -204,7 +204,6 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     V.contractNumbersPickup = {};
     driver.wait(driver.executeScript('return $(\'tr[ng-if="contract_page.paymentTax.creditCharge.state"] span\').text()').then(function (text) {
         V.contractNumbersPickup.CreditCardPercentSumm = SF.cleanPrice(text);
-        console.log(V.contractNumbersPickup.CreditCardPercentSumm);
     }),config.timeout);
     SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
