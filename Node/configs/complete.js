@@ -104,6 +104,7 @@ module.exports = function(config,V) {
         './tests/98_RemindersForOtherPerson.js',
         './tests/56_LoadingAllSteps.js',
         './tests/95_Statistic.js',
+        './tests/100_LeadScoring.js',
         './tests/51_ServiceTypesOnOff.js'
 
     ];
