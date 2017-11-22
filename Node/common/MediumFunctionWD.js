@@ -1774,7 +1774,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
     }
     function FrontSiteSmallCalc_ClickNeedStorageCheckbox() {
-        SF.sleep(2);
+        SF.sleep(3.5);
         JS.click("input#extra-service");
         SF.sleep(1.5);
     }

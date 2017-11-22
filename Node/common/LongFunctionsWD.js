@@ -1,5 +1,6 @@
 module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
     function FullSmallCalcAsLocal(client) {
+        SF.sleep(2.5);
         MF.FrontSiteSmallCalc_SendZipCode('02461', '02032');
         MF.FrontSiteSmallCalc_ClickCalendar();
         V.frontNumbers = {};
@@ -18,6 +19,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.FrontSiteSmallCalc_SubmitQuoteAndGoToAccount();
     }
     function FullSmallCalcAsLD (client) {
+        SF.sleep(2.5);
         MF.FrontSiteSmallCalc_SendZipCode('02461', '90001');
         MF.FrontSiteSmallCalc_ClickCalendar();
         V.frontNumbers = {};
@@ -56,6 +58,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.FrontSiteSmallCalc_SubmitQuoteAndGoToAccount();
     }
     function FullSmallCalcAsFlateRate(client) {
+        SF.sleep(2.5);
         MF.FrontSiteSmallCalc_SendZipCode('02461', '07304');
         MF.FrontSiteSmallCalc_ClickCalendar();
         V.frontNumbers = {};
@@ -574,7 +577,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             }), config.timeout);
         }
 
-        SF.sleep(0.5);
+        SF.sleep(2);
         MF.CreateRequest_SelectExtraRooms(1);
         MF.CreateRequest_SendZipToZipFrom("02032", "02136");
         MF.CreateRequest_ClickCalculate();

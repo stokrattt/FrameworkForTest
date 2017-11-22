@@ -36,7 +36,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     SF.sleep(5);
     MF.SweetConfirm();
     LF.AccountLocalAddAdditionalInventory();
-    SF.sleep(10);
+    SF.sleep(13);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();

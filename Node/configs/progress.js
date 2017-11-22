@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/94_CommercialMoveFromBord.js'];
+    config.suite = ['./tests/52_AllFlatRate.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

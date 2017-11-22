@@ -273,8 +273,9 @@ condition.nowWeDoing="Вернуться в localDispatch, найти первы
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersTo, V.contractNumbersTo);
     SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
-    MF.SweetConfirm();
-    SF.sleep(2);    LF.closeEditRequest();
+    // MF.SweetConfirm();
+    SF.sleep(2);
+    LF.closeEditRequest();
 
 condition.nowWeDoing="найти второй реквест, проверить и запомнить Payroll";
     MF.Dispatch_WaitForCalendar();

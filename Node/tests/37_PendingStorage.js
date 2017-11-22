@@ -12,7 +12,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'создаём с борда MovingWithStorage';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    LF.CreateMovAndStorFromBoard(V.client, 40);
+    LF.CreateMovAndStorFromBoard(V.client, 25);
 
 condition.nowWeDoing = 'Законфёрмить сразу реквест';
     V.boardNumbersTo = {};
