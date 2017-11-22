@@ -70,15 +70,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="leadscoringsettings.enabled"]')).getText().then(function(text) {
         V.PointReq1  = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.PointReq1, 60 ,'сверяем очки 1й раз');
+        VD.IWant(VD.ToEqual, V.PointReq1, 50 ,'сверяем очки 1й раз');
     }),config.timeout);
     MF.EditRequest_OpenLogs();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'10 points added for "A customer sends a message" action\']')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '10 points added for "A customer sends a message" action', 'нет лога про сообщение');
     }),config.timeout);
     SF.sleep(2);
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'25 points added for "When a customer submits inventory" action\']')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, '25 points added for "When a customer submits inventory" action','нет лога про инвентарь');
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'15 points added for "When a customer submits inventory" action\']')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, '15 points added for "When a customer submits inventory" action','нет лога про инвентарь');
     }),config.timeout);
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'10 points added for "A customer does any changes to their request" action\']')).getText().then(function (text) {
@@ -154,7 +154,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenRequest(V.accountNumbers.Id);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="leadscoringsettings.enabled"]')).getText().then(function(text) {
         V.PointReq2  = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.PointReq2, 115 ,'сверяем очки 2й раз');
+        VD.IWant(VD.ToEqual, V.PointReq2, 105 ,'сверяем очки 2й раз');
     }),config.timeout);
     MF.EditRequest_OpenLogs();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'25 points added for "A customer views the confirmation page" action\']')).getText().then(function (text) {
@@ -216,7 +216,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenRequest(V.accountNumbers.Id);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="leadscoringsettings.enabled"]')).getText().then(function(text) {
         V.PointReq2  = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.PointReq2, 150 ,'сверяем очки 2й раз');
+        VD.IWant(VD.ToEqual, V.PointReq2, 140 ,'сверяем очки 2й раз');
     }),config.timeout);
     SF.sleep(2);
     LF.closeEditRequest();
