@@ -62,11 +62,11 @@ condition.nowWeDoing = 'открываем статистику и провер�
     SF.sleep(3);
     SF.click(By.xpath('//statistic-table[@header="vm.HEADING_TABLES[0]"]//span[@class="switchery switchery-small"]'));
     MF.WaitWhileBusy ();
-    SF.sleep(3);
-    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="data in tableData track by $index"][2]//td[2]')).getText().then(function (text) {
-        V.SalesAssignToday = SF.cleanPrice(text);
-    }),config.timeout);
     SF.sleep(5);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="data in tableData track by $index"]//td[contains(text(), "emilia clark")]/following-sibling::td[1]')).getText().then(function (text) {
+        V.SalesAssignToday = SF.cleanPrice(text);
+            }),config.timeout);
+    SF.sleep(3);
     condition.nowWeDoing = 'запоминаем Estimate Income';
     driver.wait(driver.findElement(By.xpath('//chart-statistic-tab[@ng-if="vm.halfYearProfit"]//p[@class="no-margins"]')).getText().then(function (text) {
         V.EstIncStat = SF.cleanPrice(text);
@@ -94,6 +94,11 @@ condition.nowWeDoing = 'идем в профит анд лосс, сверяем
     MF.Board_OpenStatistic ();
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//chart-statistic-tab[@ng-if="vm.request_daily"]//p[@class="no-margins"]')).getText().then(function(text) {
+        V.SalesBookedSalesPageTableAssignToday = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.SalesAssignToday, V.SalesBookedSalesPageTableAssignToday,'не совпало кол-во ассаинутых работ за Today с оунерпеидж и салеспеидж в верхней табличке Assign');
+    }),config.timeout);
+    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//div[@class="col-lg-3"]//p[@class="no-margins margtop"]')).getText().then(function(text) {
         V.SalesAmountSalesPage = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.SalesAmount, V.SalesAmountSalesPage,'не совпало общее кол-во работ оунерпеидж/салеспеидж из коммон стата');
@@ -109,11 +114,7 @@ condition.nowWeDoing = 'идем в профит анд лосс, сверяем
         VD.IWant(VD.ToEqual, V.SalesBookedSalesPageCommonStat, V.SalesBookedSalesPageTableBooked,'не совпало кол-во забуканных работ в коммон стате, и верхней табличке Booked');
     }),config.timeout);
     SF.sleep(2);
-    driver.wait(driver.findElement(By.xpath('//chart-statistic-tab[@ng-if="vm.request_daily"]//p[@class="no-margins"]')).getText().then(function(text) {
-        V.SalesBookedSalesPageTableAssignToday = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.SalesAssignToday, V.SalesBookedSalesPageTableAssignToday,'не совпало кол-во ассаинутых работ за Today с оунерпеидж и салеспеидж в верхней табличке Assign');
-    }),config.timeout);
-    SF.sleep(3);
+
 
     condition.nowWeDoing = 'идем на дашборд в конфермед, что бы сверить кол-во работ';
     MF.Board_OpenDashboard ();
