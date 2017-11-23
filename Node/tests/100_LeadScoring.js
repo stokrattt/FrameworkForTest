@@ -14,7 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'первый раз в аккаунте, добавляю инвентарь, детали, отправляю сообщение,проверяю прогрес бар';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
-    driver.wait(driver.findElement(By.xpath('//div[@class="percent-label"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
         V.ScorePercent1 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent1, 25,'при входе в аккаунт 1й раз в аккаунт не посчитались проценты за создание реквеста');
     }),config.timeout);
@@ -31,7 +31,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
    // SF.sleep(3);
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
-    driver.wait(driver.findElement(By.xpath('//div[@class="percent-label"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
         V.ScorePercent2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent2, 65,'не посчитались проценты за добавление инвентаря');
     }),config.timeout);
@@ -41,7 +41,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     LF.AccountLocalDetails();
     SF.sleep(3);
-    driver.wait(driver.findElement(By.xpath('//div[@class="percent-label"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
         V.ScorePercent3 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent3, 85,'не посчитались проценты за добавление деталей');
     }),config.timeout);
@@ -107,9 +107,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.accountNumbers.Id);
     MF.WaitWhileBusy();
-    driver.wait(driver.findElement(By.xpath('//div[@class="percent-label"]')).getText().then(function(text) {
-        V.ScorePercent = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.ScorePercent, 85,'при входе в аккаунт 2й раз в аккаунт не совпали проценты');
+    driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
+        V.ScorePercent4 = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.ScorePercent4, 85,'при входе в аккаунт 2й раз в аккаунт не совпали проценты');
     }),config.timeout);
     SF.sleep(2);
     SF.click(By.id('tab_Coupons'));
@@ -135,9 +135,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     MF.WaitWhileBusy();
-    driver.wait(driver.findElement(By.xpath('//div[@class="percent-label"]')).getText().then(function(text) {
-        V.ScorePercent4 = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.ScorePercent4, 100,'не добавились проценты после резервации');
+    driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
+        V.ScorePercent5 = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.ScorePercent5, 100,'не добавились проценты после резервации');
     }),config.timeout);
     SF.sleep(2);
    // driver.wait(driver.executeScript("return $('//div[class=\'request-score-box__progress-line__column\'][4]//div[class=\'request-score-box__progress-line__column__circle border-green\']').length").then(function (text) {
