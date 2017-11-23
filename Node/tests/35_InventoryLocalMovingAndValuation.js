@@ -43,6 +43,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     VD.IWant(VD.ToEqual, V.accountNumbers.InventoryCbf, V.boardNumbers.cbf,'Не совпали cbf аккаунта и борда');
     LF.addInventoryBoard (V.boardNumbers);
+    Debug.pause();
+    SF.sleep(4);
+    driver.wait(driver.executeScript('return $(\'div.ValuationCost:visible\').text()').then(function (text) {
+        V.Valuation = SF.cleanPrice(text.substring(text.indexOf('$')));
+    }),config.timeout);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
@@ -63,7 +68,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Valuation charge")]/following-sibling::div')).getText().then(function (text) {
         text = SF.cleanPrice (text);
-        VD.IWant (VD.ToEqual, text, V.boardNumbers.Valuation, 'не совпал valuation charge с тем что на админке в реквесте');
+        VD.IWant (VD.ToEqual, text, V.Valuation, 'не совпал valuation charge с тем что на админке в реквесте');
     }),config.timeout);
     VD.IWant(VD.ToEqual, V.accountNumbers.cbf, V.boardNumbers.InventoryCubicFit);
     SF.sleep(2);
