@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/35_InventoryLocalMovingAndValuation.js'];
+    config.suite = ['./tests/CustomCommMoveWithInventory.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

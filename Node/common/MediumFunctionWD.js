@@ -534,6 +534,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Account_ClickPartialPacking() {
         SF.click(By.xpath('//label[@for="partial"]/input[@ng-model="vm.packing_service"]'));
+        WaitWhileBusy();
+    }
+    function Account_ClickFullPacking() {
+        SF.click(By.xpath('//label[@for="full"]/input[@ng-model="vm.packing_service"]'));
+        WaitWhileBusy();
     }
 
     function Account_CheckRequestStatus_NotConfirmed(Id) {
@@ -1913,6 +1918,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         //====================================ACCOUNT=======================================
         Account_ClickViewRequest: Account_ClickViewRequest,
         Account_ClickPartialPacking: Account_ClickPartialPacking,
+        Account_ClickFullPacking:Account_ClickFullPacking,
         Account_CheckRequestStatus_NotConfirmed: Account_CheckRequestStatus_NotConfirmed,
         Account_CheckRequestStatus_Pending: Account_CheckRequestStatus_Pending,
         Account_OpenRequest: Account_OpenRequest,

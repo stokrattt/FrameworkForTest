@@ -87,6 +87,7 @@ condition.nowWeDoing = 'проверяем двойную дату';
 
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    SF.sleep(3);
     LF.OpenRequestFlatRate (V.FRId);
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
     SF.sleep (0.5);
