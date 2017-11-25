@@ -226,7 +226,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'проверяем фильтр на дашборде';
     SF.click(By.xpath('//md-switch[@ng-model="leadScoreFilter.enabled"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//md-select[@id="select_9"]'));
+    SF.click(By.xpath('//md-select[@ng-model="leadScoreFilter.key"]'));
     SF.click(By.xpath('//md-option[@value="hot"]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text){
         V.accountNumbers.Id1 = text;
