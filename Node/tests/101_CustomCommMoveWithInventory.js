@@ -103,7 +103,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Total, V.accountNumbersLD.Total, 'не изменился гранд тотал после добавления инвентрая');
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Fuel, V.accountNumbersLD.Fuel, 'не изменился fuel после добавления инвентрая');
     MF.Account_ClickFullPacking();
-    SF.sleep(12);
+    SF.sleep(8);
     V.accountNumbersLDAfterAddInvenAfterAddFullPacing={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInvenAfterAddFullPacing);
     SF.sleep(5);
@@ -166,8 +166,49 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.boardNumbers2PendingAfterAddInven.Total, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
+    driver.wait(driver.findElement(By.xpath('//h2[@ng-if="vm.isCommercial && vm.commercialName.length"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'TrastovuyFond', 'не нашло имени компании на конфирмейшн');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistancePackingTotal"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers2PendingAfterAddInven.Packing, 'не совпал пакинг на конфирмейшн');
+    }),config.timeout);
+    SF.sleep(1);
+    MF.Account_ConfirmationBackToRequest();
+    LF.ConfirmRequestInAccount_WithReservation();
 
-
+condition.nowWeDoing = 'идем в админку проверять что числа не поменялись, так же поменяем адрес закроем и откроем и проверим что все в норме';
+    LF.LogoutFromAccount();
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenConfirmed();
+    MF.Board_OpenRequest(V.boardNumbers.Id);
+    SF.clear (By.id('edit-moving-from'));
+    SF.send (By.id('edit-moving-from'), 'new adress from');
+    SF.clear (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
+    SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'new adress to');
+    MF.EditRequest_SaveChanges();
+    LF.closeEditRequest();
+    MF.Board_OpenRequest(V.boardNumbers.Id);
+    V.boardNumbersAfterConfirm = {};
+    LF.RememberDigitsRequestBoard (V.boardNumbersAfterConfirm);
+    LF.Validation_Compare_Account_Admin (V.boardNumbersAfterConfirm, V.boardNumbers2PendingAfterAddInven);
+    MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_CloseJob();
+    SF.click(By.xpath('//div[@class="request-view"]'));
+    SF.openTab(1);
+    MF.Account_ClickViewConfirmationPage();
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
+        V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
+    }),config.timeout);
+    SF.sleep(1);
+    VD.IWant(VD.ToEqual, V.boardNumbers2PendingAfterAddInven.Total, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
+    driver.wait(driver.findElement(By.xpath('//h2[@ng-if="vm.isCommercial && vm.commercialName.length"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'TrastovuyFond', 'не нашло имени компании на конфирмейшн после конферм и закрытия работы через админку');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistancePackingTotal"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers2PendingAfterAddInven.Packing, 'не совпал пакинг на конфирмейшн после конферм и закрытия работы через админк');
+    }),config.timeout);
+    SF.sleep(3);
 
 
     //=========================закончили писать тест=============================
