@@ -85,7 +85,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом нот конферм');
     LF.AccountLocalAddInventory();
-    SF.sleep(13);
+    SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountcbfWithInventory = SF.cleanPrice(text.substring(text.indexOf('Inventory ')+9, text.indexOf('c.f.')));
     }),config.timeout);
@@ -99,8 +99,6 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     SF.sleep(8);
     V.accountNumbersLDAfterAddInvenAfterAddFullPacing={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInvenAfterAddFullPacing);
-    Debug.pause();
-    SF.sleep(5);
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'идем в админку делать нот конферм работе и проверять что работает смена кастомного веса для комершиал';
@@ -137,7 +135,6 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     }),config.timeout);
     SF.sleep(2);
     VD.IWant(VD.ToEqual, V.LogsQuote, V.boardNumbers2PendingAfterAddInven.Total, 'в письме клиенту  тотал отправился неверный в нот конферм работе');
-    Debug.pause();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
@@ -169,10 +166,8 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers2PendingAfterAddInven.Packing, 'не совпал пакинг на конфирмейшн');
     }),config.timeout);
     SF.sleep(1);
-    Debug.pause();
     MF.Account_ConfirmationBackToRequest();
     LF.ConfirmRequestInAccount_WithReservation();
-    Debug.pause();
 
 condition.nowWeDoing = 'идем в админку проверять что числа не поменялись, так же поменяем адрес закроем и откроем и проверим что все в норме';
     LF.LogoutFromAccount();
