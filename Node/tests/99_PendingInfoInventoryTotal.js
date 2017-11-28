@@ -36,7 +36,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     SF.sleep(5);
     MF.SweetConfirm();
     LF.AccountLocalAddAdditionalInventory();
-    SF.sleep(13);
+    SF.sleep(15);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
@@ -45,9 +45,11 @@ condition.nowWeDoing = 'пошли в админку и проверили, чт
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.boardNumbers.Id);
+    SF.sleep(3);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
+    SF.sleep(2);
 
 
 

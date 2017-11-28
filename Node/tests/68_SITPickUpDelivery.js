@@ -12,7 +12,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
-    LF.LoginToBoardAs_Roma4ke_Admin ();
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
     condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);

@@ -28,6 +28,7 @@ condition.nowWeDoing = 'проверяем что сервис тип стал �
     MF.EditRequest_OpenClient ();
     MF.EditRequest_ClientTabSendCompanyName('TrastovuyFond');
     LF.SetClientPasswd(V.client.passwd);
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//span[@class="client client-info"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'TrastovuyFond', 'вверху реквеста не показалось company name');
     }),config.timeout);
@@ -48,14 +49,6 @@ condition.nowWeDoing = 'ставим трак и идем в логи прове
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Long Distance Quote (Pending Status");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
-    SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Long Distance Quote (Pending Status)")]' +
-        '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
-    driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
-        'following-sibling::td[1]//div')).getText().then(function(text){
-        V.LogsQuote = SF.cleanPrice(text);
-    }),config.timeout);
-    SF.sleep(2);
-    VD.IWant(VD.ToEqual, V.LogsQuote, V.boardNumbers.Total, 'в письме клиенту  тотал отправился неверный');
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'закрываем и открываем наш реквест и еще раз сверяем данные которые были до закрытия';
@@ -92,7 +85,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом нот конферм');
     LF.AccountLocalAddInventory();
-    SF.sleep(5);
+    SF.sleep(13);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountcbfWithInventory = SF.cleanPrice(text.substring(text.indexOf('Inventory ')+9, text.indexOf('c.f.')));
     }),config.timeout);
@@ -106,6 +99,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     SF.sleep(8);
     V.accountNumbersLDAfterAddInvenAfterAddFullPacing={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInvenAfterAddFullPacing);
+    Debug.pause();
     SF.sleep(5);
     LF.LogoutFromAccount();
 
@@ -143,6 +137,7 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     }),config.timeout);
     SF.sleep(2);
     VD.IWant(VD.ToEqual, V.LogsQuote, V.boardNumbers2PendingAfterAddInven.Total, 'в письме клиенту  тотал отправился неверный в нот конферм работе');
+    Debug.pause();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
@@ -169,12 +164,15 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     driver.wait(driver.findElement(By.xpath('//h2[@ng-if="vm.isCommercial && vm.commercialName.length"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'TrastovuyFond', 'не нашло имени компании на конфирмейшн');
     }),config.timeout);
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistancePackingTotal"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers2PendingAfterAddInven.Packing, 'не совпал пакинг на конфирмейшн');
     }),config.timeout);
     SF.sleep(1);
+    Debug.pause();
     MF.Account_ConfirmationBackToRequest();
     LF.ConfirmRequestInAccount_WithReservation();
+    Debug.pause();
 
 condition.nowWeDoing = 'идем в админку проверять что числа не поменялись, так же поменяем адрес закроем и откроем и проверим что все в норме';
     LF.LogoutFromAccount();
