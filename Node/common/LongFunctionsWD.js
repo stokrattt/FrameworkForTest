@@ -1164,6 +1164,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath("//select[@ng-model='super.vm.data.deliveryCrew.foreman']/option[contains(text(),'FlatRate Foreman')]"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']"));
         SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
+        JS.scroll('a[ng-click=\"super.vm.assignTeam()\"]:visible');
+        SF.sleep(1);
         driver.wait(
             driver.findElements(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']")).then(function (count) {
                 if (count.length > 0) {

@@ -139,8 +139,10 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.createdate);
     SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
     SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.createdate);
+    SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
     MF.WaitWhileBusy ();
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]')).getText().then(function (id1) {
         VD.IWant (VD.ToEqual, V.Id1, id1, 'не нашел реквест1 по фильтрации create date')
     }),config.timeout);
