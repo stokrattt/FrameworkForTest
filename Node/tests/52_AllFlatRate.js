@@ -198,6 +198,7 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
     MF.WaitWhileBusy ();
+    
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.WaitWhileBusy ();
