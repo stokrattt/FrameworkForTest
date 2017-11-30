@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/24_FiltrationMoveDateCreateDate.js'];
+    config.suite = ['./tests/90_ChangeEmailUser.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;
