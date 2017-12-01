@@ -68,8 +68,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    driver.wait(driver.findElement(By.xpath('//div[@ng-if="leadscoringsettings.enabled"]')).getText().then(function(text) {
-        V.PointReq1  = SF.cleanPrice(text);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_total_score"]')).getAttribute('value').then(function(text) {
+        V.PointReq1  = text;
         VD.IWant(VD.ToEqual, V.PointReq1, 50 ,'сверяем очки 1й раз');
     }),config.timeout);
     MF.EditRequest_OpenLogs();
@@ -152,8 +152,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenConfirmed();
     SF.sleep(3);
     MF.Board_OpenRequest(V.accountNumbers.Id);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-if="leadscoringsettings.enabled"]')).getText().then(function(text) {
-        V.PointReq2  = SF.cleanPrice(text);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_total_score"]')).getAttribute('value').then(function(text) {
+        V.PointReq2  = text;
+        console.log(V.PointReq2);
         VD.IWant(VD.ToEqual, V.PointReq2, 105 ,'сверяем очки 2й раз');
     }),config.timeout);
     MF.EditRequest_OpenLogs();
@@ -214,7 +215,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenConfirmed();
     SF.sleep(3);
     MF.Board_OpenRequest(V.accountNumbers.Id);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-if="leadscoringsettings.enabled"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_total_score"]')).getAttribute('value').then(function(text) {
         V.PointReq2  = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PointReq2, 140 ,'сверяем очки 2й раз');
     }),config.timeout);
@@ -232,8 +233,28 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.accountNumbers.Id1 = text;
         VD.IWant(VD.ToEqual, V.accountNumbers.Id1, V.accountNumbers.Id, 'не наидена работа после фильтрации HOT');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(3);
 
+    condition.nowWeDoing = 'заходим в реквест 4й раз, вводим очки вручную ';
+    MF.Board_OpenRequest(V.accountNumbers.Id);
+    MF.WaitWhileBusy();
+    SF.click (By.xpath('//input[@ng-model="request.field_total_score"]'));
+    SF.clear (By.xpath('//input[@ng-model="request.field_total_score"]'));
+    SF.sleep(3);
+    SF.send (By.xpath('//input[@ng-model="request.field_total_score"]'), 45);
+    LF.closeEditRequest();
+
+    condition.nowWeDoing = 'проверяем фильтр по новому количеству очков';
+    MF.Board_RefreshDashboard ();
+    SF.click(By.xpath('//md-select[@ng-model="leadScoreFilter.key"]'));
+    SF.click(By.xpath('//md-option[@value="cold"]'));
+    MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text){
+        V.accountNumbers.Id2 = text;
+        VD.IWant(VD.ToEqual, V.accountNumbers.Id2, V.accountNumbers.Id, 'не наидена работа во время фильтрации COLD после смены очков вручную');
+    }),config.timeout);
+    SF.sleep(3);
 
 
 
