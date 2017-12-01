@@ -118,6 +118,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     SF.sleep(2);
     condition.nowWeDoing = 'переходим на страницу просмотра иновоиса и делаем оплату инвоиса';
+    SF.sleep(2);
     SF.waitForVisible(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
     SF.click(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
     SF.sleep(1);
