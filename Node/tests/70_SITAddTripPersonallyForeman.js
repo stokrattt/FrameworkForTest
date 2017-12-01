@@ -83,10 +83,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'Сохраняем трип и добавляем работу в трип';
     driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="createTrip(trip)"]'))).doubleClick().perform();
     JS.waitForNotExist('span.toast-message:visible');
-    // SF.waitForVisible (By.xpath('//span[contains(text(),"Trip updated!")]'));
     SF.sleep(1);
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Add Pickup/Delivery")]'));
-    // JS.click('span:contains(\\"Add Pickup/Delivery\\")');
     SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'), V.dateStart);
@@ -94,10 +92,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'), V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
-    SF.sleep(1);
+    SF.sleep(3);
 
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
-    // SF.click(By.xpath('//button[@ng-click="addRequestsToTrip()"]'));
     JS.click('span:contains(\\"Add requests to trip\\")');
     SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
     SF.sleep(2);
