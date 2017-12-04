@@ -72,6 +72,7 @@ condition.nowWeDoing = 'Заходим на акаунт и проверяем 
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.extraDropOffAddress+'")]')).getText().then(function(text){
     }),config.timeout);
     SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));
+    SF.sleep(4);
     V.newExtraPickUpAddress = SF.randomBukva(6) + '_t';
     V.newExtraDropOffAddress = SF.randomBukva(6) + '_t';
     driver.wait(driver.findElement(By.xpath('//select[@ng-value="request.field_extra_pickup.organisation_name"]')).getAttribute('value').then(function(text){
