@@ -49,7 +49,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-
+    MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();
