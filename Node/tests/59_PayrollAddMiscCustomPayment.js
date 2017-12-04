@@ -25,7 +25,7 @@ condition.nowWeDoing = 'заходим у форемана и счтаем сн�
     LF.Payroll_DeleteAllMiscPaymentCycle ();
     JS.scroll('div.total-payroll-panel div.total-title:contains(\"Paid\")');
     MF.Payroll_RefreshTable ();
-
+Debug.pause();
     driver.wait(driver.executeScript(JSstep.payrollTableSum).then(function (summa) {
         VD.IWant(VD.ToEqual, summa.sum, summa.balTop, 'Не совпали сумма посчитанная в таблице с балансом сверху внутри чувачка');
     }),config.timeout);
@@ -38,6 +38,7 @@ condition.nowWeDoing = 'заходим у форемана и счтаем сн�
 condition.nowWeDoing = 'выделяем все работы и делаем оплату кэшем. После этого сравниваем что баланс =0 и что в пейд стал таким на сколько оплатили';
     MF.Payroll_SelectAllJobsCheckbox();
     MF.Payroll_ClickApplyPayment();
+    Debug.pause();
     MF.PayrollPayCheck_ClickSavePayment ();
     MF.Payroll_RefreshTable ();
 
@@ -46,7 +47,7 @@ condition.nowWeDoing = 'выделяем все работы и делаем о�
     VD.IWant (VD.ToEqual, V.balanceDown, V.payrollNumbersInsidePaidCash.paid, 'Сумма которую должны были оплатить за все работы не совпала с тем что оплатили, неверные данные в строке Paid после оплаты Cash');
     VD.IWant (VD.ToEqual, V.payrollNumbersInsidePaidCash.balanceTop, 0, 'Баланс свверху у чувачка после оплаты кешем не ноль, а должен быть 0   после оплаты Cash');
     SF.sleep(1);
-
+Debug.pause();
 condition.nowWeDoing = 'возвращаемся на шаг назад и проверяем что сумма которую оплатили кэшем отображается в пейд напротив имени форемана и что тотал равен 0';
     MF.Payroll_ClickStepBackToNameWorker ();
     V.payrollNumbersOutsideAfterPaidCash = {};

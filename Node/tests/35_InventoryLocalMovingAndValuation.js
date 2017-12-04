@@ -17,7 +17,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
     V.accountNumbers={};
-    LF.AccountLocalAddInventory(V.accountNumbers);
+    LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
