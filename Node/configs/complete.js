@@ -118,6 +118,11 @@ module.exports = function(config,V) {
 	V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
 	V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
 	V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
+
+    // V.frontURL = 'http://stage.themoveboard.com:8071';
+    // V.accountURL = 'http://stage.themoveboard.com:8071/account/#/login';
+    // V.adminURL = 'http://stage.themoveboard.com:8071/moveBoard/#/login';
+
 //	V.frontURL = 'http://89.223.29.231:8080/front_site/';
 	//V.accountURL = 'http://89.223.29.231:8080/account/#/login';
 	//V.adminURL = 'http://89.223.29.231:8080/moveBoard/#/login';
