@@ -197,34 +197,34 @@ condition.nowWeDoing = 'выбираем цифры helper';
         }),config.timeout);
     }
     SF.sleep(2);
-    condition.nowWeDoing = 'а теперь идем в календарь проверять что трак есть на календаре на дату на которую создали его';
-    driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){
-        V.current1 = date;
-        let now = new Date();
-        let msInDay = 86400000;
-        let future = new Date(now.getTime() + msInDay * 3 );
-        let options = {  month: 'long', year: 'numeric' };
-        V.Dates1 = (future.toLocaleDateString('en-US', options));
-    }), config.timeout);
-    SF.sleep(8);
-    if (V.current1 == V.Dates1) {
-
-        JS.click('.pull-right:contains("' + V.boardNumbers.moveDate.Day + '")');
-        MF.WaitWhileBusy();
-        SF.sleep(5);
-        driver.wait(driver.executeScript("return $('div.line1:contains("+V.request.Id+")').length").then (function (checkSchedule) {
-            VD.INeed(VD.ToEqual, checkSchedule, 1, 'работа не нашлась в schedule по move date ' + V.boardNumbers.moveDate.Day + ', реквест номер '+V.request.Id+'');
-        }),config.timeout);
-    } else {
-        SF.click(By.xpath('//i[@ng-click="vm.nextMonth()"]'));
-        SF.sleep(5);
-        SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right")] and [contains(text(), "' + V.datescedule + '")]'));
-        SF.sleep(5);
-        driver.wait(driver.executeScript("return $('div.line1:contains("+V.request.Id+")').length").then (function (checkSchedule) {
-            VD.INeed(VD.ToEqual, checkSchedule, 2, '(проверка два) работа не нашлась в schedule по move date ' + V.boardNumbers.moveDate.Day + ', реквест номер '+V.request.Id+'');
-        }),config.timeout);
-    }
-    SF.sleep(2);
+    // condition.nowWeDoing = 'а теперь идем в календарь проверять что трак есть на календаре на дату на которую создали его';
+    // driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){
+    //     V.current1 = date;
+    //     let now = new Date();
+    //     let msInDay = 86400000;
+    //     let future = new Date(now.getTime() + msInDay * 3 );
+    //     let options = {  month: 'long', year: 'numeric' };
+    //     V.Dates1 = (future.toLocaleDateString('en-US', options));
+    // }), config.timeout);
+    // SF.sleep(8);
+    // if (V.current1 == V.Dates1) {
+    //
+    //     JS.click('.pull-right:contains("' + V.boardNumbers.moveDate.Day + '")');
+    //     MF.WaitWhileBusy();
+    //     SF.sleep(5);
+    //     driver.wait(driver.executeScript("return $('div.line1:contains("+V.request.Id+")').length").then (function (checkSchedule) {
+    //         VD.INeed(VD.ToEqual, checkSchedule, 1, 'работа не нашлась в schedule по move date ' + V.boardNumbers.moveDate.Day + ', реквест номер '+V.request.Id+'');
+    //     }),config.timeout);
+    // } else {
+    //     SF.click(By.xpath('//i[@ng-click="vm.nextMonth()"]'));
+    //     SF.sleep(5);
+    //     SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right")] and [contains(text(), "' + V.datescedule + '")]'));
+    //     SF.sleep(5);
+    //     driver.wait(driver.executeScript("return $('div.line1:contains("+V.request.Id+")').length").then (function (checkSchedule) {
+    //         VD.INeed(VD.ToEqual, checkSchedule, 2, '(проверка два) работа не нашлась в schedule по move date ' + V.boardNumbers.moveDate.Day + ', реквест номер '+V.request.Id+'');
+    //     }),config.timeout);
+    // }
+    // SF.sleep(2);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

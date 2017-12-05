@@ -52,12 +52,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.boardNumbers.Id);
     MF.EditRequest_OpenPayroll();
+    SF.sleep(2);
     driver.wait(driver.executeScript('return $(\'select[ng-model="selected.salesPerson[salesPersonIndex]"]:visible  option[selected="selected"]:contains("'+V.managerFirstName+'")\').length;')
         .then(function(count){
             V.countSales=count;
         }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.countSales, 1,'не сохранился Sale');
+    Debug.pause();
     SF.click(By.xpath('//a[@ng-click="select(tabs[1])"][contains(text(),"Foreman")]'));
     driver.wait(driver.executeScript('return $(\'select[ng-model="selected.foreman[foremanIndex]"]:visible  option[selected="selected"]:contains("'+V.foremanName+'")\').length;')
         .then(function(count){

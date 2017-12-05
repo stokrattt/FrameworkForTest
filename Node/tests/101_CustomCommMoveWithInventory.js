@@ -121,7 +121,9 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.custom_weight.value"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 999, 'в настройках не поменялся кубик фит для кастомного веса');
     }),config.timeout);
+    SF.sleep(1);
     MF.EditRequest_ClickSizeInventory();
+    SF.sleep(4);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
@@ -135,6 +137,7 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     }),config.timeout);
     SF.sleep(2);
     VD.IWant(VD.ToEqual, V.LogsQuote, V.boardNumbers2PendingAfterAddInven.Total, 'в письме клиенту  тотал отправился неверный в нот конферм работе');
+    Debug.pause();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 

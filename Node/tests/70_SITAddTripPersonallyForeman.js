@@ -70,9 +70,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.notes = SF.randomBukva(25) + '_t';
     SF.send (By.xpath('//textarea[@ng-model="trip.data.note"]'), V.notes);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.foreman"]'));
-    SF.waitForVisible (By.xpath('//div[text()="'+V.foremanName+'"]'));
+    SF.sleep(3);
+    // SF.waitForVisible (By.xpath('//div[text()="'+V.foremanName+'"]'));
     SF.click(By.xpath('//div[text()="'+V.foremanName+'"]'));
-    SF.sleep(1);
+    SF.sleep(1.5);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.helper"]'));
     SF.waitForVisible (By.xpath('//div[text()="helper test1"]'));
     SF.click(By.xpath('//div[text()="helper test1"]'));
