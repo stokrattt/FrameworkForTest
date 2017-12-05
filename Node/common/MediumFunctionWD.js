@@ -535,6 +535,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickPartialPacking() {
         SF.click(By.xpath('//label[@for="partial"]/input[@ng-model="vm.packing_service"]'));
         WaitWhileBusy();
+        SF.sleep(6);
     }
     function Account_ClickFullPacking() {
         SF.click(By.xpath('//label[@for="full"]/input[@ng-model="vm.packing_service"]'));
@@ -1322,6 +1323,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_WaitForOpenRequest() {
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         WaitWhileBusy ();
+        WaitWhileBusy();
     }
     function EditRequest_ClickAddCustomPayment() {
         SF.click(By.xpath('//a[@ng-click="addCustomPayment()"]'));
