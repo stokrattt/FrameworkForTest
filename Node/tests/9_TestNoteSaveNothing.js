@@ -149,7 +149,7 @@ condition.nowWeDoing = 'тут проверим на сохранение нот
     SF.waitForVisible(By.xpath('//div[@class="modal-content"]'));
     SF.sleep (1);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="message.label == \'custom\' || message.label == \'notes\'"]')).getText().then(function(text) {
-        VD.IWant(VD.ToEqual, text, 'Notes was changed');
+        VD.IWant(VD.ToEqual, text, 'Notes were changed');
     }),config.timeout);
     SF.click(By.xpath('//button[@ng-click="update(request)"]'));
     MF.WaitWhileBusy();
