@@ -40,8 +40,8 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     SF.sleep(1);
     SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
     SF.click(By.xpath('//li[@class="ui-timepicker-selected"]/following-sibling::li[2]'));
-    SF.waitForVisible(By.xpath('//h2[contains(text(),"Are you sure you want set time manualy?")]'));
-    SF.click(By.xpath('//button[contains(text(),"Yes, lel\'s do it!")]'));
+    SF.waitForVisible(By.xpath('//h2[contains(text(),"Are you sure you want to set time manualy?")]'));
+    SF.click(By.xpath('//button[contains(text(),"Yes, let\'s do it!")]'));
     SF.sleep(1);
     MF.EditRequest_OpenSettings ();
     V.managerFirstName = 'emilia';
