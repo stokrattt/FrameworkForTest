@@ -30,6 +30,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//div[@uib-tooltip="Dima 123"]'));
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd(V.client.passwd);
+    MF.EditRequest_OpenRequest();
     MF.EditRequest_SaveChanges();
 
     condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
@@ -68,6 +71,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant (VD.ToEqual, V.InhomeReq, V.boardNumbers.Id, 'реквеста нет в списке Inhome Estimate')
     }),config.timeout);
     SF.sleep (3);
+    MF.Board_LogoutAdmin();
+
+    condition.nowWeDoing = 'идем в аккаунт, проверить что статус реквеста инхом эстимеит';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient(V.client);
+    MF.Account_OpenRequest(V.boardNumbers.Id);
+    MF.Account_ClickViewRequest();
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text()," Inhome Estimate")]')).getText().then(function (Status) {
+        VD.IWant(VD.ToEqual, Status, 'INHOME ESTIMATE');
+    }), config.timeout);
 
 
     SF.endOfTest();
