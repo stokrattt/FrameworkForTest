@@ -58,7 +58,7 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     SF.sleep(1);
     JS.scroll("tr[ng-repeat=\"n in rangeArr\"]:eq(0)");
 
-    for (let i = 1, invCount = 1; i <= 7; i++) {
+    for (let i = 1, invCount = 1; i <= 9; i++) {
         SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//button[1]'));
         SF.sleep(1);
         JS.click("ul#inventory-dropdown:visible li[ng-repeat=\"articles in  inventoryList | toArray | orderBy: \\'title\\'  \"]:visible");

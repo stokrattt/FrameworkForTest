@@ -355,7 +355,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function Board_RefreshDashboard(){
-		WaitWhileBusy ();
+		// WaitWhileBusy ();
 		SF.sleep(1);
         SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
         WaitWhileBusy ();
@@ -865,7 +865,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (15);
     }
     function EditRequest_WaitForVisibleCloneRequest() {
-        SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
+        SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_2")]//a[@ng-click="select(tabs[0])"]'));
         WaitWhileBusy();
     }
 

@@ -41,8 +41,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy ();
     V.boardNumbers={};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-    VD.IWant(VD.ToEqual, V.accountNumbers.InventoryCbf, V.boardNumbers.cbf,'Не совпали cbf аккаунта и борда');
-    LF.addInventoryBoard (V.boardNumbers);
+    // VD.IWant(VD.ToEqual, V.accountNumbers.InventoryCbf, V.boardNumbers.cbf,'Не совпали cbf аккаунта и борда');
+    LF.addAdditionalInventoryBoard (V.boardNumbers);
     Debug.pause();
     SF.sleep(4);
     driver.wait(driver.executeScript('return $(\'div.ValuationCost:visible\').text()').then(function (text) {

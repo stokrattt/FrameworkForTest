@@ -49,6 +49,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant (VD.NotToEqual, V.requestNew.SaleName, V.requestSale.SaleName, 'пермишины не сработали, так как сейл не изменился');
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetSizeOfMoveNumber(8);
+    SF.sleep(5);
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
     MF.Board_RefreshDashboard();
