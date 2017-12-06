@@ -106,6 +106,7 @@ module.exports = function(config,V) {
         './tests/56_LoadingAllSteps.js',
         './tests/95_Statistic.js',
         './tests/100_LeadScoring.js',
+        './tests/102_InhomeEstimate.js',
         './tests/51_ServiceTypesOnOff.js'
 
     ];
