@@ -131,17 +131,30 @@ condition.nowWeDoing = 'идем в гугл почту';
 condition.nowWeDoing = 'проверяем в календаре, что работа пришла фореману';
     SF.get('https://calendar.google.com/calendar');
     SF.sleep(3);
-    SF.click(By.xpath('//div[contains(text(), "День")]'));
-    SF.click(By.xpath('//div[@id="navForward:2"]'));
-    SF.click(By.xpath('//div[@id="navForward:2"]'));
-    SF.click(By.xpath('//div[@id="navForward:2"]'));
-    SF.click(By.xpath('//div[@id="navForward:2"]'));
+    //SF.click(By.xpath('//div[contains(text(), "День")]'));
+    //SF.click(By.xpath('//div[@id="navForward:2"]'));
+   // SF.click(By.xpath('//div[@id="navForward:2"]'));
+    //SF.click(By.xpath('//div[@id="navForward:2"]'));
+    //SF.click(By.xpath('//div[@id="navForward:2"]'));
+    //SF.sleep(5);
+    //driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text) {
+    // V.Req1Cal = text;
+    // VD.IWant(VD.ToEqual, ('#' +V.accountNumbers.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'фореману в календарь не пришла работа');
+    // }),config.timeout);
+    // SF.sleep(5);
+    SF.click (By.xpath('//div[@class="XyKLOd"]'));
+    SF.click (By.xpath('//div[@class="jO7h3c"] [contains(text(), "День")]'));
+    SF.sleep(3);
+    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@class="mUbCce fKz7Od rF3YF EwnKv xEq6pc YTXdJe M9Bg4d"]'));
+    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@class="mUbCce fKz7Od rF3YF EwnKv xEq6pc YTXdJe M9Bg4d"]'));
+    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@class="mUbCce fKz7Od rF3YF EwnKv xEq6pc YTXdJe M9Bg4d"]'));
+    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@class="mUbCce fKz7Od rF3YF EwnKv xEq6pc YTXdJe M9Bg4d"]'));
+      driver.wait(driver.findElement(By.xpath('//span[@class="FAxxKc"]// html-blob[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text) {
+   V.Req1Cal = text;
+    VD.IWant(VD.ToEqual, ('#' +V.accountNumbers.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'фореману в календарь не пришла работа');
+     }),config.timeout);
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text) {
-        V.Req1Cal = text;
-        VD.IWant(VD.ToEqual, ('#' +V.accountNumbers.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'фореману в календарь не пришла работа');
-    }),config.timeout);
-    SF.sleep(5);
+
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     SF.get(V.adminURL);
