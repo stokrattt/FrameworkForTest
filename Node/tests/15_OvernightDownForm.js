@@ -260,32 +260,30 @@ condition.nowWeDoing = 'идем в гугл почту';
     SF.sleep(10);
 
 
-    condition.nowWeDoing = 'выбираем день 1й работы, кликаем её';
+    condition.nowWeDoing = 'выбираем расписание, ищем в нем 1ю работу';
     SF.get('https://calendar.google.com/calendar');
     SF.sleep(2);
-    SF.click(By.xpath('//div[contains(text(), "День")]'));
-    SF.click(By.xpath('//div[@id="navForward:2"]'));
-    SF.click(By.xpath('//div[@id="navForward:2"]'));
-    SF.click(By.xpath('//div[@id="navForward:2"]'));
-    SF.click(By.xpath('//div[@id="navForward:2"]'));
+    SF.click (By.xpath('//div[@class="XyKLOd"]'));
+    SF.click (By.xpath('//div[@class="jO7h3c"] [contains(text(), "Расписание")]'));
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+V.accountNumbersUp.Id+'")]')).getText().then(function(text) {
+    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.accountNumbersUp.Id+'")]')).getText().then(function(text) {
         V.Req1Cal = text;
         VD.IWant(VD.ToEqual, ('#' +V.accountNumbersUp.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 1я работа');
     }),config.timeout);
-    //SF.click(By.xpath('//span[contains(text(), "'+V.accountNumbersUp.Id+'")]'));
-    //SF.click(By.xpath('//div[@class="goog-imageless-button-content")]'));
-    //SF.click(By.xpath('//div[@id=":3y.cancel_top"]'));
-    SF.sleep(1);
+    SF.sleep(3);
     condition.nowWeDoing = 'выбираем день 2й работы,кликаем её';
-    SF.click(By.xpath('//div[@id="navForward:2"]'));
-    SF.sleep(5);
-    //SF.click(By.xpath('//span[contains(text(), "'+V.accountNumbersDelivery.Id+'")]'));
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+V.accountNumbersDelivery.Id+'")]')).getText().then(function(text) {
+    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.sleep(3);
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.accountNumbersDelivery.Id+'")]')).getText().then(function(text) {
         V.Req2Cal = text;
         VD.IWant(VD.ToEqual, ('#' +V.accountNumbersDelivery.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 2я работа');
     }),config.timeout);
-    SF.sleep(5);
+    SF.sleep(4);
 
 
     condition.nowWeDoing = 'идем в департмент выключить календарь для сеилса';
