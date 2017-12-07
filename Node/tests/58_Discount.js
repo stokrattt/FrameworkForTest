@@ -18,8 +18,9 @@ condition.nowWeDoing = 'создаем локал мув с фронта с ве
 condition.nowWeDoing = 'добавляем два разы инвенторий и ставим фул паккинг и запоминаем данные';
     LF.AccountLocalAddInventory ();
     LF.AccountLocalAddAdditionalInventory ();
-    SF.click(By.xpath('//input[@ng-model="vm.packing_service"]/following-sibling::span[contains(text(), "I need Full Packing")]'));
+    MF.Account_ClickFullPacking();
     SF.sleep(12);
+    Debug.pause();
     V.accountNumbers = {};
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.LogoutFromAccount ();

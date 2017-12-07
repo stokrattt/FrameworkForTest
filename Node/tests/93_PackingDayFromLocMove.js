@@ -21,7 +21,7 @@ condition.nowWeDoing = 'первый раз в аккаунте';
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
     MF.WaitWhileBusy();
-    SF.sleep(5);
+    SF.sleep(8);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
@@ -45,7 +45,8 @@ condition.nowWeDoing = 'первый раз в админке открываем
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenSettings ();
     MF.EditRequest_ClickCreatePAckingDay();
-    MF.EditRequest_WaitForVisibleCloneRequest();
+    SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
+    WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.PackingDayID = SF.cleanPrice(text);
     }),config.timeout);
@@ -54,10 +55,10 @@ condition.nowWeDoing = 'первый раз в админке открываем
 
 condition.nowWeDoing = 'тут проверяем что наш пекинг открывается с реквеста по кнопке и закрываем оба реквеста';
     MF.EditRequest_OpenBindingPackingDayRequest();
-    MF.EditRequest_WaitForVisibleCloneRequest();
+    SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
+    WaitWhileBusy();
     JS.click('button[ng-click="cancel()"]:visible');
     MF.Board_RefreshDashboard();
-    MF.WaitWhileBusy ();
 
 condition.nowWeDoing = 'тут открываем наш пекинг дей и сравниваем данные с род реквестом, что все скопировалось правильно и ' +
     'проверяем что род реквест открывается с пекинг реквеста';

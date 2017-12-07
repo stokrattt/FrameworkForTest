@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/6_WithoutReservationMov&Stor.js'];
+    config.suite = ['./tests/87_ForgotPassword.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

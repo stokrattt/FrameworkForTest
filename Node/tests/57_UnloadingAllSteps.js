@@ -17,7 +17,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_ClickPartialPacking();
     LF.AccountUnloadingEnterAddress();
     LF.AccountLocalAddInventory();
-    SF.sleep(2);
+    SF.sleep(4);
     LF.AccountUnLoadingDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
