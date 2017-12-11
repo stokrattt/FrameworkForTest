@@ -46,7 +46,7 @@ condition.nowWeDoing = 'первый раз в админке открываем
     MF.EditRequest_OpenSettings ();
     MF.EditRequest_ClickCreatePAckingDay();
     SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
-    WaitWhileBusy();
+    MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.PackingDayID = SF.cleanPrice(text);
     }),config.timeout);
@@ -56,7 +56,7 @@ condition.nowWeDoing = 'первый раз в админке открываем
 condition.nowWeDoing = 'тут проверяем что наш пекинг открывается с реквеста по кнопке и закрываем оба реквеста';
     MF.EditRequest_OpenBindingPackingDayRequest();
     SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
-    WaitWhileBusy();
+    MF.WaitWhileBusy();
     JS.click('button[ng-click="cancel()"]:visible');
     MF.Board_RefreshDashboard();
 

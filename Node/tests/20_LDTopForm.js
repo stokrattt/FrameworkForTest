@@ -79,6 +79,7 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
     driver.wait(driver.findElement(By.xpath('//span[contains(text()," Total Estimated: ")]/span')).getText().then(function (text) {
         V.accountNumbersLDWithInvent.CubicFit = SF.cleanPrice(text.substring(0, text.indexOf('c')));
     }),config.timeout);
+    Debug.pause();
     SF.sleep(2);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);

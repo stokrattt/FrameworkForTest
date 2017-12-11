@@ -96,7 +96,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Total, V.accountNumbersLD.Total, 'не изменился гранд тотал после добавления инвентрая');
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Fuel, V.accountNumbersLD.Fuel, 'не изменился fuel после добавления инвентрая');
     MF.Account_ClickFullPacking();
-    SF.sleep(8);
+    SF.sleep(10);
     V.accountNumbersLDAfterAddInvenAfterAddFullPacing={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInvenAfterAddFullPacing);
     LF.LogoutFromAccount();
@@ -112,6 +112,7 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     V.boardNumbers2PendingAfterAddInven = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers2PendingAfterAddInven);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDAfterAddInvenAfterAddFullPacing, V.boardNumbers2PendingAfterAddInven);
+    Debug.pause();
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickCustomCubFit();
     SF.clear(By.xpath('//input[@ng-model="request.custom_weight.value"]'));
@@ -137,7 +138,6 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     }),config.timeout);
     SF.sleep(2);
     VD.IWant(VD.ToEqual, V.LogsQuote, V.boardNumbers2PendingAfterAddInven.Total, 'в письме клиенту  тотал отправился неверный в нот конферм работе');
-    Debug.pause();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
