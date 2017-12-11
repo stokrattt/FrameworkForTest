@@ -18,7 +18,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "JackSales donotdelete")]'))).doubleClick().perform();
     SF.sleep (2);
     SF.click (By.linkText('Account'));
-    condition.nowWeDoing = 'сделать цикл';
+    MF.WaitWhileBusy();
     SF.click (By.xpath('//input[@ng-model="gmail"]'));
     SF.clear (By.xpath('//input[@ng-model="gmail"]'));
     SF.click (By.xpath('//input[@ng-model="gmail"]'));
