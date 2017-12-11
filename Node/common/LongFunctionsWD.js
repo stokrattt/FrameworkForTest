@@ -2129,9 +2129,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.FrontSite_ViewRequestPage();
     }
     function CreateStorageTenant(client) {
-        SF.click(By.xpath('//button[@ng-click="pending.createModal()"]'));
-        MF.WaitWhileBusy ();
-        SF.sleep (2);
+        MF.ClickCreateStorageTenant();
         SF.send(By.xpath('//input[@ng-model="data.user_info.name"]'), client.long);
         SF.send(By.xpath('//input[@ng-model="data.user_info.zip"]'), '02136');
         SF.send(By.xpath('//input[@ng-model="data.user_info.phone1"]'), client.phone);

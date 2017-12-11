@@ -844,6 +844,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditStorage_OpenDocuments() {
         SF.click(By.xpath('//a[@ng-click="tabs.setTab(2)"]'));
     }
+    function ClickCreateStorageTenant() {
+        SF.click(By.xpath('//button[@ng-click="pending.createModal()"]'));
+        WaitWhileBusy ();
+        SF.sleep (2);
+    }
     //================================EDIT REQUEST====================================
 
     function EditRequest_OpenSettings() {
@@ -1985,6 +1990,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         StorageTenant_OpenStorages: StorageTenant_OpenStorages,
         EditStorage_UpdateStorage: EditStorage_UpdateStorage,
         EditStorage_OpenDocuments: EditStorage_OpenDocuments,
+        ClickCreateStorageTenant:ClickCreateStorageTenant,
         //=================================EDIT REQUEST=====================================
         EditRequest_OpenSettings: EditRequest_OpenSettings,
         EditRequest_OpenMessages: EditRequest_OpenMessages,

@@ -41,6 +41,7 @@ condition.nowWeDoing = 'считаем квоту от времени и гра�
     V.TotalSum = V.boardNumbersClose.QuoteMax + V.boardNumbersClose.Fuel;
     VD.IWant (VD.ToEqual, V.boardNumbersClose.Total, V.TotalSum, 'не правильно посчитало гранд  по формуле фуел + квота');
     SF.sleep(2);
+
 condition.nowWeDoing = 'добавляем два паймента, один кастомный, один карточкой, так чтобы баланс был равен 0 и закрываем реквест';
     MF.EditRequest_OpenPayment();
     MF.EditRequest_ClickAddCustomPayment();
@@ -59,7 +60,6 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     V.cardInput = V.boardNumbersClose.Total - 100;
     SF.click(By.xpath('//a[@ng-click="addAuthPayment()"]'));
     SF.sleep(2);
-
     SF.click (By.xpath('//input[@ng-model="charge_value.value"]'));
     SF.send (By.xpath('//input[@ng-model="charge_value.value"]'),V.cardInput);
     SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
@@ -71,7 +71,6 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     MF.WaitWhileBusy ();
     SF.click(By.xpath('//div[contains(@class,"payment-receipt-modal")]/following-sibling::div[1]/button[@ng-click="cancel()"]'));
     SF.sleep(1);
-
     SF.click(By.xpath('//div[contains(@class,"modal-footer")]/button[@ng-click="cancel()" and contains(text(),"Cancel")]'));
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();

@@ -10,7 +10,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-	condition.nowWeDoing = 'создаём реквест localMoving';
+
+condition.nowWeDoing = 'создаём реквест localMoving';
 	V.boardNumbers={HourlyRate:120};
 	LF.CreateLocalMovingFromBoard(V.client);
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
