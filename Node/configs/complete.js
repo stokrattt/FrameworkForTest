@@ -98,6 +98,7 @@ module.exports = function(config,V) {
         './tests/92_PackingDay.js',
         './tests/94_CommercialMoveFromBord.js',
         './tests/89_DraftRequest.js',
+        './tests/103_AdditionalInventoryForLocalMove.js',
         './tests/96_CommercialMoveFromFront.js',
         './tests/97_OutgoingEmailAndSignature.js',
         './tests/99_PendingInfoInventoryTotal.js',

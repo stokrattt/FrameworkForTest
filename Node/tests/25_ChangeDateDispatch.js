@@ -11,7 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.WaitWhileBusy ();
+
 condition.nowWeDoing = 'создаем реквест ';
     LF.CreateLocalMovingFromBoard (V.client);
     SF.sleep (2);

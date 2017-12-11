@@ -317,6 +317,21 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     //     SF.sleep(2);
     // }
 
+    function ContractAdditionalInventoryAdd() {
+        SF.sleep(1);
+        SF.click(By.xpath('//button[@ng-click="openAdditionalInventory()"]'));
+        JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
+        SF.sleep(4);
+        SF.click (By.xpath('//div[@class="inventory__item"][1]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click (By.xpath('//div[@class="inventory__item"][2]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click (By.xpath('//div[@class="inventory__item"][3]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click (By.xpath('//div[@class="inventory__item"][4]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click (By.xpath('//div[@class="inventory__item"][5]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click (By.xpath('//div[@class="inventory__item"][6]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
+        SF.sleep(3);
+    }
+
     function AccountLocalAddAdditionalInventory() {
         MF.WaitWhileBusy();
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
@@ -2298,6 +2313,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         AccountLocalEnterAddress: AccountLocalEnterAddress,
         AccountLocalAddInventory: AccountLocalAddInventory,
         AccountLocalAddAdditionalInventory: AccountLocalAddAdditionalInventory,
+        ContractAdditionalInventoryAdd:ContractAdditionalInventoryAdd,
         AccountFlatRateAddInventory: AccountFlatRateAddInventory,
         AccountLocalDetails: AccountLocalDetails,
         AccountLoadingDetails : AccountLoadingDetails,

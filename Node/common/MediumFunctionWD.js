@@ -707,7 +707,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Contract_UploadImage(path) {
-        SF.sleep(3);
+        SF.sleep(2);
         SF.send(By.xpath('//input[@id="inputImage"]'), path);
         SF.sleep(1);
     }
@@ -728,7 +728,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }),config.timeout);
         SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
-        SF.sleep(33);
+        SF.sleep(25);
         SweetConfirm();
     }
 
