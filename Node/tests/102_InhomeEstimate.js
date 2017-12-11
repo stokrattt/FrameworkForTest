@@ -71,6 +71,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant (VD.ToEqual, V.InhomeReq, V.boardNumbers.Id, 'реквеста нет в списке Inhome Estimate')
     }),config.timeout);
     SF.sleep (3);
+
+    condition.nowWeDoing = 'идем на дащборд проверить реквест в табе Inhome Estimate';
+    MF.Board_OpenDashboard ();
+    SF.click(By.xpath('//div[@ng-click="vm.select(5)"]'));
+    SF.sleep(3);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.boardNumbers.Id+'")]')).getText().then(function(text){
+        V.InhomeDashboard = SF.cleanPrice (text);
+        VD.IWant (VD.ToEqual, V.InhomeDashboard, V.boardNumbers.Id, 'реквеста нет в табе Inhome Estimate на дашборде')
+    }),config.timeout);
+    SF.sleep (3);
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'идем в аккаунт, проверить что статус реквеста инхом эстимеит';
