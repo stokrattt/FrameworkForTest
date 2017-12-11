@@ -143,17 +143,19 @@ condition.nowWeDoing = 'проверяем в календаре, что раб�
     // }),config.timeout);
     // SF.sleep(5);
     SF.click (By.xpath('//div[@class="XyKLOd"]'));
+    SF.sleep(1);
     SF.click (By.xpath('//div[@class="jO7h3c"] [contains(text(), "День")]'));
     SF.sleep(3);
-    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@class="mUbCce fKz7Od rF3YF EwnKv xEq6pc YTXdJe M9Bg4d"]'));
-    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@class="mUbCce fKz7Od rF3YF EwnKv xEq6pc YTXdJe M9Bg4d"]'));
-    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@class="mUbCce fKz7Od rF3YF EwnKv xEq6pc YTXdJe M9Bg4d"]'));
-    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@class="mUbCce fKz7Od rF3YF EwnKv xEq6pc YTXdJe M9Bg4d"]'));
-      driver.wait(driver.findElement(By.xpath('//span[@class="FAxxKc"]// html-blob[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text) {
+    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbers.Id+'")]'));
+    driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text) {
    V.Req1Cal = text;
     VD.IWant(VD.ToEqual, ('#' +V.accountNumbers.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'фореману в календарь не пришла работа');
      }),config.timeout);
-    SF.sleep(5);
+    SF.sleep(3);
 
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
