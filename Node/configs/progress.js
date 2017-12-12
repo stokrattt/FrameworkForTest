@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/26_CloneRequest.js'];
+    config.suite = ['./tests/101_CustomCommMoveWithInventory.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

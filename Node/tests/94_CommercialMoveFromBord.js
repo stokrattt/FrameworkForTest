@@ -28,7 +28,7 @@ condition.nowWeDoing = 'проверяем что сервис тип стал �
     MF.EditRequest_OpenClient ();
     MF.EditRequest_ClientTabSendCompanyName('CompanyTestName');
     LF.SetClientPasswd(V.client.passwd);
-    driver.wait(driver.findElement(By.xpath('//span[@class="client client-info"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.move_size.raw == 11 && request.field_commercial_company_name.value.length"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'CompanyTestName', 'вверху реквеста не показалось company name');
     }),config.timeout);
     MF.EditRequest_OpenRequest();
