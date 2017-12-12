@@ -1076,9 +1076,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         FillCardPayModal ();
         MF.WaitWhileSpinner ();
         MF.Account_WaitForGreenTextAfterConfirm();
-        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-            VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-        }), config.timeout);
+        // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
+        //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        // }), config.timeout);
         SF.sleep(1);
     }
     function ConfirmRequestInAccount_WithReservation(ReservationPrice) {
@@ -1100,10 +1100,12 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
         FillCardPayModal();
         MF.WaitWhileSpinner ();
-        SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
-        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-            VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-        }), config.timeout);
+        MF.Account_WaitForGreenTextAfterConfirm();
+        //
+        // SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
+        // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
+        //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        // }), config.timeout);
     }
     function ConfirmRequestInAccount_NoReservation() {
         MF.Account_ClickProceedBookYourMove();
@@ -1114,10 +1116,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MakeSignJS('signatureCanvasReservation');
         SF.click(By.xpath('//button[@ng-click="saveSignature()"]'));
         MF.SweetConfirm();
-        SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
-        driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-            VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-        }), config.timeout);
+        MF.Account_WaitForGreenTextAfterConfirm();
+        // SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
+        // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
+        //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+        // }), config.timeout);
     }
 //Permissions for Sales --- start
     function PermissionsClear() {
