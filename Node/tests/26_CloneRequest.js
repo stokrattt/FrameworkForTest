@@ -40,11 +40,11 @@ condition.nowWeDoing = 'идём в настройки клонировать р
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickCloneRequest();
     MF.EditRequest_WaitForVisibleCloneRequest();
-    driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_2")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.IdClone = SF.cleanPrice(text);
         LF.addToCleanerJob(V.IdClone);
     }),config.timeout);
-    SF.click(By.xpath('//div[contains(@class,"requestModal status_2")]//button[@ng-click="cancel()"]'));
+    SF.click(By.xpath('//div[contains(@class,"requestModal status_1")]//button[@ng-click="cancel()"]'));
     SF.sleep (2);
     LF.closeEditRequest ();
     MF.WaitWhileBusy ();

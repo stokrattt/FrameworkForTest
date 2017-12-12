@@ -122,9 +122,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
     SF.click(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
     SF.sleep(5);
-    MF.WaitWhileBusy();
+    // MF.WaitWhileBusy();
     SF.click(By.xpath('//ng-md-icon[@icon="remove_red_eye"]'));
-    SF.sleep(2);
+    // SF.sleep(2);
     SF.openTab(1);
     SF.waitForVisible(By.xpath('//a[@ng-click="vm.invoicePayment();"]'));
     SF.sleep(3);

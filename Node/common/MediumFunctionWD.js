@@ -871,7 +871,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (15);
     }
     function EditRequest_WaitForVisibleCloneRequest() {
-        SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_2")]//a[@ng-click="select(tabs[0])"]'));
+        SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
         WaitWhileBusy();
     }
 
@@ -1113,9 +1113,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (3);
     }
     function EditRequest_AddPackingAndFullPAcking() {
-        WaitWhileBusy ();
+        // WaitWhileBusy ();
         SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
         SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        WaitWhileBusy();
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
         SF.sleep (0.5);
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));
