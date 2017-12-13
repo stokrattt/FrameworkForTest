@@ -71,8 +71,8 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.FRId = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(1);
-    LF.addToCleanerJob (V.FRId);
+    SF.sleep(3);
+    // LF.addToCleanerJob (V.FRId);
 
 condition.nowWeDoing = 'проверяем двойную дату';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Pick Up:")]/following-sibling::div')).getText().then(function(text){

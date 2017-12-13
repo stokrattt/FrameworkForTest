@@ -54,10 +54,11 @@ condition.nowWeDoing = 'идем в аккаунт букать работу п�
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
-    SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-            VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    }), config.timeout);
+    MF.Account_WaitForGreenTextAfterConfirm();
+    // SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
+    // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
+    //         VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+    // }), config.timeout);
     SF.sleep(2);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);

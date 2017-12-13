@@ -9,11 +9,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
 
-    condition.nowWeDoing = 'Создать с фронта local Moving';
+condition.nowWeDoing = 'Создать с фронта local Moving';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsLocal(V.client);
 
-    condition.nowWeDoing = 'Зайти на аккаунт, добавить инвентарь, запомнить cbf';
+condition.nowWeDoing = 'Зайти на аккаунт, добавить инвентарь, запомнить cbf';
     MF.Account_ClickViewRequest();
     MF.WaitWhileBusy();
     V.accountNumbers={};
@@ -22,13 +22,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'первый раз в админке';
+condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep (3);
     MF.Board_OpenRequest(V.accountNumbers.Id);
 
-    condition.nowWeDoing = 'добавляем valuation';
+condition.nowWeDoing = 'добавляем valuation';
     SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
     SF.waitForLocated (By.xpath('//button[@ng-click="saveValuation()"]'));
     SF.sleep(1);
@@ -39,24 +39,23 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//button[@ng-click="saveValuation()"]'));
     MF.SweetConfirm ();
     MF.WaitWhileBusy ();
+    // VD.IWant(VD.ToEqual, V.accountNumbers.InventoryCbf, V.boardNumbers.cbf,'Не совпали cbf аккаунта и борда');
+    // LF.addAdditionalInventoryBoard (V.boardNumbers);
+    SF.sleep(4);
     V.boardNumbers={};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-    // VD.IWant(VD.ToEqual, V.accountNumbers.InventoryCbf, V.boardNumbers.cbf,'Не совпали cbf аккаунта и борда');
-    LF.addAdditionalInventoryBoard (V.boardNumbers);
-    Debug.pause();
-    SF.sleep(4);
     driver.wait(driver.executeScript('return $(\'div.ValuationCost:visible\').text()').then(function (text) {
         V.Valuation = SF.cleanPrice(text.substring(text.indexOf('$')));
     }),config.timeout);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
-    MF.EditRequest_OpenRequest();
-    MF.EditRequest_SaveChanges();
+    // MF.EditRequest_OpenRequest();
+    // MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
     SF.sleep(2);
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'второй раз в аккаунте';
+condition.nowWeDoing = 'второй раз в аккаунте';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_Pending(V.accountNumbers.Id);

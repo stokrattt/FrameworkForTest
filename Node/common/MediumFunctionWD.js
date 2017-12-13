@@ -540,7 +540,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickFullPacking() {
         SF.click(By.xpath('//label[@for="full"]/input[@ng-model="vm.packing_service"]'));
         WaitWhileBusy();
-        SF.sleep(6);
+        SF.sleep(8);
     }
 
     function Account_CheckRequestStatus_NotConfirmed(Id) {

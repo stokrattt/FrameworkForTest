@@ -218,11 +218,12 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     SF.sleep (1);
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
-    SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    }), config.timeout);
-    MF.WaitWhileBusy ();
+    MF.Account_WaitForGreenTextAfterConfirm();
+    // SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
+    // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
+    //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+    // }), config.timeout);
+    // MF.WaitWhileBusy ();
     SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
     SF.sleep (2);
 condition.nowWeDoing = 'букаем вторую работу овернайта';
@@ -240,11 +241,12 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     SF.sleep (1);
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
-    SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-        VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    }), config.timeout);
-    MF.WaitWhileBusy ();
+    MF.Account_WaitForGreenTextAfterConfirm();
+    // SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
+    // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
+    //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
+    // }), config.timeout);
+    // MF.WaitWhileBusy ();
     LF.LogoutFromAccount ();
 
 condition.nowWeDoing = 'идем в гугл почту';
