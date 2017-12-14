@@ -29,7 +29,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function SweetConfirm() {
         JS.waitForExist('button.confirm');
-        SF.sleep(3.5);
+        SF.sleep(3);
         SF.click(By.xpath('//button[@class="confirm"]'));
     }
 
@@ -633,6 +633,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(3);
     }
     function Account_ClickIAgreeWithAll() {
+        SF.sleep(2);
         SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
         SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
     }
@@ -728,7 +729,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }),config.timeout);
         SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
-        SF.sleep(25);
+        SF.sleep(20);
         SweetConfirm();
     }
 

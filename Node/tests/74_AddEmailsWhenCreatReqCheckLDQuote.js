@@ -85,9 +85,10 @@ condition.nowWeDoing = 'зашли в админку и сравниваем р�
     LF.RememberDigitsRequestBoard (V.boardNumbers);
 
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
-        V.RateLDAfterAddInventory = rate;
-        VD.IWant(VD.NotToEqual, V.RateLDAfterAddInventory, '15.00', 'сломался рейт после того как добавили инвенторий на аккаунте а с ним и все другие пересчеты');
+        V.RateLDAfterAddInventory = SF.cleanPrice(rate);
+        VD.IWant(VD.ToEqual, V.RateLDAfterAddInventory, 15, 'сломался рейт после того как добавили инвенторий на аккаунте а с ним и все другие пересчеты');
     }),config.timeout);
+    Debug.pause();
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLD, V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();

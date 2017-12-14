@@ -133,6 +133,7 @@ condition.nowWeDoing = 'идем в админку в локал диспач и
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
+    V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
     MF.Board_LogoutAdmin();
 
