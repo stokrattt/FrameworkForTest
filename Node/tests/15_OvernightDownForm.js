@@ -268,18 +268,20 @@ condition.nowWeDoing = 'идем в гугл почту';
     SF.click (By.xpath('//div[@class="XyKLOd"]'));
     SF.click (By.xpath('//div[@class="jO7h3c"] [contains(text(), "Расписание")]'));
     SF.sleep(5);
-    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
-    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
-    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
-    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
-    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Next day"]'));
+    SF.sleep(1);
+    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Next day"]'));
+    SF.sleep(1);
+    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Next day"]'));
+    SF.sleep(1);
+    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Next day"]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.accountNumbersUp.Id+'")]')).getText().then(function(text) {
         V.Req1Cal = text;
         VD.IWant(VD.ToEqual, ('#' +V.accountNumbersUp.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 1я работа');
     }),config.timeout);
     SF.sleep(3);
     condition.nowWeDoing = 'выбираем день 2й работы,кликаем её';
-    SF.click (By.xpath('//div[@aria-label="Следующий период"]'));
+    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Next day"]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.accountNumbersDelivery.Id+'")]')).getText().then(function(text) {
         V.Req2Cal = text;
