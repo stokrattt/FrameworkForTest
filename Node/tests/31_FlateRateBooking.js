@@ -166,7 +166,6 @@ condition.nowWeDoing = 'добавляем дисконт';
     driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (check) {
         VD.IWant(VD.ToEqual, check, 1, 'трак (желтая линия, реквест) на таблице траков в реквесте не нашелся в деливери дейт');
     }),config.timeout);
-    Debug.pause();
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();
 

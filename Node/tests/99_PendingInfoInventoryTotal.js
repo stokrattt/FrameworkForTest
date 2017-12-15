@@ -39,7 +39,6 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     SF.sleep(15);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
-    Debug.pause();
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'пошли в админку и проверили, что реквест стал пендинг инфо и что суммы все сходятся с аккаунтом';

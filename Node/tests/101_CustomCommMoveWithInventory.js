@@ -112,7 +112,6 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     V.boardNumbers2PendingAfterAddInven = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers2PendingAfterAddInven);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDAfterAddInvenAfterAddFullPacing, V.boardNumbers2PendingAfterAddInven);
-    Debug.pause();
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickCustomCubFit();
     SF.clear(By.xpath('//input[@ng-model="request.custom_weight.value"]'));
