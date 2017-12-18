@@ -69,7 +69,7 @@ condition.nowWeDoing = 'второй раз в аккаунте';
         text = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, text, V.Valuation, 'не совпал valuation charge с тем что на админке в реквесте');
     }),config.timeout);
-    VD.IWant(VD.ToEqual, V.accountNumbers.cbf, V.boardNumbers.InventoryCubicFit);
+    // VD.IWant(VD.ToEqual, V.accountNumbers.cbf, V.boardNumbers.InventoryCubicFit);
     SF.sleep(2);
 
     //=========================закончили писать тест=============================
