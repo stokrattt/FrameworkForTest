@@ -1538,7 +1538,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         });
         SF.sleep(1);
         MF.EditRequest_PayrollOpenHelperTab();
-        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\'); calcWorkerTotal(\'driver\');"]')).getText().then(function (text) {
             boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
         }),config.timeout);
         SF.sleep(1);
@@ -1586,7 +1586,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         });
         SF.sleep(1);
         MF.EditRequest_PayrollOpenHelperTab();
-        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\'); calcWorkerTotal(\'driver\');"]')).getText().then(function (text) {
             boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
         }),config.timeout);
         SF.sleep(1);
