@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/61_SITInvoices.js'];
+    config.suite = ['./tests/88_FlatRateHandClosing.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;
@@ -25,6 +25,7 @@ module.exports = function(config,V) {
     V.foremanLogin2 = 'ForemanFlow1';
     V.foremanPassword2 = '123';
     V.foremanName2 = 'Foreman Flow1';
+    V.helperName = 'Test Helper1';
     V.adminName = 'Test';
     V.foremanEmail = 'TestForeman@mail.com';
     V.managerName = 'emilia clark';

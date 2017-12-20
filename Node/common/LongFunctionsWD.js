@@ -1591,6 +1591,31 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         }),config.timeout);
         SF.sleep(1);
     }
+    function ValidationWorkersSmallPayroll_In_EditRequest(managerName, foremaName, helperName) {
+        driver.wait(driver.executeScript('return $(\'select[ng-model="selected.salesPerson[salesPersonIndex]"]:visible  option[selected="selected"]:contains("'+ managerName +'")\').length;')
+            .then(function(count){
+                V.countSales=count;
+            }),config.timeout);
+        SF.sleep(1);
+        VD.IWant(VD.ToEqual, V.countSales, 1,'не сохранился Sale');
+        SF.click(By.xpath('//a[@ng-click="select(tabs[1])"][contains(text(),"Foreman")]'));
+        SF.sleep(1);
+        driver.wait(driver.executeScript('return $(\'select[ng-model="selected.foreman[foremanIndex]"]:visible  option[selected="selected"]:contains("'+ foremaName +'")\').length;')
+            .then(function(count){
+                V.countForeman=count;
+            }),config.timeout);
+        SF.sleep(1);
+        VD.IWant(VD.ToEqual, V.countForeman, 1,'не сохранился Foreman');
+        SF.sleep(2);
+        SF.click(By.xpath('//a[@ng-click="select(tabs[2])"][contains(text(),"Helpers")]'));
+        SF.sleep(1);
+        driver.wait(driver.executeScript('return $(\'select[ng-model="selected.helper[helperIndex]"]:visible  option[selected="selected"]:contains("'+ helperName +'")\').length;')
+            .then(function(count){
+                V.countForeman=count;
+            }),config.timeout);
+        SF.sleep(1);
+        VD.IWant(VD.ToEqual, V.countForeman, 1,'не сохранился Helper');
+    }
     function findTestForemanInPayroll(ForemanName) {
         SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"foreman")]'));
         SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"foreman")]'));
@@ -2303,6 +2328,35 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
         MF.WaitWhileBusy ();
     }
+    function FlatRateEditRequest_AddTwoOption() {
+        SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
+        SF.sleep (0.5);
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() + msInDay * 2);
+        let options = { month: 'long', day: 'numeric', year: 'numeric' };
+        V.changedateUpAdmin = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//input[@ng-model="option.pickup"]'), V.changedateUpAdmin);
+        SF.select (By.xpath('//select[@ng-model="option.picktime1"]'), 3);
+        SF.select (By.xpath('//select[@ng-model="option.picktime2"]'), 4);
+        SF.sleep (0.5);
+        now = new Date();
+        msInDay = 86400000;
+        future = new Date(now.getTime() + msInDay * 4);
+        options = { month: 'long', day: 'numeric', year: 'numeric' };
+        V.newChangedateDelAdmin = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//input[@ng-model="option.delivery"]'), V.newChangedateDelAdmin);
+        SF.select (By.xpath('//select[@ng-model="option.deltime1"]'), 5);
+        SF.select (By.xpath('//select[@ng-model="option.deltime2"]'), 6);
+        SF.send(By.xpath('//input[@ng-model="option.rate"]'), 5000);
+        SF.sleep (0.5);
+        SF.click (By.xpath('//a[@ng-click="addOption()"]'));
+        SF.sleep (1);
+        SF.click(By.xpath('//a[@ng-click="saveOptions()"]'));
+        SF.sleep (2);
+        MF.WaitWhileBusy ();
+        MF.SweetConfirm ();
+    }
 
     return {
         FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -2393,6 +2447,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         EditRequestPayroll_RememberManager:EditRequestPayroll_RememberManager,
         EditRequestPayroll_RememberForeman:EditRequestPayroll_RememberForeman,
         RememberAndValidatePayroll_In_EditRequest: RememberAndValidatePayroll_In_EditRequest,
+        ValidationWorkersSmallPayroll_In_EditRequest:ValidationWorkersSmallPayroll_In_EditRequest,
         findTestForemanInPayroll: findTestForemanInPayroll,
         findFlatRateDeliveryForemanInPayroll: findFlatRateDeliveryForemanInPayroll,
         findSaleInPayroll: findSaleInPayroll,
@@ -2412,6 +2467,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         Contract_ReviewGive: Contract_ReviewGive,
         RememberAndValidatePayroll_In_EditRequestFlatRatePickup: RememberAndValidatePayroll_In_EditRequestFlatRatePickup,
         RememberAndValidatePayroll_In_EditRequestFlatRateDelivery: RememberAndValidatePayroll_In_EditRequestFlatRateDelivery,
+        FlatRateEditRequest_AddTwoOption:FlatRateEditRequest_AddTwoOption,
 //Payroll
         Payroll_DeleteAllMiscPaymentCycle: Payroll_DeleteAllMiscPaymentCycle,
         Payroll_DeleteAllPaycheckPaycashCycle: Payroll_DeleteAllPaycheckPaycashCycle,

@@ -658,6 +658,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="vm.goToNewRequest(vm.request.request_all_data.packing_request_id)"]'));
         WaitWhileBusy();
     }
+    function AccountFR_SeelectOptions() {
+        SF.select (By.xpath('//select[@ng-model="details.current_door"]'), 30);
+        SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
+        SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
+        SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
+        JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
+        SF.sleep(1);
+        WaitWhileBusy ();
+        SF.sleep (3);
+    }
 
     //===================================CONTRACT===================================
 
@@ -951,6 +961,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         WaitWhileBusy();
     }
+    function EditRequest_PayrollAddHelper(name) {
+        SF.click(By.xpath('//div[@ng-click="addWorker(\'helper\')"]'));
+        SF.click(By.xpath('(//select[@ng-model="selected.helper[helperIndex]"])[last()]'));
+        SF.click(By.xpath('(//select[@ng-model="selected.helper[helperIndex]"])[last()]/option[contains(text(),"'+name+'")]'));
+        SF.sleep(1);
+        WaitWhileBusy();
+    }
     function EditRequest_PayrollSetManagerCommission(name, type, forCommission, percent) {
         SF.send(By.xpath('//option[contains(text(),"'+name+'") and @selected="selected"]/../../../../..//' +
             'td[contains(text(),"'+type+'")]/..//input[@ng-model="sale.for_commission "]'),forCommission);
@@ -1073,7 +1090,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function EditRequest_ExpandPendingEmail(email) {
-        SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Quote (Pending Status)")][contains(text(),"' + email + '")]/../../../following-sibling::div[1]'));
+        SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Quote (Pending Status)")]' +
+            '[contains(text(),"' + email + '")]/../../../following-sibling::div[1]'));
     }
 
     function EditRequest_RememberId(request){
@@ -1367,6 +1385,20 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_OpenRemainderWindow() {
         SF.click(By.xpath('//span[@ng-click="openReminderBox()"]'));
         WaitWhileBusy();
+    }
+    function EditRequest_ClosePickUpJob() {
+        SF.click(By.xpath('//h2[contains(text(),"Pickup")]/..//div[@ng-click="closeJob(\'Pickup Done\');"]'));
+        WaitWhileBusy ();
+    }
+    function EditRequest_SetDeliveryStartTime() {
+        SF.sleep (0.5);
+        SF.clear(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
+        SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
+    }
+    function EditRequest_OpenFuelSurchModal() {
+        SF.click(By.xpath('//label[@ng-click="OpenSurchargeModal();"]'));
+        SF.waitForVisible(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
+        SF.sleep(2);
     }
 
     //=================================LOCAL DISPATCH============================
@@ -1954,6 +1986,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_OpenAdressModal:Account_OpenAdressModal,
         Account_WaitForLoadingAccount:Account_WaitForLoadingAccount,
         Account_ViewPackingRequest:Account_ViewPackingRequest,
+        AccountFR_SeelectOptions:AccountFR_SeelectOptions,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -2007,6 +2040,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenPayroll: EditRequest_OpenPayroll,
         EditRequest_PayrollAddManager: EditRequest_PayrollAddManager,
         EditRequest_PayrollAddForeman: EditRequest_PayrollAddForeman,
+        EditRequest_PayrollAddHelper:EditRequest_PayrollAddHelper,
         EditRequest_PayrollSetManagerCommission: EditRequest_PayrollSetManagerCommission,
         EditRequest_PayrollGetManagerCommission:EditRequest_PayrollGetManagerCommission,
         EditRequest_PayrollOpenForemanTab: EditRequest_PayrollOpenForemanTab,
@@ -2080,6 +2114,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_AddCustomCommersialMove:EditRequest_AddCustomCommersialMove,
         EditRequest_ClientTabSendCompanyName:EditRequest_ClientTabSendCompanyName,
         EditRequest_OpenRemainderWindow:EditRequest_OpenRemainderWindow,
+        EditRequest_ClosePickUpJob:EditRequest_ClosePickUpJob,
+        EditRequest_SetDeliveryStartTime:EditRequest_SetDeliveryStartTime,
+        EditRequest_OpenFuelSurchModal:EditRequest_OpenFuelSurchModal,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

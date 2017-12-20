@@ -55,14 +55,7 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "dateRange delivery")]/input')).getAttribute("value").then(function(text){
        V.deliveryDates = text;
     }),config.timeout);
-    SF.select (By.xpath('//select[@ng-model="details.current_door"]'), 30);
-    SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
-    SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
-    SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
-    JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    SF.sleep (3);
+    MF.AccountFR_SeelectOptions();
 
 condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.AccountFlatRateAddInventory();
@@ -72,7 +65,6 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
         V.FRId = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(3);
-    // LF.addToCleanerJob (V.FRId);
 
 condition.nowWeDoing = 'проверяем двойную дату';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Pick Up:")]/following-sibling::div')).getText().then(function(text){
@@ -89,33 +81,7 @@ condition.nowWeDoing = 'пошли в админку, открыли рекве�
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep(3);
     LF.OpenRequestFlatRate (V.FRId);
-    SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
-    SF.sleep (0.5);
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 2);
-    options = { month: 'long', day: 'numeric', year: 'numeric' };
-    V.changedateUpAdmin = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//input[@ng-model="option.pickup"]'), V.changedateUpAdmin);
-    SF.select (By.xpath('//select[@ng-model="option.picktime1"]'), 3);
-    SF.select (By.xpath('//select[@ng-model="option.picktime2"]'), 4);
-    SF.sleep (0.5);
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 4);
-    options = { month: 'long', day: 'numeric', year: 'numeric' };
-    V.newChangedateDelAdmin = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//input[@ng-model="option.delivery"]'), V.newChangedateDelAdmin);
-    SF.select (By.xpath('//select[@ng-model="option.deltime1"]'), 5);
-    SF.select (By.xpath('//select[@ng-model="option.deltime2"]'), 6);
-    SF.send(By.xpath('//input[@ng-model="option.rate"]'), 5000);
-    SF.sleep (0.5);
-    SF.click (By.xpath('//a[@ng-click="addOption()"]'));
-    SF.sleep (1);
-    SF.click(By.xpath('//a[@ng-click="saveOptions()"]'));
-    SF.sleep (2);
-    MF.WaitWhileBusy ();
-    MF.SweetConfirm ();
+    LF.FlatRateEditRequest_AddTwoOption();
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
     LF.closeEditRequest ();
@@ -141,9 +107,7 @@ condition.nowWeDoing = 'идем в акк подтвердить выбранн
     SF.click(By.xpath('//button[@ng-click="update(client)"]'));
     MF.SweetConfirm();
     MF.WaitWhileBusy();
-    SF.waitForVisible(By.xpath('//button[contains(text(),"OK")]'));
-    SF.click(By.xpath('//button[contains(text(),"OK")]'));
-    SF.sleep(2);
+    MF.SweetConfirm();
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -156,22 +120,16 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     MF.EditRequest_SetAdressToFrom ();
     SF.click(By.xpath('//div[@class="dateRange"]/input'));
     MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
-    SF.sleep (1);
-    SF.clear(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
-    MF.EditRequest_OpenRequest();
-    SF.sleep(2);
+    MF.EditRequest_SetDeliveryStartTime();
+    // MF.EditRequest_OpenRequest();
+    // SF.sleep(2);
     MF.EditRequest_SendFlatRateSumm(3000);
-    SF.click(By.xpath('//label[@ng-click="OpenSurchargeModal();"]'));
-    SF.waitForVisible(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
-    SF.sleep(2);
+    MF.EditRequest_OpenFuelSurchModal();
     SF.clear(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
     SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'), 50);
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
     MF.WaitWhileToaster ();
     SF.sleep(4);
-    MF.EditRequest_SetToConfirmed();
-    SF.sleep (1);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep(2);
@@ -184,13 +142,13 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     driver.wait(driver.findElement(By.xpath('//select[@ng-model="request.field_extra_dropoff.organisation_name"]')).getAttribute("value").then(function(text){
         VD.IWant(VD.ToEqual, text, 3, 'не совпали drop off етажи на акаунте и мувборде');
     }),config.timeout);
-    SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-    SF.sleep(1);
+
+condition.nowWeDoing = 'закрываем вручную работу пикап и добавляем в маленьком пейроле работниуов и комиссию';
+    MF.EditRequest_CloseConfirmWork();
     SF.click(By.xpath('//button[@ng-click="update(request)"]'));
     MF.WaitWhileBusy ();
-    SF.click(By.xpath('//h2[contains(text(),"Pickup")]/..//div[@ng-click="closeJob(\'Pickup Done\');"]'));
-    MF.WaitWhileBusy ();
-    SF.click(By.xpath('//h2[contains(text(),"Pickup")]/..//div[@ng-click="openSalaryCommisionModal(\'pickedUpCrew\');"]'));
+    MF.EditRequest_ClosePickUpJob();
+    MF.EditRequest_OpenPayrollPickupFlatRate();
     V.boardNumbers.Payroll = {
         managerForCommission: {},
         foremanForCommission: {},
@@ -206,9 +164,18 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     MF.EditRequest_PayrollAddForeman(V.foremanName);
     MF.EditRequest_PayrollAddForemanCommission(V.foremanName, 'Bonus', 150, 60);
     LF.EditRequestPayroll_RememberForeman(V.foremanName, V.boardNumbers.Payroll.foremanForCommission);
+    MF.EditRequest_PayrollOpenHelperTab();
+    MF.EditRequest_PayrollAddHelper(V.helperName);
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
+
+condition.nowWeDoing = 'тут открываем опять маленький пейрол и проверяем что все чувачки сохранились';
+    MF.EditRequest_OpenPayrollPickupFlatRate();
+    LF.ValidationWorkersSmallPayroll_In_EditRequest(V.managerFirstName, V.foremanName, V.helperName);
+    MF.EditRequest_CloseModal();
     MF.EditRequest_CloseEditRequest();
+
+condition.nowWeDoing = 'идем в большой пейрол проверять комисси';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findSaleInPayroll(V.managerName);
