@@ -184,7 +184,7 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
         Math.floor(V.boardNumbers.Tips / V.boardNumbers.CrewSize),
         'Не совпал Tips Helpera');
     SF.sleep(1);
-    driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\')"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\'); calcWorkerTotal(\'driver\');"]')).getText().then(function (text) {
         V.boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(1);

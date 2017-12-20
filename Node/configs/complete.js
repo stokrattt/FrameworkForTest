@@ -32,7 +32,7 @@ module.exports = function(config,V) {
         './tests/20_LDTopForm.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/22_WeDontMoveToThisState.js',
-        './tests/24_FiltrationMoveDateCreateDate.js',
+
         './tests/25_ChangeDateDispatch.js',
         './tests/26_CloneRequest.js',
         './tests/27_Receipt.js',
@@ -64,7 +64,7 @@ module.exports = function(config,V) {
         './tests/59_PayrollAddMiscCustomPayment.js',
        // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/60_Excludes.js',
-        './tests/61_SITInvoices.js',
+
         './tests/62_MovingCustomBlock.js',
         './tests/63_MovingStorageCustomBlock.js',
         './tests/64_LoadingHelpCustomBlock.js',
@@ -73,8 +73,10 @@ module.exports = function(config,V) {
         './tests/67_EditRequestPayrollAdding.js',
         './tests/69_SITAddStorage.js',
         './tests/68_SITPickUpDelivery.js',
+        './tests/24_FiltrationMoveDateCreateDate.js',
 		// './tests/71_ManualEmailing.js',
         './tests/70_SITAddTripPersonallyForeman.js',
+        './tests/61_SITInvoices.js',
         './tests/72_ChangingRateAfterConfirming.js',
         './tests/73_CustomTrackSpeed.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
@@ -149,7 +151,7 @@ module.exports = function(config,V) {
     V.googleloginSale =  'truks8158';
     V.googlePasSale =  'qwertyuio9';
     V.testMail = {
-		login: 'test.boston',
+		login: 'bostonflat.test',
 		mail: 'bostonflat.test@mail.ru',
 		password: 'YLZ60tO^ycpz'
 	};

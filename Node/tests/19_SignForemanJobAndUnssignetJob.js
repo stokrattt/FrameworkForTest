@@ -59,6 +59,7 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     MF.WaitWhileBusy ();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
+    V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
     MF.Board_LogoutAdmin();
 
