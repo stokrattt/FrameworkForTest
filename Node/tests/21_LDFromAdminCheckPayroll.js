@@ -161,12 +161,9 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     SF.send(By.xpath('//input[@ng-model="details.delivery"]'), V.deliveryDay);
     SF.sleep(0.5);
     SF.click(By.xpath('//button[contains(text(), "Done")]'));
-    // SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
-    // driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
     MF.EditRequest_SaveDetails();
     SF.sleep(3);
     MF.WaitWhileToaster();
-    // MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork();
     MF.EditRequest_CloseJob();
     LF.closeEditRequest();

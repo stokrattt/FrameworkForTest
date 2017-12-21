@@ -163,7 +163,6 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.mdateLong);
     SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
     MF.WaitWhileBusy ();
-
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id4Long + '")]')).getText().then(function (id4Long) {
         VD.IWant (VD.ToEqual, V.Id4Long, id4Long, 'не нашел реквест4 по фильтрации по Move date')
     }),config.timeout);
@@ -174,30 +173,6 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
         VD.IWant (VD.ToEqual, V.Id6Long, id6Long, 'не нашел реквест6 по фильтрации по Move date')
     }),config.timeout);
     SF.sleep(2);
-
-condition.nowWeDoing = 'идем удалять созданные реквесты';
-    // MF.Board_OpenRequest (V.Id4Long);
-    // LF.deletePendingRequest ();
-    // MF.Board_OpenRequest (V.Id5Long);
-    // LF.deletePendingRequest ();
-    // MF.Board_OpenRequest (V.Id6Long);
-    // LF.deletePendingRequest ();
-    // SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 1);
-    // MF.WaitWhileBusy ();
-    // SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
-    // SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.createdate);
-    // SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
-    // SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.createdate);
-    // SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
-    // MF.WaitWhileBusy ();
-    // MF.Board_OpenRequest (V.Id1);
-    // LF.deletePendingRequest ();
-    // MF.Board_OpenRequest (V.Id2);
-    // LF.deletePendingRequest ();
-    // MF.Board_OpenRequest (V.Id3);
-    // LF.deletePendingRequest ();
-    // MF.Board_LogoutAdmin ();
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

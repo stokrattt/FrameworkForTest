@@ -6,7 +6,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
-    // V.payrollNumbersOutside = {};
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
@@ -15,7 +14,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'идем в пейрол вводи дату в промежутке 20 дней и нажимаем update payroll cache';
     MF.Board_OpenPayroll ();
     LF.Payroll_SelectPeriod20Days();
-    // MF.Board_Refresh ();
     // MF.Payroll_UpdateCache ();
 
 condition.nowWeDoing = 'заходим у форемана и счтаем сначала сумму в таблице и сравниваем с итого, перед этим удаляем все пейчеки если есть и миск пайменты';

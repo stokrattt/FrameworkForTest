@@ -18,26 +18,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.ScorePercent1 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent1, 25,'при входе в аккаунт 1й раз в аккаунт не посчитались проценты за создание реквеста');
     }),config.timeout);
-   // driver.wait(driver.executeScript("return $('div[class=\"request-score-box__progress-line__column\"][2]img[ng-hide=\"isInventory\"]').length").then(function (text) {
-     //   VD.IWant(VD.ToEqual, text, 0, 'прогрес бар: инвентарь без галочки');
-   // }),config.timeout);
-   // SF.sleep(2);
-   // driver.wait(driver.executeScript("return $('div[class=\"request-score-box__progress-line__column\"][3]img[ng-hide=\"isInventory\"]').length").then(function (text) {
-     //   VD.IWant(VD.ToEqual, text, 0, 'прогрес бар: детали без галочки');
-   // }//),config.timeout);
-    //SF.sleep(2);
-   // driver.wait(driver.executeScript("return $('div[class=\"request-score-box__progress-line__column\"][3]img[ng-hide=\"isInventory\"]').length").then(function (text) {
-    //}),config.timeout);
-   // SF.sleep(3);
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
     driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
         V.ScorePercent2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent2, 65,'не посчитались проценты за добавление инвентаря');
     }),config.timeout);
-   // driver.wait(driver.executeScript("return $('div[class=\"request-score-box__progress-line__column\"][2]div[class=\"request-score-box__progress-line__column__circle border-green\"]').length").then(function (text) {
-   //     VD.IWant(VD.ToEqual, text, 0, 'прогрес бар: после добавления инвентаря, галочка не появилась');
-   // }),config.timeout);
     SF.sleep(2);
     LF.AccountLocalDetails();
     SF.sleep(3);
@@ -45,9 +31,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.ScorePercent3 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent3, 85,'не посчитались проценты за добавление деталей');
     }),config.timeout);
-   // driver.wait(driver.executeScript("return $('div[class=\"request-score-box__progress-line__column\"][3]div[class=\"request-score-box__progress-line__column__circle border-green\"]').length").then(function (text) {
-   //     VD.IWant(VD.ToEqual, text, 1, 'прогрес бар: после добавления деталей, галочка не появилась');
-    //}),config.timeout);
     SF.sleep(2);
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
@@ -140,11 +123,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.ScorePercent5, 100,'не добавились проценты после резервации');
     }),config.timeout);
     SF.sleep(2);
-   // driver.wait(driver.executeScript("return $('//div[class=\'request-score-box__progress-line__column\'][4]//div[class=\'request-score-box__progress-line__column__circle border-green\']').length").then(function (text) {
-      //  VD.IWant(VD.ToEqual, text, 1, 'прогрес бар: резерв не стал зеленый после резервации');
-  // }),config.timeout);
     LF.LogoutFromAccount();
-
 
     condition.nowWeDoing = 'вернулись в модалку реквеста, проверяем очки 2й раз, и логи';
     SF.get(V.adminURL);
@@ -165,36 +144,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, text, '15 points added for "A customer buys a coupon" action','нет лога про посещение конфирмеишен');
     }),config.timeout);
     SF.sleep(2);
-
-    //condition.nowWeDoing = 'создаем и оплачиваем инвоис';
-    //SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
-    //SF.sleep(2);
-   // MF.EditRequest_OpenPayment();
-    //SF.click(By.xpath('//a[@ng-click="createInvoice()"]'));
-    //SF.send (By.xpath('//input[@ng-model="charge.name"]'), 'Item for Scoring');
-    //SF.sleep(0.5);
-    //SF.send (By.xpath('//input[@ng-model="charge.description"]'), 'test scoring');
-    //SF.sleep(0.5);
-    //SF.clear (By.xpath('//input[@ng-model="charge.cost"]'));
-    //SF.send (By.xpath('//input[@ng-model="charge.cost"]'), 100);
-   // SF.sleep(0.5);
-  //  SF.clear (By.xpath('//input[@ng-model="charge.qty"]'));
-    //SF.send (By.xpath('//input[@ng-model="charge.qty"]'), 10);
-   // SF.sleep(0.5);
-    //SF.click(By.xpath('//textarea[@ng-model="invoice.notes"]'));
-    //SF.click(By.xpath('//a[@ng-click="sendInvoice()"]'));
-    //MF.WaitWhileBusy ();
-    //SF.waitForLocated (By.xpath('//h2[contains(text(), "Template preview")]'));
-    //SF.click(By.xpath('//a[@ng-click="save()"]'));
-
-    //SF.click(By.xpath('//div[@class="quick-add-block"]'));
-    //SF.click(By.xpath('//div[@ id="footer-tab"]'));
-    //SF.click(By.xpath('//div[@class="copy-block-in-template-button"]'));
-
-    //MF.WaitWhileToaster();
-    //SF.sleep(3);
-    //SF.click(By.xpath('//a[@title="view invoice"]'));
-
 
     LF.closeEditRequest();
     MF.WaitWhileBusy();

@@ -36,8 +36,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SaveChanges ();
 condition.nowWeDoing = 'закрываем реквест и открываем и проверяем что заметочки сохранились';
     LF.closeEditRequest ();
-    // MF.WaitWhileBusy ();
-    // MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {
       VD.IWant(VD.ToEqual, text, V.note, 'Не совпали заметочки сейлса');
@@ -79,7 +77,6 @@ condition.nowWeDoing = 'очищаем старые заметки и вводи
 condition.nowWeDoing = 'переходим на табу нот конферм и проверяем что новые нотсы сохранились';
     MF.Board_OpenNotConfirmed ();
     MF.Board_RefreshDashboard ();
-    // MF.WaitWhileBusy();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, text, V.noteNew, 'Не совпали новые заметочки у сейлса после затирания старых');
@@ -155,7 +152,6 @@ condition.nowWeDoing = 'тут проверим на сохранение нот
     MF.WaitWhileBusy();
     LF.closeEditRequest ();
     MF.Board_OpenConfirmed ();
-    // MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "sales_notes")]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, text, V.noteNew1, 'Не совпали заметочки сейлса после сохранения через закрытие реквеста');

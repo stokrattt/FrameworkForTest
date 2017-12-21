@@ -165,7 +165,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
     SF.sleep(3);
-    // JS.scroll('td:contains("Company Address")');
 
     condition.nowWeDoing = 'тут заходим в маркетинг тулс и выключаем их';
     SF.click(By.linkText('Marketing Tools'));

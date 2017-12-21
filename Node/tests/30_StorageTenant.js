@@ -33,7 +33,6 @@ condition.nowWeDoing = 'идем в леджер и создаем паймен�
     SF.click(By.xpath('//button[@ng-click="Save()"]'));
     SF.sleep (2);
     MF.WaitWhileToaster();
-    // JS.click('button[ng-click=\\"save()\\"]:visible');
     SF.sleep (2);
     MF.WaitWhileBusy ();
     JS.click('a[ng-click=\\"addAuthPayment()\\"]:visible');
@@ -133,13 +132,8 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
         VD.IWant (VD.ToEqual, V.balanceTenant, -780, 'баланс не совпадает с суммой оплаты')
     }),config.timeout);
     SF.sleep(0.5);
-
     SF.click(By.xpath('//tr[@ng-click="openModal(bill.bill_id, bill)"]//a[@ng-if="bill.type == \'invoice\'"]/i'));
     SF.click(By.xpath('//tr[@ng-click="openModal(bill.bill_id, bill)"]//a[@ng-if="bill.type == \'invoice\'"]/i'));
-
-    // SF.click(By.xpath('//td[contains(text(), "-930")]/a[@ng-if="bill.type == \'invoice\'"]/i'));
-    // SF.click(By.xpath('//td[contains(text(), "-930")]/a[@ng-if="bill.type == \'invoice\'"]/i'));
-
     SF.openTab(1);
     SF.waitForLocated (By.xpath('//b[contains(text(), "Account Balance Due (USD):")]'));
     SF.sleep(3);
@@ -152,8 +146,6 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
     SF.send(By.xpath('//input[@ng-model="payment.card_num"]'), 4111111111111111);
     SF.send(By.xpath('//input[@ng-model="payment.exp_month"]'), 11);
     SF.send(By.xpath('//input[@ng-model="payment.exp_year"]'), 20);
-    // SF.clear(By.xpath('//input[@ng-model="payment.name"]'));
-    // SF.sleep(2);
     SF.send(By.xpath('//input[@ng-model="payment.firstName"]'), V.client.name);
     SF.send(By.xpath('//input[@ng-model="payment.lastName"]'), V.client.fam);
     SF.send(By.xpath('//input[@ng-model="secure.cvc"]'), 323);
@@ -199,7 +191,6 @@ condition.nowWeDoing = 'старт рекуринг';
 condition.nowWeDoing = 'идем проверять что он есть в Move in';
     MF.StorageTenant_OpenStorages(V.storage.Id);
     MF.EditStorage_CloseOpenModal();
-    // MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

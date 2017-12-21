@@ -83,9 +83,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
         VD.IWant(VD.ToEqual, text, 'Status was changed to date pending on requests: '+V.Id1+', '+V.Id2+'', 'не совпали реквесты которые ушли в дейт пендинг');
     }),config.timeout);
     LF.closeEditRequest ();
-    // MF.WaitWhileBusy();
     MF.Board_RefreshDashboard ();
-    // MF.WaitWhileBusy();
 
     condition.nowWeDoing = 'идем в админку проверять или два реквеста ушли в дата пендинг';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
@@ -104,7 +102,6 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     SF.sleep(1);
     LF.closeEditRequest ();
     MF.Board_OpenConfirmed ();
-    // MF.WaitWhileBusy();
     MF.Board_RefreshDashboard ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id3 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Confirmed', 'третий реквест не ушел в конферм а должен был');

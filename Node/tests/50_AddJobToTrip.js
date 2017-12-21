@@ -162,9 +162,6 @@ condition.nowWeDoing = 'Проверяем логи';
 
 condition.nowWeDoing = 'удаляем работу из трипа';
     SF.waitForLocated(By.xpath('//div[@ng-click="openRequest(id)"]'));
-    // driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"]')).getText().then(function(text){
-    //     V.ldJobId = text;
-    // }),config.timeout);
     SF.sleep(3);
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//div/div/md-checkbox[@ng-model="item.selected"]/div[1]'));
     JS.waitForExist ('button[ng-click=\\"removeSelectedJobs()\\"]:visible');

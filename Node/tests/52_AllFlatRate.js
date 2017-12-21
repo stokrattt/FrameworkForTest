@@ -94,7 +94,6 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
 
     V.boardNumbersDeliveryDate = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="deliveryDateInput"]')).getAttribute("value").then(function (dateString) {
-        // dateString = dateString.toUpperCase();
         V.boardNumbersDeliveryDate.moveDate = {};
         V.boardNumbersDeliveryDate.moveDate.Month = SF.FindShortMonthInString(dateString);
         V.boardNumbersDeliveryDate.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
@@ -263,10 +262,6 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
     MF.Payroll_ClickAllDepartment();
     MF.WaitWhileBusy();
     LF.findHelperInPayroll('Test Helper1');
-    // driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.FRId)).then(function (text) {
-    //     V.payrollNumbersPickup.Helper.Total = SF.cleanPrice(text);
-    // }), config.timeout);
-    // SF.sleep(1);
     MF.Payroll_getTotalById(V.FRId, V.payrollNumbersPickup.Helper);
 
     VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Helper.Total, (V.boardNumbersPickup.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll pickup helper\n' +
@@ -277,12 +272,7 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
 
 condition.nowWeDoing = 'проверяем цифры менеджера pickup';
     LF.findSaleInPayroll('JackSales donotdelete');
-    // driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.FRId)).then(function (text) {
-    //     V.payrollNumbersPickup.Sale.Total = SF.cleanPrice(text);
-    // }), config.timeout);
-    // SF.sleep(1);
     MF.Payroll_getTotalById(V.FRId, V.payrollNumbersPickup.Sale);
-
     VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Sale.Total, V.boardNumbersPickup.Payroll.managerForCommission.total, 'не совпали цифры в Payroll pickup manager\n' +
         'id=' + V.FRId);
     SF.sleep(2);
@@ -316,10 +306,6 @@ condition.nowWeDoing = 'выбираем цифры helper delivery';
     SF.sleep(1);
     MF.WaitWhileBusy ();
     LF.findHelperInPayroll('Test Helper1');
-    // driver.wait(driver.executeScript(JSstep.Payroll_GetSaleTotalForRequest(V.FRId)).then(function (text) {
-    //     V.payrollNumbersDelivery.Helper.Total = SF.cleanPrice(text);
-    // }), config.timeout);
-    // SF.sleep(1);
     MF.Payroll_getTotalById(V.FRId, V.payrollNumbersDelivery.Helper);
 
     VD.IWant(VD.ToEqual, V.payrollNumbersDelivery.Helper.Total, (V.boardNumbersDelivery.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper\n' +

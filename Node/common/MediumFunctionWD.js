@@ -355,7 +355,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function Board_RefreshDashboard(){
-		// WaitWhileBusy ();
 		SF.sleep(1);
         SF.click (By.xpath('//i[@ng-click="vm.refreshDashboard();"]'));
         WaitWhileBusy ();
@@ -693,7 +692,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_ClickPay() {
         WaitWhileBusy ();
         SF.sleep(1);
-        // SF.click(By.xpath('//div[@ng-click="applyPayment(paymentButton())"]'));
         JS.click('div[ng-click=\\"applyPayment(paymentButton())\\"]:visible');
         SF.sleep(1)
     }
@@ -1078,7 +1076,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function EditRequest_CloseModal() {
         SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
-        // SweetConfirm();
         SF.sleep(2);
     }
 
@@ -1106,7 +1103,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (1);
     }
     function EditRequest_SetSaleNumber(number) {
-        // SF.click (By.xpath('//button[contains(text(),"Assign sales person")]'));
         JS.click('div[ng-show="::showManagerDropdown(currentManager.first_name)"] button');
         SF.click (By.xpath('//div[@ng-show="::showManagerDropdown(currentManager.first_name)"]//' +
             'ul[@ng-show="showManagerDropdown(currentManager.first_name)"]/li['+number+']'));
@@ -1132,7 +1128,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (3);
     }
     function EditRequest_AddPackingAndFullPAcking() {
-        // WaitWhileBusy ();
         SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
         SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
         WaitWhileBusy();
@@ -1353,7 +1348,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_ClickAddCustomPayment() {
         SF.click(By.xpath('//a[@ng-click="addCustomPayment()"]'));
-        // JS.click('a[ng-click=\\"addCustomPayment()\\"]:visible');
         SF.waitForVisible (By.xpath('//form[@name="clientForm"]'));
     }
     function EditRequest_CloseCloneRequest() {

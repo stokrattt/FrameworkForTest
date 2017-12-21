@@ -71,7 +71,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//textarea[@ng-model="trip.data.note"]'), V.notes);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.foreman"]'));
     SF.sleep(3);
-    // SF.waitForVisible (By.xpath('//div[text()="'+V.foremanName+'"]'));
     SF.click(By.xpath('//div[text()="'+V.foremanName+'"]'));
     SF.sleep(1.5);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.helper"]'));
@@ -103,7 +102,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Заходим в пейрол и заполняем и сравниваем циферки для формена';
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Closing")]'));
-    //JS.click('span:contains(\\"Closing\\")');
     SF.waitForVisible (By.xpath('//input[@ng-model="payroll.foreman.mileage_start"]'));
     SF.sleep(2);
 
@@ -172,7 +170,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//h2[contains(text(), "Driver Expenses")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
     V.driverExpensesAmount = 50;
-    // SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]'));
     SF.sleep(2);
     SF.click(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]'));
     SF.sleep(4);
@@ -193,7 +190,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"helper")]'));
-    // JS.click('md-tab-item[ng-click=\\"$mdTabsCtrl.select(tab.getIndex())\\"]:contains(\\"helper\\")');
     SF.waitForVisible (By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
     SF.sleep(3);
     SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));

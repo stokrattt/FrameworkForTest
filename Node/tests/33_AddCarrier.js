@@ -39,7 +39,6 @@ condition.nowWeDoing = 'Редактируем карьера';
     SF.send (By.xpath('//textarea[@ng-model="agentModel.data.address"]'), V.carrierNew2.address);
     SF.clear (By.xpath('//input[@ng-model="agentModel.data.zip_code"]'));
     SF.send (By.xpath('//input[@ng-model="agentModel.data.zip_code"]'), V.carrierNew2.zipCode);
-    // SF.click (By.xpath('//md-checkbox[@ng-model="agentModel.data.company_carrier"]'));
     SF.sleep(2);
 
     V.carrierNew2.perCf = "4";

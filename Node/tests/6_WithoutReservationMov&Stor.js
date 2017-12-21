@@ -54,6 +54,5 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Account_ClickFromStorage ();
     LF.ConfirmRequestInAccount_NoReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
-    // LF.LogoutFromAccount ();
     SF.endOfTest();
 };

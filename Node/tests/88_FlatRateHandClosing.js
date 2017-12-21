@@ -121,8 +121,6 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     SF.click(By.xpath('//div[@class="dateRange"]/input'));
     MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
     MF.EditRequest_SetDeliveryStartTime();
-    // MF.EditRequest_OpenRequest();
-    // SF.sleep(2);
     MF.EditRequest_SendFlatRateSumm(3000);
     MF.EditRequest_OpenFuelSurchModal();
     SF.clear(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
@@ -201,7 +199,6 @@ condition.nowWeDoing = 'идем в большой пейрол проверят
 
 condition.nowWeDoing = 'в админке включаем Quote Explanation';
     MF.Board_OpenSettingsGeneral();
-    // MF.Board_OpenSideBar();
     MF.Board_OpenSettingsAccountPageFlatRate();
     driver.wait(driver.findElements(By.xpath('//h3[contains(text(),"Show Explanation Quote")]/following-sibling::input[contains(@class,"ng-not-empty")]')).then(function(arr){
         V.QuoteExplanation=(arr.length==1);

@@ -13,7 +13,6 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateMovAndStorFromBoard(V.client);
-    // MF.EditRequest_OpenClient ();
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id1 = SF.cleanPrice(text);
         LF.addToCleanerJob(V.request.Id1);
@@ -49,8 +48,6 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     MF.EditRequest_OpenRequest ();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest ();
-    // MF.WaitWhileBusy();
-    // MF.WaitWhileBusy();
     SF.click(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.request.Id2 + '")]/..' +
         '//span[@ng-show="request.manager.first_name"]'));
     JS.click('a:contains("JackSales"):visible');

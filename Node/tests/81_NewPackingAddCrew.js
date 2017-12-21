@@ -73,14 +73,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
        V.BoxMed = text;
        }),config.timeout);
 
-   // driver.wait(driver.findElement(By.xpath('//div[@class="col-md-2 col-sm-2 nopadding request-packings-item ng-binding"]')).getText().then(function(text) {
-     //  V.cleanTotalPacking1 = SF.cleanPrice(text);
-      //  VD.IWant(VD.NotToEqual, V.cleanTotalPacking1, V.boardNumbers.Packing,'получаем сумму партиал пакинга, без коробок');
-   // }),config.timeout);
-    SF.sleep(2);
-    //V.boxCostAc = V.boardNumbers.Packing - V.cleanTotalPacking1;
+    SF.sleep(0.5);
     V.boxCostAc = V.boardNumbers.Packing - V.accountNumbers.Packing;
-    // accountNumbers.Packing
 
     MF.WaitWhileBusy();
     LF.ConfirmRequestInAccount_WithReservation();

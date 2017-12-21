@@ -171,26 +171,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.SweetConfirm();
         MF.WaitWhileBusy();
     }
-    // function AccountFlatRateAddInventory() {
-    //     JS.waitForExist('div[ng-repeat="filter in filters"]');
-    //     SF.sleep(3);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click (By.xpath('//button[@ng-click="vm.saveListInventories()"]/span[contains(text(), "Next To Overview")]'));
-    //     SF.sleep (2);
-    // }
 
     function AccountFlatRateAddInventory() {
         JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
@@ -207,47 +187,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[6]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[7]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[8]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
         SF.sleep (7);
     }
-
-
-    // function AccountLocalAddInventory(accountNumbers) {
-    //     MF.WaitWhileBusy();
-    //     SF.click(By.id('tab_Inventory'));
-    //     JS.waitForExist('div[ng-repeat="filter in filters"]');
-    //     SF.sleep(3);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[1]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//div[@ng-repeat="item in currentFilter.items"]//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(2);
-    //     if (accountNumbers != undefined) {
-    //         driver.wait(driver.executeScript('return $(\'div.inventory__toolbar-item:contains("Total Estimated Cubic Feet:")\').text()').then(
-    //             function (text) {
-    //                 accountNumbers.InventoryCbf = SF.cleanPrice(text);
-    //                 console.log("cbf = " + accountNumbers.InventoryCbf);
-    //             }
-    //         ),config.timeout);
-    //     }
-    //     JS.click('button#save-inventory.inventory__button');
-    //     SF.sleep(1);
-    //     MF.SweetConfirm();
-    //     SF.sleep(3);
-    // }
 
     function AccountLocalAddInventory(accountNumbers) {
         MF.WaitWhileBusy();
@@ -267,9 +209,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[6]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[7]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[8]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
         SF.sleep(1);
@@ -284,38 +223,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         //     ),config.timeout);
         // }
     }
-
-    // function AccountLocalAddAdditionalInventory() {
-    //     MF.WaitWhileBusy();
-    //     JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
-    //     JS.waitForExist('div[ng-repeat="filter in filters"]');
-    //     SF.sleep(10);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[1]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[1]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[1]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[1]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     SF.click(By.xpath('(//button[@ng-click="changeValue(1, item)"])[2]'));
-    //     SF.sleep(1);
-    //     JS.click('button#save-inventory.inventory__button');
-    //     MF.SweetConfirm();
-    //     SF.sleep(2);
-    // }
 
     function ContractAdditionalInventoryAdd() {
         SF.sleep(1);
@@ -347,11 +254,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[6]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[7]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[8]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
         SF.sleep(2);
         MF.SweetConfirm();
@@ -1076,9 +978,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         FillCardPayModal ();
         MF.WaitWhileSpinner ();
         MF.Account_WaitForGreenTextAfterConfirm();
-        // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-        //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-        // }), config.timeout);
         SF.sleep(1);
     }
     function ConfirmRequestInAccount_WithReservation(ReservationPrice) {
@@ -1101,11 +1000,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         FillCardPayModal();
         MF.WaitWhileSpinner ();
         MF.Account_WaitForGreenTextAfterConfirm();
-        //
-        // SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
-        // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-        //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-        // }), config.timeout);
+
     }
     function ConfirmRequestInAccount_NoReservation() {
         MF.Account_ClickProceedBookYourMove();
@@ -1117,10 +1012,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@ng-click="saveSignature()"]'));
         MF.SweetConfirm();
         MF.Account_WaitForGreenTextAfterConfirm();
-        // SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
-        // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-        //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-        // }), config.timeout);
+
     }
 //Permissions for Sales --- start
     function PermissionsClear() {
@@ -1154,16 +1046,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
 //Permissions for Sales --- end
     function closeEditRequest() {
-        // JS.waitForNotExist("div.busyoverlay:visible");
         JS.waitForNotExist('div.toast-message:visible');
         JS.waitForNotExist('div.toast-top-right:visible');
         JS.waitForNotExist('div.toast-success:visible');
         JS.waitForNotExist('div.visible-overflow');
-        // JS.waitForNotExist("div.busyoverlay:visible");
         JS.waitForNotExist('div.toast-message:visible');
         JS.waitForNotExist('div.toast-top-right:visible');
         JS.waitForNotExist('div.toast-success:visible');
-        // JS.waitForNotExist('div.visible-overflow');
         SF.click(By.xpath('//button[@ng-click="cancel()"]'));
         SF.sleep(2);
     }
@@ -1472,9 +1361,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
             Math.floor(10),
             'Не совпал Bonus формена');
-        // VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.forCommission),
-        //     Math.floor(boardNumbers.Quote/boardNumbers.HourlyRate),
-        //     'Не совпал LaborTime формена');
         SF.sleep(1);
         MF.EditRequest_PayrollOpenHelperTab();
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\'); calcWorkerTotal(\'driver\');"]')).getText().then(function (text) {
@@ -1493,25 +1379,12 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
         }));
         SF.sleep(1);
-        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office), 5000,
-            // (Math.floor(boardNumbers.Total
-            //     - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips - contractNumbers.CreditCardPercentSumm)),
-            'Не совпал ForCommission менеджера');
+        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office), 5000, 'Не совпал ForCommission менеджера');
 
         driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
         });
         MF.EditRequest_PayrollOpenForemanTab();
-        // driver.wait(driver.executeScript('return ' +
-        //     '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
-        // ).then(function (text) {
-        //     boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
-        // }));
-        // SF.sleep(1);
-        // VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
-        //     Math.floor(boardNumbers.Tips / 4),
-        //     'Не совпал Tips формена');
-
 
         driver.wait(driver.executeScript('return ' +
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
@@ -1551,16 +1424,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(3);
 
         MF.EditRequest_PayrollOpenForemanTab();
-        // driver.wait(driver.executeScript('return ' +
-        //     '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
-        // ).then(function (text) {
-        //     boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
-        // }));
-        // SF.sleep(1);
-        // VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips),
-        //     Math.floor(boardNumbers.Tips / 4),
-        //     'Не совпал Tips формена');
-
         driver.wait(driver.executeScript('return ' +
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
         ).then(function (text) {
@@ -1852,26 +1715,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         closeEditRequest();
         SF.sleep(2);
     }
-    // function addInventoryBoard(boardNumbers) {
-    //     SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
-    //     SF.sleep (2);
-    //     MF.WaitWhileBusy ();
-    //     JS.click('div[ng-repeat=\\"filter in filters\\"]:visible div:first');
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//div[@ng-if="!showAdd"]/descendant::button[1]'));
-    //     if (boardNumbers!=undefined) {
-    //         driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcTotals.cfs > 0 && !isMobile"]')).getText().then(function (text) {
-    //             boardNumbers.InventoryCubicFit = SF.cleanPrice(text.replace('Total Estimated Cubic Feet: ', ''));
-    //         }), config.timeout);
-    //     }
-    //     SF.click(By.id("save-inventory"));
-    //     SF.sleep (4);
-    // }
 
     function addInventoryBoard(boardNumbers) {
         SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
@@ -1886,13 +1729,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[7]//button[@ng-click="onClickCounter(1)"]'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[8]//button[@ng-click="onClickCounter(1)"]'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[6]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[7]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[8]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+
         if (boardNumbers!=undefined) {
             driver.wait(driver.findElement(By.xpath('//div[@ng-if="total.total_cf > 0 && (!isAccount || isContractPage)"]/span[@ng-bind="total.total_cf"][1]')).getText().then(function (text) {
                 boardNumbers.InventoryCubicFit = SF.cleanPrice(text.replace('Total Estimated Cubic Feet:', ''));
@@ -1902,38 +1739,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep (4);
     }
 
-    // function addAdditionalInventoryBoard(boardNumbers) {
-    //     SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
-    //     MF.WaitWhileBusy();
-    //     SF.sleep (3);
-    //     // MF.WaitWhileBusy ();
-    //     JS.click('div[ng-repeat=\\"filter in filters\\"]:visible div:first');
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //     SF.click (By.xpath('//div[@class="inventory-item"]//button[@ng-click="changeValue(1, item)"]'));
-    //
-    //     if (boardNumbers!=undefined) {
-    //         driver.wait(driver.findElement(By.xpath('//div[@ng-if="calcTotals.cfs > 0 && !isMobile"]')).getText().then(function (text) {
-    //             boardNumbers.InventoryCubicFit = SF.cleanPrice(text.replace('Total Estimated Cubic Feet: ', ''));
-    //         }), config.timeout);
-    //     }
-    //     SF.click(By.id("save-inventory"));
-    //     SF.sleep (4);
-    // }
-
-    function addAdditionalInventoryBoard(boardNumbers) {
+     function addAdditionalInventoryBoard(boardNumbers) {
         SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
         MF.WaitWhileBusy();
         SF.sleep (3);
@@ -1947,12 +1753,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[8]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[6]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[7]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        // SF.click (By.xpath('(//div[@class="new-inventory-item"])[8]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         if (boardNumbers!=undefined) {
             driver.wait(driver.findElement(By.xpath('//div[@ng-if="total.total_cf > 0 && (!isAccount || isContractPage)"]/span[@ng-bind="total.total_cf"][1]')).getText().then(function (text) {
                 boardNumbers.InventoryCubicFit = SF.cleanPrice(text.replace('Total Estimated Cubic Feet:', ''));

@@ -185,11 +185,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="updateSit()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="createTpDelivery()"]'));
-    // SF.click(By.xpath('//button[@ng-click="createTpDelivery()"]'));
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
     SF.sleep(5);
-    // SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Trip details")]'));
-    // JS.click('span:contains(\\"Trip details\\")');
     SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.sleep(2);
     condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
@@ -326,7 +323,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
     SF.sleep(5);
-    //SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Trip details")]'));
     SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.sleep(4);
     condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';

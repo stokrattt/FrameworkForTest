@@ -23,7 +23,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Department_ClickCanSearchOtherLeads();
     MF.Department_ClickCanEditOtherLeads();
     MF.Department_ClickCanAssignToOther();
-    //SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeUnsignedLeads"]/..'));
     MF.Department_SaveUser();
 
     condition.nowWeDoing = 'создаем реквест из под админа';

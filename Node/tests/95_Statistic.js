@@ -20,12 +20,7 @@ condition.nowWeDoing = 'запоминаем на дашборде кол-во �
         V.ConfBoard = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(3);
-   // SF.click(By.xpath('//select[@ng-model="vm.conf_filter"]'));
-   // SF.click(By.xpath('//option[@value="2"]'));
     MF.WaitWhileBusy();
-   // driver.wait(driver.findElement(By.xpath('//div[@ng-click="vm.select(2)"]//span[@ng-hide="vm.conf_filter == 2"]')).getText().then(function (text) {
-   //     V.BookBoard = SF.cleanPrice(text);
-   // }),config.timeout);
 
 condition.nowWeDoing = 'открываем статистику и проверяем там цифры';
     MF.Board_OpenStatistic ();
@@ -83,10 +78,6 @@ condition.nowWeDoing = 'идем в профит анд лосс, сверяем
         VD.IWant(VD.ToEqual, V.EstIncPrLos, V.EstIncStat,'не совпал Estimate Income в профит анд лосс и статистике');
     }),config.timeout);
     SF.sleep(3);
-    //driver.wait(driver.findElement(By.xpath('//div[@id="datatable-profit_info"]')).getText().then(function(text) {
-       // V.BookPrLos = SF.cleanPrice(text);
-      //  VD.IWant(VD.ToEqual, V.BookPrLos, V.BookBoard,'не совпали кол-во Booked работ в профит анд лосс и на дашборде');
-    //}),config.timeout);
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'заходим за сеилса, в статистике сверяем кол-во забуканных и общее кол-во работ со страницей оунера';

@@ -123,10 +123,6 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
     MF.Account_WaitForGreenTextAfterConfirm();
-    // SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
-    // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-    //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    // }), config.timeout);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

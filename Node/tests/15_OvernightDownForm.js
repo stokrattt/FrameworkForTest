@@ -213,17 +213,11 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(3);
-    // MF.SweetConfirm ();
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     SF.sleep (1);
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
     MF.Account_WaitForGreenTextAfterConfirm();
-    // SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
-    // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-    //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    // }), config.timeout);
-    // MF.WaitWhileBusy ();
     SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
     SF.sleep (2);
 condition.nowWeDoing = 'букаем вторую работу овернайта';
@@ -242,11 +236,6 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
     MF.Account_WaitForGreenTextAfterConfirm();
-    // SF.waitForVisible (By.xpath('//div[@class="field-status confirm"]'));
-    // driver.wait(driver.findElement(By.xpath('//div[@class="field-status confirm"]/div')).getText().then(function(confirmed){
-    //     VD.IWant (VD.ToEqual, confirmed, 'YOUR MOVE IS CONFIRMED AND SCHEDULED', 'статус не конферм, хотя должен был быть');
-    // }), config.timeout);
-    // MF.WaitWhileBusy ();
     LF.LogoutFromAccount ();
 
 condition.nowWeDoing = 'идем в гугл почту';

@@ -27,7 +27,6 @@ condition.nowWeDoing = 'добавляем два разы инвенторий 
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
 condition.nowWeDoing = 'пошли на дашборд, открываем реквест, сравниваем данные, ставим в настройках показать дискаунт на акке и добавляем в реквесте тоже дискаунт, запоминаем данные';
-    // MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.accountNumbers.Id);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
@@ -81,7 +80,6 @@ condition.nowWeDoing = 'идем в акк запоминаем данные и 
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep(2);
 condition.nowWeDoing = 'пошли в админку второй раз, конфермим работу идем в диспач назначаем команду';
-    // MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.accountNumbers.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();

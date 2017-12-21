@@ -162,7 +162,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//h2[contains(text(), "Driver Expenses")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
     V.driverExpensesAmount = 50;
-    // SF.click(By.xpath('//div[@ng-click="openAmountEditDialog(item)"]'));
     SF.sleep(2);
     SF.click(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]'));
     SF.sleep(4);

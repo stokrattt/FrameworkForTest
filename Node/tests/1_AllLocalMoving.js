@@ -119,7 +119,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
-    // LF.Contract_ReviewGive(3, "test text for review");
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     V.contractNumbers = {};
