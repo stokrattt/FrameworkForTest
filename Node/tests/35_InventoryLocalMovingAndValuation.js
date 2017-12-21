@@ -60,6 +60,7 @@ condition.nowWeDoing = 'второй раз в аккаунте';
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_Pending(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
+    SF.sleep(4);
     LF.RememberAccountNumbers(V.accountNumbers);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.request_all_data.valuation.lability_amount"]')).getText().then(function (text) {
         text = SF.cleanPrice (text);
@@ -71,6 +72,7 @@ condition.nowWeDoing = 'второй раз в аккаунте';
     }),config.timeout);
     // VD.IWant(VD.ToEqual, V.accountNumbers.cbf, V.boardNumbers.InventoryCubicFit);
     SF.sleep(2);
+    LF.Validation_Compare_Account_Admin (V.boardNumbers, V.accountNumbers);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
