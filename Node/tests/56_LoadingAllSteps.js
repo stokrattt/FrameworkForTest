@@ -135,13 +135,13 @@ condition.nowWeDoing = 'проверяем в календаре, что раб�
     SF.sleep(1);
     SF.click (By.xpath('//div[@class="jO7h3c"] [contains(text(), "День")]'));
     SF.sleep(3);
-    SF.click (By.xpath('//div[@class="rbGOge WmboHb"]//div[@aria-label="Next day"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий день"]'));
     SF.sleep(1);
-    SF.click (By.xpath('//div[@class="rbGOge WmboHb"]//div[@aria-label="Next day"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий день"]'));
     SF.sleep(1);
-    SF.click (By.xpath('//div[@class="rbGOge WmboHb"]//div[@aria-label="Next day"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий день"]'));
     SF.sleep(1);
-    SF.click (By.xpath('//div[@class="rbGOge WmboHb"]//div[@aria-label="Next day"]'));
+    SF.click (By.xpath('//div[@aria-label="Следующий день"]'));
     SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbers.Id+'")]'));
     driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text) {
    V.Req1Cal = text;
