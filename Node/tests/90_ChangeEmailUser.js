@@ -18,11 +18,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing='заполняем верхнюю форму как UnloadingHelp, создаем 1й реквест';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsUnloading(V.NewClient);
+
     condition.nowWeDoing='зашли первый раз в аккаунт';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
-    SF.sleep(5);
-
     LF.AccountUnloadingEnterAddress();
     V.req1={};
     LF.RememberAccountNumbers(V.req1);

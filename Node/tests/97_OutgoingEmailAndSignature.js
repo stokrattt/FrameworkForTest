@@ -33,8 +33,7 @@ condition.nowWeDoing = 'создаем реквест, назначаем нуж
     MF.EditRequest_OpenSettings();
     LF.SetManager('Rick');
     MF.EditRequest_OpenRequest();
-    SF.click(By.xpath('//i[@ng-click="openMailDialog()"]'));
-    MF.WaitWhileBusy();
+    MF.CreateRequest_OpenMailDialog();
     SF.click(By.xpath('//span[contains(.,"Default")]'));
     SF.sleep(1);
     SF.click(By.xpath('//h4[contains(text(), "Sales Signature")][1]'));
@@ -47,12 +46,11 @@ condition.nowWeDoing = 'создаем реквест, назначаем нуж
         V.SignatReq = text;
         VD.IWant(VD.ToEqual, V.SalesSig, V.SignatReq,'не совпала или нет Signature');
     }),config.timeout);
-    SF.sleep(2);
    driver.wait(driver.findElement(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"]')).getText().then(function(text) {
         V.OutgoingLogEmail = text;
         VD.IWant(VD.ToEqual, V.OutgoingLogEmail,('Mail was send to "'+V.client.email+'". From "'+V.Outgoingemail+'". Subject: "Sales Signature"'),'не совпал оугоинг емаил');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'идем в департмент, удаляем оутгоинг емаил';

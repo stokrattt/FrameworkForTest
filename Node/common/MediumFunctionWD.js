@@ -468,6 +468,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.linkText('Fuel Surcharge'));
         SF.sleep (2);
     }
+    function Board_OpenInhomeEstimateTab() {
+        SF.click(By.xpath('//div[@ng-click="vm.select(5)"]'));
+        SF.sleep(3);
+    }
     //==============================CALCULATOR SETTINGS===========================
     function CalculatorSettings_OpenBasicSettings(){
 		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[2]'));
@@ -666,6 +670,18 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         WaitWhileBusy ();
         SF.sleep (3);
+    }
+    function Account_ClickInventoryOpenTab() {
+        WaitWhileBusy();
+        SF.click(By.id('tab_Inventory'));
+        JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
+        SF.sleep(4);
+    }
+    function Account_ClickSaveInventory() {
+        SF.sleep(1);
+        SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
+        SweetConfirm();
+        SF.sleep(5);
     }
 
     //===================================CONTRACT===================================
@@ -908,6 +924,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_SetToConfirmed() {
         SF.select(By.xpath('//select[@id="edit-status"]'), 3);
+    }
+    function EditRequest_ChangeStatusRequest(number) {
+        SF.select(By.xpath('//select[@id="edit-status"]'), number);
     }
     function EditRequest_SetToUploading() {
         SF.select(By.xpath('//select[@id="edit-service"]'), 3);
@@ -1326,7 +1345,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click (By.xpath('//div[@ng-click="selectList(3)"]'));
     }
     function EditRequest_SendNumberCustomCubFit(number) {
+        SF.clear(By.xpath('//input[@ng-model="request.custom_weight.value"]'));
         SF.send(By.xpath('//input[@ng-model="request.custom_weight.value"]'), number);
+        SF.click(By.xpath('//h3[contains(text(), "Auto Calculator")]'));
+        SF.sleep(0.5);
     }
     function EditRequest_ClickFlatRateLocalMove() {
         SF.click(By.xpath('//input[@ng-model="request.field_flat_rate_local_move.value"]/..'));
@@ -1393,6 +1415,29 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//label[@ng-click="OpenSurchargeModal();"]'));
         SF.waitForVisible(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
         SF.sleep(2);
+    }
+    function EditRequest_OpenInventoryTab() {
+        SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
+        SF.sleep (2);
+        WaitWhileBusy ();
+    }
+    function EditRequest_CreateCustomBedroom() {
+        SF.click(By.xpath('//div[@ng-click="createCustomRoom(\'2\')"]'));
+        SweetConfirm();
+        SF.sleep(6);
+    }
+    function EditRequest_CreateCustomRoom() {
+        SF.click(By.xpath('//div[@ng-click="createCustomRoom(\'1\')"]'));
+        SweetConfirm();
+        SF.sleep(4);
+    }
+    function EditRequest_ClickSaveInventory() {
+        SF.sleep(1);
+        SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
+        SF.sleep(3);
+    }
+    function EditRequest_ClickHomeEstimateDate() {
+        SF.click (By.xpath('//input[@ng-model="field.value"]'));
     }
 
     //=================================LOCAL DISPATCH============================
@@ -1944,6 +1989,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenReserved:Board_OpenReserved,
         Board_OpenReviewSettings:Board_OpenReviewSettings,
         BoardSettings_ClickFuelSurcharge:BoardSettings_ClickFuelSurcharge,
+        Board_OpenInhomeEstimateTab:Board_OpenInhomeEstimateTab,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
@@ -1981,6 +2027,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_WaitForLoadingAccount:Account_WaitForLoadingAccount,
         Account_ViewPackingRequest:Account_ViewPackingRequest,
         AccountFR_SeelectOptions:AccountFR_SeelectOptions,
+        Account_ClickInventoryOpenTab:Account_ClickInventoryOpenTab,
+        Account_ClickSaveInventory:Account_ClickSaveInventory,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -2062,6 +2110,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SetAdressFrom: EditRequest_SetAdressFrom,
         EditRequest_SetAdressTo: EditRequest_SetAdressTo,
         EditRequest_SetToConfirmed: EditRequest_SetToConfirmed,
+        EditRequest_ChangeStatusRequest:EditRequest_ChangeStatusRequest,
         EditRequest_SetLaborTimeCloseJob: EditRequest_SetLaborTimeCloseJob,
         EditRequest_CloseJob: EditRequest_CloseJob,
         EditRequest_OpenContractCloseJob: EditRequest_OpenContractCloseJob,
@@ -2111,6 +2160,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ClosePickUpJob:EditRequest_ClosePickUpJob,
         EditRequest_SetDeliveryStartTime:EditRequest_SetDeliveryStartTime,
         EditRequest_OpenFuelSurchModal:EditRequest_OpenFuelSurchModal,
+        EditRequest_OpenInventoryTab:EditRequest_OpenInventoryTab,
+        EditRequest_CreateCustomBedroom:EditRequest_CreateCustomBedroom,
+        EditRequest_CreateCustomRoom:EditRequest_CreateCustomRoom,
+        EditRequest_ClickSaveInventory:EditRequest_ClickSaveInventory,
+        EditRequest_ClickHomeEstimateDate:EditRequest_ClickHomeEstimateDate,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

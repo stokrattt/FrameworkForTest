@@ -25,7 +25,6 @@ condition.nowWeDoing = 'создаем рекевст под оунером, д�
     SF.send(By.xpath('//textarea[@name="description"]'),V.RemaindText);
     SF.sleep(2);
     SF.click(By.xpath('//span[@ng-click="$ctrl.isPickerOpened = !$ctrl.isPickerOpened"]'));
-    //SF.click(By.xpath('//input[@ng-model="$ctrl.ModelDate"]'));
     SF.click(By.xpath('//button[@ng-click="move(1)"]'));
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="select(dt.date)"]//span[contains(text(),"01")]'));
@@ -55,7 +54,7 @@ condition.nowWeDoing = 'заходим за сеилса, сверяем рим�
         V.RemaindTextSales = text;
         VD.IWant(VD.ToEqual, V.RemaindText, V.RemaindTextSales,'проверяем текст римайндера');
     }),config.timeout);
-    SF.sleep(3);
+    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//reminder-min[@ng-click="$ctrl.openDialog(reminder)"]')).getCssValue("background-color").then(function (color) {
         V.RemaindTextSales = color;
         VD.IWant(VD.ToEqual, V.RemaindTextAdmin, V.RemaindTextSales,'цвет римайндера не совпал');
@@ -64,16 +63,15 @@ condition.nowWeDoing = 'заходим за сеилса, сверяем рим�
     SF.click(By.xpath('//button[@ng-click="$ctrl.reminder.dismiss();"]'));
     MF.WaitWhileToaster();
     MF.WaitWhileToaster();
-    SF.sleep(5);
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="expired.length"]')).getText().then(function(text) {
         V.TitleReq = text;
         VD.IWant(VD.ToEqual, V.TitleReq, 'PAST','текст не поменялся на PAST');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     SF.click(By.xpath('//li[@index="0"]'));
     SF.click(By.xpath('//button[@ng-click="$ctrl.done()"]'));
     LF.closeEditRequest();
-    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'идем во вкладку римайндеры, и ищем римайндер в PAST';
     SF.click(By.xpath('//div[@class="slide-panel-invoker"]'));

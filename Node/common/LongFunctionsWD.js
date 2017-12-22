@@ -192,10 +192,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
     }
 
     function AccountLocalAddInventory(accountNumbers) {
-        MF.WaitWhileBusy();
-        SF.click(By.id('tab_Inventory'));
-        JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
-        SF.sleep(4);
+        MF.Account_ClickInventoryOpenTab();
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(1)"]'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(1)"]'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(1)"]'));
@@ -209,11 +206,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        SF.sleep(1);
-        SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(1);
-        MF.SweetConfirm();
-        SF.sleep(5);
+        MF.Account_ClickSaveInventory();
         // if (accountNumbers != undefined) {
         //     driver.wait(driver.executeScript('return $(\'div.inventory__toolbar-item:contains("Total Estimated Cubic Feet:")\').text()').then(
         //         function (text) {
@@ -254,10 +247,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-        SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(2);
-        MF.SweetConfirm();
-        SF.sleep(3);
+        MF.Account_ClickSaveInventory();
     }
 
     function AccountLocalDetails() {

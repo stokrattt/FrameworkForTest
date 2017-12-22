@@ -114,10 +114,7 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDAfterAddInvenAfterAddFullPacing, V.boardNumbers2PendingAfterAddInven);
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickCustomCubFit();
-    SF.clear(By.xpath('//input[@ng-model="request.custom_weight.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.custom_weight.value"]'), 999);
-    SF.click(By.xpath('//h3[contains(text(), "Auto Calculator")]'));
-    SF.sleep(0.5);
+    MF.EditRequest_SendNumberCustomCubFit(999);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.custom_weight.value"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 999, 'в настройках не поменялся кубик фит для кастомного веса');
     }),config.timeout);
@@ -203,7 +200,7 @@ condition.nowWeDoing = 'идем в админку проверять что ч�
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistancePackingTotal"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers2PendingAfterAddInven.Packing, 'не совпал пакинг на конфирмейшн после конферм и закрытия работы через админк');
     }),config.timeout);
-    SF.sleep(3);
+    SF.sleep(2);
 
 
     //=========================закончили писать тест=============================

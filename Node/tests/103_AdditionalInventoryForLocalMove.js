@@ -117,8 +117,7 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
-    SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
-    SF.sleep(2);
+    MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'сейчас идём в пейролл';

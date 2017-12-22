@@ -13,7 +13,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'первый раз в аккаунте, добавляю инвентарь, детали, отправляю сообщение,проверяю прогрес бар';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
         V.ScorePercent1 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent1, 25,'при входе в аккаунт 1й раз в аккаунт не посчитались проценты за создание реквеста');
@@ -24,23 +23,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.ScorePercent2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent2, 65,'не посчитались проценты за добавление инвентаря');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.AccountLocalDetails();
-    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
         V.ScorePercent3 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent3, 85,'не посчитались проценты за добавление деталей');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     MF.Account_OpenMessage();
     V.toAdmin = SF.randomBukva(6) + '_toAdmin';
     MF.BoardAccount_SendMessage(V.toAdmin);
-    SF.sleep(5);
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'первый раз в админке,сверяю очки,проверяю логи, включаю дисконт';
@@ -59,19 +55,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'10 points added for "A customer sends a message" action\']')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '10 points added for "A customer sends a message" action', 'нет лога про сообщение');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'15 points added for "When a customer submits inventory" action\']')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '15 points added for "When a customer submits inventory" action','нет лога про инвентарь');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'10 points added for "A customer does any changes to their request" action\']')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '10 points added for "A customer does any changes to their request" action','нет лога про детали');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'5 points added for "When a customer views a request" action\']')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '5 points added for "When a customer views a request" action','нет лога про просмотре реквеста');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     MF.EditRequest_OpenSettings ();
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.showCoupons"]/following-sibling::span'));
     SF.sleep(1);
@@ -81,23 +74,19 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Board_LogoutAdmin();
-
 
     condition.nowWeDoing = 'пошли в аккаунт, покупаем купон, конфермим, проверяем прогрес бар';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.accountNumbers.Id);
-    MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
         V.ScorePercent4 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent4, 85,'при входе в аккаунт 2й раз в аккаунт не совпали проценты');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     SF.click(By.id('tab_Coupons'));
     SF.waitForLocated (By.xpath('//a[@ng-click="setRequestNid()"]'));
-    MF.WaitWhileBusy ();
     MF.WaitWhileBusy ();
     SF.click (By.xpath('//a[@ng-click="setRequestNid()"]'));
     MF.WaitWhileBusy ();
@@ -117,19 +106,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
-    MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
         V.ScorePercent5 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent5, 100,'не добавились проценты после резервации');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'вернулись в модалку реквеста, проверяем очки 2й раз, и логи';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
-    SF.sleep(3);
     MF.Board_OpenRequest(V.accountNumbers.Id);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_total_score"]')).getAttribute('value').then(function(text) {
         V.PointReq2  = text;
@@ -143,35 +130,28 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'15 points added for "A customer buys a coupon" action\']')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '15 points added for "A customer buys a coupon" action','нет лога про посещение конфирмеишен');
     }),config.timeout);
-    SF.sleep(2);
-
+    SF.sleep(1);
     LF.closeEditRequest();
-    MF.WaitWhileBusy();
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'идем в аккаунт, сразу на конфирмеишен';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.accountNumbers.Id);
-    MF.WaitWhileBusy();
     LF.Account_CheckSignature();
-    MF.WaitWhileBusy();
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'заходим в реквест 3й раз, проверяем еще раз очки';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
-    SF.sleep(3);
     MF.Board_OpenRequest(V.accountNumbers.Id);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_total_score"]')).getAttribute('value').then(function(text) {
         V.PointReq2  = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PointReq2, 140 ,'сверяем очки 2й раз');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.closeEditRequest();
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
 
     condition.nowWeDoing = 'проверяем фильтр на дашборде';
     SF.click(By.xpath('//md-switch[@ng-model="leadScoreFilter.enabled"]'));
@@ -182,11 +162,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.accountNumbers.Id1 = text;
         VD.IWant(VD.ToEqual, V.accountNumbers.Id1, V.accountNumbers.Id, 'не наидена работа после фильтрации HOT');
     }),config.timeout);
-    SF.sleep(3);
+    SF.sleep(1);
 
     condition.nowWeDoing = 'заходим в реквест 4й раз, вводим очки вручную ';
     MF.Board_OpenRequest(V.accountNumbers.Id);
-    MF.WaitWhileBusy();
     SF.click (By.xpath('//input[@ng-model="request.field_total_score"]'));
     SF.clear (By.xpath('//input[@ng-model="request.field_total_score"]'));
     SF.sleep(3);
@@ -198,14 +177,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//md-select[@ng-model="leadScoreFilter.key"]'));
     SF.click(By.xpath('//md-option[@value="cold"]'));
     MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text){
         V.accountNumbers.Id2 = text;
         VD.IWant(VD.ToEqual, V.accountNumbers.Id2, V.accountNumbers.Id, 'не наидена работа во время фильтрации COLD после смены очков вручную');
     }),config.timeout);
-    SF.sleep(3);
-
-
+    SF.sleep(2);
 
     SF.endOfTest();
 };

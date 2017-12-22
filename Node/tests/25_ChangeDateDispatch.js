@@ -33,9 +33,6 @@ condition.nowWeDoing = 'создаем реквест ';
 condition.nowWeDoing = 'идем в конфернутные работы и меняем дату';
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest(V.request.Id);
-
-    MF.WaitWhileBusy ();
-
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenConfirmWork();
     SF.sleep(1);
