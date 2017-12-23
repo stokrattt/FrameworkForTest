@@ -119,7 +119,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy();
     }
     function CreateRequest_OpenMailDialog() {
-        SF.click(By.xpath("//div[@ng-click='openMailDialog()']"));
+        SF.click(By.xpath("//i[@ng-click='openMailDialog()']"));
         WaitWhileBusy();
     }
     function CreateRequest_ClickCreate() {
