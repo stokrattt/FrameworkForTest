@@ -22,14 +22,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     MF.EditRequest_SetAdressToFrom ();
-    SF.sleep(1);
     SF.click(By.xpath('//div[@class="delivery-days-inline delivery-days-inline_margin"]'));
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
         V.request.moveDate = calDate;
     }),config.timeout);
-    SF.sleep(2);
-    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.sleep(1);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
     MF.EditRequest_ChangeStatusRequest (3);
     MF.EditRequest_SaveChanges();
 
@@ -47,7 +46,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
             console.log(V.boardNumbers.QuoteSales1);
         }
     }),config.timeout);
-    SF.sleep (2);
+    SF.sleep (1);
     MF.EditRequest_CloseConfirmWork ();
     driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
@@ -56,7 +55,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
             console.log(V.boardNumbers.QuoteClosing1);
         }
     }),config.timeout);
-    SF.sleep (2);
+    SF.sleep (1);
     VD.IWant (VD.ToEqual, V.boardNumbers.QuoteSales1, V.boardNumbers.QuoteClosing1, 'не совпала квота в сэилс и клоузинг первый раз');
 
     condition.nowWeDoing = '2й раз меняем  цену и объем в minimum c.f.';
@@ -76,7 +75,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
             console.log(V.boardNumbers.QuoteSales2);
         }
     }),config.timeout);
-    SF.sleep (2);
+    SF.sleep (1);
     MF.EditRequest_CloseConfirmWork ();
     driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
@@ -85,14 +84,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
             console.log(V.boardNumbers.QuoteClosing2);
         }
     }),config.timeout);
-    SF.sleep (2);
+    SF.sleep (1);
     VD.IWant (VD.ToEqual, V.boardNumbers.QuoteSales2, V.boardNumbers.QuoteClosing2, 'не совпала квота в сэилс и клоузинг второй раз');
     LF.closeEditRequest();
 
     condition.nowWeDoing = 'идем в локал диспач назначать команду. Выбираем хелпера,как драивера';
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
@@ -120,7 +118,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="driver.rate"]'),V.NewHourlyRate);
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
-    SF.sleep(1);
 
     condition.nowWeDoing = 'идем второй раз в маленький пеирол проверяем что комиссии драивера,как хелпера есть и соответсвуют';
     MF.EditRequest_OpenPayroll();
@@ -129,32 +126,24 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.NewHourlyTime2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.NewHourlyTime2, V.NewHourlyTime, 'Time не совпадает');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="driver.rate"]')).getAttribute('value').then(function(text){
         V.NewHourlyRate2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.NewHourlyRate2, V.NewHourlyRate, 'Rate не совпадает');
     }),config.timeout);
-    SF.sleep(2);
     condition.nowWeDoing = 'запоминаем тотал Rate';
-    driver.findElement(By.xpath('//span[@ng-hide="disableRate(\'driver\', driverIndex,  driver.id)"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//span[@ng-hide="disableRate(\'driver\', driverIndex,  driver.id)"]')).getText().then(function (text) {
         V.TotalRate1 = SF.cleanPrice(text);
         console.log(V.TotalRate1);
-    });
-    SF.sleep(2);
+    }),config.timeout);
+    SF.sleep(1);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
     condition.nowWeDoing = 'идем в большой пеирол, ищем драивера, сверяем Rate и Time 1й раз';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
-    SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"driver")]'));
-    SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"driver")]'));
-    SF.sleep(1);
-    MF.WaitWhileBusy();
-    SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"test driver")]'));
-    SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"test driver")]'));
-    SF.sleep(1);
-    MF.WaitWhileBusy();
+    MF.Payroll_GoToWorkerJobs('driver');
+    MF.Payroll_GoToWorkerJobs('test driver');
     SF.click(By.xpath('//td[contains(text(),"' +V.boardNumbers.Id+ '")]'));
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.boardNumbers.Id+'")]/../td[@ng-click="editRequest(\'ca_hours\', id, \'request\', dataObj.trip_job)"]')).getText().then(function(text){
         V.PayrollHourlyTime = SF.cleanPrice(text);
@@ -170,25 +159,23 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenPayroll();
     MF.EditRequest_PayrollOpenHelperTab();
     SF.send(By.xpath('//input[@ng-model="driver.rate"]'),V.NewHourlyRateLast);
-    driver.findElement(By.xpath('//span[@ng-hide="disableRate(\'driver\', driverIndex,  driver.id)"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//span[@ng-hide="disableRate(\'driver\', driverIndex,  driver.id)"]')).getText().then(function (text) {
         V.TotalRateLast = SF.cleanPrice(text);
         console.log(V.TotalRateLast);
-    });
-    SF.sleep(2);
+    }),config.timeout);
+    SF.sleep(1);
     SF.clear(By.xpath('//tr[2]//input[@ng-model="driver.for_commission"]'));
     SF.send(By.xpath('//tr[2]//input[@ng-model="driver.for_commission"]'),V.NewHourlyTime2);
     SF.sleep(1);
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
-    SF.sleep(2);
 
     condition.nowWeDoing = '2й раз в большом пеироле сверяем новые цифры и общий тотал';
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.boardNumbers.Id+'")]/../td[@ng-click="editRequest(\'cb_hourly_rate\', id, \'request\', dataObj.trip_job)"]')).getText().then(function(text){
         V.PayrollHourlyRate2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PayrollHourlyRate2, V.TotalRateLast, 'Rate не совпадает после 2й смены в пеироле');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.boardNumbers.Id+'")]/../td[@ng-click="editRequest(\'ca_hours\', id, \'request\', dataObj.trip_job)"]')).getText().then(function(text){
         V.PayrollHourlyTime2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PayrollHourlyTime2, V.NewHourlyTime2, 'Time не совпадает после 2й смены в пеироле');
