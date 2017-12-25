@@ -24,7 +24,8 @@ condition.nowWeDoing = 'создаем ЛД реквест';
     MF.CreateRequest_ClickCalculate();
     MF.CreateRequest_ClickContinue();
     MF.CreateRequest_SendClientInfo(V.client);
-    MF.CreateRequest_OpenMailDialog();
+    SF.click(By.xpath("//div[@ng-click='openMailDialog()']"));
+    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'добавляем письма';
     SF.click(By.xpath('//span[contains(.,"Default")]'));
