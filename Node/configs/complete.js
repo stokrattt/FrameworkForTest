@@ -73,7 +73,6 @@ module.exports = function(config,V) {
         './tests/67_EditRequestPayrollAdding.js',
         './tests/69_SITAddStorage.js',
         './tests/68_SITPickUpDelivery.js',
-        './tests/24_FiltrationMoveDateCreateDate.js',
 		// './tests/71_ManualEmailing.js',
         './tests/70_SITAddTripPersonallyForeman.js',
         './tests/61_SITInvoices.js',
@@ -112,7 +111,8 @@ module.exports = function(config,V) {
         './tests/105_ChangeMinCFAndDriverPayroll.js',
         './tests/102_InhomeEstimate.js',
         './tests/104_AddBedroomAddRoom.js',
-        './tests/51_ServiceTypesOnOff.js'
+        './tests/51_ServiceTypesOnOff.js',
+        './tests/24_FiltrationMoveDateCreateDate.js',
 
     ];
     config.timeout = 80000;

@@ -31,7 +31,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
-    SF.sleep(2);
+    MF.Account_ClickPartialPacking();
     LF.AccountLocalAddInventory();
     SF.sleep(5);
     MF.SweetConfirm();
