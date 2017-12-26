@@ -9,6 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
+
     condition.nowWeDoing = 'создаём local moving';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
@@ -24,7 +25,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
     MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
@@ -75,6 +75,28 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
+
+condition.nowWeDoing = 'тут будем проверять hourly rate, что он сейчас совпадает с маленьким пейролом, потом мы в маленьком пейроле поставим ноль, сделаем ресабмит' +
+    'обновим большой пейрол и проверим что hourly rate стал нульом в большом пейроле';
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.boardNumbers.Id+'")]/../td[@ng-show="columns.fields[\'ca_hours\'].selected"]')).getText().then(function (text) {
+        V.hours = SF.cleanPrice(text);
+    }),config.timeout);
+    SF.click(By.xpath('//td[contains(text(), "'+V.boardNumbers.Id+'")]'));
+    SF.click(By.xpath('//td[contains(text(), "'+V.boardNumbers.Id+'")]'));
+    MF.EditRequest_WaitForOpenRequest();
+    MF.EditRequest_OpenPayroll ();
+    MF.EditRequest_PayrollOpenForemanTab();
+    VD.IWant(VD.ToEqual, V.hours, V.boardNumbers.Payroll.foremanForCommission.Hourly.forCommission, 'не совпал hourly rate в большом и в маленьком пейроле в реквесте');
+    MF.EditRequest_PayrollSetForemanCommission(V.foremanName,'Hourly Rate',0,0);
+    MF.EditRequest_PayrollSubmit();
+    MF.EditRequest_CloseModal();
+    MF.EditRequest_CloseEditRequest();
+    MF.Payroll_RefreshTable();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.boardNumbers.Id+'")]/../td[@ng-show="columns.fields[\'ca_hours\'].selected"]')).getText().then(function (text) {
+        V.hoursZeroMustBe = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.hoursZeroMustBe, 0, 'полсе ресабмита маленького пейрола с hourly rate =0 в большом пейроле он не поменял свое значение на ноль');
+    }),config.timeout);
+
 	MF.Payroll_ClickAllDepartment();
 	MF.WaitWhileBusy ();
 	LF.findTestForemanInPayroll(V.foremanName2);
