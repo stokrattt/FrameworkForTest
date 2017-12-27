@@ -56,7 +56,7 @@ condition.nowWeDoing = 'добавляем valuation';
 condition.nowWeDoing = 'второй раз в аккаунте сверяем валюатион и букаем работу и проверяем что валюатион есть на конфирмейшине';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
-    MF.Account_CheckRequestStatus_Pending(V.accountNumbers.Id);
+    MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
     SF.sleep(4);
     LF.RememberAccountNumbers(V.accountNumbers);
