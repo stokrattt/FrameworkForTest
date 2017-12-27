@@ -47,7 +47,6 @@ condition.nowWeDoing = 'тут запускаем цикл на перебор �
         SF.click(By.xpath('//tr[@ng-repeat="(id, dataObj) in dataTbl track by $index"][' + i + ']'));
         MF.WaitWhileBusy ();
 condition.nowWeDoing = 'тут заходим в каждую должность и сравниваем те же данные';
-        SF.sleep (3);
         MF.WaitWhileBusy ();
         driver.wait(driver.executeScript(JSstep.payrollTableMainPage('count_jobs', 'Jobs')).then(function (summa) {
             VD.IWant(VD.ToEqual, summa.sum, summa.balTop, 'В должности ' + V.departmentName + ': сумма Jobs снизу не совпадает с суммой Jobs сверху');

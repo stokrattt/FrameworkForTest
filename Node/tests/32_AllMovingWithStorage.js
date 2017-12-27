@@ -16,9 +16,7 @@ condition.nowWeDoing = 'заполняем верхнюю форму как Movi
     LF.FullSmallCalcAsMovingWithStorage(V.client);
 
 condition.nowWeDoing = 'зашли первый раз в аккаунт';
-    MF.WaitWhileBusy ();
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
     LF.AccountToStorageEnterAddress();
     LF.AccountLocalAddInventory();
     LF.AccountLocalDetails();
@@ -32,8 +30,7 @@ condition.nowWeDoing = 'зашли первый раз в аккаунт';
 condition.nowWeDoing = 'запомнили цифры ToStorage идём на From';
     MF.Account_ClickFromStorage();
     LF.AccountFromStorageEnterAddress();
-    MF.WaitWhileBusy();
-    SF.sleep(10);
+    SF.sleep(5);
     V.accountNumbersFrom = {};
     MF.WaitWhileBusy();
     LF.RememberAccountNumbers(V.accountNumbersFrom);
@@ -45,7 +42,6 @@ condition.nowWeDoing = 'Зайти на админку, найти реквес�
     V.adminLogin = "TestAdmin";
     V.adminPassword = "test";
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.accountNumbersTo.Id);
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
@@ -68,9 +64,6 @@ condition.nowWeDoing = 'Зайти на админку, найти реквес�
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Change status to Not Confirmed");
     LF.closeEditRequest();
-    MF.WaitWhileBusy ();
-    SF.sleep(2);
-    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
@@ -116,12 +109,9 @@ condition.nowWeDoing = 'Зайти в local Dispatch, найти первый р
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbersTo.moveDate.Year, V.boardNumbersTo.moveDate.Month, V.boardNumbersTo.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbersTo.Id);
     LF.selectCrew(V.foremanName);
-    SF.sleep(2);
     LF.OpenRequestDispatch(V.accountNumbersTo.Id);
     MF.WaitWhileBusy ();
     MF.EditRequest_OpenLogs();
@@ -206,8 +196,6 @@ condition.nowWeDoing = 'Найти второй реквест, назначит
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbersFrom.moveDate.Year, V.boardNumbersFrom.moveDate.Month, V.boardNumbersFrom.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbersFrom.Id);
     LF.selectCrew(V.foremanName);
@@ -261,8 +249,6 @@ condition.nowWeDoing="Вернуться в localDispatch, найти первы
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbersTo.moveDate.Year, V.boardNumbersTo.moveDate.Month, V.boardNumbersTo.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.accountNumbersTo.Id);
@@ -279,8 +265,6 @@ condition.nowWeDoing="Вернуться в localDispatch, найти первы
 condition.nowWeDoing="найти второй реквест, проверить и запомнить Payroll";
     MF.Dispatch_WaitForCalendar();
     LF.findDayInLocalDispatch(V.boardNumbersFrom.moveDate.Year, V.boardNumbersFrom.moveDate.Month, V.boardNumbersFrom.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.accountNumbersFrom.Id);
@@ -311,7 +295,6 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
 	VD.IWant(VD.ToEqual, V.payrollNumbersFrom.Foreman.Total, V.boardNumbersFrom.Payroll.foremanForCommission.total, 'не совпали цифры ToStorage в Payroll foreman\n' +
 		'id=' + V.accountNumbersFrom.Id);
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('emilia clark');

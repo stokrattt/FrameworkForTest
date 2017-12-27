@@ -38,15 +38,10 @@ condition.nowWeDoing = 'Законфёрмить сразу реквест';
 condition.nowWeDoing = 'Зайти в local Dispatch, найти первый реквест, назначить команду и отправить работу.';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbersTo.moveDate.Year, V.boardNumbersTo.moveDate.Month, V.boardNumbersTo.moveDate.Day);
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    SF.sleep(2);
-    MF.WaitWhileBusy ();
     MF.Dispatch_GridView ();
     SF.sleep(1);
     LF.SelectRequestDispatch(V.boardNumbersTo.Id);
     LF.selectCrew(V.foremanName);
-    SF.sleep(2);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'Зайти под форменом, найти первую работу, зайти в Inventory, добавить состояния предметов, запомнить их';
@@ -151,14 +146,9 @@ condition.nowWeDoing = 'From storage, выставить трак, провер�
 condition.nowWeDoing = 'Найти второй реквест, назначить команду и отправить работу.';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbersFrom.moveDate.Year, V.boardNumbersFrom.moveDate.Month, V.boardNumbersFrom.moveDate.Day);
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    SF.sleep(2);
-    MF.WaitWhileBusy ();
     MF.Dispatch_GridView ();
     LF.SelectRequestDispatch(V.boardNumbersFrom.Id);
     LF.selectCrew(V.foremanName);
-    SF.sleep(2);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'Найти вторую работу, зайти в Inventory, подтвердить состояния предметов, запомнить их';

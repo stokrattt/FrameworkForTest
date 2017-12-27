@@ -30,8 +30,6 @@ condition.nowWeDoing = 'Создаем локал мув, добавляем п�
 condition.nowWeDoing = 'идем в диспач назначать команду';
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
     V.foremanName = 'ForemanExclude Test';
@@ -88,8 +86,6 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.boardNumbers.Id);
@@ -206,7 +202,6 @@ condition.nowWeDoing = 'выбираем цифры формена';
 	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
 		'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('SalesExclude');
@@ -219,7 +214,6 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
 
 condition.nowWeDoing = 'выбираем цифры хелпера';
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
     LF.findHelperInPayroll('Test Helper1');
 
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Helper);

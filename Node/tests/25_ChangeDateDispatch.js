@@ -41,9 +41,9 @@ condition.nowWeDoing = 'идем в конфернутные работы и м�
         V.request.moveDate = calDate;
     }),config.timeout);
     MF.WaitWhileBusy();
-    SF.sleep (6);
+    SF.sleep (4);
     LF.RememberDateFromRequest(V.boardNumbers);
-    SF.sleep(4);
+    SF.sleep(2);
     MF.EditRequest_WaitForBalanceVisible();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
@@ -55,8 +55,6 @@ condition.nowWeDoing = 'ищем второй раз в диспатче рек�
     MF.Board_OpenLocalDispatch();
     SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy ();
-    SF.sleep(1);
     MF.Dispatch_GridView();
     MF.WaitWhileBusy ();
     LF.SelectRequestDispatch(V.request.Id);
@@ -73,8 +71,6 @@ condition.nowWeDoing = 'ищем второй раз в диспатче рек�
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.request.Id);
     driver.wait(driver.executeScript('return $(\'select[ng-model=\"vm.data.foreman\"]\').hasClass(\'ng-empty\')').then(function (text) {

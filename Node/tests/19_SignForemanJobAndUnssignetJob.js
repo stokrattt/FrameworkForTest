@@ -31,10 +31,6 @@ condition.nowWeDoing = 'конфермим работу';
 condition.nowWeDoing = 'идем в диспач первый раз тут заодно проверяем цвет или меняется когда назначем или убираем команду';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy ();
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    SF.sleep(2);
     SF.click(By.id('request_'+V.request.Id+''));
     LF.selectCrew(V.foremanName);
     driver.wait (driver.findElement(By.xpath('//div[@id="request_'+V.request.Id+'"]')).getCssValue("background-color").then(function (color) {
@@ -54,9 +50,6 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
     MF.WaitWhileBusy ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy ();
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
     V.foremanName = 'Test Foreman';
@@ -102,13 +95,9 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy ();
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     MF.WaitWhileBusy ();
-    SF.sleep(3);
     LF.OpenRequestDispatch(V.request.Id);
     JS.waitForExist('label:contains("Balance:"):visible');
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);

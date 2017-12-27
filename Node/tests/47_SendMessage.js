@@ -16,7 +16,6 @@ condition.nowWeDoing = 'заполняем калькулятор верхний
 
 condition.nowWeDoing = 'первый раз в аккаунте, отправляем смс админу';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);

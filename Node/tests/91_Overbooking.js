@@ -84,15 +84,12 @@ condition.nowWeDoing = 'проверяем логи';
         VD.IWant(VD.ToEqual, text, 'Status was changed to date pending on requests: '+V.Id1+', '+V.Id2+'', 'не совпали реквесты которые ушли в дейт пендинг');
     }),config.timeout);
     LF.closeEditRequest ();
-    MF.WaitWhileBusy();
     MF.Board_RefreshDashboard ();
-    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'идем в админку проверять или два первих реквеста реквеста ушли в дата пендинг';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'первый реквест не ушел в дата пендинг а должен был');
     }), 120000);
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id2 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'второй реквест не ушел в дата пендинг а должен был');
     }), 120000);
@@ -107,12 +104,11 @@ condition.nowWeDoing = 'идем в админку проверять или д�
 
 condition.nowWeDoing = 'идем в конфермнутие реквести проверить есть ли там третий реквест';
     MF.Board_OpenConfirmed ();
-    MF.WaitWhileBusy();
     MF.Board_RefreshDashboard ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id3 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Confirmed', 'третий реквест не ушел в конферм а должен был');
     }), 120000);
-    SF.sleep(4);
+    SF.sleep(1);
     MF.Board_OpenRequest(V.Id3);
     SF.select(By.xpath('//select[@id="edit-status"]'), 22);
     MF.EditRequest_SaveChanges();

@@ -13,7 +13,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.FullSmallCalcAsLoading(V.clientWithRes);
     condition.nowWeDoing='зашли первый раз в аккаунт';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
     LF.AccountLoadingEnterAddress();
     V.accountNumbersWithRes={};
     LF.RememberAccountNumbers(V.accountNumbersWithRes);
@@ -64,7 +63,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing='зашли первый раз в аккаунт NoRes';
     MF.Account_ClickViewRequest ();
-    MF.WaitWhileBusy();
     LF.AccountLoadingEnterAddress();
     V.accountNumbersNoRes={};
     LF.RememberAccountNumbers(V.accountNumbersNoRes);

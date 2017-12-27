@@ -33,8 +33,6 @@ condition.nowWeDoing = 'создаем реквест ';
 condition.nowWeDoing = 'идем в диспач и назначаем команду';
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
     V.foremanName = 'Test Foreman';
@@ -91,7 +89,7 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
-    SF.sleep(3);
+    SF.sleep(1);
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
@@ -106,8 +104,6 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.boardNumbers.Id);
@@ -133,14 +129,13 @@ condition.nowWeDoing = 'выбираем цифры формена';
     VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll(V.managerName);
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep(3);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

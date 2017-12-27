@@ -64,13 +64,9 @@ condition.nowWeDoing = 'создаем реквест, конфермим его
 condition.nowWeDoing = 'идем в диспач ищем работу и назначем ей созданного форемана';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch (V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
-    SF.sleep (2);
     LF.selectCrew(V.foremanFirstName);
-    SF.sleep(2);
     MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing = 'зашли  под созданным фореманом и подписываем работу';
@@ -109,8 +105,6 @@ condition.nowWeDoing = 'зашли  под созданным фореманом
 condition.nowWeDoing = 'идем в диспач ищем работу, проверяем баланс = 0, открываем в реквесте пейролл, проверяем комиссию = 150 за час';
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.boardNumbers.Id);

@@ -86,7 +86,6 @@ condition.nowWeDoing = 'идем в админку в локал диспач и
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
     LF.selectCrew(V.foremanName);
@@ -136,7 +135,6 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.boardNumbers.Id);
@@ -164,7 +162,6 @@ condition.nowWeDoing = 'выбираем цифры формена';
     VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll(V.managerName);

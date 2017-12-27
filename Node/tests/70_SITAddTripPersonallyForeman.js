@@ -264,7 +264,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
 
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
     LF.findHelperInPayroll('helper test1');
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[9]')).getText().then(function(text){
         V.grandTotalPayroll = SF.cleanPrice(text);
@@ -276,7 +275,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
 
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
     LF.findHelperInPayroll('helper test2');
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[9]')).getText().then(function(text){
         V.grandTotalPayroll = SF.cleanPrice(text);

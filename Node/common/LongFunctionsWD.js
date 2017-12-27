@@ -1037,11 +1037,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
 //Permissions for Sales --- end
     function closeEditRequest() {
         JS.waitForNotExist('div.toast-message:visible');
-        JS.waitForNotExist('div.toast-top-right:visible');
-        JS.waitForNotExist('div.toast-success:visible');
         JS.waitForNotExist('div.visible-overflow');
         JS.waitForNotExist('div.toast-message:visible');
-        JS.waitForNotExist('div.toast-top-right:visible');
         JS.waitForNotExist('div.toast-success:visible');
         SF.click(By.xpath('//button[@ng-click="cancel()"]'));
         SF.sleep(2);
@@ -1277,6 +1274,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         var EQ = futureDay;
         JS.waitForNotExist('div#datePicker-block.disabled');
         SF.click(By.xpath('(//td[@data-handler="selectDay"])[' + EQ + ']'));
+        MF.WaitWhileBusy();
     }
     function EditRequestPayroll_RememberManager(name, managerForCommission){
         MF.EditRequest_PayrollGetManagerCommission(name, managerForCommission);
@@ -2022,7 +2020,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.clear(By.xpath('//input[@ng-model="dateRange.to"]'));
         SF.send(By.xpath('//input[@ng-model="dateRange.to"]'), V.payrollDateTo);
         SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
-        SF.sleep(1);
         MF.WaitWhileBusy ();
     }
     function RememberPayrollNumbers_InsideWorker(payrollNumbersInside) {

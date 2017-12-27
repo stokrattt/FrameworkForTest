@@ -27,8 +27,6 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
 condition.nowWeDoing = 'идем в диспач назначем команду';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.request.Id);
     LF.selectCrew(V.foremanName);

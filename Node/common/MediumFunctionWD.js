@@ -1472,6 +1472,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     //===================================PAYROLL=====================================
     function Payroll_ClickAllDepartment() {
         SF.click(By.xpath('//a[@ng-click="dTable=\'departments\';employee=\'\'"]'));
+        WaitWhileBusy();
     }
     function Payroll_RefreshTable() {
         SF.sleep(1.5);

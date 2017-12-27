@@ -124,8 +124,6 @@ condition.nowWeDoing = 'заходим под админом и создаем �
 condition.nowWeDoing = 'идем в локал диспач';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch (V.request.Id);
     driver.wait(driver.executeScript(JSstep.checkUserLocalDispach(V.foremanFirstName)).then(function(counts){

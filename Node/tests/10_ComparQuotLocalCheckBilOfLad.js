@@ -11,9 +11,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
-    SF.sleep(5);
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
@@ -91,7 +88,6 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     MF.EditRequest_OpenContractCloseJob();
     SF.openTab (1);
     SF.sleep (3);
-    MF.WaitWhileBusy();
     MF.SweetConfirm();
     MF.Contract_OpenBillOfLading();
     MF.Contract_WaitBillOfLading ();
@@ -104,8 +100,6 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     LF.closeEditRequest();
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
 

@@ -187,15 +187,12 @@ condition.nowWeDoing = 'идем в большой пейрол проверят
         'id=' + V.boardNumbers.Id);
     SF.sleep(2);
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy ();
     LF.findTestForemanInPayroll(V.foremanName);
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
     SF.sleep(2);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.Total, '2 не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy ();
-    SF.sleep (2);
 
 condition.nowWeDoing = 'в админке включаем Quote Explanation';
     MF.Board_OpenSettingsGeneral();

@@ -12,12 +12,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
-
     MF.Account_ClickPartialPacking();
     LF.AccountUnloadingEnterAddress();
     LF.AccountLocalAddInventory();
-    SF.sleep(4);
     LF.AccountUnLoadingDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
@@ -25,7 +22,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
-    SF.sleep(2);
     SF.click(By.xpath('//a[@ng-click="openModal()"]'));
     JS.waitForExist('input[ng-model=\\"client.mail\\"]');
     SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
@@ -37,7 +33,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//address/i[@class="icon-envelope"]/following-sibling::span')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.client.newEmail, text, 'не совпали Email на акаунте после изменения на акаунте');
     }),config.timeout);
-
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'первый раз в админке';
@@ -49,7 +44,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    MF.WaitWhileBusy();
     MF.WaitWhileBusy();
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
@@ -68,12 +62,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
-
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Unloading Not Confirmed");
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Board_LogoutAdmin();
 
     condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
@@ -102,8 +94,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.BoardAccount_SendMessage('some message');
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     V.foremanName = 'Test Foreman';
@@ -157,8 +147,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.accountNumbers.Id);
@@ -187,7 +175,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         'id=' + V.boardNumbers.Id);
 
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
 
     condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('emilia clark');

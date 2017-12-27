@@ -114,7 +114,6 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
 condition.nowWeDoing = 'идем в акк под клиентом букать работу';
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest (V.FRId);
-    MF.WaitWhileBusy ();
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="showQuote"]/div[contains(text(), "Flat Rate")]/following-sibling::div[1]/div/span')).getText().then(function (text) {
         V.quoteFlatRate = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.quoteFlatRate, 5000, 'не нашло цену флет рейт')
@@ -128,8 +127,6 @@ condition.nowWeDoing = 'идем в акк под клиентом букать 
 condition.nowWeDoing = 'идем в админку в диспач';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch (V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.FRId);
     LF.selectCrewFlatRatePickUp(V.foremanName);
@@ -181,8 +178,6 @@ condition.nowWeDoing = 'идем в диспач нзначить команду
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbersDeliveryDate.moveDate.Year, V.boardNumbersDeliveryDate.moveDate.Month, V.boardNumbersDeliveryDate.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.FRId);
     SF.click(By.xpath('//li[@ng-click="vm.navigation.active = $index"]/a/span[contains(text(), "Delivery crew")]'));
@@ -223,8 +218,6 @@ condition.nowWeDoing = 'возвращаемся в диспач, проверя
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.FRId);
@@ -260,7 +253,6 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
 
     condition.nowWeDoing = 'выбираем цифры helper pickup';
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
     LF.findHelperInPayroll('Test Helper1');
     MF.Payroll_getTotalById(V.FRId, V.payrollNumbersPickup.Helper);
 
@@ -268,7 +260,6 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
         'id=' + V.FRId);
     SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'проверяем цифры менеджера pickup';
     LF.findSaleInPayroll('JackSales donotdelete');
@@ -279,7 +270,6 @@ condition.nowWeDoing = 'проверяем цифры менеджера pickup'
 
 condition.nowWeDoing = 'начинаем проверять чувачком из delivery';
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy ();
     LF.Payroll_SelectPeriod20Days();
     MF.WaitWhileBusy ();
     LF.findFlatRateDeliveryForemanInPayroll ();
@@ -297,7 +287,6 @@ condition.nowWeDoing = 'выбираем цифры helper delivery';
     options = { month: 'short', day: 'numeric', year: 'numeric' };
     V.changedateDelPayrolol = (future.toLocaleDateString('en-US', options));
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy();
     SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));
     SF.send(By.xpath('//input[@ng-model="dateRange.from"]'), V.changedateDelPayrolol);
     SF.clear(By.xpath('//input[@ng-model="dateRange.to"]'));

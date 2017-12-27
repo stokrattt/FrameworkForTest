@@ -15,7 +15,6 @@ condition.nowWeDoing = 'Создать с фронта local Moving';
 
 condition.nowWeDoing = 'Зайти на аккаунт, добавить инвентарь, запомнить cbf';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
@@ -25,7 +24,6 @@ condition.nowWeDoing = 'Зайти на аккаунт, добавить инв�
 condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep (3);
     MF.Board_OpenRequest(V.accountNumbers.Id);
 
 condition.nowWeDoing = 'добавляем valuation';
@@ -45,13 +43,17 @@ condition.nowWeDoing = 'добавляем valuation';
     driver.wait(driver.executeScript('return $(\'div.ValuationCost:visible\').text()').then(function (text) {
         V.Valuation = SF.cleanPrice(text.substring(text.indexOf('$')));
     }),config.timeout);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime) / 60));
+    MF.WaitWhileBusy();
+    MF.EditRequest_SetToNotConfirmed();
+    MF.EditRequest_SetAdressToFrom();
+    MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Board_LogoutAdmin();
 
-condition.nowWeDoing = 'второй раз в аккаунте';
+condition.nowWeDoing = 'второй раз в аккаунте сверяем валюатион и букаем работу и проверяем что валюатион есть на конфирмейшине';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_Pending(V.accountNumbers.Id);
@@ -66,8 +68,9 @@ condition.nowWeDoing = 'второй раз в аккаунте';
         text = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, text, V.Valuation, 'не совпал valuation charge с тем что на админке в реквесте');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.Validation_Compare_Account_Admin (V.boardNumbers, V.accountNumbers);
+
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

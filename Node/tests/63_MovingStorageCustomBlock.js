@@ -28,7 +28,6 @@ condition.nowWeDoing = 'создаем мувинг сторадж, пендин
     MF.EditRequest_ClickViewRequest ();
     SF.openTab (1);
     SF.sleep(5);
-    MF.WaitWhileBusy();
     SF.waitForLocated (By.id('tab_Move Overview'));
     SF.sleep(5);
     V.accountNumbersTo = {};

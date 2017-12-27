@@ -33,10 +33,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="Save()"]'));
     SF.waitForLocated (By.xpath('//input[@ng-model="receipt.account_number"]'));
     MF.WaitWhileBusy();
-    SF.sleep(2);
     JS.click('button[ng-click=\\"save()\\"]:visible');
     MF.WaitWhileBusy();
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//label[@ng-click="OpenPaymentModal();"]/following-sibling::div')).getText().then(function(text){
         V.cleanPayment = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanPayment, V.cashPayment, 'не совпали Payment в модалке реквеста до включения галочки pending');
@@ -53,7 +51,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.click(By.xpath('//button[contains(text(), "Ok")]'));
     MF.WaitWhileBusy();
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//label[@ng-click="OpenPaymentModal();"]/following-sibling::div')).getText().then(function(text){
         V.cleanPayment = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanPayment, '0', 'Payment в модалке реквеста после включения галочки pending должен бить 0');

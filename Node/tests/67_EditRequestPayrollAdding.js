@@ -25,7 +25,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
     LF.selectCrew(V.foremanName);
@@ -69,7 +68,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         'id=' + V.boardNumbers.Id);
     SF.sleep(2);
     MF.Payroll_ClickAllDepartment();
-    MF.WaitWhileBusy ();
     LF.findTestForemanInPayroll(V.foremanName);
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
     SF.sleep(2);
@@ -94,11 +92,10 @@ condition.nowWeDoing = 'тут будем проверять hourly rate, что
     MF.Payroll_RefreshTable();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.boardNumbers.Id+'")]/../td[@ng-show="columns.fields[\'ca_hours\'].selected"]')).getText().then(function (text) {
         V.hoursZeroMustBe = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.hoursZeroMustBe, 0, 'полсе ресабмита маленького пейрола с hourly rate =0 в большом пейроле он не поменял свое значение на ноль');
+        VD.IWant(VD.ToEqual, V.hoursZeroMustBe, 0, 'полсе ресабмита маленького пейрола с hourly rate =0 в большом пейроле он не поменял свое значение на ноль "'+V.boardNumbers.Id+'"');
     }),config.timeout);
 
 	MF.Payroll_ClickAllDepartment();
-	MF.WaitWhileBusy ();
 	LF.findTestForemanInPayroll(V.foremanName2);
 	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman2);
 	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman2.Total, V.boardNumbers.Payroll.foreman2ForCommission.Total, 'не совпали цифры в Payroll foreman\n' +

@@ -69,7 +69,6 @@ condition.nowWeDoing = 'запоминаем данные';
         V.frontNumbersLoadingDown.travelCharge = SF.cleanPrice (text);
     }),config.timeout);
     SF.sleep(1);
-    SF.sleep(1);
     MF.FrontSite_GoToConfirmation();
     MF.FrontSite_ViewRequestPage();
     SF.openTab (1);
@@ -77,7 +76,6 @@ condition.nowWeDoing = 'запоминаем данные';
 condition.nowWeDoing = 'пошли в аккаунт';
     SF.sleep (2);
     MF.Account_ClickViewRequest ();
-    SF.sleep (1);
 
 condition.nowWeDoing = 'сравниваем данные калькулятора и акка';
     LF.RememberAccountNumbers (V.accountNumbers);

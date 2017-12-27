@@ -13,13 +13,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'создаем локал мув с фронта с верхней формы';
     LF.FullSmallCalcAsLocal (V.client);
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'добавляем два разы инвенторий и ставим фул паккинг и запоминаем данные';
     LF.AccountLocalAddInventory ();
     LF.AccountLocalAddAdditionalInventory ();
     MF.Account_ClickFullPacking();
-    SF.sleep(12);
     V.accountNumbers = {};
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.LogoutFromAccount ();
@@ -88,8 +86,6 @@ condition.nowWeDoing = 'пошли в админку второй раз, кон
     LF.closeEditRequest ();
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName);

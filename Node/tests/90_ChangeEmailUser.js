@@ -30,7 +30,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'первый раз в админке, заходим в 1й реквест, запоминаем email';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep(1);
     MF.Board_OpenRequest(V.req1.Id);
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
@@ -38,18 +37,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SetClientPasswd(V.NewClient.passwd);
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Board_LogoutAdmin ();
 
     condition.nowWeDoing = 'создаём 2й реквест, мувинг с фронта';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsLocal(V.client);
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
-    SF.sleep(5);
     MF.Account_ClickPartialPacking();
     LF.AccountLocalEnterAddress();
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.addToCleanerJob(V.accountNumbers.Id);
@@ -67,17 +62,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="changeAll()"]'));
     MF.WaitWhileBusy();
     MF.WaitWhileToaster();
-    SF.sleep(10);
+    SF.sleep(5);
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
     MF.Board_RefreshDashboard();
 
     condition.nowWeDoing = 'Проверяем привязку email к клиенту и изменение имени и фамилии, заходим во 2й реквест';
     MF.Board_OpenRequest(V.accountNumbers.Id);
-    MF.WaitWhileBusy();
     MF.EditRequest_OpenClient();
-    SF.sleep(1);
-
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="client.field_primary_phone"]')).getAttribute('value').then(function(text) {
         V.NewPhone = -SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.NewClient.phone, V.NewPhone,'не поменялся телефон');
@@ -94,27 +86,21 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.NewEmail = text;
         VD.IWant(VD.ToEqual, V.NewClient.email, V.NewEmail,'не поменялся email');
     }),config.timeout);
-
     condition.nowWeDoing = 'Проверяем информацию о клиенте в заголовке реквеста(модалка)';
     driver.wait(driver.findElement(By.xpath('//span[contains(@class,"email")]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, V.NewClient.email, text,'не поменялся email в модалке реквеста');
     }),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//span[contains(@class,"phone")]')).getText().then(function(text) {
         V.EdPhone = -SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.NewClient.phone, V.EdPhone,'не поменялся телефон в модалке реквеста');
     }),config.timeout);
-
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Board_LogoutAdmin ();
 
     condition.nowWeDoing = 'Идем в аккаунт проверить наличие 2х реквестов, и новых данных клиента';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.NewClient);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//address/i[@class="icon-envelope"]/following-sibling::span')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.NewClient.email, text, 'не совпал Email  на акаунте');
     }),config.timeout);
@@ -134,20 +120,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.firstRequestId = text;
         VD.IWant(VD.ToEqual, V.req1.Id, V.firstRequestId, 'не наидена работа 1');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
     condition.nowWeDoing = 'Идем в админку, заходим в реквест и удаляем юзера';
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.WaitWhileBusy();
     MF.Board_OpenRequest(V.accountNumbers.Id);
     MF.EditRequest_OpenClient();
-    SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="delete(client)"]'));
     MF.SweetConfirm();
     MF.WaitWhileBusy();
-
 
     SF.endOfTest();
 };
