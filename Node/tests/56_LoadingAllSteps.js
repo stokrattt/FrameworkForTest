@@ -253,10 +253,10 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     SF.sleep(2);
     SF.click (By.xpath('//div[@ng-click="showAllNotifications()"]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
-        'following-sibling::div[contains(text(),"User Visit Request")]')).getText().then(function(text){
+        'following-sibling::div[contains(text(),"User has viewed their account page")]')).getText().then(function(text){
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
-        'following-sibling::div[contains(text(),"User Visit Confirmation Page")]')).getText().then(function(text){
+        'following-sibling::div[contains(text(),"User has viewed the confirmation page")]')).getText().then(function(text){
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
         'following-sibling::div[contains(text(),"Request #'+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
