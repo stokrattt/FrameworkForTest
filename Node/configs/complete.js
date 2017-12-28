@@ -111,6 +111,7 @@ module.exports = function(config,V) {
         './tests/105_ChangeMinCFAndDriverPayroll.js',
         './tests/102_InhomeEstimate.js',
         './tests/104_AddBedroomAddRoom.js',
+        './tests/106_AdditionalContact.js',
         './tests/51_ServiceTypesOnOff.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
 
