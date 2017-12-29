@@ -58,6 +58,8 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
     LF.ContractAdditionalInventoryAdd();
     LF.Contract_AddInventory(9);
+
+    Debug.pause();
     MF.Contract_SetTapeNumber(1);
     MF.Contract_SetTapeColorGreen('Green');
 
