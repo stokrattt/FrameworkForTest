@@ -10,6 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.AdditionalFam = SF.randomBukva(7) + '_t';
     V.AdditionalPhone = SF.randomCifra(10);
     V.AdditionalEmail = SF.randomBukvaSmall(7) + '@' + SF.randomBukvaSmall(4) + '.tes';
+    V.adminEmailTemperary = 'test.boston@mail.ru';
 
 
     condition.nowWeDoing = 'создаем мувинг с фронта';
@@ -43,7 +44,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenLogs();
     driver.wait(driver.findElement(By.xpath('//div[@class="message-new-log mail-subject"]//span[@ng-bind-html="toTrustedHTML(item.text)"]')).getText().then(function(text) {
         V.Check2EmailForUsers = text;
-        VD.IWant(VD.ToEqual, V.Check2EmailForUsers,('Mail was send to "'+V.client.email+'", "'+V.AdditionalEmail+'" . From "'+V.adminEmail+'". Subject: "Request Local Quote (Confirmed)"'),'Письма не отправилтсь на 2 почты');
+        VD.IWant(VD.ToEqual, V.Check2EmailForUsers,('Mail was send to "'+V.client.email+'", "'+V.AdditionalEmail+'" . From "'+V.adminEmailTemperary+'". Subject: "Request Local Quote (Confirmed)"'),'Письма не отправилтсь на 2 почты');
     }),config.timeout);
     SF.sleep(2);
     condition.nowWeDoing = 'отправиляем письмо вручную, и проверяем лог';
@@ -58,7 +59,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenLogs();
     driver.wait(driver.findElement(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"]')).getText().then(function(text) {
         V.ManualEmailSend = text;
-        VD.IWant(VD.ToEqual, V.ManualEmailSend,('Mail was send to "'+V.client.email+'", "'+V.AdditionalEmail+'" . From "'+V.adminEmail+'". Subject: "Sales Signature"'),'не отправились письма после ручного выбора писем');
+        VD.IWant(VD.ToEqual, V.ManualEmailSend,('Mail was send to "'+V.client.email+'", "'+V.AdditionalEmail+'" . From "'+V.adminEmailTemperary+'". Subject: "Sales Signature"'),'не отправились письма после ручного выбора писем');
     }),config.timeout);
     SF.sleep(2);
 
