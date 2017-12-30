@@ -61,7 +61,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'requests.child\')"]'));
     MF.WaitWhileBusy();
     SF.select (By.xpath('//select[@id="fstatus"]'), 4);
-    driver.wait(driver.findElement(By.xpath('//div[@class="panel-body mdDataTable nopadding"]//td[contains(text(),"' + V.boardNumbers.Id + '")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + V.boardNumbers.Id + '")]')).getText().then(function(text){
         V.InhomeReq = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.InhomeReq, V.boardNumbers.Id, 'реквеста нет в списке Inhome Estimate')
     }),config.timeout);

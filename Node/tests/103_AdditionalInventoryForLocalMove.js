@@ -57,7 +57,7 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     SF.click(By.xpath('//button[@ng-click="openInventory()"]'));
     SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
     LF.ContractAdditionalInventoryAdd();
-    LF.Contract_AddInventory(9);
+    LF.Contract_AddInventory(15);
 
     Debug.pause();
     MF.Contract_SetTapeNumber(1);
