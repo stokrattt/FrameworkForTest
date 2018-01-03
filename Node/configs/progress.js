@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/102_InhomeEstimate.js'];
+    config.suite = ['./tests/20_LDTopForm.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

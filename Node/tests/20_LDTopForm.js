@@ -6,47 +6,45 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     //=========================начинаем писать тест=============================
-    SF.get(V.adminURL);
-    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep (3);
-condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
-    MF.Board_OpenSettingsGeneral();
-    MF.Board_OpenSettingsLongDistance ();
-    MF.LongDistanceSettings_ClickOnMapCaliforniya();
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
-        "return true;}else{" +
-        "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
-    SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'), 200);
-    SF.sleep (2);
-    SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), 10);
-    SF.sleep (2);
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-not-empty')){" +
-        "return true;}else{" +
-        "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
-    SF.sleep (2);
-    MF.LongDistanceSettings_SelectMABasedState();
-    SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
-    MF.Board_LogoutAdmin ();
+//     SF.get(V.adminURL);
+//     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+//
+// condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
+//     MF.Board_OpenSettingsGeneral();
+//     MF.Board_OpenSettingsLongDistance ();
+//     MF.LongDistanceSettings_ClickOnMapCaliforniya();
+//     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
+//         "return true;}else{" +
+//         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
+//     SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'));
+//     SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'), 200);
+//     SF.sleep (2);
+//     SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
+//     SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), 10);
+//     SF.sleep (2);
+//     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-not-empty')){" +
+//         "return true;}else{" +
+//         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
+//     SF.sleep (2);
+//     MF.LongDistanceSettings_SelectMABasedState();
+//     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
+//     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
-    SF.sleep (4);
+    SF.sleep (2);
+
 condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLD (V.client);
-    condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy ();
 
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу';
     V.accountNumbersLD={};
     LF.RememberAccountNumbersLD(V.accountNumbersLD);
-    SF.sleep(1);
     SF.sleep(15); //для вылогинивания нормального
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'зашли на админку для сравнения';
-    SF.sleep (2);
     MF.Board_OpenRequest (V.accountNumbersLD.Id);
     V.boardNumbers = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
@@ -59,7 +57,6 @@ condition.nowWeDoing = 'зашли на админку для сравнения
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     SF.sleep (2);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLD, V.boardNumbers);
-
     MF.EditRequest_OpenClient ();
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
@@ -67,32 +64,32 @@ condition.nowWeDoing = 'зашли на админку для сравнения
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
+
 condition.nowWeDoing = 'зашли в аккаунт и добавляем инвентори';
     MF.Account_CheckRequestStatus_Pending (V.accountNumbersLD.Id);
     MF.Account_OpenRequest (V.accountNumbersLD.Id);
     LF.AccountLocalAddInventory();
-    SF.sleep(5);
+    SF.sleep(8);
+
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу после добавления инвентори на аккаунте';
     V.accountNumbersLDWithInvent={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDWithInvent);
-
     driver.wait(driver.findElement(By.xpath('//span[contains(text()," Total Estimated: ")]/span')).getText().then(function (text) {
         V.accountNumbersLDWithInvent.CubicFit = SF.cleanPrice(text.substring(0, text.indexOf('c')));
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'зашли на админку второй раз для сравнения с инвенторием';
-    SF.sleep (2);
     MF.Board_OpenRequest (V.accountNumbersLD.Id);
     V.boardNumbersCubFit = {};
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SF.cleanPrice (text);
     }),config.timeout);
-    SF.sleep (2);
+    SF.sleep (1);
     VD.IWant(VD.ToEqual, V.boardNumbersCubFit, V.accountNumbersLDWithInvent.CubicFit, 'Кубик фит не совпадает с аккаунтом');
-
     V.boardNumbers = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
         dateString = dateString.toUpperCase();
@@ -102,11 +99,48 @@ condition.nowWeDoing = 'зашли на админку второй раз дл�
         V.boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
     }),config.timeout);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
-    SF.sleep (2);
+    SF.sleep (1);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDWithInvent, V.boardNumbers);
-
     SF.sleep (1);
 
+condition.nowWeDoing = 'конфермим работу, делаем клозинг и на этой табе вносим изменения в реквест. Потом запомним все, сохраним';
+    JS.step(JSstep.selectTruck(3));
+    MF.WaitWhileBusy();
+    MF.EditRequest_SetToConfirmed();
+    MF.EditRequest_SetAdressToFrom();
+    MF.EditRequest_SaveChanges();
+    MF.EditRequest_CloseConfirmWork();
+    SF.click(By.xpath('//input[@ng-model="invoice.closing_weight.value"]'));
+    SF.clear(By.xpath('//input[@ng-model="invoice.closing_weight.value"]'));
+    SF.send(By.xpath('//input[@ng-model="invoice.closing_weight.value"]'), 1200);
+    MF.EditRequest_AddPackingClosingTab();
+    MF.EditRequest_AddAdditionalServClosingTab();
+    V.boardNumbersClosingTab = {};
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingTab);
+    SF.sleep (1);
+    MF.EditRequest_SaveChangesClosingTab();
+    LF.closeEditRequest ();
+
+condition.nowWeDoing = 'открываем наш реквест с измененными данными на табе клозинг и сверяем что все осталось измененным';
+    MF.Board_OpenConfirmed();
+    MF.Board_RefreshDashboard();
+    MF.Board_OpenRequest (V.accountNumbersLD.Id);
+    MF.EditRequest_CloseConfirmWork();
+
+    driver.wait(driver.findElement(By.xpath("//input[@ng-model=\"invoice.closing_weight.value\"]")).getAttribute('value').then(function (text){
+        V.boardNumbersCubFitClosingTab = SF.cleanPrice (text);
+        VD.IWant(VD.ToEqual, V.boardNumbersCubFitClosingTab, 1200, 'Кубик фит не совпадает с клозингом, ' +
+            'тоесть мы на клозинге поменяли, сохранили, закрыли и сравниваем и он не совпадает а должен');
+    }),config.timeout);
+    SF.sleep (1);
+    V.boardNumbersClosingAfterReopenedAndCloseRequest = {};
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterReopenedAndCloseRequest);
+    SF.sleep (1);
+    VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterReopenedAndCloseRequest.Total, V.boardNumbersClosingTab.Total, 'не сохранился Total на табе клозинг');
+    VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterReopenedAndCloseRequest.Fuel, V.boardNumbersClosingTab.Fuel, 'не сохранился Fuel на табе клозинга');
+    VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterReopenedAndCloseRequest.Packing, V.boardNumbersClosingTab.Packing, 'не сохранился Packing на табе клозинг');
+    VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterReopenedAndCloseRequest.AdServices, V.boardNumbersClosingTab.AdServices, 'не сохранился Services на табе клозинг');
+    SF.sleep (1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

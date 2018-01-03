@@ -1439,6 +1439,38 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_ClickHomeEstimateDate() {
         SF.click (By.xpath('//input[@ng-model="field.value"]'));
     }
+    function EditRequest_AddPackingClosingTab() {
+        SF.click(By.xpath('//label[@ng-click="openAddPackingInvoiceModal();"]'));
+        SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        WaitWhileBusy ();
+        SF.sleep (3);
+    }
+    function EditRequest_AddAdditionalServClosingTab() {
+        SF.click(By.xpath('//label[@ng-click="openAddServicesInvoiceModal();"]'));
+        SF.waitForVisible (By.id('extra-service-modal'));
+        SF.sleep(3);
+        SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        WaitWhileBusy ();
+        SF.sleep (2);
+    }
+    function EditRequest_SaveChangesClosingTab() {
+        SF.click(By.xpath('//button[@ng-click="UpdateRequestInvoice()"]'));
+        JS.waitForExist('button[ng-click="update(request)"]:visible');
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+        JS.waitForExist("div.toast-success:visible");
+        WaitWhileBusy();
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -2166,6 +2198,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_CreateCustomRoom:EditRequest_CreateCustomRoom,
         EditRequest_ClickSaveInventory:EditRequest_ClickSaveInventory,
         EditRequest_ClickHomeEstimateDate:EditRequest_ClickHomeEstimateDate,
+        EditRequest_AddPackingClosingTab:EditRequest_AddPackingClosingTab,
+        EditRequest_AddAdditionalServClosingTab:EditRequest_AddAdditionalServClosingTab,
+        EditRequest_SaveChangesClosingTab:EditRequest_SaveChangesClosingTab,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
