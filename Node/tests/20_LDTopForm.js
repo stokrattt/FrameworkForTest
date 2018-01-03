@@ -142,6 +142,27 @@ condition.nowWeDoing = 'открываем наш реквест с измене
     VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterReopenedAndCloseRequest.AdServices, V.boardNumbersClosingTab.AdServices, 'не сохранился Services на табе клозинг');
     SF.sleep (1);
 
+condition.nowWeDoing = 'идем на страничку аккаунта и конфирмейшн и проверяем, что изменения в клозинге не коснулись аккаунта';
+    SF.click(By.xpath('//a[@ng-click="goTo()"]'));
+    SF.sleep(8);
+    SF.openTab(1);
+    V.accountNumbersLDAfterConfirm={};
+    LF.RememberAccountNumbersLD(V.accountNumbersLDAfterConfirm);
+    LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDWithInvent, V.accountNumbersLDAfterConfirm);
+    SF.sleep(1);
+    MF.Account_ClickViewConfirmationPage();
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
+        V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
+    }),config.timeout);
+    SF.sleep(1);
+    VD.IWant(VD.ToEqual, V.accountNumbersLDWithInvent.Total, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж после смены данных в клозинге');
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Move Size")]/following-sibling::span/span[1]')).getText().then(function(text){
+        V.cf = SF.cleanPrice(text.substring(text.indexOf('Inventory ')+9, text.indexOf('c.f.')));
+        VD.IWant(VD.ToEqual, V.cf, V.boardNumbersCubFit, 'поменялся вес, стал не по инвенторию на конфирмейшине');
+    }),config.timeout);
+    SF.sleep(1);
+
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
