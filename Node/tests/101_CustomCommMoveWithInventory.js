@@ -99,6 +99,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     SF.sleep(10);
     V.accountNumbersLDAfterAddInvenAfterAddFullPacing={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInvenAfterAddFullPacing);
+    Debug.pause();
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'идем в админку делать нот конферм работе и проверять что работает смена кастомного веса для комершиал';
