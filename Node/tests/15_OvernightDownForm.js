@@ -31,16 +31,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//li[contains(text(), "Confirmed Calendar")]'));
     SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
     MF.SweetConfirm();
-    MF.WaitWhileBusy();
-    SF.sleep(10);
+    SF.sleep(20);
     MF.WaitWhileToaster();
-    MF.WaitWhileToaster();
-    JS.waitForNotExist('div.toast-message:visible');
-    JS.waitForNotExist('div.toast-message:visible');
-
     MF.Board_LogoutAdmin();
-
-
     SF.get(V.frontURL);
     JS.waitForExist ('#loader');
     SF.sleep (4);
