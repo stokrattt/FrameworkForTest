@@ -34,6 +34,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.sleep(10);
     MF.WaitWhileToaster();
+    MF.WaitWhileToaster();
     JS.waitForNotExist('div.toast-message:visible');
     JS.waitForNotExist('div.toast-message:visible');
 
