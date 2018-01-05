@@ -1253,14 +1253,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_Check1EmailExist(receiver, Subject) {
         driver.wait(driver.findElements(By.xpath('//div[@ng-show="tabs[0].selected"]//span[' +
-            'contains(text(),\'Mail was send to "'+receiver+'".\') and ' +
+            'contains(text(),\'Mail was sent to "'+receiver+'".\') and ' +
             'contains(text(),\'Subject: "'+Subject+'\')]')).then(function(array){
             VD.IWant(VD.ToEqual, array.length,1,'имейл '+Subject+' не был отправлен на '+receiver+' или отправлен несколько раз');
         }), config.timeout);
     }
     function EditRequest_Check1EmailNotExist(receiver, Subject) {
         driver.wait(driver.findElements(By.xpath('//div[@ng-show="tabs[0].selected"]//span[' +
-            'contains(text(),\'Mail was send to "'+receiver+'".\') and ' +
+            'contains(text(),\'Mail was sent to "'+receiver+'".\') and ' +
             'contains(text(),\'Subject: "'+Subject+'\')]')).then(function(array){
             VD.IWant(VD.ToEqual, array.length,0,'имейл '+Subject+' был отправлен на '+receiver+' хотя не должен был');
         }), config.timeout);
