@@ -52,17 +52,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.PointReq1, 50 ,'сверяем очки 1й раз');
     }),config.timeout);
     MF.EditRequest_OpenLogs();
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'10 points added for "A customer sends a message" action\']')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, '10 points added for "A customer sends a message" action', 'нет лога про сообщение');
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'10 points were added for "A customer sends a message" action\']')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, '10 points were added for "A customer sends a message" action', 'нет лога про сообщение');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'15 points added for "When a customer submits inventory" action\']')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, '15 points added for "When a customer submits inventory" action','нет лога про инвентарь');
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'15 points were added for "When a customer submits inventory" action\']')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, '15 points were added for "When a customer submits inventory" action','нет лога про инвентарь');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'10 points added for "A customer does any changes to their request" action\']')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, '10 points added for "A customer does any changes to their request" action','нет лога про детали');
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'10 points were added for "A customer sends a message" action\']')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, '10 points were added for "A customer sends a message" action','нет лога про детали');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'5 points added for "When a customer views a request" action\']')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, '5 points added for "When a customer views a request" action','нет лога про просмотре реквеста');
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'5 points were added for "When a customer views a request" action\']')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, '5 points were added for "When a customer views a request" action','нет лога про просмотре реквеста');
     }),config.timeout);
     SF.sleep(1);
     MF.EditRequest_OpenSettings ();
@@ -124,11 +124,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.PointReq2, 105 ,'сверяем очки 2й раз');
     }),config.timeout);
     MF.EditRequest_OpenLogs();
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'25 points added for "A customer views the confirmation page" action\']')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, '25 points added for "A customer views the confirmation page" action');
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'25 points were added for "A customer views the confirmation page" action\']')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, '25 points were added for "A customer views the confirmation page" action');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'15 points added for "A customer buys a coupon" action\']')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, '15 points added for "A customer buys a coupon" action','нет лога про посещение конфирмеишен');
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'15 points were added for "A customer buys a coupon" action\']')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, '15 points were added for "A customer buys a coupon" action','нет лога про посещение конфирмеишен');
     }),config.timeout);
     SF.sleep(1);
     LF.closeEditRequest();
