@@ -30,7 +30,7 @@ condition.nowWeDoing = 'зашли первый раз в аккаунт';
 condition.nowWeDoing = 'запомнили цифры ToStorage идём на From';
     MF.Account_ClickFromStorage();
     LF.AccountFromStorageEnterAddress();
-    SF.sleep(5);
+    SF.sleep(10);
     V.accountNumbersFrom = {};
     MF.WaitWhileBusy();
     LF.RememberAccountNumbers(V.accountNumbersFrom);

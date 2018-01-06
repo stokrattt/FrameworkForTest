@@ -1785,6 +1785,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click (By.xpath('//label[contains(text(), "Desired Move Date:")]/following-sibling::input[1]'));
     }
     function FrontSite_ClickDeliveryDate() {
+        SF.sleep(2);
         SF.click (By.xpath('//label[contains(text(), "Desired Delivery Date:")]/following-sibling::input[1]'));
     }
     function FrontSite_SelectServiceType(number) {

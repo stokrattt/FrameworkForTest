@@ -47,6 +47,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//input[@ng-model="payment.creditCardFee"]'));
     LF.FillCardPayModal ();
     MF.WaitWhileBusy();
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount: ")]/following-sibling::span')).getText().then(function(text){
         V.PaymentInsert = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.PaymentInsert, 103, 'оплата не совпала')
