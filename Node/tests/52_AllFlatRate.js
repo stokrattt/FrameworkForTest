@@ -168,7 +168,7 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     }),config.timeout);
     SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
-    SF.sleep(20);
+    SF.sleep(15);
     MF.WaitWhileBusy();
     MF.SweetConfirm ();
     MF.Contract_ReturnToForeman();
@@ -208,7 +208,7 @@ condition.nowWeDoing = 'заходим под вторым фореманом п
     LF.MakeSignInContract();
     MF.WaitWhileBusy ();
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({delivery: true, isBtn: true })"]'));
-    SF.sleep(20);
+    SF.sleep(15);
     MF.WaitWhileBusy ();
     MF.SweetConfirm ();
     MF.Contract_ReturnToForeman();

@@ -6,29 +6,29 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
     //=========================начинаем писать тест=============================
-//     SF.get(V.adminURL);
-//     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-//
-// condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
-//     MF.Board_OpenSettingsGeneral();
-//     MF.Board_OpenSettingsLongDistance ();
-//     MF.LongDistanceSettings_ClickOnMapCaliforniya();
-//     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
-//         "return true;}else{" +
-//         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
-//     SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'));
-//     SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'), 200);
-//     SF.sleep (2);
-//     SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
-//     SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), 10);
-//     SF.sleep (2);
-//     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-not-empty')){" +
-//         "return true;}else{" +
-//         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
-//     SF.sleep (2);
-//     MF.LongDistanceSettings_SelectMABasedState();
-//     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
-//     MF.Board_LogoutAdmin ();
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
+condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
+    MF.Board_OpenSettingsGeneral();
+    MF.Board_OpenSettingsLongDistance ();
+    MF.LongDistanceSettings_ClickOnMapCaliforniya();
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{" +
+        "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
+    SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'));
+    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'), 200);
+    SF.sleep (2);
+    SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
+    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), 10);
+    SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{" +
+        "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
+    SF.sleep (2);
+    MF.LongDistanceSettings_SelectMABasedState();
+    SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
+    MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
     SF.sleep (2);
 
@@ -39,7 +39,7 @@ condition.nowWeDoing = 'заполняем калькулятор верхний
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу';
     V.accountNumbersLD={};
     LF.RememberAccountNumbersLD(V.accountNumbersLD);
-    SF.sleep(15); //для вылогинивания нормального
+    SF.sleep(10); //для вылогинивания нормального
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -69,7 +69,7 @@ condition.nowWeDoing = 'зашли в аккаунт и добавляем ин�
     MF.Account_CheckRequestStatus_Pending (V.accountNumbersLD.Id);
     MF.Account_OpenRequest (V.accountNumbersLD.Id);
     LF.AccountLocalAddInventory();
-    SF.sleep(8);
+    SF.sleep(10);
 
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу после добавления инвентори на аккаунте';
     V.accountNumbersLDWithInvent={};
