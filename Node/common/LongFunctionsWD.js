@@ -228,8 +228,20 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(1)"]'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(1)"]'));
         SF.click (By.xpath('(//div[@class="new-inventory-item"])[6]//button[@ng-click="onClickCounter(1)"]'));
-        SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(3);
+        SF.click(By.xpath('//a[@ng-click="setCustomItemMode()"]'));
+        SF.sleep(4);
+        SF.send(By.id('customInventoryName'), 'custom item sofa');
+        SF.sleep(0.5);
+        SF.send(By.xpath('//input[@ng-model="newItem.height.value"]'), 40);
+        SF.sleep(0.5);
+        SF.send(By.xpath('//input[@ng-model="newItem.depth.value"]'), 70);
+        SF.sleep(0.5);
+        SF.send(By.xpath('//input[@ng-model="newItem.width.value"]'), 50);
+        SF.sleep(0.5);
+        SF.send(By.xpath('//input[@ng-model="newItem.count.value"]'), 3);
+        SF.sleep(0.5);
+        SF.click(By.xpath('//button[@ng-click="customItemForm.$setSubmitted()"]'));
+
     }
 
     function AccountLocalAddAdditionalInventory() {

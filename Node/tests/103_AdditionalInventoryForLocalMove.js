@@ -27,6 +27,10 @@ condition.nowWeDoing = 'создаем реквест ';
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
+        V.CFRequest = text;
+    }),config.timeout);
+    SF.sleep(1);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest();
 
@@ -51,22 +55,65 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.MakeSignInContract();
     LF.MakeSignInContract();
 
-condition.nowWeDoing = 'добавляем сторадж и инвентарь на контракте';
+condition.nowWeDoing = 'добавляем сторадж и инвентарь на контракте а также кастомный айтем';
     SF.click(By.xpath('//a[@ng-click="showTransit()"]'));
     SF.sleep(0.5);
     SF.click(By.xpath('//button[@ng-click="openInventory()"]'));
     SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
     LF.ContractAdditionalInventoryAdd();
-    LF.Contract_AddInventory(15);
-
     Debug.pause();
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Items:")]/span[@ng-bind="total.count"]')).getText().then(function (text) {
+        V.totalCountAddInventory = text;
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="inventory__toolbar"]/div[contains(text(), "Custom:")]/span[@ng-bind="total.total_custom"]')).getText().then(function (text) {
+        V.totalCustomAddInventory = text;
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="inventory__toolbar"]/div[contains(text(), "Total Estimated Cubic Feet:")]/span[@ng-bind="total.total_cf"]')).getText().then(function (text) {
+        V.totalCubicFitAddInventory = text;
+    }),config.timeout);
+    SF.sleep(1);
+    SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
+    SF.sleep(3);
+    SF.click(By.xpath('//button[@ng-click="openAdditionalInventory()"]'));
+    JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
+    SF.sleep(4);
+
+condition.nowWeDoing = 'тут после добавления адишинал инвентаря и кастомного айтема мы закрыли модалку с инвентарем и опять октрыли для сравнения что все что добавили осталось на месте';
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Items:")]/span[@ng-bind="total.count"]')).getText().then(function (text) {
+        V.totalCountAddInventoryAfterReopened = text;
+        VD.IWant(VD.ToEqual, V.totalCountAddInventoryAfterReopened, V.totalCountAddInventory, 'не совпало коунт инвентаря после открытия модалки. что то удалиось');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="inventory__toolbar"]/div[contains(text(), "Total Estimated Cubic Feet:")]/span[@ng-bind="total.total_cf"]')).getText().then(function (text) {
+        V.totalCubicFitAddInventoryAfterReopened = text;
+        VD.IWant(VD.ToEqual, V.totalCubicFitAddInventoryAfterReopened, V.totalCubicFitAddInventory, 'не совпало кубик фит инвентаря после открытия модалки что то удалиось');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="inventory__toolbar"]/div[contains(text(), "Custom:")]/span[@ng-bind="total.total_custom"]')).getText().then(function (text) {
+        V.totalCustomAddInventoryAfterReopened = text;
+        VD.IWant(VD.ToEqual, V.totalCustomAddInventoryAfterReopened, V.totalCustomAddInventory, 'не совпало кастом айтем инвентаря после открытия модалки, что то удалиось');
+    }),config.timeout);
+    SF.sleep(1);
+    SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
+    SF.sleep(3);
+
+condition.nowWeDoing = 'добавляем артикли к инвентарю, нажимаем done with inventory и идем дальше подписывать контракт и рентал агримент';
+    LF.Contract_AddInventory(17);
+    SF.click(By.xpath('//button[@ng-click="doneWithInventory()"]'));
+    MF.SweetConfirm();
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="data[fieldName].numberedItems"]')).getAttribute('value').then(function (text) {
+        VD.IWant(VD.ToEqual, text, 16, 'не сработал done with inventory или другая бага нужно проверить');
+    }),config.timeout);
+    SF.sleep(0.5);
     MF.Contract_SetTapeNumber(1);
     MF.Contract_SetTapeColorGreen('Green');
-
     LF.MakeSignInInventory(0);
     LF.MakeSignInInventory(1);
     MF.Contract_SubmitInventory();
     MF.Contract_WaitForRental();
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="storageVolume"]')).getAttribute('value').then(function (text) {
+        VD.IWant(VD.ToEqual, text, (V.CFRequest + V.totalCubicFitAddInventory), 'не совпал кубик фит всего добавленного инвентрая и кубик фит реквеста');
+    }),config.timeout);
+    SF.sleep(0.5);
     MF.Contract_SetRentalPhone(V.client.phone);
     MF.Contract_SetRentalAddress('Address To');
     MF.Contract_SetRentalZip('02461');

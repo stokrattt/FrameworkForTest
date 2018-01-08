@@ -29,8 +29,9 @@ condition.nowWeDoing = 'зашли первый раз в аккаунт';
 
 condition.nowWeDoing = 'запомнили цифры ToStorage идём на From';
     MF.Account_ClickFromStorage();
+    SF.sleep(5);
     LF.AccountFromStorageEnterAddress();
-    SF.sleep(10);
+    SF.sleep(8);
     V.accountNumbersFrom = {};
     MF.WaitWhileBusy();
     LF.RememberAccountNumbers(V.accountNumbersFrom);

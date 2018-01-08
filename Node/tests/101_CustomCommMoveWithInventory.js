@@ -60,7 +60,7 @@ condition.nowWeDoing = 'закрываем и открываем наш рекв
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, '777', 'открыл нот конферм работу и смотрим что кубик фит остался 777')
     }),config.timeout);
-    SF.sleep(4);
+    SF.sleep(1);
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
