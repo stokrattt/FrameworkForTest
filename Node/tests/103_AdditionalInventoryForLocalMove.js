@@ -73,7 +73,7 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     }),config.timeout);
     SF.sleep(1);
     SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-    SF.sleep(3);
+    SF.sleep(6);
     SF.click(By.xpath('//button[@ng-click="openAdditionalInventory()"]'));
     JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
     SF.sleep(4);

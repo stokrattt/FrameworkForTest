@@ -96,10 +96,9 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Total, V.accountNumbersLD.Total, 'не изменился гранд тотал после добавления инвентрая');
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Fuel, V.accountNumbersLD.Fuel, 'не изменился fuel после добавления инвентрая');
     MF.Account_ClickFullPacking();
-    SF.sleep(10);
+    SF.sleep(13);
     V.accountNumbersLDAfterAddInvenAfterAddFullPacing={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInvenAfterAddFullPacing);
-    Debug.pause();
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'идем в админку делать нот конферм работе и проверять что работает смена кастомного веса для комершиал';

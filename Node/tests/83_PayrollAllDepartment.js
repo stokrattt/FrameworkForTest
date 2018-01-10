@@ -13,7 +13,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'идем в пейролл и ставим дату в промежутке 20 дней';
     MF.Board_OpenPayroll ();
     LF.Payroll_SelectPeriod20Days();
-    MF.WaitWhileBusy ();
 
 condition.nowWeDoing = 'сравниваем все суммы снизу с суммами сверху';
     driver.wait(driver.executeScript(JSstep.payrollTableMainPage('jobs_count', 'Jobs')).then(function (summa) {

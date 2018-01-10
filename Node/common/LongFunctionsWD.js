@@ -2034,6 +2034,25 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
         MF.WaitWhileBusy ();
     }
+    function ProfitAndLoss_SelectPeriod20Days() {
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() - msInDay *10);
+        let options = { month: 'short', day: 'numeric', year: 'numeric' };
+        V.profitlossDateFrom = (future.toLocaleDateString('en-US', options));
+        now = new Date();
+        msInDay = 86400000;
+        future = new Date(now.getTime() + msInDay *6);
+        options = { month: 'short', day: 'numeric', year: 'numeric' };
+        V.profitlossDateTo = (future.toLocaleDateString('en-US', options));
+        SF.clear(By.xpath('//input[@ng-model="vm.dates.from"]'));
+        SF.send(By.xpath('//input[@ng-model="vm.dates.from"]'), V.profitlossDateFrom);
+        MF.WaitWhileBusy();
+        SF.clear(By.xpath('//input[@ng-model="vm.dates.to"]'));
+        SF.send(By.xpath('//input[@ng-model="vm.dates.to"]'), V.profitlossDateTo);
+        MF.WaitWhileBusy();
+        MF.WaitWhileBusy ();
+    }
     function RememberPayrollNumbers_InsideWorker(payrollNumbersInside) {
         driver.wait(driver.executeScript("return $('div.total-payroll-panel div.total-title:contains(\"Paid\")').next().text()").then(function (paid) {
             payrollNumbersInside.paid = SF.cleanPrice(paid);
@@ -2273,6 +2292,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         Payroll_SelectPeriod20Days: Payroll_SelectPeriod20Days,
         RememberPayrollNumbers_OutsideNameWorker: RememberPayrollNumbers_OutsideNameWorker,
         RememberPayrollNumbers_InsideWorker: RememberPayrollNumbers_InsideWorker,
+        ProfitAndLoss_SelectPeriod20Days:ProfitAndLoss_SelectPeriod20Days,
 //Departmnet
         Department_TurnOnAllCommission:Department_TurnOnAllCommission,
 

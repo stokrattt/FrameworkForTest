@@ -64,7 +64,7 @@ module.exports = function(config,V) {
         './tests/59_PayrollAddMiscCustomPayment.js',
        // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/60_Excludes.js',
-
+        './tests/107_SallaryProfitLossAndPayroll.js',
         './tests/62_MovingCustomBlock.js',
         './tests/63_MovingStorageCustomBlock.js',
         './tests/64_LoadingHelpCustomBlock.js',
