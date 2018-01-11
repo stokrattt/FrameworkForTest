@@ -2046,11 +2046,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         options = { month: 'short', day: 'numeric', year: 'numeric' };
         V.profitlossDateTo = (future.toLocaleDateString('en-US', options));
         SF.clear(By.xpath('//input[@ng-model="vm.dates.from"]'));
+        MF.WaitWhileBusy();
         SF.send(By.xpath('//input[@ng-model="vm.dates.from"]'), V.profitlossDateFrom);
         MF.WaitWhileBusy();
         SF.clear(By.xpath('//input[@ng-model="vm.dates.to"]'));
-        SF.send(By.xpath('//input[@ng-model="vm.dates.to"]'), V.profitlossDateTo);
         MF.WaitWhileBusy();
+        SF.send(By.xpath('//input[@ng-model="vm.dates.to"]'), V.profitlossDateTo);
+        MF.WaitWhileBusy ();
         MF.WaitWhileBusy ();
     }
     function RememberPayrollNumbers_InsideWorker(payrollNumbersInside) {
