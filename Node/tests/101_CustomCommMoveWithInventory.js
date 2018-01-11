@@ -188,7 +188,7 @@ condition.nowWeDoing = 'идем в админку проверять что ч�
     MF.EditRequest_CloseJob();
     SF.click(By.xpath('//div[@class="request-view"]'));
     SF.openTab(1);
-    SF.sleep(2);
+    SF.sleep(4);
     MF.Account_ClickViewConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
