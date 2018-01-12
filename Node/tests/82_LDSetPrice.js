@@ -49,7 +49,7 @@ condition.nowWeDoing = 'Создаем ЛД работу и проверям min
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     VD.IWant(VD.ToEqual, V.modalQuote, V.boardNumbers.Quote, 'не совпали Quote');
-    V.grandTotal = V.modalQuote + V.boardNumbers.Fuel;
+    V.grandTotal = V.modalQuote + V.boardNumbers.Fuel + V.boardNumbers.AdServices;
     VD.IWant(VD.ToEqual, V.grandTotal, V.boardNumbers.Total, 'не совпали Grand Total 1');
 
 condition.nowWeDoing = 'Первий раз проверям логи';
@@ -88,7 +88,7 @@ condition.nowWeDoing = 'Меняем в реквесте min Price min Cubic fee
     SF.sleep(2);
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     VD.IWant(VD.ToEqual, V.newModalQuote, V.boardNumbers.Quote, 'не совпали Quote');
-    V.newGrandTotal = V.newModalQuote + V.boardNumbers.Fuel;
+    V.newGrandTotal = V.newModalQuote + V.boardNumbers.Fuel + V.boardNumbers.AdServices;
     VD.IWant(VD.ToEqual, V.newGrandTotal, V.boardNumbers.Total, 'не совпали Grand Total 3');
     MF.EditRequest_OpenLogs();
 

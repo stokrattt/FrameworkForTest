@@ -2053,6 +2053,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         MF.WaitWhileBusy();
         SF.send(By.xpath('//input[@ng-model="vm.dates.to"]'), V.profitlossDateTo);
         MF.WaitWhileBusy ();
+        SF.sleep(3);
         MF.WaitWhileBusy ();
     }
     function RememberPayrollNumbers_InsideWorker(payrollNumbersInside) {
