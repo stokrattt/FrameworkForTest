@@ -259,6 +259,8 @@ condition.nowWeDoing = 'идем в гугл почту';
     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
     SF.sleep(1);
     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
+    SF.sleep(1);
+    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.accountNumbersUp.Id+'")]')).getText().then(function(text) {
         V.Req1Cal = text;
         VD.IWant(VD.ToEqual, ('#' +V.accountNumbersUp.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 1я работа');
