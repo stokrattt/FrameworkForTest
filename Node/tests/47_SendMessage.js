@@ -11,6 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
     SF.get(V.frontURL);
+
 condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
@@ -22,10 +23,12 @@ condition.nowWeDoing = 'первый раз в аккаунте, отправл�
     MF.Account_OpenMessage();
     V.toAdmin = SF.randomBukva(6) + '_toAdmin';
     MF.BoardAccount_SendMessage(V.toAdmin);
+    Debug.pause();
     SF.sleep(5);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'зашли в админку идем в раздел сообщения на дашборде и смотрим что смс есть от клиента админу';
     MF.Board_OpenSideBar ();
     MF.Board_OpenMessage ();
@@ -39,6 +42,7 @@ condition.nowWeDoing = 'зашли в админку идем в раздел с
     MF.BoardAccount_SendMessage(V.toClientFromAdmin);
     MF.Board_OpenDashboard ();
     MF.Board_OpenRequest (V.accountNumbers.Id);
+
 condition.nowWeDoing = 'зашли в реквест';
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd(V.client.passwd);
@@ -67,6 +71,7 @@ condition.nowWeDoing = 'зашли в реквест';
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom (V.SalesLogin, V.Salespass);
+
 condition.nowWeDoing = 'Идем под сейлсом и проверяем что у него есть смс от клиента';
     MF.Board_OpenMessage ();
     SF.click (By.xpath('//tr[@ng-click="showComments(request)"]/td[contains(text(), "'+V.accountNumbers.Id+'")]'));
@@ -85,6 +90,7 @@ condition.nowWeDoing = 'Идем под сейлсом и проверяем ч�
     LF.closeEditRequest();
     LF.LogoutFromBoardForeman ();
     SF.get(V.accountURL);
+
 condition.nowWeDoing = 'Идем под клиентом и проверяем что у него есть смс от сейлса';
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest (V.accountNumbers.Id);

@@ -72,11 +72,12 @@ condition.nowWeDoing = 'сравниваем данные калькулятор
     VD.IWant(VD.ToEqual, V.LDAdminCalc.Total, V.boardNumbers.Total, 'не совпали Total калькулятора и борда');
     VD.IWant(VD.ToEqual, V.LDAdminCalc.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel калькулятора и борда');
     VD.IWant(VD.ToEqual, V.LDAdminCalc.Quote, V.boardNumbers.Quote, 'не совпали Quote калькулятора и борда');
-    SF.sleep (2);
+    SF.sleep (1);
     LF.addInventoryBoard ();
     LF.addAdditionalInventoryBoard();
     MF.EditRequest_AddPacking ();
-
+    SF.sleep(4);
+Debug.pause();
 condition.nowWeDoing = 'запоминаем данные после добавления всех сервисов ';
     V.boardNumbersWithAddServices = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersWithAddServices);
@@ -99,12 +100,10 @@ condition.nowWeDoing = 'запоминаем данные после добав�
 
 condition.nowWeDoing = 'идём в логи';
     MF.EditRequest_OpenLogs();
-
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Long Distance Quote (Not Confirmed Status)");
-
     V.logNumbers={};
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Long Distance Quote (Not Confirmed Status)")]' +
         '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
@@ -115,6 +114,7 @@ condition.nowWeDoing = 'идём в логи';
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.boardNumbersWithAddServices.Total, 'не совпал гранд тотал в письме и в реквесте');
     SF.sleep(1);
+    console.log(V.boardNumbersWithAddServices.Total);
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);

@@ -200,6 +200,7 @@ condition.nowWeDoing = 'идем в акк под клиентом 2 раз бу
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.flatRateDiscount"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), '-500', 'не показало дисконт на конфирмейшн');
     }),config.timeout);
+    SF.sleep(2);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

@@ -88,6 +88,7 @@ condition.nowWeDoing = 'идем в админку в локал диспач и
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
+    V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.boardNumbers.Id);
     MF.WaitWhileBusy ();

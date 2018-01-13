@@ -49,7 +49,7 @@ condition.nowWeDoing = 'создаем лонг дистанс реквест и
     VD.IWant(VD.ToEqual,V.boardNumbers.Quote, V.quote, 'квота не правильно посчиталась');
     V.fuel = (V.boardNumbers.Quote * 10) / 100;
     VD.IWant(VD.ToEqual,V.boardNumbers.Fuel, V.fuel, 'fuel не правильно посчитался');
-    V.total = V.fuel + V.quote;
+    V.total = V.fuel + V.quote + V.boardNumbers.AdServices;
     VD.IWant(VD.ToEqual,V.boardNumbers.Total, V.total, 'total не правильно посчитался');
     SF.sleep(1);
 condition.nowWeDoing = 'добавляем комнаты и опять пересчитываем фуел, квоту и тотал';
@@ -62,7 +62,7 @@ condition.nowWeDoing = 'добавляем комнаты и опять пере
     VD.IWant(VD.ToEqual,V.boardNumbersAddRoom.Quote, V.quoteAddRoom, 'квота не правильно посчиталась после добавления комнат');
     V.fuelAddRoom = (V.boardNumbersAddRoom.Quote * 10) / 100;
     VD.IWant(VD.ToEqual,V.boardNumbersAddRoom.Fuel, V.fuelAddRoom, 'fuel не правильно посчитался после добавления комнат');
-    V.totalAddRoom = V.fuelAddRoom + V.quoteAddRoom;
+    V.totalAddRoom = V.fuelAddRoom + V.quoteAddRoom + V.boardNumbersAddRoom.AdServices;
     VD.IWant(VD.ToEqual,V.boardNumbersAddRoom.Total, V.totalAddRoom, 'total не правильно посчитался после добавления комнат');
     SF.sleep(1);
 condition.nowWeDoing = 'добавляем инвенторий и опять пересчитываем фуел, квоту и тотал';
@@ -74,7 +74,7 @@ condition.nowWeDoing = 'добавляем инвенторий и опять п
     VD.IWant(VD.ToEqual,V.boardNumbersAddInventory.Quote, V.quoteAddInventory, 'квота не правильно посчиталась после добавления инвентория');
     V.fuelAddInventory = (V.boardNumbersAddInventory.Quote * 10) / 100;
     VD.IWant(VD.ToEqual,V.boardNumbersAddInventory.Fuel, V.fuelAddInventory, 'fuel не правильно посчитался после добавления инвентория');
-    V.totalAddInventory = V.fuelAddInventory + V.quoteAddInventory;
+    V.totalAddInventory = V.fuelAddInventory + V.quoteAddInventory  + V.boardNumbersAddInventory.AdServices;
     VD.IWant(VD.ToEqual,V.boardNumbersAddInventory.Total, V.totalAddInventory, 'total не правильно посчитался после добавления инвентория');
     SF.sleep(1);
 

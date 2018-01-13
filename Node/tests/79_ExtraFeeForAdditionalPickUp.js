@@ -142,10 +142,10 @@ condition.nowWeDoing = 'идем в админку проверять что п�
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.newExtraDropOffAddress+'")]')).getText().then(function(text){
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="service in vm.extraServices track by $index"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="service in vm.extraServices track by $index"]/div[contains(text(), "Extra Drop off:")]/following-sibling::div')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, V.extraDropOffPrice, SF.cleanPrice(text), 'не нашло или не совпал екстра дроп оф на конфирмейшин пейдж');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="service in vm.extraServices track by $index"][2]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="service in vm.extraServices track by $index"]/div[contains(text(), "Extra Pick up:")]/following-sibling::div')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, V.extraPickUpPrice, SF.cleanPrice(text), 'не нашло или не совпал екстра пикап  на конфирмейшин пейдж');
     }),config.timeout);
     SF.sleep(2);
