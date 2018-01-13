@@ -2045,11 +2045,15 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         future = new Date(now.getTime() + msInDay *6);
         options = { month: 'short', day: 'numeric', year: 'numeric' };
         V.profitlossDateTo = (future.toLocaleDateString('en-US', options));
+        MF.WaitWhileBusy();
         SF.clear(By.xpath('//input[@ng-model="vm.dates.from"]'));
+        MF.WaitWhileBusy();
         MF.WaitWhileBusy();
         SF.send(By.xpath('//input[@ng-model="vm.dates.from"]'), V.profitlossDateFrom);
         MF.WaitWhileBusy();
+        MF.WaitWhileBusy();
         SF.clear(By.xpath('//input[@ng-model="vm.dates.to"]'));
+        MF.WaitWhileBusy();
         MF.WaitWhileBusy();
         SF.send(By.xpath('//input[@ng-model="vm.dates.to"]'), V.profitlossDateTo);
         MF.WaitWhileBusy ();
