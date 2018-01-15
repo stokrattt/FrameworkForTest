@@ -55,7 +55,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest ();
 
 
-    condition.nowWeDoing = 'идем заново в реквест сверяем цифры на клоузинге';
+    condition.nowWeDoing = 'идем заново в реквест сверяем цифры на клоузинге, делаем проплату';
     MF.Board_OpenConfirmed();
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest (V.requestNumber.Id);
