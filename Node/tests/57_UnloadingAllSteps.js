@@ -99,6 +99,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
+    SF.sleep(1);
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Unloading Confirmed");
     MF.EditRequest_Check1EmailExist(V.client.email, 'New Message From emilia');
