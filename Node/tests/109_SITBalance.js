@@ -82,6 +82,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('button[ng-click=\\"save()\\"]:visible');
     V.boardNumbersClosingAfterPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterPaymentInRequest);
+    SF.sleep(2);
     LF.closeEditRequest ();
 
     condition.nowWeDoing = 'идем в SIT создаем трип, добавляем в него наш реквест';
@@ -149,7 +150,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('button[ng-click=\\"save()\\"]:visible');
     V.boardNumbersClosingAfterDiscountAndPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterDiscountAndPaymentInRequest);
-    SF.sleep(2);
+    SF.sleep(4);
     LF.closeEditRequest();
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
@@ -166,6 +167,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     SF.click(By.xpath('//input[@ng-click="changePending(receipt)"]'));
     JS.click('button[ng-click=\\"save()\\"]:visible');
+    SF.sleep(3);
+    MF.EditRequest_WaitForBalanceVisible();
     V.boardNumbersClosingAfterPendingPayment = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterPendingPayment);
     LF.closeEditRequest();
