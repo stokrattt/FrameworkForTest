@@ -109,6 +109,7 @@ module.exports = function(config,V) {
         './tests/95_Statistic.js',
         './tests/100_LeadScoring.js',
         './tests/105_ChangeMinCFAndDriverPayroll.js',
+        './tests/108_SITBalance.js',
         './tests/102_InhomeEstimate.js',
         './tests/104_AddBedroomAddRoom.js',
         './tests/106_AdditionalContact.js',
