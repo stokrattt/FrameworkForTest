@@ -138,6 +138,7 @@ condition.nowWeDoing = 'проверяем в календаре, что раб�
     SF.click (By.xpath('//div[@jsname="OCpkoe"]'));
     SF.sleep(1);
     SF.click (By.xpath('//div[@jsname="OCpkoe"]'));
+    SF.sleep(3);
     SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbers.Id+'")]'));
     driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text) {
    V.Req1Cal = text;
