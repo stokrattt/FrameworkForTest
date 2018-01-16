@@ -181,7 +181,29 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.accountNumbers.Id2 = text;
         VD.IWant(VD.ToEqual, V.accountNumbers.Id2, V.accountNumbers.Id, 'не наидена работа во время фильтрации COLD после смены очков вручную');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(3);
+    MF.Board_LogoutAdmin();
+
+    condition.nowWeDoing = 'идем в аккаунт, сразу на конфирмеишен, и выходим из аккаунта';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient(V.client);
+    MF.Account_OpenRequest(V.accountNumbers.Id);
+    LF.Account_CheckSignature();
+    LF.LogoutFromAccount();
+
+    condition.nowWeDoing = 'заходим в реквест 5й раз, проверяем очки, после того как поменяли их вручную, и побывали в аккаунте и на конфирмеишен';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenConfirmed();
+    MF.Board_OpenRequest(V.accountNumbers.Id);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_total_score"]')).getAttribute('value').then(function(text) {
+        V.PointReq5  = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.PointReq5, 80 ,'сверяем очки 5й раз');
+    }),config.timeout);
+    SF.sleep(1);
+    LF.closeEditRequest();
+
+
 
     SF.endOfTest();
 };
