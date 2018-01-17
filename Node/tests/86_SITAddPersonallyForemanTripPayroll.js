@@ -38,6 +38,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSideBar ();
     LF.CreateCarrier();
     MF.Board_ClickLongDistanceDispach();
+
     condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
     MF.SIT_ClickAddTrip();
     MF.SIT_ChangeStatusTrip('Pending');
@@ -51,10 +52,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.decription = SF.randomBukva(6) + '_t';
     SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
     SF.send (By.xpath('//input[@ng-model="trip.data.details.internal_code"]'), V.internalCode);
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 10);
-    options = { month: 'numeric', day: 'numeric', year: 'numeric' };
+    let now = new Date();
+    let msInDay = 86400000;
+    let future = new Date(now.getTime() + msInDay * 10);
+    let options = { month: 'numeric', day: 'numeric', year: 'numeric' };
     V.dateStart = (now.toLocaleDateString('en-US', options));
     V.dateEnd = (future.toLocaleDateString('en-US', options));
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.start"]/div/input'));
@@ -75,6 +76,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[text()="helper test2"]'));
     SF.click(By.xpath('//button[@ng-click="closeSelectBox($event)"]'));
     SF.sleep(1);
+
     condition.nowWeDoing = 'Сохраняем трип и добавляем работу в трип';
     driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="createTrip(trip)"]'))).doubleClick().perform();
     JS.waitForNotExist('span.toast-message:visible');
@@ -178,6 +180,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.cashAmount);
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//button[@ng-click="update()"]'));
     SF.sleep(1);
+
     condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"helper")]'));
     SF.waitForVisible (By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
@@ -215,6 +218,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.other"]//button[@ng-click="update()"]'));
     SF.sleep(4);
     V.helper2Total = V.helper2DailyAmount * V.totalDays + V.helper2Other;
+
     condition.nowWeDoing = 'сравниваем циферки общий пейрол';
     V.totalPayroll = V.totalMileage + V.totalHourly + V.totalDaily - V.totalCollected + V.driverExpensesAmount - V.cashAmount + V.helper1Total + V.helper2Total;
     V.foremanTotal = V.totalPayroll - V.helper2Total - V.helper1Total;
@@ -224,6 +228,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.totalPayroll, V.payroll, 'total Payroll не совпали');
     }),config.timeout);
     SF.sleep(2);
+
     condition.nowWeDoing = 'сабмитим пейрол, виходим и заходим обратно и проверяем сохранились ли изменения';
     SF.click(By.xpath('//button[@ng-click="submitPayroll()"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="dialog.hide()"]'));
@@ -450,6 +455,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.newPayroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newTotalPayroll, V.newPayroll, 'total Payroll не совпали');
     }),config.timeout);
+
     condition.nowWeDoing = 'сабмитим и опять проверяем';
     SF.click(By.xpath('//button[@ng-click="submitPayroll()"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="dialog.hide()"]'));

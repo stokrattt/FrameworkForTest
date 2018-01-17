@@ -58,6 +58,7 @@ condition.nowWeDoing = 'Заходим на акаунт и проверяем 
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
+    SF.sleep(3);
     SF.waitForVisible(By.xpath('//div[contains(text(), "Extra Drop off:")]/following-sibling::div'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Extra Drop off:")]/following-sibling::div')).getText().then(function(text){
         V.extraDropOffPrice = SF.cleanPrice(text);
@@ -108,7 +109,7 @@ condition.nowWeDoing = 'Заходим на акаунт и проверяем 
     MF.SweetConfirm();
     MF.SweetConfirm();
     SF.sleep(1);
-    LF.LogoutFromAccount ();
+    LF.LogoutFromAccount();
     SF.get(V.adminURL);
 
 condition.nowWeDoing = 'идем в админку проверять что применились новый адрес для екстра и тсави нот конферм и трак';
@@ -129,8 +130,8 @@ condition.nowWeDoing = 'идем в админку проверять что п�
     SF.sleep(2);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    MF.EditRequest_SetToNotConfirmed ();
-    MF.EditRequest_SaveChanges ();
+    MF.EditRequest_SetToNotConfirmed();
+    MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
     MF.Board_LogoutAdmin();
 

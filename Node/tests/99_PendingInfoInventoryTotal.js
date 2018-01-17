@@ -33,10 +33,11 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     MF.Account_ClickViewRequest();
     MF.Account_ClickPartialPacking();
     LF.AccountLocalAddInventory();
-    SF.sleep(5);
+    SF.sleep(6);
     MF.SweetConfirm();
     LF.AccountLocalAddAdditionalInventory();
-    SF.sleep(15);
+    SF.sleep(16);
+    Debug.pause();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
