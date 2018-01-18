@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/102_InhomeEstimate.js'];
+    config.suite = ['./tests/86_SITAddPersonallyForemanTripPayroll.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;
