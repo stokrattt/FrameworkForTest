@@ -152,6 +152,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterDiscountAndPaymentInRequest);
     SF.sleep(4);
     LF.closeEditRequest();
+    SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]/div[@class="big-form__jobs-list__body__item"][10]')).getText().then(function (text) {
