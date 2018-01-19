@@ -113,6 +113,7 @@ module.exports = function(config,V) {
         './tests/102_InhomeEstimate.js',
         './tests/104_AddBedroomAddRoom.js',
         './tests/106_AdditionalContact.js',
+        './tests/110_LeadScoringAdmin.js',
         './tests/51_ServiceTypesOnOff.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
         './tests/107_SallaryProfitLossAndPayroll.js',
