@@ -39,7 +39,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//input[@ng-model="min_price"]'));
     SF.send(By.xpath('//input[@ng-model="min_price"]'), V.NewPrice1);
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
+    driver.wait(driver.executeScript('return $(\'div.quote-cost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
         } else {
             V.boardNumbers.QuoteSales1 = SF.cleanPrice(text);
@@ -48,7 +48,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep (1);
     MF.EditRequest_CloseConfirmWork ();
-    driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
+    driver.wait(driver.executeScript('return $(\'div.quote-cost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
         } else {
             V.boardNumbers.QuoteClosing1 = SF.cleanPrice(text);
@@ -68,7 +68,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear(By.xpath('//input[@ng-model="min_weight"]'));
     SF.send(By.xpath('//input[@ng-model="min_weight"]'), V.NewVolume);
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
+    driver.wait(driver.executeScript('return $(\'div.quote-cost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
         } else {
             V.boardNumbers.QuoteSales2 = SF.cleanPrice(text);
@@ -77,7 +77,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep (1);
     MF.EditRequest_CloseConfirmWork ();
-    driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
+    driver.wait(driver.executeScript('return $(\'div.quote-cost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
         } else {
             V.boardNumbers.QuoteClosing2 = SF.cleanPrice(text);
