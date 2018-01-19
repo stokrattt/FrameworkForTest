@@ -95,14 +95,14 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     }),config.timeout);
     SF.sleep(1);
 
-condition.nowWeDoing = 'идем на дашборд в конфермед, что бы сверить кол-во работ';
-    MF.Board_OpenDashboard ();
-    MF.Board_OpenConfirmed();
-    driver.wait(driver.findElement(By.xpath('//div[@ng-click="vm.select(2)"]//span[@ng-hide="vm.conf_filter == 2"]')).getText().then(function(text) {
-        V.ConfirmSalesPageBoard = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual,V.ConfirmSalesPageBoard, V.SalesBookedSalesPageCommonStat,'не совпало общее кол-во забуканных работ на дащборде и из коммон стата на странице меилса');
-    }),config.timeout);
-    SF.sleep(2);
+//condition.nowWeDoing = 'идем на дашборд в конфермед, что бы сверить кол-во работ';
+   // MF.Board_OpenDashboard ();
+   // MF.Board_OpenConfirmed();
+  //  driver.wait(driver.findElement(By.xpath('//div[@ng-click="vm.select(2)"]//span[@ng-hide="vm.conf_filter == 2"]')).getText().then(function(text) {
+    //    V.ConfirmSalesPageBoard = SF.cleanPrice(text);
+    //    VD.IWant(VD.ToEqual,V.ConfirmSalesPageBoard, V.SalesBookedSalesPageCommonStat,'не совпало общее кол-во забуканных работ на дащборде и из коммон стата на странице меилса');
+   // }),config.timeout);
+  //  SF.sleep(2);
 
     SF.endOfTest();
 };
