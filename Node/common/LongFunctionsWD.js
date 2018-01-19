@@ -742,7 +742,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         console.log(boardNumbers);
     }
     function RememberDigitsRequestBoard_Down(boardNumbers) {
-        driver.wait(driver.executeScript('return $(\'div.QuoteCost:visible\').text()').then(function (text) {
+        driver.wait(driver.executeScript('return $(\'div.quote-cost:visible\').text()').then(function (text) {
             if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
                 boardNumbers.QuoteMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
                 boardNumbers.QuoteMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
