@@ -12,12 +12,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.AdditionalEmail = SF.randomBukvaSmall(7) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.adminEmailTemperary = 'test.boston@mail.ru';
 
-
-    condition.nowWeDoing = 'создаем мувинг с фронта';
+condition.nowWeDoing = 'создаем мувинг с фронта';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
-    condition.nowWeDoing = 'создаем адишенал контакт';
+
+condition.nowWeDoing = 'создаем адишенал контакт';
     MF.EditRequest_OpenClient();
     SF.click(By.xpath('//i[@class="icon-user-follow"]'));
     SF.send(By.xpath('//input[@ng-model="request.field_additional_user.first_name"]'),V.AdditionalName);
@@ -32,7 +32,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.sleep(1);
     MF.EditRequest_SetToNotConfirmed();
-    condition.nowWeDoing = 'включяем отправку писем адишенал контакту, конфермим, поверяем в логах, что письма отправились 2м';
+
+condition.nowWeDoing = 'включяем отправку писем адишенал контакту, конфермим, поверяем в логах, что письма отправились 2м';
     MF.EditRequest_OpenClient();
     SF.click(By.xpath('//input[@ng-change="switchAdditionalEmail()"]/following-sibling::span'));
     SF.click(By.xpath('//button[@ng-click="updateAddContact()"]'));
@@ -46,8 +47,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.Check2EmailForUsers = text;
         VD.IWant(VD.ToEqual, V.Check2EmailForUsers,('Mail was sent to "'+V.client.email+'", "'+V.AdditionalEmail+'" . From "'+V.adminEmailTemperary+'". Subject: "Request Local Quote (Confirmed)"'),'Письма не отправилтсь на 2 почты');
     }),config.timeout);
-    SF.sleep(2);
-    condition.nowWeDoing = 'отправиляем письмо вручную, и проверяем лог';
+    SF.sleep(1);
+
+condition.nowWeDoing = 'отправиляем письмо вручную, и проверяем лог';
     MF.EditRequest_OpenRequest();
     MF.CreateRequest_OpenMailDialog();
     SF.click(By.xpath('//span[contains(.,"Default")]'));
@@ -62,9 +64,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.ManualEmailSend,('Mail was sent to "'+V.client.email+'", "'+V.AdditionalEmail+'" . From "'+V.adminEmailTemperary+'". Subject: "Sales Signature"'),'не отправились письма после ручного выбора писем');
     }),config.timeout);
     SF.sleep(2);
-
-
-
 
     SF.endOfTest();
 };

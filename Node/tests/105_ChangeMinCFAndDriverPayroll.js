@@ -17,7 +17,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'создаем ЛД реквест с борда';
+condition.nowWeDoing = 'создаем ЛД реквест с борда';
     LF.CreateLongDistanceFromBoard(V.client);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -32,7 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_ChangeStatusRequest (3);
     MF.EditRequest_SaveChanges();
 
-    condition.nowWeDoing = '1й раз меняем только цену в minimum c.f.';
+condition.nowWeDoing = '1й раз меняем только цену в minimum c.f.';
     SF.click(By.xpath('//div[@ng-click="openMinWeight()"]'));
     SF.waitForVisible(By.xpath('//input[@ng-model="min_price"]'));
     SF.click(By.xpath('//div[@class="col-md-5 text-center"]//span[@class="switchery switchery-small"]'));
@@ -58,9 +58,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (1);
     VD.IWant (VD.ToEqual, V.boardNumbers.QuoteSales1, V.boardNumbers.QuoteClosing1, 'не совпала квота в сэилс и клоузинг первый раз');
 
-    condition.nowWeDoing = '2й раз меняем  цену и объем в minimum c.f.';
-    SF.click (By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
-    MF.WaitWhileBusy();
+condition.nowWeDoing = '2й раз меняем  цену и объем в minimum c.f.';
+    MF.EditRequest_CloseConfirmWork();
     SF.click(By.xpath('//div[@ng-click="openMinWeight()"]'));
     SF.waitForVisible(By.xpath('//input[@ng-model="min_price"]'));
     SF.clear(By.xpath('//input[@ng-model="min_price"]'));
@@ -88,7 +87,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant (VD.ToEqual, V.boardNumbers.QuoteSales2, V.boardNumbers.QuoteClosing2, 'не совпала квота в сэилс и клоузинг второй раз');
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'идем в локал диспач назначать команду. Выбираем хелпера,как драивера';
+condition.nowWeDoing = 'идем в локал диспач назначать команду. Выбираем хелпера,как драивера';
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
@@ -106,7 +105,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.OpenRequestDispatch(V.boardNumbers.Id);
     MF.EditRequest_CloseJob();
 
-    condition.nowWeDoing = 'идем первый раз в маленький пеирол добаялем и назначаем комиссии драивера,как хелпера';
+condition.nowWeDoing = 'идем первый раз в маленький пеирол добаялем и назначаем комиссии драивера,как хелпера';
     MF.EditRequest_OpenPayroll();
     MF.EditRequest_PayrollOpenHelperTab();
     SF.click(By.xpath('//div[@id="invoice_content"]//button[@ng-click="addNewCommission(\'driver\', driverIndex, drivers.uid)"]'));
@@ -118,7 +117,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
 
-    condition.nowWeDoing = 'идем второй раз в маленький пеирол проверяем что комиссии драивера,как хелпера есть и соответсвуют';
+condition.nowWeDoing = 'идем второй раз в маленький пеирол проверяем что комиссии драивера,как хелпера есть и соответсвуют';
     MF.EditRequest_OpenPayroll();
     MF.EditRequest_PayrollOpenHelperTab();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="driver.for_commission"]')).getAttribute('value').then(function(text){
@@ -138,7 +137,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'идем в большой пеирол, ищем драивера, сверяем Rate и Time 1й раз';
+condition.nowWeDoing = 'идем в большой пеирол, ищем драивера, сверяем Rate и Time 1й раз';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     MF.Payroll_GoToWorkerJobs('driver');
@@ -153,7 +152,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.PayrollHourlyRate, V.TotalRate1, 'в большом пеироле не совпал Rate 1й раз');
     }),config.timeout);
 
-    condition.nowWeDoing = 'идем заново в маленький пеирол, и меняем цифры';
+condition.nowWeDoing = 'идем заново в маленький пеирол, и меняем цифры';
     SF.click(By.xpath('//td[contains(text(),"' +V.boardNumbers.Id+ '")]'));
     MF.EditRequest_OpenPayroll();
     MF.EditRequest_PayrollOpenHelperTab();
@@ -170,7 +169,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
-    condition.nowWeDoing = '2й раз в большом пеироле сверяем новые цифры и общий тотал';
+condition.nowWeDoing = '2й раз в большом пеироле сверяем новые цифры и общий тотал';
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.boardNumbers.Id+'")]/../td[@ng-click="editRequest(\'cb_hourly_rate\', id, \'request\', dataObj.trip_job)"]')).getText().then(function(text){
         V.PayrollHourlyRate2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PayrollHourlyRate2, V.TotalRateLast, 'Rate не совпадает после 2й смены в пеироле');

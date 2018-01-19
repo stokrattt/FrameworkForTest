@@ -12,13 +12,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'Создаем Long Distance работу, добавляем ее в SIT';
+condition.nowWeDoing = 'Создаем Long Distance работу, добавляем ее в SIT';
     LF.CreateLongDistanceFromBoard(V.client);
     V.requestNumber={};
     MF.EditRequest_RememberId(V.requestNumber);
     MF.EditRequest_SetToConfirmed();
-    SF.select(By.xpath('//select[@id="edit-service"]'), 7);
-    SF.sleep(1);
+    MF.FrontSiteSmallCalc_SelectServiceType(7);
     SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
     SF.sleep(1);
     JS.step(JSstep.selectTruck(5));
@@ -35,7 +34,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
     SF.click(By.xpath('//a[@ng-click="save()"]'));
 
-    condition.nowWeDoing = 'добавляем адишенал, пакинг, типсы, делаем проплату в клоузинге';
+condition.nowWeDoing = 'добавляем адишенал, пакинг, типсы, делаем проплату в клоузинге';
     MF.EditRequest_AddPackingClosingTab();
     SF.click(By.xpath('//input[@ng-model="tips.value"]'));
     SF.send(By.xpath('//input[@ng-model="tips.value"]'),50);
@@ -54,8 +53,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SaveChangesClosingTab();
     LF.closeEditRequest ();
 
-
-    condition.nowWeDoing = 'идем заново в реквест сверяем цифры на клоузинге, делаем проплату';
+condition.nowWeDoing = 'идем заново в реквест сверяем цифры на клоузинге, делаем проплату';
     MF.Board_OpenConfirmed();
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest (V.requestNumber.Id);
@@ -68,10 +66,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterClosedRequest.Packing, V.boardNumbersClosingTab1.Packing, 'не совпал Packing после закрытия');
     VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterClosedRequest.AdServices, V.boardNumbersClosingTab1.AdServices, 'не совпал Additional после закрытияг');
     VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterClosedRequest.Tips, V.boardNumbersClosingTab1.Tips, 'не совпали Tips после закрытия');
-    SF.sleep(2);
-    MF.EditRequest_OpenPayment();
-    MF.WaitWhileBusy();
     SF.sleep(1);
+    MF.EditRequest_OpenPayment();
     MF.EditRequest_ClickAddCustomPayment();
     V.cashPayment = 100;
     SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));
@@ -82,10 +78,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('button[ng-click=\\"save()\\"]:visible');
     V.boardNumbersClosingAfterPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterPaymentInRequest);
-    SF.sleep(2);
     LF.closeEditRequest ();
 
-    condition.nowWeDoing = 'идем в SIT создаем трип, добавляем в него наш реквест';
+condition.nowWeDoing = 'идем в SIT создаем трип, добавляем в него наш реквест';
     MF.Board_OpenSideBar();
     MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenTripPlanner();
@@ -117,14 +112,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
-
     driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]/div[@class="big-form__jobs-list__body__item"][10]')).getText().then(function (text) {
         V.TripBalance1 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterPaymentInRequest.Balance, V.TripBalance1, 'не совпал баланс после добавления работы в трип');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
-    condition.nowWeDoing = 'идем в реквест, делаем в клоузинге дисконт, еще одну проплату, запоминаем баланс, и проверям его в трипе';
+condition.nowWeDoing = 'идем в реквест, делаем в клоузинге дисконт, еще одну проплату, запоминаем баланс, и проверям его в трипе';
     SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
     MF.EditRequest_WaitForBalanceVisible();
     SF.click(By.xpath('//label[@ng-click="OpenDiscountInvoiceModal();"]'));
@@ -150,7 +144,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('button[ng-click=\\"save()\\"]:visible');
     V.boardNumbersClosingAfterDiscountAndPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterDiscountAndPaymentInRequest);
-    SF.sleep(4);
     LF.closeEditRequest();
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
@@ -159,9 +152,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.TripBalance2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterDiscountAndPaymentInRequest.Balance, V.TripBalance2, 'не совпал баланс после дисконта и 2й оплаты');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
-    condition.nowWeDoing = 'идем в реквест 2й раз, на одной проплате ставим галочку пендинг, запоминаем баланс реквеста и сравниваем его в трипе';
+condition.nowWeDoing = 'идем в реквест 2й раз, на одной проплате ставим галочку пендинг, запоминаем баланс реквеста и сравниваем его в трипе';
     SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenPayment();
@@ -180,7 +173,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterPendingPayment.Balance, V.TripBalance3, 'не совпал баланс после перевода одной проплаты в пендинг');
     }),config.timeout);
     SF.sleep(2);
-
 
     SF.endOfTest();
 
