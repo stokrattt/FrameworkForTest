@@ -19,7 +19,7 @@ condition.nowWeDoing= 'зосдаем локал мув и сразу его к�
     MF.WaitWhileBusy();
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SetToConfirmed ();
-    LF.addToCleanerJob (V.boardNumbers.Id);
+    // LF.addToCleanerJob (V.boardNumbers.Id);
     MF.EditRequest_SaveChanges ();
 
 condition.nowWeDoing = 'закрываем конферм работу, выставляем лабор тайм';
@@ -40,7 +40,6 @@ condition.nowWeDoing = 'считаем квоту от времени и гра�
     VD.IWant (VD.ToEqual, V.boardNumbersClose.QuoteMax, V.QuoteLaborTravelRate, 'не правильно посчитало квоту по формуле лабор+травел*rate');
     V.TotalSum = V.boardNumbersClose.QuoteMax + V.boardNumbersClose.Fuel;
     VD.IWant (VD.ToEqual, V.boardNumbersClose.Total, V.TotalSum, 'не правильно посчитало гранд  по формуле фуел + квота');
-    SF.sleep(2);
 
 condition.nowWeDoing = 'добавляем два паймента, один кастомный, один карточкой, так чтобы баланс был равен 0 и закрываем реквест';
     MF.EditRequest_OpenPayment();
@@ -68,7 +67,6 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     MF.WaitWhileToaster();
     SF.sleep(2);
     MF.WaitWhileBusy ();
-    MF.WaitWhileBusy ();
     SF.click(By.xpath('//div[contains(@class,"payment-receipt-modal")]/following-sibling::div[1]/button[@ng-click="cancel()"]'));
     SF.sleep(1);
     SF.click(By.xpath('//div[contains(@class,"modal-footer")]/button[@ng-click="cancel()" and contains(text(),"Cancel")]'));
@@ -77,16 +75,13 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
 
 condition.nowWeDoing = 'идем в коферм работы на борде,открываем наш реквест, закрываем работу и проверяем что баланс равен 0';
     MF.Board_OpenConfirmed ();
-    MF.WaitWhileBusy ();
-    SF.sleep(2);
-    MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.boardNumbers.Id);
     MF.EditRequest_CloseConfirmWork ();
     MF.EditRequest_CloseJob();
     V.boardNumbersCloseJob = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersCloseJob);
     VD.IWant(VD.ToEqual,V.boardNumbersCloseJob.Balance, 0, 'баланс не ноль');
-    SF.sleep(2);
+    SF.sleep(1);
 
   //=========================закончили писать тест=============================
     SF.endOfTest();

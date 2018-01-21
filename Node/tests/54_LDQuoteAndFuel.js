@@ -52,6 +52,7 @@ condition.nowWeDoing = 'создаем лонг дистанс реквест и
     V.total = V.fuel + V.quote + V.boardNumbers.AdServices;
     VD.IWant(VD.ToEqual,V.boardNumbers.Total, V.total, 'total не правильно посчитался');
     SF.sleep(1);
+    
 condition.nowWeDoing = 'добавляем комнаты и опять пересчитываем фуел, квоту и тотал';
     MF.EditRequest_SetSizeOfMoveNumber (9);
     MF.EditRequest_SetAdressFrom ();
@@ -65,9 +66,10 @@ condition.nowWeDoing = 'добавляем комнаты и опять пере
     V.totalAddRoom = V.fuelAddRoom + V.quoteAddRoom + V.boardNumbersAddRoom.AdServices;
     VD.IWant(VD.ToEqual,V.boardNumbersAddRoom.Total, V.totalAddRoom, 'total не правильно посчитался после добавления комнат');
     SF.sleep(1);
+    
 condition.nowWeDoing = 'добавляем инвенторий и опять пересчитываем фуел, квоту и тотал';
     LF.addInventoryBoard ();
-    SF.sleep(15); // ждем обновления фуела
+    SF.sleep(8); // ждем обновления фуела
     V.boardNumbersAddInventory = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddInventory);
     V.quoteAddInventory = V.boardNumbersAddInventory.cbf * 10;
@@ -85,7 +87,6 @@ condition.nowWeDoing = 'добавляем пакинг и сервисы и п�
     LF.RememberDigitsRequestBoard(V.boardNumbersAddServices);
     V.totalAllServices = V.boardNumbersAddInventory.Quote + V.boardNumbersAddInventory.Fuel + V.boardNumbersAddServices.Packing + V.boardNumbersAddServices.AdServices;
     VD.IWant(VD.ToEqual,V.boardNumbersAddServices.Total, V.totalAllServices, 'total не правильно посчитался после добавления всех сервисов и инвентория');
-    SF.sleep(1);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
 
@@ -96,7 +97,7 @@ condition.nowWeDoing = 'сохранили и закрыли ревест. Ид�
     V.boardNumbersLast = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersLast);
     LF.Validation_Compare_Account_Admin (V.boardNumbersAddServices, V.boardNumbersLast);
-    SF.sleep(2);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

@@ -86,7 +86,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text()," Inhome Estimate")]')).getText().then(function (Status) {
         VD.IWant(VD.ToEqual, Status, 'INHOME ESTIMATE');
     }), config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
 
     SF.endOfTest();

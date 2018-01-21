@@ -9,17 +9,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'идем в настройки и отключаем резервацию в 0';
+condition.nowWeDoing = 'идем в настройки и отключаем резервацию в 0';
     MF.Board_OpenSettingsSchedule();
     V.ReservationPrice = 0;
     MF.Schedule_SetReservationLocalTo(V.ReservationPrice);
     MF.Board_Refresh();
 
-    condition.nowWeDoing = 'создаем реквест';
+condition.nowWeDoing = 'создаем реквест';
     LF.CreateMovAndStorFromBoard (V.client);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-    LF.addToCleanerJob(V.boardNumbers.Id);
+    // LF.addToCleanerJob(V.boardNumbers.Id);
     MF.EditRequest_SetToNotConfirmed();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
@@ -39,11 +39,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SetAdressTo ();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
-
-
     MF.Board_LogoutAdmin ();
 
-    condition.nowWeDoing = 'идем в аккаунт букать работу без резервации';
+condition.nowWeDoing = 'идем в аккаунт букать работу без резервации';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);

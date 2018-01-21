@@ -24,7 +24,7 @@ condition.nowWeDoing = 'зашли первый раз в аккаунт';
     MF.Account_WaitForDetailsCheck();
     V.accountNumbersTo = {};
     LF.RememberAccountNumbers(V.accountNumbersTo);
-    LF.addToCleanerJob(V.accountNumbersTo.Id);
+    // LF.addToCleanerJob(V.accountNumbersTo.Id);
     SF.sleep(1);
 
 condition.nowWeDoing = 'запомнили цифры ToStorage идём на From';
@@ -35,7 +35,7 @@ condition.nowWeDoing = 'запомнили цифры ToStorage идём на Fr
     V.accountNumbersFrom = {};
     MF.WaitWhileBusy();
     LF.RememberAccountNumbers(V.accountNumbersFrom);
-    LF.addToCleanerJob(V.accountNumbersFrom.Id);
+    // LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
@@ -307,7 +307,7 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
 	MF.Payroll_getTotalById(V.boardNumbersFrom.Id, V.payrollNumbersFrom.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbersFrom.Sale.Total, V.boardNumbersFrom.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.accountNumbersFrom.Id);
-    SF.sleep(3);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

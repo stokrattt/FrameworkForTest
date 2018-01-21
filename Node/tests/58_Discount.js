@@ -30,7 +30,6 @@ condition.nowWeDoing = 'пошли на дашборд, открываем ре�
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep(1);
     LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbers);
-    SF.sleep(1);
     MF.EditRequest_OpenSettings ();
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.showCoupons"]/following-sibling::span'));
     SF.sleep(1);
@@ -70,13 +69,11 @@ condition.nowWeDoing = 'идем в акк запоминаем данные и 
         V.DiscountCode = cod;
     }),config.timeout);
     SF.sleep(1);
-    SF.click(By.xpath('//button[@class="confirm"]'));
-    SF.sleep(3);
-    MF.WaitWhileBusy ();
+    MF.SweetConfirm();
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep(2);
+
 condition.nowWeDoing = 'пошли в админку второй раз, конфермим работу идем в диспач назначаем команду';
     MF.Board_OpenRequest (V.accountNumbers.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
@@ -114,16 +111,13 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     SF.sleep(1);
     SF.send(By.xpath('//input[@placeholder="Promo code"]'), V.DiscountCode);
     MF.WaitWhileBusy ();
-    SF.sleep(4);
-    SF.click(By.xpath('//button[@class="confirm"]'));
-    SF.sleep(2);
+    MF.SweetConfirm();
     MF.SweetConfirm ();
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
         V.TotalLessWithDiscount = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(1);
     VD.IWant (VD.NotToEqual, V.TotalLess, V.TotalLessWithDiscount, 'скидка-купон на контракте не применилась');
-    SF.sleep(1);
     MF.Contract_ClickPay();
     SF.sleep(2);
     SF.click(By.xpath('//div[@ng-click="tipsSelected()"]'));
@@ -133,7 +127,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     }),config.timeout);
     SF.sleep(1);
     VD.IWant (VD.ToEqual, V.Payment, V.TotalLessWithDiscount, 'в модальном окне при оплате скидка-купон на контракте не применилась');
-    SF.sleep(1);
     MF.Contract_ClickPaymentInfo();
     SF.click(By.xpath('//div[@ng-click="choosePayment(\'checkPay\');"]'));
     SF.sleep(1);
@@ -142,7 +135,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     }),config.timeout);
     SF.sleep(1);
     VD.IWant (VD.ToEqual, V.PaymentCheck, V.TotalLessWithDiscount, 'в модальном окне при оплате Check скидка-купон на контракте не применилась');
-    SF.sleep(1);
     SF.send (By.xpath('//input[@ng-model="paymentCheck.check_num"]'), 56556566);
     SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
     MF.WaitWhileBusy ();
@@ -158,7 +150,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
 
 condition.nowWeDoing = 'идем в акк третий раз в конце после подписи проверять паймент на аккаунте';
     MF.Account_OpenRequest (V.accountNumbers.Id);
-    MF.WaitWhileBusy ();
     MF.Account_WaitForGreenTextAfterConfirm ();
     SF.click(By.xpath('//li[@id="tab_Payment Receipts"]'));
     SF.sleep(4);
@@ -167,7 +158,6 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
     }),config.timeout);
     SF.sleep(1);
     VD.IWant (VD.ToEqual, V.PaymentAccount, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент не совпала оплата которая была на контракте');
-    SF.sleep(1);
     SF.click(By.xpath('//tr[@ng-repeat="receipt in vm.request.receipts track by $index"]/td[4]'));
     SF.waitForLocated (By.xpath('//div[contains(@class, "payment-receipt-modal")]'));
     SF.sleep(3);

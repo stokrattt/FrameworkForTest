@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/42_DrivingTimeLocalMoveMarketToolsOFF.js'];
+    config.suite = ['./tests/22_WeDontMoveToThisState.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;

@@ -25,7 +25,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id1 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.Id1);
+        // LF.addToCleanerJob(V.Id1);
     }), config.timeout);
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
@@ -41,7 +41,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     LF.addInventoryBoard();
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id2 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.Id2);
+        // LF.addToCleanerJob(V.Id2);
     }), config.timeout);
     MF.EditRequest_SetStartTime (V.time);
 
@@ -61,7 +61,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     LF.CreateLocalMovingFromBoard(V.client3);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id3 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.Id3);
+        // LF.addToCleanerJob(V.Id3);
     }), config.timeout);
 
     MF.EditRequest_SetStartTime (V.time);

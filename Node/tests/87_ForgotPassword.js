@@ -15,12 +15,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
-
     condition.nowWeDoing = ' в аккаунте';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
-    SF.sleep(5);
-    MF.WaitWhileBusy();
     SF.click(By.xpath('//a[@ng-click="openModal()"]'));
     JS.waitForExist('input[ng-model=\\"client.mail\\"]');
     SF.clear(By.xpath('//input[@ng-model="client.mail"]'));

@@ -26,16 +26,12 @@ condition.nowWeDoing = 'заполняем калькулятор верхний
 
 condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
     MF.Account_ClickPartialPacking();
-    SF.sleep(2);
     LF.AccountLoadingEnterAddress();
-    SF.sleep(2);
     LF.AccountLocalAddInventory();
     LF.AccountLoadingDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     //LF.addToCleanerJob(V.accountNumbers.Id);
@@ -47,7 +43,6 @@ condition.nowWeDoing = 'первый раз в админке';
     MF.Board_OpenSettingsDepartment();
     MF.Board_OpenSideBar();
     MF.WaitWhileBusy ();
-    SF.sleep(2);
     MF.Department_OpenHuman ("Test Admin");
     MF.Department_OpenNotificationTab();
     driver.wait(driver.executeScript("if($('md-switch[ng-repeat=\"selectAllNotification in selectAllNotifications track by $index\"]').hasClass('md-checked')){" +
@@ -87,7 +82,6 @@ condition.nowWeDoing = 'первый раз в админке';
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Loading Not Confirmed");
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
@@ -144,8 +138,6 @@ condition.nowWeDoing = 'проверяем в календаре, что раб�
    V.Req1Cal = text;
     VD.IWant(VD.ToEqual, ('#' +V.accountNumbers.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'фореману в календарь не пришла работа');
      }),config.timeout);
-    SF.sleep(3);
-
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     SF.get(V.adminURL);
@@ -205,7 +197,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.MakeSignInContract();
     V.contractNumbers = {};
     MF.Contract_Submit(V.contractNumbers);
-    SF.sleep(2);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 

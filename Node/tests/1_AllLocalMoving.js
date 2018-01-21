@@ -12,19 +12,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
-    SF.sleep(2);
-    MF.WaitWhileBusy();
     MF.Account_ClickPartialPacking();
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
-    MF.WaitWhileBusy();
     LF.AccountLocalDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
-    LF.addToCleanerJob(V.accountNumbers.Id);
+    // LF.addToCleanerJob(V.accountNumbers.Id);
 
     LF.LogoutFromAccount();
 
@@ -161,7 +157,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep(3);
+    SF.sleep(1.5);
 
     SF.endOfTest();
 };

@@ -9,16 +9,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
 
-    condition.nowWeDoing = 'создать local Moving реквест с борда';
+condition.nowWeDoing = 'создать local Moving реквест с борда';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
 
-    condition.nowWeDoing = 'Законфёрмить сразу реквест';
+condition.nowWeDoing = 'Законфёрмить сразу реквест';
     V.boardNumbers = {};
     LF.addInventoryBoard ();
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-    LF.addToCleanerJob(V.boardNumbers.Id);
+    // LF.addToCleanerJob(V.boardNumbers.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime) / 60));
     MF.WaitWhileBusy();
     JS.scroll('div.ServicesCost:visible');
@@ -29,24 +29,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SetLaborTimeCloseJob ('01:00');
     MF.EditRequest_CloseJob ();
 
-    condition.nowWeDoing = 'добавить в пейролл людей и закрыть';
+condition.nowWeDoing = 'добавить в пейролл людей и закрыть';
     MF.EditRequest_OpenPayroll ();
     MF.EditRequest_PayrollAddManager(V.managerName);
     MF.WaitWhileBusy ();
     MF.EditRequest_PayrollOpenForemanTab();
     MF.EditRequest_PayrollAddForeman(V.foremanName);
-    SF.click(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@class="confirm"]'));
-    JS.waitForExist('div.sa-success:visible');
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@class="confirm"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
-    SF.sleep(1);
+    MF.EditRequest_PayrollSubmit();
+    MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'снова открыть и найти людей';
+condition.nowWeDoing = 'снова открыть и найти людей';
     MF.Board_OpenConfirmed ();
     MF.Board_RefreshDashboard ();
     MF.Board_OpenRequest(V.boardNumbers.Id);
@@ -65,7 +58,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.countForeman, 1,'не сохранился Foreman');
-    SF.sleep(2);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

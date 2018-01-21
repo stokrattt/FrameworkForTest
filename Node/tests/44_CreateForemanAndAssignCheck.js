@@ -13,30 +13,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'создаем форемана, и ставим ему комиссию hourly rate';
     MF.Board_OpenSettingsDepartment ();
-    SF.sleep(3);
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
-    SF.sleep(2);
-    SF.click (By.xpath('//div[@ng-click="vm.openCreateUserModal()"]'));
-    SF.waitForVisible (By.xpath('//form[@name="createUserRequest"]'));
+    MF.Department_OpenForeman();
+    MF.Department_ClickCreateUser();
     V.foremanFirstName = SF.randomBukva(5) + '_for';
     V.foremanLastName = SF.randomBukva(5) + '_for';
-    SF.send (By.xpath('//input[@ng-model="request.firstName"]'), V.foremanFirstName);
-    SF.send (By.xpath('//input[@ng-model="request.lastName"]'), V.foremanLastName);
-    SF.send(By.xpath('//input[@ng-model="request.phone1"]'), 12345678960);
-    SF.click (By.linkText('Account'));
+    MF.Department_SendFirstLastNameAndPhone (V.foremanFirstName, V.foremanLastName, '12345678960');
+    MF.Department_User_OpenAccount();
     V.foremanAccount = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.foremanPass = 123;
-    SF.send (By.xpath('//input[@ng-model="request.login"]'), V.foremanAccount);
-    SF.send (By.xpath('//input[@ng-model="request.password"]'), V.foremanPass);
+    MF.Department_SendAccountNameAndPassword(V.foremanAccount, V.foremanPass);
     SF.click (By.xpath('//li[@ng-click="activeMainTab = 2"]'));
     SF.select(By.xpath('//select[@ng-model="rateCommission[trueIndex].option"]'), "Hourly Rate");
     SF.clear (By.xpath('//input[@ng-model="rateCommission[$index].input"]'));
     SF.send (By.xpath('//input[@ng-model="rateCommission[$index].input"]'), "150");
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    MF.WaitWhileBusy ();
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    SF.sleep(3);
+    MF.Department_CreateUser();
 
 condition.nowWeDoing = 'создаем реквест, конфермим его';
     LF.CreateLocalMovingFromBoard(V.client);
@@ -45,12 +35,10 @@ condition.nowWeDoing = 'создаем реквест, конфермим его
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SetAdressToFrom ();
-    LF.addToCleanerJob (V.boardNumbers.Id);
+    // LF.addToCleanerJob (V.boardNumbers.Id);
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
-
-
     MF.Board_OpenSideBar ();
     MF.Board_OpenSettingsGeneral();
     SF.click(By.linkText('Contract page'));
@@ -102,6 +90,7 @@ condition.nowWeDoing = 'зашли  под созданным фореманом
     LF.LogoutFromBoardForeman();
     LF.LoginToBoardAs_Roma4ke_Admin ();
     /*********************************************************************************/
+
 condition.nowWeDoing = 'идем в диспач ищем работу, проверяем баланс = 0, открываем в реквесте пейролл, проверяем комиссию = 150 за час';
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -127,16 +116,8 @@ condition.nowWeDoing = 'идем в диспач ищем работу, пров
 condition.nowWeDoing = 'идем в пейрол ищем форемана и проверяем комиссию';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
-    SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"foreman")]'));
-    SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"foreman")]'));
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"'+V.foremanFirstName+'")]'));
-    SF.click(By.xpath('//table[@id="print-area"]//td[contains(text(),"'+V.foremanFirstName+'")]'));
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
-    SF.sleep(2);
-	V.payrollNumbers = {
+    LF.findTestForemanInPayroll(V.foremanFirstName);
+    V.payrollNumbers = {
 		Foreman:{}, Sale:{}
 	};
 	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
@@ -145,13 +126,8 @@ condition.nowWeDoing = 'идем в пейрол ищем форемана и п
 condition.nowWeDoing='идем удалять форемана';
     SF.sleep(1);
     MF.Board_OpenSettingsDepartment ();
-    SF.sleep(2);
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[6]/a'));
-    SF.sleep(4);
-    MF.WaitWhileBusy ();
-    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "' + V.foremanFirstName + '")]'))).doubleClick().perform();
-
-    SF.sleep (3);
+    MF.Department_OpenForeman();
+    MF.Department_OpenHuman(V.foremanFirstName);
     SF.click (By.xpath('//button[@ng-click="deleteWorker()"]'));
     MF.SweetConfirm ();
     MF.WaitWhileToaster ();
@@ -164,7 +140,7 @@ condition.nowWeDoing='идем удалять форемана';
         "return true;}else{$('input[ng-model=\"contract_page.lessInitialContract\"]').click()}"),config.timeout);
     SF.sleep(0.5);
     SF.click (By.xpath('//button[@ng-click="save()"]'));
-    SF.sleep (5); //сохранялка
+    SF.sleep (3); //сохранялка
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

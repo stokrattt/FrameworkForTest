@@ -12,12 +12,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
     LF.AccountLocalEnterAddress();
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
-    LF.addToCleanerJob(V.accountNumbers.Id);
+    // LF.addToCleanerJob(V.accountNumbers.Id);
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'первый раз в админке';
@@ -29,7 +27,7 @@ condition.nowWeDoing = 'первый раз в админке';
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
-    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    JS.step(JSstep.selectTruck(4));
     MF.WaitWhileBusy();
     V.managerFirstName = 'emilia';
     MF.EditRequest_OpenSettings();

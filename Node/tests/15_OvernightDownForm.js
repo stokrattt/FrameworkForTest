@@ -10,34 +10,23 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    condition.nowWeDoing = 'идем в департмент включить календарь для сеилса';
+
+condition.nowWeDoing = 'идем в департмент включить календарь для сеилса';
     MF.Board_OpenSettingsDepartment ();
-    MF.WaitWhileBusy();
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
-    MF.WaitWhileBusy ();
-    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "JackSales donotdelete")]'))).doubleClick().perform();
-    SF.sleep (2);
-    SF.click (By.linkText('Account'));
-    MF.WaitWhileBusy();
-    SF.click (By.xpath('//input[@ng-model="gmail"]'));
-    SF.clear (By.xpath('//input[@ng-model="gmail"]'));
-    SF.click (By.xpath('//input[@ng-model="gmail"]'));
-    SF.send (By.xpath('//input[@ng-model="gmail"]'), V.salesEmail);
-    MF.WaitWhileBusy();
-    SF.click (By.xpath('//input[@ng-model="inputValue"]'));
-    SF.click (By.xpath('//li[contains(text(), "Archive Calendar")]'));
-    SF.click (By.xpath('//li[contains(text(), "Pending Calendar")]'));
-    SF.click (By.xpath('//li[contains(text(), "Not Confirmed Calendar")]'));
-    SF.click (By.xpath('//li[contains(text(), "Confirmed Calendar")]'));
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    MF.SweetConfirm();
-    SF.sleep(20);
-    MF.WaitWhileToaster();
+    MF.Department_OpenSales();
+    MF.Department_OpenHuman('JackSales donotdelete');
+    MF.Department_User_OpenAccount();
+    MF.Department_SetGoogleMail(V.salesEmail);
+    MF.Department_TurnOnAllGmailCalendar();
+    MF.Department_SaveUser();
     MF.Board_LogoutAdmin();
+
+condition.nowWeDoing = 'идем на фронтовую форму';
     SF.get(V.frontURL);
     JS.waitForExist ('#loader');
     SF.sleep (4);
     LF.CreateOvernightDownForm (V.client);
+
 condition.nowWeDoing = 'запоминаем данные калькулятора PICK UP';
     V.frontNumbersOvernightDown_UP = {};
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, from_storage)]//div[@ng-if="storageCalcResult.to.surcharge_fuel"]/span')).getText().then(function(text){
@@ -126,22 +115,16 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     SF.openTab (1);
 
 condition.nowWeDoing = 'пошли в аккаунт';
-    SF.sleep (3);
-    MF.WaitWhileBusy ();
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy ();
-    SF.sleep(2);
     V.accountNumbersUp = {};
     LF.RememberAccountNumbers (V.accountNumbersUp);
-    LF.addToCleanerJob(V.accountNumbersUp.Id);
+    // LF.addToCleanerJob(V.accountNumbersUp.Id);
     LF.Validation_Compare_Account_Front_MovStorTo(V.accountNumbersUp, V.frontNumbersOvernightDown_UP);
     MF.Account_ClickFromStorage ();
     V.accountNumbersDelivery = {};
     SF.sleep (0.5);
-    MF.WaitWhileBusy ();
-    SF.sleep(3);
     LF.RememberAccountNumbers(V.accountNumbersDelivery);
-    LF.addToCleanerJob(V.accountNumbersDelivery.Id);
+    // LF.addToCleanerJob(V.accountNumbersDelivery.Id);
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersDelivery, V.frontNumbersOvernightDown_Del);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
@@ -153,7 +136,8 @@ condition.nowWeDoing = 'зашли в админку';
     LF.RememberDigitsRequestBoard(V.boardNumbersUp);
     JS.step(JSstep.selectTruck((V.boardNumbersUp.LaborTimeMax + V.boardNumbersUp.TravelTime)/60));
     MF.WaitWhileBusy();
-    condition.nowWeDoing = 'сравниваем аккаунт и админку';
+
+condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbersUp,V.boardNumbersUp);
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SetAdressFrom ();
@@ -165,10 +149,7 @@ condition.nowWeDoing = 'зашли в админку';
     V.managerFirstName = 'JackSales';
     MF.EditRequest_OpenSettings();
     LF.SetManager(V.managerFirstName);
-
-
     LF.closeEditRequest ();
-    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.accountNumbersDelivery.Id);
     V.boardNumbersDelivery = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersDelivery);
@@ -184,21 +165,14 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     MF.EditRequest_OpenSettings();
     LF.SetManager(V.managerFirstName);
     LF.closeEditRequest ();
-    MF.WaitWhileBusy();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
 
-    condition.nowWeDoing = 'зашли под клиентом букаем первую работу';
+condition.nowWeDoing = 'зашли под клиентом букаем первую работу';
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbersUp.Id);
     MF.Account_OpenRequest(V.accountNumbersUp.Id);
-
-    MF.WaitWhileBusy();
-    SF.sleep(2);
-    MF.WaitWhileBusy();
-
     MF.Account_ClickProceedBookYourMove();
-
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
@@ -213,11 +187,10 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку в
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
     MF.Account_WaitForGreenTextAfterConfirm();
-    SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
-    SF.sleep (2);
+    MF.Account_ClickFromStorage();
+
 condition.nowWeDoing = 'букаем вторую работу овернайта';
     MF.Account_ClickProceedBookYourMove();
-
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
     SF.click (By.id('terms'));
@@ -236,17 +209,9 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
 condition.nowWeDoing = 'идем в гугл почту';
     SF.get('http://gmail.com');
     SF.sleep(10);
-    SF.send(By.xpath('//input[@type="email"]'),V.googleloginSale);
-    SF.sleep(2);
-    SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
-    SF.sleep(3);
-    SF.send(By.xpath('//input[@type="password"]'),V.googlePasSale );
-    SF.sleep(2);
-    SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
-    SF.sleep(10);
+    MF.Gmail_Login(V.googleloginSale, V.googlePasSale);
 
-
-    condition.nowWeDoing = 'выбираем расписание, ищем в нем 1ю работу';
+condition.nowWeDoing = 'выбираем расписание, ищем в нем 1ю работу';
     SF.get('https://calendar.google.com/calendar');
     SF.sleep(2);
     SF.click (By.xpath('//div[@class="XyKLOd"]'));
@@ -275,23 +240,16 @@ condition.nowWeDoing = 'идем в гугл почту';
     }),config.timeout);
     SF.sleep(4);
 
-
-    condition.nowWeDoing = 'идем в департмент выключить календарь для сеилса';
+condition.nowWeDoing = 'идем в департмент выключить календарь для сеилса';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsDepartment ();
-    MF.WaitWhileBusy();
-    SF.click (By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
-    MF.WaitWhileBusy ();
-    driver.actions().mouseMove(driver.findElement(By.xpath('//td[contains(text(), "JackSales donotdelete")]'))).doubleClick().perform();
-    SF.sleep (2);
-    SF.click (By.linkText('Account'));
+    MF.Department_OpenSales();
+    MF.Department_OpenHuman('JackSales donotdelete');
+    MF.Department_User_OpenAccount();
     SF.click (By.xpath('//input[@ng-model="gmail"]'));
     SF.clear (By.xpath('//input[@ng-model="gmail"]'));
-    SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
-    MF.SweetConfirm();
-    MF.WaitWhileBusy();
+    MF.Department_SaveUser();
 
-
-     SF.endOfTest();
+    SF.endOfTest();
 };

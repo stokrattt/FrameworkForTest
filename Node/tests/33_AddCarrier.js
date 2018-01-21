@@ -98,6 +98,7 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     VD.IWant(VD.ToEqual,-SF.cleanPrice(V.carrierNew3.phoneNumber1), V.carrierNew2.phoneNumber1,'Поля не совпадают');
     JS.click('span:contains(\\"Save\\")');
     SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));
+
 condition.nowWeDoing = 'Проверяем есть ли карьер в списке при добалении трипа';
     MF.Board_OpenSideBar ();
     MF.Board_OpenTripPlanner ();
@@ -123,7 +124,7 @@ condition.nowWeDoing = 'удаляем карьера';
             JSstep.sendRequestNoParam('DELETE', 'http://api.moversboard.net:8084/server/long_distance_carrier/'+id)
         );
     }),config.timeout);
-
+    SF.sleep(1);
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

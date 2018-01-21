@@ -45,7 +45,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));
-    SF.sleep(1);
     MF.Account_ClickViewRequest();
 
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.jobTime.isDisplay"]'));

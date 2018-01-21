@@ -28,7 +28,7 @@ condition.nowWeDoing = 'в админке создаем первий рекве
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id1 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.Id1);
+        // LF.addToCleanerJob(V.Id1);
     }), config.timeout);
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
@@ -43,7 +43,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     LF.CreateLocalMovingFromBoard(V.client2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id2 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.Id2);
+        // LF.addToCleanerJob(V.Id2);
     }), config.timeout);
     SF.sleep (1);
     MF.EditRequest_SetStartTime('01:00 PM');
@@ -62,7 +62,7 @@ condition.nowWeDoing = 'создаем третий реквест, ставим
     LF.CreateLocalMovingFromBoard(V.client3);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id3 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.Id3);
+        // LF.addToCleanerJob(V.Id3);
     }), config.timeout);
     MF.EditRequest_SetStartTime ('11:00 AM');
     SF.sleep (3);

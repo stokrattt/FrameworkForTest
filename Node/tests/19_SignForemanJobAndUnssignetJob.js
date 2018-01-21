@@ -16,7 +16,7 @@ condition.nowWeDoing = 'зашли в админку и создаем рекв�
     V.boardNumbers={};
     LF.RememberDateFromRequest (V.boardNumbers);
     MF.EditRequest_RememberId (V.request);
-    LF.addToCleanerJob(V.request.Id);
+    // LF.addToCleanerJob(V.request.Id);
 
 condition.nowWeDoing = 'конфермим работу';
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -26,7 +26,6 @@ condition.nowWeDoing = 'конфермим работу';
     MF.EditRequest_SetAdressFrom ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest();
-    SF.sleep (2);
 
 condition.nowWeDoing = 'идем в диспач первый раз тут заодно проверяем цвет или меняется когда назначем или убираем команду';
     MF.Board_OpenLocalDispatch ();
@@ -106,7 +105,6 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
         JS.scroll('div.BalanceCost:visible');
     }
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
-
     SF.click(By.xpath('//div[@ng-click="openSalaryCommisionModal();"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="reSubmitPayroll()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');

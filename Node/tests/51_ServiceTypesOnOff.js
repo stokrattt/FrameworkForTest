@@ -8,11 +8,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
-    condition.nowWeDoing='Заходим в настройки Company Services';
+
+condition.nowWeDoing='Заходим в настройки Company Services';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenCompanyServices();
-    condition.nowWeDoing='Включаем только Local,Loading,Unloading,Long';
+
+condition.nowWeDoing='Включаем только Local,Loading,Unloading,Long';
 
     //========================селекторы галочек
     V.localSelector = '//input[@ng-model="vm.basicSettings.services.localMoveOn"]';
@@ -60,13 +62,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(5);
     MF.Board_Refresh ();
     MF.Board_LogoutAdmin();
-    SF.sleep(3);
-    condition.nowWeDoing='проверяем на фронте: включено ли только Local,Loading,Unloading,Flat';
+
+condition.nowWeDoing='проверяем на фронте: включено ли только Local,Loading,Unloading,Flat';
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
     SF.sleep(6);
     SF.click(By.xpath('//input[@ng-change="serviceneed = true"]/..'));
-
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Moving") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
             VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Local Moving');
@@ -96,12 +97,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Long Distance');
     }),config.timeout);
     SF.sleep(1);
-    condition.nowWeDoing='проверяем на борде: включено ли только Local,Loading,Unloading,Flat';
+
+condition.nowWeDoing='проверяем на борде: включено ли только Local,Loading,Unloading,Flat';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_ClickCreate();
-
-
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Moving") and ' +
         'not(contains(text(),"Storage"))]')).then(function(array){
         VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Local Moving');
@@ -133,7 +133,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
 
-    condition.nowWeDoing='Включаем только Storage,Overnight,Long';
+condition.nowWeDoing='Включаем только Storage,Overnight,Long';
     MF.Board_OpenCompanyServices();
     JS.scroll ('h4:contains("Company Services Settings")');
     SF.sleep(2);
@@ -171,12 +171,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(6);
     MF.Board_Refresh ();
     MF.Board_LogoutAdmin();
-SF.sleep(3);
-    condition.nowWeDoing='проверяем на фронте: включено ли только Storage,Overnight,Long';
+
+condition.nowWeDoing='проверяем на фронте: включено ли только Storage,Overnight,Long';
     SF.get(V.frontURL);
     JS.waitForExist('select[ng-model=\\"request.serviceType\\"]:visible');
     SF.sleep(8);
-
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Moving") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
         VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Local Moving');
@@ -206,12 +205,11 @@ SF.sleep(3);
         VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Long Distance');
     }),config.timeout);
     SF.sleep(1);
-    condition.nowWeDoing='проверяем на борде: включено ли только Storage,Overnight,Long';
+
+condition.nowWeDoing='проверяем на борде: включено ли только Storage,Overnight,Long';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_ClickCreate();
-
-
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Moving") and ' +
         'not(contains(text(),"Storage"))]')).then(function(array){
         VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Local Moving');
@@ -243,7 +241,7 @@ SF.sleep(3);
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
 
-    condition.nowWeDoing='Возвращаем как было';
+condition.nowWeDoing='Возвращаем как было';
     MF.Board_OpenCompanyServices();
     JS.scroll ('h4:contains("Company Services Settings")');
     SF.sleep(2);

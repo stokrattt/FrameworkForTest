@@ -12,13 +12,14 @@ condition.nowWeDoing = 'идем в админку проверяем что с�
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsGeneral ();
-    SF.sleep (3);
+    SF.sleep (2);
     JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
     SF.sleep(3);
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
+
 condition.nowWeDoing = 'создаем Flat Rate реквест';
     LF.CreateFlatRateDownForm(V.client);
 
@@ -44,21 +45,20 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
     SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
     JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
     MF.WaitWhileBusy();
+
 condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.AccountFlatRateAddInventory();
     SF.sleep(2);
     MF.Account_SubmitFlatRateAfterAddInventory ();
     JS.scroll ('a[ng-click=\\"vm.Logout()\\"]');
-
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.FRId = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(10);
     LF.LogoutFromAccount ();
-
     SF.get(V.adminURL);
 
-    condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции 1';
+condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции 1';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequestFlatRate (V.FRId);
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
@@ -84,6 +84,7 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     SF.sleep (0.5);
     SF.click (By.xpath('//a[@ng-click="addOption()"]'));
     SF.sleep (4);
+
 condition.nowWeDoing = 'заполняем опции 2';
     SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
     SF.sleep (0.5);
@@ -123,14 +124,12 @@ condition.nowWeDoing = 'заполняем опции 2';
 condition.nowWeDoing = 'идем в акк под клиентом выбирать опцию';
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest (V.FRId);
-    SF.sleep(2);
     MF.Account_ChooseOptionFlatRate();
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
 
 condition.nowWeDoing = 'пошли в админку 2 раз, ставить трак, нот конферм';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep (3);
     MF.Board_OpenRequest (V.FRId);
 
 condition.nowWeDoing = 'добавляем дисконт';
@@ -168,9 +167,7 @@ condition.nowWeDoing = 'добавляем дисконт';
     }),config.timeout);
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();
-
     MF.EditRequest_OpenLogs();
-
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"flat rate not confirm")]' +
         '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Flat Rate Quote")]/../../../../../../' +
@@ -188,7 +185,6 @@ condition.nowWeDoing = 'добавляем дисконт';
 
 condition.nowWeDoing = 'идем в акк под клиентом 2 раз букать работу';
     MF.Account_OpenRequest (V.FRId);
-    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Discount")]/following-sibling::div[1]/div')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), '-500', 'не отобразился дискаунт на аккаунте');
     }),config.timeout);
@@ -200,7 +196,7 @@ condition.nowWeDoing = 'идем в акк под клиентом 2 раз бу
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.flatRateDiscount"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), '-500', 'не показало дисконт на конфирмейшн');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -208,7 +204,6 @@ condition.nowWeDoing = 'идем в акк под клиентом 2 раз бу
 condition.nowWeDoing = 'идем в админку проверять что работа конферм';
     MF.Board_OpenConfirmed ();
     MF.Board_OpenRequest (V.FRId);
-    SF.sleep (3);
     LF.closeEditRequest ();
     MF.Board_OpenSchedule ();
     condition.nowWeDoing = 'идем в календарь проверять что трак есть на календаре';
@@ -242,7 +237,7 @@ condition.nowWeDoing = 'идем в админку проверять что р�
                 }),config.timeout);
             }
 
-    SF.sleep(2);
+    SF.sleep(1);
     
     //=========================закончили писать тест=============================
     SF.endOfTest();

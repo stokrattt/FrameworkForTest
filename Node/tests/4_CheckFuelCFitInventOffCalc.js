@@ -17,16 +17,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (4);
 
     //*****************************************************************************
-    condition.nowWeDoing = 'считаем бензин';
+condition.nowWeDoing = 'считаем бензин';
     MF.EditRequest_OpenFuel();
     MF.EditRequest_GetValueFromFuelModal(V.boardNumbers);
-
     MF.EditRequest_CloseModal();
     V.summQuote = (parseFloat((V.boardNumbers.QuoteMin + V.boardNumbers.QuoteMax)/2)).toFixed(2);
     V.calcFuel = (V.summQuote * V.boardNumbers.FuelPerc/100).toFixed(2);
     VD.IWant(VD.ToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан неправильно');
     SF.sleep (1);
-
     V.boardNumbersNew={};
     MF.EditRequest_RememberCbf(V.boardNumbersNew);
     VD.IWant(VD.NotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
@@ -34,7 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbersNew = {};
     MF.EditRequest_RememberCbf(V.boardNumbers);
 
-    condition.nowWeDoing = 'выключили калькулятор';
+condition.nowWeDoing = 'выключили калькулятор';
     MF.EditRequest_SwitchCalculator();
     MF.EditRequest_AddRoomNumber(2);
     MF.EditRequest_AddRoomNumber(7);
@@ -42,7 +40,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_RememberCbf(V.boardNumbersNew);
     VD.IWant(VD.NotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
 
-    condition.nowWeDoing = 'включили калькулятор';
+condition.nowWeDoing = 'включили калькулятор';
     MF.EditRequest_SwitchCalculator();
     LF.addInventoryBoard (V.boardNumbers);
     MF.EditRequest_RememberCbf(V.boardNumbers);
@@ -98,7 +96,7 @@ condition.nowWeDoing = 'тут мы делаем оплату через кас�
     MF.Board_OpenRequest (V.boardNumbers.Id);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     VD.IWant(VD.ToEqual, 50, V.boardNumbers.Payment, 'не изменился паймент в реквесте после того как мы отредактировали ресит');
-    SF.sleep(2);
+    SF.sleep(1.5);
 
 //*******************************************************************************************
     SF.endOfTest();

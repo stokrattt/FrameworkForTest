@@ -14,9 +14,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'создаем реквест ';
     LF.CreateLocalMovingFromBoard (V.client);
-    SF.sleep (2);
     MF.EditRequest_RememberId (V.request);
-    LF.addToCleanerJob(V.request.Id);
+    // LF.addToCleanerJob(V.request.Id);
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressToFrom ();
     V.boardNumbers = {};
@@ -30,6 +29,7 @@ condition.nowWeDoing = 'создаем реквест ';
     MF.EditRequest_OpenRequest ();
     MF.EditRequest_CloseConfirmWork();
     LF.closeEditRequest();
+
 condition.nowWeDoing = 'идем в конфернутные работы и меняем дату';
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest(V.request.Id);
@@ -43,29 +43,28 @@ condition.nowWeDoing = 'идем в конфернутные работы и м�
     MF.WaitWhileBusy();
     SF.sleep (4);
     LF.RememberDateFromRequest(V.boardNumbers);
-    SF.sleep(2);
     MF.EditRequest_WaitForBalanceVisible();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseConfirmWork();
     LF.closeEditRequest();
+
 condition.nowWeDoing = 'ищем второй раз в диспатче реквест с другой датой и проверяем поменялась ли она, если не открылся реквест значит его там нету и дата не поменялась' +
     'также добавляем команду';
     MF.Board_OpenLocalDispatch();
     SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year,V.boardNumbers.moveDate.Month,V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
-    MF.WaitWhileBusy ();
     LF.SelectRequestDispatch(V.request.Id);
     LF.selectCrew(V.foremanName);
     MF.Board_LogoutAdmin ();
-    condition.nowWeDoing = 'идем в аккаунт просто и возвращаемся в диспач и проверяем что команда не слетела';
+
+condition.nowWeDoing = 'идем в аккаунт просто и возвращаемся в диспач и проверяем что команда не слетела';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest(V.request.Id);
     MF.Account_ClickViewRequest();
-
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

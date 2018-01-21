@@ -13,7 +13,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'идем в настройки фуела и добавляем две строки fuel by mileage';
     MF.Board_OpenSettingsGeneral();
-    SF.sleep(2);
     MF.BoardSettings_ClickFuelSurcharge();
     JS.scroll ('a[ng-click="vm.select(tab)"]:contains("Basic")');
     SF.sleep(2);
@@ -28,7 +27,6 @@ condition.nowWeDoing = 'идем в настройки фуела и добав�
             SF.sleep(1);
         }
     }
-
     SF.click(By.xpath('//button[@ng-click="vm.addNewSurcharge(); vm.addSurcharge = true"]'));
     SF.send(By.xpath('//input[@ng-model="vm.newSurcharge.from"]'), 60);
     SF.send(By.xpath('//input[@ng-model="vm.newSurcharge.to"]'), 100);

@@ -56,7 +56,6 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
         V.LDAdminCalc.Total = SF.cleanPrice (total);
     }),config.timeout);
     SF.sleep (1);
-
     MF.CreateRequest_ClickContinue();
     MF.CreateRequest_SendClientInfo(V.client);
     MF.CreateRequest_ClickCreate();
@@ -65,7 +64,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
     V.request.Id = {};
         driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id);
+        // LF.addToCleanerJob(V.request.Id);
     }), config.timeout);
 
 condition.nowWeDoing = 'сравниваем данные калькулятора и реквеста';
@@ -77,7 +76,7 @@ condition.nowWeDoing = 'сравниваем данные калькулятор
     LF.addAdditionalInventoryBoard();
     MF.EditRequest_AddPacking ();
     SF.sleep(4);
-Debug.pause();
+
 condition.nowWeDoing = 'запоминаем данные после добавления всех сервисов ';
     V.boardNumbersWithAddServices = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersWithAddServices);
@@ -95,7 +94,6 @@ condition.nowWeDoing = 'запоминаем данные после добав�
     LF.closeEditRequest ();
     MF.Board_OpenDashboard();
     MF.Board_OpenNotConfirmed();
-    MF.WaitWhileBusy ();
     MF.Board_OpenRequest(V.request.Id);
 
 condition.nowWeDoing = 'идём в логи';

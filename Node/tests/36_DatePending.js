@@ -25,7 +25,7 @@ condition.nowWeDoing = 'создаем первый реквест';
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id1 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.Id1);
+        // LF.addToCleanerJob(V.Id1);
     }), config.timeout);
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
@@ -40,10 +40,9 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     LF.CreateLocalMovingFromBoard(V.client2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id2 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.Id2);
+        // LF.addToCleanerJob(V.Id2);
     }), config.timeout);
     MF.EditRequest_SetStartTime (V.time);
-
     SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
     MF.WaitWhileBusy();
@@ -60,10 +59,9 @@ condition.nowWeDoing = 'создаем третий реквест, ставим
     LF.CreateLocalMovingFromBoard(V.client3);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id3 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.Id3);
+        // LF.addToCleanerJob(V.Id3);
     }), config.timeout);
     MF.EditRequest_SetStartTime (V.time);
-
     SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
     MF.WaitWhileBusy();
@@ -85,16 +83,15 @@ condition.nowWeDoing = 'идем в аккаунт букать третью р�
     }),config.timeout);
     SF.click(By.xpath('//td[contains(text(),"'+V.Id3+'")]/following-sibling::td/button[contains(text(),"View")]'));
     MF.Account_ClickViewRequest ();
-    SF.sleep (2);
     LF.ConfirmRequestInAccount_WithReservationWithAdress ();
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    
 condition.nowWeDoing = 'идем в админку проверять или два реквеста ушли в дата пендинг';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'первый реквест не ушел в дата пендинг а должен был');
     }), 120000);
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id2 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'второй реквест не ушел в дата пендинг а должен был');
     }), 120000);

@@ -254,6 +254,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Board_OpenNotConfirmed() {
         SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
         SF.sleep(3);
+
     }
     function Board_OpenPendingRequest() {
         SF.click(By.xpath('//div[@ng-click="vm.select(0)"]'));
@@ -472,6 +473,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@ng-click="vm.select(5)"]'));
         SF.sleep(3);
     }
+    function BoardRequestPage_SetStartEndDate(start, end) {
+        SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
+        SF.send (By.xpath('//input[@ng-model="dateFrom"]'), start);
+        SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
+        SF.send (By.xpath('//input[@ng-model="dateTo"]'), end);
+        SF.sleep(2);
+        SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
+        WaitWhileBusy ();
+        SF.sleep(2);
+    }
+
     //==============================CALCULATOR SETTINGS===========================
     function CalculatorSettings_OpenBasicSettings(){
 		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[2]'));
@@ -1677,6 +1689,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Department_User_OpenAccount() {
         SF.click (By.linkText('Account'));
+        SF.sleep(1);
     }
     function Department_User_OpenNotificationTab() {
         SF.click(By.xpath('//li[@ng-click="activeMainTab = 6"]'));
@@ -1754,6 +1767,20 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SweetConfirm ();
         WaitWhileToaster ();
         WaitWhileBusy ();
+    }
+    function Department_SetGoogleMail(mail) {
+        SF.click (By.xpath('//input[@ng-model="gmail"]'));
+        SF.clear (By.xpath('//input[@ng-model="gmail"]'));
+        SF.click (By.xpath('//input[@ng-model="gmail"]'));
+        SF.send (By.xpath('//input[@ng-model="gmail"]'), mail);
+        WaitWhileBusy();
+    }
+    function Department_TurnOnAllGmailCalendar() {
+        SF.click (By.xpath('//input[@ng-model="inputValue"]'));
+        SF.click (By.xpath('//li[contains(text(), "Archive Calendar")]'));
+        SF.click (By.xpath('//li[contains(text(), "Pending Calendar")]'));
+        SF.click (By.xpath('//li[contains(text(), "Not Confirmed Calendar")]'));
+        SF.click (By.xpath('//li[contains(text(), "Confirmed Calendar")]'));
     }
 
     //===================================FRONT SITE======================================
@@ -2025,6 +2052,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenReviewSettings:Board_OpenReviewSettings,
         BoardSettings_ClickFuelSurcharge:BoardSettings_ClickFuelSurcharge,
         Board_OpenInhomeEstimateTab:Board_OpenInhomeEstimateTab,
+        BoardRequestPage_SetStartEndDate:BoardRequestPage_SetStartEndDate,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
@@ -2262,6 +2290,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Department_ClearSendGmailAdress:Department_ClearSendGmailAdress,
         Department_OpenNotificationTab:Department_OpenNotificationTab,
         Department_DeleteUser:Department_DeleteUser,
+        Department_SetGoogleMail:Department_SetGoogleMail,
+        Department_TurnOnAllGmailCalendar:Department_TurnOnAllGmailCalendar,
 
         //====================================FRONT SITE====================================
 

@@ -74,7 +74,6 @@ condition.nowWeDoing = 'запоминаем данные';
     SF.openTab (1);
 
 condition.nowWeDoing = 'пошли в аккаунт';
-    SF.sleep (2);
     MF.Account_ClickViewRequest ();
 
 condition.nowWeDoing = 'сравниваем данные калькулятора и акка';
@@ -83,7 +82,7 @@ condition.nowWeDoing = 'сравниваем данные калькулятор
         V.accountNumbers.travelCharge = SF.cleanPrice (text);
     }),config.timeout);
     SF.sleep(1);
-    LF.addToCleanerJob(V.accountNumbers.Id);
+    // LF.addToCleanerJob(V.accountNumbers.Id);
     VD.IWant(VD.ToEqual, V.accountNumbers.CrewSize, V.frontNumbersLoadingDown.Crew, 'не совпали CrewSize аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.HourlyRate, V.frontNumbersLoadingDown.Rate, 'не совпали HourlyRate аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.TravelTime, V.frontNumbersLoadingDown.TravelTime, 'не совпали TravelTime аккаунта и фронта');
@@ -164,7 +163,6 @@ condition.nowWeDoing = 'зашли под админом и удаляем ек�
             SF.sleep(1);
         }
     }
-    SF.sleep(3);
-    MF.Board_LogoutAdmin ();
+    SF.sleep(1.5);
     SF.endOfTest();
 };

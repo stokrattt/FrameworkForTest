@@ -24,7 +24,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.AccountUnloadingEnterAddress();
     V.req1={};
     LF.RememberAccountNumbers(V.req1);
-    LF.addToCleanerJob(V.req1.Id);
+    // LF.addToCleanerJob(V.req1.Id);
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'первый раз в админке, заходим в 1й реквест, запоминаем email';
@@ -47,7 +47,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.AccountLocalEnterAddress();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
-    LF.addToCleanerJob(V.accountNumbers.Id);
+    // LF.addToCleanerJob(V.accountNumbers.Id);
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'второй раз в админке, заходим во 2й реквест, меняем email';

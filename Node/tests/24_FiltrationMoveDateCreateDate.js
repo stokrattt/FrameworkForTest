@@ -12,7 +12,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'создаем реквест 1';
     LF.CreateLocalMovingFromBoard(V.client);
-    SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id1 = SF.cleanPrice(text);
     }),config.timeout);
@@ -25,7 +24,6 @@ condition.nowWeDoing = 'создаем реквест 2';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     LF.CreateLocalMovingFromBoard(V.client);
-    SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id2 = SF.cleanPrice(text);
     }),config.timeout);
@@ -38,7 +36,6 @@ condition.nowWeDoing = 'создаем реквест 3';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     LF.CreateLocalMovingFromBoard(V.client);
-    SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id3 = SF.cleanPrice(text);
     }),config.timeout);
@@ -135,14 +132,7 @@ condition.nowWeDoing = 'получаем текущую дату';
 
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по create date';
     MF.Board_OpenAllRequest();
-    SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
-    SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.createdate);
-    SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
-    SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.createdate);
-    SF.sleep(2);
-    SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
-    MF.WaitWhileBusy ();
-    SF.sleep(4);
+    MF.BoardRequestPage_SetStartEndDate(V.createdate,  V.createdate);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]')).getText().then(function (id1) {
         VD.IWant (VD.ToEqual, V.Id1, id1, 'не нашел реквест1 по фильтрации create date')
     }),config.timeout);
@@ -157,12 +147,7 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по Move date';
     SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 2);
     MF.WaitWhileBusy ();
-    SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
-    SF.send (By.xpath('//input[@ng-model="dateFrom"]'), V.mdateLong);
-    SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
-    SF.send (By.xpath('//input[@ng-model="dateTo"]'), V.mdateLong);
-    SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
-    MF.WaitWhileBusy ();
+    MF.BoardRequestPage_SetStartEndDate(V.mdateLong,  V.mdateLong);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id4Long + '")]')).getText().then(function (id4Long) {
         VD.IWant (VD.ToEqual, V.Id4Long, id4Long, 'не нашел реквест4 по фильтрации по Move date')
     }),config.timeout);

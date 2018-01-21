@@ -44,14 +44,11 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
-
     JS.click('a[ng-click=\\"showAdditionalServicesRef.show = !showAdditionalServicesRef.show\\"]:visible');
-
     SF.click(By.xpath('//div[@id="main-contract"]//li[@ng-click="addService(s)"][contains(text(), "Tip")]'));
     SF.sleep(3);
     SF.clear(By.xpath('//div[@id="main-contract"]//input[@ng-model="service.extra_services[0].services_default_value"]'));
     SF.send(By.xpath('//div[@id="main-contract"]//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'), 200);
-
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -82,7 +79,6 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
-
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -95,7 +91,6 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
-    SF.sleep (2);
 
 condition.nowWeDoing = 'тут открываем пейрол в реквесте и начинаем всех проверять, первый сейлс';
     V.boardNumbers.Payroll = {
@@ -103,7 +98,6 @@ condition.nowWeDoing = 'тут открываем пейрол в реквест
         foremanForCommission: {},
         helpersForComission: []
     };
-    SF.sleep(3);
     driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
         V.boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
     }),config.timeout);
@@ -205,7 +199,6 @@ condition.nowWeDoing = 'выбираем цифры формена';
 
 condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('SalesExclude');
-
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
@@ -215,10 +208,8 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
 condition.nowWeDoing = 'выбираем цифры хелпера';
     MF.Payroll_ClickAllDepartment();
     LF.findHelperInPayroll('Test Helper1');
-
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Helper);
     SF.sleep(1);
-
     VD.IWant(VD.ToEqual, V.payrollNumbers.Helper.Total, (V.boardNumbers.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(1);

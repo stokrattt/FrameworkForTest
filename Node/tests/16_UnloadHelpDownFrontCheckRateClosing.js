@@ -36,11 +36,9 @@ condition.nowWeDoing = 'запоминаем данные';
     SF.openTab (1);
 
 condition.nowWeDoing = 'пошли в аккаунт';
-    SF.sleep (3);
     MF.Account_ClickViewRequest();
-    SF.sleep (3.5);
     LF.RememberAccountNumbers (V.accountNumbers);
-    LF.addToCleanerJob(V.accountNumbers.Id);
+    // LF.addToCleanerJob(V.accountNumbers.Id);
     VD.IWant(VD.ToEqual, V.accountNumbers.CrewSize, V.frontNumbersUnloadingDown.Crew, 'не совпали CrewSize аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.HourlyRate, V.frontNumbersUnloadingDown.Rate, 'не совпали HourlyRate аккаунта и фронта');
     VD.IWant(VD.ToEqual, V.accountNumbers.TravelTime, V.frontNumbersUnloadingDown.TravelTime, 'не совпали TravelTime аккаунта и фронта');
@@ -74,7 +72,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
     MF.EditRequest_SetToNotConfirmed ();
 
  condition.nowWeDoing = 'выключаем калькулятор и меняем рейт';
-    SF.click(By.xpath('//span[@ng-click="switchCalc()"]'));
+    MF.EditRequest_SwitchCalculator();
     SF.clear(By.xpath('//input[@ng-model="request.rate.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.rate.value"]'), 50);
     SF.sleep(3);
@@ -96,7 +94,6 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
 condition.nowWeDoing = 'зашли под клиентом букаем  работу';
     MF.Account_CheckRequestStatus_NotConfirmed (V.accountNumbers.Id);
     MF.Account_OpenRequest (V.accountNumbers.Id);
-    MF.WaitWhileBusy();
     V.accountNumbersAfterChangeRate = {};
     LF.RememberAccountNumbers (V.accountNumbersAfterChangeRate );
     LF.Validation_Compare_Account_Admin (V.boardNumbersAfterChangeRate, V.accountNumbersAfterChangeRate);
@@ -126,7 +123,6 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.WaitWhileBusy();
     MF.Board_OpenConfirmed ();
     MF.Board_OpenRequest(V.accountNumbers.Id);
     MF.EditRequest_CloseConfirmWork();

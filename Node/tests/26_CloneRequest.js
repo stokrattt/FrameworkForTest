@@ -12,9 +12,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'создаем реквест и добавляем разного';
     LF.CreateLocalMovingFromBoard (V.client);
-    SF.sleep (2);
     MF.EditRequest_RememberId (V.request);
-    LF.addToCleanerJob(V.request.Id);
+    // LF.addToCleanerJob(V.request.Id);
     MF.EditRequest_AddRoomNumber (4);
     MF.EditRequest_AddRoomNumber (5);
     MF.EditRequest_AddRoomNumber (6);
@@ -42,12 +41,11 @@ condition.nowWeDoing = 'идём в настройки клонировать р
     MF.EditRequest_WaitForVisibleCloneRequest();
     driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.IdClone = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.IdClone);
+        // LF.addToCleanerJob(V.IdClone);
     }),config.timeout);
     SF.click(By.xpath('//div[contains(@class,"requestModal status_1")]//button[@ng-click="cancel()"]'));
     SF.sleep (2);
     LF.closeEditRequest ();
-    MF.WaitWhileBusy ();
 
 condition.nowWeDoing = 'проверяем что клон в пендинге и открываем его';
     MF.Board_RefreshDashboard();
@@ -78,7 +76,6 @@ condition.nowWeDoing = 'ждем и добавляем инвентория';
 
 condition.nowWeDoing = 'идем открывать первый реквест и проверять что клон не затер данные первого';
     MF.Board_OpenNotConfirmed();
-    MF.WaitWhileBusy ();
     MF.Board_OpenRequest (V.request.Id);
     VD.IWant (VD.NotToEqual, V.boardNumbersCubFit, V.boardNumbersCubFitClone, 'клон затер cubic fit первого реквеста');
     VD.IWant (VD.NotToEqual, V.sizemove, V.sizemoveClone, 'клон затер sizemove первого реквеста');

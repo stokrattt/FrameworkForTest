@@ -58,7 +58,6 @@ condition.nowWeDoing = 'Заходим на акаунт и проверяем 
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
-    SF.sleep(3);
     SF.waitForVisible(By.xpath('//div[contains(text(), "Extra Drop off:")]/following-sibling::div'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Extra Drop off:")]/following-sibling::div')).getText().then(function(text){
         V.extraDropOffPrice = SF.cleanPrice(text);

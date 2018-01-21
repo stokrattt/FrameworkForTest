@@ -15,19 +15,19 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     LF.CreateMovAndStorFromBoard(V.client);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id1 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id1);
+        // LF.addToCleanerJob(V.request.Id1);
     }), config.timeout);
     LF.closeEditRequest ();
     LF.CreateLoadingHelpFromBoard(V.client);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id2 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id2);
+        // LF.addToCleanerJob(V.request.Id2);
     }), config.timeout);
     LF.closeEditRequest ();
     LF.CreateLocalMovingFromBoard(V.client);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id2 = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id3);
+        // LF.addToCleanerJob(V.request.Id3);
     }), config.timeout);
     MF.EditRequest_OpenClient ();
     SF.sleep (3);
@@ -36,7 +36,6 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     }),config.timeout);
     SF.sleep(2);
     MF.EditRequest_OpenRequest ();
-    SF.sleep(1);
     SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
     SF.click(By.xpath('//li[@class="ui-timepicker-selected"]/following-sibling::li[2]'));
     SF.waitForVisible(By.xpath('//h2[contains(text(),"Are you sure you want to set time manualy?")]'));
@@ -62,7 +61,7 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
         '/span[2]/span[2]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'JackSales donotdelete', 'в логах не отобразилась смена менеджера');
     }),config.timeout);
-    SF.sleep(3);
+    SF.sleep(1.5);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

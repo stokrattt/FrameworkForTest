@@ -6,16 +6,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.frontURL);
-    condition.nowWeDoing = 'заполняем калькулятор верхний';
+
+condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
-    condition.nowWeDoing = 'первый раз в аккаунте';
+condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'первый раз в админке';
+condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbers.Id);
@@ -60,30 +61,27 @@ condition.nowWeDoing = 'идём в логи';
     MF.EditRequest_OpenLogs();
     V.logNumbers={};
     MF.EditRequest_ExpandPendingEmail(V.client.email);
-    driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
+    driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
         'following-sibling::td[1]//div/div/div')).getText().then(function(text){
             V.logNumbers.QuoteMin=SF.cleanPrice(text.substring(0,text.indexOf('-')));
             V.logNumbers.QuoteMax=SF.cleanPrice(text.substring(text.indexOf('-')+1));
             VD.IWant(VD.ToEqual, V.logNumbers.QuoteMin, V.boardNumbers.TotalMin);
             VD.IWant(VD.ToEqual, V.logNumbers.QuoteMax, V.boardNumbers.TotalMax);
-    });
+    }),config.timeout);
     SF.sleep(1);
     MF.EditRequest_OpenRequest ();
-
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    LF.addToCleanerJob(V.accountNumbers.Id);
+    // LF.addToCleanerJob(V.accountNumbers.Id);
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenSettings();
     MF.EditRequest_SetSaleNumber(2);
-
     MF.EditRequest_OpenRequest();
+
 condition.nowWeDoing = 'закрываем работу и переходим в на страницу bill of lading';
-
     MF.EditRequest_CloseConfirmWork();
-
     MF.EditRequest_SetLaborTimeCloseJob('01:00');
     MF.EditRequest_CloseJob();
     MF.EditRequest_OpenContractCloseJob();
@@ -95,7 +93,7 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     driver.close();
     SF.openTab(0);
     LF.closeEditRequest();
@@ -103,7 +101,6 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
     MF.Dispatch_ShowDoneJobs();
-
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
@@ -118,7 +115,7 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась через автологин форемана (автологин не сработал)')
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1.5);
 
     SF.endOfTest();
 };

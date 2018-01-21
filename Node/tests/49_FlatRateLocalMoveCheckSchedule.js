@@ -12,11 +12,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsGeneral ();
-    SF.sleep (3);
     JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
-        "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
-
+        "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"),config.timeout);
     LF.CreateFlatRateFromBoard (V.client);
     MF.EditRequest_ClickFlatRateLocalMove();
     MF.EditRequest_SendFlatRateSumm(3000);
@@ -27,7 +25,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
-    SF.sleep (2);
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_RememberId (V.request);
     MF.EditRequest_OpenClient ();
@@ -44,7 +41,6 @@ condition.nowWeDoing = 'идем в акк букаем работу';
     MF.Account_CheckRequestStatus_NotConfirmed(V.request.Id);
     MF.Account_OpenRequest(V.request.Id);
     MF.Account_ClickViewRequest ();
-    MF.WaitWhileBusy ();
     driver.wait(driver.findElement(By.xpath('//span[@ng-hide="vm.calculateFlatRateTotal() == 0"]')).getText().then(function (text) {
         text = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, 3000, text, 'не нашло флет рейт квоту на акке')
@@ -150,11 +146,9 @@ condition.nowWeDoing = 'выбираем цифры helper';
     }), config.timeout);
     SF.sleep(1);
     MF.Payroll_getTotalById(V.request.Id, V.payrollNumbers.Helper);
-
     VD.IWant(VD.ToEqual, V.payrollNumbers.Helper.Total, (V.boardNumbers.Payroll.helpersForCommission.total/2), 'не нашло этой работы у хелпера или не совпали цифры в Payroll helper\n' +
         'id=' + V.request.Id);
     SF.sleep(1);
-
     MF.Board_OpenSchedule ();
     condition.nowWeDoing = 'идем в календарь проверять что трака нету на календаре на текущую дату';
     driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){

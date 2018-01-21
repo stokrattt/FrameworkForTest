@@ -50,7 +50,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);

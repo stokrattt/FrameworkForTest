@@ -17,14 +17,14 @@ condition.nowWeDoing = 'создаем реквест локал мув, зап�
     V.boardNumbersDefault = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersDefault);
     LF.addInventoryBoard ();
-    SF.sleep (15); // ждет обновления фуела и квоты после добавления инвентаря, почему то долго начало обновлятся
+    SF.sleep (5); // ждет обновления фуела и квоты после добавления инвентаря, почему то долго начало обновлятся
     V.boardNumbersInventory = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersInventory);
     MF.EditRequest_OpenSettings ();
     MF.EditRequest_ClickDefaultCubFit();
     MF.EditRequest_OpenRequest ();
     MF.EditRequest_RememberId (V.request);
-    LF.addToCleanerJob (V.request.Id);
+    // LF.addToCleanerJob (V.request.Id);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
     MF.Board_OpenRequest (V.request.Id);
@@ -40,13 +40,11 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     V.accountNumbersDefault = {};
     LF.RememberAccountNumbers (V.accountNumbersDefault);
     LF.Validation_Compare_Account_Admin (V.accountNumbersDefault, V.boardNumbersDefault2);
-    SF.sleep (1);
     driver.close();
     SF.openTab (0);
     SF.sleep (1);
     MF.EditRequest_ClickSizeInventory();
     MF.EditRequest_OpenRequest ();
-    SF.sleep(6);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
     MF.Board_OpenRequest (V.request.Id);
@@ -64,7 +62,6 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     V.accountNumbersInventory = {};
     LF.RememberAccountNumbers (V.accountNumbersInventory);
     LF.Validation_Compare_Account_Admin (V.accountNumbersInventory, V.boardNumbersInventory2);
-    SF.sleep (1);
     driver.close();
     SF.openTab (0);
     SF.sleep (1);
@@ -90,7 +87,7 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     V.accountNumbersCustom = {};
     LF.RememberAccountNumbers (V.accountNumbersCustom);
     LF.Validation_Compare_Account_Admin (V.accountNumbersCustom, V.boardNumbersCustom2);
-    SF.sleep (2);
+    SF.sleep (1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

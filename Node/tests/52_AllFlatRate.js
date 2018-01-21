@@ -38,7 +38,7 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
         V.FRId = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(10);
-    LF.addToCleanerJob (V.FRId);
+    // LF.addToCleanerJob (V.FRId);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
 
@@ -54,6 +54,7 @@ condition.nowWeDoing = 'пошли в админку, открыли рекве�
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
+    
 condition.nowWeDoing = 'идем в акк подтвердить выбранную опцию';
     MF.Account_OpenRequest (V.FRId);
     MF.Account_ChooseOptionFlatRate();
@@ -91,7 +92,6 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     MF.EditRequest_SetToNotConfirmed ();
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();
-
     V.boardNumbersDeliveryDate = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="deliveryDateInput"]')).getAttribute("value").then(function (dateString) {
         V.boardNumbersDeliveryDate.moveDate = {};
@@ -158,7 +158,6 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
     MF.WaitWhileBusy ();
-
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.WaitWhileBusy ();
@@ -251,7 +250,7 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
 			'id=' + V.FRId);
     SF.sleep(1);
 
-    condition.nowWeDoing = 'выбираем цифры helper pickup';
+condition.nowWeDoing = 'выбираем цифры helper pickup';
     MF.Payroll_ClickAllDepartment();
     LF.findHelperInPayroll('Test Helper1');
     MF.Payroll_getTotalById(V.FRId, V.payrollNumbersPickup.Helper);
@@ -296,7 +295,6 @@ condition.nowWeDoing = 'выбираем цифры helper delivery';
     MF.WaitWhileBusy ();
     LF.findHelperInPayroll('Test Helper1');
     MF.Payroll_getTotalById(V.FRId, V.payrollNumbersDelivery.Helper);
-
     VD.IWant(VD.ToEqual, V.payrollNumbersDelivery.Helper.Total, (V.boardNumbersDelivery.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper\n' +
         'id=' + V.FRId);
     SF.sleep(1);

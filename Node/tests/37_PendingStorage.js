@@ -18,8 +18,8 @@ condition.nowWeDoing = 'Законфёрмить сразу реквест';
     V.boardNumbersTo = {};
     LF.addInventoryBoard ();
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
-    LF.addToCleanerJob(V.boardNumbersTo.Id);
-    LF.addToCleanerJob(V.boardNumbersTo.Id+1);
+    // LF.addToCleanerJob(V.boardNumbersTo.Id);
+    // LF.addToCleanerJob(V.boardNumbersTo.Id+1);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime) / 60));
     MF.WaitWhileBusy();
     JS.scroll('div.ServicesCost:visible');
@@ -28,18 +28,15 @@ condition.nowWeDoing = 'Законфёрмить сразу реквест';
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest ();
-    SF.sleep(1);
     MF.EditRequest_SetToConfirmed ();
     SF.send(By.xpath('//input[@ng-model="request.field_moving_from.thoroughfare"]'),'Address From');
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest();
-    SF.sleep(2);
 
 condition.nowWeDoing = 'Зайти в local Dispatch, найти первый реквест, назначить команду и отправить работу.';
     MF.Board_OpenLocalDispatch ();
     LF.findDayInLocalDispatch(V.boardNumbersTo.moveDate.Year, V.boardNumbersTo.moveDate.Month, V.boardNumbersTo.moveDate.Day);
     MF.Dispatch_GridView ();
-    SF.sleep(1);
     LF.SelectRequestDispatch(V.boardNumbersTo.Id);
     LF.selectCrew(V.foremanName);
     MF.Board_LogoutAdmin();
@@ -48,11 +45,8 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.boardNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
-    SF.click(By.xpath('//li[@id="tab_Inventory"]'));
-    SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
-    SF.sleep(1);
+    MF.Contract_OpenInventory();
     JS.scroll("tr[ng-repeat=\"n in rangeArr\"]:eq(0)");
-
     for (let i = 1, invCount = 1; i <= 9; i++) {
         SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//button[1]'));
         SF.sleep(1);
@@ -96,7 +90,7 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         // VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
-    }));
+    }),config.timeout);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -141,7 +135,6 @@ condition.nowWeDoing = 'From storage, выставить трак, провер�
     MF.EditRequest_SetAdressTo ();
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest();
-    SF.sleep(2);
 
 condition.nowWeDoing = 'Найти второй реквест, назначить команду и отправить работу.';
     MF.Board_OpenLocalDispatch ();
@@ -155,10 +148,7 @@ condition.nowWeDoing = 'Найти вторую работу, зайти в Inve
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.boardNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage ();
-    SF.click(By.xpath('//li[@id="tab_Inventory"]'));
-    SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
-    SF.sleep(1);
-
+    MF.Contract_OpenInventory();
     LF.MakeSignInInventory(2);
     LF.MakeSignInInventory(3);
     SF.click(By.xpath('//button[@ng-click="saveInventory(\'submit\')"]'));
@@ -191,7 +181,6 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
-
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     V.contractNumbersFrom = {};
@@ -206,7 +195,6 @@ condition.nowWeDoing="Зайти в Storsge pending, найти реквест";
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.client.name+' '+V.client.fam+'")]'));
     LF.OpenRequestDispatch(V.client.name+' '+V.client.fam);
     SF.waitForVisible(By.xpath('//div[@ng-if="data.rentals.move_request_id"]'));
-
     V.storageNumbers={};
     LF.RememberStorageNumbers(V.storageNumbers);
     VD.INeed(VD.ToEqual, V.storageNumbers.IdMoving, V.boardNumbersTo.Id, 'номер реквеста не совпадает');

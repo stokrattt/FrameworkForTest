@@ -59,7 +59,7 @@ condition.nowWeDoing = '1й раз меняем только цену в minimum
     VD.IWant (VD.ToEqual, V.boardNumbers.QuoteSales1, V.boardNumbers.QuoteClosing1, 'не совпала квота в сэилс и клоузинг первый раз');
 
 condition.nowWeDoing = '2й раз меняем  цену и объем в minimum c.f.';
-    MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_OpenConfirmWork();
     SF.click(By.xpath('//div[@ng-click="openMinWeight()"]'));
     SF.waitForVisible(By.xpath('//input[@ng-model="min_price"]'));
     SF.clear(By.xpath('//input[@ng-model="min_price"]'));

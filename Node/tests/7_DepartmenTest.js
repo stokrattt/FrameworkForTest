@@ -106,10 +106,9 @@ condition.nowWeDoing='Заходим под созданным foreman**********
 
 condition.nowWeDoing = 'заходим под админом и создаем реквест';
     LF.CreateLocalMovingFromBoard (V.client);
-    SF.sleep (2);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id);
+        // LF.addToCleanerJob(V.request.Id);
     }),config.timeout);
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressToFrom ();

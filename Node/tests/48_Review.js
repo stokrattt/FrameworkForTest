@@ -10,6 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
 condition.nowWeDoing = 'идем в админку в настройки ревью и проверяем что они включены';
     MF.Board_OpenReview();
     MF.Board_OpenReviewSettings();
@@ -19,7 +20,7 @@ condition.nowWeDoing = 'идем в админку в настройки рев�
     SF.select(By.xpath('//select[@ng-model="selectedDay"]'), 0);
     SF.click(By.xpath('//button[@ng-click="apply()"]'));
     SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    SF.sleep(5);
+    SF.sleep(3);
 
 condition.nowWeDoing = 'создаем локал мув, конфермим его и закрываем работу';
     LF.CreateLocalMovingFromBoard (V.client);
@@ -29,7 +30,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     SF.sleep(1);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    LF.addToCleanerJob (V.boardNumbers.Id);
+    // LF.addToCleanerJob (V.boardNumbers.Id);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
@@ -38,10 +39,8 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     MF.EditRequest_CloseConfirmWork ();
     MF.EditRequest_SetLaborTimeCloseJob ('01:00');
     MF.EditRequest_CloseJob();
-
     MF.EditRequest_OpenLogs ();
     MF.WaitWhileBusy ();
-    SF.sleep(2);
     MF.EditRequest_Check1EmailExist (V.client.email, "Review");
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Review")][contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     SF.click(By.xpath('//font[@color="#7e7e7e"]/a[5]'));
@@ -54,7 +53,6 @@ condition.nowWeDoing = 'переходим с логов по ссылке в а
     SF.click(By.xpath('//i[@ng-click="cancel()"]'));
     MF.WaitWhileToaster ();
     MF.Account_ClickViewRequest ();
-    SF.sleep(2);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -92,17 +90,15 @@ condition.nowWeDoing = 'теперь отключаем отсылание ре�
     SF.sleep(1);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    LF.addToCleanerJob (V.boardNumbers.Id);
+    // LF.addToCleanerJob (V.boardNumbers.Id);
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseConfirmWork ();
     MF.EditRequest_SetLaborTimeCloseJob ('01:00');
     MF.EditRequest_CloseJob();
-
     MF.EditRequest_OpenLogs ();
     MF.WaitWhileBusy ();
-    SF.sleep(2);
     MF.EditRequest_Check1EmailNotExist (V.client.email, "Review");
     SF.sleep(2);
     //=========================закончили писать тест=============================

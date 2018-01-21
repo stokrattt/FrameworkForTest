@@ -14,7 +14,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'Идем в настройки и создаем флаг';
     MF.Board_OpenSettingsGeneral ();
-    SF.sleep(2);
     SF.click(By.linkText('Company Flags'));
     SF.sleep(2);
     JS.scroll ('h1:contains("General Settigs ")');
@@ -56,7 +55,7 @@ condition.nowWeDoing = 'обновляем страницу и проверяе�
     MF.WaitWhileBusy();
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SetToNotConfirmed ();
-    LF.addToCleanerJob (V.boardNumbers.Id);
+    // LF.addToCleanerJob (V.boardNumbers.Id);
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest ();
 
@@ -91,15 +90,15 @@ condition.nowWeDoing = 'идем на дашборд и на страницу н
     SF.sleep(0.5);
     MF.Board_OpenSideBar ();
     MF.Board_OpenSettingsGeneral ();
+
 condition.nowWeDoing = 'идем в настройки и удаляем наш флаг';
     SF.sleep(2);
     SF.click(By.linkText('Company Flags'));
     SF.sleep(2);
     JS.scroll ('h1:contains("General Settigs ")');
-
     SF.click(By.xpath('//tr[@ng-repeat="values in vm.companyFlags track by $index"][last()]/td[4]//i'));
     MF.SweetConfirm ();
-    SF.sleep(3);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

@@ -7,10 +7,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.frontURL);
-    condition.nowWeDoing = 'заполняем калькулятор верхний';
+    
+condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsUnloading(V.client);
 
-    condition.nowWeDoing = 'первый раз в аккаунте';
+condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     MF.Account_ClickPartialPacking();
     LF.AccountUnloadingEnterAddress();
@@ -18,10 +19,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.AccountUnLoadingDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
-    LF.addToCleanerJob(V.accountNumbers.Id);
+    // LF.addToCleanerJob(V.accountNumbers.Id);
     SF.click(By.xpath('//a[@ng-click="openModal()"]'));
     JS.waitForExist('input[ng-model=\\"client.mail\\"]');
     SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
@@ -35,11 +35,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'первый раз в админке';
+condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbers.Id);
-
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
@@ -68,7 +67,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
+condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
@@ -85,7 +84,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.BoardAccount_SendMessage('first message');
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'второй раз в админке, локал диспатч';
+condition.nowWeDoing = 'второй раз в админке, локал диспатч';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenMessage ();
@@ -99,7 +98,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
-    SF.sleep(1);
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Unloading Confirmed");
     MF.EditRequest_Check1EmailExist(V.client.email, 'New Message From emilia');
@@ -108,7 +106,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'заходим под форменом, открываем контракт';
+condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
@@ -144,7 +142,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
-    condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
+condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -157,32 +155,29 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     V.managerName = 'emilia clark';
-    SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
-    SF.sleep (2);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
-    condition.nowWeDoing = 'сейчас идём в пейролл';
+    
+condition.nowWeDoing = 'сейчас идём в пейролл';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll(V.foremanName);
 
-    condition.nowWeDoing = 'выбираем цифры формена';
+condition.nowWeDoing = 'выбираем цифры формена';
     V.payrollNumbers = {
         Foreman:{}, Sale:{}
     };
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
-
     MF.Payroll_ClickAllDepartment();
 
-    condition.nowWeDoing = 'выбираем цифры менеджера';
+condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('emilia clark');
-
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep(2);
+    SF.sleep(1);
     SF.endOfTest();
 };

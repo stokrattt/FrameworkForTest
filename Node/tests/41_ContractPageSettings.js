@@ -17,7 +17,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     MF.EditRequest_RememberId(V.request);
-    LF.addToCleanerJob(V.request.Id);
+    // LF.addToCleanerJob(V.request.Id);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed ();
@@ -195,7 +195,6 @@ condition.nowWeDoing = 'идем обратно в настройки контр
     SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
     MF.WaitWhileBusy ();
     MF.SweetConfirm ();
-    SF.sleep (2);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

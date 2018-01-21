@@ -6,13 +6,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.note = {};
 
-    condition.nowWeDoing = 'создаем реквест и вводим нотсы для сейлса, форемана и клиента';
+condition.nowWeDoing = 'создаем реквест и вводим нотсы для сейлса, форемана и клиента';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id);
+        // LF.addToCleanerJob(V.request.Id);
     }),config.timeout);
     SF.click(By.xpath('//div[contains(@class, "sales_notes")]'));
     V.note = SF.randomBukva(7);
@@ -28,12 +28,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.noteClient = SF.randomBukva(7);
     SF.send(By.xpath('//div[contains(@class, "client_notes")]/div[2]/div[3]'), V.noteClient);
     MF.EditRequest_SaveNotesClient ();
-
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges ();
+
 condition.nowWeDoing = 'закрываем реквест и открываем и проверяем что заметочки сохранились';
     LF.closeEditRequest ();
     MF.Board_OpenRequest(V.request.Id);
@@ -166,8 +166,7 @@ condition.nowWeDoing = 'тут проверим на сохранение нот
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "client_notes")]/div[2]/div[3]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, text, V.noteClientNew1, 'Не совпали заметочки clienta после сохранения через закрытие реквеста');
     }),config.timeout);
-    SF.sleep(2);
-
+    SF.sleep(1.5);
 
     SF.endOfTest();
 };

@@ -12,17 +12,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'первый раз в аккаунте, добавляю Partial Packing';
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
     MF.Account_ClickPartialPacking();
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
     LF.AccountLocalDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
-    MF.WaitWhileBusy();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
-    LF.addToCleanerJob(V.accountNumbers.Id);
+    // LF.addToCleanerJob(V.accountNumbers.Id);
     LF.LogoutFromAccount();
 
     condition.nowWeDoing = 'первый раз в админке,сверяю тотал, добавляю коробки';
@@ -55,7 +53,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
-    MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.isVisiblePackingTotal()"]/div[2]')).getText().then(function(text) {
         V.cleanTotalPacking = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTotalPacking, V.boardNumbers.Packing,'не совпала новая сумма packing');

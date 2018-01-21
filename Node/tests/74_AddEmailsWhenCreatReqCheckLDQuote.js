@@ -40,7 +40,7 @@ condition.nowWeDoing = 'добавляем письма';
     V.request.Id = {};
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.request.Id = SF.cleanPrice(text);
-        LF.addToCleanerJob(V.request.Id);
+        // LF.addToCleanerJob(V.request.Id);
     }), config.timeout);
 
 condition.nowWeDoing = 'идём в логи, потом выставляем свой рейт и запоминаем данные по реквесту';
@@ -65,7 +65,6 @@ condition.nowWeDoing = 'идем на аккаунт, добавляем инв�
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.boardNumbersBeforeAddInvent.Id);
     MF.Account_ClickViewRequest();
-    SF.sleep(2);
     V.accountNumbersLDBeforeAddInvent = {};
     LF.RememberAccountNumbersLD(V.accountNumbersLDBeforeAddInvent);
     SF.sleep(1);

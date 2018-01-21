@@ -26,18 +26,17 @@ condition.nowWeDoing = 'запоминаем данные которые пос�
     SF.openTab (1);
 
 condition.nowWeDoing = 'пошли в аккаунт';
-    SF.sleep (8);
     MF.Account_ClickViewRequest ();
 
 condition.nowWeDoing = 'запомнили данные в аке и сравниваем с калькулятором';
     LF.RememberAccountNumbers(V.accountNumbersTo);
-    LF.addToCleanerJob(V.accountNumbersTo.Id);
+    // LF.addToCleanerJob(V.accountNumbersTo.Id);
     LF.Validation_Compare_Account_Front_MovStorTo(V.accountNumbersTo,V.frontNumbersDown);
     MF.Account_ClickFromStorage();
     V.accountNumbersFrom = {};
     SF.sleep (0.5);
     LF.RememberAccountNumbers(V.accountNumbersFrom);
-    LF.addToCleanerJob(V.accountNumbersFrom.Id);
+    // LF.addToCleanerJob(V.accountNumbersFrom.Id);
     LF.Validation_Compare_Account_Front_MovStorFrom (V.accountNumbersFrom,V.frontNumbersDown);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);

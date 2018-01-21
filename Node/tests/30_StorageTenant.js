@@ -19,9 +19,9 @@ condition.nowWeDoing = 'идем в сторадж и создаем стора�
     MF.EditStorage_RememberId (V.storage);
     JS.scroll ('button[ng-click=\"closeModal()\"]');
     SF.sleep(2);
+
 condition.nowWeDoing = 'идем в леджер и создаем пайменты';
     MF.EditStorage_OpenLedger();
-    //driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="openPayment()"]'))).click();
     JS.click('button[ng-click=\\"openPayment()\\"]:visible');
     SF.sleep (1);
     JS.click('a[ng-click=\\"addCustomPayment()\\"]:visible');
@@ -177,6 +177,7 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
          VD.IWant (VD.ToEqual, SF.cleanPrice (text), 0, 'баланс на вкладке леджер не 0 после оплаты инвойса')
     }),config.timeout);
     SF.sleep(0.5);
+
 condition.nowWeDoing = 'добавляем лот намберс';
     MF.EditStorage_OpenLotNumbers();
     MF.EditStorage_AddLotNumber ();

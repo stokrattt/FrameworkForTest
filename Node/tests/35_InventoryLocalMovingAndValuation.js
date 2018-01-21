@@ -58,7 +58,6 @@ condition.nowWeDoing = 'второй раз в аккаунте сверяем �
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
-    SF.sleep(4);
     LF.RememberAccountNumbers(V.accountNumbers);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.request_all_data.valuation.lability_amount"]')).getText().then(function (text) {
         text = SF.cleanPrice (text);
@@ -91,7 +90,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда до резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда до резервации');
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Full value Protection")]/following-sibling::span')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), 10570, 'не совпал full valuation на конфирмейшн с тем что выставили на админке в реквесте');
     }),config.timeout);

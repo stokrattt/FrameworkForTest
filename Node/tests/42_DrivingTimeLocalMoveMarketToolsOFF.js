@@ -13,7 +13,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'идем в настройки и выставляем настройки для драйвинг тайма и травел тайма';
     MF.Board_OpenSettingsGeneral ();
-    SF.sleep(2);
     JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
@@ -55,7 +54,6 @@ condition.nowWeDoing = 'тут идем в калькулятор и выста�
     MF.Board_OpenDashboard ();
 
 condition.nowWeDoing = 'создаем локал мув с требуемыми зип кодами';
-    MF.WaitWhileBusy ();
     MF.Board_ClickCreate();
     MF.CreateRequest_SelectServiceType(1);
     MF.CreateRequest_ClickMoveDateInput();
@@ -148,10 +146,9 @@ condition.nowWeDoing = 'второй раз в аккаунте, сравнив�
     V.accountNumbersNotConfirm = {};
     LF.RememberAccountNumbers (V.accountNumbersNotConfirm);
     LF.Validation_Compare_Account_Admin (V.accountNumbersNotConfirm, V.boardNumbersNotConfirmed);
-    SF.sleep(1);
     MF.Account_ClickProceedBookYourMove();
 
-    condition.nowWeDoing = 'перешли на конфирмейшн пейдж и сравним данные с бордом';
+condition.nowWeDoing = 'перешли на конфирмейшн пейдж и сравним данные с бордом';
     V.ConfirmationPage = {};
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Estimated Quote")]/following-sibling::div[1]/div/div')).getText().then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
@@ -169,13 +166,11 @@ condition.nowWeDoing = 'второй раз в аккаунте, сравнив�
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда до резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда до резервации');
-    SF.sleep(1);
 
 condition.nowWeDoing = 'тут букаем работу и опять сравниваем данные после резервации на конфирмейшн с аккаунтом';
     MF.Account_ConfirmationBackToRequest ();
     LF.ConfirmRequestInAccount_WithReservationWithAdress ();
     MF.Account_ClickViewConfirmationPage ();
-
     V.ConfirmationPageAfterConfirm = {};
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Estimated Quote")]/following-sibling::div[1]/div/div')).getText().then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
@@ -193,7 +188,6 @@ condition.nowWeDoing = 'тут букаем работу и опять срав�
     VD.IWant(VD.ToEqual, V.ConfirmationPageAfterConfirm.TotalMin, V.boardNumbersNotConfirmed.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда после резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPageAfterConfirm.TotalMax, V.boardNumbersNotConfirmed.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда после резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPageAfterConfirm.Fuel, V.boardNumbersNotConfirmed.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда после резервации');
-    SF.sleep(1);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin (V.adminLogin, V.adminPassword);

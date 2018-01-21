@@ -9,7 +9,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
-    SF.sleep(2);
     V.boardNumbers = {};
     LF.addInventoryBoard(V.boardNumbers);
 
@@ -19,10 +18,9 @@ condition.nowWeDoing = 'запоминаем все данные';
     MF.WaitWhileBusy();
     LF.RememberDateFromRequest(V.boardNumbers);
     MF.EditRequest_RememberId (V.request);
-    LF.addToCleanerJob(V.request.Id);
+    // LF.addToCleanerJob(V.request.Id);
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SetAdressToFrom();
-
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
     SF.sleep (0.5);
@@ -37,12 +35,9 @@ condition.nowWeDoing = 'зашли под клиентом в акк';
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     MF.Account_CheckRequestStatus_NotConfirmed(V.request.Id);
     MF.Account_OpenRequest(V.request.Id);
-    MF.Account_ClickViewRequest();
-    SF.sleep (0.5);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount ();
-
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 

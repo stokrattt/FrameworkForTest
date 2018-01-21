@@ -142,7 +142,6 @@ condition.nowWeDoing = 'идем в аккаунт, сначала сравни�
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
-    SF.sleep(2);
     V.accountNumbersLD={};
     LF.RememberAccountNumbersLD(V.accountNumbersLD);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLD, V.boardNumbersNotConfirm);
