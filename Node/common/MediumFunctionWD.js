@@ -343,6 +343,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ui-sref="settings.templatebuilder"]'));
         SF.waitForVisible(By.xpath('//a[@ui-sref="settings.templatebuilder"]'));
         SF.sleep(3);
+        WaitWhileBusy();
+
     }
 	function Board_OpenSettingsCalculator() {
 		Board_OpenSettingsGeneral();
@@ -645,7 +647,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickProceedBookYourMove() {
         SF.sleep(1);
         SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
-        SF.sleep(3);
+        WaitWhileBusy ();
     }
     function Account_ClickIAgreeWithAll() {
         SF.sleep(2);

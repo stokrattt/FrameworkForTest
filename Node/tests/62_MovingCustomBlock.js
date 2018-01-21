@@ -68,7 +68,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.sleep(1);
     SF.click(By.xpath('//div[@class="custom-block moving"]//tr[@ng-repeat="not_confirmed_tab in movingNotConfirmedBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
-
     MF.Board_SearchRequest(V.boardNumbers.Id);
     SF.sleep(3);
     MF.Board_SearchOpenRequest (V.boardNumbers);
@@ -88,7 +87,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.sleep(0.5);
     JS.scroll("a[ng-click=\"vm.Logout()\"]");
     MF.Account_ClickProceedBookYourMove();
-    SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
     }),config.timeout);
@@ -110,7 +108,6 @@ condition.nowWeDoing = 'выключаем кастомный блок not confi
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickProceedBookYourMove();
-
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
     }),config.timeout);

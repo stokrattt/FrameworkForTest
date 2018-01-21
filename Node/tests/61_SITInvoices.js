@@ -13,14 +13,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-
     MF.Board_OpenSideBar ();
     MF.Board_OpenCourier ();
     MF.Board_OpenSideBar ();
-    condition.nowWeDoing = 'Создаем карьера';
+
+condition.nowWeDoing = 'Создаем карьера';
     LF.CreateCarrier();
 
-    condition.nowWeDoing = 'Создаем Long Distance работу';
+condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
     MF.EditRequest_SetToConfirmed();
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
@@ -36,7 +36,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenTripPlanner();
     MF.Board_OpenSideBar();
 
-    condition.nowWeDoing = 'Создаем Трип';
+condition.nowWeDoing = 'Создаем Трип';
     MF.SIT_ClickAddTrip();
     MF.SIT_ChangeStatusTrip('Pending');
     V.internalCode = SF.randomCifra(10);
@@ -64,7 +64,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="trip.data.carrier.driver_phone"]'), V.driverPhone);
     SF.send (By.xpath('//textarea[@ng-model="trip.data.note"]'), V.notes);
 
-    condition.nowWeDoing = 'Сохраняем трип и добавляем работу в трип';
+condition.nowWeDoing = 'Сохраняем трип и добавляем работу в трип';
     MF.SIT_ClickUpdateTrip();
     JS.click('span:contains(\\"Add Pickup/Delivery\\")');
     SF.waitForVisible(By.xpath('//div[contains(text(), "' + V.client.name + '")]'));
@@ -93,17 +93,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="back()"]'));
     SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     MF.SIT_ClickTripDetails();
-
     MF.SIT_ClickUpdateTrip();
 
-    condition.nowWeDoing = 'Заходим в Агент фолио';
+condition.nowWeDoing = 'Заходим в Агент фолио';
     MF.Board_OpenSideBar ();
     MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenAgentFolio ();
     MF.Board_OpenSideBar ();
     SF.click(By.xpath('//md-switch[@ng-model="hideZero"]'));
     SF.sleep(2);
-    condition.nowWeDoing = 'вибираем карьера, вибираем работи и отправляем инвоис';
+
+condition.nowWeDoing = 'вибираем карьера, вибираем работи и отправляем инвоис';
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.carrierNew.name);
     SF.waitForVisible (By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
@@ -117,7 +117,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     SF.sleep(2);
-    condition.nowWeDoing = 'переходим на страницу просмотра иновоиса и делаем оплату инвоиса';
+
+condition.nowWeDoing = 'переходим на страницу просмотра иновоиса и делаем оплату инвоиса';
     SF.sleep(2);
     SF.waitForVisible(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
     SF.click(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
@@ -129,7 +130,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//a[@ng-click="vm.invoicePayment();"]'));
     LF.InvoiceOnlinePayment();
     SF.openTab(0);
-    condition.nowWeDoing = 'Проверяем есть ли в реситах оплачений инвоис';
+
+condition.nowWeDoing = 'Проверяем есть ли в реситах оплачений инвоис';
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.amount = SF.cleanPrice(text);
@@ -150,10 +152,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(2);
     SF.click(By.xpath('//div[@ng-click="showList(item)"]'));
-    condition.nowWeDoing = 'удаляем инвоис';
+
+condition.nowWeDoing = 'удаляем инвоис';
     JS.click('span:contains(\\"Payment details\\")');
     SF.sleep(2);
-
     MF.Board_OpenSideBar ();
     MF.Board_OpenCarriersAndAgents ();
     MF.Board_OpenSideBar ();
@@ -161,7 +163,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
 
-    condition.nowWeDoing = 'удаляем карьера';
+condition.nowWeDoing = 'удаляем карьера';
     driver.wait(driver.executeScript('return location.toString();').then(function(url){
         let c='a';
         for (let i=0; i<url.length; i++) {
@@ -173,7 +175,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         );
     }),config.timeout);
     SF.sleep(1);
-
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

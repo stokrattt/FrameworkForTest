@@ -5,7 +5,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-	condition.nowWeDoing = 'открываем любой реквест и отправляем письмо на тестовую почту';
+
+condition.nowWeDoing = 'открываем любой реквест и отправляем письмо на тестовую почту';
 	MF.Board_OpenFirstRequest();
 	MF.EditRequest_OpenMailDialog();
 	MF.EditRequest_MailDialog_SetEmail(1, V.testMail.mail);
@@ -17,7 +18,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Board_LogoutAdmin();
 	SF.sleep(60);
 
-	condition.nowWeDoing = 'открываем тестовую почту и ищем письмо';
+condition.nowWeDoing = 'открываем тестовую почту и ищем письмо';
 	SF.get('http://mail.ru');
 	MF.MailRu_Login(V.testMail.login, V.testMail.password);
 	MF.MailRu_CheckEmailExistBySubject(V.subject);

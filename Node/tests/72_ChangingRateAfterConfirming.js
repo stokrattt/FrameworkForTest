@@ -49,7 +49,6 @@ condition.nowWeDoing = 'создаём реквест localMoving';
 		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
 		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),V.boardNumbers.HourlyRate);
 	}
-	MF.Board_OpenDashboard();
 
 	//=========================закончили писать тест=============================
     SF.endOfTest();

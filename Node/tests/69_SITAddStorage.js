@@ -14,7 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'Заходим в SIT Storages и создаем Storage';
+condition.nowWeDoing = 'Заходим в SIT Storages и создаем Storage';
     MF.Board_OpenSideBar();
     MF.BoardSIT_OpenStorages();
     MF.Board_OpenSideBar();
@@ -42,9 +42,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     JS.click('span:contains(\\"Save\\")');
 
-    condition.nowWeDoing = 'Редактируем Storage';
+condition.nowWeDoing = 'Редактируем Storage';
     SF.waitForVisible (By.xpath('//input[@ng-model="searchTerm"]'));
-
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.storage.name);
     SF.waitForVisible (By.xpath('//div[text()="'+ V.storage.name +'"]'));
     SF.sleep(3);
@@ -75,8 +74,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(4);
     JS.click('span:contains(\\"Save\\")');
     SF.waitForVisible (By.xpath('//input[@ng-model="searchTerm"]'));
-    condition.nowWeDoing = 'сравниваем сохранились ли изменения';
 
+condition.nowWeDoing = 'сравниваем сохранились ли изменения';
     SF.send(By.xpath('//input[@ng-model="searchTerm"]'), V.storage2.name);
     SF.waitForVisible (By.xpath('//div[text()="'+ V.storage2.name +'"]'));
     SF.sleep(2);
@@ -84,14 +83,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
     SF.sleep(2);
     LF.RememberStorage(V.storage3);
-
     VD.IWant(VD.NotToEqual,V.storage.name, V.storage2.name,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.storage.address, V.storage2.address,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.storage.zip, V.storage2.zip,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.storage.email, V.storage2.email,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.storage.notes, V.storage2.notes,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.storage.phone, V.storage2.phone,'Поля совпадают');
-
     VD.IWant(VD.ToEqual,V.storage3.name, V.storage2.name,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.storage3.address, V.storage2.address,'Поля не совпадают');
     VD.IWant(VD.ToEqual,V.storage3.zip, V.storage2.zip,'Поля не совпадают');
@@ -103,13 +100,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.click('span:contains(\\"Save\\")');
     SF.waitForVisible (By.xpath('//input[@ng-model="searchTerm"]'));
 
-    condition.nowWeDoing = 'Создаем Long Distance работу';
+condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
     MF.EditRequest_SetToConfirmed();
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
 
-    condition.nowWeDoing = 'Проверяем есть ли сторадж в реквести в SIT';
+condition.nowWeDoing = 'Проверяем есть ли сторадж в реквести в SIT';
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
@@ -123,8 +120,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible (By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//option[text()="'+ V.storage2.name +'"]'));
-
-
     SF.endOfTest();
 
 };

@@ -14,34 +14,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'Создаем Long Distance работу';
+condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
     MF.EditRequest_SetToConfirmed();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
-
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
     MF.EditRequest_SendRateForLD (V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Balance:")]/..//div')).getText().then(function(text){
         V.tpCollected = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.closeEditRequest ();
-
     MF.Board_OpenSideBar ();
     MF.Board_OpenCourier ();
     MF.Board_OpenSideBar ();
     LF.CreateCarrier();
     MF.Board_ClickLongDistanceDispach();
 
-    condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
+condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
     MF.SIT_ClickAddTrip();
     MF.SIT_ChangeStatusTrip('Pending');
     SF.click(By.xpath('//md-select[@ng-model="type"]'));
@@ -50,7 +47,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Trip Info #")]')).getText().then(function(text){
         V.tripId = SF.cleanPrice(text);
     }),config.timeout);
-
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
     SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
@@ -80,7 +76,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="closeSelectBox($event)"]'));
     SF.sleep(1);
 
-    condition.nowWeDoing = 'Сохраняем трип и добавляем работу в трип';
+condition.nowWeDoing = 'Сохраняем трип и добавляем работу в трип';
     driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="createTrip(trip)"]'))).doubleClick().perform();
     JS.waitForNotExist('span.toast-message:visible');
     SF.sleep(1);
@@ -93,18 +89,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.sleep(3);
-
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
     JS.click('span:contains(\\"Add requests to trip\\")');
     SF.waitForVisible (By.xpath('//md-select[@ng-model="trip.data.details.flag"]'));
     SF.sleep(2);
     MF.SIT_ChangeStatusTrip('Delivered/Closed');
 
-    condition.nowWeDoing = 'Заходим в пейрол и заполняем и сравниваем циферки для формена';
+condition.nowWeDoing = 'Заходим в пейрол и заполняем и сравниваем циферки для формена';
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Closing")]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="payroll.foreman.mileage_start"]'));
     SF.sleep(2);
-
     V.mileageStart = 12;
     V.mileageEnd = 815;
     V.mileage = V.mileageEnd - V.mileageStart;
@@ -139,7 +133,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.сleanTotalDaily = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.сleanTotalDaily, V.totalDaily, 'total Daily не совпали');
     }),config.timeout);
-
     V.hourlyRate = 12;
     V.totalHours = 10;
     V.totalHourly = V.hourlyRate * V.totalHours;
@@ -155,7 +148,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.сleanTotalHourly = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.сleanTotalHourly, V.totalHourly, 'total Hourly не совпали');
     }),config.timeout);
-
     V.mileageRate = 5;
     V.totalMileage = V.mileage * V.mileageRate;
     SF.clear(By.xpath('//input[@ng-model="payroll.foreman.mileage_rate"]'));
@@ -166,7 +158,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.сleanTotalMileage = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.сleanTotalMileage, V.totalMileage, 'total Mileage не совпали');
     }),config.timeout);
-
     SF.click(By.xpath('//h2[contains(text(), "Driver Expenses")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
     V.driverExpensesAmount = 50;
@@ -177,7 +168,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.driverExpensesAmount);
     SF.click(By.xpath('//div[@value="item.amount"]//button[@ng-click="update()"]'));
     SF.sleep(3);
-
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
     V.cashAmount = 80;
@@ -188,7 +178,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//button[@ng-click="update()"]'));
     SF.sleep(2);
 
-    condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
+condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"helper")]'));
     SF.waitForVisible (By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
     SF.sleep(3);
@@ -199,7 +189,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//div[@value="item.daily_amount"]//input[@ng-model="data.value"]'), V.helper1DailyAmount);
     SF.click(By.xpath('//div[@value="item.daily_amount"]//button[@ng-click="update()"]'));
     SF.sleep(4);
-
     SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openOtherEditDialog(item)"]'));
     SF.sleep(2);
     V.helper1Other = 30;
@@ -208,7 +197,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[@value="item.other"]//button[@ng-click="update()"]'));
     SF.sleep(4);
     V.helper1Total = V.helper1DailyAmount * V.totalDays + V.helper1Other;
-
     SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
     SF.sleep(2);
     V.helper2DailyAmount = 40;
@@ -216,7 +204,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.daily_amount"]//input[@ng-model="data.value"]'), V.helper2DailyAmount);
     SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@value="item.daily_amount"]//button[@ng-click="update()"]'));
     SF.sleep(4);
-
     SF.click(By.xpath('//div[contains(text(), "helper test2")]/following-sibling::div[@ng-click="openOtherEditDialog(item)"]'));
     SF.sleep(2);
     V.helper2Other = 45;
@@ -226,11 +213,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(4);
     V.helper2Total = V.helper2DailyAmount * V.totalDays + V.helper2Other;
 
-    condition.nowWeDoing = 'сравниваем циферки общий пейрол';
-
+condition.nowWeDoing = 'сравниваем циферки общий пейрол';
     V.totalPayroll = V.totalMileage + V.totalHourly + V.totalDaily - V.totalCollected + V.driverExpensesAmount - V.cashAmount + V.helper1Total + V.helper2Total;
     V.foremanTotal = V.totalPayroll - V.helper2Total - V.helper1Total;
-
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total Payroll:")]')).getText().then(function(text){
         V.payroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalPayroll, V.payroll, 'total Payroll не совпали');
@@ -240,7 +225,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="dialog.hide()"]'));
     SF.sleep(1);
-    condition.nowWeDoing = 'сравниваем циферки c большим пейролом';
+
+condition.nowWeDoing = 'сравниваем циферки c большим пейролом';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll(V.foremanName);
@@ -262,7 +248,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.totalForemanPayroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalForemanPayroll, V.foremanTotal, 'зарплата форемана в большом пейроле');
     }),config.timeout);
-
     MF.Payroll_ClickAllDepartment();
     LF.findHelperInPayroll('helper test1');
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[9]')).getText().then(function(text){
@@ -273,7 +258,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.helper1TotalPayroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.helper1TotalPayroll, V.helper1Total, 'зарплата helper1 в большом пейроле');
     }),config.timeout);
-
     MF.Payroll_ClickAllDepartment();
     LF.findHelperInPayroll('helper test2');
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.tripId+'")]/../td[9]')).getText().then(function(text){
