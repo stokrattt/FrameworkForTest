@@ -7,10 +7,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.frontURL);
-    condition.nowWeDoing = 'заполняем калькулятор верхний';
+
+condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
-    condition.nowWeDoing = 'первый раз в аккаунте, добавляю Partial Packing';
+condition.nowWeDoing = 'первый раз в аккаунте, добавляю Partial Packing';
     MF.Account_ClickViewRequest();
     MF.Account_ClickPartialPacking();
     LF.AccountLocalEnterAddress();
@@ -23,7 +24,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     // LF.addToCleanerJob(V.accountNumbers.Id);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'первый раз в админке,сверяю тотал, добавляю коробки';
+condition.nowWeDoing = 'первый раз в админке,сверяю тотал, добавляю коробки';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbers.Id);
@@ -44,11 +45,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Board_LogoutAdmin();
 
-
-    condition.nowWeDoing = 'второй раз в аккаунте,проверяю наличие коробок, сравниваю тотал packing с реквестом';
+condition.nowWeDoing = 'второй раз в аккаунте,проверяю наличие коробок, сравниваю тотал packing с реквестом';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
@@ -69,17 +68,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Middium Box")]')).getText().then(function(text){
        V.BoxMed = text;
        }),config.timeout);
-
     SF.sleep(0.5);
     V.boxCostAc = V.boardNumbers.Packing - V.accountNumbers.Packing;
-
-    MF.WaitWhileBusy();
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.Account_CheckSignature();
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'второй раз в админке, локал диспатч, назначаю Add Crew';
+condition.nowWeDoing = 'второй раз в админке, локал диспатч, назначаю Add Crew';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
@@ -108,7 +104,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.waitForNotExist('div.toast-message:visible');
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, и сумму коробок в бил оф лендинг ';
+condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, и сумму коробок в бил оф лендинг ';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
@@ -131,7 +127,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_OpenBillOfLading();
     SF.sleep(1);
     MF.WaitWhileBusy();
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -160,7 +155,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
-    SF.sleep(3);
+    SF.sleep(1);
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
@@ -171,7 +166,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
-
 
     SF.endOfTest();
     };

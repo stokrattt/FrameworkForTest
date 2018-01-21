@@ -27,7 +27,6 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
     MF.EditRequest_SendRateForLD (V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Balance:")]/..//div')).getText().then(function(text){
         V.tpCollected = SF.cleanPrice(text);
     }),config.timeout);

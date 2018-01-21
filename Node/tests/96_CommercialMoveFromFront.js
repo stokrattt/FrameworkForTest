@@ -206,7 +206,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     VD.IWant(VD.ToEqual, V.ConfirmationPageFrom.TotalMin, V.boardNumbersFrom.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации From storage');
     VD.IWant(VD.ToEqual, V.ConfirmationPageFrom.TotalMax, V.boardNumbersFrom.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда до резервации From storage');
     VD.IWant(VD.ToEqual, V.ConfirmationPageFrom.Fuel, V.boardNumbersFrom.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда до резервации From storage');
-    SF.sleep(1);
     MF.Account_ConfirmationBackToRequest ();
     LF.ConfirmRequestInAccount_WithReservation();
 

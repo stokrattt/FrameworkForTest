@@ -14,34 +14,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'Создаем Long Distance работу';
+condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
     MF.EditRequest_SetToConfirmed();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
-
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
     MF.EditRequest_SendRateForLD (V.perCubicFeet);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Balance:")]/..//div')).getText().then(function(text){
         V.tpCollected = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.closeEditRequest ();
-
     MF.Board_OpenSideBar ();
     MF.Board_OpenCourier ();
     MF.Board_OpenSideBar ();
     LF.CreateCarrier();
     MF.Board_ClickLongDistanceDispach();
 
-    condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
+condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
     MF.SIT_ClickAddTrip();
     MF.SIT_ChangeStatusTrip('Pending');
     SF.click(By.xpath('//md-select[@ng-model="type"]'));
@@ -50,7 +47,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Trip Info #")]')).getText().then(function(text){
         V.tripId = SF.cleanPrice(text);
     }),config.timeout);
-
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
     SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
@@ -80,16 +76,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="closeSelectBox($event)"]'));
     SF.sleep(1);
 
-    condition.nowWeDoing = 'Создаем TP Delivery, заполняем поля и проверям рассчети';
+condition.nowWeDoing = 'Создаем TP Delivery, заполняем поля и проверям рассчети';
     driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="createTrip(trip)"]'))).doubleClick().perform();
     JS.waitForNotExist('span.toast-message:visible');
     SF.sleep(2);
     SF.click(By.xpath('//span[contains(text(),"Add TP Delivery")]'));
-
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.delivery_job_id"]'));
     V.tpDeliveryJobId = SF.randomCifra(1);
     SF.send(By.xpath('//input[@ng-model="tp.delivery_job_id"]'), V.tpDeliveryJobId);
-
     SF.click(By.xpath('//md-select[@ng-model="selectedCarrier"]'));
     SF.waitForVisible (By.xpath('//div[contains(text(), "'+V.carrierNew.name+'")]'));
     SF.click(By.xpath('//div[contains(text(), "'+V.carrierNew.name+'")]'));
@@ -112,7 +106,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     SF.clear(By.xpath('//input[@ng-model="tp.closing.order_balance"]'));
     SF.send(By.xpath('//input[@ng-model="tp.closing.order_balance"]'), V.orderBalance);
-
     SF.click(By.xpath('//div[@ng-click="addServices(tp)"]'));
     SF.waitForVisible (By.xpath('//li[contains(text(), "Parking Ticket")]'));
     JS.click('li:contains(\\"Parking Ticket\\")');
@@ -124,18 +117,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.job_cost"]'));
     V.tpJobCost = V.tpDeliveryRatePerCF * V.tpDeliveryVolumeCF;
     V.tpTotalJob = V.tpJobCost + V.parkingCost;
-    SF.sleep(3);
-
+    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
         V.cleanTpJobCost = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpJobCost, V.tpJobCost, 'Job cost не совпали');
     }),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_total"]')).getAttribute('value').then(function (text) {
         V.cleanTpTotalJob = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpTotalJob, V.tpTotalJob, 'Total Job не совпали');
     }),config.timeout);
-
     V.tpAddress = SF.randomCifra(10);
     V.tpZip = '90001';
     SF.send(By.xpath('//input[@ng-model="tp.details.address"]'), V.tpAddress);
@@ -153,7 +143,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//md-datepicker[@ng-model="date_to"]/div/input'), V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
-
     SF.click(By.xpath('//button[@ng-click="openNewPayment($event, 0, tpId, [tpId], 1)"]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="payment.amount"]'));
     SF.sleep(2);
@@ -165,7 +154,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.to_receive"]'));
     SF.sleep(5);
-
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.cleanTpToReceive = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали 1');
@@ -189,7 +177,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(5);
     SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.sleep(2);
-    condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
+
+condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
     SF.click(By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'));
     SF.sleep(2);
@@ -220,7 +209,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.cleanOrderBalance = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanOrderBalance, V.orderBalance, 'Order Balance cf не совпали');
     }),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.delivery_job_id"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, V.tpDeliveryJobId, 'Job Id cf не совпали');
     }),config.timeout);
@@ -235,8 +223,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.cleanTpDeliveryPhone1, V.tpDeliveryPhone1, 'Phone cf не совпали');
     }),config.timeout);
 
-    condition.nowWeDoing = 'Редактируем TP Delivery, заполняем поля и проверям рассчети';
-
+condition.nowWeDoing = 'Редактируем TP Delivery, заполняем поля и проверям рассчети';
     V.newCustomer = SF.randomBukva(6) + '_t';
     V.newTpDeliveryEmail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.newTpDeliveryPhone1 = SF.randomCifra(10);
@@ -246,7 +233,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="tp.details.email"]'), V.newTpDeliveryEmail);
     SF.clear(By.xpath('//input[@ng-model="tp.details.phones[$index]"]'));
     SF.send(By.xpath('//input[@ng-model="tp.details.phones[$index]"]'), V.newTpDeliveryPhone1);
-
     V.newTpDeliveryRatePerCF = 4;
     V.newTpDeliveryVolumeCF = 120;
     V.newOrderBalance = 180;
@@ -258,7 +244,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     SF.clear(By.xpath('//input[@ng-model="tp.closing.order_balance"]'));
     SF.send(By.xpath('//input[@ng-model="tp.closing.order_balance"]'), V.newOrderBalance);
-
     SF.click(By.xpath('//div[@ng-click="addServices(tp)"]'));
     SF.waitForVisible (By.xpath('//li[contains(text(), "Parking Ticket")]'));
     SF.click(By.xpath('//th[@ng-click="removeCharge($index);"]'));
@@ -272,18 +257,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.job_cost"]'));
     V.newTpJobCost = V.newTpDeliveryRatePerCF * V.newTpDeliveryVolumeCF;
     V.newTpTotalJob = V.newTpJobCost + V.newParkingCost;
-    SF.sleep(3);
-
+    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_cost"]')).getAttribute('value').then(function (text) {
         V.newCleanTpJobCost = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpJobCost, V.newTpJobCost, 'Job cost не совпали');
     }),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_total"]')).getAttribute('value').then(function (text) {
         V.newCleanTpTotalJob = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpTotalJob, V.newTpTotalJob, 'Total Job не совпали');
     }),config.timeout);
-
     V.newTpAddress = SF.randomCifra(10);
     V.newTpZip = '90001';
     SF.send(By.xpath('//input[@ng-model="tp.details.address"]'), V.newTpAddress);
@@ -301,7 +283,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//md-datepicker[@ng-model="date_to"]/div/input'), V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
-
     SF.click(By.xpath('//button[@    ng-click="removeReceipt(item, $index)"]'));
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="openNewPayment($event, 0, tpId, [tpId], 1)"]'));
@@ -315,17 +296,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.to_receive"]'));
     SF.sleep(5);
-
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.newCleanTpToReceive = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpToReceive, V.newTpToReceive, 'to receive не совпали 3');
     }),config.timeout);
-
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
     SF.sleep(5);
     SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
-    SF.sleep(4);
-    condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
+    SF.sleep(2);
+
+condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
     SF.click(By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'));
     SF.sleep(2);
@@ -356,7 +336,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.newCleanOrderBalance = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanOrderBalance, V.newOrderBalance, 'Order Balance cf не совпали');
     }),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.delivery_job_id"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, V.tpDeliveryJobId, 'Job Id cf не совпали');
     }),config.timeout);
@@ -370,6 +349,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.newCleanTpDeliveryPhone1 = -SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpDeliveryPhone1, V.newTpDeliveryPhone1, 'Phone cf не совпали');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     SF.endOfTest();
 };

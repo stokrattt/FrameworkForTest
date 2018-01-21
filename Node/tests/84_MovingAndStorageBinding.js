@@ -1,4 +1,3 @@
-
 module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
     global.fiber = Fiber.current;
 
@@ -11,13 +10,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
     V.managerName = 'emilia clark';
 
-    condition.nowWeDoing = 'Создаем мувинг сторадж реквест';
+condition.nowWeDoing = 'Создаем мувинг сторадж реквест';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateMovAndStorFromBoard(V.client);
     V.boardNumbers1 = {};
     V.boardNumbers2 = {};
-    condition.nowWeDoing = 'запоминаем айдишку первого реквеста и айдишку реквеста к кторому привязан первий реквест';
+
+condition.nowWeDoing = 'запоминаем айдишку первого реквеста и айдишку реквеста к кторому привязан первий реквест';
     LF.RememberDigitsRequestBoard_Up(V.boardNumbers1);
     V.boardNumbers2.Id = V.boardNumbers1.Id + 1;
     SF.click(By.xpath('//i[@ng-click="openRelinkModal()"]'));
@@ -26,16 +26,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.secondRequestId = text;
     }),config.timeout);
     JS.click('button[ng-click=\\"close()\\"]:visible');
-    SF.sleep(1);
     LF.closeEditRequest();
-    SF.sleep(1);
-    condition.nowWeDoing = 'Откриваем второй реквест и сравниваем айдишки по привязке, отвязиваем реквести';
+
+condition.nowWeDoing = 'Откриваем второй реквест и сравниваем айдишки по привязке, отвязиваем реквести';
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest(V.boardNumbers2.Id);
-
     VD.IWant(VD.ToEqual, V.boardNumbers2.Id, V.secondRequestId, 'не совпали айдишки реквестов 1');
     SF.click(By.xpath('//i[@ng-click="openRelinkModal()"]'));
-
     JS.waitForExist('input[ng-model="secondRequestNid"]:visible');
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="secondRequestNid"]')).getAttribute('value').then(function(text){
         V.firstRequestId = text;
@@ -47,9 +44,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.emptyId1 = text;
     }),config.timeout);
     JS.click('button[ng-click=\\"update()\\"]:visible');
-    SF.sleep(1);
     LF.closeEditRequest();
-    condition.nowWeDoing = 'Откриваем первий реквест, Делаем привязку ко второму реквесту, переходим отсюда же ко второму реквесту и сравниваем айдишки';
+
+condition.nowWeDoing = 'Откриваем первий реквест, Делаем привязку ко второму реквесту, переходим отсюда же ко второму реквесту и сравниваем айдишки';
     MF.Board_OpenRequest(V.boardNumbers1.Id);
     SF.click(By.xpath('//img[@ng-click="openGroupModal()"]'));
     JS.waitForExist('input[ng-model="secondRequestNid"]:visible');
@@ -65,7 +62,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="secondRequestNid"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.boardNumbers1.Id, text, 'не совпали айдишки реквестов 3');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

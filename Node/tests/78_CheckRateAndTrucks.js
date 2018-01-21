@@ -28,7 +28,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.accountNumbers = {};
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbers);
-    SF.sleep(3);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

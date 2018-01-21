@@ -18,7 +18,6 @@ condition.nowWeDoing = 'первый раз в аккаунте';
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
-    SF.sleep(5);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
@@ -86,7 +85,6 @@ condition.nowWeDoing = 'идем в аккаунт букать обе рабо�
     LF.ConfirmRequestInAccount_WithReservation();
     SF.sleep(90); //ожидалка для оплаты пекинг дея
     MF.Account_ViewPackingRequest();
-    SF.sleep(3);
     V.packingdayAccount = {};
     LF.RememberAccountNumbers(V.packingdayAccount);
     LF.Validation_Compare_Account_Admin(V.packingdayAccount, V.packingday);

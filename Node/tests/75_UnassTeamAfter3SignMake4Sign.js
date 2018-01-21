@@ -7,7 +7,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.frontURL);
-    condition.nowWeDoing = 'заполняем калькулятор верхний';
+
+condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
 condition.nowWeDoing = 'первый раз в аккаунте';
@@ -21,8 +22,6 @@ condition.nowWeDoing = 'первый раз в аккаунте';
 condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.WaitWhileBusy();
-    MF.WaitWhileBusy();
     MF.Board_OpenRequest(V.accountNumbers.Id);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -38,7 +37,6 @@ condition.nowWeDoing = 'первый раз в админке';
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
@@ -90,7 +88,6 @@ condition.nowWeDoing = 'третий раз в админке, анассаин 
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
-    MF.WaitWhileBusy ();
     JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
     MF.WaitWhileBusy();
     MF.Dispach_ClickUnassignTeam();
@@ -147,9 +144,8 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     V.managerName = 'emilia clark';
-    SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
-    SF.sleep (2);
+    SF.sleep (1);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
@@ -167,7 +163,7 @@ condition.nowWeDoing = 'выбираем цифры формена';
         'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
 
-    condition.nowWeDoing = 'выбираем цифры менеджера';
+condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll(V.managerName);
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +

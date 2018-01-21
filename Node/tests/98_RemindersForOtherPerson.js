@@ -87,7 +87,7 @@ condition.nowWeDoing = 'идем во вкладку римайндеры, и и
         V.RemaindText2 = text;
         VD.IWant(VD.ToEqual, V.RemaindText, V.RemaindText2,'римайндера нет в PAST');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
     SF.endOfTest();
 };

@@ -15,11 +15,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
 
-    condition.nowWeDoing='заполняем верхнюю форму как UnloadingHelp, создаем 1й реквест';
+condition.nowWeDoing='заполняем верхнюю форму как UnloadingHelp, создаем 1й реквест';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsUnloading(V.NewClient);
 
-    condition.nowWeDoing='зашли первый раз в аккаунт';
+condition.nowWeDoing='зашли первый раз в аккаунт';
     MF.Account_ClickViewRequest();
     LF.AccountUnloadingEnterAddress();
     V.req1={};
@@ -27,7 +27,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     // LF.addToCleanerJob(V.req1.Id);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'первый раз в админке, заходим в 1й реквест, запоминаем email';
+condition.nowWeDoing = 'первый раз в админке, заходим в 1й реквест, запоминаем email';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.req1.Id);
@@ -39,7 +39,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin ();
 
-    condition.nowWeDoing = 'создаём 2й реквест, мувинг с фронта';
+condition.nowWeDoing = 'создаём 2й реквест, мувинг с фронта';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsLocal(V.client);
     MF.Account_ClickViewRequest();
@@ -50,7 +50,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     // LF.addToCleanerJob(V.accountNumbers.Id);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'второй раз в админке, заходим во 2й реквест, меняем email';
+condition.nowWeDoing = 'второй раз в админке, заходим во 2й реквест, меняем email';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbers.Id);
@@ -62,12 +62,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[@ng-click="changeAll()"]'));
     MF.WaitWhileBusy();
     MF.WaitWhileToaster();
-    SF.sleep(5);
+    SF.sleep(2);
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
     MF.Board_RefreshDashboard();
 
-    condition.nowWeDoing = 'Проверяем привязку email к клиенту и изменение имени и фамилии, заходим во 2й реквест';
+condition.nowWeDoing = 'Проверяем привязку email к клиенту и изменение имени и фамилии, заходим во 2й реквест';
     MF.Board_OpenRequest(V.accountNumbers.Id);
     MF.EditRequest_OpenClient();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="client.field_primary_phone"]')).getAttribute('value').then(function(text) {
@@ -98,7 +98,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin ();
 
-    condition.nowWeDoing = 'Идем в аккаунт проверить наличие 2х реквестов, и новых данных клиента';
+condition.nowWeDoing = 'Идем в аккаунт проверить наличие 2х реквестов, и новых данных клиента';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.NewClient);
     driver.wait(driver.findElement(By.xpath('//address/i[@class="icon-envelope"]/following-sibling::span')).getText().then(function(text){
@@ -122,7 +122,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(1);
 
-    condition.nowWeDoing = 'Идем в админку, заходим в реквест и удаляем юзера';
+condition.nowWeDoing = 'Идем в админку, заходим в реквест и удаляем юзера';
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -130,7 +130,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenClient();
     SF.click(By.xpath('//button[@ng-click="delete(client)"]'));
     MF.SweetConfirm();
-    MF.WaitWhileBusy();
 
     SF.endOfTest();
 };

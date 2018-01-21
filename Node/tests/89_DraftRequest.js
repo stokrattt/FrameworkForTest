@@ -15,16 +15,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     MF.EditRequest_OpenClient();
     SF.clear(By.xpath('//input[@ng-model="client.field_user_first_name"]'));
     SF.send(By.xpath('//input[@ng-model="client.field_user_first_name"]'), V.client.name);
-
     SF.clear(By.xpath('//input[@ng-model="client.field_user_last_name"]'));
     SF.send(By.xpath('//input[@ng-model="client.field_user_last_name"]'), V.client.fam);
-
     SF.clear(By.xpath('//input[@ng-model="client.field_primary_phone"]'));
     SF.send(By.xpath('//input[@ng-model="client.field_primary_phone"]'), V.client.phone);
-
     SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
     SF.send(By.xpath('//input[@ng-model="client.mail"]'), V.client.email);
-
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
     LF.addInventoryBoard();
@@ -32,7 +28,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     MF.EditRequest_AddAdditionalServicesFullPack ();
     SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
     driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
-
     SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");
     MF.EditRequest_SetAdressToFrom ();
     SF.sleep(18);
@@ -44,7 +39,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseEditRequest();
     MF.Board_LogoutAdmin();
-
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);

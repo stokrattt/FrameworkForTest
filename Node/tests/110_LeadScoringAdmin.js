@@ -10,7 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'создаем реквест с борда';
+condition.nowWeDoing = 'создаем реквест с борда';
     LF.CreateLocalMovingFromBoard (V.client);
     MF.EditRequest_RememberId (V.request);
     V.boardNumbers = {};
@@ -18,14 +18,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed();
-    MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenSettings();
-    SF.click (By.xpath('//button[@ng-click="goToRequest()"]'));
+    MF.EditRequest_ClickViewRequest();
 
-    condition.nowWeDoing = 'идем в аккаунт, и на конфирмеишен от админа';
-    MF.WaitWhileBusy ();
-    MF.WaitWhileBusy ();
+condition.nowWeDoing = 'идем в аккаунт, и на конфирмеишен от админа';
     SF.sleep(10);
     SF.openTab(1);
     SF.sleep(2);
@@ -39,7 +36,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.openTab(0);
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'заходим в реквест и проверяем, что очки не насчитались';
+condition.nowWeDoing = 'заходим в реквест и проверяем, что очки не насчитались';
     MF.Board_OpenNotConfirmed();
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest (V.boardNumbers.Id);
@@ -47,7 +44,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.AdmPointReq  = text;
         VD.IWant(VD.ToEqual, V.AdmPointReq, 0 ,'добавились очки, хотя не должны были');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
 
 

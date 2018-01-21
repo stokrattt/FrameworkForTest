@@ -26,7 +26,6 @@ condition.nowWeDoing = 'идем в департмент, заходим за с
     }),config.timeout);
     MF.Department_SaveUser();
     MF.WaitWhileToaster ();
-    SF.sleep(3);
 
 condition.nowWeDoing = 'создаем реквест, назначаем нужного менеджера, проверяем Sales Signature и Email сеилса';
     LF.CreateLocalMovingFromBoard(V.client);

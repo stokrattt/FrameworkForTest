@@ -33,7 +33,7 @@ condition.nowWeDoing = 'Заходим в админку идем в Настр�
     SF.clear(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
     SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), V.stateRate);
     SF.click(By.xpath('//input[@ng-model="search"]'));
-    SF.sleep(3);
+    SF.sleep(2);
 
 condition.nowWeDoing = 'Создаем ЛД работу и проверям min Price min Cubic fee и State rate а также Гранд Тотал';
     LF.CreateLongDistanceFromBoard(V.client);
@@ -79,13 +79,12 @@ condition.nowWeDoing = 'Меняем в реквесте min Price min Cubic fee
     SF.send(By.xpath('//input[@ng-model="min_price"]'), V.newMinPrice);
     SF.clear(By.xpath('//input[@ng-model="min_weight"]'));
     SF.send(By.xpath('//input[@ng-model="min_weight"]'), V.newMinCF);
-
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
     SF.sleep(2);
     V.newCubicFee =  V.CF - V.newMinCF;
     V.newModalQuote = V.newCubicFee * V.newStateRate +  V.newMinPrice;
     V.boardNumbers = {};
-    SF.sleep(2);
+    SF.sleep(1);
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     VD.IWant(VD.ToEqual, V.newModalQuote, V.boardNumbers.Quote, 'не совпали Quote');
     V.newGrandTotal = V.newModalQuote + V.boardNumbers.Fuel + V.boardNumbers.AdServices;
@@ -99,7 +98,7 @@ condition.nowWeDoing = 'Второй раз проверям логи, став�
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Minimum Price was changed")]/../../following-sibling::span//' +
         'span[contains(text(), "$'+ V.newMinPrice +'")]')).getText().then(function(text){
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     MF.EditRequest_OpenRequest();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
@@ -117,11 +116,9 @@ condition.nowWeDoing = 'тут обновляем дашборд, открыва
     V.boardNumbersNotConfirm = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersNotConfirm);
     LF.Validation_Compare_Account_Admin (V.boardNumbers, V.boardNumbersNotConfirm);
-
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
         V.RateLDNotConfirm = rate;
     }),config.timeout);
-
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd (V.client.passwd);
     MF.EditRequest_OpenLogs ();
@@ -145,13 +142,11 @@ condition.nowWeDoing = 'идем в аккаунт, сначала сравни�
     V.accountNumbersLD={};
     LF.RememberAccountNumbersLD(V.accountNumbersLD);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLD, V.boardNumbersNotConfirm);
-
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     V.accountNumbersLDConfirm={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDConfirm);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDConfirm, V.boardNumbersNotConfirm);
-
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
 
@@ -162,13 +157,12 @@ condition.nowWeDoing = 'опять идем в админку открываем
     V.boardNumbersConfirm = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersConfirm);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDConfirm, V.boardNumbersConfirm);
-
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
         V.RateLDConfirm = rate;
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     VD.IWant (VD.ToEqual, V.RateLDConfirm, V.RateLDNotConfirm, 'не свопал рейт который был в реквесте нот конферм с тем который стал после того как забукали работу');
-    SF.sleep(2);
+    SF.sleep(1);
 
     SF.endOfTest();
 };

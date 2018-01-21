@@ -10,7 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
 
-    condition.nowWeDoing = 'создаём local moving';
+condition.nowWeDoing = 'создаём local moving';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
     MF.EditRequest_SetToConfirmed();
@@ -18,7 +18,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SetAdressTo();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-    SF.sleep(2);
+    SF.sleep(1);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges();
@@ -38,9 +38,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		foreman2ForCommission: {}
     };
     MF.EditRequest_OpenPayroll();
-    SF.sleep(2);
     MF.EditRequest_PayrollAddManager(V.managerName);
-    SF.sleep(3);
+    SF.sleep(1);
     MF.EditRequest_PayrollSetManagerCommission('emilia clark','Office Commission', 123, 80);
     LF.EditRequestPayroll_RememberManager(V.managerName, V.boardNumbers.Payroll.managerForCommission);
     //open Foreman tab
@@ -66,11 +65,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep(2);
+    SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
     LF.findTestForemanInPayroll(V.foremanName);
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
-    SF.sleep(2);
+    SF.sleep(1);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
 
@@ -94,7 +93,6 @@ condition.nowWeDoing = 'тут будем проверять hourly rate, что
         V.hoursZeroMustBe = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.hoursZeroMustBe, 0, 'полсе ресабмита маленького пейрола с hourly rate =0 в большом пейроле он не поменял свое значение на ноль "'+V.boardNumbers.Id+'"');
     }),config.timeout);
-
 	MF.Payroll_ClickAllDepartment();
 	LF.findTestForemanInPayroll(V.foremanName2);
 	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman2);

@@ -133,7 +133,6 @@ condition.nowWeDoing = 'идем в админку проверять что п�
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
     MF.Board_LogoutAdmin();
-
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest(V.boardNumbers.Id);

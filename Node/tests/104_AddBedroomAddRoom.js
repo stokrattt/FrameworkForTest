@@ -10,13 +10,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'создаем реквест с борда';
+condition.nowWeDoing = 'создаем реквест с борда';
     LF.CreateLocalMovingFromBoard (V.client);
     MF.EditRequest_RememberId (V.request);
     V.boardNumbers = {};
     MF.EditRequest_OpenInventoryTab();
 
-    condition.nowWeDoing = 'создаем кастомный аитем и кастомный бедрум';
+condition.nowWeDoing = 'создаем кастомный аитем и кастомный бедрум';
     MF.EditRequest_CreateCustomBedroom();
     SF.click(By.xpath('//div[@class="inventory__filters opened"]//a[@ng-click="selectFilter(filter);"]/span[contains(text(),"Dresser, Mirror")]'));
     SF.click (By.xpath('//div[@class="inventory__item"][1]//button[@ng-click="onClickCounter(1)"]'));
@@ -43,7 +43,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'иду в аккаунт добавляем еще кастом рум и бедрум, проверяем кол-во аитемов ';
+condition.nowWeDoing = 'иду в аккаунт добавляем еще кастом рум и бедрум, проверяем кол-во аитемов ';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.request.Id);
@@ -69,10 +69,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.InventoryTotalItemsDownTable = SF.cleanPrice(text.replace('Total Items:', ''));
         VD.IWant(VD.ToEqual,V.InventoryTotalItemsAccount, V.InventoryTotalItemsDownTable, 'Сравниваем кол-во аитемов аккаунт/нижняя таблица');
     }), config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'иду в админку в наш реквест, сверяем к.ф. инвентаря и тотал аитемов';
+condition.nowWeDoing = 'иду в админку в наш реквест, сверяем к.ф. инвентаря и тотал аитемов';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.request.Id);
@@ -88,8 +88,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual,V.InventoryTotalItemsAccount, V.InventoryTotalRequest, 'Сравниваем кол-во аитемов в аккаунте и модалке');
     }), config.timeout);
     SF.sleep(2);
-
-
 
     SF.endOfTest();
 };

@@ -8,10 +8,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
 
     SF.get(V.frontURL);
-    condition.nowWeDoing = 'заполняем калькулятор верхний, мувинг';
+
+condition.nowWeDoing = 'заполняем калькулятор верхний, мувинг';
     LF.FullSmallCalcAsLocal(V.client);
 
-    condition.nowWeDoing = 'первый раз в аккаунте, добавляю инвентарь, детали, отправляю сообщение,проверяю прогрес бар';
+condition.nowWeDoing = 'первый раз в аккаунте, добавляю инвентарь, детали, отправляю сообщение,проверяю прогрес бар';
     MF.Account_ClickViewRequest();
     driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
         V.ScorePercent1 = SF.cleanPrice(text);
@@ -39,7 +40,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.BoardAccount_SendMessage(V.toAdmin);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'первый раз в админке,сверяю очки,проверяю логи, включаю дисконт';
+condition.nowWeDoing = 'первый раз в админке,сверяю очки,проверяю логи, включаю дисконт';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     SF.sleep(60);
@@ -78,7 +79,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'пошли в аккаунт, покупаем купон, конфермим, проверяем прогрес бар';
+condition.nowWeDoing = 'пошли в аккаунт, покупаем купон, конфермим, проверяем прогрес бар';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.accountNumbers.Id);
@@ -102,10 +103,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//h3[contains(text(), "We have sent you an email with coupon details.")]/following-sibling::h3/b')).getText().then(function (cod) {
         V.DiscountCode = cod;
     }),config.timeout);
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@class="confirm"]'));
-    SF.sleep(3);
-    MF.WaitWhileBusy();
+    MF.SweetConfirm();
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
@@ -115,7 +113,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'вернулись в модалку реквеста, проверяем очки 2й раз, и логи';
+condition.nowWeDoing = 'вернулись в модалку реквеста, проверяем очки 2й раз, и логи';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
@@ -136,14 +134,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'идем в аккаунт, сразу на конфирмеишен';
+condition.nowWeDoing = 'идем в аккаунт, сразу на конфирмеишен';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.accountNumbers.Id);
     LF.Account_CheckSignature();
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'заходим в реквест 3й раз, проверяем еще раз очки';
+condition.nowWeDoing = 'заходим в реквест 3й раз, проверяем еще раз очки';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
@@ -155,7 +153,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'проверяем фильтр на дашборде';
+condition.nowWeDoing = 'проверяем фильтр на дашборде';
     SF.click(By.xpath('//md-switch[@ng-model="leadScoreFilter.enabled"]'));
     SF.sleep(2);
     SF.click(By.xpath('//md-select[@ng-model="leadScoreFilter.key"]'));
@@ -166,7 +164,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep(1);
 
-    condition.nowWeDoing = 'заходим в реквест 4й раз, вводим очки вручную ';
+condition.nowWeDoing = 'заходим в реквест 4й раз, вводим очки вручную ';
     MF.Board_OpenRequest(V.accountNumbers.Id);
     SF.click (By.xpath('//input[@ng-model="request.field_total_score"]'));
     SF.clear (By.xpath('//input[@ng-model="request.field_total_score"]'));
@@ -174,7 +172,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send (By.xpath('//input[@ng-model="request.field_total_score"]'), 45);
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'проверяем фильтр по новому количеству очков';
+condition.nowWeDoing = 'проверяем фильтр по новому количеству очков';
     MF.Board_RefreshDashboard ();
     SF.click(By.xpath('//md-select[@ng-model="leadScoreFilter.key"]'));
     SF.click(By.xpath('//md-option[@value="cold"]'));
@@ -183,17 +181,17 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.accountNumbers.Id2 = text;
         VD.IWant(VD.ToEqual, V.accountNumbers.Id2, V.accountNumbers.Id, 'не наидена работа во время фильтрации COLD после смены очков вручную');
     }),config.timeout);
-    SF.sleep(3);
+    SF.sleep(1);
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'идем в аккаунт, сразу на конфирмеишен, и выходим из аккаунта';
+condition.nowWeDoing = 'идем в аккаунт, сразу на конфирмеишен, и выходим из аккаунта';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.accountNumbers.Id);
     LF.Account_CheckSignature();
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'заходим в реквест 5й раз, проверяем очки, после того как поменяли их вручную, и побывали в аккаунте и на конфирмеишен';
+condition.nowWeDoing = 'заходим в реквест 5й раз, проверяем очки, после того как поменяли их вручную, и побывали в аккаунте и на конфирмеишен';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
@@ -203,9 +201,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, V.PointReq5, 80 ,'сверяем очки 5й раз');
     }),config.timeout);
     SF.sleep(1);
-    LF.closeEditRequest();
-
-
 
     SF.endOfTest();
 };

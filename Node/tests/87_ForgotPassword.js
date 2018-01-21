@@ -10,12 +10,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.ForgotPassword2 = 'fghdgfbdgf@gfhdgh.dsru';
     V.client.newEmaila= 'test.boston@mail.ru';
 
-
     SF.get(V.frontURL);
-    condition.nowWeDoing = 'заполняем калькулятор верхний';
+
+condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
-    condition.nowWeDoing = ' в аккаунте';
+condition.nowWeDoing = ' в аккаунте';
     MF.Account_ClickViewRequest();
     SF.click(By.xpath('//a[@ng-click="openModal()"]'));
     JS.waitForExist('input[ng-model=\\"client.mail\\"]');
@@ -23,9 +23,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="client.mail"]'),V.client.newEmaila);
     JS.click('button[ng-click=\\"update(client)\\"]:visible');
     MF.WaitWhileBusy();
-    SF.sleep(1);
     LF.LogoutFromAccount ();
-    SF.sleep(2);
     SF.click (By.xpath('//small[contains(text(),"Forgot password?")]'));
     SF.sleep(1);
     SF.waitForVisible(By.xpath('//input[@id="email"]'));
@@ -33,7 +31,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@id="email"]'), V.client.newEmaila );
     SF.click(By.xpath('//button[@type="submit"]'));
     MF.SweetConfirm();
-    SF.sleep(2);
 
     SF.endOfTest();
 };

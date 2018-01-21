@@ -13,6 +13,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenStatistic ();
     MF.Board_OpenProfitLoss ();
     MF.Board_OpenSideBar ();
+
 condition.nowWeDoing = 'Заходим в профит и лосс и удаляем все експенсе которые там есть';
     driver.wait(driver.executeScript("return $('tr[ng-click=\"openExpense(expense)\"]').length").then(function (expense) {
         V.expense = expense;
@@ -25,7 +26,7 @@ condition.nowWeDoing = 'Заходим в профит и лосс и удаля
             MF.WaitWhileBusy();
         }
     }
-    SF.sleep(2);
+    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//div[@class="panel-body blueBox"]/span[1]')).getText().then(function (text) {
         V.sumExpenseClean = SF.cleanPrice (text);
     }),config.timeout);

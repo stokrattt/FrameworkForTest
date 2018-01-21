@@ -1,4 +1,3 @@
-
 module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants){
     global.fiber = Fiber.current;
     V.client = {};
@@ -46,7 +45,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
     LF.LoginToAccountAsClient (V.client);
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));
     MF.Account_ClickViewRequest();
-
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.jobTime.isDisplay"]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Job Time = Labor Time + Travel Time")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.jobTimeText, text, 'не совпали Job Time tooltip');
@@ -77,7 +75,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.fullPackingText, text, 'не совпали Full Packing tooltip');
     }),config.timeout);
-
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
     LF.LoginToBoardAsAdmin();
@@ -92,7 +89,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
         "return true;} else {$('input[ng-model=\"vm.movecalcFormSettings.rateTooltips.showBig\"]~span').click()}"),config.timeout);
     driver.wait(driver.executeScript("if ($('input[ng-model=\"vm.movecalcFormSettings.rateTooltips.showSmall\"]').hasClass('ng-not-empty')){" +
         "return true;} else {$('input[ng-model=\"vm.movecalcFormSettings.rateTooltips.showSmall\"]~span').click()}"),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "general tooltip")]')).getText().then(function(text){
         V.generalTooltip = text;
     }),config.timeout);
@@ -111,7 +107,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "hipeak tooltip")]')).getText().then(function(text){
         V.hipeakTooltip = text;
     }),config.timeout);
-
     MF.Board_LogoutAdmin();
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
@@ -124,7 +119,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.generalTooltip , V.tempText, 'не совпали general tooltip');
-
     driver.wait(driver.executeScript(function(){
         return $('.calendarType0 .datepickerTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
@@ -132,7 +126,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.discountTooltip , V.discountTooltip2, 'не совпали discount tooltip');
-
     driver.wait(driver.executeScript(function(){
         return $('.calendarType1 .datepickerTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
@@ -140,7 +133,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.regularTooltip , V.regularTooltip2, 'не совпали Regular tooltip');
-
     driver.wait(driver.executeScript(function(){
         return $('.calendarType2 .datepickerTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
@@ -148,7 +140,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.subpeakTooltip , V.subpeakTooltip2, 'не совпали SubPeak tooltip');
-
     driver.wait(driver.executeScript(function(){
         return $('.calendarType3 .datepickerTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
@@ -156,7 +147,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.peakTooltip , V.peakTooltip2, 'не совпали Peak tooltip');
-
     driver.wait(driver.executeScript(function(){
         return $('.calendarType4 .datepickerTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {

@@ -79,7 +79,6 @@ condition.nowWeDoing = 'проверяем двойную дату';
 
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep(3);
     LF.OpenRequestFlatRate (V.FRId);
     LF.FlatRateEditRequest_AddTwoOption();
     MF.EditRequest_OpenClient ();
@@ -114,9 +113,7 @@ condition.nowWeDoing = 'идем в акк подтвердить выбранн
 
 condition.nowWeDoing = 'идем в админку ставить нот конферм, трак....';
     MF.Board_OpenRequest (V.FRId);
-    SF.sleep(1);
     MF.EditRequest_SetToConfirmed();
-    SF.sleep (1);
     MF.EditRequest_SetAdressToFrom ();
     SF.click(By.xpath('//div[@class="dateRange"]/input'));
     MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
@@ -130,10 +127,10 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     SF.sleep(4);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
-    SF.sleep(2);
+    SF.sleep(1);
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    SF.sleep(3);
+    MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//select[@ng-model="request.field_extra_pickup.organisation_name"]')).getAttribute("value").then(function(text){
         VD.IWant(VD.ToEqual, text, 2, 'не совпали extra pick up етажи на акаунте и мувборде');
     }),config.timeout);
@@ -152,7 +149,7 @@ condition.nowWeDoing = 'закрываем вручную работу пика�
         foremanForCommission: {},
         foreman2ForCommission: {}
     };
-    SF.sleep(6);
+    SF.sleep(2);
     MF.EditRequest_PayrollAddManager(V.managerName);
     SF.sleep(3);
     MF.EditRequest_PayrollSetManagerCommission('emilia clark','Office Commission', 123, 80);
@@ -185,11 +182,10 @@ condition.nowWeDoing = 'идем в большой пейрол проверят
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, '1 не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep(2);
     MF.Payroll_ClickAllDepartment();
     LF.findTestForemanInPayroll(V.foremanName);
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
-    SF.sleep(2);
+    SF.sleep(1);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.Total, '2 не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
@@ -203,7 +199,8 @@ condition.nowWeDoing = 'в админке включаем Quote Explanation';
     if (V.QuoteExplanation) {console.log('вкл Quote Explanation');
     SF.click(By.xpath('//input[@ng-model="vm.faAccountSettings.explanation"]/following-sibling::span'));}
     MF.Board_LogoutAdmin();
-    condition.nowWeDoing = 'в акаунте проверяем Quote Explanation';
+
+condition.nowWeDoing = 'в акаунте проверяем Quote Explanation';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));
@@ -211,7 +208,7 @@ condition.nowWeDoing = 'в админке включаем Quote Explanation';
     driver.wait(driver.findElements(By.xpath('//p[contains(text(),"Flat Rate Quote Explanation")]')).then(function(arr){
         V.QuoteExplanation=(arr.length==1);
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

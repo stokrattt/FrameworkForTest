@@ -16,7 +16,6 @@ condition.nowWeDoing = 'создаем пекинг дей с фронта';
     LF.addInventoryBoard ();
     MF.EditRequest_SetAdressFrom ();
     MF.EditRequest_SetToNotConfirmed();
-    SF.sleep(2);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
@@ -40,7 +39,7 @@ condition.nowWeDoing = 'создаем пекинг дей с фронта';
             V.PackingDayQuoteMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
             V.PackingDayQuotelMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
         }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     VD.IWant(VD.ToEqual, V.PackingDayQuoteMin, V.boardNumbers.TotalMin, 'в письме клиенту  тотал min отправился неверный');
     VD.IWant(VD.ToEqual, V.PackingDayQuotelMax, V.boardNumbers.TotalMax, 'в письме клиенту  тотал max отправился неверный');
     MF.EditRequest_CloseEditRequest();
@@ -75,7 +74,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда до резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда до резервации');
-    SF.sleep(1);
     MF.Account_ConfirmationBackToRequest ();
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
@@ -144,9 +142,8 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
-    SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
-    SF.sleep (2);
+    SF.sleep (1);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
@@ -169,7 +166,7 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep(3);
+    SF.sleep(1);
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

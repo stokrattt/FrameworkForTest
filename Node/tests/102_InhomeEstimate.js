@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
 
-    condition.nowWeDoing = 'создаем мувинг с фронта, ставим статус инхом эстимеит';
+condition.nowWeDoing = 'создаем мувинг с фронта, ставим статус инхом эстимеит';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
@@ -21,7 +21,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//li[contains(text(), "08:00")]'));
     SF.click (By.xpath('//input[@ng-model="request.home_estimate_start_time.value"]'));
     // SF.click(By.xpath('//li[contains(text(), "12:00")]'));
-
     SF.sleep(1);
     SF.click (By.xpath('//input[@id="home-estimate-duration"]'));
     SF.click(By.xpath('//ul[@class="ui-timepicker-list"]//li[contains(text(), "00:30")]'));
@@ -33,7 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SaveChanges();
 
-    condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
+condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
     MF.EditRequest_OpenPayment();
     SF.click (By.xpath('//a[@ng-show="basicSettings.AuthPaymentSSL"]'));
     SF.sleep (1);
@@ -47,7 +46,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//input[@ng-model="payment.creditCardFee"]'));
     LF.FillCardPayModal ();
     MF.WaitWhileBusy();
-    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount: ")]/following-sibling::span')).getText().then(function(text){
         V.PaymentInsert = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.PaymentInsert, 103, 'оплата не совпала')
@@ -58,7 +56,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click (By.xpath('//button[@ng-click="save()"]'));
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'идем в Requests открываем Inhome Estimate для проверки что работа есть';
+condition.nowWeDoing = 'идем в Requests открываем Inhome Estimate для проверки что работа есть';
     SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'requests.child\')"]'));
     MF.WaitWhileBusy();
     SF.select (By.xpath('//select[@id="fstatus"]'), 4);
@@ -68,7 +66,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     SF.sleep (1);
 
-    condition.nowWeDoing = 'идем на дащборд проверить реквест в табе Inhome Estimate';
+condition.nowWeDoing = 'идем на дащборд проверить реквест в табе Inhome Estimate';
     MF.Board_OpenDashboard ();
     MF.Board_OpenInhomeEstimateTab();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.boardNumbers.Id+'")]')).getText().then(function(text){
@@ -78,7 +76,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (1);
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'идем в аккаунт, проверить что статус реквеста инхом эстимеит';
+condition.nowWeDoing = 'идем в аккаунт, проверить что статус реквеста инхом эстимеит';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.boardNumbers.Id);

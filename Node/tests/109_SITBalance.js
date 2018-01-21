@@ -46,7 +46,6 @@ condition.nowWeDoing = 'добавляем адишенал, пакинг, ти�
     SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'),200);
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
     MF.WaitWhileToaster();
-    MF.WaitWhileToaster();
     SF.sleep(10);
     V.boardNumbersClosingTab1 = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingTab1);
@@ -58,7 +57,6 @@ condition.nowWeDoing = 'идем заново в реквест сверяем �
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest (V.requestNumber.Id);
     MF.EditRequest_CloseConfirmWork();
-    SF.sleep(1);
     V.boardNumbersClosingAfterClosedRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterClosedRequest);
     VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterClosedRequest.Total,V.boardNumbersClosingTab1.Total, 'не совпал Total после закрытия');
@@ -158,7 +156,6 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenPayment();
-    MF.WaitWhileBusy();
     SF.click(By.xpath('//input[@ng-click="changePending(receipt)"]'));
     JS.click('button[ng-click=\\"save()\\"]:visible');
     SF.sleep(3);

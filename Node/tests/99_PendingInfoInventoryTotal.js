@@ -50,9 +50,7 @@ condition.nowWeDoing = 'пошли в админку и проверили, чт
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
-    SF.sleep(2);
-
-
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

@@ -11,7 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'создаем первый реквест';
+condition.nowWeDoing = 'создаем первый реквест';
     LF.CreateLocalMovingFromBoard(V.client);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -44,7 +44,6 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
         // LF.addToCleanerJob(V.Id2);
     }), config.timeout);
     MF.EditRequest_SetStartTime (V.time);
-
     SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
     MF.WaitWhileBusy();
@@ -57,15 +56,13 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     V.client3.phone = SF.randomCifra(10);
     V.client3.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
-    condition.nowWeDoing = 'создаем третий реквест, ставим нот конферм и выбираем трак такой же как у первого и время тоже самое';
+condition.nowWeDoing = 'создаем третий реквест, ставим нот конферм и выбираем трак такой же как у первого и время тоже самое';
     LF.CreateLocalMovingFromBoard(V.client3);
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.Id3 = SF.cleanPrice(text);
         // LF.addToCleanerJob(V.Id3);
     }), config.timeout);
-
     MF.EditRequest_SetStartTime (V.time);
-
     SF.sleep (3);
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
     MF.WaitWhileBusy();
@@ -85,7 +82,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
     LF.closeEditRequest ();
     MF.Board_RefreshDashboard ();
 
-    condition.nowWeDoing = 'идем в админку проверять или два реквеста ушли в дата пендинг';
+condition.nowWeDoing = 'идем в админку проверять или два реквеста ушли в дата пендинг';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'первый реквест не ушел в дата пендинг а должен был');
     }), 120000);
