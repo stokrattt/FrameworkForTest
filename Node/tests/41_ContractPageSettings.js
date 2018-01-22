@@ -180,6 +180,28 @@ condition.nowWeDoing = 'проверяем настройку CASH (DISCOUNT)';
         }),config.timeout);
         SF.sleep (1);
     }
+
+condition.nowWeDoing = 'тут делаем поалту нашим добавленный кастомным пайментом в настройках и проверяем что процент работает';
+    driver.wait(driver.findElement(By.xpath('//td[@class="red_total"]')).getText().then(function (text) {
+        V.totalDeposit = SF.cleanPrice(text);
+    }),config.timeout);
+    SF.sleep(0.5);
+    V.customPaymentPercent = (V.totalDeposit * 0.10) + V.totalDeposit;
+    console.log(V.customPaymentPercent);
+
+    MF.Contract_ClickPay();
+    SF.click(By.xpath('//div[@ng-if="tips.perc == 0 && tips.amount == 0"]'));
+    SF.sleep(3);
+    MF.Contract_ClickPaymentInfo();
+    SF.click(By.xpath('//div[@ng-click="choosePayment(option.name);"]/p[contains(text(), "forTestNotDelete")]'));
+    SF.sleep(2);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="step2"]/div')).getText().then(function (text) {
+        V.totalPaymentWithPercent = SF.cleanPrice(text);
+        VD.IWant (VD.ToEqual, V.totalPaymentWithPercent, (V.customPaymentPercent).toFixed(2), 'настройка с процентами которую делал Антон не сработала))');
+    }),config.timeout);
+    SF.sleep(0.5);
+    SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+
 condition.nowWeDoing = 'идем обратно в настройки контракта и включаем по умолчанию кэш дискаунт, кредит кард фии и выключаем кастом';
     SF.openTab (2);
     SF.sleep(2);
