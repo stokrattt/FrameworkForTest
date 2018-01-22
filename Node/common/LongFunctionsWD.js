@@ -1330,9 +1330,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                 - boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips - contractNumbers.CreditCardPercentSumm),
             'Не совпал ForCommission менеджера');
 
-        driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
-        });
+        }),config.timeout);
         SF.sleep(1);
         MF.EditRequest_PayrollOpenForemanTab();
         EditRequestPayroll_RememberForeman(V.foremanName, boardNumbers.Payroll.foremanForCommission);
@@ -1377,20 +1377,20 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.sleep(3);
         driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
             boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
-        }));
+        }),config.timeout);
         SF.sleep(1);
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office), 5000, 'Не совпал ForCommission менеджера');
 
-        driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
-        });
+        }),config.timeout);
         MF.EditRequest_PayrollOpenForemanTab();
 
         driver.wait(driver.executeScript('return ' +
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
         ).then(function (text) {
             boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
-        }));
+        }),config.timeout);
         SF.sleep(1);
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
             Math.floor(boardNumbers.AdServices),
@@ -1400,15 +1400,15 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
         ).then(function (text) {
             boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
-        }));
+        }),config.timeout);
         SF.sleep(1);
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
             Math.floor(boardNumbers.Packing),
             'Не совпал Packing формена');
 
-        driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
-        });
+        }),config.timeout);
         SF.sleep(1);
         MF.EditRequest_PayrollOpenHelperTab();
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\'); calcWorkerTotal(\'driver\');"]')).getText().then(function (text) {
@@ -1428,7 +1428,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
         ).then(function (text) {
             boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
-        }));
+        }),config.timeout);
         SF.sleep(1);
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
             Math.floor(boardNumbers.AdServices),
@@ -1438,15 +1438,15 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
         ).then(function (text) {
             boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
-        }));
+        }),config.timeout);
         SF.sleep(1);
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
             Math.floor(boardNumbers.Packing),
             'Не совпал Packing формена');
 
-        driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
+        driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
             boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
-        });
+        }),config.timeout);
         SF.sleep(1);
         MF.EditRequest_PayrollOpenHelperTab();
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\'); calcWorkerTotal(\'driver\');"]')).getText().then(function (text) {
