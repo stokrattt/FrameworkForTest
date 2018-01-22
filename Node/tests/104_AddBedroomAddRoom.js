@@ -14,6 +14,11 @@ condition.nowWeDoing = 'создаем реквест с борда';
     LF.CreateLocalMovingFromBoard (V.client);
     MF.EditRequest_RememberId (V.request);
     V.boardNumbers = {};
+    driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text) {
+        V.InventoryCFDefault = SF.cleanPrice(text.replace('Total Estimated Cubic Feet:', ''));
+        console.log(V.InventoryCFDefault);
+    }), config.timeout);
+    SF.sleep(1);
     MF.EditRequest_OpenInventoryTab();
 
 condition.nowWeDoing = 'создаем кастомный аитем и кастомный бедрум';
@@ -88,6 +93,26 @@ condition.nowWeDoing = 'иду в админку в наш реквест, св�
         VD.IWant(VD.ToEqual,V.InventoryTotalItemsAccount, V.InventoryTotalRequest, 'Сравниваем кол-во аитемов в аккаунте и модалке');
     }), config.timeout);
     SF.sleep(2);
+
+    condition.nowWeDoing = 'удаляем все аитемы, и проверяем что вес вернулся в дефолтный';
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    MF.EditRequest_ClickSaveInventory();
+    driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
+        V.boardNumbersCubFitAfterDeleteInventory = SF.cleanPrice (text);
+        VD.IWant(VD.ToEqual,V.boardNumbersCubFitAfterDeleteInventory, V.InventoryCFDefault, 'Проверяем, что вес вернулся в дефолтный');
+    }),config.timeout);
+    SF.sleep(1);
 
     SF.endOfTest();
 };
