@@ -226,19 +226,22 @@ condition.nowWeDoing = 'выбираем расписание, ищем в не�
     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
     SF.sleep(1);
     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.accountNumbersUp.Id+'")]')).getText().then(function(text) {
+    SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersUp.Id+'")]'));
+    driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersUp.Id+'")]')).getText().then(function(text) {
         V.Req1Cal = text;
         VD.IWant(VD.ToEqual, ('#' +V.accountNumbersUp.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 1я работа');
     }),config.timeout);
     SF.sleep(3);
     condition.nowWeDoing = 'выбираем день 2й работы,кликаем её';
     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
-    SF.sleep(3);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.accountNumbersDelivery.Id+'")]')).getText().then(function(text) {
+    SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersDelivery.Id+'")]'));
+    driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersDelivery.Id+'")]')).getText().then(function(text) {
         V.Req2Cal = text;
         VD.IWant(VD.ToEqual, ('#' +V.accountNumbersDelivery.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 2я работа');
     }),config.timeout);
-    SF.sleep(4);
+    SF.sleep(3);
+
+
 
 condition.nowWeDoing = 'идем в департмент выключить календарь для сеилса';
     SF.get(V.adminURL);
