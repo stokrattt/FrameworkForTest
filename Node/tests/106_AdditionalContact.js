@@ -30,7 +30,7 @@ condition.nowWeDoing = 'создаем адишенал контакт';
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    SF.sleep(1);
+    MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed();
 
 condition.nowWeDoing = 'включяем отправку писем адишенал контакту, конфермим, поверяем в логах, что письма отправились 2м';
@@ -40,7 +40,7 @@ condition.nowWeDoing = 'включяем отправку писем адише�
     MF.WaitWhileToaster();
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetAdressToFrom ();
-    MF.EditRequest_ChangeStatusRequest (3);
+    MF.EditRequest_ChangeStatusRequest(3);
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenLogs();
     driver.wait(driver.findElement(By.xpath('//div[@class="message-new-log mail-subject"]//span[@ng-bind-html="toTrustedHTML(item.text)"]')).getText().then(function(text) {
