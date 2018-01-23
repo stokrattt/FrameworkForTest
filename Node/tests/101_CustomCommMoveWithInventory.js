@@ -85,7 +85,6 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом нот конферм');
     LF.AccountLocalAddInventory();
-    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountcbfWithInventory = SF.cleanPrice(text.substring(text.indexOf('Inventory ')+9, text.indexOf('c.f.')));
     }),config.timeout);

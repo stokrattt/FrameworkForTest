@@ -35,6 +35,7 @@ condition.nowWeDoing = 'зашли под клиентом в акк';
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     MF.Account_CheckRequestStatus_NotConfirmed(V.request.Id);
     MF.Account_OpenRequest(V.request.Id);
+    MF.Account_ClickViewRequest();
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount ();
