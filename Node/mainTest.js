@@ -66,7 +66,10 @@ function getNewDriver() {
     var SELENIUM_HOST = 'http://localhost:4444/wd/hub';
     var newDriver = new webdriver.Builder()
         .usingServer(SELENIUM_HOST)
-        .withCapabilities({browserName: config.browser})
+        .withCapabilities({
+            browserName: config.browser,
+            chromeOptions : config.chromeOptions
+        })
         .build();
     newDriver.manage().window().setSize(1500, 850);
     console.log('получили новый драйвер'.blue);

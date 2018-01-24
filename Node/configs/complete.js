@@ -123,6 +123,7 @@ module.exports = function(config,V) {
     config.timeout = 80000;
     config.chainFail = false;
 	config.browser = 'chrome';
+    config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu"] };
 	//V.frontURL = 'http://stage.themoveboard.com:8005';                    //dev
 	//V.accountURL = 'http://stage.themoveboard.com:8005/account/#/login';  //dev
 	//V.adminURL = 'http://stage.themoveboard.com:8005/moveBoard/#/login';  //dev
