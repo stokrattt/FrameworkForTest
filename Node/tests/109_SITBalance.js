@@ -143,7 +143,7 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     V.boardNumbersClosingAfterDiscountAndPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterDiscountAndPaymentInRequest);
     LF.closeEditRequest();
-    SF.sleep(1);
+    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]/div[@class="big-form__jobs-list__body__item"][10]')).getText().then(function (text) {
