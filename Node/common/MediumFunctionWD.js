@@ -937,6 +937,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_SetToNotConfirmed() {
         SF.select(By.xpath('//select[@id="edit-status"]'), 2);
     }
+	function EditRequest_SetToInhomeEstimate() {
+		SF.select(By.xpath('//select[@id="edit-status"]'), 4);
+	}
     function EditRequest_SetToConfirmed() {
         SF.select(By.xpath('//select[@id="edit-status"]'), 3);
     }
@@ -2140,6 +2143,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenClient: EditRequest_OpenClient,
         EditRequest_OpenRequest: EditRequest_OpenRequest,
         EditRequest_SetToNotConfirmed: EditRequest_SetToNotConfirmed,
+		 EditRequest_SetToInhomeEstimate: EditRequest_SetToInhomeEstimate,
         EditRequest_SetToUploading: EditRequest_SetToUploading,
         EditRequest_SaveChanges: EditRequest_SaveChanges,
         EditRequest_WaitForBalanceVisible: EditRequest_WaitForBalanceVisible,

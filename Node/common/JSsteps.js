@@ -326,6 +326,105 @@ exports.selectTruck = function (hours) {
     return f.replace(/##/, hours);
 };
 
+exports.selectHomeEstimator = function (hours) {
+	var f = function () {
+		var hours = 2;
+		var onlyDig = function (str) {
+			var res = '';
+			for (var i = 0; i < str.length; i++) {
+				if ((!isNaN(str[i])) || (str[i] == '.')) {
+					res += str[i]
+				}
+			}
+			return parseFloat(res);
+		};
+		var selected = false;
+		var trucks = 'el-home-estimate-worker-item';
+		var startDay = 7.5 * 50;
+		var endDay = 24 * 50;
+		var needWidth = hours * 50 + 100;
+		console.log('need ' + needWidth);
+		
+		for (var number = 0, count = $(trucks).length; (number < count && !selected); number++) {
+			
+			var name = $('el-home-estimate-worker-item:eq("' + number + '")').text();
+			
+			if (name.indexOf("KKKKKKK YYYYYYY") != -1) {
+				
+				var arrayChaos = $('table.home-estimate-day-plan-table ' +
+					'el-home-estimate-work-item span ');
+				
+				var array = [];
+				var ChaosEnd = startDay;
+				for (var m = 0; m < arrayChaos.length; m++) {
+					var element = {};
+					element.start = onlyDig(getComputedStyle(arrayChaos.get(m)).left);
+					element.end = element.start + onlyDig(getComputedStyle(arrayChaos.get(m)).width);
+					if (element.end > ChaosEnd) {
+						ChaosEnd = element.end;
+					}
+					array.push(element);
+				}
+				console.log('энд ' + ChaosEnd);
+				var intStart = startDay;
+				var intEnd = startDay;
+				var p = startDay;
+				var inChaos = false;
+				console.log('estimator ' + number);
+				console.log(arrayChaos);
+				console.log(array);
+				while ((p <= endDay) && (!selected)) {
+					console.log('свободно с ' + p);
+					do {
+						inChaos = false;
+						for (var r = 0; r < array.length; r++) {
+							if ((p >= array[r].start) && (p <= array[r].end)) {
+								inChaos = true;
+							}
+						}
+						p++;
+					} while ((!inChaos) && (p <= endDay));
+					console.log('до ' + p);
+					if (p - intStart >= needWidth) {
+						console.log('подошло');
+						intStart += 25;
+						var startH = Math.floor(intStart / 50);
+						var startM = Math.floor(intStart % 50 / 5 * 6 / 30) * 30;
+						var startTime = startH + ':' + (startM == 0 ? '00' : startM);
+						if (startH >= 12) {
+							startTime += ' PM';
+						} else {
+							startTime += ' AM';
+						}
+						console.log('время ' + startTime);
+						$('[field="request.home_estimate_actual_start"]').val(startTime);
+						$('[field="request.home_estimate_actual_start"]').change();
+						$('[field="request.home_estimate_start_time"]').val(startTime);
+						$('[field="request.home_estimate_start_time"]').change();
+						$('[ng-model="request.home_estimate_time_duration.value"]').val(hours);
+						$('[ng-model="request.home_estimate_time_duration.value"]').change();
+						
+						$(trucks + ':eq("' + number + '")').click();
+						selected = true;
+					} else do {
+						inChaos = false;
+						for (var r = 0; r < array.length; r++) {
+							if ((p >= array[r].start) && (p <= array[r].end)) {
+								inChaos = true;
+							}
+						}
+						p++;
+					} while ((inChaos) && (p <= endDay));
+					console.log('занято до' + p);
+					intStart = p;
+				}
+			}
+		}
+		return selected ? number : -1;
+	}.toString().substring(12);
+	return f.replace(/##/, hours);
+};
+
 exports.findAllDetermPrices = function (target){
 	var f = function () {
 		var target = "##";

@@ -224,7 +224,9 @@ module.exports = function (system, config, By, until, constants, condition) {
     }
     function dateToStringMMMDDYYYY(date) {
         return constants.monthNamesShort[date.Month] + ' ' + date.Day + ', ' + date.Year;
-    } function dateToStringMMMMDDYYYY(date) {
+    }
+    
+    function dateToStringMMMMDDYYYY(date) {
         return constants.monthNames[date.Month] + ' ' + date.Day + ', ' + date.Year;
     }
 

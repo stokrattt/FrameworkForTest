@@ -17,6 +17,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
 	console.log('получили новый драйвер для мобильника'.blue);
 	global.driver=newDriver2;
 	
+	V.salesLogin = 'JACK_RATE';
+	V.salesPassword = '123';
+	
 	V.client = {};
 	V.client.name = SF.randomBukva(6) + '_t';
 	V.client.fam = SF.randomBukva(6) + '_t';
@@ -24,8 +27,29 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
 	V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 	V.client.passwd = 123;
 	
-	condition.nowWeDoing = 'заходим в портал как сейлс';
+	condition.nowWeDoing = 'заходим в борд как сейлс и создаём inhomeEstimate';
 	SF.get(V.adminURL);
+	LF.LoginToBoardAsCustom(V.salesLogin, V.salesPassword);
+	LF.CreateLocalMovingFromBoard(V.client);
+	
+	V.boardNumbers = {};
+	LF.RememberDigitsRequestBoard_Up(V.boardNumbers);
+	MF.EditRequest_SetToInhomeEstimate();
+	
+	MF.EditRequest_SetAdressToFrom();
+	
+	SF.click(By.xpath('//button[@ng-click="saveChanges()"]'));
+	
+	SF.send(By.xpath('//elromco-field-date-picker[@field="request.home_estimate_date"]/input'),
+		SF.dateToStringMMMMDDYYYY(V.request.moveDate));
+	
+	Debug.pause();
+	//MF.EditRequest_SaveChanges();
+	SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+	//MF.EditRequest_CloseEditRequest();
+	
+	Debug.pause();
+	condition.nowWeDoing = 'заходим в портал как сейлс';
 	SF.waitForVisible(By.xpath('//h1[@ng-click="homeEstimate = true; moveBoard = false;"]'));
 	SF.click(By.xpath('//h1[@ng-click="homeEstimate = true; moveBoard = false;"]'));
 	SF.send(By.xpath('//input[@id="email"]'), V.adminLogin);
