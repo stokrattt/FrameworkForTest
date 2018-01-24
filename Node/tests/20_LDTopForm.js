@@ -29,10 +29,11 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     MF.LongDistanceSettings_SelectMABasedState();
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
     MF.Board_LogoutAdmin ();
-    SF.get(V.frontURL);
-    SF.sleep (2);
+
 
 condition.nowWeDoing = 'заполняем калькулятор верхний';
+    SF.get(V.frontURL);
+    SF.sleep (2);
     LF.FullSmallCalcAsLD (V.client);
     MF.Account_ClickViewRequest();
 

@@ -109,6 +109,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickProceedBookYourMove();
+    SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To not confirmed на аккаунте на confirmation page');
     }),config.timeout);

@@ -12,6 +12,7 @@
     "colors": "^1.1.2",
     "fibers": "^2.0.0",
     "path": "^0.12.7",
-    "selenium-webdriver": "^3.1.0"
+    "selenium-webdriver": "^3.1.0",
+    "xvfb": "^0.2.3"
   }
 }

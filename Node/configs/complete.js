@@ -117,7 +117,7 @@ module.exports = function(config,V) {
         './tests/111_ZIPCode.js',
         './tests/51_ServiceTypesOnOff.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
-        './tests/107_SallaryProfitLossAndPayroll.js',
+        // './tests/107_SallaryProfitLossAndPayroll.js',
 
     ];
     config.timeout = 80000;

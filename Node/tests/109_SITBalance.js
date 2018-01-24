@@ -84,6 +84,7 @@ condition.nowWeDoing = 'идем в SIT создаем трип, добавля�
     MF.Board_OpenTripPlanner();
     MF.Board_OpenSideBar();
     MF.SIT_ClickAddTrip();
+    SF.sleep(2);
     MF.SIT_ChangeStatusTrip('Pending');
     SF.click(By.xpath('//md-select[@ng-model="type"]'));
     SF.waitForVisible (By.xpath('//div[text()="Foreman/Helper"]'));
