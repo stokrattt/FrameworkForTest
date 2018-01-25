@@ -97,7 +97,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom, text, 'не совпала надпись слева в колонке по мувинг фром');
     }),config.timeout);
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Not found zip code 00000.")]')).getText().then(function(text){
         V.WeDontTo = text;
         VD.IWant(VD.ToEqual, V.WeDontTo, text, 'не совпала надпись слева в колонке по мувинг ту');

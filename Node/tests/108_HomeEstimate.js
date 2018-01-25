@@ -43,12 +43,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
 	SF.send(By.xpath('//elromco-field-date-picker[@field="request.home_estimate_date"]/input'),
 		SF.dateToStringMMMMDDYYYY(V.request.moveDate));
 	
-	Debug.pause();
 	//MF.EditRequest_SaveChanges();
 	SF.click(By.xpath('//button[@ng-click="cancel()"]'));
 	//MF.EditRequest_CloseEditRequest();
 	
-	Debug.pause();
 	condition.nowWeDoing = 'заходим в портал как сейлс';
 	SF.waitForVisible(By.xpath('//h1[@ng-click="homeEstimate = true; moveBoard = false;"]'));
 	SF.click(By.xpath('//h1[@ng-click="homeEstimate = true; moveBoard = false;"]'));
@@ -56,7 +54,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
 	SF.send(By.xpath('//input[@id="password"]'), V.adminPassword);
 	SF.click(By.xpath('//button[@type="submit"]'));
 	SF.waitForVisible(By.xpath('//div[@ng-repeat="request in vm.inHomeEstimateRequests"]'));
-	Debug.pause();
-	
+
 	SF.endOfTest();
 };

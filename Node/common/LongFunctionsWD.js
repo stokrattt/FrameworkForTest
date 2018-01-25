@@ -951,7 +951,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         SF.click (By.xpath('//div[contains(@class, "notconfirmed")]/a'));
         SF.sleep(2);
         SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
-        SF.sleep (0.5);
+        SF.sleep (1);
         SF.click (By.id('terms'));
         SF.click (By.id('cancel_policy'));
         SF.click (By.id('paybutton'));

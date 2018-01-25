@@ -61,7 +61,6 @@ condition.nowWeDoing = 'тут открываем наш пекинг дей и 
     MF.Board_OpenRequest (V.PackingDayID);
     V.packingday = {};
     LF.RememberDigitsRequestBoard (V.packingday);
-    Debug.pause();
     VD.IWant(VD.NotToEqual, V.frontNumbers.moveDate.Day, V.packingday.moveDate.Day, 'даты одинаковые а должны быть разные');
     LF.Validation_Compare_Account_Admin_PackingDay(V.packingday, V.boardNumbers);
     JS.step(JSstep.selectTruck((V.packingday.LaborTimeMax + V.packingday.TravelTime)/60));

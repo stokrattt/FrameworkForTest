@@ -1,9 +1,9 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/80_OverBookingVol1.js'];
+    config.suite = ['./tests/52_AllFlatRate.js'];
     config.chainFail = false;
     config.browser = 'chrome';
-    config.timeout = 35000;
+    config.timeout = 25000;
     //V.frontURL = 'http://stage.themoveboard.com:8005';                    //dev
     //V.accountURL = 'http://stage.themoveboard.com:8005/account/#/login';  //dev
     //V.adminURL = 'http://stage.themoveboard.com:8005/moveBoard/#/login';  //dev

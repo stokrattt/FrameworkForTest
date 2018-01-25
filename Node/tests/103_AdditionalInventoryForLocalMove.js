@@ -61,7 +61,6 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     SF.click(By.xpath('//button[@ng-click="openInventory()"]'));
     SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
     LF.ContractAdditionalInventoryAdd();
-    Debug.pause();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Items:")]/span[@ng-bind="total.count"]')).getText().then(function (text) {
         V.totalCountAddInventory = text;
     }),config.timeout);
