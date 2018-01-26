@@ -145,6 +145,7 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterDiscountAndPaymentInRequest);
     LF.closeEditRequest();
     SF.sleep(2);
+    JS.scroll('button[ng-click="getJobs()"]');
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]/div[@class="big-form__jobs-list__body__item"][10]')).getText().then(function (text) {
