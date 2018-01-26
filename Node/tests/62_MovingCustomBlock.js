@@ -87,6 +87,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.sleep(0.5);
     JS.scroll("a[ng-click=\"vm.Logout()\"]");
     MF.Account_ClickProceedBookYourMove();
+    SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
     }),config.timeout);
