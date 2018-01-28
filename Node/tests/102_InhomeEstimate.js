@@ -11,6 +11,7 @@ condition.nowWeDoing = 'создаем мувинг с фронта, стави�
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
+    MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_ChangeStatusRequest (4);
     MF.EditRequest_ClickHomeEstimateDate();
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {

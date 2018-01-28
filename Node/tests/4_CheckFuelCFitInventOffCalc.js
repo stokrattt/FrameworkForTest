@@ -54,7 +54,7 @@ condition.nowWeDoing = 'идем в коферм и проверяем буке�
     MF.Board_OpenConfirmed ();
     SF.select(By.xpath('//select[@ng-model="vm.conf_filter"]'), 2);
     MF.WaitWhileBusy ();
-    SF.sleep(63);
+    // SF.sleep(63);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"request in requests track by $index\"]:visible').length").then(function (text) {
         VD.IWant (VD.NotToEqual, text, 0, 'пропали реквесты после того как выбрали Move date');
     }),config.timeout);

@@ -139,7 +139,7 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     MF.Contract_SetRentalAddress('Address To');
     MF.Contract_SetRentalZip('02461');
     LF.MakeSignInRental();
-    // MF.SweetConfirm ();
+    MF.SweetConfirm ();
     LF.payRentalInventory();
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;

@@ -182,7 +182,8 @@ condition.nowWeDoing = 'проверяем настройку CASH (DISCOUNT)';
     }
 
 condition.nowWeDoing = 'тут делаем поалту нашим добавленный кастомным пайментом в настройках и проверяем что процент работает';
-    driver.wait(driver.findElement(By.xpath('//td[@class="red_total"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//|||' +
+        '")]')).getText().then(function (text) {
         V.totalDeposit = SF.cleanPrice(text);
     }),config.timeout);
     SF.sleep(0.5);

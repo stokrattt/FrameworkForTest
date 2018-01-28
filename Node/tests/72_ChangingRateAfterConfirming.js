@@ -31,6 +31,7 @@ condition.nowWeDoing = 'создаём реквест localMoving';
 		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
 		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),999);
 	}
+	SF.sleep(8);
 	MF.Board_OpenDashboard();
 	MF.Board_OpenConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
@@ -49,7 +50,7 @@ condition.nowWeDoing = 'создаём реквест localMoving';
 		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
 		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),V.boardNumbers.HourlyRate);
 	}
-
+	SF.sleep(5);
 	//=========================закончили писать тест=============================
     SF.endOfTest();
 };
