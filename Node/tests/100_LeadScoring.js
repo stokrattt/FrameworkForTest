@@ -14,19 +14,19 @@ condition.nowWeDoing = 'заполняем калькулятор верхний
 
 condition.nowWeDoing = 'первый раз в аккаунте, добавляю инвентарь, детали, отправляю сообщение,проверяю прогрес бар';
     MF.Account_ClickViewRequest();
-    driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//div [contains (@class, "request-score-box__percent-label")]')).getText().then(function(text) {
         V.ScorePercent1 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent1, 25,'при входе в аккаунт 1й раз в аккаунт не посчитались проценты за создание реквеста');
     }),config.timeout);
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
-    driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//div [contains (@class, "request-score-box__percent-label")]')).getText().then(function(text) {
         V.ScorePercent2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent2, 65,'не посчитались проценты за добавление инвентаря');
     }),config.timeout);
     SF.sleep(1);
     LF.AccountLocalDetails();
-    driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//div [contains (@class, "request-score-box__percent-label")]')).getText().then(function(text) {
         V.ScorePercent3 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent3, 85,'не посчитались проценты за добавление деталей');
     }),config.timeout);
@@ -83,7 +83,7 @@ condition.nowWeDoing = 'пошли в аккаунт, покупаем купо�
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.accountNumbers.Id);
-    driver.wait(driver.findElement(By.xpath('//div[@class="request-score-box__percent-label"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//div [contains (@class, "request-score-box__percent-label")]')).getText().then(function(text) {
         V.ScorePercent4 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent4, 85,'при входе в аккаунт 2й раз в аккаунт не совпали проценты');
     }),config.timeout);
