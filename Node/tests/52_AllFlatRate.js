@@ -81,7 +81,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     V.secondDate.Month = (second_future.toLocaleDateString('en-US', month)) - 1;
     V.secondDate.Day = (second_future.toLocaleDateString('en-US', day));
     SF.sleep(1);
-    SF.click(By.xpath('//div[@class="dateRange"]/input'));
+    SF.click(By.xpath('//div[contains(@class, "dateRange")]/input'));
     MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
     MF.EditRequest_SetDeliveryStartTime();
     SF.sleep (1);

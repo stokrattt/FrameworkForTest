@@ -1209,7 +1209,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }),config.timeout);
     }
     function EditRequest_SwitchCalculator(){
-        SF.click(By.xpath('//div[@class="actions pull-right"]/span[@ng-click="switchCalc()"]'));
+        SF.click(By.xpath('//span[@ng-click="switchCalc()"]'));
     }
     function EditRequest_AddRoomNumber(number){
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));

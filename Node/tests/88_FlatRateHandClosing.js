@@ -115,7 +115,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     MF.Board_OpenRequest (V.FRId);
     MF.EditRequest_SetToConfirmed();
     MF.EditRequest_SetAdressToFrom ();
-    SF.click(By.xpath('//div[@class="dateRange"]/input'));
+    SF.click(By.xpath('//div[contains(@class, "dateRange")]/input'));
     MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
     MF.EditRequest_SetDeliveryStartTime();
     MF.EditRequest_SendFlatRateSumm(3000);
