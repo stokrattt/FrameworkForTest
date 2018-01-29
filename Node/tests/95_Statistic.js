@@ -58,6 +58,7 @@ condition.nowWeDoing = 'запоминаем кол-во Amount и Booked, и а
             }),config.timeout);
 
 condition.nowWeDoing = 'запоминаем Estimate Income';
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//chart-statistic-tab[@ng-if="vm.halfYearProfit"]//p[@class="no-margins"]')).getText().then(function (text) {
         V.EstIncStat = SF.cleanPrice(text);
     }),config.timeout);
