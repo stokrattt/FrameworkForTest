@@ -21,7 +21,7 @@ condition.nowWeDoing = 'создаем мувинг с фронта, стави�
     SF.click (By.xpath('//input[@id="home-estimate-start-time"]'));
     SF.click(By.xpath('//li[contains(text(), "08:00")]'));
     SF.click (By.xpath('//input[@ng-model="request.home_estimate_start_time.value"]'));
-    // SF.click(By.xpath('//li[contains(text(), "12:00")]'));
+    SF.click(By.xpath('//li[contains(text(), "12:00")]'));
     SF.sleep(1);
     SF.click (By.xpath('//input[@id="home-estimate-duration"]'));
     SF.click(By.xpath('//ul[@class="ui-timepicker-list"]//li[contains(text(), "00:30")]'));
