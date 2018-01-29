@@ -43,7 +43,7 @@ condition.nowWeDoing = 'включяем отправку писем адише�
     MF.EditRequest_ChangeStatusRequest(3);
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenLogs();
-    driver.wait(driver.findElement(By.xpath('//div[@class="message-new-log mail-subject"]//span[@ng-bind-html="toTrustedHTML(item.text)"]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//div [@ng-repeat="detail in log.details"]//span [contains (@class,"lot-numbers-item")]')).getText().then(function(text) {
         V.Check2EmailForUsers = text;
         VD.IWant(VD.ToEqual, V.Check2EmailForUsers,('Mail was sent to "'+V.client.email+'", "'+V.AdditionalEmail+'" . From "'+V.adminEmailTemperary+'". Subject: "Request Local Quote (Confirmed)"'),'Письма не отправилтсь на 2 почты');
     }),config.timeout);
