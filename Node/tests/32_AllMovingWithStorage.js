@@ -127,6 +127,7 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     LF.OpenRequestInForemanPage(V.accountNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
+    Debug.pause();
     LF.Contract_AddInventory(13);
     MF.Contract_SetTapeNumber(1);
     MF.Contract_SetTapeColorGreen('Green');

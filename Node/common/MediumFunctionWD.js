@@ -674,6 +674,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ViewPackingRequest() {
         SF.click(By.xpath('//a[@ng-click="vm.goToNewRequest(vm.request.request_all_data.packing_request_id)"]'));
         WaitWhileBusy();
+        SF.sleep(2);
     }
     function AccountFR_SeelectOptions() {
         SF.select (By.xpath('//select[@ng-model="details.current_door"]'), 30);

@@ -326,7 +326,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
                 SF.cleanPrice(text) :
                 SF.cleanPrice(text.substring(text.indexOf('$', 4)));
         }),config.timeout);
-        driver.wait(driver.findElement(By.xpath('//div[@id="move-size-block-account"]/following-sibling::div[1]')).getText().then(function(text){
+        driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[1]')).getText().then(function(text){
                 accountNumbers.cbf = SF.cleanPrice(text.substring(text.indexOf('Inventory')+9, text.indexOf('c.f.')));
             }),config.timeout);
         driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Fuel Surcharge")]/../../div[2]')).getText().then(function (text) {
