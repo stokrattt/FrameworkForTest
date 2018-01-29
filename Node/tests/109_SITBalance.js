@@ -34,8 +34,7 @@ condition.nowWeDoing = 'Создаем Long Distance работу, добавл�
     SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
     SF.click(By.xpath('//a[@ng-click="save()"]'));
 
-condition.nowWeDoing = 'добавляем адишенал, пакинг, типсы, делаем проплату в клоузинге';
-    MF.EditRequest_AddPackingClosingTab();
+condition.nowWeDoing = 'добавляем адишенал, типсы, делаем проплату в клоузинге';
     SF.click(By.xpath('//input[@ng-model="tips.value"]'));
     SF.send(By.xpath('//input[@ng-model="tips.value"]'),50);
     SF.sleep(3);
@@ -172,6 +171,40 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterPendingPayment.Balance, V.TripBalance3, 'не совпал баланс после перевода одной проплаты в пендинг');
     }),config.timeout);
     SF.sleep(2);
+
+    condition.nowWeDoing = 'идем в реквест 3й раз, в салесе добавляем инвентарь и пакинг, а в клоузинг меняем сумму дисконта ';
+    SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
+    MF.EditRequest_WaitForBalanceVisible();
+    SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
+    MF.EditRequest_OpenInventoryTab();
+    LF.addInventoryBoard();
+    MF.EditRequest_AddPackingAndFullPAcking();
+    MF.EditRequest_SaveChanges();
+    MF.EditRequest_CloseConfirmWork ();
+    SF.click(By.xpath('//label[@ng-click="OpenDiscountInvoiceModal();"]'));
+    SF.waitForLocated (By.xpath('//button[@ng-click="openCouponModal()"]'));
+    SF.sleep(2);
+    SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'));
+    SF.clear(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'));
+    SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'),300);
+    SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.add_percent_discount"]'));
+    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
+    MF.SweetConfirm ();
+    SF.sleep(8);
+    MF.WaitWhileToaster();
+    V.boardNumbersClosingAfterAddInventory = {};
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterAddInventory);
+    LF.closeEditRequest();
+    JS.scroll('button[ng-click="getJobs()"]');
+    SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
+    SF.sleep(5);
+    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]/div[@class="big-form__jobs-list__body__item"][10]')).getText().then(function (text) {
+        V.TripBalance4 = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterAddInventory.Balance, V.TripBalance4, 'не совпал баланс после добавления инвентаря и пакинга');
+    }),config.timeout);
+    SF.sleep(2);
+
+
 
     SF.endOfTest();
 
