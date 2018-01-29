@@ -17,11 +17,11 @@ condition.nowWeDoing = 'создаем мувинг с фронта, стави�
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
         V.RequestInhomeDate = calDate;
     }),config.timeout);
-    SF.sleep(1);
-    SF.click (By.xpath('//input[@id="home-estimate-start-time"]'));
+    SF.sleep(3);
+    SF.click (By.xpath('//div[@class="form-item home-estimate-info-block-start-time-window col-md-1 col-xs-1 nopadding"]/input[@field="request.home_estimate_actual_start"]'));
     SF.click(By.xpath('//li[contains(text(), "08:00")]'));
     SF.click (By.xpath('//input[@ng-model="request.home_estimate_start_time.value"]'));
-    SF.click(By.xpath('//li[contains(text(), "12:00")]'));
+    SF.click(By.xpath("//div[contains(@class, 'ui-timepicker-wrapper')][2]/ul/li[contains(text(), '12:00')]"));
     SF.sleep(1);
     SF.click (By.xpath('//input[@id="home-estimate-duration"]'));
     SF.click(By.xpath('//ul[@class="ui-timepicker-list"]//li[contains(text(), "00:30")]'));
