@@ -88,6 +88,8 @@ condition.nowWeDoing = 'третий раз в админке, анассаин 
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
+    SF.sleep(1);
+
     JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
     MF.WaitWhileBusy();
     MF.Dispach_ClickUnassignTeam();
