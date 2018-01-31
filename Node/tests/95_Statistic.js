@@ -83,9 +83,15 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
         VD.IWant(VD.ToEqual, V.SalesAssignToday, V.SalesBookedSalesPageTableAssignToday,'не совпало кол-во ассаинутых работ за Today с оунерпеидж и салеспеидж в верхней табличке Assign');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@class="col-lg-3"]//p[@class="no-margins margtop"]')).getText().then(function(text) {
-        V.SalesAmountSalesPage = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.SalesAmount, V.SalesAmountSalesPage,'не совпало общее кол-во работ оунерпеидж/салеспеидж из коммон стата');
+        V.SalesAmountAsMainSales = SF.cleanPrice(text);
     }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="col-lg-3"]//p[@ng-if="!!vm.secondConfirmedJobs"]')).getText().then(function(text) {
+        V.SalesAmountAsAdditionalSales = SF.cleanPrice(text);
+        }),config.timeout);
+    SF.sleep(1);
+    V.SalesCommonAmountSalesPage = V.SalesAmountAsMainSales + V.SalesAmountAsAdditionalSales;
+    SF.sleep(1);
+    VD.IWant(VD.ToEqual, V.SalesAmount, V.SalesCommonAmountSalesPage,'не совпало общее кол-во работ оунерпеидж/салеспеидж из коммон стата');
     driver.wait(driver.findElement(By.xpath('//div[@class="col-lg-3"]//p[@class="no-margins margtop"][2]')).getText().then(function(text) {
         V.SalesBookedSalesPageCommonStat = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual,V.SalesBooked, V.SalesBookedSalesPageCommonStat,'не совпало общее кол-во забуканных работ оунерпеидж/салеспеидж из коммон стата');
@@ -95,15 +101,6 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
         VD.IWant(VD.ToEqual, V.SalesBookedSalesPageCommonStat, V.SalesBookedSalesPageTableBooked,'не совпало кол-во забуканных работ в коммон стате, и верхней табличке Booked');
     }),config.timeout);
     SF.sleep(1);
-
-//condition.nowWeDoing = 'идем на дашборд в конфермед, что бы сверить кол-во работ';
-   // MF.Board_OpenDashboard ();
-   // MF.Board_OpenConfirmed();
-  //  driver.wait(driver.findElement(By.xpath('//div[@ng-click="vm.select(2)"]//span[@ng-hide="vm.conf_filter == 2"]')).getText().then(function(text) {
-    //    V.ConfirmSalesPageBoard = SF.cleanPrice(text);
-    //    VD.IWant(VD.ToEqual,V.ConfirmSalesPageBoard, V.SalesBookedSalesPageCommonStat,'не совпало общее кол-во забуканных работ на дащборде и из коммон стата на странице меилса');
-   // }),config.timeout);
-  //  SF.sleep(2);
 
     SF.endOfTest();
 };
