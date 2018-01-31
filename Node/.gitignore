@@ -3,3 +3,4 @@ configs/progress.js
 /npm
 /node
 *.log
+*.exe
