@@ -47,12 +47,13 @@ condition.nowWeDoing = 'создаём реквест localMoving';
 	SF.sleep(1);
 	VD.IWant(VD.NotToEqual, V.targets2.length, 0, 'какая-то фигня с соххранением настроек Rates');
 	for (var t in V.targets) {
+		SF.sleep(1.5);
 		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
 		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),V.boardNumbers.HourlyRate);
-        SF.sleep(3);
+        SF.sleep(1.5);
 
     }
-	SF.sleep(9);
+	SF.sleep(8);
 	//=========================закончили писать тест=============================
     SF.endOfTest();
 };
