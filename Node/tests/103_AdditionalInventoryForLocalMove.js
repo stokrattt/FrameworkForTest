@@ -39,12 +39,12 @@ condition.nowWeDoing = 'идем в диспач и назначаем кома�
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
-    V.foremanName = 'Test Foreman';
+    V.foremanName = 'FlatRate Foreman';
     LF.selectCrew(V.foremanName);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
-    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
+    LF.LoginToBoardAsCustomForeman(V.foremanName, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();

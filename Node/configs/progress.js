@@ -1,15 +1,17 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/72_ChangingRateAfterConfirming.js'];
+    config.suite = ['./tests/47_SendMessage.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;
     //V.frontURL = 'http://stage.themoveboard.com:8005';                    //dev
     //V.accountURL = 'http://stage.themoveboard.com:8005/account/#/login';  //dev
     //V.adminURL = 'http://stage.themoveboard.com:8005/moveBoard/#/login';  //dev
+
      V.frontURL = 'http://stage.themoveboard.com:8001/front_site';
      V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
      V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
+
     // V.frontURL = 'http://stage.themoveboard.com:8071';
     // V.accountURL = 'http://stage.themoveboard.com:8071/account/#/login';
     // V.adminURL = 'http://stage.themoveboard.com:8071/moveBoard/#/login';

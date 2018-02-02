@@ -32,14 +32,14 @@ condition.nowWeDoing = 'создаем мувинг сторадж, пендин
     SF.sleep(5);
     V.accountNumbersTo = {};
     LF.RememberAccountNumbers (V.accountNumbersTo);
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To пендинг на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickFromStorage ();
     V.accountNumbersFrom = {};
     LF.RememberAccountNumbers (V.accountNumbersFrom);
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From пендинг на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
@@ -54,12 +54,12 @@ condition.nowWeDoing = 'выключаем кастомный блок пенд�
     SF.openTab (1);
     SF.sleep(1);
     MF.Account_Refresh ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж From пендинг на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickToStorage ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж From пендинг на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
@@ -104,24 +104,24 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     SF.openTab (1);
     SF.sleep(1);
     MF.Account_Refresh ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To not confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickProceedBookYourMove();
     SF.sleep(2);
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To not confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
     MF.Account_ClickFromStorage ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From not confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickProceedBookYourMove();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From not confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
@@ -137,23 +137,23 @@ condition.nowWeDoing = 'выключаем кастомный блок not confi
     SF.openTab (1);
     SF.sleep(1);
     MF.Account_Refresh ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж From not confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickProceedBookYourMove();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж From not confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
     MF.Account_ClickToStorage ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж To not confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickProceedBookYourMove();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж To not confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
@@ -192,24 +192,24 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     SF.openTab (1);
     SF.sleep(1);
     MF.Account_Refresh ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To confirmed на аккаунте');
     }),config.timeout);
     MF.Account_ClickViewConfirmationPage ();
     SF.sleep(3);
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
     MF.Account_ClickFromStorage ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickViewConfirmationPage ();
     SF.sleep(3);
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
@@ -225,23 +225,23 @@ condition.nowWeDoing = 'выключаем кастомный блок confirmed
     SF.openTab (1);
     SF.sleep(1);
     MF.Account_Refresh ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж From confirmed на аккаунте');
     }),config.timeout);
     MF.Account_ClickViewConfirmationPage ();
     SF.sleep(3);
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж From confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
     MF.Account_ClickToStorage ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"service_explanation in vm.serviceExplanation\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж To confirmed на аккаунте');
     }),config.timeout);
     SF.sleep(0.5);
     MF.Account_ClickViewConfirmationPage ();
-    driver.wait(driver.executeScript("return $('div[ng-repeat=\"customBlock in vm.customBlocks\"]').length").then(function (text) {
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинг сторадж To confirmed на аккаунте на confirmation page');
     }),config.timeout);
     SF.sleep(0.5);
