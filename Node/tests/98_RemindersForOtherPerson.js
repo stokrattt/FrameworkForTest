@@ -87,7 +87,45 @@ condition.nowWeDoing = 'идем во вкладку римайндеры, и и
         V.RemaindText2 = text;
         VD.IWant(VD.ToEqual, V.RemaindText, V.RemaindText2,'римайндера нет в PAST');
     }),config.timeout);
+    SF.sleep(2);
+    SF.click(By.xpath('//div[@ng-click="$ctrl.service.togglePanel()"]'));
+
+    condition.nowWeDoing = 'заходим в реквест, переводим его в статус нот конферм, а потом конферм ';
+    MF.Board_OpenRequest(V.requestAdmin.Id);
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
+    MF.EditRequest_SetToNotConfirmed();
+    MF.EditRequest_SaveChanges();
+    LF.closeEditRequest();
+    MF.Board_OpenNotConfirmed();
+    MF.Board_RefreshDashboard();
+    MF.Board_OpenRequest(V.requestAdmin.Id);
     SF.sleep(1);
+    MF.EditRequest_SetAdressToFrom();
+    MF.EditRequest_SetToConfirmed();
+    MF.EditRequest_SaveChanges();
+    LF.closeEditRequest();
+
+    condition.nowWeDoing = 'заходим в реквест, переводим его в статус экспаиред ';
+    MF.Board_OpenConfirmed();
+    MF.Board_RefreshDashboard();
+    MF.Board_OpenRequest(V.requestAdmin.Id);
+    MF.EditRequest_ChangeStatusRequest(12);
+    MF.EditRequest_SaveChanges();
+    LF.closeEditRequest();
+
+    condition.nowWeDoing = 'идем в таюу Requests выбиарем фильтр Экспаиред, и проверяем, что реквест там';
+    SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'requests.child\')"]'));
+    MF.WaitWhileBusy();
+    SF.select (By.xpath('//select[@id="fstatus"]'), 12);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"' + V.requestAdmin.Id + '")]')).getText().then(function(text){
+        V.ExpiredReq = SF.cleanPrice (text);
+        VD.IWant (VD.ToEqual, V.ExpiredReq, V.requestAdmin.Id, 'реквеста нет в списке Expired')
+    }),config.timeout);
+    SF.sleep (1);
+
 
     SF.endOfTest();
 };
