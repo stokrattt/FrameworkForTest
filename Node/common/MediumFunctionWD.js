@@ -1649,6 +1649,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//ul[@class="nav nav-tabs submenu_tab"]/li[@ng-click="activePermTab = 1"]'));
         SF.waitForVisible(By.xpath('//div[@ng-class="{\'active\': activePermTab === 1}"]')); //?
     }
+    function Department_ClickPermissionsRequestWindow() {
+        SF.click(By.xpath('//ul[@class="nav nav-tabs submenu_tab"]/li[@ng-click="activePermTab = 2"]'));
+        SF.waitForVisible(By.xpath('//div[@ng-class="{\'active\': activePermTab === 2}"]'));
+    }
 
     function Department_ClickCanSeeOtherLeads() {
         SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeOtherLeads"]/..'));
@@ -2270,6 +2274,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Department_OpenHuman: Department_OpenHuman,
         Department_OpenMansPermissions: Department_OpenMansPermissions,
         Department_ClickPermissionsRequests: Department_ClickPermissionsRequests,
+        Department_ClickPermissionsRequestWindow: Department_ClickPermissionsRequestWindow,
         Department_ClickCanSeeOtherLeads: Department_ClickCanSeeOtherLeads,
         Department_ClickCanSearchOtherLeads: Department_ClickCanSearchOtherLeads,
         Department_ClickCanEditOtherLeads: Department_ClickCanEditOtherLeads,

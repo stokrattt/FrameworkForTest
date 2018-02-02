@@ -1030,6 +1030,21 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             "return true;}else{$('input[ng-model=\"request.permissions.canSignedSales\"]').parent().click()}"));
 
     }
+    function AdminPermissionsClear() {
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeSettingsMenu\"]').hasClass('ng-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeSettingsMenu\"]').parent().click()}"));
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeStatisticsMenu\"]').hasClass('ng-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeStatisticsMenu\"]').parent().click()}"));
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeStorageMenu\"]').hasClass('ng-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeStorageMenu\"]').parent().click()}"));
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeLongDistanceMenu\"]').hasClass('ng-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeLongDistanceMenu\"]').parent().click()}"));
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeScheduleMen\"]').hasClass('ng-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeScheduleMenu\"]').parent().click()}"));
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeDispatchMenu\"]').hasClass('ng-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeDispatchMenu\"]').parent().click()}"));
+
+    }
     function PermissionCanSeeOtherLeads() {
         driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').parent().click()"));
         SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeOtherLeads"]/..'));
@@ -2250,6 +2265,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         ConfirmRequestInAccount_WithReservationWithAdress: ConfirmRequestInAccount_WithReservationWithAdress,
 //Permissions for Sales --- start
         PermissionsClear: PermissionsClear,
+        AdminPermissionsClear: AdminPermissionsClear,
         PermissionCanSeeOtherLeads: PermissionCanSeeOtherLeads,
         PermissionCanSearchOtherLeads: PermissionCanSearchOtherLeads,
         PermissionCanEditOtherLeads: PermissionCanEditOtherLeads,
