@@ -23,9 +23,8 @@ condition.nowWeDoing = 'создаем реквест с борда';
     MF.EditRequest_ClickViewRequest();
 
 condition.nowWeDoing = 'идем в аккаунт, и на конфирмеишен от админа';
-    SF.sleep(10);
     SF.openTab(1);
-    SF.sleep(2);
+    SF.sleep(10);
     driver.close();
     SF.openTab(0);
     SF.waitForLocated(By.xpath('//button[@ng-click="goToConfirmation()"]'));

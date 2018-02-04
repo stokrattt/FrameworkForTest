@@ -143,7 +143,6 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     V.boardNumbersClosingAfterDiscountAndPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterDiscountAndPaymentInRequest);
     LF.closeEditRequest();
-    SF.sleep(2);
     JS.scroll('button[ng-click="getJobs()"]');
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
@@ -203,8 +202,6 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterAddInventory.Balance, V.TripBalance4, 'не совпал баланс после добавления инвентаря и пакинга');
     }),config.timeout);
     SF.sleep(2);
-
-
 
     SF.endOfTest();
 

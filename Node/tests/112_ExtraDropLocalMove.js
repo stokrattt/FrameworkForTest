@@ -7,7 +7,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
 
-
     SF.get(V.adminURL);
 
     condition.nowWeDoing = 'создаем рекевст с борда, добавляем еестра сервисы, вводим адрес, апт, и этаж. Зип не вводим';
@@ -42,7 +41,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.ExtraDropoff = text;
         VD.IWant(VD.ToEqual, V.ExtraDropoff, text,'нет сервиса экстра дропофф');
     }),config.timeout);
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//div//h4[contains(text(),"Extra Pickup")]')).getText().then(function(text) {
         V.ExtraPickU = text;
         VD.IWant(VD.ToEqual, V.ExtraPickU, text,'нет сервиса экстра пикап');
@@ -54,32 +52,28 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
 
-
     condition.nowWeDoing = 'идем в аккаунт, и на конфирмеишен от админа проверяем эналичие экстра сервисов ';
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickViewRequest();
-    SF.sleep(12);
     SF.openTab(1);
+    SF.sleep(15);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Extra Drop-off")]')).getText().then(function(text){
         V.extraDropOffAcc = text;
         VD.IWant(VD.ToEqual, V.extraDropOffAcc , V.extraDropOffAcc, 'нет ектра дроп офф на аккаунте');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Extra Pickup:")]')).getText().then(function(text){
         V.extraPickUpAcc = text;
         VD.IWant(VD.ToEqual, (V.ExtraPickU  + ':'), text, 'нет екстра пик ап на аккаунте');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="extraPickup"]//div[contains(text(), "Stairs - 2nd Floor")]')).getText().then(function(text){
         V.extraPickNewStairs = text;
         VD.IWant(VD.ToEqual, V.extraPickNewStairs, 'Stairs - 2nd Floor', 'не совпали этажи с админкой и аккаунтом пикап ');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="extraPickup"]//div[contains(text(), "Stairs - 2nd Floor")]')).getText().then(function(text){
         V.extraDropOffNewStairs = text;
         VD.IWant(VD.ToEqual, V.extraDropOffNewStairs, 'Stairs - 2nd Floor', 'не совпали этажи с админкой и аккаунтом дропоф');
     }),config.timeout);
-    SF.sleep(5);
+    SF.sleep(1);
     driver.close();
     SF.openTab(0);
     SF.waitForLocated(By.xpath('//button[@ng-click="goToConfirmation()"]'));
@@ -90,14 +84,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.extraDropOffConf = text;
         VD.IWant(VD.ToEqual, V.extraDropOffAcc , text, 'нет ектра дроп офф на конфирмеишен');
     }),config.timeout);
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Extra Pickup:")]')).getText().then(function(text){
         V.extraPickUpConf = text;
         VD.IWant(VD.ToEqual, (V.ExtraPickU  + ':'), text, 'нет екстра дроп оф на конфирмеишен');
     }),config.timeout);
     SF.sleep(2);
-
-
 
     SF.endOfTest();
 };

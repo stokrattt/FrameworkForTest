@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/47_SendMessage.js'];
+    config.suite = ['./tests/57_UnloadingAllSteps.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;
@@ -22,6 +22,7 @@ module.exports = function(config,V) {
     V.adminPassword = 'test';
     V.adminEmail = 'bostonflat.test@mail.ru';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';
+    V.foremanLoginFlatRate = 'FlatRateForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
     V.foremanLogin2 = 'ForemanFlow1';

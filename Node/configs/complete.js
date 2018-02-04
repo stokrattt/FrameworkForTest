@@ -144,6 +144,7 @@ module.exports = function(config,V) {
 	V.adminPassword = 'test';
 	V.adminEmail = 'bostonflat.test@mail.ru';//сюда будут прилетать все письма
 	V.foremanLogin = 'TestForeman';
+    V.foremanLoginFlatRate = 'FlatRateForeman';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
     V.foremanLogin2 = 'ForemanFlow1';

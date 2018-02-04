@@ -56,7 +56,7 @@ condition.nowWeDoing = 'создаем лонг дистанс реквест и
 condition.nowWeDoing = 'добавляем комнаты и опять пересчитываем фуел, квоту и тотал';
     MF.EditRequest_SetSizeOfMoveNumber (9);
     MF.EditRequest_SetAdressFrom ();
-    SF.sleep(5);
+    SF.sleep(10);
     V.boardNumbersAddRoom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddRoom);
     V.quoteAddRoom = V.boardNumbersAddRoom.cbf * 10;

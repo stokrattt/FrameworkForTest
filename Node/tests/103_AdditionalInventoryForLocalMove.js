@@ -44,7 +44,7 @@ condition.nowWeDoing = 'идем в диспач и назначаем кома�
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
-    LF.LoginToBoardAsCustomForeman(V.foremanName, V.foremanPassword);
+    LF.LoginToBoardAsCustomForeman(V.foremanLoginFlatRate, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();

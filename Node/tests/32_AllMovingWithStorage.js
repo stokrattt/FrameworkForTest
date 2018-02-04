@@ -40,8 +40,6 @@ condition.nowWeDoing = 'запомнили цифры ToStorage идём на Fr
 
 condition.nowWeDoing = 'Зайти на админку, найти реквест To storage, выставить трак, проверить, запомнить и сравнить все цифры с аккаунтом, выставить sales, дать клиенту пароль, поставить Not Confirmed, сохранить.';
     SF.get(V.adminURL);
-    V.adminLogin = "TestAdmin";
-    V.adminPassword = "test";
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbersTo.Id);
     V.boardNumbersTo = {};
@@ -127,7 +125,6 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     LF.OpenRequestInForemanPage(V.accountNumbersTo.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
-    Debug.pause();
     LF.Contract_AddInventory(13);
     MF.Contract_SetTapeNumber(1);
     MF.Contract_SetTapeColorGreen('Green');

@@ -1373,9 +1373,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Hourly.percent),
             Math.floor(10),
             'Не совпал Hourly формена');
-        VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
-            Math.floor(10),
-            'Не совпал Bonus формена');
+        // VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
+        //     Math.floor(10),
+        //     'Не совпал Bonus формена');
         SF.sleep(1);
         MF.EditRequest_PayrollOpenHelperTab();
         driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\'); calcWorkerTotal(\'driver\');"]')).getText().then(function (text) {
