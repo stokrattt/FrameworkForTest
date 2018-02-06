@@ -153,6 +153,7 @@ condition.nowWeDoing = 'Найти вторую работу, зайти в Inve
     LF.MakeSignInInventory(3);
     SF.click(By.xpath('//button[@ng-click="saveInventory(\'submit\')"]'));
     SF.sleep(1);
+    MF.SweetConfirm();
 
 condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
     SF.waitForVisible(By.xpath('//div[@id="main-contract"]//div[@class="empty-signature"]'));
