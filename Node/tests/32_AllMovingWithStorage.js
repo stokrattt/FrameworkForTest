@@ -211,6 +211,7 @@ condition.nowWeDoing = 'Найти вторую работу у формена, 
     LF.MakeSignInInventory(2);
     LF.MakeSignInInventory(3);
     MF.Contract_SubmitInventory();
+    MF.SweetConfirm();
 
 condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
     MF.Contract_WaitBillOfLading();

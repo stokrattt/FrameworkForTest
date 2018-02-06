@@ -67,6 +67,7 @@ condition.nowWeDoing = 'первый раз в акаунте';
     }),config.timeout);
     SF.sleep(8);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.partialPacking.isDisplay"]'));
+    SF.sleep(8);
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.partialPackingText, text, 'не совпали Partial Packing tooltip');
     }),config.timeout);
