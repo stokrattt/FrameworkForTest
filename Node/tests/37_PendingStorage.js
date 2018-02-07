@@ -149,6 +149,17 @@ condition.nowWeDoing = 'Найти вторую работу, зайти в Inve
     LF.OpenRequestInForemanPage(V.boardNumbersFrom.Id);
     MF.Contract_WaitConfirmationPage ();
     MF.Contract_OpenInventory();
+
+condition.nowWeDoing = 'валидация инвентаря на контракте from storage';
+    driver.wait(driver.executeScript("$('tr[ng-repeat=\"n in rangeArr\"] span').text()").then(function (text) {
+        VD.IWant(VD.ToEqual, text, ' Sofa, With Bed 11  Sofa, With Bed 11  Sofa, Recliner 11  Sofa, Recliner 11  Sofa, Chaise 11  Sofa, 4 Seat 11  Sofa, 4 Seat 11  Sofa, 3 Seat 11  Sofa, 3 Seat 11  Sofa, 2pcs Sectional 11  Loveseat 11  Futon 11  Futon 11                         ',
+            'не нашло инвенторий на контракте от первого реквеста to storage '+V.boardNumbersTo.Id+'');
+    }),config.timeout);
+
+    driver.wait(driver.executeScript("$('div[ng-if=\"data.inventoryMoving.signatures[stepId]\"] img').length").then(function (chislo) {
+        VD.IWant(VD.ToEqual, chislo, '2',  'не нашло подписи для инвентаря на контракте от первого реквеста to storage '+V.boardNumbersTo.Id+'');
+    }),config.timeout);
+    SF.sleep(1);
     LF.MakeSignInInventory(2);
     LF.MakeSignInInventory(3);
     SF.click(By.xpath('//button[@ng-click="saveInventory(\'submit\')"]'));
