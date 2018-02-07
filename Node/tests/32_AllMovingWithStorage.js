@@ -206,8 +206,16 @@ condition.nowWeDoing = 'Найти вторую работу у формена, 
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenInventory();
 
-    //тут нужно будет вставить валидацию инвентаря на контракте from storage
+condition.nowWeDoing = 'валидация инвентаря на контракте from storage';
+    driver.wait(driver.executeScript("$('tr[ng-repeat=\"n in rangeArr\"] span').text()").then(function (text) {
+        VD.IWant(VD.ToEqual, text, ' Sofa, With Bed 11  Sofa, With Bed 11  Sofa, Recliner 11  Sofa, Recliner 11  Sofa, Chaise 11  Sofa, 4 Seat 11  Sofa, 4 Seat 11  Sofa, 3 Seat 11  Sofa, 3 Seat 11  Sofa, 2pcs Sectional 11  Loveseat 11  Futon 11  Futon 11                         ',
+        'не нашло инвенторий на контракте от первого реквеста to storage '+V.accountNumbersTo.Id+'');
+    }),config.timeout);
 
+    driver.wait(driver.executeScript("$('div[ng-if=\"data.inventoryMoving.signatures[stepId]\"] img').length").then(function (chislo) {
+        VD.IWant(VD.ToEqual, chislo, '2',  'не нашло подписи для инвентаря на контракте от первого реквеста to storage '+V.accountNumbersTo.Id+'');
+    }),config.timeout);
+    SF.sleep(1);
     LF.MakeSignInInventory(2);
     LF.MakeSignInInventory(3);
     MF.Contract_SubmitInventory();
