@@ -1,6 +1,6 @@
 module.exports = function (config, V) {
 	
-	config.timeout = 40000;
+	config.timeout = 20000;
 	
 	config.suite = [
 		'./tests/108_HomeEstimate.js'

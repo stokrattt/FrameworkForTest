@@ -29,7 +29,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
 	
 	condition.nowWeDoing = 'заходим в борд как сейлс и создаём inhomeEstimate';
 	SF.get(V.adminURL);
-	LF.LoginToBoardAsCustom(V.salesLogin, V.salesPassword);
+	LF.LoginToBoardAsCustom(V.salesLogin, V.salesPassword+'azaza');
 	LF.CreateLocalMovingFromBoard(V.client);
 	
 	V.boardNumbers = {};
