@@ -4,5 +4,4 @@ configs/progress.js
 /node
 *.log
 *.exe
-/browsermob-proxy-2.1.4/
 /chromedriver
