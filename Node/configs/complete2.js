@@ -1,6 +1,5 @@
 module.exports = function(config,V) {
     config.suite = [
-
         './tests/DefaultSettings.js',
         './tests/52_AllFlatRate.js',
         './tests/33_AddCarrier.js',
@@ -43,27 +42,17 @@ module.exports = function(config,V) {
         // './tests/44_CreateForemanAndAssignCheck.js',
         './tests/77_CustomTooltips.js',
         './tests/40_PayrollTableCheckSumJobs.js',
-
-
     ];
     config.timeout = 80000;
     config.chainFail = false;
     config.browser = 'chrome';
-    // config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu"] };
+    config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu"] };
     //V.frontURL = 'http://stage.themoveboard.com:8005';                    //dev
     //V.accountURL = 'http://stage.themoveboard.com:8005/account/#/login';  //dev
     //V.adminURL = 'http://stage.themoveboard.com:8005/moveBoard/#/login';  //dev
-    V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
-    V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
-    V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
-
-    // V.frontURL = 'http://stage.themoveboard.com:8071';
-    // V.accountURL = 'http://stage.themoveboard.com:8071/account/#/login';
-    // V.adminURL = 'http://stage.themoveboard.com:8071/moveBoard/#/login';
-
-//	V.frontURL = 'http://89.223.29.231:8080/front_site/';
-    //V.accountURL = 'http://89.223.29.231:8080/account/#/login';
-    //V.adminURL = 'http://89.223.29.231:8080/moveBoard/#/login';
+    V.frontURL = 'http://test2.stage.themoveboard.com:82/front_site/';
+    V.accountURL = 'http://test2.stage.themoveboard.com:82/account/#/login';
+    V.adminURL = 'http://test2.stage.themoveboard.com:82/moveBoard/#/login';
     V.adminLogin = 'TestAdmin';
     V.adminPassword = 'test';
     V.adminEmail = 'bostonflat.test@mail.ru';//сюда будут прилетать все письма
