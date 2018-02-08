@@ -12,6 +12,7 @@ var LF = {};
 var config = {};
 var condition = {};
 var webdriver = require('selenium-webdriver');
+var proxy = require('selenium-webdriver/proxy');
 var FileDetector = webdriver.FileDetector;
 var By = webdriver.By;
 var until = webdriver.until;
@@ -52,8 +53,6 @@ for (attrs = 2; attrs < process.argv.length; attrs++) {
 		require(`./configs/${config.fileName}.js`)(config, V);
 	}
 }
-
-if (config.P) var proxy = require('selenium-webdriver/proxy');
 
 //=====================initializing webDriver===========================
 require('./system/proxy/proxySetup')(config.P).then(proxyAddr => {
