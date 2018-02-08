@@ -117,7 +117,6 @@ require('./system/proxySetup').then(proxyAddr => {
 				if (!condition.Success || condition.NotValid) {
 					testPassed.push('Failed '.red + condition.testName);
 					condition.fails++;
-					process.exitCode = 404;
 				}
 				else {
 					testPassed.push('Passed'.green + condition.testName);
@@ -157,7 +156,10 @@ require('./system/proxySetup').then(proxyAddr => {
 					}
 				);
 				system.myEmitter.removeAllListeners('event');
-				
+				if (condition.fails) {
+					console.log('Process will die with failure code'.red);
+					process.exitCode = 1;
+				}
 			}
 		});
 		condition.Success = true;

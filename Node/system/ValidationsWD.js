@@ -35,24 +35,27 @@ module.exports = function (system, condition) {
 					if (err != null) {
 						console.log(err)
 					}
-					;
 				});
 				system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing + '\n' + e, function (err) {
 					if (err != null) {
 						console.log(err)
 					}
-					;
 				});
+				
+				console.log('Пытаемся получить от прокси HAR'.yellow);
 				browserMobProxyClient.getHar().then(har => {
+					console.log('Пытаемся записать HAR в файл'.yellow);
 					system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.har', JSON.stringify(har), function (err) {
 						if (err != null) {
+							console.log('ошибка при записи HAR в файл'.yellow);
 							console.log(err);
 						}
 					});
 				}, error => {
-					console.log('Не получилось сохранить HAR файл'.red);
+					console.log('Ошибка при получении HAR от прокси'.red);
 					console.log(error);
 				});
+				
 				console.log('сделали скрин'.yellow);
 				console.log('Ошибка валидации: '.red, e);
 				
