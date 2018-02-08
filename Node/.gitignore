@@ -5,3 +5,4 @@ configs/progress.js
 *.log
 *.exe
 /chromedriver
+/node_modules/

@@ -39,61 +39,35 @@ if (!exist) {
 }
 
 //=================reading parametres from CLI===========================
-//===check for debug mode===
-let attrs = 2;
-if ('-d' == process.argv[attrs]) {
-	console.log('debug enabled');
-	config.D = true;
-	attrs++;
-}
-
-//===reading other parametres===
-for (attrs; attrs < process.argv.length; attrs++) {
-	if (process.argv[attrs].indexOf('=') != -1) {
+for (attrs = 2; attrs < process.argv.length; attrs++) {
+	if ('-d' == process.argv[attrs]) {
+		console.log('Debug enabled'.blue);
+		config.D = true;
+	} else if ('-p' == process.argv[attrs]) {
+		console.log('Proxy enabled'.blue);
+		config.P = true;
+	} else if (process.argv[attrs].indexOf('=') != -1) {
 		V[process.argv[attrs].substring(0, process.argv[attrs].indexOf('='))] = process.argv[attrs].substring(process.argv[attrs].indexOf('=') + 1);
 	} else if (process.argv[attrs].indexOf('config:') != -1) {
 		config.fileName = process.argv[attrs].substring(process.argv[attrs].indexOf(':') + 1);
-		require('./configs/' + config.fileName)(config, V);
+		require(`./configs/${config.fileName}.js`)(config, V);
 	}
 }
 
 //=====================initializing webDriver===========================
-require('./system/proxySetup').then(proxyAddr => {
+require('./system/proxy/proxySetup')(config.P).then(proxyAddr => {
 	
 	let webdriverSetup = require('./system/webdriverSetup')(system, config, condition, webdriver, proxy, proxyAddr);
 	let getNewDriver = webdriverSetup.getNewDriver;
 	
 	webdriverSetup.initErrorHandler().then(() => {
-		
-		function getTestName(string) {
-			let pos = 0;
-			for (let i = 0; i < string.length; i++) {
-				if (string[i] == '/') {
-					pos = i;
-				}
-			}
-			return string.substring(pos, string.indexOf('.js'));
-		}
-		function deleteFolderRecursive(path) {
-			if (system.fs.existsSync(path)) {
-				system.fs.readdirSync(path).forEach(function (file, index) {
-					let curPath = path + "/" + file;
-					if (system.fs.lstatSync(curPath).isDirectory()) { // recurse
-						deleteFolderRecursive(curPath);
-					} else { // delete file
-						system.fs.unlinkSync(curPath);
-					}
-				});
-				system.fs.rmdirSync(path);
-			}
-		}
-
+	
 //========================linking all modules============================
 		
 		SF = require('./system/ShortFunctionsWD.js')(system, config, By, until, constants, condition);
 		JS = require('./system/JSshortFunctions.js')(system, config, By, until, constants, condition);
 		JSstep = require('./common/JSsteps');
-		VD = require('./system/ValidationsWD')(system, condition);
+		VD = require('./system/ValidationsWD')(system, condition, config);
 		MF = require('./common/MediumFunctionWD.js')(SF, JS, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants);
 		LF = require('./common/LongFunctionsWD.js')(SF, JS, MF, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants);
 
@@ -104,6 +78,17 @@ require('./system/proxySetup').then(proxyAddr => {
 		}
 
 //=====================running tests=======================================
+		
+		function getTestName(string) {
+			let pos = 0;
+			for (let i = 0; i < string.length; i++) {
+				if (string[i] == '/') {
+					pos = i;
+				}
+			}
+			return string.substring(pos, string.indexOf('.js'));
+		}
+		let deleteFolderRecursive = require("./system/fileSystem").deleteFolderRecursive;
 		
 		var testPassed = [];
 		condition.testN = 0;
@@ -129,7 +114,7 @@ require('./system/proxySetup').then(proxyAddr => {
 				condition.errorNumber = 0;
 				condition.testName = getTestName(config.suite[condition.testN]);
 				console.log(('next...' + condition.testN + ' ' + condition.testName).yellow);
-				deleteFolderRecursive('reports/' + condition.testName);
+				deleteFolderRecursive(system, 'reports/' + condition.testName);
 				getNewDriver().then(res => {
 					condition.testN++;
 					Fiber(function () {
@@ -138,7 +123,7 @@ require('./system/proxySetup').then(proxyAddr => {
 					}).run();
 				});
 			} else {
-				console.log('end...');
+				console.log('======Тесты кончились======'.blue);
 				let endLog = '';
 				for (let i = 0; i < testPassed.length; i++) {
 					endLog += testPassed[i] + '\n';
@@ -146,9 +131,9 @@ require('./system/proxySetup').then(proxyAddr => {
 				}
 				
 				let endTests = Math.floor((new Date().getTime() - startTests) / 1000);
-				console.log(('сделали за ' + Math.floor(endTests / 60) + 'мин ' + endTests % 60 + 'сек').green);
-				system.fs.writeFile('reports/' + config.fileName + '.txt', endLog +
-					'сделали за ' + Math.floor(endTests / 60) + 'мин ' + endTests % 60 + 'сек',
+				let timeString = 'Это длилось ' + Math.floor(endTests / 60) + ' мин ' + endTests % 60 + ' сек';
+				console.log(timeString.green);
+				system.fs.writeFile('reports/' + config.fileName + '.txt', endLog + timeString,
 					function (err) {
 						if (err != null) {
 							console.log(err);

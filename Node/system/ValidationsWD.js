@@ -1,4 +1,4 @@
-module.exports = function (system, condition) {
+module.exports = function (system, condition, config) {
 	function getFnName(fn) {
 		var f = typeof fn == 'function';
 		var s = f && ((fn.name && ['', fn.name]) || fn.toString().match(/function ([^\(]+)/));
@@ -25,40 +25,10 @@ module.exports = function (system, condition) {
 		if (!func(value1, value2)) {
 			condition.NotValid = true;
 			e += '\nvalue1 = ' + value1 + '\nvalue2 = ' + value2 + '\n' + new Error().stack;
+			console.log('Ошибка валидации: '.red, e);
 			driver.wait(driver.takeScreenshot().then(function (image) {
-				let exist = system.fs.existsSync('reports/' + condition.testName);
-				if (!exist) {
-					system.fs.mkdirSync('reports/' + condition.testName);
-				}
-				condition.errorNumber++;
-				system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.png', image, 'base64', function (err) {
-					if (err != null) {
-						console.log(err)
-					}
-				});
-				system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.txt', condition.nowWeDoing + '\n' + e, function (err) {
-					if (err != null) {
-						console.log(err)
-					}
-				});
-				
-				console.log('Пытаемся получить от прокси HAR'.yellow);
-				browserMobProxyClient.getHar().then(har => {
-					console.log('Пытаемся записать HAR в файл'.yellow);
-					system.fs.writeFile('reports/' + condition.testName + '/' + condition.errorNumber + '.har', JSON.stringify(har), function (err) {
-						if (err != null) {
-							console.log('ошибка при записи HAR в файл'.yellow);
-							console.log(err);
-						}
-					});
-				}, error => {
-					console.log('Ошибка при получении HAR от прокси'.red);
-					console.log(error);
-				});
-				
-				console.log('сделали скрин'.yellow);
-				console.log('Ошибка валидации: '.red, e);
-				
+				console.log("Сделал скрин".yellow);
+				require('./fileSystem').writeErrorFiles(system, condition, image, e, config);
 			}));
 		} else {
 			console.log((value1 + ' ' + getFnName(func) + ' ' + value2).green);
