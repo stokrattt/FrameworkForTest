@@ -16,7 +16,6 @@ module.exports = function(config,V) {
         './tests/50_AddJobToTrip.js',
         './tests/53_ManualClosingWork.js',
         './tests/54_LDQuoteAndFuel.js',
-        './tests/57_UnloadingAllSteps.js',
         './tests/55_CreateFlagAndCheckOnDashboard.js',
         './tests/58_Discount.js',
         './tests/59_PayrollAddMiscCustomPayment.js',

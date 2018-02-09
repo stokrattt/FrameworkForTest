@@ -22,6 +22,7 @@ module.exports = function(config,V) {
         './tests/97_OutgoingEmailAndSignature.js',
         './tests/99_PendingInfoInventoryTotal.js',
         './tests/101_CustomCommMoveWithInventory.js',
+        './tests/57_UnloadingAllSteps.js',
         './tests/98_RemindersForOtherPerson.js',
         './tests/56_LoadingAllSteps.js',
         './tests/95_Statistic.js',
@@ -32,6 +33,7 @@ module.exports = function(config,V) {
         './tests/104_AddBedroomAddRoom.js',
         './tests/106_AdditionalContact.js',
         './tests/110_LeadScoringAdmin.js',
+        './tests/ChngeZip.js',
         './tests/112_ExtraDropLocalMove.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
     ];
