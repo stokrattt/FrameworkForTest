@@ -9,6 +9,7 @@
   },
   "author": "",
   "dependencies": {
+    "browsermob-proxy-client-nodejs": "0.0.0",
     "colors": "^1.1.2",
     "fibers": "^2.0.0",
     "path": "^0.12.7",

@@ -3,8 +3,8 @@ module.exports = function (config, V) {
 	config.timeout = 20000;
 	
 	config.suite = [
-		'./tests/108_HomeEstimate.js'
-		//'./tests/31_FlateRateBooking.js'
+		//'./tests/108_HomeEstimate.js'
+		'./tests/31_FlateRateBooking.js'
 	];
 	config.chainFail = false;
 	config.browser = 'chrome';
