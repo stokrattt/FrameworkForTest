@@ -33,7 +33,7 @@ module.exports = function(config,V) {
         './tests/104_AddBedroomAddRoom.js',
         './tests/106_AdditionalContact.js',
         './tests/110_LeadScoringAdmin.js',
-        './tests/ChngeZip.js',
+        './tests/114_ChangeTypeOfServices.js',
         './tests/112_ExtraDropLocalMove.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
     ];
