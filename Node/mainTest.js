@@ -1,21 +1,21 @@
 let startTests = new Date().getTime();
 //============================initializing globals====================
-var system = {};
-var constants = require('./common/constants');
-var SF = {};
-var JS = {};
-var JSstep = {};
-var VD = {};
-var V = {};
-var MF = {};
-var LF = {};
-var config = {};
-var condition = {};
-var webdriver = require('selenium-webdriver');
-var proxy = require('selenium-webdriver/proxy');
-var FileDetector = webdriver.FileDetector;
-var By = webdriver.By;
-var until = webdriver.until;
+let system = {};
+let constants = require('./common/constants');
+let SF = {};
+let JS = {};
+let JSstep = {};
+let VD = {};
+let V = {};
+let MF = {};
+let LF = {};
+let config = {};
+let condition = {};
+let webdriver = require('selenium-webdriver');
+let proxy = require('selenium-webdriver/proxy');
+let FileDetector = webdriver.FileDetector;
+let By = webdriver.By;
+let until = webdriver.until;
 system.colors = require('colors');
 system.path = require('path');
 system.fs = require('fs');
@@ -90,10 +90,10 @@ require('./system/proxy/proxySetup')(config.P).then(proxyAddr => {
 		}
 		let deleteFolderRecursive = require("./system/fileSystem").deleteFolderRecursive;
 		
-		var testPassed = [];
+		let testPassed = [];
 		condition.testN = 0;
 		condition.fails = 0;
-		var EventEmitter = require('events');
+		let EventEmitter = require('events');
 		class MyEmitter extends EventEmitter {
 		}
 		system.myEmitter = new MyEmitter();
