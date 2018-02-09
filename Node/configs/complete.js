@@ -129,7 +129,7 @@ module.exports = function(config,V) {
 	//V.frontURL = 'http://stage.themoveboard.com:8005';                    //dev
 	//V.accountURL = 'http://stage.themoveboard.com:8005/account/#/login';  //dev
 	//V.adminURL = 'http://stage.themoveboard.com:8005/moveBoard/#/login';  //dev
-	V.frontURL = 'http://stage.stage.themoveboard.com:91/front_site/';
+	V.frontURL = 'http://stage.stage.themoveboard.com:91';
 	V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';
 	V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';
 

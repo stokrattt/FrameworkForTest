@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/67_EditRequestPayrollAdding.js'];
+    config.suite = ['./tests/52_AllFlatRate.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;
@@ -8,7 +8,7 @@ module.exports = function(config,V) {
     //V.accountURL = 'http://stage.themoveboard.com:8005/account/#/login';  //dev
     //V.adminURL = 'http://stage.themoveboard.com:8005/moveBoard/#/login';  //dev
 
-     V.frontURL = 'http://stage.stage.themoveboard.com:91/front_site';
+     V.frontURL = 'http://stage.stage.themoveboard.com:91';
      V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';
      V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';
 
