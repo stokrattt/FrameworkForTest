@@ -1890,6 +1890,15 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
             SF.sleep(2);
         }
     }
+    function Contract_SubmitInventoryDelivery(count) {
+        JS.scroll("tr[ng-repeat=\"n in rangeArr\"]:eq(0)");
+        for (let i = 1, submitCount = 1; i <= count; i++) {
+            SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//input[@ng-model="data[fieldName].inventory[n].checkshipper"]/..'));
+            SF.sleep(0.5);
+            SF.send(By.xpath('//tr[@ng-repeat="n in rangeArr"]['+ i +']//textarea[@ng-model="data[fieldName].inventory[n].destinationCondition"]'), 'good');
+            SF.sleep(1);
+        }
+    }
     function Contract_ReviewGive(stars, text){
         MF.Contract_ReviewClickStar(stars);
         MF.Contract_ReviewTypeFeedback(text);
@@ -2305,6 +2314,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until,FileDetector, sy
         RememberStorage: RememberStorage,
         Contract_SignMainPayment:Contract_SignMainPayment,
         Contract_AddInventory:Contract_AddInventory,
+        Contract_SubmitInventoryDelivery:Contract_SubmitInventoryDelivery,
         Contract_ReviewGive: Contract_ReviewGive,
         RememberAndValidatePayroll_In_EditRequestFlatRatePickup: RememberAndValidatePayroll_In_EditRequestFlatRatePickup,
         RememberAndValidatePayroll_In_EditRequestFlatRateDelivery: RememberAndValidatePayroll_In_EditRequestFlatRateDelivery,

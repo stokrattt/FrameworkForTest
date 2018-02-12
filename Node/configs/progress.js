@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/52_AllFlatRate.js'];
+    config.suite = ['./tests/32_AllMovingWithStorage.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 35000;
@@ -20,7 +20,7 @@ module.exports = function(config,V) {
     //V.adminURL = 'http://moversboard.net:8051/moveBoard/#/login';
     V.adminLogin = 'WorkAdmin';
     V.adminPassword = 'test';
-    V.adminEmail = 'bostonflat.test@mail.ru';//сюда будут прилетать все письма
+    V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';
     V.foremanLoginFlatRate = 'FlatRateForeman';
     V.foremanPassword = '123';
