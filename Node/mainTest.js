@@ -12,6 +12,7 @@ let LF = {};
 let config = {};
 let condition = {};
 let webdriver = require('selenium-webdriver');
+global.Key = webdriver.Key;
 let proxy = require('selenium-webdriver/proxy');
 let FileDetector = webdriver.FileDetector;
 let By = webdriver.By;
