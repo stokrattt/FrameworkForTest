@@ -62,7 +62,7 @@ condition.nowWeDoing = 'второй раз в админке, заходим в
     SF.click(By.xpath('//button[@ng-click="changeAll()"]'));
     MF.WaitWhileBusy();
     MF.WaitWhileToaster();
-    SF.sleep(2);
+    SF.sleep(4);
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
     MF.Board_RefreshDashboard();
