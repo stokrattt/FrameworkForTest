@@ -26,16 +26,16 @@ condition.nowWeDoing = 'первый раз в админке';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Travel Time - time added to Labor Time")]')).getText().then(function(text){
         V.travelTimeText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Fuel Surcharge Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Fuel Surcharge Tooltip")]')).getText().then(function(text){
         V.fuelSurchargeText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
         V.myselfPackingText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
         V.partialPackingText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
         V.fullPackingText = text;
     }),config.timeout);
     MF.Board_LogoutAdmin();
@@ -58,22 +58,22 @@ condition.nowWeDoing = 'первый раз в акаунте';
         VD.IWant(VD.ToEqual, V.travelTimeText, text, 'не совпали Travel Time tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.fuelSurchrge.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Fuel Surcharge Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Fuel Surcharge Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.fuelSurchargeText, text, 'не совпали Fuel Surcharge Tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.myselfPacking.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.myselfPackingText, text, 'не совпали Myself Packing Tooltip');
     }),config.timeout);
     SF.sleep(8);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.partialPacking.isDisplay"]'));
     SF.sleep(8);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.partialPackingText, text, 'не совпали Partial Packing tooltip');
     }),config.timeout);
     SF.sleep(8);
     SF.click(By.xpath('//i[@ng-if="vm.tooltipData.fullPacking.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.fullPackingText, text, 'не совпали Full Packing tooltip');
     }),config.timeout);
     LF.LogoutFromAccount();
@@ -90,22 +90,22 @@ condition.nowWeDoing = 'первый раз в акаунте';
         "return true;} else {$('input[ng-model=\"vm.movecalcFormSettings.rateTooltips.showBig\"]~span').click()}"),config.timeout);
     driver.wait(driver.executeScript("if ($('input[ng-model=\"vm.movecalcFormSettings.rateTooltips.showSmall\"]').hasClass('ng-not-empty')){" +
         "return true;} else {$('input[ng-model=\"vm.movecalcFormSettings.rateTooltips.showSmall\"]~span').click()}"),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "general tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@class="company-color-panel"][contains(text(), "General Tooltip")]')).getText().then(function(text){
         V.generalTooltip = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "discount tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "discount tooltip")]')).getText().then(function(text){
         V.discountTooltip = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "regular tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "regular tooltip")]')).getText().then(function(text){
         V.regularTooltip = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "subpeak tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "subpeak tooltip")]')).getText().then(function(text){
         V.subpeakTooltip = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "peak tooltips")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "peak tooltips")]')).getText().then(function(text){
         V.peakTooltip = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "hipeak tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "hipeak tooltip")]')).getText().then(function(text){
         V.hipeakTooltip = text;
     }),config.timeout);
     MF.Board_LogoutAdmin();
