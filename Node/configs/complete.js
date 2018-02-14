@@ -115,6 +115,7 @@ module.exports = function(config,V) {
         './tests/106_AdditionalContact.js',
         './tests/110_LeadScoringAdmin.js',
         './tests/112_ExtraDropLocalMove.js',
+        './tests/115_LDCommercialMoveSizeInSIT.js',
         './tests/113_CheckAdminPermissions.js',
         './tests/111_ZIPCode.js',
         './tests/51_ServiceTypesOnOff.js',
