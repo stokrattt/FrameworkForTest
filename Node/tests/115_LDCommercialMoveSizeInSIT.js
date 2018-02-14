@@ -25,9 +25,8 @@ condition.nowWeDoing = 'Создаем коммерческий ЛД рекве�
     SF.click(By.xpath('//select[@id="edit-type-from"]/option[@value="string:2"]'));
     SF.click(By.xpath('//select[@id="edit-type-to"]/option[@value="string:2"]'));
     MF.CreateRequest_SendZipToZipFrom ('02032', '90001');
-    SF.sleep(0.5);
+    SF.sleep(5);
     MF.CreateRequest_ClickCalculate();
-    SF.sleep(0.5);
     MF.CreateRequest_ClickContinue();
     MF.CreateRequest_SendClientInfo(V.client);
     MF.CreateRequest_ClickCreate();
