@@ -8,11 +8,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
-condition.nowWeDoing = 'Создаем коммерческий ЛД реквест c этажами';
+condition.nowWeDoing = 'В дашборде (через Create Request) создаем Long Distance реквест, при создании выбираем Size of Move: Commercial Move, запоминаем cubic feet и выбираем этажи.';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_ClickCreate();
-    MF.CreateRequest_SelectServiceType(7);
+   // MF.CreateRequest_SelectServiceType(7);
     MF.CreateRequest_ClickMoveDateInput();
     V.request = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
@@ -31,7 +31,7 @@ condition.nowWeDoing = 'Создаем коммерческий ЛД рекве�
     MF.CreateRequest_SendClientInfo(V.client);
     MF.CreateRequest_ClickCreate();
 
-condition.nowWeDoing = 'Добавляем инвентарь и меняем топливо. Меняем этажи, добавляем адрес';
+condition.nowWeDoing = 'Добавляем инвентарь, меняем Fuel и этажи, ставим статус Confirmed. Запоминаем данные (Total, Fuel, AdServices), сохраянем изменения и закрываем реквест';
     V.requestNumber={};
     MF.EditRequest_RememberId(V.requestNumber);
     SF.sleep(0.5);
@@ -54,8 +54,6 @@ condition.nowWeDoing = 'Добавляем инвентарь и меняем т
     SF.sleep(1);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-
-condition.nowWeDoing = ' выбираем трак и ставим реквесту статус Confirmed, сохраняем изменения.';
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     SF.sleep(5);
@@ -63,7 +61,7 @@ condition.nowWeDoing = ' выбираем трак и ставим реквес�
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest ();
 
-condition.nowWeDoing = 'Открываем реквест заново, в табе клоузинг проверяем этажи, их сумму(в адишенал).';
+condition.nowWeDoing = 'Открываем реквест заново, проверяем что цифры (Total, Fuel, Additional services) не изменились после закрытия реквеста.';
     MF.Board_OpenConfirmed();
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest (V.requestNumber.Id);
@@ -75,9 +73,9 @@ condition.nowWeDoing = 'Открываем реквест заново, в та�
     VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.AdServices, V.boardNumbers.AdServices, 'не совпал Additional после закрытияг');
     SF.sleep(1);
     LF.closeEditRequest ();
-    MF.Board_LogoutAdmin ();
 
-condition.nowWeDoing = 'Идем в аккаунт, и на конфирмеишен сверяем все значения там.';
+condition.nowWeDoing = 'Выходим с дашборда, логинимся под клиентом, на странице аккаунта и Confirmation page проверяем, что цифры совпали с теми, что мы вводили в дашборде.';
+    MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
     MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -106,7 +104,7 @@ condition.nowWeDoing = 'Идем в аккаунт, и на конфирмеиш
     VD.IWant(VD.ToEqual, V.ConfirmationQuote,V.boardNumbersAfterClose.Quote, 'не совпал Quote c борда');
     MF.Account_ConfirmationBackToRequest();
 
-condition.nowWeDoing = 'На аккаунте удаляем инвентарь, проверяем, что вес ушел в дефолтный.';
+condition.nowWeDoing = 'В аккаунте удаляем весь инвентарь, проверяем что cubic feet стал дефолтным.';
     MF.Account_ClickInventoryOpenTab();
     //потом написать функцию на удаление инвентаря
     SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
@@ -128,7 +126,7 @@ condition.nowWeDoing = 'На аккаунте удаляем инвентарь,
     VD.IWant(VD.ToEqual, V.defaultcbf, V.accountcbf, 'cubic feet не ушел в дефолтный после удаления инвентаря');
     LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'Возвращаемся на дашборд проверяем, что вес дефолтный. Опять меняем топливо, добавялем пакинг, дисконт и добавляем в сит.';
+condition.nowWeDoing = 'Возвращаемся на дашборд и проверяем что cubic feet стал дефолтным. В табе Sales меняем Fuel, добавляем Packing и Discount.';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
@@ -145,7 +143,9 @@ condition.nowWeDoing = 'Возвращаемся на дашборд прове�
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
     MF.EditRequest_AddPacking();
-    SF.sleep(1);
+    SF.sleep(2);
+
+condition.nowWeDoing = 'Запоминаем суммы. Переводим работу в Closing, добавляем работу в SIT. Сохраняем, закрываем реквест и идём в Jobs in SIT проверять, что реквест добавлен в SIT.';
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     SF.waitForVisible (By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
@@ -162,8 +162,6 @@ condition.nowWeDoing = 'Возвращаемся на дашборд прове�
     V.boardNumbersAfterSIT = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersAfterSIT);
     LF.closeEditRequest();
-
-condition.nowWeDoing = 'Заходим в Jobs in SIT и проверям есть ли эта работа';
     MF.Board_OpenSideBar();
     MF.Board_OpenJobsInSIT();
     SF.sleep(1);
@@ -171,7 +169,7 @@ condition.nowWeDoing = 'Заходим в Jobs in SIT и проверям ест
         VD.IWant(VD.ToEqual, text, V.requestNumber.Id, 'не найден реквест в Jobs in SIT')
     }),config.timeout);
 
-condition.nowWeDoing = 'Создаем трип карьер/аджент, добавляем реквест в трип, заходим в реквест с дашборда и проверяем все цифры';
+condition.nowWeDoing = 'Заходим в Trip-Planner, создаём трип (Type: Carrier/Agent) и добавляем в трип наш реквест.';
     MF.Board_OpenSideBar ();
     MF.Board_OpenCourier ();//Создаем Carrier
     MF.Board_OpenSideBar ();
@@ -198,6 +196,8 @@ condition.nowWeDoing = 'Создаем трип карьер/аджент, до�
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
     JS.click('span:contains(\\"Add requests to trip\\")');
     SF.sleep(2);
+
+condition.nowWeDoing = 'Идём обратно в дашборд, открываем реквест и проверяем, что цифры в Closing (Total, Fuel, Ad.Services, Packing, Discount) не изменились после добавления реквеста в трип.';
     MF.Board_OpenSideBar();
     MF.Board_OpenDashboard();
     MF.Board_OpenConfirmed();
