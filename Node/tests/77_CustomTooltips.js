@@ -66,15 +66,15 @@ condition.nowWeDoing = 'первый раз в акаунте';
         VD.IWant(VD.ToEqual, V.myselfPackingText, text, 'не совпали Myself Packing Tooltip');
     }),config.timeout);
     SF.sleep(8);
+    SF.click(By.xpath('//i[@ng-if="vm.tooltipData.fullPacking.isDisplay"]'));
+    SF.sleep(8);
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, V.fullPackingText, text, 'не совпали Full Packing tooltip');
+    }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.partialPacking.isDisplay"]'));
     SF.sleep(8);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.partialPackingText, text, 'не совпали Partial Packing tooltip');
-    }),config.timeout);
-    SF.sleep(8);
-    SF.click(By.xpath('//i[@ng-if="vm.tooltipData.fullPacking.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, V.fullPackingText, text, 'не совпали Full Packing tooltip');
     }),config.timeout);
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
@@ -104,11 +104,11 @@ condition.nowWeDoing = 'первый раз в акаунте';
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div/p[contains(text(), "peak tooltips")]')).getText().then(function(text){
         V.peakTooltip = text;
-        console.log(V.peakTooltip);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div/p[contains(text(), "hipeak tooltip")]')).getText().then(function(text){
         V.hipeakTooltip = text;
     }),config.timeout);
+    SF.sleep(2);
     MF.Board_LogoutAdmin();
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
