@@ -175,6 +175,7 @@ condition.nowWeDoing = 'Заходим в Trip-Planner, создаём трип 
     MF.Board_OpenSideBar ();
     LF.CreateCarrier();
     MF.Board_OpenSideBar ();
+    MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenTripPlanner();
     MF.SIT_ClickAddTrip();
     SF.sleep(2);
