@@ -171,7 +171,7 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     }),config.timeout);
     SF.sleep(2);
 
-    condition.nowWeDoing = 'идем в реквест 3й раз, в салесе добавляем инвентарь и пакинг, а в клоузинг меняем сумму дисконта ';
+ condition.nowWeDoing = 'идем в реквест 3й раз, в салесе добавляем инвентарь и пакинг, а в клоузинг меняем сумму дисконта ';
     SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
     MF.EditRequest_WaitForBalanceVisible();
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
@@ -201,8 +201,26 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
         V.TripBalance4 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterAddInventory.Balance, V.TripBalance4, 'не совпал баланс после добавления инвентаря и пакинга');
     }),config.timeout);
+    SF.sleep(3);
+
+
+
+condition.nowWeDoing = 'запоминаем номер трипа, выходим из него и проверяем, что он есть в трипах ';
+    driver.wait(driver.findElement(By.xpath('//h2[@class="trip-create-modal-form__toolbar__label md-truncate flex"]')).getText().then(function (text) {
+        V.TripID = SF.cleanPrice(text);
+        console.log(V.TripID);
+    }),config.timeout);
+    SF.sleep(1);
+    MF.Board_OpenSideBar();
+    MF.Board_ClickLongDistanceDispach();
+    MF.Board_OpenTripPlanner();
+    SF.sleep(5);
+    driver.wait(driver.findElement(By.xpath('//div[@class="trip-list__body trip-list__body_not-selected"]//div[contains(text(), "'+V.TripID+'")]')).getText().then(function (text) {
+        V.TripPlannerID = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual,  V.TripID, V.TripPlannerID, 'нет работы в трипе');
+    }),config.timeout);
     SF.sleep(2);
 
-    SF.endOfTest();
 
+    SF.endOfTest();
 };

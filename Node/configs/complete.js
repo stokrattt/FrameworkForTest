@@ -113,8 +113,10 @@ module.exports = function(config,V) {
         './tests/102_InhomeEstimate.js',
         './tests/104_AddBedroomAddRoom.js',
         './tests/106_AdditionalContact.js',
+        './tests/116_DeleteComissionsPayroll.js',
         './tests/110_LeadScoringAdmin.js',
         './tests/112_ExtraDropLocalMove.js',
+        './tests/115_LDCommercialMoveSizeInSIT.js',
         './tests/113_CheckAdminPermissions.js',
         './tests/111_ZIPCode.js',
         './tests/51_ServiceTypesOnOff.js',
@@ -142,7 +144,7 @@ module.exports = function(config,V) {
 	//V.adminURL = 'http://89.223.29.231:8080/moveBoard/#/login';
 	V.adminLogin = 'TestAdmin';
 	V.adminPassword = 'test';
-	V.adminEmail = 'bostonflat.test@mail.ru';//сюда будут прилетать все письма
+	V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
 	V.foremanLogin = 'TestForeman';
     V.foremanLoginFlatRate = 'FlatRateForeman';
     V.foremanPassword = '123';

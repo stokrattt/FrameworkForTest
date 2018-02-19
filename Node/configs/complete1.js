@@ -43,6 +43,7 @@ module.exports = function(config,V) {
         './tests/88_FlatRateHandClosing.js',
         './tests/49_FlatRateLocalMoveCheckSchedule.js',
         './tests/111_ZIPCode.js',
+        './tests/116_DeleteComissionsPayroll.js',
         './tests/51_ServiceTypesOnOff.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
     ];

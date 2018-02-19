@@ -90,6 +90,8 @@ condition.nowWeDoing = 'идем в админку сверять данные, 
     LF.SetClientPasswd (V.client.passwd);
     MF.EditRequest_CloseEditRequest();
     MF.Board_LogoutAdmin();
+
+condition.nowWeDoing = 'идем в аккаунт букать работу и сверять с админкой';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     MF.Account_OpenRequest(V.accountNumbers.Id);
@@ -97,7 +99,40 @@ condition.nowWeDoing = 'идем в админку сверять данные, 
     LF.RememberAccountNumbers(V.accountNumbersAfterCalcOff);
     LF.Validation_Compare_Account_Admin(V.accountNumbersAfterCalcOff, V.boardNumbersAfterCalcOff);
     LF.ConfirmRequestInAccount_WithReservation();
+    LF.LogoutFromAccount();
 
+condition.nowWeDoing = 'второй раз в админке, локал диспатч';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenLocalDispatch();
+    LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
+    MF.Dispatch_GridView();
+    LF.SelectRequestDispatch(V.accountNumbers.Id);
+    LF.selectCrew(V.foremanName);
+    MF.Board_LogoutAdmin();
+
+condition.nowWeDoing = 'заходим под форменом, открываем контракт';
+    LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
+    LF.OpenRequestInForemanPage(V.accountNumbers.Id);
+    MF.Contract_WaitConfirmationPage();
+    MF.Contract_OpenBillOfLading();
+    SF.sleep(1);
+    driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
+        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
+    }),config.timeout);
+    SF.sleep(1);
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    MF.Contract_DeclarationValueA();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+
+    condition.nowWeDoing = 'добавляем сторадж и инвентарь на контракте а также кастомный айтем';
+    SF.click(By.xpath('//a[@ng-click="showTransit()"]'));
+    SF.sleep(0.5);
+    SF.click(By.xpath('//button[@ng-click="openInventory()"]'));
+    SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
