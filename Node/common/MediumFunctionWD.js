@@ -5,7 +5,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function WaitWhileBusy() {
         SF.sleep(1);
-        JS.waitForNotExist('.busyoverlay:visible');
+        JS.waitForNotExist('.busyoverlay:visible, inhome-estimate-request-loading:visible');
         SF.sleep(1);
     }
     function WaitWhileBusySymbol() {
@@ -187,6 +187,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
         SF.sleep(5);
+    }
+    function HomeEstimate_Logout() {
+		SF.click(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
+		SF.sleep(1);
+		SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
     }
     function Board_ClickCreate(){
         SF.click(By.linkText('Create Request'));
@@ -659,6 +664,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
         SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReservation"]'));
     }
+
     function Account_SweetUpdateConfirm() {
         JS.waitForExist('button.confirm:contains("Update")');
         SF.sleep(2.5);
@@ -935,6 +941,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (3);
         WaitWhileBusy();
     }
+    function EditRequest_ClosePayment() {
+		SF.click (By.xpath('//button[@ng-click="save()"]'));
+		SF.sleep (3);
+    }
 
     function EditRequest_SetToNotConfirmed() {
         SF.select(By.xpath('//select[@id="edit-status"]'), 2);
@@ -1178,8 +1188,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (0.5);
         JS.click('label[ng-model="packing_service"]:contains("Full Packing"):visible');
         SF.sleep(0.5);
-        SF.click(By.xpath('//button[@ng-click="save()"]'));
-        WaitWhileBusy ();
         SF.sleep (3);
     }
     function EditRequest_AddAdditionalServicesFullPack() {
@@ -1383,7 +1391,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'), rate);
         SF.sleep(1);
     }
-    function EditRequest_WaitForOpenRequest() {
+    function    EditRequest_WaitForOpenRequest() {
         SF.waitForVisible(By.xpath('//div[@ng-click="chooseTruck(tid)"]'));
         WaitWhileBusy ();
         WaitWhileBusy();
@@ -1483,6 +1491,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
         SF.sleep (2);
     }
+	function EditRequest_AddAdditionalServSalesTab() {
+		SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
+		SF.waitForVisible (By.id('extra-service-modal'));
+		SF.sleep(3);
+		SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
+		SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
+		SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
+		SF.click(By.xpath('//button[@ng-click="save()"]'));
+		WaitWhileBusy ();
+		SF.sleep (2);
+	}
     function EditRequest_SaveChangesClosingTab() {
         SF.click(By.xpath('//button[@ng-click="UpdateRequestInvoice()"]'));
         JS.waitForExist('button[ng-click="update(request)"]:visible');
@@ -1491,6 +1510,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForExist("div.toast-success:visible");
         WaitWhileBusy();
     }
+
+
 
     //=================================LOCAL DISPATCH============================
 
@@ -2242,7 +2263,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ClickHomeEstimateDate:EditRequest_ClickHomeEstimateDate,
         EditRequest_AddPackingClosingTab:EditRequest_AddPackingClosingTab,
         EditRequest_AddAdditionalServClosingTab:EditRequest_AddAdditionalServClosingTab,
+		EditRequest_AddAdditionalServSalesTab:EditRequest_AddAdditionalServSalesTab,
         EditRequest_SaveChangesClosingTab:EditRequest_SaveChangesClosingTab,
+
+        EditRequest_ClosePayment:EditRequest_ClosePayment,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
@@ -2340,7 +2364,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         FrontSiteSmallCalc_SendZipFrom:FrontSiteSmallCalc_SendZipFrom,
         FrontSiteSmallCalc_ClickNeedStorageCheckbox:FrontSiteSmallCalc_ClickNeedStorageCheckbox,
         FrontSiteSmallCalc_SelectServiceType:FrontSiteSmallCalc_SelectServiceType,
-
+		HomeEstimate_Logout:HomeEstimate_Logout,
         //====================================TRIPS==========================================
 
     };

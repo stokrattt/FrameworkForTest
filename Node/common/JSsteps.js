@@ -326,9 +326,10 @@ exports.selectTruck = function (hours) {
     return f.replace(/##/, hours);
 };
 
-exports.selectHomeEstimator = function (hours) {
+exports.selectHomeEstimator = function (hours, estimator) {
 	var f = function () {
-		var hours = 2;
+		var hours = +'##';
+		var estimator = '##';
 		var onlyDig = function (str) {
 			var res = '';
 			for (var i = 0; i < str.length; i++) {
@@ -349,7 +350,7 @@ exports.selectHomeEstimator = function (hours) {
 			
 			var name = $('el-home-estimate-worker-item:eq("' + number + '")').text();
 			
-			if (name.indexOf("KKKKKKK YYYYYYY") != -1) {
+			if (name.indexOf(estimator) != -1) {
 				
 				var arrayChaos = $('table.home-estimate-day-plan-table ' +
 					'el-home-estimate-work-item span ');
@@ -422,7 +423,7 @@ exports.selectHomeEstimator = function (hours) {
 		}
 		return selected ? number : -1;
 	}.toString().substring(12);
-	return f.replace(/##/, hours);
+	return f.replace(/##/, hours).replace(/##/, estimator);
 };
 
 exports.findAllDetermPrices = function (target){
