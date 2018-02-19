@@ -83,8 +83,8 @@ condition.nowWeDoing = 'идем в аккаунт, проверить что с
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
-    driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text()," Inhome Estimate")]')).getText().then(function (Status) {
-        VD.IWant(VD.ToEqual, Status, 'INHOME ESTIMATE');
+    driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text()," In-home Estimate")]')).getText().then(function (Status) {
+        VD.IWant(VD.ToEqual, Status, 'IN-HOME ESTIMATE');
     }), config.timeout);
     SF.sleep(1);
 
