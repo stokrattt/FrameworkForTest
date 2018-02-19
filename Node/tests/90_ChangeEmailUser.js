@@ -101,6 +101,7 @@ condition.nowWeDoing = 'Проверяем привязку email к клиен�
 condition.nowWeDoing = 'Идем в аккаунт проверить наличие 2х реквестов, и новых данных клиента';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.NewClient);
+    SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//address/i[@class="icon-envelope"]/following-sibling::span')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.NewClient.email, text, 'не совпал Email  на акаунте');
     }),config.timeout);
