@@ -1250,7 +1250,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 						"//option[contains(text(),'Test Helper3')]")).click());
 				}
 			}), config.timeout);
-		JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
+		// JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
 		SF.sleep(1);
 		SF.click(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
 		JS.waitForExist('div.toast-success');

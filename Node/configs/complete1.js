@@ -30,6 +30,7 @@ module.exports = function(config,V) {
         './tests/17_LoadHelpDownFormAndEquipFee.js',
         './tests/DefaultSettings.js',
         './tests/20_LDTopForm.js',
+        './tests/118_CommercialPackingDayCalculatorOff.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/22_WeDontMoveToThisState.js',
         './tests/32_AllMovingWithStorage.js',
