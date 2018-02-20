@@ -566,6 +566,33 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.WaitWhileBusy();
 	}
 
+    function CreateOvernightFromBoard(client) {
+        JS.waitForNotExist('div.toast-success');
+        MF.WaitWhileBusy();
+        MF.Board_ClickCreate();
+        MF.CreateRequest_SelectServiceType(6);
+        MF.CreateRequest_ClickMoveDateInput();
+        V.request = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
+            V.request.moveDate = calDate;
+            console.log(V.request);
+        }), config.timeout);
+        SF.sleep(0.5);
+        MF.CreateRequest_SelectExtraRooms(1);
+        driver.wait(driver.findElement(By.xpath('//input[@ng-model="editrequest.data.field_date"]')).getAttribute("value").then(function (mdate) {
+            V.request.mdate = (mdate);
+        }), config.timeout);
+        console.log(V.request.mdate);
+        SF.send(By.id("edit-zip-code-from"), client.zipFrom == undefined ? "01101" : client.zipFrom);
+        SF.send(By.id("edit-zip-code-to"), client.zipTo == undefined ? "01102" : client.zipTo);
+        SF.sleep(5);
+        MF.CreateRequest_ClickCalculate();
+        MF.CreateRequest_ClickContinue();
+        MF.CreateRequest_SendClientInfo(client);
+        MF.CreateRequest_ClickCreate();
+        console.log('создали реквест');
+    }
+
 	function CreateLocalMovingFromBoard(client) {
 		JS.waitForNotExist('div.toast-success');
 		MF.WaitWhileBusy();
@@ -2463,7 +2490,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		CreateLoadingHelpDownForm: CreateLoadingHelpDownForm,
 		CreateOvernightDownForm: CreateOvernightDownForm,
 		CreateLocalMovingFromBoard: CreateLocalMovingFromBoard,
-		CreateMovAndStorFromBoard: CreateMovAndStorFromBoard,
+        CreateOvernightFromBoard: CreateOvernightFromBoard,
+        CreateMovAndStorFromBoard: CreateMovAndStorFromBoard,
 		CreateLoadingHelpFromBoard: CreateLoadingHelpFromBoard,
 		CreatePackingDayFromBoard: CreatePackingDayFromBoard,
 		CreateFlatRateDownForm: CreateFlatRateDownForm,
