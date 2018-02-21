@@ -1,12 +1,12 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/CommercialCalculatorOff.js'];
+    config.suite = ['./tests/118_CommercialPackingDayCalculatorOff.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
-    //V.frontURL = 'http://stage.themoveboard.com:8005';                    //dev
-    //V.accountURL = 'http://stage.themoveboard.com:8005/account/#/login';  //dev
-    //V.adminURL = 'http://stage.themoveboard.com:8005/moveBoard/#/login';  //dev
+    //V.frontURL = 'http://test1.stage.themoveboard.com:81/front_site/';                    //dev
+    //V.accountURL = 'http://test1.stage.themoveboard.com:81/account/';  //dev
+    //V.adminURL = 'http://test1.stage.themoveboard.com:81/moveBoard/';  //dev
 
      V.frontURL = 'http://stage.stage.themoveboard.com:91';
      V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';

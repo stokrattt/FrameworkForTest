@@ -25,6 +25,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function WaitVisibleDashboardForeman() {
         SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
         WaitWhileBusy();
+        SF.sleep(1.5);
     }
 
     function SweetConfirm() {
@@ -1188,6 +1189,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (0.5);
         JS.click('label[ng-model="packing_service"]:contains("Full Packing"):visible');
         SF.sleep(0.5);
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
         SF.sleep (3);
     }
     function EditRequest_AddAdditionalServicesFullPack() {

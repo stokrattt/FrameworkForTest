@@ -47,6 +47,7 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
     SF.click (By.xpath('//input[@ng-model="payment.creditCardFee"]'));
     LF.FillCardPayModal ();
     MF.WaitWhileBusy();
+    MF.WaitWhileToaster();
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount: ")]/following-sibling::span')).getText().then(function(text){
         V.PaymentInsert = SF.cleanPrice (text);

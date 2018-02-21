@@ -129,25 +129,22 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
 
 condition.nowWeDoing = 'идем на форемана проверить что он удалился с  работы';
-    SF.sleep (3);
-    driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
-    }),config.timeout);
-    SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
+    SF.click(By.xpath('//input[@ng-model="vm.pageParams.conditions.nid"]'));
+    SF.send(By.xpath('//input[@ng-model="vm.pageParams.conditions.nid"]'), V.request.Id);
+    SF.sleep(2);
     MF.WaitWhileBusy();
-    driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.pageParams.totalCount == 0"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Nothing to show', 'реквест не пропал у форемана на страничке в new jobs после его удаление из этого ревеста');
     }),config.timeout);
     SF.sleep (1);
     SF.click(By.xpath('//a[@ui-sref="foreman.past"]'));
     MF.WaitWhileBusy();
-    driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
-    }),config.timeout);
-    SF.click(By.xpath('//a[@ng-click="selectPage(page + 1, $event)"]'));
+    SF.click(By.xpath('//input[@ng-model="vm.pageParams.conditions.nid"]'));
+    SF.send(By.xpath('//input[@ng-model="vm.pageParams.conditions.nid"]'), V.request.Id);
+    SF.sleep(2);
     MF.WaitWhileBusy();
-    driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.ToEqual, check, 0, 'фореман не удалился с реквеста');
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.pageParams.totalCount == 0"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Nothing to show', 'реквест не пропал у форемана на страничке в past jobs после его удаление из этого ревеста');
     }),config.timeout);
     SF.sleep (1);
 
