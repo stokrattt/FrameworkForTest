@@ -1251,6 +1251,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_CloseConfirmWork() {
         SF.click (By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
         WaitWhileBusy();
+        SF.sleep(2)
     }
     function EditRequest_OpenConfirmWork() {
         SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
