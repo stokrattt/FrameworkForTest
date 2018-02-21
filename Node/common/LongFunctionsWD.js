@@ -795,6 +795,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			} else {
 				boardNumbers.HourlyRate = 0;
 			}
+
 		}), config.timeout);
 		driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Trucks:")]/following-sibling::div[1]')).getText().then(function (text) {
 			boardNumbers.Trucks = SF.cleanPrice(text);
@@ -2424,6 +2425,26 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('//div/button[@ng-click="update(client)"]'));
 		MF.WaitWhileBusy();
 	}
+	function EditRequest_EditRateCalculOff(rate){
+		JS.click('div span.field-prefix.field-prefix_display-block ' +
+			'i[ng-click="OpenDiscountRateModal();"]');
+		SF.click(By.xpath('//div/input[@ng-change="calcDiscount()"]'));
+		SF.sleep(1);
+		SF.send(By.xpath('//div/input[@ng-change="calcDiscount()"]'),rate);
+		SF.sleep(1);
+		SF.click(By.xpath('//div/button[@ng-click="Apply()"]'));
+		SF.sleep(1);
+		SF.click(By.xpath('//div/button[@class="confirm"]'));
+		SF.sleep(1);
+	}
+	function EditRequest_EditCrewCalculOff() {
+		SF.click(By.xpath('//div[@class="col-md-1 col-xs-1 form-item form-type-textfield form-item-movers-crew"]' +
+			'/input[@oldvalue="request.crew.old"]'));
+		SF.clear(By.xpath('//div[@class="col-md-1 col-xs-1 form-item form-type-textfield form-item-movers-crew"]' +
+			'/input[@oldvalue="request.crew.old"]'));
+		SF.send(By.xpath('//div[@class="col-md-1 col-xs-1 form-item form-type-textfield form-item-movers-crew"]' +
+			'/input[@oldvalue="request.crew.old"]'),'4');
+	}
 
 	return {
 		FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -2556,6 +2577,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		HomeEstimate_CheckAccount: HomeEstimate_CheckAccount,
 		HomeEstimate_SalesGoInPortal: HomeEstimate_SalesGoInPortal,
 		HomeEstimate_ReservationPage: HomeEstimate_ReservationPage,
-		HomeEstimate_EditClientInfo:  HomeEstimate_EditClientInfo
+		HomeEstimate_EditClientInfo:  HomeEstimate_EditClientInfo,
+		EditRequest_EditRateCalculOff:EditRequest_EditRateCalculOff,
+		EditRequest_EditCrewCalculOff:EditRequest_EditCrewCalculOff
 	};
 };
