@@ -200,7 +200,7 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
-    LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersAfterCalcOff, V.contractNumbers);
+    LF.RememberAndValidatePayroll_In_EditRequest(V.managerFirstName, V.boardNumbers, V.contractNumbers);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
@@ -214,14 +214,14 @@ condition.nowWeDoing = 'выбираем цифры формена';
         Foreman:{}, Sale:{}, Helper:{},
     };
     MF.Payroll_getTotalById(V.accountNumbers.Id, V.payrollNumbers.Foreman);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbersAfterCalcOff.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.accountNumbers.Id);
     MF.Payroll_ClickAllDepartment();
 
 condition.nowWeDoing = 'выбираем цифры менеджера';
-    LF.findSaleInPayroll(V.managerName);
+    LF.findSaleInPayroll(V.managerFirstName);
     MF.Payroll_getTotalById(V.accountNumbers.Id, V.payrollNumbers.Sale);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbersAfterCalcOff.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.accountNumbers.Id);
     SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
@@ -230,7 +230,7 @@ condition.nowWeDoing = 'выбираем цифры хелпера';
     LF.findHelperInPayroll('Test Helper1');
     MF.Payroll_getTotalById(V.accountNumbers.Id, V.payrollNumbers.Helper);
     SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Helper.Total, (V.boardNumbersAfterCalcOff.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Helper.Total, (V.boardNumbers.Payroll.helpersForCommission.total/3), 'не совпали цифры в Payroll helper\n' +
         'id=' + V.accountNumbers.Id);
     SF.sleep(1);
 
