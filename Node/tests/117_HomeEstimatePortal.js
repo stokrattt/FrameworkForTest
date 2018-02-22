@@ -74,7 +74,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.HomeEstimate_ReservationPage();
 	MF.WaitWhileBusy();
 	SF.sleep(2);
-	Debug.pause();
 	JS.scroll('input[ng-click="opentDatePicker()"]');
 	V.boardNumbersPortal = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbersPortal);
