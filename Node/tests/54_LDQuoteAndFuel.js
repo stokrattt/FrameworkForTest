@@ -28,6 +28,10 @@ condition.nowWeDoing = 'идем в настройки выставляем дл
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
     SF.sleep (1);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPriceEnabled\"]').hasClass('ng-empty')){" +
+        "return true;}else{" +
+        "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPriceEnabled\"]').click()}"),config.timeout);
+    SF.sleep (1);
     MF.LongDistanceSettings_SelectMABasedState();
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
     SF.sleep (3);
