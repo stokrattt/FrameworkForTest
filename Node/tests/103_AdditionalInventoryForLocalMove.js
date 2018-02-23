@@ -116,6 +116,10 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     MF.Contract_SetRentalPhone(V.client.phone);
     MF.Contract_SetRentalAddress('Address To');
     MF.Contract_SetRentalZip('02461');
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="storageVolume"]')).getAttribute('value').then(function (text) {
+        V.RentalCF = SF.cleanPrice(text);
+        console.log(V.RentalCF);
+    }),config.timeout);
     LF.MakeSignInRental();
     MF.SweetConfirm ();
     LF.payRentalInventory();
@@ -162,6 +166,15 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
     MF.EditRequest_CloseModal();
+    SF.click(By.xpath('//div[@ng-if="states.invoiceState"]//span[@ng-if="request.request_all_data.storage_request_id"]'));
+    SF.sleep(5);
+    driver.wait(driver.findElement(By.xpath('//input[@id="volume"]')).getAttribute('value').then(function(text) {
+        V.StorageCF = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.RentalCF, V.StorageCF,'не совпал  c f рентал агримент и сторадж');
+    }),config.timeout);
+    SF.sleep(2);
+    SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
+    MF.EditRequest_WaitForBalanceVisible();
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'сейчас идём в пейролл';
