@@ -24,7 +24,7 @@ module.exports = function(config,V) {
         './tests/101_CustomCommMoveWithInventory.js',
         './tests/57_UnloadingAllSteps.js',
         './tests/98_RemindersForOtherPerson.js',
-        './tests/56_LoadingAllSteps.js',
+       // './tests/56_LoadingAllSteps.js',
         './tests/95_Statistic.js',
         './tests/100_LeadScoring.js',
         './tests/105_ChangeMinCFAndDriverPayroll.js',
