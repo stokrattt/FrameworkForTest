@@ -19,6 +19,8 @@ condition.nowWeDoing = 'идем в департмент включить кал
     MF.Department_SetGoogleMail(V.salesEmail);
     MF.Department_TurnOnAllGmailCalendar();
     MF.Department_SaveUser();
+    SF.sleep(15);
+    MF.WaitWhileToaster();
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'идем на фронтовую форму';
