@@ -67,7 +67,7 @@ condition.nowWeDoing = 'идем в админку сверять данные, 
     SF.sleep(0.5);
     SF.click(By.xpath('//div[contains(@class, "ui-timepicker-wrapper") and contains(@style,"display: block;")]/ul/li[contains(text(),"01:30")]'));
     SF.clear(By.xpath('//input[@ng-model="request.crew.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.crew.value"]'), 5);
+    SF.send(By.xpath('//input[@ng-model="request.crew.value"]'), 2);
     SF.clear(By.xpath('//input[@ng-model="request.rate.value"]'));
     SF.send(By.xpath('//input[@ng-model="request.rate.value"]'), 98);
     JS.step(JSstep.selectTruck(2));
