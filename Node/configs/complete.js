@@ -116,6 +116,7 @@ module.exports = function(config,V) {
         './tests/116_DeleteComissionsPayroll.js',
         './tests/110_LeadScoringAdmin.js',
         './tests/112_ExtraDropLocalMove.js',
+        './tests/119_LDDiscount.js',
         './tests/118_CommercialPackingDayCalculatorOff.js',
         './tests/115_LDCommercialMoveSizeInSIT.js',
         './tests/113_CheckAdminPermissions.js',
