@@ -48,7 +48,7 @@ module.exports = function(config,V) {
         './tests/51_ServiceTypesOnOff.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
     ];
-    config.timeout = 80000;
+    config.timeout = 90000;
     config.chainFail = false;
     config.browser = 'chrome';
     config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu"] };
