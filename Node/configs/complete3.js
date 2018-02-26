@@ -31,13 +31,14 @@ module.exports = function(config,V) {
         './tests/109_SITBalance.js',
         './tests/102_InhomeEstimate.js',
         './tests/104_AddBedroomAddRoom.js',
+        './tests/119_LDDiscount.js',
         './tests/106_AdditionalContact.js',
         './tests/110_LeadScoringAdmin.js',
         './tests/114_ChangeTypeOfServices.js',
         './tests/112_ExtraDropLocalMove.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
     ];
-    config.timeout = 80000;
+    config.timeout = 90000;
     config.chainFail = false;
     config.browser = 'chrome';
     config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu"] };
