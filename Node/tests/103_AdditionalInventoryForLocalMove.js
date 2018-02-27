@@ -56,10 +56,8 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.MakeSignInContract();
 
 condition.nowWeDoing = 'добавляем сторадж и инвентарь на контракте а также кастомный айтем';
-    SF.click(By.xpath('//a[@ng-click="showTransit()"]'));
-    SF.sleep(0.5);
-    SF.click(By.xpath('//button[@ng-click="openInventory()"]'));
-    SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
+    MF.Contract_ClickPlusForOpenSubMenuStorageAndOvernight();
+    MF.Contract_ClickCorningToStorage();
     LF.ContractAdditionalInventoryAdd();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Items:")]/span[@ng-bind="total.count"]')).getText().then(function (text) {
         V.totalCountAddInventory = text;
@@ -96,9 +94,7 @@ condition.nowWeDoing = 'тут после добавления адишинал 
 
 condition.nowWeDoing = 'добавляем артикли к инвентарю, нажимаем done with inventory и идем дальше подписывать контракт и рентал агримент';
     LF.Contract_AddInventory(17);
-    SF.click(By.xpath('//button[@ng-click="doneWithInventory()"]'));
-    MF.SweetConfirm();
-    MF.WaitWhileBusy();
+    MF.Contract_ClickDoneWithInventory();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="data[fieldName].numberedItems"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 17, 'не сработал done with inventory или другая бага нужно проверить');
     }),config.timeout);

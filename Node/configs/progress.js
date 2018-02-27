@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/74_AddEmailsWhenCreatReqCheckLDQuote.js'];
+    config.suite = ['./tests/109_SITBalance.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
@@ -12,12 +12,14 @@ module.exports = function(config,V) {
      V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';
      V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';
 
-    // V.frontURL = 'http://stage.themoveboard.com:8071';
-    // V.accountURL = 'http://stage.themoveboard.com:8071/account/#/login';
-    // V.adminURL = 'http://stage.themoveboard.com:8071/moveBoard/#/login';
+    // V.frontURL = 'http://stage.themoveboard.com:8082';
+    // V.accountURL = 'http://stage.themoveboard.com:8082/account/#/login';
+    // V.adminURL = 'http://stage.themoveboard.com:8082/moveBoard/#/login';
+
     //V.frontURL = 'http://89.223.29.231:8080/front_site/';
     //V.accountURL = 'http://89.223.29.231:8080/account/#/login';
     //V.adminURL = 'http://moversboard.net:8051/moveBoard/#/login';
+
     V.adminLogin = 'WorkAdmin';
     V.adminPassword = 'test';
     V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма

@@ -26,8 +26,7 @@ condition.nowWeDoing = 'первый раз в админке';
 
 condition.nowWeDoing = 'тут выключаем кальк и меняем количество крю и проверяем пересчитывается ли квота';
     MF.EditRequest_SwitchCalculator();
-    SF.clear(By.xpath('//input[@ng-model="request.crew.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.crew.value"]'), 5);
+    MF.EditRequest_ChangeCrew(5);
     driver.wait(driver.findElements(By.xpath('//input[@ng-model="request.rate.value"]')).then(function(elements){
         if (elements.length>0) {
             elements[0].getAttribute('value').then(function (value) {

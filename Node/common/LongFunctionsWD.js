@@ -135,7 +135,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.Account_OpenAdressModal();
 		SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'Address From');
 		SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Address To');
-		SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        MF.Account_ClickUpdateClientInModalWindow();
 		MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
 		MF.WaitWhileBusy();
@@ -144,7 +144,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	function AccountUnloadingEnterAddress() {
 		MF.Account_OpenAdressModal();
 		SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Address To');
-		SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        MF.Account_ClickUpdateClientInModalWindow();
 		MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
 		MF.WaitWhileBusy();
@@ -154,7 +154,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.Account_OpenAdressModal();
 		SF.click(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'));
 		SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'From Address');
-		SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        MF.Account_ClickUpdateClientInModalWindow();
 		MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
 		MF.WaitWhileBusy();
@@ -165,7 +165,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'));
 		SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'Otkuda edem');
 		SF.sleep(2);
-		SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        MF.Account_ClickUpdateClientInModalWindow();
 		MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
 		MF.WaitWhileBusy();
@@ -176,7 +176,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'));
 		SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Kuda edem');
 		SF.sleep(2);
-		SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        MF.Account_ClickUpdateClientInModalWindow();
 		MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
 		MF.WaitWhileBusy();
@@ -2472,8 +2472,28 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.send(By.xpath('//div[@class="col-md-1 col-xs-1 form-item form-type-textfield form-item-movers-crew"]' +
 			'/input[@oldvalue="request.crew.old"]'),'4');
 	}
+	function EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff() {
+        SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
+        SF.click(By.xpath('//input[@ng-model="request.minimum_time.value"]'));
+        SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
+        SF.sleep(0.5);
+        SF.click(By.xpath('//div[contains(@class, "ui-timepicker-wrapper") and contains(@style,"display: block;")]/ul/li[contains(text(),"07:15")]'));
+        SF.click(By.xpath('//input[@ng-model="request.travel_time.value"]'));
+        SF.click(By.xpath('//input[@ng-model="request.minimum_time.value"]'));
+        SF.click(By.xpath('//input[@ng-model="request.travel_time.value"]'));
+        SF.sleep(0.5);
+        SF.click(By.xpath('//div[contains(@class, "ui-timepicker-wrapper") and contains(@style,"display: block;")]/ul/li[contains(text(),"01:30")]'));
+    }
+    function LongDistanceSettings_SetDiscounts(numberDiscount, DiscountPrice, DiscountPriceCF) {
+        SF.clear(By.xpath('//tr[@ng-repeat="row in discounts"]["'+numberDiscount+'"]//input[@ng-model="row.rate"]'));
+        SF.send(By.xpath('//tr[@ng-repeat="row in discounts"]["'+numberDiscount+'"]//input[@ng-model="row.rate"]'),DiscountPrice);
+        SF.clear(By.xpath('//tr[@ng-repeat="row in discounts"]["'+numberDiscount+'"]//input[@ng-model="row.startWeight"]'));
+        SF.send(By.xpath('//tr[@ng-repeat="row in discounts"]["'+numberDiscount+'"]//input[@ng-model="row.startWeight"]'),DiscountPriceCF);
+        SF.sleep(1);
+    }
 
-	return {
+
+    return {
 		FullSmallCalcAsLocal: FullSmallCalcAsLocal,
 		FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
 		FullSmallCalcAsLoading: FullSmallCalcAsLoading,
@@ -2607,6 +2627,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		HomeEstimate_ReservationPage: HomeEstimate_ReservationPage,
 		HomeEstimate_EditClientInfo:  HomeEstimate_EditClientInfo,
 		EditRequest_EditRateCalculOff:EditRequest_EditRateCalculOff,
-		EditRequest_EditCrewCalculOff:EditRequest_EditCrewCalculOff
+		EditRequest_EditCrewCalculOff:EditRequest_EditCrewCalculOff,
+        EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff:EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff,
+        LongDistanceSettings_SetDiscounts:LongDistanceSettings_SetDiscounts
 	};
 };

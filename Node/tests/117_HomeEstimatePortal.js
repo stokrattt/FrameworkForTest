@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 	V.client.passwd = 123;
 
-	condition.nowWeDoing = 'создаем мувинг с фронта, ставим статус инхом эстимеит';
+condition.nowWeDoing = 'создаем мувинг с фронта, ставим статус инхом эстимеит';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
 	LF.CreateLocalMovingFromBoard(V.client);
@@ -26,17 +26,21 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
 	MF.EditRequest_SaveChanges();
-	condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
+
+condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
 	MF.EditRequest_OpenPayment();
 	LF.EditRequest_Payment_AddOnlinePayment();
 	MF.EditRequest_ClosePayment();
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	LF.closeEditRequest();
-	condition.nowWeDoing = 'идем в Requests открываем Inhome Estimate для проверки что работа есть';
+
+condition.nowWeDoing = 'идем в Requests открываем Inhome Estimate для проверки что работа есть';
 	LF.HomeEstimateRequest_Check();
-	condition.nowWeDoing = 'идем на дащборд проверить реквест в табе Inhome Estimate';
+
+condition.nowWeDoing = 'идем на дащборд проверить реквест в табе Inhome Estimate';
 	LF.HomeEstimate_CheckStatusinMoveboard();
-	condition.nowWeDoing = 'идем в аккаунт, проверить что статус реквеста инхом эстимеит';
+
+condition.nowWeDoing = 'идем в аккаунт, проверить что статус реквеста инхом эстимеит';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -46,7 +50,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	}), config.timeout);
 	MF.Board_LogoutAdmin();
 	SF.sleep(1);
-	condition.nowWeDoing = 'заходим в портал как сейлс';
+
+condition.nowWeDoing = 'заходим в портал как сейлс';
 	LF.HomeEstimate_SalesGoInPortal();
 	SF.sleep(3);
 	//Добавляем  пэкинг

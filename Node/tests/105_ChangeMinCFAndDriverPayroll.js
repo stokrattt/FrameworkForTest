@@ -26,18 +26,15 @@ condition.nowWeDoing = 'создаем ЛД реквест с борда';
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
         V.request.moveDate = calDate;
     }),config.timeout);
-    SF.sleep(1);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_ChangeStatusRequest (3);
     MF.EditRequest_SaveChanges();
 
 condition.nowWeDoing = '1й раз меняем только цену в minimum c.f.';
-    SF.click(By.xpath('//div[@ng-click="openMinWeight()"]'));
-    SF.waitForVisible(By.xpath('//input[@ng-model="min_price"]'));
-    SF.click(By.xpath('//div[@class="col-md-5 text-center"]//span[@class="switchery switchery-small"]'));
-    SF.clear(By.xpath('//input[@ng-model="min_price"]'));
-    SF.send(By.xpath('//input[@ng-model="min_price"]'), V.NewPrice1);
+    MF.EditRequest_OpenMinPriceWindow();
+    MF.EditRequest_MinPriceWindowSwitchOnOff();
+    MF.EditRequest_SetMinPrice(V.NewPrice1);
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
     driver.wait(driver.executeScript('return $(\'div.quote-cost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
@@ -60,12 +57,9 @@ condition.nowWeDoing = '1й раз меняем только цену в minimum
 
 condition.nowWeDoing = '2й раз меняем  цену и объем в minimum c.f.';
     MF.EditRequest_OpenConfirmWork();
-    SF.click(By.xpath('//div[@ng-click="openMinWeight()"]'));
-    SF.waitForVisible(By.xpath('//input[@ng-model="min_price"]'));
-    SF.clear(By.xpath('//input[@ng-model="min_price"]'));
-    SF.send(By.xpath('//input[@ng-model="min_price"]'), V.NewPrice2);
-    SF.clear(By.xpath('//input[@ng-model="min_weight"]'));
-    SF.send(By.xpath('//input[@ng-model="min_weight"]'), V.NewVolume);
+    MF.EditRequest_OpenMinPriceWindow();
+    MF.EditRequest_SetMinPrice(V.NewPrice2);
+    MF.EditRequest_SetMinWeight(V.NewVolume);
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
     driver.wait(driver.executeScript('return $(\'div.quote-cost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {

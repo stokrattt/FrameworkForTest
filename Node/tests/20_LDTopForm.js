@@ -12,7 +12,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSettingsLongDistance ();
-    MF.LongDistanceSettings_ClickOnMapCaliforniya();
+    MF.LongDistanceSettings_ClickOnMapState('#jqvmap1_ca');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);

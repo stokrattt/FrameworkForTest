@@ -103,7 +103,7 @@ condition.nowWeDoing = 'идем в акк подтвердить выбранн
     SF.select(By.xpath('//select[@ng-value="request.field_extra_dropoff.organisation_name"]'),3);
     SF.click(By.xpath('//label[contains(text(),"Move Date")]'));
     SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+    MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.WaitWhileBusy();
     MF.SweetConfirm();
@@ -122,9 +122,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     MF.EditRequest_OpenFuelSurchModal();
     SF.clear(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
     SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'), 50);
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    MF.WaitWhileToaster ();
-    SF.sleep(4);
+    MF.EditRequest_ClickApplyInFuelWindow();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep(1);

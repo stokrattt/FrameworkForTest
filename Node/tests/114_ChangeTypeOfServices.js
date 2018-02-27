@@ -65,7 +65,7 @@ condition.nowWeDoing = 'второй раз в аккаунте,  меняю з�
     SF.click(By.xpath('//input[@id="edit-moving-from-zip"]'));
     SF.clear(By.xpath('//input[@id="edit-moving-from-zip"]'));
     SF.send(By.xpath('//input[@id="edit-moving-from-zip"]'),'02134');
-    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+    MF.Account_ClickUpdateClientInModalWindow();
     MF.Account_SweetUpdateConfirm();
     MF.WaitWhileBusy();
     SF.waitForLocated(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));

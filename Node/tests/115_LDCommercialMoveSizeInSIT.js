@@ -47,8 +47,7 @@ condition.nowWeDoing = 'Добавляем инвентарь, меняем Fuel
     MF.EditRequest_OpenFuelSurchModal();
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'));
     SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'),213);
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    SF.sleep(5);
+    MF.EditRequest_ClickApplyInFuelWindow();
     SF.click(By.xpath('//select[@oldvalue="request.type_from.raw"]/option[@value="3"]'));
     MF.EditRequest_SetAdressToFrom ();
     SF.sleep(1);
@@ -137,9 +136,7 @@ condition.nowWeDoing = 'Возвращаемся на дашборд и пров
     MF.EditRequest_OpenFuelSurchModal();
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'));
     SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'),222);
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    MF.WaitWhileToaster();
-    SF.sleep(10);
+    MF.EditRequest_ClickApplyInFuelWindow();
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
     MF.EditRequest_AddPacking();

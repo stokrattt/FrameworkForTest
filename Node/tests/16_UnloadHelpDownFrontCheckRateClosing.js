@@ -73,8 +73,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
 
  condition.nowWeDoing = 'выключаем калькулятор и меняем рейт';
     MF.EditRequest_SwitchCalculator();
-    SF.clear(By.xpath('//input[@ng-model="request.rate.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.rate.value"]'), 50);
+    MF.EditRequest_ChangeRate(50);
     SF.sleep(3);
     V.boardNumbersAfterChangeRate = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersAfterChangeRate);

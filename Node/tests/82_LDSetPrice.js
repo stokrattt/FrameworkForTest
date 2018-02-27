@@ -17,8 +17,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'Заходим в админку идем в Настройики лонг дистанса и виставляем min Price min Cubic fee и State rate для штата';
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSettingsLongDistance ();
-    SF.click(By.id('jqvmap1_tx'));
-    SF.sleep(2);
+    MF.LongDistanceSettings_ClickOnMapState('jqvmap1_tx');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPriceEnabled\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPriceEnabled\"]').click()}"),config.timeout);
     SF.sleep(0.5);
@@ -26,12 +25,9 @@ condition.nowWeDoing = 'Заходим в админку идем в Настр�
     V.minCF = 100;
     V.minPrice = 50;
     V.stateRate = 15;
-    SF.clear(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'), V.minCF);
-    SF.clear(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPrice"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPrice"]'), V.minPrice);
-    SF.clear(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), V.stateRate);
+    MF.LongDistanceSettings_SetMinCF(V.minCF);
+    MF.LongDistanceSettings_SetMinPrice(V.minPrice);
+    MF.LongDistanceSettings_SetStateRate(V.stateRate);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
 
@@ -67,18 +63,15 @@ condition.nowWeDoing = 'Меняем в реквесте min Price min Cubic fee
     V.newMinPrice = 40;
     V.newStateRate = 10;
     MF.EditRequest_SendRateForLD (V.newStateRate);
-    SF.click(By.xpath('//div[@ng-click="openMinWeight()"]'));
-    SF.waitForVisible(By.xpath('//input[@ng-model="min_price"]'));
+    MF.EditRequest_OpenMinPriceWindow();+
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="min_price"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.minPrice, text, 'не совпали min price');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="min_weight"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.minCF, text, 'не совпали min CF');
     }),config.timeout);
-    SF.clear(By.xpath('//input[@ng-model="min_price"]'));
-    SF.send(By.xpath('//input[@ng-model="min_price"]'), V.newMinPrice);
-    SF.clear(By.xpath('//input[@ng-model="min_weight"]'));
-    SF.send(By.xpath('//input[@ng-model="min_weight"]'), V.newMinCF);
+    MF.EditRequest_SetMinPrice(V.newMinPrice);
+    MF.EditRequest_SetMinWeight(V.newMinCF);
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
     SF.sleep(2);
     V.newCubicFee =  V.CF - V.newMinCF;

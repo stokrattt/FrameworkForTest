@@ -104,7 +104,7 @@ condition.nowWeDoing = 'Заходим на акаунт и проверяем 
     driver.wait(driver.findElement(By.xpath('//select[@ng-value="request.field_extra_dropoff.organisation_name"]')).getAttribute('value').then(function(text){
         V.extraDropOffValue = text;
     }),config.timeout);
-    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+    MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
     SF.sleep(1);

@@ -43,9 +43,7 @@ condition.nowWeDoing = 'добавляем адишенал, типсы, дел�
     SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
     SF.clear(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
     SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'),200);
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    MF.WaitWhileToaster();
-    SF.sleep(10);
+    MF.EditRequest_ClickApplyInFuelWindow();
     V.boardNumbersClosingTab1 = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingTab1);
     MF.EditRequest_SaveChangesClosingTab();
