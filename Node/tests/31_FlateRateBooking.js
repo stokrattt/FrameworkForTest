@@ -225,15 +225,21 @@ condition.nowWeDoing = 'идем в админку проверять что р�
                 SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
                 SF.sleep(5);
                 driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (checkSchedule) {
-                    VD.INeed(VD.NotToEqual, checkSchedule, 0, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся ');
+                    VD.IWant(VD.NotToEqual, checkSchedule, 0, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся ');
                 }),config.timeout);
             } else {
+                now = new Date();
+                msInDay = 86400000;
+                future = new Date(now.getTime() + msInDay * 2);
+                options = { day: 'numeric' };
+                V.datescedule = (future.toLocaleDateString('en-US', options));
                 SF.click(By.xpath('//i[@ng-click="vm.nextMonth()"]'));
                 SF.sleep(5);
-                SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right")] and [contains(text(), "' + V.datescedule + '")]'));
+                console.log(V.FRId);
+                SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
                 SF.sleep(5);
                 driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (checkSchedule) {
-                    VD.INeed(VD.NotToEqual, checkSchedule, 0, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся (вторая проверка)');
+                    VD.IWant(VD.NotToEqual, checkSchedule, 0, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся (вторая проверка)');
                 }),config.timeout);
             }
 
