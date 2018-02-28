@@ -17,7 +17,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'Заходим в админку идем в Настройики лонг дистанса и виставляем min Price min Cubic fee и State rate для штата';
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSettingsLongDistance ();
-    MF.LongDistanceSettings_ClickOnMapState('jqvmap1_tx');
+    MF.LongDistanceSettings_ClickOnMapState('#jqvmap1_tx');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPriceEnabled\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPriceEnabled\"]').click()}"),config.timeout);
     SF.sleep(0.5);

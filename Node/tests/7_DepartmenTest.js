@@ -131,6 +131,7 @@ condition.nowWeDoing = 'идем в локал диспач';
         VD.IWant(VD.NotToEqual, counts.Driver, 0, 'не нашло имя драйвера');
     }),config.timeout);
     SF.sleep(1);
+    Debug.pause();
     MF.Board_OpenSideBar ();
 
 condition.nowWeDoing='зашли в настройки департмента';
