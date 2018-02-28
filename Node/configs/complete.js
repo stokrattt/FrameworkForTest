@@ -105,7 +105,7 @@ module.exports = function(config,V) {
         './tests/99_PendingInfoInventoryTotal.js',
         './tests/101_CustomCommMoveWithInventory.js',
         './tests/98_RemindersForOtherPerson.js',
-        './tests/56_LoadingAllSteps.js',
+
         './tests/95_Statistic.js',
         './tests/100_LeadScoring.js',
         './tests/105_ChangeMinCFAndDriverPayroll.js',
@@ -123,6 +123,7 @@ module.exports = function(config,V) {
         './tests/111_ZIPCode.js',
         './tests/51_ServiceTypesOnOff.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
+        './tests/56_LoadingAllSteps.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
 
     ];

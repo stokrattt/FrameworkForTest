@@ -1222,6 +1222,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(0.5);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         SF.sleep (3);
+        WaitWhileBusy();
     }
     function EditRequest_AddAdditionalServicesFullPack() {
         SF.sleep(0.5);
