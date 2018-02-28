@@ -37,9 +37,9 @@ function makeDir(system, condition) {
 
 module.exports.writeErrorFiles = writeErrorFiles;
 function writeErrorFiles(system, _condition, image, error, config) {
+	_condition.errorNumber++;
 	let condition = Object.assign({}, _condition);
 	makeDir(system, condition);
-	condition.errorNumber++;
 	writeScreenshot(system, condition, image);
 	writeErrorText(system, condition, error);
 	if (config.P) saveHAR(system, condition);
