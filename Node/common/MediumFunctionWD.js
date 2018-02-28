@@ -187,12 +187,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
-        SF.sleep(5);
+        SF.sleep(3);
     }
     function HomeEstimate_Logout() {
 		SF.click(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
 		SF.sleep(1);
 		SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
+        SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
+        SF.sleep(3);
     }
     function Board_ClickCreate(){
         SF.click(By.linkText('Create Request'));
@@ -260,16 +262,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Board_OpenNotConfirmed() {
         SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
-        SF.sleep(3);
+        WaitWhileBusy();
 
     }
     function Board_OpenPendingRequest() {
         SF.click(By.xpath('//div[@ng-click="vm.select(0)"]'));
-        SF.sleep(3);
+        WaitWhileBusy();
     }
     function Board_OpenConfirmed() {
         SF.click(By.xpath('//div[@ng-click="vm.select(2)"]'));
-        SF.sleep(3);
+        WaitWhileBusy();
     }
 
     function Board_OpenSettingsSchedule() {

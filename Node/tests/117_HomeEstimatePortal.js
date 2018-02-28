@@ -7,6 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 	V.client.passwd = 123;
 
+
 condition.nowWeDoing = 'создаем мувинг с фронта, ставим статус инхом эстимеит';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
@@ -17,7 +18,6 @@ condition.nowWeDoing = 'создаем мувинг с фронта, стави�
 	driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
 		V.RequestInhomeDate = calDate;
 	}),config.timeout);
-	SF.sleep(1);
 	driver.wait(driver.executeScript(JSstep.selectHomeEstimator(4, V.salesName)));
 	SF.sleep(1);
 	V.boardNumbers = {};
@@ -53,7 +53,6 @@ condition.nowWeDoing = 'идем в аккаунт, проверить что с
 
 condition.nowWeDoing = 'заходим в портал как сейлс';
 	LF.HomeEstimate_SalesGoInPortal();
-	SF.sleep(3);
 	//Добавляем  пэкинг
 	MF.WaitWhileBusy ();
 	MF.EditRequest_AddPackingAndFullPAcking();
@@ -82,21 +81,18 @@ condition.nowWeDoing = 'заходим в портал как сейлс';
 	JS.scroll('input[ng-click="opentDatePicker()"]');
 	V.boardNumbersPortal = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbersPortal);
-	LF.RememberDigitsRequestBoard(V.boardNumbersPortal);
-	SF.sleep(3);
-	SF.click(By.xpath('//div/button[@ng-click="cancel()"]'));
+	SF.click(By.xpath('//button[@ng-click="cancel()"]'));
 	MF.HomeEstimate_Logout();
 	// идем на дэшборд и проверяем статус конферм
-	MF.WaitWhileBusy ();
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
 	MF.WaitVisibleDashboard();
 	MF.Board_OpenConfirmed();
-	MF.WaitWhileBusy();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
 	V.boardAfterPortal = {};
 	LF.RememberDigitsRequestBoard(V.boardAfterPortal);
 	//проверка значений
+	LF.Validation_Compare_Account_Admin ()
 	VD.IWant (VD.ToEqual, V.boardNumbersPortal.QuoteMin, V.boardAfterPortal.QuoteMin, 'не совпала квота портал/реквест конферм');
 	VD.IWant (VD.ToEqual, V.boardNumbersPortal.QuoteMax, V.boardAfterPortal.QuoteMax, 'не совпала квота портал/реквест конферм');
 	VD.IWant(VD.ToEqual, V.boardNumbersPortal.TravelTime,V.boardAfterPortal.TravelTime,'не совпал трэвел тайм портал/реквест конферм');
