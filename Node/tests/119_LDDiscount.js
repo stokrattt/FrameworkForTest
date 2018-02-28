@@ -160,7 +160,7 @@ condition.nowWeDoing = 'заходим из-под админа в аккаун�
 condition.nowWeDoing = 'Идем в настроику ЛД, удалем настроики для штата';
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSettingsLongDistance ();
-    MF.LongDistanceSettings_ClickOnMapState('jqvmap1_mt');
+    MF.LongDistanceSettings_ClickOnMapState('#jqvmap1_mt');
     MF.Board_OpenSideBar();
     SF.sleep (3);
     SF.click (By.xpath('//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
