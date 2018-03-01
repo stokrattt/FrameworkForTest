@@ -1562,7 +1562,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_ClickApplyInFuelWindow() {
         SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-        SF.sleep(3);
+        SF.sleep(4);
         WaitWhileToaster();
     }
     function EditRequest_OpenMinPriceWindow() {
@@ -2057,7 +2057,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function LongDistanceSettings_AddDiscount() {
         SF.click(By.xpath('//tbody/tr[@ng-click="addDiscount(-1)"]'));
-        SF.sleep(1);
+        SF.sleep(2);
     }
 
     //==============================REMAINDERS===========================================//
