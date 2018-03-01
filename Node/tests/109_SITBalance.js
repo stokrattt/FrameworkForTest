@@ -112,7 +112,8 @@ condition.nowWeDoing = 'идем в SIT создаем трип, добавля�
         V.TripBalance1 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterPaymentInRequest.Balance, V.TripBalance1, 'не совпал баланс после добавления работы в трип');
     }),config.timeout);
-    SF.sleep(1);
+    SF.sleep(2);
+    JS.scroll('button[ng-click="getJobs()"]');
 
 condition.nowWeDoing = 'идем в реквест, делаем в клоузинге дисконт, еще одну проплату, запоминаем баланс, и проверям его в трипе';
     SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
