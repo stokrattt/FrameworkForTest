@@ -58,7 +58,7 @@ module.exports = function(config,V) {
         './tests/50_AddJobToTrip.js',
         './tests/53_ManualClosingWork.js',
         './tests/54_LDQuoteAndFuel.js',
-        './tests/57_UnloadingAllSteps.js',
+
         './tests/55_CreateFlagAndCheckOnDashboard.js',
         './tests/58_Discount.js',
         './tests/59_PayrollAddMiscCustomPayment.js',
@@ -105,8 +105,7 @@ module.exports = function(config,V) {
         './tests/99_PendingInfoInventoryTotal.js',
         './tests/101_CustomCommMoveWithInventory.js',
         './tests/98_RemindersForOtherPerson.js',
-
-        './tests/95_Statistic.js',
+        './tests/57_UnloadingAllSteps.js',
         './tests/100_LeadScoring.js',
         './tests/105_ChangeMinCFAndDriverPayroll.js',
         './tests/109_SITBalance.js',
@@ -119,6 +118,7 @@ module.exports = function(config,V) {
         './tests/119_LDDiscount.js',
         './tests/118_CommercialPackingDayCalculatorOff.js',
         './tests/115_LDCommercialMoveSizeInSIT.js',
+        './tests/95_Statistic.js',
         './tests/113_CheckAdminPermissions.js',
         './tests/111_ZIPCode.js',
         './tests/51_ServiceTypesOnOff.js',
