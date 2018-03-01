@@ -25,7 +25,6 @@ module.exports = function(config,V) {
         './tests/57_UnloadingAllSteps.js',
         './tests/98_RemindersForOtherPerson.js',
        // './tests/56_LoadingAllSteps.js',
-        './tests/95_Statistic.js',
         './tests/100_LeadScoring.js',
         './tests/105_ChangeMinCFAndDriverPayroll.js',
         './tests/109_SITBalance.js',
@@ -35,6 +34,7 @@ module.exports = function(config,V) {
         './tests/106_AdditionalContact.js',
         './tests/110_LeadScoringAdmin.js',
         './tests/114_ChangeTypeOfServices.js',
+        './tests/95_Statistic.js',
         './tests/112_ExtraDropLocalMove.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
     ];
