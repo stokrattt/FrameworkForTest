@@ -16,6 +16,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
+    V.boardNumbers = {};
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
+        dateString = dateString.toUpperCase();
+        V.boardNumbers.moveDate = {};
+        V.boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);
+        V.boardNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
+        V.boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
+    }),config.timeout);
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
+    SF.sleep (2);
     MF.EditRequest_SetToConfirmed();
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
@@ -124,7 +134,6 @@ condition.nowWeDoing = 'Заходим в PickUp и проверям по фил
         V.readyForDelivery = text;
         VD.IWant(VD.ToEqual, V.readyForDelivery, 'Ready', 'Ready for Delivery должен бить Ready');
     }),config.timeout);
-
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]')).getText().then(function(text){
         V.pickupFrom =  SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.pickupFrom, '234234234242402200', 'picupFrom не совпали');
@@ -137,15 +146,16 @@ condition.nowWeDoing = 'Заходим в PickUp и проверям по фил
         V.statusLD =  text;
         VD.IWant(VD.ToEqual, V.statusLD, 'LD', 'LD status не совпали');
     }),config.timeout);
-    // // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
-    // // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
-    // // VD.IWant(VD.ToEqual,V.request.moveDate.Date, V.SITdate.Date,'не совпала дата');
-    // V.SITScheduleDate = SF.parseDateInSIT(V.request.moveDate);
-    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.SITScheduleDate +'")]/..//div[9]')).getText().then(function(text){
-    //     V.scheduleDate  =  text;
-    //     VD.IWant(VD.ToEqual, V.scheduleDate, V.SITScheduleDate, 'schedule Date не совпали');
-    // }),config.timeout);
-    SF.sleep(2);
+    //VD.IWant(VD.ToEqual,V.boardNumbers.moveDate.Month, V.SITdate.Date,'не совпала дата');
+   // VD.IWant(VD.ToEqual,V.boardNumbers.moveDate.Date, V.SITdate.Date,'не совпала дата');
+   // VD.IWant(VD.ToEqual,V.boardNumbers.moveDate.Date, V.SITdate.Date,'не совпала дата');
+  //  V.SITScheduleDate = V.boardNumbers.moveDate;
+   // console.log(V.scheduleDate);
+   //  driver.wait(driver.findElement(By.xpath('//div[@ng-if="item.pickup_date != 0"] and [contains(text(),"'+ V.boardNumbers.moveDate +'")]')).getText().then(function(text){
+   //     V.scheduleDate  =  text;
+   //     VD.IWant(VD.ToEqual, V.scheduleDate, V.SITScheduleDate, 'schedule Date не совпали');
+ //  }),config.timeout);
+    SF.sleep(3);
     SF.endOfTest();
 
 };
