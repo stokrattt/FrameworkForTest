@@ -42,7 +42,6 @@ condition.nowWeDoing = 'Добавляем 3 дисконта';
     V.DiscountPriceThird = 4;
     V.DiscountPriceCFThird = 1300;
     LF.LongDistanceSettings_SetDiscounts(3, V.DiscountPriceThird, V.DiscountPriceCFThird);
-    Debug.pause();
     SF.sleep(5);
     MF.Board_LogoutAdmin();
 
