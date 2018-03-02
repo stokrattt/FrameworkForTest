@@ -159,6 +159,19 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="!longDistance && states.invoiceState"]')).getText().then(function(text) {
+        V.ClosingCF = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.RentalCF, V.ClosingCF,'не совпал  c f клоузинга и рентал агримент');
+    }),config.timeout);
+    SF.sleep(2);
+    MF.EditRequest_OpenConfirmWork();
+    driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+        V.SalesCF = SF.cleanPrice(text);
+        VD.IWant(VD.NotToEqual, V.RentalCF,V.SalesCF,'совпал сеилс к ф с рентал агримент');
+    }),config.timeout);
+    SF.sleep(2);
+    MF.EditRequest_CloseConfirmWork ();
+    MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
     MF.EditRequest_CloseModal();
