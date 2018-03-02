@@ -86,24 +86,21 @@ condition.nowWeDoing = 'идем в админку проверять или д�
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'первый реквест не ушел в дата пендинг а должен был');
     }), 120000);
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id2 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'второй реквест не ушел в дата пендинг а должен был');
     }), 120000);
-    SF.sleep(1);
     MF.Board_OpenRequest(V.Id1);
     MF.EditRequest_OpenLogs();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Overbooking")]/..//span[contains(text(), "Status was changed to Date Pending, because of overbooking from request #")]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Status was changed to Date Pending, because of overbooking from request #'+V.Id3+'', 'не совпал реквест от которого он ушел в дейт пендинг');
     }),config.timeout);
-    SF.sleep(1);
     LF.closeEditRequest ();
     MF.Board_OpenConfirmed ();
     MF.Board_RefreshDashboard ();
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id3 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Confirmed', 'третий реквест не ушел в конферм а должен был');
     }), 120000);
-    SF.sleep(2);
+    SF.sleep(1);
 
 
     //=========================закончили писать тест=============================

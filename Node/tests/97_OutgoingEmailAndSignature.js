@@ -49,7 +49,6 @@ condition.nowWeDoing = 'создаем реквест, назначаем нуж
         V.OutgoingLogEmail = text;
         VD.IWant(VD.ToEqual, V.OutgoingLogEmail,('Mail was sent to "'+V.client.email+'". From "'+V.Outgoingemail+'". Subject: "Sales Signature"'),'не совпал оугоинг емаил');
     }),config.timeout);
-    SF.sleep(1);
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'идем в департмент, удаляем оутгоинг емаил';

@@ -25,7 +25,7 @@ condition.nowWeDoing = 'идем в пейрол выставляем нужны
     driver.wait(driver.findElement(By.xpath('//tr[@ng-click="openSalary()"]/td[1]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, V.paidPayroll, SF.cleanPrice(text), 'не совпала сумма paid в пейроле за 20 дней с суммой salllary in profit and loss');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
 
     //=========================закончили писать тест=============================

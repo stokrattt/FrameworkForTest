@@ -16,7 +16,6 @@ condition.nowWeDoing = 'создаем реквест с борда';
     V.boardNumbers = {};
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text) {
         V.InventoryCFDefault = SF.cleanPrice(text.replace('Total Estimated Cubic Feet:', ''));
-        console.log(V.InventoryCFDefault);
     }), config.timeout);
     SF.sleep(1);
     MF.EditRequest_OpenInventoryTab();
@@ -88,7 +87,6 @@ condition.nowWeDoing = 'иду в аккаунт добавляем еще ка�
         V.InventoryTotalItemsDownTable = SF.cleanPrice(text.replace('Total Items:', ''));
         VD.IWant(VD.ToEqual,V.InventoryTotalItemsAccount, V.InventoryTotalItemsDownTable, 'Сравниваем кол-во аитемов аккаунт/нижняя таблица');
     }), config.timeout);
-    SF.sleep(1);
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'иду в админку в наш реквест, сверяем к.ф. инвентаря и тотал аитемов';
@@ -100,15 +98,13 @@ condition.nowWeDoing = 'иду в админку в наш реквест, св�
         V.boardNumbersCubFit1 = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual,V.boardNumbersCubFit1, V.accountNumbers.cbf, 'Сравниваем к.ф. в модалке с аккаунтом');
     }),config.timeout);
-    SF.sleep(1);
     MF.EditRequest_OpenInventoryTab();
     driver.wait(driver.findElement(By.xpath('//div[@class="inventory__toolbar-item inventory__toolbar-item_info"]/span[@ng-bind="total.count"]')).getText().then(function (text) {
         V.InventoryTotalRequest = SF.cleanPrice(text.replace('Total Items:', ''));
         VD.IWant(VD.ToEqual,V.InventoryTotalItemsAccount, V.InventoryTotalRequest, 'Сравниваем кол-во аитемов в аккаунте и модалке');
     }), config.timeout);
-    SF.sleep(2);
 
-    condition.nowWeDoing = 'удаляем все аитемы, и проверяем что вес вернулся в дефолтный';
+condition.nowWeDoing = 'удаляем все аитемы, и проверяем что вес вернулся в дефолтный';
     SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
     SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
     SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));

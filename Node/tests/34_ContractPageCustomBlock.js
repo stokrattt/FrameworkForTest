@@ -125,7 +125,6 @@ condition.nowWeDoing = 'ищем в contract page текст который мы
         VD.IWant(VD.NotToEqual, q, -1, 'не нашло текст rate');
         V.rateClear = text.replace(V.rate, '');
     }),config.timeout);
-    SF.sleep(1);
     SF.clear (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.localHourlyRate"]//div[@ng-model="html"]'));
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.localHourlyRate"]//div[@ng-model="html"]'), V.rateClear );
     driver.wait(driver.findElement(By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.longRates"]//div[@ng-model="html"]')).getText().then(function (text) {
@@ -133,7 +132,6 @@ condition.nowWeDoing = 'ищем в contract page текст который мы
         VD.IWant(VD.NotToEqual, q, -1, 'не нашло текст longrate');
         V.longrateClear = text.replace(V.longrate, '');
     }),config.timeout);
-    SF.sleep(1);
     SF.clear (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.longRates"]//div[@ng-model="html"]'));
     SF.send (By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.longRates"]//div[@ng-model="html"]'), V.longrateClear );
     driver.wait(driver.findElement(By.xpath('//textarea[@ng-model="vm.contract_page.textContent.declarUp"]')).getText().then(function (text) {
@@ -178,17 +176,14 @@ condition.nowWeDoing = 'ищем в contract page текст который мы
     }),config.timeout);
     SF.clear (By.xpath('//textarea[@ng-model="vm.contract_page.textContent.declarCustomer"]'));
     SF.send (By.xpath('//textarea[@ng-model="vm.contract_page.textContent.declarCustomer"]'), V.declarationCustomerClear );
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//textarea[@ng-model="sf.text"]')).getAttribute('value').then(function (text) {
         q = text.indexOf(V.storage1);
         VD.IWant(VD.NotToEqual, q, -1, 'не нашло текст storage1');
     }),config.timeout);
-    SF.sleep (1);
     driver.wait(driver.findElement(By.xpath('//label[@for="show_1"]/../..//textarea[@ng-model="sf.text"]')).getAttribute('value').then(function (text) {
         q = text.indexOf(V.storage2);
         VD.IWant(VD.NotToEqual, q, -1, 'не нашло текст storage2');
     }),config.timeout);
-    SF.sleep (1);
     SF.click (By.xpath('//button[@ng-click="vm.setDefaultStorage()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
     driver.wait(driver.findElement(By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.last"]/div[2]/div[3]')).getText().then(function (text) {
@@ -291,7 +286,7 @@ condition.nowWeDoing = 'проверяем на главной странице 
         q = text.indexOf(V.declarationC);
         VD.IWant(VD.ToEqual, q, -1, 'текст declarationB остался, а не должен был');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

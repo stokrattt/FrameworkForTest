@@ -18,7 +18,6 @@ condition.nowWeDoing = 'создаем пакинг дей с фронта с в
     V.frontNumbers = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
         V.frontNumbers.moveDate = D;
-        console.log(V.frontNumbers.moveDate);
     }),config.timeout);
     MF.FrontSiteSmallCalc_ClickContinue();
     MF.FrontSiteSmallCalc_ClickChooseMoveSize();
@@ -97,12 +96,10 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }),config.timeout);
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -125,7 +122,6 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     MF.Contract_WaitForRental();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="storageVolume"]')).getAttribute('value').then(function (text) {
         V.rentaAgreementCF = text;
-        console.log(V.rentaAgreementCF);
     }),config.timeout);
     SF.sleep(0.5);
     MF.Contract_SetRentalPhone(V.client.phone);
@@ -201,7 +197,6 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     MF.Payroll_getTotalById(V.accountNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.accountNumbers.Id);
-    SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
 
 condition.nowWeDoing = 'выбираем цифры хелпера';

@@ -24,7 +24,7 @@ condition.nowWeDoing = 'создаем реквест с борда';
 
 condition.nowWeDoing = 'идем в аккаунт, и на конфирмеишен от админа';
     SF.openTab(1);
-    SF.sleep(10);
+    SF.sleep(7);
     driver.close();
     SF.openTab(0);
     SF.waitForLocated(By.xpath('//button[@ng-click="goToConfirmation()"]'));

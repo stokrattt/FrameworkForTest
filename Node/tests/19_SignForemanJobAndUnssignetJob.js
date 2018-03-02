@@ -35,7 +35,6 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     driver.wait (driver.findElement(By.xpath('//div[@id="request_'+V.request.Id+'"]')).getCssValue("background-color").then(function (color) {
         VD.IWant(VD.ToEqual, color, "rgba(251, 143, 80, 1)", 'после того как назначили команду цвет не стал оранжевым, а должен')
     }),config.timeout);
-    SF.sleep(1);
     JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
     MF.Dispach_ClickUnassignTeam();
     MF.SweetConfirm ();
@@ -44,7 +43,6 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     driver.wait (driver.findElement(By.xpath('//div[@id="request_'+V.request.Id+'"]')).getCssValue("background-color").then(function (color) {
         VD.IWant(VD.ToEqual, color, "rgba(144, 238, 144, 1)", 'после того как убрали команду цвет не стал зеленным, а должен')
     }),config.timeout);
-    SF.sleep(1);
     MF.Board_Refresh ();
     SF.waitForLocated(By.xpath('//a[@class="ui-datepicker-next ui-corner-all"]'));
     MF.WaitWhileBusy ();
@@ -60,7 +58,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -100,7 +97,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     LF.OpenRequestDispatch(V.request.Id);
     JS.waitForExist('label:contains("Balance:"):visible');
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
-    SF.sleep (2);
+    SF.sleep (1);
     if (V.boardNumbers.Balance !== 0) {
         JS.scroll('div.BalanceCost:visible');
     }
@@ -136,7 +133,6 @@ condition.nowWeDoing = 'идем на форемана проверить что
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.pageParams.totalCount == 0"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Nothing to show', 'реквест не пропал у форемана на страничке в new jobs после его удаление из этого ревеста');
     }),config.timeout);
-    SF.sleep (1);
     SF.click(By.xpath('//a[@ui-sref="foreman.past"]'));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//input[@ng-model="vm.pageParams.conditions.nid"]'));

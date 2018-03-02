@@ -25,7 +25,6 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
         V.boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
     }),config.timeout);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
-    SF.sleep (2);
     MF.EditRequest_SetToConfirmed();
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
@@ -83,7 +82,7 @@ condition.nowWeDoing = 'Закриваем роботу заходим в СІТ
     SF.clear(By.xpath('//input[@ng-model="moveInDate"]'));
     SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
     SF.click(By.xpath('//a[@ng-click="save()"]'));
-    SF.sleep(4);
+    SF.sleep(3);
     SF.click(By.xpath('//button[@ng-click="UpdateRequestInvoice()"]'));
     JS.waitForExist('button[ng-click="update(request)"]:visible');
     SF.sleep(2);
@@ -150,12 +149,11 @@ condition.nowWeDoing = 'Заходим в PickUp и проверям по фил
    // VD.IWant(VD.ToEqual,V.boardNumbers.moveDate.Date, V.SITdate.Date,'не совпала дата');
    // VD.IWant(VD.ToEqual,V.boardNumbers.moveDate.Date, V.SITdate.Date,'не совпала дата');
   //  V.SITScheduleDate = V.boardNumbers.moveDate;
-   // console.log(V.scheduleDate);
    //  driver.wait(driver.findElement(By.xpath('//div[@ng-if="item.pickup_date != 0"] and [contains(text(),"'+ V.boardNumbers.moveDate +'")]')).getText().then(function(text){
    //     V.scheduleDate  =  text;
    //     VD.IWant(VD.ToEqual, V.scheduleDate, V.SITScheduleDate, 'schedule Date не совпали');
  //  }),config.timeout);
-    SF.sleep(3);
+    SF.sleep(1);
     SF.endOfTest();
 
 };

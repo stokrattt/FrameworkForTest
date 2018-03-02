@@ -165,7 +165,6 @@ condition.nowWeDoing = 'добавляем дисконт';
     driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (check) {
         VD.IWant(VD.ToEqual, check, 1, 'трак (желтая линия, реквест) на таблице траков в реквесте не нашелся в деливери дейт');
     }),config.timeout);
-    SF.sleep (2);
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenLogs();
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"flat rate not confirm")]' +
@@ -196,7 +195,6 @@ condition.nowWeDoing = 'идем в акк под клиентом 2 раз бу
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.flatRateDiscount"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), '-500', 'не показало дисконт на конфирмейшн');
     }),config.timeout);
-    SF.sleep(1);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -235,7 +233,6 @@ condition.nowWeDoing = 'идем в админку проверять что р�
                 V.datescedule = (future.toLocaleDateString('en-US', options));
                 SF.click(By.xpath('//i[@ng-click="vm.nextMonth()"]'));
                 SF.sleep(5);
-                console.log(V.FRId);
                 SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
                 SF.sleep(5);
                 driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (checkSchedule) {

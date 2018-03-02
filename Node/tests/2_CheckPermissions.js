@@ -32,7 +32,6 @@ condition.nowWeDoing = 'тут проверяем переключение та�
     driver.wait(driver.findElement(By.xpath('//md-switch[@ng-model="notification.selected"]//span[contains(text(), "When a customer pays by check from the contract")]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'When a customer pays by check from the contract', 'не нашло нотификейшн на табе dispach');
     }),config.timeout);
-    SF.sleep(0.5);
     MF.Department_OpenMansPermissions();
     MF.Department_ClickPermissionsRequests();
     LF.PermissionsClear ();

@@ -52,7 +52,6 @@ condition.nowWeDoing = 'Создаем ЛД в наш штат с верхней
     V.frontNumbers = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
         V.frontNumbers.moveDate = D;
-        console.log(V.frontNumbers.moveDate);
     }), config.timeout);
     MF.FrontSiteSmallCalc_ClickContinue();
     MF.FrontSiteSmallCalc_ClickChooseMoveSize();
@@ -68,7 +67,6 @@ condition.nowWeDoing = 'Создаем ЛД в наш штат с верхней
     LF.RememberAccountNumbersLD(V.accountNumbersLD);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[1]')).getText().then(function (text) {
        V.accountcb = SF.cleanPrice(text.substring(text.indexOf('Inventory') + 30, text.indexOf('c.f.')));
-          console.log( V.accountcb);
     }), config.timeout);
     SF.sleep(0.5);
     V.WhenCreateRequest = V.accountNumbersLD.Total - V.accountNumbersLD.Fuel;
@@ -92,11 +90,8 @@ condition.nowWeDoing = '2й раз добавляем инвентарь, под
     V.accountNumbersLDAfterSecondInventory={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterSecondInventory);
     V.DiffrentAfterSecondInventory = V.accountNumbersLDAfterSecondInventory.cbf - V.accountcb;//считаем разницу к.ф. до и после инвентаря
-    console.log(V.DiffrentAfterSecondInventory);
     V.PriceAfterSecondInventory = V.DiffrentAfterSecondInventory * 3; //считаем цену за доп.вес разнцица* реит(1я скидка)
-    console.log(V.PriceAfterSecondInventory);
     V.TotalAfterSecondInventory = V.PriceAfterSecondInventory + V.accountNumbersLDAfterSecondInventory.Fuel + 100;// считаем гранд тотал
-    console.log(V.TotalAfterSecondInventory);
     VD.IWant(VD.ToEqual, V.TotalAfterSecondInventory, V.accountNumbersLDAfterSecondInventory.Total,'гранд тотал не правильно посчитался после второго инвентаря');
     LF.LogoutFromAccount();
 
@@ -146,7 +141,7 @@ condition.nowWeDoing = 'заходим из-под админа в аккаун�
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickViewRequest();
     SF.openTab(1);
-    SF.sleep(15);
+    SF.sleep(10);
     V.accountNumbersLDAfterCustomWeight={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterCustomWeight);
     VD.IWant (VD.ToEqual, V.boardNumbersSales.Total, V.accountNumbersLDAfterCustomWeight.Total, 'не совпал тотал в сэилс и аккаунте');
@@ -162,7 +157,6 @@ condition.nowWeDoing = 'Идем в настроику ЛД, удалем нас
     MF.Board_OpenSettingsLongDistance ();
     MF.LongDistanceSettings_ClickOnMapState('#jqvmap1_mt');
     MF.Board_OpenSideBar();
-    SF.sleep (3);
     SF.click (By.xpath('//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
     SF.click (By.xpath('//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
     SF.click (By.xpath('//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));

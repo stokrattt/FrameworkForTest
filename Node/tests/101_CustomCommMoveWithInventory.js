@@ -24,11 +24,9 @@ condition.nowWeDoing = 'проверяем что сервис тип стал �
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, '777', 'после добавления мувсайза комершиал кубик фит не сменился')
     }),config.timeout);
-    SF.sleep(0.5);
     MF.EditRequest_OpenClient ();
     MF.EditRequest_ClientTabSendCompanyName('TrastovuyFond');
     LF.SetClientPasswd(V.client.passwd);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.move_size.raw == 11 && request.field_commercial_company_name.value.length"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'TrastovuyFond', 'вверху реквеста не показалось company name');
     }),config.timeout);
@@ -60,7 +58,6 @@ condition.nowWeDoing = 'закрываем и открываем наш рекв
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, '777', 'открыл нот конферм работу и смотрим что кубик фит остался 777')
     }),config.timeout);
-    SF.sleep(1);
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
@@ -81,21 +78,18 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
         V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('TrasirCompany')+13, text.indexOf('c.f.')));
+        VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом нот конферм');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом нот конферм');
     LF.AccountLocalAddInventory();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountcbfWithInventory = SF.cleanPrice(text.substring(text.indexOf('Inventory ')+9, text.indexOf('c.f.')));
+        VD.IWant(VD.NotToEqual, V.accountcbfWithInventory, V.accountcbf, 'не поменялся кубик фит на инвенторий, после, добавления его');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.NotToEqual, V.accountcbfWithInventory, V.accountcbf, 'не поменялся кубик фит на инвенторий, после, добавления его');
     V.accountNumbersLDAfterAddInven={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInven);
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Total, V.accountNumbersLD.Total, 'не изменился гранд тотал после добавления инвентрая');
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Fuel, V.accountNumbersLD.Fuel, 'не изменился fuel после добавления инвентрая');
     MF.Account_ClickFullPacking();
-    SF.sleep(2);
     V.accountNumbersLDAfterAddInvenAfterAddFullPacing={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInvenAfterAddFullPacing);
     LF.LogoutFromAccount();
@@ -107,7 +101,6 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.accountcbfWithInventory, 'в админке не совпал кубик фит с аккаунтом после добавления инвентаря');
     }),config.timeout);
-    SF.sleep(0.5);
     V.boardNumbers2PendingAfterAddInven = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers2PendingAfterAddInven);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDAfterAddInvenAfterAddFullPacing, V.boardNumbers2PendingAfterAddInven);
@@ -117,7 +110,6 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.custom_weight.value"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 999, 'в настройках не поменялся кубик фит для кастомного веса');
     }),config.timeout);
-    SF.sleep(1);
     MF.EditRequest_ClickSizeInventory();
     SF.sleep(4);
     MF.EditRequest_OpenRequest();
@@ -130,9 +122,8 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Estimated Quote")]/../../../../../../' +
         'following-sibling::td[1]//div')).getText().then(function(text){
         V.LogsQuote = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.LogsQuote, V.boardNumbers2PendingAfterAddInven.Total, 'в письме клиенту  тотал отправился неверный в нот конферм работе');
     }),config.timeout);
-    SF.sleep(2);
-    VD.IWant(VD.ToEqual, V.LogsQuote, V.boardNumbers2PendingAfterAddInven.Total, 'в письме клиенту  тотал отправился неверный в нот конферм работе');
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
@@ -148,22 +139,17 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     MF.Account_ClickProceedBookYourMove ();
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.move_size.raw == 11"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал  To storage');
-        console.log(text);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
-        console.log(V.ConfirmationTotal);
+        VD.IWant(VD.ToEqual, V.boardNumbers2PendingAfterAddInven.Total, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.boardNumbers2PendingAfterAddInven.Total, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
     driver.wait(driver.findElement(By.xpath('//h2[@ng-if="vm.isCommercial && vm.commercialName.length"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'TrastovuyFond', 'не нашло имени компании на конфирмейшн');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistancePackingTotal"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers2PendingAfterAddInven.Packing, 'не совпал пакинг на конфирмейшн');
     }),config.timeout);
-    SF.sleep(1);
     MF.Account_ConfirmationBackToRequest();
     LF.ConfirmRequestInAccount_WithReservation();
 
@@ -191,16 +177,15 @@ condition.nowWeDoing = 'идем в админку проверять что ч�
     MF.Account_ClickViewConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.boardNumbers2PendingAfterAddInven.Total, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.boardNumbers2PendingAfterAddInven.Total, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
     driver.wait(driver.findElement(By.xpath('//h2[@ng-if="vm.isCommercial && vm.commercialName.length"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'TrastovuyFond', 'не нашло имени компании на конфирмейшн после конферм и закрытия работы через админку');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistancePackingTotal"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers2PendingAfterAddInven.Packing, 'не совпал пакинг на конфирмейшн после конферм и закрытия работы через админк');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
 
     //=========================закончили писать тест=============================

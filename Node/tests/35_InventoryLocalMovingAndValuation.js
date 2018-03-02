@@ -67,7 +67,6 @@ condition.nowWeDoing = 'второй раз в аккаунте сверяем �
         text = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, text, V.Valuation, 'не совпал valuation charge с тем что на админке в реквесте');
     }),config.timeout);
-    SF.sleep(1);
     LF.Validation_Compare_Account_Admin (V.boardNumbers, V.accountNumbers);
     MF.Account_ClickProceedBookYourMove();
 
@@ -80,11 +79,9 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
         } else {
             V.ConfirmationPage.Total = SF.cleanPrice(text);
         }
-        console.log(V.ConfirmationPage.TotalMin, V.ConfirmationPage.TotalMin);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){
         V.ConfirmationPage.Fuel = SF.cleanPrice(text.substring(text.indexOf('$')));
-        console.log(V.ConfirmationPage.Fuel)
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации');
@@ -96,7 +93,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.request.request_all_data.valuation.valuation_charge"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.Valuation, 'не совпал valuation charge на конфирмейшине с тем что на админке в реквесте');
     }),config.timeout);
-    SF.sleep(0.5);
     MF.Account_ConfirmationBackToRequest();
     LF.ConfirmRequestInAccount_WithReservation();
 

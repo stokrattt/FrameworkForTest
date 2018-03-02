@@ -99,7 +99,6 @@ condition.nowWeDoing = 'Заходим на акаунт и проверяем 
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//select[@ng-value="request.field_extra_pickup.organisation_name"]')).getAttribute('value').then(function(text){
         V.extraPickUpValue = text;
-        console.log(text);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//select[@ng-value="request.field_extra_dropoff.organisation_name"]')).getAttribute('value').then(function(text){
         V.extraDropOffValue = text;
@@ -126,7 +125,6 @@ condition.nowWeDoing = 'идем в админку проверять что п�
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_extra_dropoff.thoroughfare"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.newExtraDropOffAddress, text, 'extra Drop Off адрес должен бить равен');
     }),config.timeout);
-    SF.sleep(2);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed();
@@ -147,7 +145,7 @@ condition.nowWeDoing = 'идем в админку проверять что п�
     driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="service in vm.extraServices track by $index"]/div[contains(text(), "Extra Pick up:")]/following-sibling::div')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, V.extraPickUpPrice, SF.cleanPrice(text), 'не нашло или не совпал екстра пикап  на конфирмейшин пейдж');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
     SF.endOfTest();
 };

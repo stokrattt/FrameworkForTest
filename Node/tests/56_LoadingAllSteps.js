@@ -145,7 +145,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');

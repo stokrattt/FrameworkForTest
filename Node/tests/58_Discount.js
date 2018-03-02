@@ -93,7 +93,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -115,26 +114,23 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.SweetConfirm ();
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
         V.TotalLessWithDiscount = SF.cleanPrice(text);
+        VD.IWant (VD.NotToEqual, V.TotalLess, V.TotalLessWithDiscount, 'скидка-купон на контракте не применилась');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant (VD.NotToEqual, V.TotalLess, V.TotalLessWithDiscount, 'скидка-купон на контракте не применилась');
     MF.Contract_ClickPay();
     SF.sleep(2);
     SF.click(By.xpath('//div[@ng-click="tipsSelected()"]'));
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="charge_value.value"]')).getAttribute('value').then(function (text) {
         V.Payment = SF.cleanPrice (text);
+        VD.IWant (VD.ToEqual, V.Payment, V.TotalLessWithDiscount, 'в модальном окне при оплате скидка-купон на контракте не применилась');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant (VD.ToEqual, V.Payment, V.TotalLessWithDiscount, 'в модальном окне при оплате скидка-купон на контракте не применилась');
     MF.Contract_ClickPaymentInfo();
     SF.click(By.xpath('//div[@ng-click="choosePayment(\'checkPay\');"]'));
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//div[@ng-init="payment.setPaymentBlockHeight(\'.credit_form.credit-pay\')"]/div[1]')).getText().then(function (text) {
         V.PaymentCheck = SF.cleanPrice (text);
+        VD.IWant (VD.ToEqual, V.PaymentCheck, V.TotalLessWithDiscount, 'в модальном окне при оплате Check скидка-купон на контракте не применилась');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant (VD.ToEqual, V.PaymentCheck, V.TotalLessWithDiscount, 'в модальном окне при оплате Check скидка-купон на контракте не применилась');
     SF.send (By.xpath('//input[@ng-model="paymentCheck.check_num"]'), 56556566);
     SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
     MF.WaitWhileBusy ();
@@ -155,17 +151,15 @@ condition.nowWeDoing = 'идем в акк третий раз в конце п�
     SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="receipt in vm.request.receipts track by $index"]/td[3]')).getText().then(function (text) {
         V.PaymentAccount = SF.cleanPrice (text);
+        VD.IWant (VD.ToEqual, V.PaymentAccount, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент не совпала оплата которая была на контракте');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant (VD.ToEqual, V.PaymentAccount, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент не совпала оплата которая была на контракте');
     SF.click(By.xpath('//tr[@ng-repeat="receipt in vm.request.receipts track by $index"]/td[4]'));
     SF.waitForLocated (By.xpath('//div[contains(@class, "payment-receipt-modal")]'));
     SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount:")]/following-sibling::span')).getText().then(function (text) {
         V.PaymentReceipt = SF.cleanPrice (text);
+        VD.IWant (VD.ToEqual, V.PaymentReceipt, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент в ресите не совпала оплата которая была на контракте');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant (VD.ToEqual, V.PaymentReceipt, V.TotalLessWithDiscount, 'на аккаунте во вкладке паймент в ресите не совпала оплата которая была на контракте');
     SF.sleep(1);
 
 

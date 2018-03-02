@@ -298,7 +298,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			V.InhomeDashboard = SF.cleanPrice(text);
 			VD.IWant(VD.ToEqual, V.InhomeDashboard, V.boardNumbers.Id, 'реквеста нет в табе Inhome Estimate на дашборде')
 		}), config.timeout);
-		SF.sleep(1);
 		MF.Board_LogoutAdmin();
 	}
 
@@ -1503,7 +1502,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		// VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
 		//     Math.floor(10),
 		//     'Не совпал Bonus формена');
-		SF.sleep(1);
 		MF.EditRequest_PayrollOpenHelperTab();
 		driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\'); calcWorkerTotal(\'driver\');"]')).getText().then(function (text) {
 			boardNumbers.Payroll.helpersForCommission.total = SF.cleanPrice(text);
@@ -1614,7 +1612,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			}), config.timeout);
 		SF.sleep(1);
 		VD.IWant(VD.ToEqual, V.countForeman, 1, 'не сохранился Foreman');
-		SF.sleep(2);
 		SF.click(By.xpath('//a[@ng-click="select(tabs[2])"][contains(text(),"Helpers")]'));
 		SF.sleep(1);
 		driver.wait(driver.executeScript('return $(\'select[ng-model="selected.helper[helperIndex]"]:visible  option[selected="selected"]:contains("' + helperName + '")\').length;')
@@ -2381,7 +2378,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		driver.wait(driver.findElement(By.xpath('//strong[contains(text(), "Insert Credit Card processing fee %")]')).getText().then(function (text) {
 			VD.IWant(VD.ToEqual, text, `Insert Credit Card processing fee %${creditFee}`, 'неправильные процент на кредитку');
 		}), config.timeout);
-		SF.sleep(1);
 		SF.click(By.xpath('//input[@ng-model="payment.creditCardFee"]'));
 		FillCardPayModal();
 		MF.WaitWhileBusy();
@@ -2403,7 +2399,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			V.InhomeReq = SF.cleanPrice(text);
 			VD.IWant(VD.ToEqual, V.InhomeReq, V.boardNumbers.Id, 'реквеста нет в списке Inhome Estimate')
 		}), config.timeout);
-		SF.sleep(1);
 	}
 
 	function HomeEstimate_CheckAccount() {

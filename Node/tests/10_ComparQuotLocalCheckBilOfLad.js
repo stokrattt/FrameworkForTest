@@ -67,7 +67,6 @@ condition.nowWeDoing = 'идём в логи';
             VD.IWant(VD.ToEqual, V.logNumbers.QuoteMin, V.boardNumbers.TotalMin);
             VD.IWant(VD.ToEqual, V.logNumbers.QuoteMax, V.boardNumbers.TotalMax);
     }),config.timeout);
-    SF.sleep(1);
     MF.EditRequest_OpenRequest ();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
@@ -92,7 +91,6 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
     }),config.timeout);
-    SF.sleep(1);
     driver.close();
     SF.openTab(0);
     LF.closeEditRequest();
@@ -114,7 +112,7 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась через автологин форемана (автологин не сработал)')
     }),config.timeout);
-    SF.sleep(1.5);
+    SF.sleep(1);
 
     SF.endOfTest();
 };

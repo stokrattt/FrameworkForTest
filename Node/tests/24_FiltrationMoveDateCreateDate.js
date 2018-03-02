@@ -142,7 +142,6 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id3 + '")]')).getText().then(function (id3) {
         VD.IWant (VD.ToEqual, V.Id3, id3, 'не нашел реквест3 по фильтрации create date')
     }),config.timeout);
-    SF.sleep (2);
 
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по Move date';
     SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 2);
@@ -157,7 +156,7 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id6Long + '")]')).getText().then(function (id6Long) {
         VD.IWant (VD.ToEqual, V.Id6Long, id6Long, 'не нашел реквест6 по фильтрации по Move date')
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

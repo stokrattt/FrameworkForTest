@@ -48,12 +48,10 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
     LF.FillCardPayModal ();
     MF.WaitWhileBusy();
     MF.WaitWhileToaster();
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount: ")]/following-sibling::span')).getText().then(function(text){
         V.PaymentInsert = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.PaymentInsert, 103, 'оплата не совпала')
     }),config.timeout);
-    SF.sleep (5);
     SF.click (By.xpath('//h2[contains(text(), "Receipt ")]/../../..//button[@ng-click="cancel()"]'));
     SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="save()"]'));
@@ -67,7 +65,6 @@ condition.nowWeDoing = 'идем в Requests открываем Inhome Estimate 
         V.InhomeReq = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.InhomeReq, V.boardNumbers.Id, 'реквеста нет в списке Inhome Estimate')
     }),config.timeout);
-    SF.sleep (1);
 
 condition.nowWeDoing = 'идем на дащборд проверить реквест в табе Inhome Estimate';
     MF.Board_OpenDashboard ();
@@ -76,7 +73,6 @@ condition.nowWeDoing = 'идем на дащборд проверить рекв
         V.InhomeDashboard = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.InhomeDashboard, V.boardNumbers.Id, 'реквеста нет в табе Inhome Estimate на дашборде')
     }),config.timeout);
-    SF.sleep (1);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'идем в аккаунт, проверить что статус реквеста инхом эстимеит';

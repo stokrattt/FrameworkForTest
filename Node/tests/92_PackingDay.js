@@ -66,7 +66,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
             V.ConfirmationPage.Total = SF.cleanPrice(text);
         }
     }),config.timeout);
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Fuel Surcharge")]/..')).getText().then(function(text){
         V.ConfirmationPage.Fuel = SF.cleanPrice(text.substring(text.indexOf('$')));
     }),config.timeout);
@@ -103,7 +102,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -119,7 +117,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
-    SF.sleep(3);
+    SF.sleep(1);
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
@@ -143,7 +141,6 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
-    SF.sleep (1);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 

@@ -84,7 +84,6 @@ condition.nowWeDoing= 'идем в большой пеирол, оттуда з�
         V.PayrollTotalForeman = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PayrollTotalForeman, 0, ' Total форемана не 0');
     }),config.timeout);
-    SF.sleep(3);
 
 condition.nowWeDoing= 'теперь добавляем комисию ему же в маленьком пеироле и проверяем в большом';
     SF.click(By.xpath('//td[contains(text(),"' +V.boardNumbers.Id+ '")]'));
@@ -95,7 +94,6 @@ condition.nowWeDoing= 'теперь добавляем комисию ему ж�
     SF.send(By.xpath('//input[@ng-model="foreman.rate"]'),'100');
     driver.wait(driver.findElement(By.xpath('//span[@ng-hide="disableRate(\'foreman\', foremanIndex,  foreman.id)"]')).getText().then(function (text) {
         V.SmallPayrollAfterAddBonusForeman = SF.cleanPrice(text);
-        console.log(V.SmallPayrollAfterAddBonusForeman);
     }),config.timeout);
     SF.sleep(1);
     MF.EditRequest_PayrollSubmit();
@@ -106,7 +104,6 @@ condition.nowWeDoing= 'теперь добавляем комисию ему ж�
         V.PayrollAfterAddBonusForeman = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PayrollAfterAddBonusForeman, V.SmallPayrollAfterAddBonusForeman, ' Bonus форемана не совпал после добавления комиссии в маленьком пеироле');
     }),config.timeout);
-    SF.sleep(1);
     MF.Payroll_ClickStepBackToNameWorker();
 
 condition.nowWeDoing= 'идем в большой пеирол, оттуда заходим в маленький нашей работы, и удаляем хелперу все комисси';
@@ -126,7 +123,6 @@ condition.nowWeDoing= 'идем в большой пеирол, оттуда з�
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Payroll_RefreshTable ();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.boardNumbers.Id+'")]/../td[@ng-click="editRequest(\'cb_hourly_rate\', id, \'request\', dataObj.trip_job)"]')).getText().then(function(text){
         V.PayrollHourlyRateHelper = SF.cleanPrice(text);
@@ -152,7 +148,6 @@ condition.nowWeDoing= 'идем в большой пеирол, оттуда з�
         V.PayrollTotalHelper = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PayrollTotalHelper, 0, ' Total хелпера не 0');
     }),config.timeout);
-    SF.sleep(3);
 
     MF.Payroll_ClickStepBackToNameWorker();
 condition.nowWeDoing= 'идем за сеилса и удаляем сеилса из работы';
@@ -163,7 +158,6 @@ condition.nowWeDoing= 'идем за сеилса и удаляем сеилса
         V.PayrollTotalSales = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PayrollTotalSales, 50, ' Total сеилса не совпал');
     }),config.timeout);
-    SF.sleep(1);
     SF.click(By.xpath('//td[contains(text(),"' +V.boardNumbers.Id+ '")]'));
     SF.click(By.xpath('//td[contains(text(),"' +V.boardNumbers.Id+ '")]'));
     MF.EditRequest_OpenPayroll();
@@ -174,7 +168,6 @@ condition.nowWeDoing= 'идем за сеилса и удаляем сеилса
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
-    SF.sleep(2);
     MF.Payroll_RefreshTable ();
     driver.wait(driver.findElements(By.xpath('//td[contains(text(),"'+V.boardNumbers.Id+'")]')).then(function(array){
         VD.IWant(VD.ToEqual, array.length,0, 'работа не удалилась из пеирола');

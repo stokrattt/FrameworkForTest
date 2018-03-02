@@ -67,12 +67,10 @@ condition.nowWeDoing = 'тут заходим в конкретного мужи
             driver.wait(driver.executeScript("return $('tr[ng-repeat=\"(id, dataObj) in userCurrentTbl.jobs\"]').length").then(function (jobs) {
                 VD.IWant(VD.ToEqual, V.jobsUser, jobs, 'работы чувака не совпали снаружи и внутри "' + V.jobsName +'"')
             }),config.timeout);
-            SF.sleep(1);
             driver.wait(driver.executeScript("return $('div.total-payroll-panel div.total-title:contains(\"Paid\")').next().text()").then(function (paid) {
                 paid = SF.cleanPrice(paid);
                 VD.IWant (VD.ToEqual, V.paid, paid, 'не совпало пейд снаружи и внутри чувака "' + V.jobsName +'"');
             }), config.timeout);
-            SF.sleep(1);
             driver.wait(driver.executeScript("return $('div.total-payroll-panel div.total-title:contains(\"Balance\")').next().text()").then(function (balanceTop) {
                 V.balanceTop = SF.cleanPrice(balanceTop);
             }), config.timeout);
@@ -84,7 +82,6 @@ condition.nowWeDoing = 'тут заходим в конкретного мужи
             driver.wait(driver.executeScript(JSstep.payrollTableSum).then(function (summa) {
                 VD.IWant(VD.ToEqual, summa.sum, summa.balTop, 'Не совпали сумма посчитанная в таблице с балансом сверху "' + V.jobsName +'"');
             }),config.timeout);
-            SF.sleep(1);
             VD.IWant(VD.ToEqual, V.balanceTop, V.balanceDown, 'сумма сврехру на балансе не совпала с суммой снизу ИТОГО  "' + V.jobsName +'"');
             MF.Payroll_ClickStepBackToNameWorker();
         }

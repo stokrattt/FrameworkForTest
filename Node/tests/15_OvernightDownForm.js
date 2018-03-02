@@ -111,7 +111,6 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
         V.frontNumbersOvernightDown.OvernightStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
     }), config.timeout);
 */
-    SF.sleep(2);
     MF.FrontSite_GoToConfirmation();
     MF.FrontSite_ViewRequestPage();
     SF.openTab (1);
@@ -233,7 +232,7 @@ condition.nowWeDoing = 'выбираем расписание, ищем в не�
         V.Req1Cal = text;
         VD.IWant(VD.ToEqual, ('#' +V.accountNumbersUp.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 1я работа');
     }),config.timeout);
-    SF.sleep(3);
+
     condition.nowWeDoing = 'выбираем день 2й работы,кликаем её';
     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
     SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersDelivery.Id+'")]'));
@@ -241,9 +240,6 @@ condition.nowWeDoing = 'выбираем расписание, ищем в не�
         V.Req2Cal = text;
         VD.IWant(VD.ToEqual, ('#' +V.accountNumbersDelivery.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 2я работа');
     }),config.timeout);
-    SF.sleep(3);
-
-
 
 condition.nowWeDoing = 'идем в департмент выключить календарь для сеилса';
     SF.get(V.adminURL);

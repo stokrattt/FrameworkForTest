@@ -137,8 +137,6 @@ condition.nowWeDoing = 'заходим под форменом,проверяе�
         VD.IWant(VD.ToEqual, V.BoxMed, V.BoxMed2, 'не совпали коробки');
     }),config.timeout);
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
-    MF.WaitWhileBusy();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();

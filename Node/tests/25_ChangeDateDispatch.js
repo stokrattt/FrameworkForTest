@@ -75,7 +75,7 @@ condition.nowWeDoing = 'идем в аккаунт просто и возвра�
     driver.wait(driver.executeScript('return $(\'select[ng-model=\"vm.data.foreman\"]\').hasClass(\'ng-empty\')').then(function (text) {
         VD.INeed(VD.ToEqual, text, 0, 'пропала команда с диспача после того как зашли в аккаунт');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
 
     //=========================закончили писать тест=============================

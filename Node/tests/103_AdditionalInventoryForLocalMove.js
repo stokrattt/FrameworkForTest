@@ -15,7 +15,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'создаем реквест ';
     LF.CreateLocalMovingFromBoard (V.client);
     LF.addInventoryBoard ();
-    SF.sleep (2);
     MF.EditRequest_OpenSettings();
     LF.SetManager(V.managerFirstName);
     MF.EditRequest_OpenClient();
@@ -48,7 +47,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -88,7 +86,6 @@ condition.nowWeDoing = 'тут после добавления адишинал 
         V.totalCustomAddInventoryAfterReopened = text;
         VD.IWant(VD.ToEqual, V.totalCustomAddInventoryAfterReopened, V.totalCustomAddInventory, 'не совпало кастом айтем инвентаря после открытия модалки, что то удалиось');
     }),config.timeout);
-    SF.sleep(1);
     SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
     SF.sleep(3);
 
@@ -98,7 +95,6 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="data[fieldName].numberedItems"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 17, 'не сработал done with inventory или другая бага нужно проверить');
     }),config.timeout);
-    SF.sleep(0.5);
     MF.Contract_SetTapeNumber(1);
     MF.Contract_SetTapeColorGreen('Green');
     LF.MakeSignInInventory(0);
@@ -114,7 +110,6 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     MF.Contract_SetRentalZip('02461');
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="storageVolume"]')).getAttribute('value').then(function (text) {
         V.RentalCF = SF.cleanPrice(text);
-        console.log(V.RentalCF);
     }),config.timeout);
     LF.MakeSignInRental();
     MF.SweetConfirm ();
@@ -163,25 +158,22 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
         V.ClosingCF = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.RentalCF, V.ClosingCF,'не совпал  c f клоузинга и рентал агримент');
     }),config.timeout);
-    SF.sleep(2);
     MF.EditRequest_OpenConfirmWork();
     driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
         V.SalesCF = SF.cleanPrice(text);
         VD.IWant(VD.NotToEqual, V.RentalCF,V.SalesCF,'совпал сеилс к ф с рентал агримент');
     }),config.timeout);
-    SF.sleep(2);
     MF.EditRequest_CloseConfirmWork ();
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
     MF.EditRequest_CloseModal();
     SF.click(By.xpath('//div[@ng-if="states.invoiceState"]//span[@ng-if="request.request_all_data.storage_request_id"]'));
-    SF.sleep(5);
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//input[@id="volume"]')).getAttribute('value').then(function(text) {
         V.StorageCF = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.RentalCF, V.StorageCF,'не совпал  c f рентал агримент и сторадж');
     }),config.timeout);
-    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
     MF.EditRequest_WaitForBalanceVisible();
     LF.closeEditRequest();

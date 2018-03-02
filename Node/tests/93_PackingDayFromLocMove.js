@@ -88,7 +88,7 @@ condition.nowWeDoing = 'идем в аккаунт букать обе рабо�
     LF.RememberAccountNumbers(V.packingdayAccount);
     LF.Validation_Compare_Account_Admin(V.packingdayAccount, V.packingday);
     LF.ConfirmRequestInAccount_WithReservation();
-    SF.sleep(2);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

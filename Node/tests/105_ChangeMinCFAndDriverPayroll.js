@@ -40,7 +40,6 @@ condition.nowWeDoing = '1й раз меняем только цену в minimum
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
         } else {
             V.boardNumbers.QuoteSales1 = SF.cleanPrice(text);
-            console.log(V.boardNumbers.QuoteSales1);
         }
     }),config.timeout);
     SF.sleep (1);
@@ -49,7 +48,6 @@ condition.nowWeDoing = '1й раз меняем только цену в minimum
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
         } else {
             V.boardNumbers.QuoteClosing1 = SF.cleanPrice(text);
-            console.log(V.boardNumbers.QuoteClosing1);
         }
     }),config.timeout);
     SF.sleep (1);
@@ -65,7 +63,6 @@ condition.nowWeDoing = '2й раз меняем  цену и объем в minim
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
         } else {
             V.boardNumbers.QuoteSales2 = SF.cleanPrice(text);
-            console.log(V.boardNumbers.QuoteSales2);
         }
     }),config.timeout);
     SF.sleep (1);
@@ -74,7 +71,6 @@ condition.nowWeDoing = '2й раз меняем  цену и объем в minim
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
         } else {
             V.boardNumbers.QuoteClosing2 = SF.cleanPrice(text);
-            console.log(V.boardNumbers.QuoteClosing2);
         }
     }),config.timeout);
     SF.sleep (1);
@@ -125,7 +121,6 @@ condition.nowWeDoing = 'идем второй раз в маленький пе�
     condition.nowWeDoing = 'запоминаем тотал Rate';
     driver.wait(driver.findElement(By.xpath('//span[@ng-hide="disableRate(\'driver\', driverIndex,  driver.id)"]')).getText().then(function (text) {
         V.TotalRate1 = SF.cleanPrice(text);
-        console.log(V.TotalRate1);
     }),config.timeout);
     SF.sleep(1);
     MF.EditRequest_CloseModal();
@@ -153,7 +148,6 @@ condition.nowWeDoing = 'идем заново в маленький пеирол
     SF.send(By.xpath('//input[@ng-model="driver.rate"]'),V.NewHourlyRateLast);
     driver.wait(driver.findElement(By.xpath('//span[@ng-hide="disableRate(\'driver\', driverIndex,  driver.id)"]')).getText().then(function (text) {
         V.TotalRateLast = SF.cleanPrice(text);
-        console.log(V.TotalRateLast);
     }),config.timeout);
     SF.sleep(1);
     SF.clear(By.xpath('//tr[2]//input[@ng-model="driver.for_commission"]'));
@@ -172,7 +166,7 @@ condition.nowWeDoing = '2й раз в большом пеироле сверяе
         V.PayrollHourlyTime2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PayrollHourlyTime2, V.NewHourlyTime2, 'Time не совпадает после 2й смены в пеироле');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
     SF.endOfTest();
 };

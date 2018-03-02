@@ -63,7 +63,6 @@ condition.nowWeDoing = 'идем в админку в настройки рев�
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "'+V.client.name+'")]/following-sibling::div[1]/p')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Review from email', 'не нашло наш текст для звезд, а может и звезды');
     }),config.timeout);
-    SF.sleep(1);
 
 condition.nowWeDoing = 'теперь отключаем отсылание ревью и создаем реквест и проверяем что ревью не отсылаются';
     MF.Board_OpenReviewSettings();
@@ -100,7 +99,7 @@ condition.nowWeDoing = 'теперь отключаем отсылание ре�
     MF.EditRequest_OpenLogs ();
     MF.WaitWhileBusy ();
     MF.EditRequest_Check1EmailNotExist (V.client.email, "Review");
-    SF.sleep(2);
+    SF.sleep(1);
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

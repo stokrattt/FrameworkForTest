@@ -30,7 +30,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
     SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");
     MF.EditRequest_SetAdressToFrom ();
-    SF.sleep(18);
+    SF.sleep(15);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));

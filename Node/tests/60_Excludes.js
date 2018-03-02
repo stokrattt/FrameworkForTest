@@ -43,7 +43,6 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     JS.click('a[ng-click=\\"showAdditionalServicesRef.show = !showAdditionalServicesRef.show\\"]:visible');
     SF.click(By.xpath('//div[@id="main-contract"]//li[@ng-click="addService(s)"][contains(text(), "Tip")]'));
     SF.sleep(3);
@@ -64,7 +63,8 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
-    SF.sleep(1);function HideFlyingCircle() {
+    SF.sleep(1);
+    function HideFlyingCircle() {
 		driver.wait(driver.executeScript("$('#FlyingCircle').css('display','none');"), config.timeout);
 	}
 	function ShowFlyingCircle() {
@@ -109,7 +109,6 @@ condition.nowWeDoing = 'тут открываем пейрол в реквест
     driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
         V.boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(1);
 
 condition.nowWeDoing = 'проверяем фореманан в пейроле в реквесте';
     MF.EditRequest_PayrollOpenForemanTab();
@@ -173,7 +172,6 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
     VD.IWant(VD.ToEqual, Math.floor(V.boardNumbers.Payroll.helpersForComission.Tips),
         Math.floor(V.boardNumbers.Tips / V.boardNumbers.CrewSize),
         'Не совпал Tips Helpera');
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\'); calcWorkerTotal(\'driver\');"]')).getText().then(function (text) {
         V.boardNumbers.Payroll.helpersForComission.total = SF.cleanPrice(text);
     }),config.timeout);
@@ -203,7 +201,6 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep(1);
 
 condition.nowWeDoing = 'выбираем цифры хелпера';
     MF.Payroll_ClickAllDepartment();

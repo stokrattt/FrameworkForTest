@@ -566,7 +566,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickFullPacking() {
         SF.click(By.xpath('//label[@for="full"]/input[@ng-model="vm.packing_service"]'));
         WaitWhileBusy();
-        SF.sleep(8);
+        SF.sleep(9);
     }
 
     function Account_CheckRequestStatus_NotConfirmed(Id) {
@@ -707,7 +707,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
         SF.sleep(2);
         SweetConfirm();
-        SF.sleep(5);
+        SF.sleep(7);
     }
     function Account_OpenEditModal() {
         SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));

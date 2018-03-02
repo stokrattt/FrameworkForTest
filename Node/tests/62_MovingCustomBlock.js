@@ -35,7 +35,6 @@ condition.nowWeDoing = 'создаем локал мув, пендинг, и и�
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга пендинг на аккаунте');
     }),config.timeout);
-    SF.sleep(0.5);
     SF.openTab (0);
     SF.sleep(1);
     LF.closeEditRequest ();
@@ -50,7 +49,6 @@ condition.nowWeDoing = 'выключаем кастомный блок пенд�
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга пендинг на аккаунте');
     }),config.timeout);
-    SF.sleep(0.5);
     SF.openTab (0);
     SF.sleep(1);
 
@@ -84,14 +82,12 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте');
     }),config.timeout);
-    SF.sleep(0.5);
     JS.scroll("a[ng-click=\"vm.Logout()\"]");
     MF.Account_ClickProceedBookYourMove();
     SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
     }),config.timeout);
-    SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
     SF.sleep(1);
@@ -107,12 +103,10 @@ condition.nowWeDoing = 'выключаем кастомный блок not confi
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга not confirmed на аккаунте');
     }),config.timeout);
-    SF.sleep(0.5);
     MF.Account_ClickProceedBookYourMove();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
     }),config.timeout);
-    SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
     SF.sleep(3);
@@ -145,13 +139,11 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга confirmed на аккаунте');
     }),config.timeout);
-    SF.sleep(0.5);
     MF.Account_ClickViewConfirmationPage ();
     SF.sleep(3);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга confirmed на аккаунте на confirmation page');
     }),config.timeout);
-    SF.sleep(0.5);
     MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
     SF.sleep(3);
@@ -167,12 +159,10 @@ condition.nowWeDoing = 'выключаем кастомный блок confirmed
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга confirmed на аккаунте');
     }),config.timeout);
-    SF.sleep(0.5);
     MF.Account_ClickViewConfirmationPage ();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отключило кастомный блок для мувинга confirmed на аккаунте на confirmation page');
     }),config.timeout);
-    SF.sleep(0.5);
     SF.openTab (0);
     SF.sleep(3);
 
@@ -180,7 +170,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для конф
     SF.click(By.xpath('//div[@class="custom-block moving"]//input[@ng-model="confirmed_tab.showCustomBlock"]/following-sibling::span'));
     SF.click(By.xpath('//div[@class="custom-block moving"]//input[@ng-model="confirmed_tab.showOnConfirmationPage"]/following-sibling::span'));
     SF.click(By.xpath('//div[@class="custom-block moving"]//tr[@ng-repeat="confirmed_tab in movingConfirmedBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
-    SF.sleep(2);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

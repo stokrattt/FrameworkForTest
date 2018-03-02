@@ -88,9 +88,8 @@ condition.nowWeDoing = 'зашли на админку второй раз дл�
     V.boardNumbersCubFit = {};
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SF.cleanPrice (text);
+        VD.IWant(VD.ToEqual, V.boardNumbersCubFit, V.accountNumbersLDWithInvent.CubicFit, 'Кубик фит не совпадает с аккаунтом');
     }),config.timeout);
-    SF.sleep (1);
-    VD.IWant(VD.ToEqual, V.boardNumbersCubFit, V.accountNumbersLDWithInvent.CubicFit, 'Кубик фит не совпадает с аккаунтом');
     V.boardNumbers = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
         dateString = dateString.toUpperCase();
@@ -102,7 +101,6 @@ condition.nowWeDoing = 'зашли на админку второй раз дл�
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
     SF.sleep (1);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDWithInvent, V.boardNumbers);
-    SF.sleep (1);
 
 condition.nowWeDoing = 'конфермим работу, делаем клозинг и на этой табе вносим изменения в реквест. Потом запомним все, сохраним';
     JS.step(JSstep.selectTruck(3));
@@ -133,7 +131,6 @@ condition.nowWeDoing = 'открываем наш реквест с измене
         VD.IWant(VD.ToEqual, V.boardNumbersCubFitClosingTab, 1200, 'Кубик фит не совпадает с клозингом, ' +
             'тоесть мы на клозинге поменяли, сохранили, закрыли и сравниваем и он не совпадает а должен');
     }),config.timeout);
-    SF.sleep (1);
     V.boardNumbersClosingAfterReopenedAndCloseRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterReopenedAndCloseRequest);
     SF.sleep (1);
@@ -141,7 +138,6 @@ condition.nowWeDoing = 'открываем наш реквест с измене
     VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterReopenedAndCloseRequest.Fuel, V.boardNumbersClosingTab.Fuel, 'не сохранился Fuel на табе клозинга');
     VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterReopenedAndCloseRequest.Packing, V.boardNumbersClosingTab.Packing, 'не сохранился Packing на табе клозинг');
     VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterReopenedAndCloseRequest.AdServices, V.boardNumbersClosingTab.AdServices, 'не сохранился Services на табе клозинг');
-    SF.sleep (1);
 
 condition.nowWeDoing = 'идем на страничку аккаунта и конфирмейшн и проверяем, что изменения в клозинге не коснулись аккаунта';
     SF.click(By.xpath('//a[@ng-click="goTo()"]'));
@@ -154,9 +150,8 @@ condition.nowWeDoing = 'идем на страничку аккаунта и к�
     MF.Account_ClickViewConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.accountNumbersLDWithInvent.Total, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж после смены данных в клозинге');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.accountNumbersLDWithInvent.Total, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж после смены данных в клозинге');
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Move Size")]/following-sibling::span/span[1]')).getText().then(function(text){
         V.cf = SF.cleanPrice(text.substring(text.indexOf('Inventory ')+9, text.indexOf('c.f.')));
         VD.IWant(VD.ToEqual, V.cf, V.boardNumbersCubFit, 'поменялся вес, стал не по инвенторию на конфирмейшине');

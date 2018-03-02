@@ -17,12 +17,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom1 = text;
         VD.IWant(VD.ToEqual,V.WeDontFrom1, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Милфорд, CT 06461")]')).getText().then(function(text){
         V.WeDontTo1 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo1, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('02536', '84008');
@@ -31,12 +29,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom2 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom2, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Бонанса, UT 84008")]')).getText().then(function(text){
         V.WeDontTo2 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo2, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('02381', '75007');
@@ -45,12 +41,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
        V.WeDontFrom3 = text;
        VD.IWant(VD.ToEqual, V.WeDontFrom3, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Кэрролтон, TX 75007")]')).getText().then(function(text){
         V.WeDontTo3 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo3, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('02382', '75755');
@@ -59,12 +53,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom4 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom4, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Биг Санди, TX 75755")]')).getText().then(function(text){
         V.WeDontTo4 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo4, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01367', '86338');
@@ -73,12 +65,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom5 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom5, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Скалл Вэлли, AZ 86338")]')).getText().then(function(text){
         V.WeDontTo5 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo5, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01462', '58227');
@@ -87,12 +77,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom6 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom6, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Эдинберг, ND 58227")]')).getText().then(function(text){
         V.WeDontTo6 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo6, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01266', '58856');
@@ -101,12 +89,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom7 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom7, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Зал, ND 58856")]')).getText().then(function(text){
         V.WeDontTo7 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo7, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01346', '35112');
@@ -115,12 +101,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
      V.WeDontFrom8 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom8, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Маргарет, AL 35112")]')).getText().then(function(text){
     V.WeDontTo8 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo8, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('02038', '40350');
@@ -129,12 +113,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom9 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom9, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Мурфилд, KY 40350")]')).getText().then(function(text){
         V.WeDontTo9 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo9, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01344', '75007');
@@ -143,12 +125,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom10 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom10, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Кэрролтон, TX 75007")]')).getText().then(function(text){
         V.WeDontTo10 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo10, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01516', '68954');
@@ -157,12 +137,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom11 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom11, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Инленд, NE 68954")]')).getText().then(function(text){
         V.WeDontTo11 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo11, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01075', '25044');
@@ -171,12 +149,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom12 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom12, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Юг Хадли, MA 01075")]')).getText().then(function(text){
         V.WeDontTo12 = text;
        VD.IWant(VD.ToEqual, V.WeDontTo12, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('02539', '25632');
@@ -185,12 +161,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom13 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom13, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Лайберн, WV 25632")]')).getText().then(function(text){
         V.WeDontTo13 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo13, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01223', '92860');
@@ -199,12 +173,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom14 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom14, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Норко, CA 92860")]')).getText().then(function(text){
         V.WeDontTo14 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo14, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(5);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('02134', '93421');
@@ -213,12 +185,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom15 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom15, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Арройо Гранде, CA 93421")]')).getText().then(function(text){
         V.WeDontTo15 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo15, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01718', '95253');
@@ -227,12 +197,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom16 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom16, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Виктор, CA 95253")]')).getText().then(function(text){
         V.WeDontTo16 = text;
         VD.IWant(VD.ToEqual, V.WeDontTo16, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('02222', '01101');
@@ -241,12 +209,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
        V.WeDontFrom17 = text;
        VD.IWant(VD.ToEqual, V.WeDontFrom17, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Спрингфилд, MA 01101")]')).getText().then(function(text){
        V.WeDontTo17 = text;
        VD.IWant(VD.ToEqual, V.WeDontTo17, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
 
@@ -257,12 +223,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom18 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom18, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Стаффорд Спрингс, CT 06076")]')).getText().then(function(text){
        V.WeDontTo18 = text;
        VD.IWant(VD.ToEqual, V.WeDontTo18, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01201', '12125');
@@ -271,12 +235,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom19 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom19, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Нью Лебанон, NY 12125")]')).getText().then(function(text){
     V.WeDontTo19 = text;
     VD.IWant(VD.ToEqual, V.WeDontTo19, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('01475', '03470');
@@ -285,12 +247,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.WeDontFrom20 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom20, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Уинчестер, NH 03470")]')).getText().then(function(text){
     V.WeDontTo20 = text;
     VD.IWant(VD.ToEqual, V.WeDontTo20, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
     SF.clear (By.id('edit-zip-code-from'));
     SF.clear (By.id('edit-zip-code-to'));
 
@@ -305,7 +265,7 @@ condition.nowWeDoing = 'с нижней формы вводим невалидн
        V.WeDontTo22 = text;
     VD.IWant(VD.ToEqual, V.WeDontTo22, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
 
 

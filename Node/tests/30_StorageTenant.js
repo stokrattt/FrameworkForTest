@@ -176,7 +176,6 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Balance :")]/span')).getText().then(function (text) {
          VD.IWant (VD.ToEqual, SF.cleanPrice (text), 0, 'баланс на вкладке леджер не 0 после оплаты инвойса')
     }),config.timeout);
-    SF.sleep(0.5);
 
 condition.nowWeDoing = 'добавляем лот намберс';
     MF.EditStorage_OpenLotNumbers();

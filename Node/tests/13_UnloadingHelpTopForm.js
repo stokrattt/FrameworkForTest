@@ -33,9 +33,8 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку с
     LF.Validation_Compare_Account_Admin(V.accountNumbersWithRes,V.boardNumbersWithRes);
     driver.wait(driver.executeScript('return $("input#reserv_price").val()').then(function(text){
         V.boardNumbersWithRes.ReservationPrice = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual,V.boardNumbersWithRes.ReservationPrice, 150,'Резервация не равно 150');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual,V.boardNumbersWithRes.ReservationPrice, 150,'Резервация не равно 150');
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();
@@ -86,9 +85,8 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку б
     LF.Validation_Compare_Account_Admin(V.accountNumbersNoRes,V.boardNumbersNoRes);
     driver.wait(driver.executeScript('return $("input#reserv_price").val()').then(function(text){
         V.boardNumbersNoRes.ReservationPrice = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual,V.boardNumbersNoRes.ReservationPrice, 0,'Резервация не равно 0');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual,V.boardNumbersNoRes.ReservationPrice, 0,'Резервация не равно 0');
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();

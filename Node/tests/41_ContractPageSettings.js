@@ -75,12 +75,10 @@ condition.nowWeDoing = 'проверяем настройку Credit Card proces
         SF.sleep(3);
         MF.Contract_WaitConfirmationPage ();
         MF.Contract_OpenBillOfLading ();
-        SF.sleep(2);
         MF.Contract_WaitBillOfLading ();
         driver.wait(driver.executeScript("return $('td p:contains(\"Credit Card processing fee:\")').length").then(function (check) {
             VD.IWant (VD.ToEqual, check, 0, 'настройка Credit Card processing fee не отключилась');
         }),config.timeout);
-        SF.sleep (1);
     } else {
         SF.openTab (2);
         SF.sleep(3);
@@ -97,7 +95,6 @@ condition.nowWeDoing = 'проверяем настройку Credit Card proces
         driver.wait(driver.executeScript("return $('td p:contains(\"Credit Card processing fee:\")').length").then(function (check) {
             VD.IWant (VD.ToEqual, check, 1, 'настройка Credit Card processing fee не включилась');
         }),config.timeout);
-        SF.sleep (1);
     }
 condition.nowWeDoing = 'проверяем настройку Custom';
     driver.wait(driver.executeScript("return $('tr[ng-if=\"contract_page.paymentTax.customTax.state\"]').length").then(function (check) {
@@ -120,8 +117,6 @@ condition.nowWeDoing = 'проверяем настройку Custom';
         driver.wait(driver.executeScript("return $('tr[ng-if=\"contract_page.paymentTax.customTax.state\"]').length").then(function (check) {
             VD.IWant (VD.ToEqual, check, 1, 'настройка Custom не включилась');
         }),config.timeout);
-
-        SF.sleep (1);
     } else {
         SF.openTab (2);
         SF.sleep(3);
@@ -138,7 +133,6 @@ condition.nowWeDoing = 'проверяем настройку Custom';
         driver.wait(driver.executeScript("return $('tr[ng-if=\"contract_page.paymentTax.customTax.state\"]').length").then(function (check) {
             VD.IWant (VD.ToEqual, check, 0, 'настройка Custom не отключилась');
         }),config.timeout);
-        SF.sleep (1);
     }
 condition.nowWeDoing = 'проверяем настройку CASH (DISCOUNT)';
     driver.wait(driver.executeScript("return $('td p:contains(\"Cash (discount):\")').length").then(function (check) {
@@ -161,7 +155,6 @@ condition.nowWeDoing = 'проверяем настройку CASH (DISCOUNT)';
         driver.wait(driver.executeScript("return $('td p:contains(\"Cash (discount):\")').length").then(function (check) {
             VD.IWant (VD.ToEqual, check, 0, 'настройка CASH (DISCOUNT) не отключилась');
         }),config.timeout);
-        SF.sleep (1);
     } else {
         SF.openTab (2);
         SF.sleep(3);
@@ -178,7 +171,6 @@ condition.nowWeDoing = 'проверяем настройку CASH (DISCOUNT)';
         driver.wait(driver.executeScript("return $('td p:contains(\"Cash (discount):\")').length").then(function (check) {
             VD.IWant (VD.ToEqual, check, 1, 'настройка CASH (DISCOUNT) не включилась');
         }),config.timeout);
-        SF.sleep (1);
     }
 
 condition.nowWeDoing = 'тут делаем поалту нашим добавленный кастомным пайментом в настройках и проверяем что процент работает';
@@ -187,7 +179,6 @@ condition.nowWeDoing = 'тут делаем поалту нашим добавл
     }),config.timeout);
     SF.sleep(0.5);
     V.customPaymentPercent = (V.totalDeposit * 0.10) + V.totalDeposit;
-    console.log(V.customPaymentPercent);
 
     MF.Contract_ClickPay();
     SF.click(By.xpath('//div[@ng-if="tips.perc == 0 && tips.amount == 0"]'));
@@ -199,7 +190,6 @@ condition.nowWeDoing = 'тут делаем поалту нашим добавл
         V.totalPaymentWithPercent = SF.cleanPrice(text);
         VD.IWant (VD.ToEqual, V.totalPaymentWithPercent, (V.customPaymentPercent).toFixed(2), 'настройка с процентами которую делал Антон не сработала))');
     }),config.timeout);
-    SF.sleep(0.5);
     SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
 
 condition.nowWeDoing = 'идем обратно в настройки контракта и включаем по умолчанию кэш дискаунт, кредит кард фии и выключаем кастом';

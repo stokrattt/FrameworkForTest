@@ -64,7 +64,6 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.FRId = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(3);
 
 condition.nowWeDoing = 'проверяем двойную дату';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Pick Up:")]/following-sibling::div')).getText().then(function(text){
@@ -147,9 +146,9 @@ condition.nowWeDoing = 'закрываем вручную работу пика�
         foremanForCommission: {},
         foreman2ForCommission: {}
     };
-    SF.sleep(2);
+    SF.sleep(1);
     MF.EditRequest_PayrollAddManager(V.managerName);
-    SF.sleep(3);
+    SF.sleep(1);
     MF.EditRequest_PayrollSetManagerCommission('emilia clark','Office Commission', 123, 80);
     LF.EditRequestPayroll_RememberManager(V.managerName, V.boardNumbers.Payroll.managerForCommission);
     MF.EditRequest_PayrollOpenForemanTab();

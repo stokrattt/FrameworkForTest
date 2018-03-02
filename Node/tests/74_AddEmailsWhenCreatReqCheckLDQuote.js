@@ -47,7 +47,6 @@ condition.nowWeDoing = 'идём в логи, потом выставляем с
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Happy Holiday");
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank You");
-    SF.sleep(2);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd (V.client.passwd);
     MF.EditRequest_OpenRequest();
@@ -55,7 +54,6 @@ condition.nowWeDoing = 'идём в логи, потом выставляем с
     SF.sleep(8); // save
     MF.EditRequest_RememberId (V.boardNumbersBeforeAddInvent);
     LF.RememberDigitsRequestBoard (V.boardNumbersBeforeAddInvent);
-    SF.sleep (1);
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
@@ -67,11 +65,10 @@ condition.nowWeDoing = 'идем на аккаунт, добавляем инв�
     MF.Account_ClickViewRequest();
     V.accountNumbersLDBeforeAddInvent = {};
     LF.RememberAccountNumbersLD(V.accountNumbersLDBeforeAddInvent);
-    SF.sleep(1);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDBeforeAddInvent, V.boardNumbersBeforeAddInvent);
     LF.AccountLocalAddInventory();
     LF.AccountLocalAddAdditionalInventory();
-    SF.sleep(4);
+    SF.sleep(2);
     MF.WaitWhileBusy();
     V.accountNumbersLD = {};
     LF.RememberAccountNumbersLD (V.accountNumbersLD);

@@ -17,7 +17,6 @@ condition.nowWeDoing = 'заполняем нижний калькулятор �
         V.nameRequest = text;
         VD.IWant(VD.ToEqual, V.nameRequest, 'Moving & Storage', 'тип реквеста не совпал с созданным');
     }), config.timeout);
-    SF.sleep(1);
 
 condition.nowWeDoing = 'запоминаем данные которые посчитал кальк';
     LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
@@ -44,7 +43,6 @@ condition.nowWeDoing = 'запомнили данные в аке и сравн�
 
 condition.nowWeDoing = 'зашли под админом заполнили данные и сравниваем с акком первый реквест';
     MF.Board_OpenRequest(V.accountNumbersTo.Id);
-    SF.sleep(0.5);
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
 
@@ -62,9 +60,9 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку';
 
 condition.nowWeDoing = 'сравниваем с акком второй реквест';
     MF.Board_OpenRequest(V.accountNumbersFrom.Id);
-    SF.sleep(0.5);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
+
     condition.nowWeDoing = 'сравниваем аккаунт и админку';
     LF.Validation_Compare_Account_Admin(V.accountNumbersFrom,V.boardNumbersFrom);
     JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime)/60));
