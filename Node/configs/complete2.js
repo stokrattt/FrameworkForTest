@@ -1,7 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
         './tests/DefaultSettings.js',
-        './tests/52_AllFlatRate.js',
         './tests/33_AddCarrier.js',
         './tests/34_ContractPageCustomBlock.js',
         './tests/35_InventoryLocalMovingAndValuation.js',

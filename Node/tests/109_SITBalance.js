@@ -109,6 +109,8 @@ condition.nowWeDoing = 'идем в SIT создаем трип, добавля�
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in jobs"]/div[@class="big-form__jobs-list__body__item ng-binding"][4]')).getText().then(function (text) {
+    SF.sleep(8);
+    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]/div[@class="big-form__jobs-list__body__item"][10]')).getText().then(function (text) {
         V.TripBalance1 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterPaymentInRequest.Balance, V.TripBalance1, 'не совпал баланс после добавления работы в трип');
     }),config.timeout);

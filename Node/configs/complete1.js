@@ -15,6 +15,8 @@ module.exports = function(config,V) {
         './tests/SetReservationPrice.js',
         './tests/9_TestNoteSaveNothing.js',
         './tests/1_AllLocalMoving.js',
+        './tests/52_AllFlatRate.js',
+
         './tests/2_CheckPermissions.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/DefaultSettings.js',
