@@ -108,7 +108,7 @@ condition.nowWeDoing = 'идем в SIT создаем трип, добавля�
     SF.sleep(3);
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]/div[@class="big-form__jobs-list__body__item"][10]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in jobs"]/div[@class="big-form__jobs-list__body__item ng-binding"][4]')).getText().then(function (text) {
         V.TripBalance1 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterPaymentInRequest.Balance, V.TripBalance1, 'не совпал баланс после добавления работы в трип');
     }),config.timeout);
@@ -145,7 +145,7 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     JS.scroll('button[ng-click="getJobs()"]');
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]/div[@class="big-form__jobs-list__body__item"][10]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in jobs"]/div[@class="big-form__jobs-list__body__item ng-binding"][4]')).getText().then(function (text) {
         V.TripBalance2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterDiscountAndPaymentInRequest.Balance, V.TripBalance2, 'не совпал баланс после дисконта и 2й оплаты');
     }),config.timeout);
@@ -164,7 +164,7 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     LF.closeEditRequest();
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]/div[@class="big-form__jobs-list__body__item"][10]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in jobs"]/div[@class="big-form__jobs-list__body__item ng-binding"][4]')).getText().then(function (text) {
         V.TripBalance3 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterPendingPayment.Balance, V.TripBalance3, 'не совпал баланс после перевода одной проплаты в пендинг');
     }),config.timeout);
@@ -196,7 +196,7 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     JS.scroll('button[ng-click="getJobs()"]');
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]/div[@class="big-form__jobs-list__body__item"][10]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in jobs"]/div[@class="big-form__jobs-list__body__item ng-binding"][4]')).getText().then(function (text) {
         V.TripBalance4 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterAddInventory.Balance, V.TripBalance4, 'не совпал баланс после добавления инвентаря и пакинга');
     }),config.timeout);
@@ -205,7 +205,7 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
 
 
 condition.nowWeDoing = 'запоминаем номер трипа, выходим из него и проверяем, что он есть в трипах ';
-    driver.wait(driver.findElement(By.xpath('//h2[@class="trip-create-modal-form__toolbar__label md-truncate flex"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//h2[@class="trip-create-modal-form__toolbar__label ng-binding md-truncate flex"]')).getText().then(function (text) {
         V.TripID = SF.cleanPrice(text);
         console.log(V.TripID);
     }),config.timeout);
@@ -213,7 +213,7 @@ condition.nowWeDoing = 'запоминаем номер трипа, выходи
     MF.Board_OpenSideBar();
     MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenTripPlanner();
-    SF.sleep(5);
+    SF.sleep(7);
     driver.wait(driver.findElement(By.xpath('//div[@class="trip-list__body trip-list__body_not-selected"]//div[contains(text(), "'+V.TripID+'")]')).getText().then(function (text) {
         V.TripPlannerID = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual,  V.TripID, V.TripPlannerID, 'нет работы в трипе');
