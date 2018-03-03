@@ -36,6 +36,7 @@ module.exports = function(config,V) {
         './tests/114_ChangeTypeOfServices.js',
         './tests/95_Statistic.js',
         './tests/112_ExtraDropLocalMove.js',
+        './tests/120_LDFlag.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
     ];
     config.timeout = 90000;
