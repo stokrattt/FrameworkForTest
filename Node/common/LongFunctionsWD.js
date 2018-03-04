@@ -1942,6 +1942,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			function (text) {
 				storageNumbers.prepaid = SF.cleanPrice(text);
 			}), config.timeout);
+		SF.sleep(1);
 	}
 
 	function ValidatePendingStorageRequest(storageNumbers, boardNumbersTo, boardNumbersFrom) {

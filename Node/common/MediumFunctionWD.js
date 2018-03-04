@@ -705,9 +705,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickSaveInventory() {
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(2);
+        SF.sleep(1);
         SweetConfirm();
-        SF.sleep(7);
+        SF.sleep(8);
     }
     function Account_OpenEditModal() {
         SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));
