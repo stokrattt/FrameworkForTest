@@ -111,8 +111,9 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
         VD.IWant(VD.ToEqual, text, 999, 'в настройках не поменялся кубик фит для кастомного веса');
     }),config.timeout);
     MF.EditRequest_ClickSizeInventory();
-    SF.sleep(4);
+    SF.sleep(2);
     MF.EditRequest_OpenRequest();
+    SF.sleep(6);
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenLogs();
@@ -124,6 +125,7 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
         V.LogsQuote = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.LogsQuote, V.boardNumbers2PendingAfterAddInven.Total, 'в письме клиенту  тотал отправился неверный в нот конферм работе');
     }),config.timeout);
+    Debug.pause();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 

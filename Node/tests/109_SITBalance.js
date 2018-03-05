@@ -17,13 +17,14 @@ condition.nowWeDoing = 'Создаем Long Distance работу, добавл�
     V.requestNumber={};
     MF.EditRequest_RememberId(V.requestNumber);
     MF.EditRequest_SetToConfirmed();
-    MF.FrontSiteSmallCalc_SelectServiceType(7);
+    // MF.FrontSiteSmallCalc_SelectServiceType(7);
     SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
     SF.sleep(1);
-    JS.step(JSstep.selectTruck(5));
+    JS.step(JSstep.selectTruck(2));
     MF.WaitWhileBusy();
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SaveChanges();
+    Debug.pause();
     V.boardNumbers = {};
     MF.EditRequest_CloseConfirmWork ();
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
@@ -106,12 +107,11 @@ condition.nowWeDoing = 'идем в SIT создаем трип, добавля�
     JS.click('span:contains(\\"Add requests to trip\\")');
     SF.sleep(3);
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
-    SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in jobs"]/div[@class="big-form__jobs-list__body__item ng-binding"][4]')).getText().then(function (text) {
+    SF.sleep(6);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openDialog(item)"]/following-sibling::div[@class="big-form__jobs-list__body__item"][5]')).getText().then(function (text) {
         V.TripBalance1 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterPaymentInRequest.Balance, V.TripBalance1, 'не совпал баланс после добавления работы в трип');
     }),config.timeout);
-    SF.sleep(2);
     JS.scroll('button[ng-click="getJobs()"]');
 
 condition.nowWeDoing = 'идем в реквест, делаем в клоузинге дисконт, еще одну проплату, запоминаем баланс, и проверям его в трипе';
@@ -119,7 +119,7 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     MF.EditRequest_WaitForBalanceVisible();
     SF.click(By.xpath('//label[@ng-click="OpenDiscountInvoiceModal();"]'));
     SF.waitForLocated (By.xpath('//button[@ng-click="openCouponModal()"]'));
-    SF.sleep(2);
+    SF.sleep(4);
     SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'));
     SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'), 99);
     SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.add_percent_discount"]'));
@@ -144,7 +144,7 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     JS.scroll('button[ng-click="getJobs()"]');
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in jobs"]/div[@class="big-form__jobs-list__body__item ng-binding"][4]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openDialog(item)"]/following-sibling::div[@class="big-form__jobs-list__body__item"][5]')).getText().then(function (text) {
         V.TripBalance2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterDiscountAndPaymentInRequest.Balance, V.TripBalance2, 'не совпал баланс после дисконта и 2й оплаты');
     }),config.timeout);
@@ -162,7 +162,7 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     LF.closeEditRequest();
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in jobs"]/div[@class="big-form__jobs-list__body__item ng-binding"][4]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openDialog(item)"]/following-sibling::div[@class="big-form__jobs-list__body__item"][5]')).getText().then(function (text) {
         V.TripBalance3 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterPendingPayment.Balance, V.TripBalance3, 'не совпал баланс после перевода одной проплаты в пендинг');
     }),config.timeout);
@@ -193,19 +193,18 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     JS.scroll('button[ng-click="getJobs()"]');
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in jobs"]/div[@class="big-form__jobs-list__body__item ng-binding"][4]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openDialog(item)"]/following-sibling::div[@class="big-form__jobs-list__body__item"][5]')).getText().then(function (text) {
         V.TripBalance4 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterAddInventory.Balance, V.TripBalance4, 'не совпал баланс после добавления инвентаря и пакинга');
     }),config.timeout);
 
 condition.nowWeDoing = 'запоминаем номер трипа, выходим из него и проверяем, что он есть в трипах ';
-    driver.wait(driver.findElement(By.xpath('//h2[@class="trip-create-modal-form__toolbar__label ng-binding md-truncate flex"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//h2[@class="trip-create-modal-form__toolbar__label md-truncate flex"]')).getText().then(function (text) {
         V.TripID = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(1);
-    MF.Board_OpenSideBar();
+    // MF.Board_OpenSideBar();
     MF.Board_ClickLongDistanceDispach();
-    MF.Board_OpenTripPlanner();
+    // MF.Board_OpenTripPlanner();
     SF.sleep(7);
     driver.wait(driver.findElement(By.xpath('//div[@class="trip-list__body trip-list__body_not-selected"]//div[contains(text(), "'+V.TripID+'")]')).getText().then(function (text) {
         V.TripPlannerID = SF.cleanPrice(text);

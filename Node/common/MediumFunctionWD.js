@@ -1413,7 +1413,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.clear(By.xpath('//input[@ng-model="request.custom_weight.value"]'));
         SF.send(By.xpath('//input[@ng-model="request.custom_weight.value"]'), number);
         SF.click(By.xpath('//h3[contains(text(), "Auto Calculator")]'));
-        SF.sleep(0.5);
+        SF.sleep(1);
     }
     function EditRequest_ClickFlatRateLocalMove() {
         SF.click(By.xpath('//input[@ng-model="request.field_flat_rate_local_move.value"]/..'));
