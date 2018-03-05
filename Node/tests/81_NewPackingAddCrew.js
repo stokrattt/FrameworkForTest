@@ -109,7 +109,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="rate.value"]')).getAttribute('value').then(function(text){
         V.RateCrew = SF.cleanPrice(text);
-                    }),config.timeout);
+    }),config.timeout);
     SF.click(By.xpath('//button[@ng-click="saveSettings()"]'));
     MF.WaitWhileBusy ();
     JS.click('a[ng-click=\\"vm.assignTeam(request)\\"]:visible');
