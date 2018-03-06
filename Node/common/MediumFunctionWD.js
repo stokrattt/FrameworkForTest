@@ -1253,9 +1253,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
             boardNumbers.cbf = SF.cleanPrice(text);
         }),config.timeout);
+        SF.sleep(1);
     }
     function EditRequest_SwitchCalculator(){
         SF.click(By.xpath('//span[@ng-click="switchCalc()"]'));
+        WaitWhileBusy();
     }
     function EditRequest_AddRoomNumber(number){
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
