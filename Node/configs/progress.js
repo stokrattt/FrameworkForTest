@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/99_PendingInfoInventoryTotal.js'];
+    config.suite = ['./tests/21_LDFromAdminCheckPayroll.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;

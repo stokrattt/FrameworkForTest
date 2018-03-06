@@ -131,6 +131,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     //====================================DISPACH=======================================
 
     function Dispach_ClickUnassignTeam() {
+        JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
         SF.sleep(1.5);
         SF.click(By.xpath('//a[@ng-click="vm.unAssignTeam()"]'));
     }
@@ -1034,6 +1035,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@ng-click="addWorker(\'salesPerson\')"]'));
         SF.click(By.xpath('(//select[@ng-model="selected.salesPerson[salesPersonIndex]"])[last()]'));
         SF.click(By.xpath('(//select[@ng-model="selected.salesPerson[salesPersonIndex]"])[last()]/option[contains(text(),"'+name+'")]'));
+        WaitWhileBusy();
     }
     function EditRequest_PayrollAddForeman(name){
         SF.click(By.xpath('//div[@ng-click="addWorker(\'foreman\')"]'));
@@ -1163,8 +1165,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function EditRequest_OpenLogs() {
+        SF.sleep(1);
         SF.click(By.xpath('//a[@ng-click="select(tabs[5])"]'));
-        SF.sleep(2);
+        SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
         JS.waitForExist('div[ng-repeat="log in allLogs | orderBy: \\\'-id\\\' track by $index "]:eq(3)');
     }

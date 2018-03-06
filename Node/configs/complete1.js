@@ -25,7 +25,7 @@ module.exports = function(config,V) {
         './tests/14_LoadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
-       // './tests/15_OvernightDownForm.js',
+       './tests/15_OvernightDownForm.js',
         './tests/13_UnloadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
         './tests/16_UnloadHelpDownFrontCheckRateClosing.js',

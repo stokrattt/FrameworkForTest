@@ -80,10 +80,13 @@ condition.nowWeDoing = 'второй раз в аккаунте,проверяю
        V.BoxMed = text;
        }),config.timeout);
     SF.sleep(1);
+    Debug.pause();
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
     SF.sleep(1);
-    V.boxCostAc = V.boardNumbers.Packing - V.accountNumbers.Packing;
+    console.log(V.BoxMed);
+
+    V.boxCostAc = V.boardNumbers.Packing - 888;
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();

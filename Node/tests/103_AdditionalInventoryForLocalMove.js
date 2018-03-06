@@ -174,6 +174,7 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
         V.StorageCF = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.RentalCF, V.StorageCF,'не совпал  c f рентал агримент и сторадж');
     }),config.timeout);
+    MF.WaitWhileBusy();
     SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
     MF.EditRequest_WaitForBalanceVisible();
     LF.closeEditRequest();
