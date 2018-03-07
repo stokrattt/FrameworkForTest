@@ -6,6 +6,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.phone = SF.randomCifra(10);
 	V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 	V.client.passwd = 123;
+	V.salesName = "emilia clarck";
+	V.salesLogin = "emilia";
+	V.salesPassword = 123;
 
 	condition.nowWeDoing = 'создаем мувинг с фронта, ставим статус инхом эстимеит';
 	SF.get(V.adminURL);
@@ -17,25 +20,36 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
 		V.RequestInhomeDate = calDate;
 	}),config.timeout);
-	SF.sleep(1);
-	driver.wait(driver.executeScript(JSstep.selectHomeEstimator(4, V.salesName)));
-	SF.sleep(1);
+	JS.click('div[uib-tooltip="emilia clark"]');
+	MF.WaitWhileBusy();
+	SF.click(By.id('home-estimate-start-time'));
+	SF.send(By.id('home-estimate-start-time'),"12:30 AM");
+	SF.click(By.xpath('//input[@ng-model="request.home_estimate_start_time.value"]'));
+	SF.send(By.xpath('//input[@ng-model="request.home_estimate_start_time.value"]'),"02:00 AM");
 	V.boardNumbers = {};
-	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
 	MF.EditRequest_SaveChanges();
-	condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
+
+condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
 	MF.EditRequest_OpenPayment();
 	LF.EditRequest_Payment_AddOnlinePayment();
 	MF.EditRequest_ClosePayment();
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	LF.closeEditRequest();
+
 	condition.nowWeDoing = 'идем в Requests открываем Inhome Estimate для проверки что работа есть';
-	LF.HomeEstimateRequest_Check();
+	LF.HomeEstimateRequest_Check(V.boardNumbers);
+
 	condition.nowWeDoing = 'идем на дащборд проверить реквест в табе Inhome Estimate';
-	LF.HomeEstimate_CheckStatusinMoveboard();
+	MF.Board_OpenDashboard();
+	MF.Board_OpenInhomeEstimateTab();
+	driver.wait(driver.findElement(By.xpath('//td[contains(text(), "' + V.boardNumbers.Id + '")]')).getText().then(function (text) {
+		VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers.Id, 'реквеста нет в табе Inhome Estimate на дашборде')
+	}), config.timeout);
+	MF.Board_LogoutAdmin();
+
 	condition.nowWeDoing = 'идем в аккаунт, проверить что статус реквеста инхом эстимеит';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
@@ -45,44 +59,36 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		VD.IWant(VD.ToEqual, Status, 'IN-HOME ESTIMATE');
 	}), config.timeout);
 	MF.Board_LogoutAdmin();
-	SF.sleep(1);
+
 	condition.nowWeDoing = 'заходим в портал как сейлс';
-	LF.HomeEstimate_SalesGoInPortal();
-	SF.sleep(3);
-	//Добавляем  пэкинг
-	MF.WaitWhileBusy ();
+	SF.get(V.adminURL);
+	LF.HomeEstimate_SalesGoInPortalandOpenRequest(V.salesLogin,V.salesPassword, V.boardNumbers);
+
+	condition.nowWeDoing = 'добавляем пэкинг и адишенал сервисы';
+	JS.scroll('label[ng-click="openAddPackingModal();"]');
 	MF.EditRequest_AddPackingAndFullPAcking();
-	SF.click(By.xpath('//button[@ng-click="save()"]'));
-	MF.WaitWhileBusy ();
-	//добавляем адишинал
 	MF.EditRequest_AddAdditionalServSalesTab();
-	//добавление инвентаря
+
+	condition.nowWeDoing = 'добавляем инвентарь';
 	LF.AddInventory_InHomeEstimate();
-	SF.sleep(5);
-	// меняем имя юзера
-	MF.WaitWhileBusy();
+
+	condition.nowWeDoing = 'изменяем информацию о клиенте, выбираем трак и конфермим работу';
+	MF.EditRequest_WaitForOpenRequest();
+	SF.waitForVisible(By.xpath('//div[@ng-class="{\'mobile-subbox-wrapper\': isMobile}"]'));
 	LF.HomeEstimate_EditClientInfo();
-	SF.click(By.xpath('//li/a[@ng-click="select(tabs[0])"]'));
-	//выбираем трак и конфермим работу
+	MF.EditRequest_OpenRequest();
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-	MF.EditRequest_SetToNotConfirmed();
-	SF.click(By.xpath('//button[@ng-click="saveChanges()"]'));
-	JS.waitForExist('button[ng-click="update(request)"]:visible');
-	SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-	SF.sleep(2);
-	MF.WaitWhileBusy ();
-	LF.HomeEstimate_ReservationPage();
 	MF.WaitWhileBusy();
-	SF.sleep(2);
-	JS.scroll('input[ng-click="opentDatePicker()"]');
+	MF.EditRequest_SetToNotConfirmed();
+	LF.HomeEstimate_SaveChanges();
+	LF.HomeEstimate_ReservationPage();
+	SF.waitForVisible(By.xpath('//div[@ng-class="{\'mobile-subbox-wrapper\': isMobile}"]'));
 	V.boardNumbersPortal = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbersPortal);
-	LF.RememberDigitsRequestBoard(V.boardNumbersPortal);
-	SF.sleep(3);
 	SF.click(By.xpath('//div/button[@ng-click="cancel()"]'));
 	MF.HomeEstimate_Logout();
-	// идем на дэшборд и проверяем статус конферм
-	MF.WaitWhileBusy ();
+
+	condition.nowWeDoing = 'идем на дэшборд, сверяем цифры портала с цифрами в реквесте';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
 	MF.WaitVisibleDashboard();
@@ -91,18 +97,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Board_OpenRequest(V.boardNumbers.Id);
 	V.boardAfterPortal = {};
 	LF.RememberDigitsRequestBoard(V.boardAfterPortal);
-	//проверка значений
-	VD.IWant (VD.ToEqual, V.boardNumbersPortal.QuoteMin, V.boardAfterPortal.QuoteMin, 'не совпала квота портал/реквест конферм');
-	VD.IWant (VD.ToEqual, V.boardNumbersPortal.QuoteMax, V.boardAfterPortal.QuoteMax, 'не совпала квота портал/реквест конферм');
-	VD.IWant(VD.ToEqual, V.boardNumbersPortal.TravelTime,V.boardAfterPortal.TravelTime,'не совпал трэвел тайм портал/реквест конферм');
-	VD.IWant(VD.ToEqual, V.boardNumbersPortal.Packing , V.boardAfterPortal.Packing,'не совпал пэкинг портал/ реквест конферм');
-	VD.IWant(VD.ToEqual, V.boardNumbersPortal.Fuel, V.boardAfterPortal.Fuel,'не совпал фюел портал/реквест конферм');
-	VD.IWant(VD.ToEqual, V.boardNumbersPortal.HourlyRate, V.boardAfterPortal.HourlyRate,'не совпал рейт портал/реквест');
-	VD.IWant(VD.ToEqual, V.boardNumbersPortal.Trucks, V.boardAfterPortal.Trucks,'не совпало количество траков портал/реквест');
-	VD.IWant(VD.ToEqual, V.boardNumbersPortal.AdServices,V.boardAfterPortal.AdServices,'не совпали сервисы портал/реквест');
-	VD.IWant(VD.ToEqual, V.boardNumbersPortal.CrewSize, V.boardAfterPortal.CrewSize,'не совпал крюсайз портал/реквест');
-	VD.IWant(VD.ToEqual, V.boardNumbersPortal.cbf, V.boardAfterPortal.cbf,'не совпали кубикфиты портал /реквест');
-	MF.EditRequest_CloseEditRequest();
+	LF.Validation_Compare_Account_Admin(V.boardNumbersPortal,V.boardAfterPortal);
 
 	SF.endOfTest();
 };
