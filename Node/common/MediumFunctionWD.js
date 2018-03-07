@@ -103,7 +103,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(4);
     }
     function CreateRequest_ClickCalculate() {
-        SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         WaitWhileBusy ();
         SF.sleep(1);
@@ -335,10 +334,19 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][2]'));
         SF.sleep(2);
     }
+    function Board_OpenSettingsAccountPageFAQ() {
+        SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
+        SF.sleep(3);
+        SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][9]'));
+        SF.sleep(2);
+    }
     function Board_OpenSettingsLongDistance() {
         SF.click(By.xpath('//a[@ui-sref="settings.longdistance"]'));
         SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
         SF.sleep (4);
+    }
+    function BoardOpenSettingsLongDistanceStatus() {
+        SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][5]'));
     }
 
     function Board_OpenSettingsDepartment() {
@@ -724,6 +732,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_ClickUpdateClientInModalWindow() {
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        SF.sleep(1);
+    }
+    function Account_ClickDetails() {
+        JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
+        WaitWhileBusy();
+    }
+    function Account_ClickSaveDetails() {
+        WaitWhileBusy();
+        SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
+        driver.executeScript("$('body').scrollTop(0);");
+        SF.sleep(2);
     }
 
     //===================================CONTRACT===================================
@@ -859,6 +878,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SweetConfirm();
     }
     function Contract_ClickPlusForOpenSubMenuStorageAndOvernight() {
+        SF.sleep(1);
         SF.click(By.xpath('//a[@ng-click="showTransit()"]'));
         SF.sleep(0.5);
     }
@@ -2179,6 +2199,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         BoardSettings_ClickFuelSurcharge:BoardSettings_ClickFuelSurcharge,
         Board_OpenInhomeEstimateTab:Board_OpenInhomeEstimateTab,
         BoardRequestPage_SetStartEndDate:BoardRequestPage_SetStartEndDate,
+        Board_OpenSettingsAccountPageFAQ:Board_OpenSettingsAccountPageFAQ,
+        BoardOpenSettingsLongDistanceStatus:BoardOpenSettingsLongDistanceStatus,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
@@ -2222,6 +2244,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_SetCommercialMoveSize:Account_SetCommercialMoveSize,
         Account_SendAdressFromModalWindow:Account_SendAdressFromModalWindow,
         Account_ClickUpdateClientInModalWindow:Account_ClickUpdateClientInModalWindow,
+        Account_ClickDetails:Account_ClickDetails,
+        Account_ClickSaveDetails:Account_ClickSaveDetails,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,

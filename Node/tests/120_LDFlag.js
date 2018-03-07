@@ -14,16 +14,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'Идем в настройки  ЛД и создаем флаг';
     MF.Board_OpenSettingsGeneral ();
     MF.Board_OpenSettingsLongDistance ();
-    SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][5]'));
-    SF.click(By.xpath('//button[@ng-click="vm.addNewStatus(); vm.addFlag = true"]'));
-    SF.click(By.xpath('//input[@ng-model="newFlag.name"]'));
-    SF.send(By.xpath('//input[@ng-model="newFlag.name"]'),'Flag');
-    SF.click(By.xpath('//input[@ng-model="newFlag.color"]'));
-    SF.clear(By.xpath('//input[@ng-model="newFlag.color"]'));
-    SF.send(By.xpath('//input[@ng-model="newFlag.color"]'), '#4f2e2e');
-    SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="saveNewFlag(); "]'));
-    SF.sleep(3);
+    MF.BoardOpenSettingsLongDistanceStatus();
+    LF.LongDistanceSettings_AddLDStatusFlag('Flag');
 
 condition.nowWeDoing = 'Создаем реквест, и проверяем есть ли в нем флаг';
     MF.Board_CreateDraftRequest();
@@ -56,12 +48,11 @@ condition.nowWeDoing = 'Проверяем есть ли в SIT флаг в Пи
 condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем флаг';
     MF.Board_OpenSideBar();
     MF.Board_OpenSettingsGeneral ();
-    SF.sleep(1);
     MF.Board_OpenSettingsLongDistance ();
     SF.click(By.xpath('//input[@ng-model="search"]'));
-    SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][5]'));
+    MF.BoardOpenSettingsLongDistanceStatus();
     SF.click(By.xpath('//tr[@ng-repeat="values in longdistance.ldStatus track by $index"]/../tr[last()]/td/div[@ng-click="removeFlag($index,values)"]'));
-    SF.sleep(2);
+    SF.sleep(1);
 
 
     SF.endOfTest();

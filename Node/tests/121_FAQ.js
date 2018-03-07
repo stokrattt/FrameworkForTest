@@ -9,14 +9,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.Answer = SF.randomBukva(30);
 
     SF.get(V.adminURL);
-    condition.nowWeDoing = 'идем в настроики FAQ, добавляем вопрос';
+condition.nowWeDoing = 'идем в настроики FAQ, добавляем вопрос';
 
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsGeneral ();
-    SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
-    SF.sleep(3);
-    SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][9]'));
-    SF.sleep(2);
+    MF.Board_OpenSettingsAccountPageFAQ();
     SF.click(By.xpath('//div[@class="settings-account-faq__sort-settings"]//button[@ng-click="openCreateModal()"]'));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//input[@ng-model="item.faq_question"]'));
@@ -30,39 +27,39 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'создаем реквест с фронта, проверяем в аккаунте вопрос который мы создали';
+condition.nowWeDoing = 'создаем реквест с фронта, проверяем в аккаунте вопрос который мы создали';
     SF.get(V.frontURL);
     LF.FullSmallCalcAsLocal(V.client);
     MF.Account_ClickViewRequest();
-    MF.WaitWhileBusy();
     SF.click(By.xpath('//div[@ng-repeat="item in questionArr"]//span[contains(text(), "'+V.Question+'")]'));
     SF.sleep(2);
-         condition.nowWeDoing = 'Проверяем совпадает ли ответ с тем который мы создали';
-         driver.wait(driver.findElement(By.xpath('//div[@class="panel-collapse in collapse"]//div[@ng-bind-html="item.faq_answer"]')).getText().then(function(text) {
+
+condition.nowWeDoing = 'Проверяем совпадает ли ответ с тем который мы создали';
+    driver.wait(driver.findElement(By.xpath('//div[@class="panel-collapse in collapse"]//div[@ng-bind-html="item.faq_answer"]')).getText().then(function(text) {
              VD.IWant(VD.ToEqual, V.Answer, text,'не совпадает ответ с тем что мы создавали');
-        }),config.timeout);
-    SF.sleep(2);
+    }),config.timeout);
     SF.click(By.xpath('//div[@class="panel-collapse in collapse"]//button[contains(text(), \"Yes\")]'));
     SF.sleep(1);
-    condition.nowWeDoing = 'возвращаемся на мувборд';
+
+condition.nowWeDoing = 'возвращаемся на мувборд';
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
-    condition.nowWeDoing = 'идем в настроики FAQ';
+
+condition.nowWeDoing = 'идем в настроики FAQ';
 
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsGeneral ();
-    SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
-    SF.sleep(3);
-    SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][9]'));
-    SF.sleep(2);
-    condition.nowWeDoing = 'Проверяем совпадает ли оценка';
-        driver.wait(driver.findElement(By.xpath('//div[@class="score-box upvote"]')).getText().then(function(text) {
-            V.scoreUp = SF.cleanPrice(text);
-           VD.IWant(VD.ToEqual, V.scoreUp, 1, 'оценка не совпала');
-        }),config.timeout);
-    condition.nowWeDoing = 'удаляем вопрос';
+    MF.Board_OpenSettingsAccountPageFAQ();
+
+condition.nowWeDoing = 'Проверяем совпадает ли оценка';
+    driver.wait(driver.findElement(By.xpath('//div[@class="score-box upvote"]')).getText().then(function(text) {
+           VD.IWant(VD.ToEqual, SF.cleanPrice(text), 1, 'оценка не совпала');
+    }),config.timeout);
+
+condition.nowWeDoing = 'удаляем вопрос';
     SF.click(By.xpath('//div[@class="sizeset chat-widget"]//button[contains(text(), \"Remove\")]'));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//button[contains(text(), \"Confirm\")]'));
+    SF.sleep(1);
     SF.endOfTest();
 };
