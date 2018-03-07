@@ -80,7 +80,6 @@ condition.nowWeDoing = 'второй раз в аккаунте,проверяю
        V.BoxMed = text;
        }),config.timeout);
     SF.sleep(1);
-    Debug.pause();
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
     SF.sleep(1);

@@ -8,7 +8,7 @@ module.exports = function(config,V) {
         './tests/37_PendingStorage.js',
         './tests/38_CustomPayrollInRequest.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
-        './tests/41_ContractPageSettings.js',
+
         './tests/43_WeightType.js',
         './tests/75_UnassTeamAfter3SignMake4Sign.js',
         './tests/46_FuelByMileage.js',
@@ -42,6 +42,7 @@ module.exports = function(config,V) {
         './tests/77_CustomTooltips.js',
         './tests/115_LDCommercialMoveSizeInSIT.js',
         './tests/40_PayrollTableCheckSumJobs.js',
+        './tests/41_ContractPageSettings.js',
     ];
     config.timeout = 90000;
     config.chainFail = false;

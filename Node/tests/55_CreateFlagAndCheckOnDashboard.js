@@ -15,7 +15,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'Идем в настройки и создаем флаг';
     MF.Board_OpenSettingsGeneral ();
     SF.click(By.linkText('Company Flags'));
-    SF.sleep(2);
+    SF.sleep(3.5);
     JS.scroll ('h1:contains("General Settigs ")');
     SF.click(By.xpath('//button[@ng-click="vm.addNewFlag(); vm.addFlag = true"]'));
     SF.send(By.xpath('//input[@ng-model="vm.newFlag.name"]'), V.flagName);
