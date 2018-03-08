@@ -1609,6 +1609,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="saveChanges()"]'));
         SF.click(By.xpath('//button[@ng-click="update(request)"]'));
 	    WaitWhileToaster();
+	    WaitWhileBusy();
     }
 
 
