@@ -12,7 +12,6 @@ condition.nowWeDoing = 'В дашборде (через Create Request) созд
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_ClickCreate();
-   // MF.CreateRequest_SelectServiceType(7);
     MF.CreateRequest_ClickMoveDateInput();
     V.request = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
@@ -25,7 +24,7 @@ condition.nowWeDoing = 'В дашборде (через Create Request) созд
     SF.click(By.xpath('//select[@id="edit-type-from"]/option[@value="string:2"]'));
     SF.click(By.xpath('//select[@id="edit-type-to"]/option[@value="string:2"]'));
     MF.CreateRequest_SendZipToZipFrom ('02032', '90001');
-    SF.sleep(5);
+    SF.sleep(2);
     MF.CreateRequest_ClickCalculate();
     MF.CreateRequest_ClickContinue();
     MF.CreateRequest_SendClientInfo(V.client);
@@ -43,18 +42,19 @@ condition.nowWeDoing = 'Добавляем инвентарь, меняем Fuel
     LF.SetClientPasswd(V.client.passwd);
     LF.addInventoryBoard();
     MF.EditRequest_OpenRequest();
+    SF.waitForVisible(By.xpath('//label[@ng-click="OpenSurchargeModal();"]'));
     MF.EditRequest_OpenFuelSurchModal();
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'));
     SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'),213);
     MF.EditRequest_ClickApplyInFuelWindow();
-    SF.click(By.xpath('//select[@oldvalue="request.type_from.raw"]/option[@value="3"]'));
+    SF.click(By.xpath('//select[@oldvalue="request.type_from.raw"]/option[@value="3"]'));//меняем этаж
     MF.EditRequest_SetAdressToFrom ();
     SF.sleep(1);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    MF.EditRequest_SetToConfirmed(3);
+    MF.EditRequest_SetToConfirmed();
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest ();
 
@@ -64,10 +64,10 @@ condition.nowWeDoing = 'Открываем реквест заново, пров
     MF.Board_OpenRequest (V.requestNumber.Id);
     V.boardNumbersAfterClose = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAfterClose);
-    VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.Total,V.boardNumbers.Total, 'не совпал Total после закрытия');
-    VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.Fuel, V.boardNumbers.Fuel, 'не совпал Fuel после закрытия');
-    VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.Packing, V.boardNumbers.Packing, 'не совпал Packing после закрытия');
-    VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.AdServices, V.boardNumbers.AdServices, 'не совпал Additional после закрытияг');
+    VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.Total,V.boardNumbers.Total, 'не совпал Total после закрытия реквеста');
+    VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.Fuel, V.boardNumbers.Fuel, 'не совпал Fuel после закрытия реквеста');
+    VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.Packing, V.boardNumbers.Packing, 'не совпал Packing после закрытия реквеста');
+    VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.AdServices, V.boardNumbers.AdServices, 'не совпал Additional после закрытия реквеста');
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'Выходим с дашборда, логинимся под клиентом, на странице аккаунта и Confirmation page проверяем, что цифры совпали с теми, что мы вводили в дашборде.';
@@ -78,56 +78,55 @@ condition.nowWeDoing = 'Выходим с дашборда, логинимся �
     MF.Account_ClickViewRequest();
     V.accountNumbersLD={};
     LF.RememberAccountNumbersLD(V.accountNumbersLD);
-    SF.sleep(1);
     LF.Validation_Compare_Account_Admin_LongDistance(V.boardNumbersAfterClose, V.accountNumbersLD);
     MF.Account_ClickViewConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
-        V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbersAfterClose.Total, 'не совпал Total на Confirmation Page с Total в дашборде');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistanceServicesTotal"]')).getText().then(function (text) {
-        V.ConfirmationServices = SF.cleanPrice(text.substring(text.indexOf('$')));
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbersAfterClose.AdServices, 'не совпал AddServices на Confirmation Page с AddServices в дашборде');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.fuelSurcharge"]')).getText().then(function (text) {
-        V.ConfirmationFuelSurcharge = SF.cleanPrice(text.substring(text.indexOf('$')));
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbersAfterClose.Fuel, 'не совпал Fuel на Confirmation Page с Fuel в дашборде');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistanceQuote"]')).getText().then(function (text) {
-        V.ConfirmationQuote = SF.cleanPrice(text.substring(text.indexOf('$')));
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbersAfterClose.Quote, 'не совпал Quote на Confirmation Page c Quote в дашборде');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.ConfirmationTotal,V.boardNumbersAfterClose.Total, 'не совпал Total c борда');
-    VD.IWant(VD.ToEqual, V.ConfirmationServices,V.boardNumbersAfterClose.AdServices, 'не совпал Additional c борда');
-    VD.IWant(VD.ToEqual, V.ConfirmationFuelSurcharge,V.boardNumbersAfterClose.Fuel, 'не совпал Fuel c борда');
-    VD.IWant(VD.ToEqual, V.ConfirmationQuote,V.boardNumbersAfterClose.Quote, 'не совпал Quote c борда');
     MF.Account_ConfirmationBackToRequest();
 
 condition.nowWeDoing = 'В аккаунте удаляем весь инвентарь, проверяем что cubic feet стал дефолтным.';
     MF.Account_ClickInventoryOpenTab();
-    //потом написать функцию на удаление инвентаря
-    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
     MF.Account_ClickSaveInventory();
     MF.Account_WaitForLoadingAccount();
+    SF.sleep(5);
+    SF.waitForLocated (By.xpath('//div[contains(text(),"Move Size")]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
-        V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('100 Offices and 1000 employees ')+18, text.indexOf('c.f.')));
+        V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('100 Offices and 1000 employees ')+17, text.indexOf('c.f.')));
+        console.log(V.accountcbf);
     }),config.timeout);
-    SF.sleep(0.5);
-    VD.IWant(VD.ToEqual, V.defaultcbf, V.accountcbf, 'cubic feet не ушел в дефолтный после удаления инвентаря');
+    VD.IWant(VD.ToEqual, V.defaultcbf, V.accountcbf, 'Cubic feet не ушел в дефолтные 1500 после удаления инвентаря на аккаунте');
     LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'Возвращаемся на дашборд и проверяем что cubic feet стал дефолтным. В табе Sales меняем Fuel, добавляем Packing и Discount.';
+condition.nowWeDoing = 'Возвращаемся на дашборд и проверяем что cubic feet стал дефолтным. В табе Sales меняем Fuel, добавляем Packing и Discount, запоминаем эти изменения';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest (V.requestNumber.Id);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, '1500', 'проверяем, что вес дефолтный')
+        VD.IWant(VD.ToEqual, text, '1500', 'Cubic feet на дашборде не вернулся к дефолтному значению в 1500 после удаления инвентаря на аккаунте')
     }),config.timeout);
     MF.EditRequest_OpenFuelSurchModal();
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'));
@@ -136,10 +135,17 @@ condition.nowWeDoing = 'Возвращаемся на дашборд и пров
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
     MF.EditRequest_AddPacking();
+    V.boardNumbersBeforeSITSales = {};
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbersBeforeSITSales);
 
-condition.nowWeDoing = 'Запоминаем суммы. Переводим работу в Closing, добавляем работу в SIT. Сохраняем, закрываем реквест и идём в Jobs in SIT проверять, что реквест добавлен в SIT.';
-    SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-    SF.waitForVisible (By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
+condition.nowWeDoing = 'Переводим работу в Closing, проверяем чтобы все цифры сходились с теми что были в Sales, добавляем работу в SIT. Сохраняем, закрываем реквест и идём в Jobs in SIT проверять, что реквест добавлен в SIT.';
+    MF.EditRequest_CloseConfirmWork();
+    V.boardNumbersBeforeSITClosing = {};
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbersBeforeSITClosing);
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Total,V.boardNumbersBeforeSITClosing.Total, 'не совпал Total после перевода реквеста с Sales в Closing');
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Fuel, V.boardNumbersBeforeSITClosing.Fuel, 'не совпал Fuel  после перевода реквеста с Sales в Closing');
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Packing, V.boardNumbersBeforeSITClosing.Packing, 'не совпал Packing  после перевода реквеста с Sales в Closing');
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.AdServices, V.boardNumbersBeforeSITClosing.AdServices, 'не совпал AdServices после перевода реквеста с Sales в Closing');
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
@@ -150,27 +156,22 @@ condition.nowWeDoing = 'Запоминаем суммы. Переводим ра
     SF.clear(By.xpath('//input[@ng-model="moveInDate"]'));
     SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
     SF.click(By.xpath('//a[@ng-click="save()"]'));
-    SF.sleep(1);
-    V.boardNumbersAfterSIT = {};
-    LF.RememberDigitsRequestBoard_Down(V.boardNumbersAfterSIT);
     LF.closeEditRequest();
     MF.Board_OpenSideBar();
     MF.Board_OpenJobsInSIT();
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.requestNumber.Id, 'не найден реквест в Jobs in SIT')
     }),config.timeout);
 
-condition.nowWeDoing = 'Заходим в Trip-Planner, создаём трип (Type: Carrier/Agent) и добавляем в трип наш реквест.';
+condition.nowWeDoing = 'Создаём Carrier, заходим в Trip-Planner, создаём трип (Type: Carrier/Agent).';
     MF.Board_OpenSideBar ();
     MF.Board_OpenCourier ();//Создаем Carrier
-    MF.Board_OpenSideBar ();
     LF.CreateCarrier();
     MF.Board_OpenSideBar ();
     MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenTripPlanner();
     MF.SIT_ClickAddTrip();
-    SF.sleep(2);
+    SF.waitForVisible(By.xpath('//div[@class="trip-create-modal-form__form"]'));
     MF.SIT_ChangeStatusTrip('Pending');
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
@@ -178,55 +179,79 @@ condition.nowWeDoing = 'Заходим в Trip-Planner, создаём трип 
     V.driverPhone = SF.randomCifra(10);
     SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
     SF.send (By.xpath('//input[@ng-model="trip.data.details.internal_code"]'), V.internalCode);
-    SF.sleep(1);
     SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
+    SF.waitForVisible(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
-    SF.sleep(1);
     SF.send (By.xpath('//input[@ng-model="trip.data.carrier.driver_name"]'), V.driver);
     SF.send (By.xpath('//input[@ng-model="trip.data.carrier.driver_phone"]'), V.driverPhone);
+    MF.WaitWhileToaster();
+
+condition.nowWeDoing = 'Открываем реквест в Trip-Planner. Меняем Additional Services, Fuel, Packing. Запоминаем эти изменения.';
     JS.click('span:contains(\\"Add Pickup/Delivery\\")');
     MF.WaitWhileBusy();
-    SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
-    JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.sleep(2);
-
-condition.nowWeDoing = 'Идём обратно в дашборд, открываем реквест и проверяем, что цифры в Closing (Total, Fuel, Ad.Services, Packing, Discount) не изменились после добавления реквеста в трип.';
-    MF.Board_OpenSideBar();
-    MF.Board_OpenDashboard();
-    MF.Board_OpenConfirmed();
-    MF.Board_OpenRequest (V.requestNumber.Id);
-    V.boardNumbersAfterTrip = {};
-    LF.RememberDigitsRequestBoard_Down (V.boardNumbersAfterTrip);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
+    SF.click(By.xpath('//label[@ng-click="OpenSurchargeInvoiceModal();"]'));
+    SF.waitForVisible(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
+    SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
+    SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'),300);
+    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
+    SF.waitForVisible(By.xpath('//div[@class="toast toast-success"]'));
     SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.boardNumbersAfterTrip.Total,V.boardNumbersAfterSIT.Total, 'не совпал Total после добавления реквеста в трип');
-    VD.IWant(VD.ToEqual, V.boardNumbersAfterTrip.Fuel, V.boardNumbersAfterSIT.Fuel, 'не совпал Total после добавления реквеста в трип');
-    VD.IWant(VD.ToEqual, V.boardNumbersAfterTrip.Packing, V.boardNumbersAfterSIT.Packing, 'не совпал Total после добавления реквеста в трип');
-    VD.IWant(VD.ToEqual, V.boardNumbersAfterTrip.AdServices, V.boardNumbersAfterSIT.AdServices, 'не совпал Total после добавления реквеста в трип');
-
-condition.nowWeDoing = 'Меняем цифры опять, выходим из реквеста';
-    SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
-    MF.EditRequest_AddPacking();
-    MF.EditRequest_OpenDiscountModal();
-    MF.EditRequest_SendMoneyDiscount(20);
-    SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
+    SF.click(By.xpath('//label[@ng-click="openAddPackingInvoiceModal();"]'));
+    SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+    SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+    SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));
+    SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    MF.WaitWhileToaster();
+    SF.click(By.xpath('//label[@ng-click="OpenDiscountInvoiceModal();"]'));
+    SF.waitForLocated (By.xpath('//button[@ng-click="openCouponModal()"]'));
     SF.sleep(2);
-    V.boardNumbersAfterTrip2 = {};
-    LF.RememberDigitsRequestBoard_Down (V.boardNumbersAfterTrip2);
+    SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'));
+    SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'), 180);
+    SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.add_percent_discount"]'));
+    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
+    MF.SweetConfirm ();
+    SF.waitForVisible(By.xpath('//div[@class="toast-message"]'));
+    V.boardNumbersBeforeAddToTrip = {};
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbersBeforeAddToTrip);
     LF.closeEditRequest ();
 
-condition.nowWeDoing = 'Заходим в этот реквест из трипа, сверяем';
-    MF.Board_OpenSideBar();
-    MF.Board_ClickLongDistanceDispach();
-    MF.Board_OpenJobsInSIT();
+condition.nowWeDoing = 'Добавляем реквест в трип. Проверямем, что Discount, Fuel, Packing и AdServices не изменились после добавления работы в трип. Проверяем, что баланс реквеста равен 0.';
+    SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
+    JS.click('span:contains(\\"Add requests to trip\\")');
+    SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
+    SF.waitForNotVisible(By.xpath('//div[@class="md-toast-content"]'));
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
     MF.EditRequest_WaitForBalanceVisible();
-    V.boardNumbersFromTrip = {};
-    LF.RememberDigitsRequestBoard_Down (V.boardNumbersFromTrip);
-    VD.IWant(VD.ToEqual, V.boardNumbersFromTrip.Total,V.boardNumbersAfterTrip2.Total, 'не совпал Total в трипе после изменений в дашборде');
-    VD.IWant(VD.ToEqual, V.boardNumbersFromTrip.Fuel, V.boardNumbersAfterTrip2.Fuel, 'не совпал Fuel в трипе после изменений в дашборде');
-    VD.IWant(VD.ToEqual, V.boardNumbersFromTrip.Packing, V.boardNumbersAfterTrip2.Packing, 'не совпал Packing в трипе после изменений в дашборде');
-    VD.IWant(VD.ToEqual, V.boardNumbersFromTrip.AdServices, V.boardNumbersAfterTrip2.AdServices, 'не совпал Additional в трипе после изменений в дашборде');
-    SF.sleep(1);
-    //=========================закончили писать тест=============================
+    V.boardNumbersAddedToTrip = {};
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbersAddedToTrip);
+    console.log(V.boardNumbersAddedToTrip);
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeAddToTrip.Discount, V.boardNumbersAddedToTrip.Discount, 'не совпал Discount после добавления работы в трип');
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeAddToTrip.Fuel, V.boardNumbersAddedToTrip.Fuel, 'не совпал Fuel  после после добавления работы в трип');
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeAddToTrip.Packing, V.boardNumbersAddedToTrip.Packing, 'не совпал Packing  после добавления работы в трип');
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeAddToTrip.AdServices, V.boardNumbersAddedToTrip.AdServices, 'не совпал AdServices после добавления работы в трип');
+    VD.IWant(VD.ToEqual, V.boardNumbersAddedToTrip.Balance,'0', 'Balance в реквесте не равен 0 после добавления работы в трип');
+    MF.EditRequest_OpenPayment();
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-click="prepareToDelete($index, receipt.id)"]/td[4]')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant (VD.ToEqual, text, V.boardNumbersAddedToTrip.Payment, 'В payment реквеста ресит TP Collected не равен TP Collected в трипе')
+    }),config.timeout);
+    MF.EditRequest_ClosePayment();
+    LF.closeEditRequest ();
+
+condition.nowWeDoing = 'Сравниваем Balance и TP collected трипа с тоталом и пейментом в реквесте';
+    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[15]')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbersAddedToTrip.Total, 'не совпад Balance в трипе и реквесте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[14]')).getText().then(function(text){
+        V.TPCollected = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.TPCollected,V.boardNumbersAddedToTrip.Payment, 'не совпад Total paid в трипе и реквесте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[13]')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbersAddedToTrip.Balance, 'не совпад Job total в трипе и реквесте');
+    }),config.timeout);
     SF.endOfTest();
 };
