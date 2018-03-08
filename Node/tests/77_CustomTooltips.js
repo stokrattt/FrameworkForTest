@@ -65,7 +65,6 @@ condition.nowWeDoing = 'первый раз в акаунте';
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.myselfPackingText, text, 'не совпали Myself Packing Tooltip');
     }),config.timeout);
-    SF.sleep(8);
     SF.click(By.xpath('//i[@ng-if="vm.tooltipData.fullPacking.isDisplay"]'));
     SF.sleep(8);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
@@ -108,7 +107,7 @@ condition.nowWeDoing = 'первый раз в акаунте';
     driver.wait(driver.findElement(By.xpath('//div/p[contains(text(), "hipeak tooltip")]')).getText().then(function(text){
         V.hipeakTooltip = text;
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     MF.Board_LogoutAdmin();
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
@@ -118,45 +117,39 @@ condition.nowWeDoing = 'первый раз в акаунте';
         return $('.calendarTypeTitle .datepickerGiantTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
         V.tempText = tooltipText;
+        VD.IWant(VD.ToEqual, V.generalTooltip , V.tempText, 'не совпали general tooltip');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.generalTooltip , V.tempText, 'не совпали general tooltip');
     driver.wait(driver.executeScript(function(){
         return $('.calendarType0 .datepickerTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
         V.discountTooltip2 = tooltipText;
+        VD.IWant(VD.ToEqual, V.discountTooltip , V.discountTooltip2, 'не совпали discount tooltip');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.discountTooltip , V.discountTooltip2, 'не совпали discount tooltip');
     driver.wait(driver.executeScript(function(){
         return $('.calendarType1 .datepickerTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
         V.regularTooltip2 = tooltipText;
+        VD.IWant(VD.ToEqual, V.regularTooltip , V.regularTooltip2, 'не совпали Regular tooltip');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.regularTooltip , V.regularTooltip2, 'не совпали Regular tooltip');
     driver.wait(driver.executeScript(function(){
         return $('.calendarType2 .datepickerTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
         V.subpeakTooltip2 = tooltipText;
+        VD.IWant(VD.ToEqual, V.subpeakTooltip , V.subpeakTooltip2, 'не совпали SubPeak tooltip');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.subpeakTooltip , V.subpeakTooltip2, 'не совпали SubPeak tooltip');
     driver.wait(driver.executeScript(function(){
         return $('.calendarType3 .datepickerTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
         V.peakTooltip2 = tooltipText;
+        VD.IWant(VD.ToEqual, V.peakTooltip , V.peakTooltip2, 'не совпали Peak tooltip');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.peakTooltip , V.peakTooltip2, 'не совпали Peak tooltip');
     driver.wait(driver.executeScript(function(){
         return $('.calendarType4 .datepickerTooltip :eq(0)').text();
     }.toString().substr(11)).then(tooltipText => {
         V.hipeakTooltip2 = tooltipText;
+        VD.IWant(VD.ToEqual, V.hipeakTooltip , V.hipeakTooltip2, 'не совпали HiPeak tooltip');
     }),config.timeout);
     SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.hipeakTooltip , V.hipeakTooltip2, 'не совпали HiPeak tooltip');
-    SF.sleep(2);
-    
+
     SF.endOfTest();
 };

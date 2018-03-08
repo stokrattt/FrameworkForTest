@@ -63,7 +63,7 @@ condition.nowWeDoing = 'отправиляем письмо вручную, и �
         V.ManualEmailSend = text;
         VD.IWant(VD.ToEqual, V.ManualEmailSend,('Mail was sent to "'+V.client.email+'", "'+V.AdditionalEmail+'" . From "'+V.adminEmailTemperary+'". Subject: "Sales Signature"'),'не отправились письма после ручного выбора писем');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
     SF.endOfTest();
 };

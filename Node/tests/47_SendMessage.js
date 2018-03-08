@@ -23,7 +23,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, отправл�
     MF.Account_OpenMessage();
     V.toAdmin = SF.randomBukva(6) + '_toAdmin';
     MF.BoardAccount_SendMessage(V.toAdmin);
-    SF.sleep(3);
+    SF.sleep(1);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -36,7 +36,6 @@ condition.nowWeDoing = 'зашли в админку идем в раздел с
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+ V.client.name +'")]/../following-sibling::div[1]//p/p')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, V.toAdmin, text, 'не нашло текст который мы отправили от клиента админу');
     }),config.timeout);
-    SF.sleep(1);
     V.toClientFromAdmin = SF.randomBukva(6) + '_toClientFromAdmin';
     MF.BoardAccount_SendMessage(V.toClientFromAdmin);
     MF.Board_OpenDashboard ();
@@ -64,7 +63,6 @@ condition.nowWeDoing = 'зашли в реквест';
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "'+V.toClientFromAdmin+'")]')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, V.toClientFromAdmin, text, 'не нашло текст который мы отправили клиенту от админа');
     }),config.timeout);
-    SF.sleep(1);
     V.toSalesFromClient = SF.randomBukva(6) + '_toSalesFromClient';
     MF.BoardAccount_SendMessage(V.toSalesFromClient);
     LF.LogoutFromAccount ();
@@ -78,7 +76,6 @@ condition.nowWeDoing = 'Идем под сейлсом и проверяем ч�
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "'+ V.client.name +'")]/../following-sibling::div[1]//p/p')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, V.toSalesFromClient, text, 'не нашло смс который мы отправили от клиента сейлсу');
     }),config.timeout);
-    SF.sleep(1);
     V.toClientFromSales = SF.randomBukva(6) + '_toClientFromSales';
     JS.scroll ('h2:contains("Requests")');
     MF.BoardAccount_SendMessage(V.toClientFromSales);

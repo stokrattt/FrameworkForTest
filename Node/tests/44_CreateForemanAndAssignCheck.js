@@ -66,7 +66,6 @@ condition.nowWeDoing = 'зашли  под созданным фореманом
     LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
-    SF.sleep(1);
     MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
     MF.Contract_ClickPay();
@@ -106,9 +105,9 @@ condition.nowWeDoing = 'идем в диспач ищем работу, пров
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
     MF.EditRequest_OpenPayroll();
     SF.click(By.xpath('//div[@id="invoice"]//a[@ng-click="select(tabs[1])"]'));
-    driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
         V.RequestPayrollTotal = SF.cleanPrice(text);
-    });
+    }),config.timeout);
     SF.sleep(1);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();

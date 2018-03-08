@@ -18,7 +18,6 @@ condition.nowWeDoing = 'создаем пакинг дей с фронта с в
     V.frontNumbers = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
         V.frontNumbers.moveDate = D;
-        console.log(V.frontNumbers.moveDate);
     }),config.timeout);
     MF.FrontSiteSmallCalc_ClickContinue();
     MF.FrontSiteSmallCalc_ClickChooseMoveSize();
@@ -30,13 +29,10 @@ condition.nowWeDoing = 'создаем пакинг дей с фронта с в
     MF.FrontSite_SelectGoogleSearch();
     MF.FrontSiteSmallCalc_SubmitQuoteAndGoToAccount();
     MF.Account_ClickViewRequest();
-    SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));
-    SF.click(By.xpath('//oi-select[@ng-model="commercialSize"]'));
-    SF.sleep(0.3);
-    SF.click(By.xpath('//oi-select[@ng-model="commercialSize"]/div[2]//li[1]'));
-    SF.send(By.xpath('//input[@ng-value="request.field_moving_from.thoroughfare"]'), 'blablabla');
-    SF.send(By.xpath('//input[@ng-value="request.apt_from.value"]'), 123);
-    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+    MF.Account_OpenEditModal();
+    MF.Account_SetCommercialMoveSize();
+    MF.Account_SendAdressFromModalWindow();
+    MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
     LF.AccountLocalAddInventory ();
@@ -56,28 +52,14 @@ condition.nowWeDoing = 'идем в админку сверять данные, 
     LF.SetManager(V.managerFirstName);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SwitchCalculator();
-    SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
-    SF.click(By.xpath('//input[@ng-model="request.minimum_time.value"]'));
-    SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
-    SF.sleep(0.5);
-    SF.click(By.xpath('//div[contains(@class, "ui-timepicker-wrapper") and contains(@style,"display: block;")]/ul/li[contains(text(),"07:15")]'));
-    SF.click(By.xpath('//input[@ng-model="request.travel_time.value"]'));
-    SF.click(By.xpath('//input[@ng-model="request.minimum_time.value"]'));
-    SF.click(By.xpath('//input[@ng-model="request.travel_time.value"]'));
-    SF.sleep(0.5);
-    SF.click(By.xpath('//div[contains(@class, "ui-timepicker-wrapper") and contains(@style,"display: block;")]/ul/li[contains(text(),"01:30")]'));
-    SF.clear(By.xpath('//input[@ng-model="request.crew.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.crew.value"]'), 5);
-    SF.clear(By.xpath('//input[@ng-model="request.rate.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.rate.value"]'), 98);
+    LF.EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff();
+    MF.EditRequest_ChangeCrew(3);
+    MF.EditRequest_ChangeRate(98);
     JS.step(JSstep.selectTruck(2));
     MF.WaitWhileBusy();
     MF.EditRequest_OpenFuelSurchModal();
-    SF.click(By.xpath('//input[@ng-change="changeSurcharge(\'request\',\'perc\')"]'));
-    SF.send(By.xpath('//input[@ng-change="changeSurcharge(\'request\',\'perc\')"]'), 150);
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    SF.sleep(3);
-    MF.WaitWhileToaster();
+    MF.EditRequest_SendFlatSurchargeInFuelWindow(150);
+    MF.EditRequest_ClickApplyInFuelWindow();
     MF.EditRequest_AddPacking();
     MF.EditRequest_AddAdditionalServicesFullPack ();
     MF.EditRequest_SetToNotConfirmed ();
@@ -114,12 +96,10 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }),config.timeout);
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -127,16 +107,12 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.MakeSignInContract();
 
 condition.nowWeDoing = 'добавляем сторадж и инвентарь на контракте а также кастомный айтем';
-    SF.click(By.xpath('//a[@ng-click="showTransit()"]'));
-    SF.sleep(0.5);
-    SF.click(By.xpath('//button[@ng-click="openInventory()"]'));
-    SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
+    MF.Contract_ClickPlusForOpenSubMenuStorageAndOvernight();
+    MF.Contract_ClickCorningToStorage();
     LF.Contract_AddInventory(5);
     MF.Contract_SetTapeNumber(1);
     MF.Contract_SetTapeColorGreen('Green');
-    SF.click(By.xpath('//button[@ng-click="doneWithInventory()"]'));
-    MF.SweetConfirm();
-    MF.WaitWhileBusy();
+    MF.Contract_ClickDoneWithInventory();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="data[fieldName].numberedItems"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 5, 'не сработал done with inventory или другая бага нужно проверить');
     }),config.timeout);
@@ -146,7 +122,6 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     MF.Contract_WaitForRental();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="storageVolume"]')).getAttribute('value').then(function (text) {
         V.rentaAgreementCF = text;
-        console.log(V.rentaAgreementCF);
     }),config.timeout);
     SF.sleep(0.5);
     MF.Contract_SetRentalPhone(V.client.phone);
@@ -157,8 +132,7 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
 
 condition.nowWeDoing = 'тут идем дальше доподписывать контракт и удалим monthly storage fee и проверим что контракт засабмитится';
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
-    SF.click(By.xpath('//input[@value="Monthly Storage Fee"]/../following-sibling::td[3]/p[@ng-click="removeCharge($index)"]'));
+    MF.Contract_RemoveMonthlyStorageFee();
     LF.MakeSignInContract();
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
@@ -223,14 +197,13 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     MF.Payroll_getTotalById(V.accountNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.accountNumbers.Id);
-    SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
 
 condition.nowWeDoing = 'выбираем цифры хелпера';
     LF.findHelperInPayroll('Test Helper1');
     MF.Payroll_getTotalById(V.accountNumbers.Id, V.payrollNumbers.Helper);
     SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Helper.Total, (V.boardNumbers.Payroll.helpersForCommission.total/3), 'не совпали цифры в Payroll helper\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbers.Helper.Total, (V.boardNumbers.Payroll.helpersForCommission.total/2), 'не совпали цифры в Payroll helper\n' +
         'id=' + V.accountNumbers.Id);
     SF.sleep(1);
 

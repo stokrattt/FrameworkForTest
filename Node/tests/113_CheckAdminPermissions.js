@@ -10,7 +10,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     SF.get(V.adminURL);
 
-    condition.nowWeDoing = 'идем в департмент, заходим за сеилса, включаем все  админ пермишены и реквест виндов';
+condition.nowWeDoing = 'идем в департмент, заходим за сеилса, включаем все  админ пермишены и реквест виндов';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsDepartment ();
     MF.Department_OpenSales();
@@ -31,7 +31,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Department_SaveUser();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'заходим за сеилса, и проверяем видимость меню, которые мы включили';
+condition.nowWeDoing = 'заходим за сеилса, и проверяем видимость меню, которые мы включили';
     LF.LoginToBoardAsCustom(V.PermissionSalesLogin, V.PermissionSalesPassword);
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenStatistic ();

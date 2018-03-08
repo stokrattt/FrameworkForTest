@@ -33,10 +33,9 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     MF.Account_ClickViewRequest();
     MF.Account_ClickPartialPacking();
     LF.AccountLocalAddInventory();
-    SF.sleep(6);
     MF.SweetConfirm();
     LF.AccountLocalAddAdditionalInventory();
-    SF.sleep(16);
+    SF.sleep(11);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
@@ -45,7 +44,6 @@ condition.nowWeDoing = 'пошли в админку и проверили, чт
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.boardNumbers.Id);
-    SF.sleep(7);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);

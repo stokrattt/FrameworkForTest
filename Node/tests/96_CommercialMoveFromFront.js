@@ -55,7 +55,6 @@ condition.nowWeDoing = 'первый раз в аккаунте, добавля�
         V.accountMoveSize = text.substring('', text.indexOf('('));
         VD.IWant(VD.ToEqual, V.accountMoveSize, 'Commercial Move ', 'на аккаунте не отобразился move size - commercial  реквест To');
     }),config.timeout);
-    SF.sleep(10);
     V.accountNumbersTo = {};
     LF.RememberAccountNumbers(V.accountNumbersTo);
 
@@ -63,7 +62,7 @@ condition.nowWeDoing = 'Идем в сторадж реквест FROM, и пр�
     'что кубик фит стал таким сколкьо инвентаря добавили, что пишется сервис тип с комершиал' +
         'что мувсайз комершиал вместе с инвентарем и запоминаем все числа';
     MF.Account_ClickFromStorage();
-    SF.sleep(10);
+    SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountcbfFrom = SF.cleanPrice(text.substring(text.indexOf('Inventory')+9, text.indexOf('c.f.')));
         VD.IWant(VD.ToEqual, V.accountcbfTo, V.accountcbfFrom, 'не совпал кубик фит мувинга From с мувинг To');
@@ -94,7 +93,6 @@ condition.nowWeDoing = 'идем в админку, открываем рекв�
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.accountcbfTo, 'в админке не совпал кубик фит с аккаунтом реквест To');
     }),config.timeout);
-    SF.sleep(0.5);
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
     LF.Validation_Compare_Account_Admin (V.accountNumbersTo, V.boardNumbersTo);
@@ -120,7 +118,6 @@ condition.nowWeDoing = 'идем в админку, открываем рекв�
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.accountcbfFrom, 'в админке не совпал кубик фит с аккаунтом реквест From');
     }),config.timeout);
-    SF.sleep(0.5);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
     LF.Validation_Compare_Account_Admin (V.accountNumbersFrom, V.boardNumbersFrom);
@@ -166,7 +163,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     VD.IWant(VD.ToEqual, V.ConfirmationPageTo.TotalMin, V.boardNumbersTo.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации To storage');
     VD.IWant(VD.ToEqual, V.ConfirmationPageTo.TotalMax, V.boardNumbersTo.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда до резервации To storage');
     VD.IWant(VD.ToEqual, V.ConfirmationPageTo.Fuel, V.boardNumbersTo.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда до резервации To storage');
-    SF.sleep(1);
     MF.Account_ConfirmationBackToRequest ();
     LF.ConfirmRequestInAccount_WithReservation();
 

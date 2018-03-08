@@ -26,8 +26,7 @@ condition.nowWeDoing = 'первый раз в админке';
 
 condition.nowWeDoing = 'тут выключаем кальк и меняем количество крю и проверяем пересчитывается ли квота';
     MF.EditRequest_SwitchCalculator();
-    SF.clear(By.xpath('//input[@ng-model="request.crew.value"]'));
-    SF.send(By.xpath('//input[@ng-model="request.crew.value"]'), 5);
+    MF.EditRequest_ChangeCrew(5);
     driver.wait(driver.findElements(By.xpath('//input[@ng-model="request.rate.value"]')).then(function(elements){
         if (elements.length>0) {
             elements[0].getAttribute('value').then(function (value) {
@@ -68,7 +67,6 @@ condition.nowWeDoing = 'идём в логи';
             VD.IWant(VD.ToEqual, V.logNumbers.QuoteMin, V.boardNumbers.TotalMin);
             VD.IWant(VD.ToEqual, V.logNumbers.QuoteMax, V.boardNumbers.TotalMax);
     }),config.timeout);
-    SF.sleep(1);
     MF.EditRequest_OpenRequest ();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
@@ -93,7 +91,6 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
     }),config.timeout);
-    SF.sleep(1);
     driver.close();
     SF.openTab(0);
     LF.closeEditRequest();
@@ -115,7 +112,7 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась через автологин форемана (автологин не сработал)')
     }),config.timeout);
-    SF.sleep(1.5);
+    SF.sleep(1);
 
     SF.endOfTest();
 };

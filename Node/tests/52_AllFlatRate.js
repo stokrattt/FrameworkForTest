@@ -99,7 +99,6 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
         V.boardNumbersDeliveryDate.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
         V.boardNumbersDeliveryDate.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
     }),config.timeout);
-    SF.sleep(1);
     MF.EditRequest_OpenSettings ();
     SF.sleep(2);
     JS.click('div[ng-show="::showManagerDropdown(currentManager.first_name)"] button');
@@ -118,7 +117,6 @@ condition.nowWeDoing = 'идем в акк под клиентом букать 
         V.quoteFlatRate = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.quoteFlatRate, 5000, 'не нашло цену флет рейт')
     }),config.timeout);
-    SF.sleep(1);
     LF.ConfirmRequestInAccount_WithReservation ();
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
@@ -137,7 +135,6 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     LF.OpenRequestInForemanPage(V.FRId);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = calculation.totalClosingFlatRateCost()"]/following-sibling::td')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), 5000, 'не показался полный тотал на флет рейт пикап на контракте');
     }),config.timeout);
@@ -174,7 +171,6 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     driver.wait(driver.executeScript('return $(\'tr[ng-if="contract_page.paymentTax.creditCharge.state"] span\').text()').then(function (text) {
         V.contractNumbersPickup.CreditCardPercentSumm = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
     SF.sleep(15);
     MF.WaitWhileBusy();
@@ -198,7 +194,6 @@ condition.nowWeDoing = 'заходим под вторым фореманом п
     LF.OpenRequestInForemanPage(V.FRId);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = calculation.totalClosingFlatRateCost()"]/following-sibling::td')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.pickupTotalCost, 'не показался правильный тотал кост деливери на контракте, тоесть не совпал с тем что был на пикап контракте после оплаты пикап');
     }),config.timeout);
@@ -273,7 +268,6 @@ condition.nowWeDoing = 'сейчас идём в пейролл и провер�
 	MF.Payroll_getTotalById(V.FRId, V.payrollNumbersPickup.Foreman);
 	VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Foreman.Total, V.boardNumbersPickup.Payroll.foremanForCommission.total, 'не совпали цифры Pickup в Payroll foreman\n' +
 			'id=' + V.FRId);
-    SF.sleep(1);
 
 condition.nowWeDoing = 'выбираем цифры helper pickup';
     MF.Payroll_ClickAllDepartment();
@@ -282,7 +276,6 @@ condition.nowWeDoing = 'выбираем цифры helper pickup';
 
     VD.IWant(VD.ToEqual, V.payrollNumbersPickup.Helper.Total, (V.boardNumbersPickup.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll pickup helper\n' +
         'id=' + V.FRId);
-    SF.sleep(1);
     MF.Payroll_ClickAllDepartment();
 
 condition.nowWeDoing = 'проверяем цифры менеджера pickup';

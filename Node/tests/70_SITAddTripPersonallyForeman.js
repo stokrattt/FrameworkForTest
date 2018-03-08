@@ -268,7 +268,7 @@ condition.nowWeDoing = 'сравниваем циферки c большим п�
         V.helper2TotalPayroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.helper2TotalPayroll, V.helper2Total, 'зарплата helper1 в большом пейроле');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
     SF.endOfTest();
 };

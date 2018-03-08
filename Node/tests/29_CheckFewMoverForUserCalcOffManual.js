@@ -34,7 +34,6 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     driver.wait(driver.executeScript('return $("div:contains(\\"All Moves\\") tbody tr.request").length').then(function (length) {
         VD.IWant (VD.ToEqual, length, '3', 'на вкладке клиент нету всех работ данного юзера');
     }),config.timeout);
-    SF.sleep(2);
     MF.EditRequest_OpenRequest ();
     SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
     SF.click(By.xpath('//li[@class="ui-timepicker-selected"]/following-sibling::li[2]'));

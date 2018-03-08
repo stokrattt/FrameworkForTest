@@ -81,35 +81,30 @@ condition.nowWeDoing = 'заходим в сторадж и проверяем �
         V.storageInvoiceTemplateInStorages = text;
         VD.IWant(VD.ToEqual, V.storageInvoiceTemplateInStorages, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
     }),config.timeout);
-    SF.sleep (1);
     SF.click (By.xpath('//a[@ng-click="tabs.setTab(3)"]'));
     SF.waitForVisible(By.xpath('//span[contains(text(),"your storage fee is now 2 days overdue")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"your storage fee is now 2 days overdue")]')).getText().then(function(text){
         V.storageReminder1InStorages = text;
         VD.IWant(VD.ToEqual, V.storageReminder1InStorages, V.storageReminder1, 'не совпали темплейти Reminder 1');
     }),config.timeout);
-    SF.sleep (1);
     SF.click (By.xpath('//a[@ng-click="tabs.setTab(4)"]'));
     SF.waitForVisible(By.xpath('//span[contains(text(),"your storage fee is now 4 days overdue")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"your storage fee is now 4 days overdue")]')).getText().then(function(text){
         V.storageReminder2InStorages = text;
         VD.IWant(VD.ToEqual, V.storageReminder2InStorages, V.storageReminder2, 'не совпали темплейти Reminder 2');
     }),config.timeout);
-    SF.sleep (1);
     SF.click (By.xpath('//a[@ng-click="tabs.setTab(5)"]'));
     SF.waitForVisible(By.xpath('//span[contains(text(),"your storage fee is now 6 days overdue")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"your storage fee is now 6 days overdue")]')).getText().then(function(text){
         V.storageReminder3InStorages = text;
         VD.IWant(VD.ToEqual, V.storageReminder3InStorages, V.storageReminder3, 'не совпали темплейти Reminder 3');
     }),config.timeout);
-    SF.sleep (1);
     SF.click (By.xpath('//a[@ng-click="tabs.setTab(6)"]'));
     SF.waitForVisible(By.xpath('//h2[contains(text(),"Storage Late Fee")]'));
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Late Fee")]')).getText().then(function(text){
         V.feeStorageInvoiceTemplateInStorages = text;
         VD.IWant(VD.ToEqual, V.feeStorageInvoiceTemplateInStorages, V.feeStorageInvoiceTemplate, 'не совпали темплейти Fee Storage Invoice');
     }),config.timeout);
-    SF.sleep (1);
     SF.click (By.xpath('//button[@ng-click="closeModal()"]'));
     SF.sleep (2);
 
@@ -144,7 +139,6 @@ condition.nowWeDoing = 'заходим в Storage Tenants, создаем инв
         V.storageInvoiceTemplateInTenants = text;
         VD.IWant(VD.ToEqual, V.storageInvoiceTemplateInTenants, V.storageInvoiceTemplate, 'не совпали темплейти Storage');
     }),config.timeout);
-    SF.sleep (1);
     SF.click(By.xpath('//a[@ng-click="cancel()"]'));
     SF.sleep (2);
     SF.click(By.xpath('//button[@ng-click="cancel()"]'));
@@ -156,7 +150,6 @@ condition.nowWeDoing = 'заходим в Storage Tenants, создаем инв
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Statement URL")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, 'Storage Statement URL', 'не совпали темплейти Storage');
     }),config.timeout);
-    SF.sleep(2);
     JS.click('a:contains("Preview Template"):visible');
     MF.WaitWhileBusy();
     SF.endOfTest();

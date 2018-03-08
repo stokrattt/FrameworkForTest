@@ -39,7 +39,6 @@ condition.nowWeDoing = 'зашли под админом и включаем е�
     SF.sleep(5);
     MF.Board_Refresh ();
     MF.Board_LogoutAdmin ();
-    SF.sleep(3);
     SF.get(V.frontURL);
     JS.waitForExist ('#loader');
     SF.sleep (4);

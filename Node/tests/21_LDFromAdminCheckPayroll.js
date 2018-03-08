@@ -9,26 +9,26 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-// condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
-//     MF.Board_OpenSettingsGeneral();
-//     MF.Board_OpenSettingsLongDistance ();
-//     MF.LongDistanceSettings_ClickOnMapCaliforniya();
-//     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
-//         "return true;}else{" +
-//         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
-//     SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'));
-//     SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'), 200);
-//     SF.sleep (2);
-//     SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
-//     SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), 10);
-//     SF.sleep (2);
-//     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-not-empty')){" +
-//         "return true;}else{" +
-//         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
-//     SF.sleep (2);
-//     MF.LongDistanceSettings_SelectMABasedState();
-//     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
-//     SF.sleep (2);
+condition.nowWeDoing = 'выставляем настройки лонг дистанс для калифорнии';
+    MF.Board_OpenSettingsGeneral();
+    MF.Board_OpenSettingsLongDistance ();
+    MF.LongDistanceSettings_ClickOnMapState('#jqvmap1_ca');
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{" +
+        "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
+    SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'));
+    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'), 200);
+    SF.sleep (2);
+    SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
+    SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), 10);
+    SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{" +
+        "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
+    SF.sleep (2);
+    MF.LongDistanceSettings_SelectMABasedState();
+    SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
+    SF.sleep (2);
 
 condition.nowWeDoing = 'создаем ЛД реквест';
     MF.Board_ClickCreate();
@@ -70,11 +70,10 @@ condition.nowWeDoing = 'сравниваем данные калькулятор
     VD.IWant(VD.ToEqual, V.LDAdminCalc.Total, V.boardNumbers.Total, 'не совпали Total калькулятора и борда');
     VD.IWant(VD.ToEqual, V.LDAdminCalc.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel калькулятора и борда');
     VD.IWant(VD.ToEqual, V.LDAdminCalc.Quote, V.boardNumbers.Quote, 'не совпали Quote калькулятора и борда');
-    SF.sleep (1);
     LF.addInventoryBoard ();
     LF.addAdditionalInventoryBoard();
     MF.EditRequest_AddPacking ();
-    SF.sleep(4);
+    SF.sleep(2);
 
 condition.nowWeDoing = 'запоминаем данные после добавления всех сервисов ';
     V.boardNumbersWithAddServices = {};
@@ -110,8 +109,6 @@ condition.nowWeDoing = 'идём в логи';
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.boardNumbersWithAddServices.Total, 'не совпал гранд тотал в письме и в реквесте');
-    SF.sleep(1);
-    console.log(V.boardNumbersWithAddServices.Total);
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
@@ -137,9 +134,8 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     MF.Account_ClickViewConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
-        }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
+        VD.IWant(VD.ToEqual, V.logNumbers.Quote, V.ConfirmationTotal, 'не совпал гранд тотал в реквесте и на конфирмейшн пейдж');
+    }),config.timeout);
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
@@ -170,7 +166,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
         VD.INeed(VD.ToEqual, check, 1, 'лд работа не нашлась в пейроле');
     }),config.timeout);
-    SF.sleep (2);
+    SF.sleep (1);
 
 
     //=========================закончили писать тест=============================

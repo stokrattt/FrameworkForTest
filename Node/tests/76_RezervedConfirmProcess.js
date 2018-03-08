@@ -79,7 +79,7 @@ condition.nowWeDoing = 'идем в стораджи создать и прив�
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="data.rentals.volume_cuft"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, V.cbf, 'не совпал кубик фит с реквеста в сторадж тенанте');
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
 
 
 

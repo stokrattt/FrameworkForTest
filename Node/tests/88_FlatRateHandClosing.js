@@ -64,7 +64,6 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.FRId = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(3);
 
 condition.nowWeDoing = 'проверяем двойную дату';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Pick Up:")]/following-sibling::div')).getText().then(function(text){
@@ -103,7 +102,7 @@ condition.nowWeDoing = 'идем в акк подтвердить выбранн
     SF.select(By.xpath('//select[@ng-value="request.field_extra_dropoff.organisation_name"]'),3);
     SF.click(By.xpath('//label[contains(text(),"Move Date")]'));
     SF.sleep(1);
-    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+    MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.WaitWhileBusy();
     MF.SweetConfirm();
@@ -122,9 +121,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     MF.EditRequest_OpenFuelSurchModal();
     SF.clear(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
     SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'), 50);
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    MF.WaitWhileToaster ();
-    SF.sleep(4);
+    MF.EditRequest_ClickApplyInFuelWindow();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep(1);
@@ -149,9 +146,9 @@ condition.nowWeDoing = 'закрываем вручную работу пика�
         foremanForCommission: {},
         foreman2ForCommission: {}
     };
-    SF.sleep(2);
+    SF.sleep(1);
     MF.EditRequest_PayrollAddManager(V.managerName);
-    SF.sleep(3);
+    SF.sleep(1);
     MF.EditRequest_PayrollSetManagerCommission('emilia clark','Office Commission', 123, 80);
     LF.EditRequestPayroll_RememberManager(V.managerName, V.boardNumbers.Payroll.managerForCommission);
     MF.EditRequest_PayrollOpenForemanTab();

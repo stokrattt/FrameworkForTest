@@ -80,7 +80,7 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 	MF.WaitWhileBusy();
 	MF.EditRequest_SetToNotConfirmed();
-	LF.HomeEstimate_SaveChanges();
+	MF.EditRequest_HomeEstimate_SaveChanges();
 	LF.HomeEstimate_ReservationPage();
 	SF.waitForVisible(By.xpath('//div[@ng-class="{\'mobile-subbox-wrapper\': isMobile}"]'));
 	V.boardNumbersPortal = {};

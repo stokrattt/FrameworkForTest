@@ -65,7 +65,6 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     LF.FillCardPayModal ();
     JS.waitForExist('div.payment-receipt-modal');
     MF.WaitWhileToaster();
-    SF.sleep(2);
     MF.WaitWhileBusy ();
     SF.click(By.xpath('//div[contains(@class,"payment-receipt-modal")]/following-sibling::div[1]/button[@ng-click="cancel()"]'));
     SF.sleep(1);

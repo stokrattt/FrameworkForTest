@@ -7,18 +7,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
 
-    SF.get(V.adminURL);
-    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-
-condition.nowWeDoing = 'идем в департмент включить календарь для форемана';
-    MF.Board_OpenSettingsDepartment ();
-    MF.WaitWhileBusy();
-    MF.Department_OpenForeman();
-    MF.Department_OpenHuman ("Test Foreman");
-    MF.Department_User_OpenAccount();
-    MF.Department_ClearSendGmailAdress(V.ForEmail);
-    MF.Department_SaveUser();
-    MF.Board_LogoutAdmin();
+//     SF.get(V.adminURL);
+//     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+//
+// condition.nowWeDoing = 'идем в департмент включить календарь для форемана';
+//     MF.Board_OpenSettingsDepartment ();
+//     MF.WaitWhileBusy();
+//     MF.Department_OpenForeman();
+//     MF.Department_OpenHuman ("Test Foreman");
+//     MF.Department_User_OpenAccount();
+//     MF.Department_ClearSendGmailAdress(V.ForEmail);
+//     MF.Department_SaveUser();
+//     MF.Board_LogoutAdmin();
     SF.get(V.frontURL);
 
 condition.nowWeDoing = 'заполняем калькулятор верхний';
@@ -113,31 +113,31 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-condition.nowWeDoing = 'идем в гугл почту';
-    SF.get('http://gmail.com');
-    SF.sleep(13);
-    MF.Gmail_Login(V.googleloginFor, V.googlePasFor);
-
-condition.nowWeDoing = 'проверяем в календаре, что работа пришла фореману';
-    SF.get('https://calendar.google.com/calendar');
-    SF.sleep(3);
-    SF.click (By.xpath('//div[@class="XyKLOd"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//div[@class="jO7h3c"] [contains(text(), "День")]'));
-    SF.sleep(3);
-    SF.click (By.xpath('//div[@jsname="OCpkoe"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//div[@jsname="OCpkoe"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//div[@jsname="OCpkoe"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//div[@jsname="OCpkoe"]'));
-    SF.sleep(3);
-    SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbers.Id+'")]'));
-    driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text) {
-   V.Req1Cal = text;
-    VD.IWant(VD.ToEqual, ('#' +V.accountNumbers.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'фореману в календарь не пришла работа');
-     }),config.timeout);
+// condition.nowWeDoing = 'идем в гугл почту';
+//     SF.get('http://gmail.com');
+//     SF.sleep(13);
+//     MF.Gmail_Login(V.googleloginFor, V.googlePasFor);
+//
+// condition.nowWeDoing = 'проверяем в календаре, что работа пришла фореману';
+//     SF.get('https://calendar.google.com/calendar');
+//     SF.sleep(3);
+//     SF.click (By.xpath('//div[@class="XyKLOd"]'));
+//     SF.sleep(1);
+//     SF.click (By.xpath('//div[@class="jO7h3c"] [contains(text(), "День")]'));
+//     SF.sleep(3);
+//     SF.click (By.xpath('//div[@jsname="OCpkoe"]'));
+//     SF.sleep(1);
+//     SF.click (By.xpath('//div[@jsname="OCpkoe"]'));
+//     SF.sleep(1);
+//     SF.click (By.xpath('//div[@jsname="OCpkoe"]'));
+//     SF.sleep(1);
+//     SF.click (By.xpath('//div[@jsname="OCpkoe"]'));
+//     SF.sleep(3);
+//     SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbers.Id+'")]'));
+//     driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbers.Id+'")]')).getText().then(function(text) {
+//    V.Req1Cal = text;
+//     VD.IWant(VD.ToEqual, ('#' +V.accountNumbers.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'фореману в календарь не пришла работа');
+//      }),config.timeout);
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     SF.get(V.adminURL);
@@ -145,7 +145,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');

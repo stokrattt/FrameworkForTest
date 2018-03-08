@@ -103,7 +103,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(4);
     }
     function CreateRequest_ClickCalculate() {
-        SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         WaitWhileBusy ();
         SF.sleep(1);
@@ -131,6 +130,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     //====================================DISPACH=======================================
 
     function Dispach_ClickUnassignTeam() {
+        JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
         SF.sleep(1.5);
         SF.click(By.xpath('//a[@ng-click="vm.unAssignTeam()"]'));
     }
@@ -187,12 +187,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
-        SF.sleep(5);
+        SF.sleep(3);
     }
     function HomeEstimate_Logout() {
 		SF.click(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
 		SF.sleep(1);
 		SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
+        SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
+        SF.sleep(3);
     }
     function Board_ClickCreate(){
         SF.click(By.linkText('Create Request'));
@@ -260,16 +262,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Board_OpenNotConfirmed() {
         SF.click(By.xpath('//div[@ng-click="vm.select(3)"]'));
-        SF.sleep(3);
+        WaitWhileBusy();
 
     }
     function Board_OpenPendingRequest() {
         SF.click(By.xpath('//div[@ng-click="vm.select(0)"]'));
-        SF.sleep(3);
+        WaitWhileBusy();
     }
     function Board_OpenConfirmed() {
         SF.click(By.xpath('//div[@ng-click="vm.select(2)"]'));
-        SF.sleep(3);
+        WaitWhileBusy();
     }
 
     function Board_OpenSettingsSchedule() {
@@ -332,10 +334,19 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][2]'));
         SF.sleep(2);
     }
+    function Board_OpenSettingsAccountPageFAQ() {
+        SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
+        SF.sleep(3);
+        SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][9]'));
+        SF.sleep(2);
+    }
     function Board_OpenSettingsLongDistance() {
         SF.click(By.xpath('//a[@ui-sref="settings.longdistance"]'));
         SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
         SF.sleep (4);
+    }
+    function BoardOpenSettingsLongDistanceStatus() {
+        SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][5]'));
     }
 
     function Board_OpenSettingsDepartment() {
@@ -564,7 +575,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickFullPacking() {
         SF.click(By.xpath('//label[@for="full"]/input[@ng-model="vm.packing_service"]'));
         WaitWhileBusy();
-        SF.sleep(8);
+        SF.sleep(9);
     }
 
     function Account_CheckRequestStatus_NotConfirmed(Id) {
@@ -703,9 +714,35 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickSaveInventory() {
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(2);
+        SF.sleep(1);
         SweetConfirm();
-        SF.sleep(5);
+        SF.sleep(8);
+    }
+    function Account_OpenEditModal() {
+        SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));
+    }
+    function Account_SetCommercialMoveSize() {
+        SF.click(By.xpath('//oi-select[@ng-model="commercialSize"]'));
+        SF.sleep(0.3);
+        SF.click(By.xpath('//oi-select[@ng-model="commercialSize"]/div[2]//li[1]'));
+    }
+    function Account_SendAdressFromModalWindow() {
+        SF.send(By.xpath('//input[@ng-value="request.field_moving_from.thoroughfare"]'), 'blablabla');
+        SF.send(By.xpath('//input[@ng-value="request.apt_from.value"]'), 123);
+    }
+    function Account_ClickUpdateClientInModalWindow() {
+        SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+        SF.sleep(1);
+    }
+    function Account_ClickDetails() {
+        JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
+        WaitWhileBusy();
+    }
+    function Account_ClickSaveDetails() {
+        WaitWhileBusy();
+        SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
+        driver.executeScript("$('body').scrollTop(0);");
+        SF.sleep(2);
     }
 
     //===================================CONTRACT===================================
@@ -721,7 +758,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_OpenBillOfLading() {
         WaitWhileBusy();
         SF.click(By.xpath('//li[@id="tab_Bill of lading"]'));
-
+        SF.sleep(1);
     }
 
     function Contract_DeclarationValueA() {
@@ -839,6 +876,23 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_ReviesSend(){
         SF.click(By.xpath('//button[@ng-click="saveFeedBack()"]'));
         SweetConfirm();
+    }
+    function Contract_ClickPlusForOpenSubMenuStorageAndOvernight() {
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ng-click="showTransit()"]'));
+        SF.sleep(0.5);
+    }
+    function Contract_ClickCorningToStorage() {
+        SF.click(By.xpath('//button[@ng-click="openInventory()"]'));
+        SF.waitForVisible(By.xpath('//h4[contains(text(),"household goods descriptive inventory")]'));
+    }
+    function Contract_ClickDoneWithInventory() {
+        SF.click(By.xpath('//button[@ng-click="doneWithInventory()"]'));
+        SweetConfirm();
+        WaitWhileBusy();
+    }
+    function Contract_RemoveMonthlyStorageFee() {
+        SF.click(By.xpath('//input[@value="Monthly Storage Fee"]/../following-sibling::td[3]/p[@ng-click="removeCharge($index)"]'));
     }
     //=================================EDIT STORAGE REQUEST=====================================
 
@@ -1001,6 +1055,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@ng-click="addWorker(\'salesPerson\')"]'));
         SF.click(By.xpath('(//select[@ng-model="selected.salesPerson[salesPersonIndex]"])[last()]'));
         SF.click(By.xpath('(//select[@ng-model="selected.salesPerson[salesPersonIndex]"])[last()]/option[contains(text(),"'+name+'")]'));
+        WaitWhileBusy();
     }
     function EditRequest_PayrollAddForeman(name){
         SF.click(By.xpath('//div[@ng-click="addWorker(\'foreman\')"]'));
@@ -1130,8 +1185,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function EditRequest_OpenLogs() {
+        SF.sleep(1);
         SF.click(By.xpath('//a[@ng-click="select(tabs[5])"]'));
-        SF.sleep(2);
+        SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
         JS.waitForExist('div[ng-repeat="log in allLogs | orderBy: \\\'-id\\\' track by $index "]:eq(3)');
     }
@@ -1191,6 +1247,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(0.5);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         SF.sleep (3);
+        WaitWhileBusy();
     }
     function EditRequest_AddAdditionalServicesFullPack() {
         SF.sleep(0.5);
@@ -1219,9 +1276,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
             boardNumbers.cbf = SF.cleanPrice(text);
         }),config.timeout);
+        SF.sleep(1);
     }
     function EditRequest_SwitchCalculator(){
         SF.click(By.xpath('//span[@ng-click="switchCalc()"]'));
+        WaitWhileBusy();
     }
     function EditRequest_AddRoomNumber(number){
         SF.click(By.xpath('//ul[@class="chosen-choices"]'));
@@ -1379,7 +1438,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.clear(By.xpath('//input[@ng-model="request.custom_weight.value"]'));
         SF.send(By.xpath('//input[@ng-model="request.custom_weight.value"]'), number);
         SF.click(By.xpath('//h3[contains(text(), "Auto Calculator")]'));
-        SF.sleep(0.5);
+        SF.sleep(1);
     }
     function EditRequest_ClickFlatRateLocalMove() {
         SF.click(By.xpath('//input[@ng-model="request.field_flat_rate_local_move.value"]/..'));
@@ -1506,6 +1565,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		SF.sleep (2);
 	}
     function EditRequest_SaveChangesClosingTab() {
+        SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="UpdateRequestInvoice()"]'));
         JS.waitForExist('button[ng-click="update(request)"]:visible');
         SF.sleep(2);
@@ -1513,7 +1573,43 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForExist("div.toast-success:visible");
         WaitWhileBusy();
     }
-
+    function EditRequest_ChangeCrew(num) {
+        SF.clear(By.xpath('//input[@ng-model="request.crew.value"]'));
+        SF.send(By.xpath('//input[@ng-model="request.crew.value"]'), num);
+    }
+    function EditRequest_ChangeRate(rate) {
+        SF.clear(By.xpath('//input[@ng-model="request.rate.value"]'));
+        SF.send(By.xpath('//input[@ng-model="request.rate.value"]'), rate);
+    }
+    function EditRequest_SendFlatSurchargeInFuelWindow(sum) {
+        SF.click(By.xpath('//input[@ng-change="changeSurcharge(\'request\',\'perc\')"]'));
+        SF.send(By.xpath('//input[@ng-change="changeSurcharge(\'request\',\'perc\')"]'), sum);
+    }
+    function EditRequest_ClickApplyInFuelWindow() {
+        SF.click(By.xpath('//button[@ng-click="Apply()"]'));
+        SF.sleep(4);
+        WaitWhileToaster();
+    }
+    function EditRequest_OpenMinPriceWindow() {
+        SF.click(By.xpath('//div[@ng-click="openMinWeight()"]'));
+        SF.waitForVisible(By.xpath('//input[@ng-model="min_price"]'));
+    }
+    function EditRequest_SetMinPrice(MinPrice) {
+        SF.clear(By.xpath('//input[@ng-model="min_price"]'));
+        SF.send(By.xpath('//input[@ng-model="min_price"]'), MinPrice);
+    }
+    function EditRequest_SetMinWeight(MinCF) {
+        SF.clear(By.xpath('//input[@ng-model="min_weight"]'));
+        SF.send(By.xpath('//input[@ng-model="min_weight"]'), MinCF);
+    }
+    function EditRequest_MinPriceWindowSwitchOnOff() {
+        SF.click(By.xpath('//div[@class="col-md-5 text-center"]//span[@class="switchery switchery-small"]'));
+    }
+    function EditRequest_HomeEstimate_SaveChanges(){
+        SF.click(By.xpath('//button[@ng-click="saveChanges()"]'));
+        SF.click(By.xpath('//button[@ng-click="update(request)"]'));
+	    WaitWhileToaster();
+    }
 
 
     //=================================LOCAL DISPATCH============================
@@ -1968,14 +2064,30 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     //==================================LONG DISTANCE SETTINGS==========================
 
-    function LongDistanceSettings_ClickOnMapCaliforniya() {
-        JS.click('#jqvmap1_ca');
+    function LongDistanceSettings_ClickOnMapState(state) {
+        JS.click(state);
         SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
         SF.sleep (3);
     }
     function LongDistanceSettings_SelectMABasedState() {
         SF.select (By.xpath('//select[@ng-model="vm.longdistance.basedState"]'), 'MA');
         SF.sleep (2);
+    }
+    function LongDistanceSettings_SetMinCF(minCF) {
+        SF.clear(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'));
+        SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].min_weight"]'), minCF);
+    }
+    function LongDistanceSettings_SetMinPrice(minPrice) {
+        SF.clear(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPrice"]'));
+        SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPrice"]'), minPrice);
+    }
+    function LongDistanceSettings_SetStateRate(stateRate) {
+        SF.clear(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
+        SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), stateRate);
+    }
+    function LongDistanceSettings_AddDiscount() {
+        SF.click(By.xpath('//tbody/tr[@ng-click="addDiscount(-1)"]'));
+        SF.sleep(2);
     }
 
     //==============================REMAINDERS===========================================//
@@ -2003,8 +2115,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         //==================================FRONT SITE======================================
         FrontSite_GoToAccount: FrontSite_GoToAccount,
         //==================================LONG DISTANCE SETTINGS==========================
-        LongDistanceSettings_ClickOnMapCaliforniya: LongDistanceSettings_ClickOnMapCaliforniya,
+        LongDistanceSettings_ClickOnMapState: LongDistanceSettings_ClickOnMapState,
         LongDistanceSettings_SelectMABasedState: LongDistanceSettings_SelectMABasedState,
+        LongDistanceSettings_SetMinCF:LongDistanceSettings_SetMinCF,
+        LongDistanceSettings_SetMinPrice:LongDistanceSettings_SetMinPrice,
+        LongDistanceSettings_SetStateRate:LongDistanceSettings_SetStateRate,
+        LongDistanceSettings_AddDiscount:LongDistanceSettings_AddDiscount,
 
         ///===============================Profit and loss===============================
 
@@ -2088,6 +2204,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         BoardSettings_ClickFuelSurcharge:BoardSettings_ClickFuelSurcharge,
         Board_OpenInhomeEstimateTab:Board_OpenInhomeEstimateTab,
         BoardRequestPage_SetStartEndDate:BoardRequestPage_SetStartEndDate,
+        Board_OpenSettingsAccountPageFAQ:Board_OpenSettingsAccountPageFAQ,
+        BoardOpenSettingsLongDistanceStatus:BoardOpenSettingsLongDistanceStatus,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
@@ -2127,6 +2245,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         AccountFR_SeelectOptions:AccountFR_SeelectOptions,
         Account_ClickInventoryOpenTab:Account_ClickInventoryOpenTab,
         Account_ClickSaveInventory:Account_ClickSaveInventory,
+        Account_OpenEditModal:Account_OpenEditModal,
+        Account_SetCommercialMoveSize:Account_SetCommercialMoveSize,
+        Account_SendAdressFromModalWindow:Account_SendAdressFromModalWindow,
+        Account_ClickUpdateClientInModalWindow:Account_ClickUpdateClientInModalWindow,
+        Account_ClickDetails:Account_ClickDetails,
+        Account_ClickSaveDetails:Account_ClickSaveDetails,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -2153,6 +2277,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_ReviewClickStar: Contract_ReviewClickStar,
         Contract_ReviewTypeFeedback: Contract_ReviewTypeFeedback,
         Contract_ReviesSend: Contract_ReviesSend,
+        Contract_ClickPlusForOpenSubMenuStorageAndOvernight:Contract_ClickPlusForOpenSubMenuStorageAndOvernight,
+        Contract_ClickCorningToStorage:Contract_ClickCorningToStorage,
+        Contract_ClickDoneWithInventory:Contract_ClickDoneWithInventory,
+        Contract_RemoveMonthlyStorageFee:Contract_RemoveMonthlyStorageFee,
         //=================================EDIT STORAGE REQUEST=====================================
         EditStorage_RememberId: EditStorage_RememberId,
         EditStorage_OpenLedger: EditStorage_OpenLedger,
@@ -2173,7 +2301,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenClient: EditRequest_OpenClient,
         EditRequest_OpenRequest: EditRequest_OpenRequest,
         EditRequest_SetToNotConfirmed: EditRequest_SetToNotConfirmed,
-		 EditRequest_SetToInhomeEstimate: EditRequest_SetToInhomeEstimate,
+        EditRequest_SetToInhomeEstimate: EditRequest_SetToInhomeEstimate,
         EditRequest_SetToUploading: EditRequest_SetToUploading,
         EditRequest_SaveChanges: EditRequest_SaveChanges,
         EditRequest_WaitForBalanceVisible: EditRequest_WaitForBalanceVisible,
@@ -2268,8 +2396,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_AddAdditionalServClosingTab:EditRequest_AddAdditionalServClosingTab,
 		EditRequest_AddAdditionalServSalesTab:EditRequest_AddAdditionalServSalesTab,
         EditRequest_SaveChangesClosingTab:EditRequest_SaveChangesClosingTab,
-
+        EditRequest_ChangeCrew:EditRequest_ChangeCrew,
         EditRequest_ClosePayment:EditRequest_ClosePayment,
+        EditRequest_ChangeRate:EditRequest_ChangeRate,
+        EditRequest_SendFlatSurchargeInFuelWindow:EditRequest_SendFlatSurchargeInFuelWindow,
+        EditRequest_ClickApplyInFuelWindow:EditRequest_ClickApplyInFuelWindow,
+        EditRequest_OpenMinPriceWindow:EditRequest_OpenMinPriceWindow,
+        EditRequest_SetMinPrice:EditRequest_SetMinPrice,
+        EditRequest_SetMinWeight:EditRequest_SetMinWeight,
+        EditRequest_MinPriceWindowSwitchOnOff:EditRequest_MinPriceWindowSwitchOnOff,
+	    EditRequest_HomeEstimate_SaveChanges:EditRequest_HomeEstimate_SaveChanges,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

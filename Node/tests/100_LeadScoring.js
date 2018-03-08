@@ -24,13 +24,11 @@ condition.nowWeDoing = 'первый раз в аккаунте, добавля�
         V.ScorePercent2 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent2, 65,'не посчитались проценты за добавление инвентаря');
     }),config.timeout);
-    SF.sleep(1);
     LF.AccountLocalDetails();
     driver.wait(driver.findElement(By.xpath('//div [contains (@class, "request-score-box__percent-label")]')).getText().then(function(text) {
         V.ScorePercent3 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent3, 85,'не посчитались проценты за добавление деталей');
     }),config.timeout);
-    SF.sleep(1);
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
     V.accountNumbers={};
@@ -67,7 +65,6 @@ condition.nowWeDoing = 'первый раз в админке,сверяю оч�
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'5 points were added for "When a customer views a request" action\']')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '5 points were added for "When a customer views a request" action','нет лога про просмотре реквеста');
     }),config.timeout);
-    SF.sleep(1);
     MF.EditRequest_OpenSettings ();
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.showCoupons"]/following-sibling::span'));
     SF.sleep(1);
@@ -87,7 +84,6 @@ condition.nowWeDoing = 'пошли в аккаунт, покупаем купо�
         V.ScorePercent4 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent4, 85,'при входе в аккаунт 2й раз в аккаунт не совпали проценты');
     }),config.timeout);
-    SF.sleep(1);
     SF.click(By.id('tab_Coupons'));
     SF.waitForLocated (By.xpath('//a[@ng-click="setRequestNid()"]'));
     MF.WaitWhileBusy ();
@@ -110,7 +106,6 @@ condition.nowWeDoing = 'пошли в аккаунт, покупаем купо�
         V.ScorePercent5 = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.ScorePercent5, 100,'не добавились проценты после резервации');
     }),config.timeout);
-    SF.sleep(1);
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'вернулись в модалку реквеста, проверяем очки 2й раз, и логи';
@@ -120,7 +115,6 @@ condition.nowWeDoing = 'вернулись в модалку реквеста, �
     MF.Board_OpenRequest(V.accountNumbers.Id);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_total_score"]')).getAttribute('value').then(function(text) {
         V.PointReq2  = text;
-        console.log(V.PointReq2);
         VD.IWant(VD.ToEqual, V.PointReq2, 105 ,'сверяем очки 2й раз');
     }),config.timeout);
     MF.EditRequest_OpenLogs();
@@ -130,7 +124,6 @@ condition.nowWeDoing = 'вернулись в модалку реквеста, �
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Request score updated ")]/..//span/b/span[text()=\'15 points were added for "A customer buys a coupon" action\']')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '15 points were added for "A customer buys a coupon" action','нет лога про посещение конфирмеишен');
     }),config.timeout);
-    SF.sleep(1);
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
@@ -150,7 +143,6 @@ condition.nowWeDoing = 'заходим в реквест 3й раз, прове�
         V.PointReq2  = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PointReq2, 140 ,'сверяем очки 2й раз');
     }),config.timeout);
-    SF.sleep(1);
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'проверяем фильтр на дашборде';
@@ -162,13 +154,12 @@ condition.nowWeDoing = 'проверяем фильтр на дашборде';
         V.accountNumbers.Id1 = text;
         VD.IWant(VD.ToEqual, V.accountNumbers.Id1, V.accountNumbers.Id, 'не наидена работа после фильтрации HOT');
     }),config.timeout);
-    SF.sleep(1);
 
 condition.nowWeDoing = 'заходим в реквест 4й раз, вводим очки вручную ';
     MF.Board_OpenRequest(V.accountNumbers.Id);
     SF.click (By.xpath('//input[@ng-model="request.field_total_score"]'));
     SF.clear (By.xpath('//input[@ng-model="request.field_total_score"]'));
-    SF.sleep(3);
+    SF.sleep(1);
     SF.send (By.xpath('//input[@ng-model="request.field_total_score"]'), 45);
     LF.closeEditRequest();
 
@@ -181,7 +172,6 @@ condition.nowWeDoing = 'проверяем фильтр по новому кол
         V.accountNumbers.Id2 = text;
         VD.IWant(VD.ToEqual, V.accountNumbers.Id2, V.accountNumbers.Id, 'не наидена работа во время фильтрации COLD после смены очков вручную');
     }),config.timeout);
-    SF.sleep(1);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'идем в аккаунт, сразу на конфирмеишен, и выходим из аккаунта';

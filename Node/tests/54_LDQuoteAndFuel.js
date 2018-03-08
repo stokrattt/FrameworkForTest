@@ -14,7 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'идем в настройки выставляем для калифорнии цену и выставляем фуел 10%';
     MF.Board_OpenSettingsGeneral ();
     MF.Board_OpenSettingsLongDistance ();
-    MF.LongDistanceSettings_ClickOnMapCaliforniya();
+    MF.LongDistanceSettings_ClickOnMapState('#jqvmap1_ca');
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
@@ -27,6 +27,10 @@ condition.nowWeDoing = 'идем в настройки выставляем дл
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-not-empty')){" +
         "return true;}else{" +
         "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
+    SF.sleep (1);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPriceEnabled\"]').hasClass('ng-empty')){" +
+        "return true;}else{" +
+        "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].minPriceEnabled\"]').click()}"),config.timeout);
     SF.sleep (1);
     MF.LongDistanceSettings_SelectMABasedState();
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
@@ -51,8 +55,7 @@ condition.nowWeDoing = 'создаем лонг дистанс реквест и
     VD.IWant(VD.ToEqual,V.boardNumbers.Fuel, V.fuel, 'fuel не правильно посчитался');
     V.total = V.fuel + V.quote + V.boardNumbers.AdServices;
     VD.IWant(VD.ToEqual,V.boardNumbers.Total, V.total, 'total не правильно посчитался');
-    SF.sleep(1);
-    
+
 condition.nowWeDoing = 'добавляем комнаты и опять пересчитываем фуел, квоту и тотал';
     MF.EditRequest_SetSizeOfMoveNumber (9);
     MF.EditRequest_SetAdressFrom ();
@@ -65,8 +68,7 @@ condition.nowWeDoing = 'добавляем комнаты и опять пере
     VD.IWant(VD.ToEqual,V.boardNumbersAddRoom.Fuel, V.fuelAddRoom, 'fuel не правильно посчитался после добавления комнат');
     V.totalAddRoom = V.fuelAddRoom + V.quoteAddRoom + V.boardNumbersAddRoom.AdServices;
     VD.IWant(VD.ToEqual,V.boardNumbersAddRoom.Total, V.totalAddRoom, 'total не правильно посчитался после добавления комнат');
-    SF.sleep(1);
-    
+
 condition.nowWeDoing = 'добавляем инвенторий и опять пересчитываем фуел, квоту и тотал';
     LF.addInventoryBoard ();
     SF.sleep(8); // ждем обновления фуела
@@ -78,7 +80,6 @@ condition.nowWeDoing = 'добавляем инвенторий и опять п
     VD.IWant(VD.ToEqual,V.boardNumbersAddInventory.Fuel, V.fuelAddInventory, 'fuel не правильно посчитался после добавления инвентория');
     V.totalAddInventory = V.fuelAddInventory + V.quoteAddInventory  + V.boardNumbersAddInventory.AdServices;
     VD.IWant(VD.ToEqual,V.boardNumbersAddInventory.Total, V.totalAddInventory, 'total не правильно посчитался после добавления инвентория');
-    SF.sleep(1);
 
 condition.nowWeDoing = 'добавляем пакинг и сервисы и проверяем что гранд тотал верный';
     MF.EditRequest_AddPacking ();

@@ -215,7 +215,6 @@ condition.nowWeDoing = 'валидация инвентаря на контра�
     driver.wait(driver.executeScript("return $('div[ng-if=\"data.inventoryMoving.signatures[stepId]\"] img').length").then(function (chislo) {
         VD.IWant(VD.ToEqual, chislo, '2',  'не нашло подписи для инвентаря на контракте от первого реквеста to storage '+V.accountNumbersTo.Id+'');
     }),config.timeout);
-    SF.sleep(1);
     LF.Contract_SubmitInventoryDelivery(13);
     SF.sleep(1);
     LF.MakeSignInInventory(2);
@@ -228,7 +227,7 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         // VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
-    }));
+    }),config.timeout);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -270,7 +269,7 @@ condition.nowWeDoing="Вернуться в localDispatch, найти первы
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbersTo, V.contractNumbersTo);
     SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
     SF.sleep(2);
-    MF.SweetConfirm();
+    // MF.SweetConfirm();
     LF.closeEditRequest();
 
 condition.nowWeDoing="найти второй реквест, проверить и запомнить Payroll";

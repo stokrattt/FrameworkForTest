@@ -58,7 +58,7 @@ module.exports = function(config,V) {
         './tests/50_AddJobToTrip.js',
         './tests/53_ManualClosingWork.js',
         './tests/54_LDQuoteAndFuel.js',
-        './tests/57_UnloadingAllSteps.js',
+
         './tests/55_CreateFlagAndCheckOnDashboard.js',
         './tests/58_Discount.js',
         './tests/59_PayrollAddMiscCustomPayment.js',
@@ -105,8 +105,7 @@ module.exports = function(config,V) {
         './tests/99_PendingInfoInventoryTotal.js',
         './tests/101_CustomCommMoveWithInventory.js',
         './tests/98_RemindersForOtherPerson.js',
-        './tests/56_LoadingAllSteps.js',
-        './tests/95_Statistic.js',
+        './tests/57_UnloadingAllSteps.js',
         './tests/100_LeadScoring.js',
         './tests/105_ChangeMinCFAndDriverPayroll.js',
         './tests/109_SITBalance.js',
@@ -116,12 +115,17 @@ module.exports = function(config,V) {
         './tests/116_DeleteComissionsPayroll.js',
         './tests/110_LeadScoringAdmin.js',
         './tests/112_ExtraDropLocalMove.js',
+        './tests/119_LDDiscount.js',
         './tests/118_CommercialPackingDayCalculatorOff.js',
         './tests/115_LDCommercialMoveSizeInSIT.js',
+        './tests/95_Statistic.js',
         './tests/113_CheckAdminPermissions.js',
+        './tests/120_LDFlag.js',
+        './tests/121_FAQ.js',
         './tests/111_ZIPCode.js',
         './tests/51_ServiceTypesOnOff.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
+        './tests/56_LoadingAllSteps.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
 
     ];
@@ -158,9 +162,9 @@ module.exports = function(config,V) {
     V.foremanEmail = 'TestForeman@mail.com';
     V.managerName = 'emilia clark';
     V.managerFirstName = 'emilia';
-    V.ForEmail = 'dd4978255@gmail.com';
-    V.googleloginFor =  'dd4978255';
-    V.googlePasFor =  'qwertyuio90';
+    V.ForEmail = 'foremanforeman137@gmail.com';
+    V.googleloginFor =  'foremanforeman137';
+    V.googlePasFor =  'zaqwsxcv';
     V.salesEmail = 'truks8158@gmail.com';
     V.googleloginSale =  'truks8158';
     V.googlePasSale =  'qwertyuio9';

@@ -8,18 +8,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
 
-    SF.get(V.adminURL);
-    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-
-condition.nowWeDoing = 'идем в департмент включить календарь для сеилса';
-    MF.Board_OpenSettingsDepartment ();
-    MF.Department_OpenSales();
-    MF.Department_OpenHuman('JackSales donotdelete');
-    MF.Department_User_OpenAccount();
-    MF.Department_SetGoogleMail(V.salesEmail);
-    MF.Department_TurnOnAllGmailCalendar();
-    MF.Department_SaveUser();
-    MF.Board_LogoutAdmin();
+//     SF.get(V.adminURL);
+//     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+//
+// condition.nowWeDoing = 'идем в департмент включить календарь для сеилса';
+//     MF.Board_OpenSettingsDepartment ();
+//     MF.Department_OpenSales();
+//     MF.Department_OpenHuman('JackSales donotdelete');
+//     MF.Department_User_OpenAccount();
+//     MF.Department_SetGoogleMail(V.salesEmail);
+//     MF.Department_TurnOnAllGmailCalendar();
+//     MF.Department_SaveUser();
+//     SF.sleep(15);
+//     MF.WaitWhileToaster();
+//     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'идем на фронтовую форму';
     SF.get(V.frontURL);
@@ -109,7 +111,6 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
         V.frontNumbersOvernightDown.OvernightStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
     }), config.timeout);
 */
-    SF.sleep(2);
     MF.FrontSite_GoToConfirmation();
     MF.FrontSite_ViewRequestPage();
     SF.openTab (1);
@@ -204,55 +205,52 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     LF.FillCardPayModal ();
     MF.WaitWhileSpinner ();
     MF.Account_WaitForGreenTextAfterConfirm();
-    LF.LogoutFromAccount ();
+    // LF.LogoutFromAccount ();
 
-condition.nowWeDoing = 'идем в гугл почту';
-    SF.get('http://gmail.com');
-    SF.sleep(10);
-    MF.Gmail_Login(V.googleloginSale, V.googlePasSale);
-
-condition.nowWeDoing = 'выбираем расписание, ищем в нем 1ю работу';
-    SF.get('https://calendar.google.com/calendar');
-    SF.sleep(2);
-    SF.click (By.xpath('//div[@class="XyKLOd"]'));
-    SF.click (By.xpath('//div[@class="jO7h3c"] [contains(text(), "День")]'));
-    SF.sleep(5);
-    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
-    SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersUp.Id+'")]'));
-    driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersUp.Id+'")]')).getText().then(function(text) {
-        V.Req1Cal = text;
-        VD.IWant(VD.ToEqual, ('#' +V.accountNumbersUp.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 1я работа');
-    }),config.timeout);
-    SF.sleep(3);
-    condition.nowWeDoing = 'выбираем день 2й работы,кликаем её';
-    SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
-    SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersDelivery.Id+'")]'));
-    driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersDelivery.Id+'")]')).getText().then(function(text) {
-        V.Req2Cal = text;
-        VD.IWant(VD.ToEqual, ('#' +V.accountNumbersDelivery.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 2я работа');
-    }),config.timeout);
-    SF.sleep(3);
-
-
-
-condition.nowWeDoing = 'идем в департмент выключить календарь для сеилса';
-    SF.get(V.adminURL);
-    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.Board_OpenSettingsDepartment ();
-    MF.Department_OpenSales();
-    MF.Department_OpenHuman('JackSales donotdelete');
-    MF.Department_User_OpenAccount();
-    SF.click (By.xpath('//input[@ng-model="gmail"]'));
-    SF.clear (By.xpath('//input[@ng-model="gmail"]'));
-    MF.Department_SaveUser();
+// condition.nowWeDoing = 'идем в гугл почту';
+//     SF.get('http://gmail.com');
+//     SF.sleep(10);
+//     MF.Gmail_Login(V.googleloginSale, V.googlePasSale);
+//
+// condition.nowWeDoing = 'выбираем расписание, ищем в нем 1ю работу';
+//     SF.get('https://calendar.google.com/calendar');
+//     SF.sleep(2);
+//     SF.click (By.xpath('//div[@class="XyKLOd"]'));
+//     SF.click (By.xpath('//div[@class="jO7h3c"] [contains(text(), "День")]'));
+//     SF.sleep(5);
+//     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
+//     SF.sleep(1);
+//     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
+//     SF.sleep(1);
+//     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
+//     SF.sleep(1);
+//     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
+//     SF.sleep(1);
+//     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
+//     SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersUp.Id+'")]'));
+//     driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersUp.Id+'")]')).getText().then(function(text) {
+//         V.Req1Cal = text;
+//         VD.IWant(VD.ToEqual, ('#' +V.accountNumbersUp.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 1я работа');
+//     }),config.timeout);
+//
+//     condition.nowWeDoing = 'выбираем день 2й работы,кликаем её';
+//     SF.click (By.xpath('//div[@class="LdFQBb"]//div[@aria-label="Следующий день"]'));
+//     SF.waitForLocated(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersDelivery.Id+'")]'));
+//     driver.wait(driver.findElement(By.xpath('//div[@role="presentation"]//div[@role="button"]//span/html-blob[contains(text(), "'+V.accountNumbersDelivery.Id+'")]')).getText().then(function(text) {
+//         V.Req2Cal = text;
+//         VD.IWant(VD.ToEqual, ('#' +V.accountNumbersDelivery.Id+ ' |'+ ' '+ V.client.name + ' ' +  V.client.fam),text,'не пришла в календарь 2я работа');
+//     }),config.timeout);
+//
+// condition.nowWeDoing = 'идем в департмент выключить календарь для сеилса';
+//     SF.get(V.adminURL);
+//     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+//     MF.Board_OpenSettingsDepartment ();
+//     MF.Department_OpenSales();
+//     MF.Department_OpenHuman('JackSales donotdelete');
+//     MF.Department_User_OpenAccount();
+//     SF.click (By.xpath('//input[@ng-model="gmail"]'));
+//     SF.clear (By.xpath('//input[@ng-model="gmail"]'));
+//     MF.Department_SaveUser();
 
     SF.endOfTest();
 };

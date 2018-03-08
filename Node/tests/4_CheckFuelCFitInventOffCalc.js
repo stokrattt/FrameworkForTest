@@ -24,10 +24,9 @@ condition.nowWeDoing = 'считаем бензин';
     V.summQuote = (parseFloat((V.boardNumbers.QuoteMin + V.boardNumbers.QuoteMax)/2)).toFixed(2);
     V.calcFuel = (V.summQuote * V.boardNumbers.FuelPerc/100).toFixed(2);
     VD.IWant(VD.ToEqual, V.calcFuel, V.boardNumbers.Fuel, 'Бензин посчитан неправильно');
-    SF.sleep (1);
     V.boardNumbersNew={};
-    MF.EditRequest_RememberCbf(V.boardNumbersNew);
     SF.sleep(1);
+    MF.EditRequest_RememberCbf(V.boardNumbersNew);
     VD.IWant(VD.NotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
     V.boardNumbers = {};
     V.boardNumbersNew = {};
@@ -59,7 +58,6 @@ condition.nowWeDoing = 'идем в коферм и проверяем буке�
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"request in requests track by $index\"]:visible').length").then(function (text) {
         VD.IWant (VD.NotToEqual, text, 0, 'пропали реквесты после того как выбрали Move date');
     }),config.timeout);
-    SF.sleep(1);
 
 condition.nowWeDoing = 'тут мы делаем оплату через кастомный паймент и потом ее отредактируем и проверим что цена меняется после редактирования ресита';
     MF.Board_OpenPendingRequest ();

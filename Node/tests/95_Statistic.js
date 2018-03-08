@@ -40,7 +40,6 @@ condition.nowWeDoing = 'открываем статистику и провер�
         V.SerType = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.SerType, V.Confirmedinperiod,'не совпал Service Type и Common stat');
     }),config.timeout);
-    SF.sleep(1);
 
 condition.nowWeDoing = 'запоминаем кол-во Amount и Booked, и ассаин за тудэй у сеилса Эмилия';
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="data in tableData track by $index"][2]//td[2]')).getText().then(function (text) {
@@ -52,10 +51,10 @@ condition.nowWeDoing = 'запоминаем кол-во Amount и Booked, и а
     SF.sleep(1);
     SF.click(By.xpath('//statistic-table[@header="vm.HEADING_TABLES[0]"]//span[@class="switchery switchery-small"]'));
     MF.WaitWhileBusy ();
-    SF.sleep(8);
+    SF.sleep(10);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="data in tableData track by $index"]//td[contains(text(), "emilia clark")]/following-sibling::td[1]')).getText().then(function (text) {
         V.SalesAssignToday = SF.cleanPrice(text);
-            }),config.timeout);
+    }),config.timeout);
 
 condition.nowWeDoing = 'запоминаем Estimate Income';
     SF.sleep(2);
@@ -70,7 +69,6 @@ condition.nowWeDoing = 'идем в профит анд лосс, сверяем
         V.EstIncPrLos = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.EstIncPrLos, V.EstIncStat,'не совпал Estimate Income в профит анд лосс и статистике');
     }),config.timeout);
-    SF.sleep(1);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим за сеилса, в статистике сверяем кол-во забуканных и общее кол-во работ со страницей оунера';

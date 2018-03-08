@@ -24,7 +24,6 @@ condition.nowWeDoing = 'проверяем что сервис тип стал �
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, '1000', 'после добавления мувсайза комершиал кубик фит не сменился')
     }),config.timeout);
-    SF.sleep(0.5);
     MF.EditRequest_OpenClient ();
     MF.EditRequest_ClientTabSendCompanyName('CompanyTestName');
     LF.SetClientPasswd(V.client.passwd);
@@ -57,7 +56,7 @@ condition.nowWeDoing = 'ставим трак нот конферм и идем 
         V.LogsQuoteMin = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
         V.LogsQuotelMax = SF.cleanPrice(text.substring(text.indexOf('$', text.indexOf('$') + 3)));
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     VD.IWant(VD.ToEqual, V.LogsQuoteMin, V.boardNumbers.TotalMin, 'в письме клиенту  тотал min отправился неверный');
     VD.IWant(VD.ToEqual, V.LogsQuotelMax, V.boardNumbers.TotalMax, 'в письме клиенту  тотал max отправился неверный');
     LF.closeEditRequest();
@@ -72,7 +71,6 @@ condition.nowWeDoing = 'переходим на вкладку нот конфе
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, '1000', 'открыл нот конферм работу и смотрим что кубик фит остался 1000')
     }),config.timeout);
-    SF.sleep(4);
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
@@ -91,9 +89,8 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
         V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('TestComercial ')+13, text.indexOf('c.f.')));
+        VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом');
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbers);
@@ -120,7 +117,6 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда до резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда до резервации');
-    SF.sleep(1);
     MF.Account_ConfirmationBackToRequest ();
     LF.ConfirmRequestInAccount_WithReservation();
     LF.LogoutFromAccount();
@@ -141,7 +137,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -157,7 +152,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
-    SF.sleep(3);
+    SF.sleep(1);
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
@@ -181,7 +176,6 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, '1000', 'после подписания контракта в реквесте поменялся кубик фит зачем то')
     }),config.timeout);
-    SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="invoice.rate.value"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, V.boardNumbers.HourlyRate, 'не совпал рейт после подписи контракта в реквесте');
     }),config.timeout);
@@ -189,7 +183,6 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     MF.EditRequest_OpenPayroll();
     SF.sleep (2);
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
-    SF.sleep (2);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
@@ -212,7 +205,7 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep(2);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

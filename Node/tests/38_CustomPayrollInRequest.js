@@ -44,7 +44,7 @@ condition.nowWeDoing = 'снова открыть и найти людей';
     MF.Board_RefreshDashboard ();
     MF.Board_OpenRequest(V.boardNumbers.Id);
     MF.EditRequest_OpenPayroll();
-    SF.sleep(2);
+    SF.sleep(1);
     driver.wait(driver.executeScript('return $(\'select[ng-model="selected.salesPerson[salesPersonIndex]"]:visible  option[selected="selected"]:contains("'+V.managerFirstName+'")\').length;')
         .then(function(count){
             V.countSales=count;

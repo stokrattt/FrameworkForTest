@@ -159,7 +159,6 @@ condition.nowWeDoing = 'валидация инвентаря на контра�
     driver.wait(driver.executeScript("return $('div[ng-if=\"data.inventoryMoving.signatures[stepId]\"] img').length").then(function (chislo) {
         VD.IWant(VD.ToEqual, chislo, '2',  'не нашло подписи для инвентаря на контракте от первого реквеста to storage '+V.boardNumbersTo.Id+'');
     }),config.timeout);
-    SF.sleep(1);
     LF.Contract_SubmitInventoryDelivery(9);
     LF.MakeSignInInventory(2);
     LF.MakeSignInInventory(3);
@@ -211,7 +210,6 @@ condition.nowWeDoing="Зайти в Storsge pending, найти реквест";
     V.storageNumbers={};
     LF.RememberStorageNumbers(V.storageNumbers);
     VD.INeed(VD.ToEqual, V.storageNumbers.IdMoving, V.boardNumbersTo.Id, 'номер реквеста не совпадает');
-    SF.sleep(1);
     LF.ValidatePendingStorageRequest(V.storageNumbers, V.boardNumbersTo, V.boardNumbersFrom);
     MF.EditStorage_SelectMoveIn ();
     MF.EditStorage_UpdateStorage ();
@@ -219,7 +217,6 @@ condition.nowWeDoing="Зайти в Storsge pending, найти реквест";
     driver.wait(driver.executeScript('return $(\'tr[ng-repeat="doc in data.user_info.documents track by $index"]\').length').then(function(count){
         VD.IWant(VD.NotToEqual, count,0,'нет документов');
     }),config.timeout);
-    SF.sleep(1);
     MF.EditStorage_OpenLedger ();
     SF.click(By.xpath('//button[@ng-click="createInvoice()"]'));
     SF.sleep(2);
@@ -235,9 +232,8 @@ condition.nowWeDoing="Зайти в Storsge pending, найти реквест";
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"Balance :")]/span')).getText().then(function(text){
         V.storageNumbers.balance = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.storageNumbers.balance, 0, 'баланс не нулевой');
     }),config.timeout);
-    SF.sleep(2);
-    VD.IWant(VD.ToEqual, V.storageNumbers.balance, 0, 'баланс не нулевой');
     SF.sleep(1);
 
     //=========================закончили писать тест=============================

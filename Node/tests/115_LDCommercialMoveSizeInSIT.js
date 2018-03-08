@@ -43,12 +43,10 @@ condition.nowWeDoing = 'Добавляем инвентарь, меняем Fuel
     LF.SetClientPasswd(V.client.passwd);
     LF.addInventoryBoard();
     MF.EditRequest_OpenRequest();
-    SF.sleep(1);
     MF.EditRequest_OpenFuelSurchModal();
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'));
     SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'),213);
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    SF.sleep(5);
+    MF.EditRequest_ClickApplyInFuelWindow();
     SF.click(By.xpath('//select[@oldvalue="request.type_from.raw"]/option[@value="3"]'));
     MF.EditRequest_SetAdressToFrom ();
     SF.sleep(1);
@@ -56,7 +54,6 @@ condition.nowWeDoing = 'Добавляем инвентарь, меняем Fuel
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    SF.sleep(5);
     MF.EditRequest_SetToConfirmed(3);
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest ();
@@ -71,7 +68,6 @@ condition.nowWeDoing = 'Открываем реквест заново, пров
     VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.Fuel, V.boardNumbers.Fuel, 'не совпал Fuel после закрытия');
     VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.Packing, V.boardNumbers.Packing, 'не совпал Packing после закрытия');
     VD.IWant(VD.ToEqual, V.boardNumbersAfterClose.AdServices, V.boardNumbers.AdServices, 'не совпал Additional после закрытияг');
-    SF.sleep(1);
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'Выходим с дашборда, логинимся под клиентом, на странице аккаунта и Confirmation page проверяем, что цифры совпали с теми, что мы вводили в дашборде.';
@@ -120,7 +116,6 @@ condition.nowWeDoing = 'В аккаунте удаляем весь инвент
     MF.Account_WaitForLoadingAccount();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
         V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('100 Offices and 1000 employees ')+18, text.indexOf('c.f.')));
-        console.log(V.accountcbf);
     }),config.timeout);
     SF.sleep(0.5);
     VD.IWant(VD.ToEqual, V.defaultcbf, V.accountcbf, 'cubic feet не ушел в дефолтный после удаления инвентаря');
@@ -137,13 +132,10 @@ condition.nowWeDoing = 'Возвращаемся на дашборд и пров
     MF.EditRequest_OpenFuelSurchModal();
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'));
     SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'),222);
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    MF.WaitWhileToaster();
-    SF.sleep(10);
+    MF.EditRequest_ClickApplyInFuelWindow();
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
     MF.EditRequest_AddPacking();
-    SF.sleep(2);
 
 condition.nowWeDoing = 'Запоминаем суммы. Переводим работу в Closing, добавляем работу в SIT. Сохраняем, закрываем реквест и идём в Jobs in SIT проверять, что реквест добавлен в SIT.';
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
@@ -186,7 +178,7 @@ condition.nowWeDoing = 'Заходим в Trip-Planner, создаём трип 
     V.driverPhone = SF.randomCifra(10);
     SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
     SF.send (By.xpath('//input[@ng-model="trip.data.details.internal_code"]'), V.internalCode);
-    SF.sleep(3);
+    SF.sleep(1);
     SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.sleep(1);
@@ -203,14 +195,13 @@ condition.nowWeDoing = 'Идём обратно в дашборд, открыв�
     MF.Board_OpenDashboard();
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest (V.requestNumber.Id);
-    SF.sleep(1);
     V.boardNumbersAfterTrip = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersAfterTrip);
+    SF.sleep(1);
     VD.IWant(VD.ToEqual, V.boardNumbersAfterTrip.Total,V.boardNumbersAfterSIT.Total, 'не совпал Total после добавления реквеста в трип');
     VD.IWant(VD.ToEqual, V.boardNumbersAfterTrip.Fuel, V.boardNumbersAfterSIT.Fuel, 'не совпал Total после добавления реквеста в трип');
     VD.IWant(VD.ToEqual, V.boardNumbersAfterTrip.Packing, V.boardNumbersAfterSIT.Packing, 'не совпал Total после добавления реквеста в трип');
     VD.IWant(VD.ToEqual, V.boardNumbersAfterTrip.AdServices, V.boardNumbersAfterSIT.AdServices, 'не совпал Total после добавления реквеста в трип');
-    SF.sleep(2);
 
 condition.nowWeDoing = 'Меняем цифры опять, выходим из реквеста';
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
@@ -229,11 +220,8 @@ condition.nowWeDoing = 'Заходим в этот реквест из трип�
     MF.Board_OpenJobsInSIT();
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
     MF.EditRequest_WaitForBalanceVisible();
-    SF.sleep(2);
     V.boardNumbersFromTrip = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersFromTrip);
-    console.log(V.boardNumbersFromTrip);
-    SF.sleep(2);
     VD.IWant(VD.ToEqual, V.boardNumbersFromTrip.Total,V.boardNumbersAfterTrip2.Total, 'не совпал Total в трипе после изменений в дашборде');
     VD.IWant(VD.ToEqual, V.boardNumbersFromTrip.Fuel, V.boardNumbersAfterTrip2.Fuel, 'не совпал Fuel в трипе после изменений в дашборде');
     VD.IWant(VD.ToEqual, V.boardNumbersFromTrip.Packing, V.boardNumbersAfterTrip2.Packing, 'не совпал Packing в трипе после изменений в дашборде');

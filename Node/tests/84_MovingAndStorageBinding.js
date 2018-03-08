@@ -38,7 +38,6 @@ condition.nowWeDoing = 'Откриваем второй реквест и сра
         V.firstRequestId = text;
         VD.IWant(VD.ToEqual, V.boardNumbers1.Id, V.firstRequestId, 'не совпали айдишки реквестов 2');
     }),config.timeout);
-    SF.sleep(1);
     SF.clear(By.xpath('//input[@ng-model="secondRequestNid"]'));
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="secondRequestNid"]')).getAttribute('value').then(function(text){
         V.emptyId1 = text;

@@ -61,7 +61,6 @@ condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.start"]/div/input'), V.dateStart);
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'), V.dateEnd);
-    console.log(V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
     SF.sleep(2);
     V.notes = SF.randomBukva(25) + '_t';
@@ -225,7 +224,6 @@ condition.nowWeDoing = 'сравниваем циферки общий пейр�
         V.payroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalPayroll, V.payroll, 'total Payroll не совпали');
     }),config.timeout);
-    SF.sleep(2);
 
 condition.nowWeDoing = 'сабмитим пейрол, виходим и заходим обратно и проверяем сохранились ли изменения';
     SF.click(By.xpath('//button[@ng-click="submitPayroll()"]'));
@@ -387,7 +385,6 @@ condition.nowWeDoing = 'делаем revoke пейрола и изменяем �
         V.newCleanTotalMileage = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.newCleanTotalMileage, V.newTotalMileage, 'total Mileage не совпали');
     }),config.timeout);
-    SF.sleep(2);
     V.newDriverExpensesAmount = 30;
     SF.click(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]'));
     SF.sleep(2);
@@ -532,7 +529,6 @@ condition.nowWeDoing = 'сабмитим и опять проверяем';
         V.newPayroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newTotalPayroll, V.newPayroll, 'new total Payroll не совпали');
     }),config.timeout);
-    SF.sleep(2);
 
 condition.nowWeDoing = 'идем в пейролл большой проверять что трип есть и что суммы пейрола у форемана за этот период включает также тотал трипа';
     MF.Board_OpenPayroll();
@@ -541,7 +537,6 @@ condition.nowWeDoing = 'идем в пейролл большой проверя
      future = new Date(now.getTime() + msInDay * 10);
     options = { month: 'short', day: 'numeric', year: 'numeric' };
     V.dateEnd = (future.toLocaleDateString('en-US', options));
-    console.log(V.dateEnd);
     SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));
     SF.send(By.xpath('//input[@ng-model="dateRange.from"]'), V.dateEnd);
     SF.clear(By.xpath('//input[@ng-model="dateRange.to"]'));

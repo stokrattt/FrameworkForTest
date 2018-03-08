@@ -30,7 +30,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
     MF.EditRequest_OpenSettings ();
-    SF.sleep(2);
     LF.SetManager('JackSales');
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin();
@@ -62,7 +61,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -87,7 +85,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     driver.wait(driver.executeScript('return $(\'tr[ng-if="contract_page.paymentTax.creditCharge.state"] span\').text()').then(function (text) {
         V.contractNumbers.CreditCardPercentSumm = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(2);
     SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
     SF.sleep(15);
     MF.SweetConfirm ();
@@ -148,7 +145,6 @@ condition.nowWeDoing = 'выбираем цифры helper';
     MF.Payroll_getTotalById(V.request.Id, V.payrollNumbers.Helper);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Helper.Total, (V.boardNumbers.Payroll.helpersForCommission.total/2), 'не нашло этой работы у хелпера или не совпали цифры в Payroll helper\n' +
         'id=' + V.request.Id);
-    SF.sleep(1);
     MF.Board_OpenSchedule ();
     condition.nowWeDoing = 'идем в календарь проверять что трака нету на календаре на текущую дату';
     driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){

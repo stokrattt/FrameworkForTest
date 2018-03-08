@@ -112,6 +112,7 @@ condition.nowWeDoing = 'вибираем карьера, вибираем раб
     SF.waitForVisible (By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.balance)"]'));
     SF.click(By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.balance)"]'))
     SF.waitForVisible(By.xpath('//button[@ng-click="sendInvoice()"]'));
+    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="sendInvoice()"]'));
     SF.waitForVisible(By.xpath('//a[@ng-click="save()"]'));
     SF.sleep(2);
@@ -119,11 +120,11 @@ condition.nowWeDoing = 'вибираем карьера, вибираем раб
     SF.sleep(2);
 
 condition.nowWeDoing = 'переходим на страницу просмотра иновоиса и делаем оплату инвоиса';
-    SF.sleep(2);
+    MF.WaitWhileToaster();
     SF.waitForVisible(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
     SF.click(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
-    SF.sleep(5);
-    SF.click(By.xpath('//ng-md-icon[@icon="remove_red_eye"]'));
+    SF.sleep(2);
+    SF.click(By.xpath('//button[@aria-label="Show"]/ng-md-icon[@icon="remove_red_eye"]'));
     SF.openTab(1);
     SF.waitForVisible(By.xpath('//a[@ng-click="vm.invoicePayment();"]'));
     SF.sleep(3);
@@ -150,7 +151,6 @@ condition.nowWeDoing = 'Проверяем есть ли в реситах оп�
         V.invoicesAmount = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.amount, V.invoicesAmount, 'не совпали Amount');
     }),config.timeout);
-    SF.sleep(2);
     SF.click(By.xpath('//div[@ng-click="showList(item)"]'));
 
 condition.nowWeDoing = 'удаляем инвоис';

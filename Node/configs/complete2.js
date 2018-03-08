@@ -1,7 +1,6 @@
 module.exports = function(config,V) {
     config.suite = [
         './tests/DefaultSettings.js',
-        './tests/52_AllFlatRate.js',
         './tests/33_AddCarrier.js',
         './tests/34_ContractPageCustomBlock.js',
         './tests/35_InventoryLocalMovingAndValuation.js',
@@ -33,6 +32,7 @@ module.exports = function(config,V) {
         './tests/70_SITAddTripPersonallyForeman.js',
         './tests/61_SITInvoices.js',
         './tests/72_ChangingRateAfterConfirming.js',
+        './tests/121_FAQ.js',
 
         './tests/73_CustomTrackSpeed.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
@@ -43,7 +43,7 @@ module.exports = function(config,V) {
         './tests/115_LDCommercialMoveSizeInSIT.js',
         './tests/40_PayrollTableCheckSumJobs.js',
     ];
-    config.timeout = 80000;
+    config.timeout = 90000;
     config.chainFail = false;
     config.browser = 'chrome';
     config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu"] };

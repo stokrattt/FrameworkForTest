@@ -8,7 +8,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep (3);
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы только ассепт алл квотс';
     LF.gotoSetingsLD ();
     SF.sleep(2);
@@ -43,6 +42,7 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     SF.sleep (2);
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
+
 condition.nowWeDoing = 'создаем реквест с фронтовой верхней формы с вкл галкой ассепт алл квотс должно пускать иначе ошибка';
     SF.sleep (4);
     MF.FrontSiteSmallCalc_SendZipCode('02111', '50201');
@@ -58,6 +58,7 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ве
     SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
     SF.sleep (4);
+
 condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы с вкл галкой ассепт алл квотс должно пускать иначе ошибка';
     SF.sleep (3);
     MF.FrontSite_ClickQuoteCalculator();
@@ -75,7 +76,7 @@ condition.nowWeDoing = 'создаем реквест с фронтовой ни
 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep (3);
+
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем все галки';
     LF.gotoSetingsLD ();
     SF.sleep (2);
@@ -94,12 +95,14 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
     SF.sleep(5);
+
 condition.nowWeDoing = 'создаем реквест второй раз с фронтовой верхней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
     MF.FrontSiteSmallCalc_SendZipCode('02111', '50201');
     MF.SweetConfirm();
     SF.sleep (2);
     driver.navigate().refresh();
     SF.sleep (5);
+
 condition.nowWeDoing = 'создаем реквест второй раз с фронтовой нижней формы с выкл галкой ассепт алл квотс, не должно пускать иначе ошибка';
     MF.FrontSite_ClickQuoteCalculator();
     MF.FrontSiteDown_SendZipCode('02111', '50201');
@@ -107,7 +110,7 @@ condition.nowWeDoing = 'создаем реквест второй раз с ф�
     MF.SweetConfirm();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep (3);
+
 condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем галку All acept quotes и ставим галочку Move to this state и выставить для всех area какую-нибудь цену';
     LF.gotoSetingsLD ();
     SF.sleep(2);
@@ -150,6 +153,7 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     SF.sleep (2);
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
+
 condition.nowWeDoing = 'создаем реквест с верхней формы третий раз, должно пускать, если нет то ошибка';
     SF.sleep (4);
     MF.FrontSiteSmallCalc_SendZipCode('02111', '50201');
@@ -164,6 +168,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     SF.sleep(1);
     SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
+
 condition.nowWeDoing = 'создаем реквест с нижней формы третий раз, должно пускать, если нет то ошибка';
     SF.sleep (3);
     MF.FrontSite_ClickQuoteCalculator();
@@ -183,7 +188,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     SF.sleep (3);
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep (3);
+
 condition.nowWeDoing = 'удаляем общую цену для всего штата и назначить одну цену на какую-то территорию';
     LF.gotoSetingsLD ();
     SF.sleep(2);
@@ -219,6 +224,7 @@ condition.nowWeDoing = 'удаляем общую цену для всего ш�
     SF.sleep (2);
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
+
 condition.nowWeDoing = 'создаем реквест с верхней формы 4 раз в ту территорию в которую выставилу цену, должно пускать, если нет то ошибка';
     SF.sleep (4);
     MF.FrontSiteSmallCalc_SendZipCode('02111', '50588');
@@ -230,6 +236,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     SF.sleep(1);
     SF.waitForVisible(By.xpath('//div[@ng-click="Continue2(\'step2\')"]'));
     driver.navigate().refresh();
+
 condition.nowWeDoing = 'создаем реквест с нижней формы 4 раз в ту территорию в которую выставилу цену, должно пускать, если нет то ошибка';
     SF.sleep (4);
     MF.FrontSite_ClickQuoteCalculator();
@@ -247,6 +254,7 @@ condition.nowWeDoing = 'создаем реквест с нижней формы
     MF.FrontSite_SelectGoogleSearch();
     driver.navigate().refresh();
     SF.sleep (4);
+
 condition.nowWeDoing = 'создаем реквест с верхней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
     MF.FrontSiteSmallCalc_SendZipCode('02111', '50701');
     SF.sleep(3);
@@ -254,16 +262,16 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
     SF.sleep (2);
     driver.navigate().refresh();
     SF.sleep (5);
+
 condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
     MF.FrontSite_ClickQuoteCalculator();
     MF.FrontSiteDown_SendZipCode('02111', '50701');
     SF.sleep(3);
     MF.SweetConfirm();
     SF.sleep (3);
-
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep (3);
+
 condition.nowWeDoing = 'заходим в админку и удаляем Move to this state при этом цена в один ареа код остается';
     LF.gotoSetingsLD ();
     SF.sleep(2);
@@ -277,12 +285,14 @@ condition.nowWeDoing = 'заходим в админку и удаляем Move 
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
     SF.sleep(4);
+
 condition.nowWeDoing = 'создаем реквест с верхней формы 6 раз, в территорию с указанной ценой и выключеной галкой Move to this state, должно выкинуть';
     MF.FrontSiteSmallCalc_SendZipCode('02111', '50588');
     MF.SweetConfirm();
     SF.sleep (2);
     driver.navigate().refresh();
     SF.sleep (5);
+
 condition.nowWeDoing = 'создаем реквест с нижней формы 6 раз, в территорию с указанной ценой и выключеной галкой Move to this state, должно выкинуть';
     MF.FrontSite_ClickQuoteCalculator();
     MF.FrontSiteDown_SendZipCode('02111', '50588');

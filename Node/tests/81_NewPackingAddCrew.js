@@ -24,7 +24,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, добавля�
     // LF.addToCleanerJob(V.accountNumbers.Id);
     LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'первый раз в админке,сверяю тотал, добавляю коробки';
+condition.nowWeDoing = 'первый раз в админке,сверяю тотал, добавляю коробки, захожу еще раз в пакинг и меняю размер и цену пакинга';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbers.Id);
@@ -40,6 +40,17 @@ condition.nowWeDoing = 'первый раз в админке,сверяю то�
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_AddPacking();
+    SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
+    SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+    SF.click(By.xpath('//input[@ng-model="add_extra_charge.quantity"][1]'));
+    SF.clear(By.xpath('//input[@ng-model="add_extra_charge.quantity"][1]'));
+    SF.send(By.xpath('//input[@ng-model="add_extra_charge.quantity"][1]'), '888');
+    SF.click(By.xpath('//input[@ng-model="add_extra_charge.rate"][1]'));
+    SF.clear(By.xpath('//input[@ng-model="add_extra_charge.rate"][1]'));
+    SF.send(By.xpath('//input[@ng-model="add_extra_charge.rate"][1]'), '1');
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    MF.WaitWhileBusy ();
+    SF.sleep (5);
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
     V.boardNumbers = {};
@@ -68,8 +79,15 @@ condition.nowWeDoing = 'второй раз в аккаунте,проверяю
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Middium Box")]')).getText().then(function(text){
        V.BoxMed = text;
        }),config.timeout);
-    SF.sleep(0.5);
-    V.boxCostAc = V.boardNumbers.Packing - V.accountNumbers.Packing;
+    SF.sleep(1);
+    Debug.pause();
+    V.accountNumbers = {};
+    LF.RememberAccountNumbers(V.accountNumbers);
+    SF.sleep(1);
+    console.log(V.BoxMed);
+
+    V.boxCostAc = V.boardNumbers.Packing - 888;
+    LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.Account_CheckSignature();
@@ -94,7 +112,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="rate.value"]')).getAttribute('value').then(function(text){
         V.RateCrew = SF.cleanPrice(text);
-                    }),config.timeout);
+    }),config.timeout);
     SF.click(By.xpath('//button[@ng-click="saveSettings()"]'));
     MF.WaitWhileBusy ();
     JS.click('a[ng-click=\\"vm.assignTeam(request)\\"]:visible');
@@ -125,8 +143,6 @@ condition.nowWeDoing = 'заходим под форменом,проверяе�
         VD.IWant(VD.ToEqual, V.BoxMed, V.BoxMed2, 'не совпали коробки');
     }),config.timeout);
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
-    MF.WaitWhileBusy();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();

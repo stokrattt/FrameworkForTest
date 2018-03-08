@@ -65,7 +65,7 @@ condition.nowWeDoing = 'второй раз в аккаунте,  меняю з�
     SF.click(By.xpath('//input[@id="edit-moving-from-zip"]'));
     SF.clear(By.xpath('//input[@id="edit-moving-from-zip"]'));
     SF.send(By.xpath('//input[@id="edit-moving-from-zip"]'),'02134');
-    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+    MF.Account_ClickUpdateClientInModalWindow();
     MF.Account_SweetUpdateConfirm();
     MF.WaitWhileBusy();
     SF.waitForLocated(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
@@ -74,14 +74,11 @@ condition.nowWeDoing = 'второй раз в аккаунте,  меняю з�
     LF.RememberAccountNumbers(V.accountNumbersChangeToOvernightFirst);
     MF.Account_ClickFromStorage ();
     V.accountNumbersChangeToOvernightSecond = {};
-    SF.sleep (2);
     LF.RememberAccountNumbers(V.accountNumbersChangeToOvernightSecond);
     driver.wait(driver.findElement(By.xpath('//div[@id="move-size-block-account"]//span[@class="tip"]')).getText().then(function(text){
         V.accountNumbersChangeToOvernightSecondcbf = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.accountNumbersChangeToOvernightFirst.cbf,V.accountNumbersChangeToOvernightSecondcbf, 'не совпал c.f.овернаита 1го и 2го реквеста');
     }),config.timeout);
-    SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.accountNumbersChangeToOvernightFirst.cbf,V.accountNumbersChangeToOvernightSecondcbf, 'не совпал c.f.овернаита 1го и 2го реквеста');
-    SF.sleep(2);
     LF.LogoutFromAccount ();
 
 condition.nowWeDoing = 'иду в админку 2 реквеста овернаит, и там сравниваю все с аккаунтом, реквесты должны быть табе пендинг';
@@ -91,20 +88,15 @@ condition.nowWeDoing = 'иду в админку 2 реквеста оверна
     V.boardNumbersSecondOvernight = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersSecondOvernight);
     LF.Validation_Compare_Account_Admin(V.accountNumbersChangeToOvernightSecond,V.boardNumbersSecondOvernight);
-    SF.sleep(2);
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'иду в админку 1 реквеста овернаит, и  сравниваю все с аккаунтом';
     MF.Board_OpenRequest(V.accountNumbersChangeToOvernightFirst.Id);
     V.boardNumbersFirstOvernight = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFirstOvernight);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.Validation_Compare_Account_Admin(V.accountNumbersChangeToOvernightFirst,V.boardNumbersFirstOvernight);
-    SF.sleep(2);
-
-
-
-
+    SF.sleep(1);
     SF.endOfTest();
 };
 

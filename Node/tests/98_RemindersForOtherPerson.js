@@ -54,12 +54,10 @@ condition.nowWeDoing = 'заходим за сеилса, сверяем рим�
         V.RemaindTextSales = text;
         VD.IWant(VD.ToEqual, V.RemaindText, V.RemaindTextSales,'проверяем текст римайндера');
     }),config.timeout);
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//reminder-min[@ng-click="$ctrl.openDialog(reminder)"]')).getCssValue("background-color").then(function (color) {
         V.RemaindTextSales = color;
         VD.IWant(VD.ToEqual, V.RemaindTextAdmin, V.RemaindTextSales,'цвет римайндера не совпал');
     }),config.timeout);
-    SF.sleep(4);
     SF.click(By.xpath('//button[@ng-click="$ctrl.reminder.dismiss();"]'));
     MF.WaitWhileToaster();
     MF.WaitWhileToaster();
@@ -68,7 +66,6 @@ condition.nowWeDoing = 'заходим за сеилса, сверяем рим�
         V.TitleReq = text;
         VD.IWant(VD.ToEqual, V.TitleReq, 'PAST','текст не поменялся на PAST');
     }),config.timeout);
-    SF.sleep(1);
     SF.click(By.xpath('//li[@index="0"]'));
     SF.click(By.xpath('//button[@ng-click="$ctrl.done()"]'));
     LF.closeEditRequest();
@@ -87,7 +84,6 @@ condition.nowWeDoing = 'идем во вкладку римайндеры, и и
         V.RemaindText2 = text;
         VD.IWant(VD.ToEqual, V.RemaindText, V.RemaindText2,'римайндера нет в PAST');
     }),config.timeout);
-    SF.sleep(2);
     SF.click(By.xpath('//div[@ng-click="$ctrl.service.togglePanel()"]'));
 
     condition.nowWeDoing = 'заходим в реквест, переводим его в статус нот конферм, а потом конферм ';
@@ -102,7 +98,6 @@ condition.nowWeDoing = 'идем во вкладку римайндеры, и и
     MF.Board_OpenNotConfirmed();
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest(V.requestAdmin.Id);
-    SF.sleep(1);
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SetToConfirmed();
     MF.EditRequest_SaveChanges();

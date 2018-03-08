@@ -42,7 +42,6 @@ condition.nowWeDoing = 'теперь добавляем все возможны�
         V.sumExpenseAfterAddExpense = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.sumExpenseAfterAddExpense, (V.sumExpenseClean+2500), 'не совпало итого сверху с тем что мы добавили');
     }),config.timeout);
-    SF.sleep(1);
 
 condition.nowWeDoing = 'проверяем что нотес в експенсе посохранялось';
     driver.wait(driver.findElements(By.xpath('//tr[@ng-click="openExpense(expense)"]/td[contains(text(), "Notes Trucks")]')).then(function (len) {
@@ -60,7 +59,6 @@ condition.nowWeDoing = 'проверяем что нотес в експенсе
     driver.wait(driver.findElements(By.xpath('//tr[@ng-click="openExpense(expense)"]/td[contains(text(), "Notes Misc")]')).then(function (len) {
         VD.IWant (VD.ToEqual, 1, (len.length), 'не нашло нотес для Misc');
     }),config.timeout);
-    SF.sleep(2);
 
 condition.nowWeDoing = 'теперь удаляем созданные експенсе';
     driver.wait(driver.executeScript("return $('tr[ng-click=\"openExpense(expense)\"]').length").then(function (expense) {

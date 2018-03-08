@@ -26,7 +26,6 @@ condition.nowWeDoing = 'запоминаем все данные';
     SF.sleep (0.5);
     V.client.passwd = 123;
     LF.SetClientPasswd (V.client.passwd);
-    SF.sleep (2);
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'зашли под клиентом в акк';
@@ -55,7 +54,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -90,7 +88,7 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     MF.Dispatch_ShowDoneJobs();
     LF.OpenRequestDispatch(V.request.Id);
     MF.EditRequest_WaitForBalanceVisible();
-    SF.sleep(3);
+    SF.sleep(2);
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
@@ -107,7 +105,6 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
         V.paymentAmount1 = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.paymentAmount1, V.payment1, 'оплата не совпала')
     }),config.timeout);
-    SF.sleep (3);
     SF.click (By.xpath('//h2[contains(text(), "Receipt ")]/../../..//button[@ng-click="cancel()"]'));
     SF.sleep(3);
 
@@ -122,7 +119,7 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
         V.paymentAmount2 = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.paymentAmount2, V.payment2, 'оплата не совпала')
     }),config.timeout);
-    SF.sleep (2);
+    SF.sleep (1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

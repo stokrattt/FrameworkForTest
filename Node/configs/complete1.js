@@ -15,6 +15,8 @@ module.exports = function(config,V) {
         './tests/SetReservationPrice.js',
         './tests/9_TestNoteSaveNothing.js',
         './tests/1_AllLocalMoving.js',
+        './tests/52_AllFlatRate.js',
+
         './tests/2_CheckPermissions.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/DefaultSettings.js',
@@ -23,7 +25,7 @@ module.exports = function(config,V) {
         './tests/14_LoadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
-        './tests/15_OvernightDownForm.js',
+       './tests/15_OvernightDownForm.js',
         './tests/13_UnloadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
         './tests/16_UnloadHelpDownFrontCheckRateClosing.js',
@@ -48,7 +50,7 @@ module.exports = function(config,V) {
         './tests/51_ServiceTypesOnOff.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
     ];
-    config.timeout = 80000;
+    config.timeout = 90000;
     config.chainFail = false;
     config.browser = 'chrome';
     config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu"] };

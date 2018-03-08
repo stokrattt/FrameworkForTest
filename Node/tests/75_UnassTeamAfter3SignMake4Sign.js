@@ -68,12 +68,10 @@ condition.nowWeDoing = 'заходим под 1м форменом, открыв
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }),config.timeout);
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
@@ -88,7 +86,6 @@ condition.nowWeDoing = 'третий раз в админке, анассаин 
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
-    SF.sleep(1);
 
     JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
     MF.WaitWhileBusy();
@@ -105,7 +102,6 @@ condition.nowWeDoing = 'заходим под 2м форменом, доподп
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    SF.sleep(1);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     SF.click(By.xpath('//input[@ng-model="crew.timer.timeOff"]'));
@@ -121,7 +117,7 @@ condition.nowWeDoing = 'заходим под 2м форменом, доподп
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
-    SF.sleep(3);
+    SF.sleep(1);
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
@@ -152,6 +148,7 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'сейчас идём в пейролл';
+    // MF.Board_OpenSideBar();
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll(V.foremanName);
@@ -170,7 +167,7 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
-    SF.sleep(2);
+    SF.sleep(1);
 
         SF.endOfTest();
 };

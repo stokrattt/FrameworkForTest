@@ -98,7 +98,7 @@ condition.nowWeDoing = 'тут будем проверять hourly rate, что
 	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman2);
 	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman2.Total, V.boardNumbers.Payroll.foreman2ForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
 		'id=' + V.boardNumbers.Id);
-	SF.sleep (2);
+	SF.sleep (1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
