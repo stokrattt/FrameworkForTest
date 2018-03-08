@@ -106,6 +106,7 @@ condition.nowWeDoing = 'тут открываем пейрол в реквест
         Math.floor(V.boardNumbers.Total
             - V.boardNumbers.Packing - V.boardNumbers.Fuel - V.boardNumbers.Tips - 200 - V.contractNumbers.CreditCardPercentSumm),
         'Не совпал ForCommission менеджера');
+
     driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
         V.boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
     }),config.timeout);

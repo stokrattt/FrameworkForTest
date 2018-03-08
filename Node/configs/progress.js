@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/115_LDCommercialMoveSizeInSIT.js'];
+    config.suite = ['./tests/56_LoadingAllSteps.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
@@ -8,7 +8,16 @@ module.exports = function(config,V) {
     // V.accountURL = 'http://test1.stage.themoveboard.com:81/account/';  //dev
     // V.adminURL = 'http://test1.stage.themoveboard.com:81/moveBoard/';  //dev
 
-     V.frontURL = 'http://stage.stage.themoveboard.com:91';
+    // V.frontURL = 'http://test2.stage.themoveboard.com:82/front_site/';                    //dev
+    // V.accountURL = 'http://test2.stage.themoveboard.com:82/account/';  //dev
+    // V.adminURL = 'http://test2.stage.themoveboard.com:82/moveBoard/';  //dev
+
+    // V.frontURL = 'http://test3.stage.themoveboard.com:83/front_site/';                    //dev
+    // V.accountURL = 'http://test3.stage.themoveboard.com:83/account/';  //dev
+    // V.adminURL = 'http://test3.stage.themoveboard.com:83/moveBoard/';  //dev
+
+
+    V.frontURL = 'http://stage.stage.themoveboard.com:91';
      V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';
      V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';
 
@@ -21,6 +30,7 @@ module.exports = function(config,V) {
     //V.adminURL = 'http://moversboard.net:8051/moveBoard/#/login';
 
     V.adminLogin = 'WorkAdmin';
+    // V.adminLogin = 'TestAdmin';
     V.adminPassword = 'test';
     V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';
