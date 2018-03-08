@@ -70,6 +70,7 @@ condition.nowWeDoing = 'идем в акк запоминаем данные и 
     }),config.timeout);
     SF.sleep(1);
     MF.SweetConfirm();
+    MF.WaitWhileBusy();
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

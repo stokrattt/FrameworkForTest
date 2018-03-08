@@ -123,8 +123,9 @@ module.exports = function(config,V) {
         './tests/120_LDFlag.js',
         './tests/121_FAQ.js',
         './tests/111_ZIPCode.js',
-        './tests/51_ServiceTypesOnOff.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
+        './tests/51_ServiceTypesOnOff.js',
+
         './tests/56_LoadingAllSteps.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
 
