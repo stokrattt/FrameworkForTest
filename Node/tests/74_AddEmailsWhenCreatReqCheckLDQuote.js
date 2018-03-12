@@ -51,6 +51,7 @@ condition.nowWeDoing = 'идём в логи, потом выставляем с
     LF.SetClientPasswd (V.client.passwd);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SendRateForLD (15);
+    MF.SweetConfirm();
     SF.sleep(8); // save
     MF.EditRequest_RememberId (V.boardNumbersBeforeAddInvent);
     LF.RememberDigitsRequestBoard (V.boardNumbersBeforeAddInvent);
@@ -66,8 +67,8 @@ condition.nowWeDoing = 'идем на аккаунт, добавляем инв�
     V.accountNumbersLDBeforeAddInvent = {};
     LF.RememberAccountNumbersLD(V.accountNumbersLDBeforeAddInvent);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDBeforeAddInvent, V.boardNumbersBeforeAddInvent);
-    LF.AccountLocalAddInventory();
-    LF.AccountLocalAddAdditionalInventory();
+    LF.AccountLocalAddInventoryWhenCalcOff();
+    LF.AccountLocalAddAdditionalInventoryWhenCalcOff();
     SF.sleep(2);
     MF.WaitWhileBusy();
     V.accountNumbersLD = {};
@@ -83,7 +84,7 @@ condition.nowWeDoing = 'зашли в админку и сравниваем р�
 
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
         V.RateLDAfterAddInventory = SF.cleanPrice(rate);
-        VD.IWant(VD.NotToEqual, V.RateLDAfterAddInventory, 15, 'сломался рейт после того как добавили инвенторий на аккаунте а с ним и все другие пересчеты');
+        VD.IWant(VD.ToEqual, V.RateLDAfterAddInventory, 15, 'сломался рейт после того как добавили инвенторий на аккаунте а с ним и все другие пересчеты');
     }),config.timeout);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLD, V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
@@ -112,7 +113,7 @@ condition.nowWeDoing = 'идем в админку после резерваци
     LF.RememberDigitsRequestBoard(V.boardNumbersAfterConfirm);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
         V.RateLDAfterReserv = rate;
-        VD.IWant(VD.NotToEqual, V.RateLDAfterReserv, '15.00', 'сломался рейт после того как забукали работу на аккаунте а с ним и все другие пересчеты');
+        VD.IWant(VD.ToEqual, V.RateLDAfterReserv, '15.00', 'сломался рейт после того как забукали работу на аккаунте а с ним и все другие пересчеты');
     }),config.timeout);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLD, V.boardNumbers);
     SF.sleep(1);

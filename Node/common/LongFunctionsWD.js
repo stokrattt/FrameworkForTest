@@ -216,7 +216,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-		MF.Account_ClickSaveInventory();
+        MF.Account_ClickSaveInventory();
 		// if (accountNumbers != undefined) {
 		//     driver.wait(driver.executeScript('return $(\'div.inventory__toolbar-item:contains("Total Estimated Cubic Feet:")\').text()').then(
 		//         function (text) {
@@ -226,6 +226,34 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		//     ),config.timeout);
 		// }
 	}
+    function AccountLocalAddInventoryWhenCalcOff(accountNumbers) {
+        MF.Account_ClickInventoryOpenTab();
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[6]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[7]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[8]//button[@ng-click="onClickCounter(1)"]'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.sleep(1);
+        SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
+        SF.sleep(1);
+        // MF.Account_ClickSaveInventory();
+        // if (accountNumbers != undefined) {
+        //     driver.wait(driver.executeScript('return $(\'div.inventory__toolbar-item:contains("Total Estimated Cubic Feet:")\').text()').then(
+        //         function (text) {
+        //             accountNumbers.InventoryCbf = SF.cleanPrice(text);
+        //             console.log("cbf = " + accountNumbers.InventoryCbf);
+        //         }
+        //     ),config.timeout);
+        // }
+    }
 
 	function AddInventory_InHomeEstimate() {
 		JS.scroll('a[ng-click="select(tabs[1])"]');
@@ -287,8 +315,28 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
-		MF.Account_ClickSaveInventory();
+        MF.Account_ClickSaveInventory();
 	}
+    function AccountLocalAddAdditionalInventoryWhenCalcOff() {
+        MF.WaitWhileBusy();
+        JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
+        SF.sleep(8);
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[6]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[7]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[8]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
+        SF.sleep(1);
+        SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
+        SF.sleep(1);
+        // MF.Account_ClickSaveInventory();
+    }
 
 
 	function HomeEstimate_CheckStatusinMoveboard() {
@@ -2484,7 +2532,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		FullSmallCalcAsFlateRate: FullSmallCalcAsFlateRate,
 		AccountLocalEnterAddress: AccountLocalEnterAddress,
 		AccountLocalAddInventory: AccountLocalAddInventory,
+        AccountLocalAddInventoryWhenCalcOff:AccountLocalAddInventoryWhenCalcOff,
 		AccountLocalAddAdditionalInventory: AccountLocalAddAdditionalInventory,
+        AccountLocalAddAdditionalInventoryWhenCalcOff:AccountLocalAddAdditionalInventoryWhenCalcOff,
 		ContractAdditionalInventoryAdd: ContractAdditionalInventoryAdd,
 		AccountFlatRateAddInventory: AccountFlatRateAddInventory,
 		AddInventory_InHomeEstimate: AddInventory_InHomeEstimate,

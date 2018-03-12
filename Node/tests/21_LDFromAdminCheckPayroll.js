@@ -164,7 +164,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findSaleInPayroll(V.managerName);
     driver.wait(driver.executeScript("return $('td:contains("+V.request.Id+")').length").then (function (check) {
-        VD.INeed(VD.ToEqual, check, 1, 'лд работа не нашлась в пейроле');
+        VD.INeed(VD.ToEqual, check, 1, 'лд работа не нашлась в пейроле '+V.request.Id+'');
     }),config.timeout);
     SF.sleep (1);
 

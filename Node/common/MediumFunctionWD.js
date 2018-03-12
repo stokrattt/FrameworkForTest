@@ -988,7 +988,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_OpenRequest() {
         SF.click(By.xpath('//a[@ng-click="select(tabs[0])"]'));
-        SF.sleep(1);
+        WaitWhileBusy();
     }
     function EditRequest_OpenPayment() {
         JS.click('label[ng-click=\\"OpenPaymentModal();\\"]:visible');
