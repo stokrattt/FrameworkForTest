@@ -817,7 +817,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             console.log(contractNumbers.CreditCardPercentSumm);
         }),config.timeout);
         SF.sleep(2);
-        SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true })"]'));
+        SF.click(By.xpath('//button[@ng-click="submitContractBtn({ isBtn: true, lastPageSubmit: true})"]'));
         SF.sleep(15);
         SweetConfirm();
     }

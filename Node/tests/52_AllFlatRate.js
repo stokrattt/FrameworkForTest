@@ -135,13 +135,14 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     LF.OpenRequestInForemanPage(V.FRId);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
-    driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = calculation.totalClosingFlatRateCost()"]/following-sibling::td')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = totalFlatRateClosing()"]/following-sibling::td')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), 5000, 'не показался полный тотал на флет рейт пикап на контракте');
     }),config.timeout);
-    LF.MakeSignInContract();
-    LF.MakeSignInContract();
+
+    LF.MakeSignInContractFlatRate();
+    LF.MakeSignInContractFlatRate();
     MF.Contract_DeclarationValueA();
-    LF.MakeSignInContract();
+    LF.MakeSignInContractFlatRate();
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
@@ -161,11 +162,11 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     driver.wait(driver.findElement(By.xpath('//tr[@ng-if="contract_page.paymentTax.creditCharge.state"]/td[2]/span')).getText().then(function (text) {
         VD.IWant(VD.NotToEqual, SF.cleanPrice(text), 0, 'не посчитало процент от оплаты карточкой для флет рейт пикап контракта')
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = calculation.totalClosingFlatRateCost()"]/following-sibling::td')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = totalFlatRateClosing()"]/following-sibling::td')).getText().then(function (text) {
         V.pickupTotalCost = SF.cleanPrice(text);
     }),config.timeout);
-    LF.MakeSignInContract();
-    LF.MakeSignInContract();
+    LF.MakeSignInContractFlatRate();
+    LF.MakeSignInContractFlatRate();
     MF.WaitWhileBusy ();
     V.contractNumbersPickup = {};
     driver.wait(driver.executeScript('return $(\'tr[ng-if="contract_page.paymentTax.creditCharge.state"] span\').text()').then(function (text) {
@@ -194,7 +195,7 @@ condition.nowWeDoing = 'заходим под вторым фореманом п
     LF.OpenRequestInForemanPage(V.FRId);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading ();
-    driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = calculation.totalClosingFlatRateCost()"]/following-sibling::td')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = totalFlatRateClosing()"]/following-sibling::td')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.pickupTotalCost, 'не показался правильный тотал кост деливери на контракте, тоесть не совпал с тем что был на пикап контракте после оплаты пикап');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-class="{\'red_total\': totalLessDeposit() }"]')).getText().then(function (text) {
@@ -216,16 +217,16 @@ condition.nowWeDoing = 'заходим под вторым фореманом п
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
     MF.WaitWhileBusy ();
-    driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = calculation.totalClosingFlatRateCost()"]/following-sibling::td')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = totalFlatRateClosing()"]/following-sibling::td')).getText().then(function (text) {
         V.fullTotalCost = SF.cleanPrice(text);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-if="calcData.tip && calcData.tip !=0 && pushTips"]/td[2]')).getText().then(function (text) {
         VD.IWant(VD.NotToEqual, SF.cleanPrice(text), 0, 'не насчитало типсы для флет рейт деливери контракта');
     }),config.timeout);
-    LF.MakeSignInContract();
-    LF.MakeSignInContract();
+    LF.MakeSignInContractFlatRate();
+    LF.MakeSignInContractFlatRate();
     MF.WaitWhileBusy ();
-    SF.click (By.xpath('//button[@ng-click="submitContractBtn({delivery: true, isBtn: true })"]'));
+    SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, delivery: true, isBtn: true, lastPageSubmit: true})"]'));
     SF.sleep(15);
     MF.WaitWhileBusy ();
     MF.SweetConfirm ();

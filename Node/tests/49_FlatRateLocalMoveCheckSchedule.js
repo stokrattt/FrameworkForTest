@@ -61,10 +61,10 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
-    LF.MakeSignInContract();
-    LF.MakeSignInContract();
+    LF.MakeSignInContractFlatRate();
+    LF.MakeSignInContractFlatRate();
     MF.Contract_DeclarationValueA();
-    LF.MakeSignInContract();
+    LF.MakeSignInContractFlatRate();
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
@@ -78,14 +78,14 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
-    LF.MakeSignInContract();
-    LF.MakeSignInContract();
+    LF.MakeSignInContractFlatRate();
+    LF.MakeSignInContractFlatRate();
     MF.WaitWhileBusy();
     V.contractNumbers = {};
     driver.wait(driver.executeScript('return $(\'tr[ng-if="contract_page.paymentTax.creditCharge.state"] span\').text()').then(function (text) {
         V.contractNumbers.CreditCardPercentSumm = SF.cleanPrice(text);
     }),config.timeout);
-    SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true })"]'));
+    SF.click (By.xpath('//button[@ng-click="submitContractBtn({pickup: true, isBtn: true, lastPageSubmit: true})"]'));
     SF.sleep(15);
     MF.SweetConfirm ();
     MF.Contract_ReturnToForeman();

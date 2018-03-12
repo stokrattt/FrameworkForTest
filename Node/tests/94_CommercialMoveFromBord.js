@@ -59,6 +59,7 @@ condition.nowWeDoing = 'ставим трак нот конферм и идем 
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.LogsQuoteMin, V.boardNumbers.TotalMin, 'в письме клиенту  тотал min отправился неверный');
     VD.IWant(VD.ToEqual, V.LogsQuotelMax, V.boardNumbers.TotalMax, 'в письме клиенту  тотал max отправился неверный');
+    Debug.pause();
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'переходим на вкладку нот конферм, открываем наш реквест и еще раз сверяем данные которые были до закрытия';

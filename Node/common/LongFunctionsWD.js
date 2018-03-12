@@ -1340,6 +1340,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
 		SF.sleep(2);
 	}
+    function MakeSignInContractFlatRate() {
+        MF.WaitWhileBusy();
+        SF.click(By.xpath('//div[@id="local_moves"]//div[@class="empty-signature"]'));
+        MakeSignJS("signatureCanvas");
+        SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
+        SF.sleep(2);
+    }
 
 	function MakeSignInInventory(step) {
 		SF.click(By.xpath('//div[@id="step_inventoryMoving_' + step + '"]/div[@class="empty-signature"]/..'));
@@ -2608,6 +2615,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		selectCrewFlatRatePickUp: selectCrewFlatRatePickUp,
 		selectCrewFlatRateDelivery: selectCrewFlatRateDelivery,
 		MakeSignInContract: MakeSignInContract,
+        MakeSignInContractFlatRate:MakeSignInContractFlatRate,
 		MakeSignInInventory: MakeSignInInventory,
 		MakeSignInRental: MakeSignInRental,
 		payRentalInventory: payRentalInventory,
