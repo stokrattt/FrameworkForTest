@@ -28,12 +28,14 @@ condition.nowWeDoing = 'Создаем Long Distance работу, добавл�
     V.boardNumbers = {};
     MF.EditRequest_CloseConfirmWork ();
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
+    SF.sleep(1);
     V.SITRooms = 3;
     SF.clear(By.xpath('//input[@ng-model="sit.rooms"]'));
     SF.send(By.xpath('//input[@ng-model="sit.rooms"]'), V.SITRooms);
     SF.clear(By.xpath('//input[@ng-model="moveInDate"]'));
     SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
     SF.click(By.xpath('//a[@ng-click="save()"]'));
+    SF.sleep(1);
 
 condition.nowWeDoing = 'добавляем адишенал, типсы, делаем проплату в клоузинге';
     SF.click(By.xpath('//input[@ng-model="tips.value"]'));
@@ -105,7 +107,7 @@ condition.nowWeDoing = 'идем в SIT создаем трип, добавля�
     MF.WaitWhileBusy();
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
     JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.sleep(3);
+    SF.sleep(4);
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(6);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openDialog(item)"]/following-sibling::div[@class="big-form__jobs-list__body__item"][5]')).getText().then(function (text) {

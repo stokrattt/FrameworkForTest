@@ -120,15 +120,19 @@ condition.nowWeDoing = 'ставим конферм, закрываем рабо
 
 condition.nowWeDoing = 'тут проверим на сохранение нотсов при закрытии реквеста без нажатия кнопки сейв';
     MF.EditRequest_OpenRequest ();
+    SF.click(By.xpath('//a[@ng-click="select(key)"][contains(text(), "Client notes")]'));
+    SF.sleep(0.5);
     SF.clear(By.xpath('//div[contains(@class, "client_notes")]/div[2]/div[3]'));
     V.noteClientNew1 = SF.randomBukva(10);
     SF.send(By.xpath('//div[contains(@class, "client_notes")]/div[2]/div[3]'), V.noteClientNew1);
     V.noteForemanNew1 = SF.randomBukva(10);
     SF.click(By.xpath('//a[@ng-click="select(key)"][contains(text(), "Foreman notes")]'));
+    SF.sleep(0.5);
     SF.clear(By.xpath('//div[contains(@class, "foreman_notes")]/div[2]/div[3]'));
     SF.click(By.xpath('//div[contains(@class, "foreman_notes")]'));
     SF.send(By.xpath('//div[contains(@class, "foreman_notes")]/div[2]/div[3]'), V.noteForemanNew1);
     SF.click(By.xpath('//a[@ng-click="select(key)"][contains(text(), "Sales notes")]'));
+    SF.sleep(0.5);
     SF.click(By.xpath('//div[contains(@class, "sales_notes")]'));
     SF.clear(By.xpath('//div[contains(@class, "sales_notes")]/div[2]/div[3]'));
     V.noteNew1 = SF.randomBukva(10);

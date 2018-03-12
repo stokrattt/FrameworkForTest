@@ -116,8 +116,9 @@ condition.nowWeDoing = 'В аккаунте удаляем весь инвент
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
         V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('100 Offices and 1000 employees ')+17, text.indexOf('c.f.')));
         console.log(V.accountcbf);
+        VD.IWant(VD.ToEqual, V.defaultcbf, V.accountcbf, 'Cubic feet не ушел в дефолтные 1500 после удаления инвентаря на аккаунте');
     }),config.timeout);
-    VD.IWant(VD.ToEqual, V.defaultcbf, V.accountcbf, 'Cubic feet не ушел в дефолтные 1500 после удаления инвентаря на аккаунте');
+    Debug.pause();
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'Возвращаемся на дашборд и проверяем что cubic feet стал дефолтным. В табе Sales меняем Fuel, добавляем Packing и Discount, запоминаем эти изменения';
@@ -125,6 +126,7 @@ condition.nowWeDoing = 'Возвращаемся на дашборд и пров
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest (V.requestNumber.Id);
+    Debug.pause();
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '1500', 'Cubic feet на дашборде не вернулся к дефолтному значению в 1500 после удаления инвентаря на аккаунте')
     }),config.timeout);
@@ -253,5 +255,6 @@ condition.nowWeDoing = 'Сравниваем Balance и TP collected трипа 
         text = SF.cleanPrice(text.substring(text.indexOf('$')));
         VD.IWant(VD.ToEqual, text,V.boardNumbersAddedToTrip.Balance, 'не совпад Job total в трипе и реквесте');
     }),config.timeout);
+    SF.sleep(1);
     SF.endOfTest();
 };

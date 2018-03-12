@@ -63,7 +63,8 @@ condition.nowWeDoing = 'Меняем в реквесте min Price min Cubic fee
     V.newMinPrice = 40;
     V.newStateRate = 10;
     MF.EditRequest_SendRateForLD (V.newStateRate);
-    MF.EditRequest_OpenMinPriceWindow();+
+    MF.SweetConfirm();
+    MF.EditRequest_OpenMinPriceWindow();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="min_price"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.minPrice, text, 'не совпали min price');
     }),config.timeout);

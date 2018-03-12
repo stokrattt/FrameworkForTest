@@ -752,7 +752,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Contract_WaitBillOfLading() {
-        SF.waitForVisible(By.xpath('//div[@id="main-contract"]//div[@class="empty-signature"]'));
+        SF.waitForVisible(By.xpath('//local-moves[@id="main-contract"]//div[@class="empty-signature"]'));
     }
 
     function Contract_OpenBillOfLading() {
@@ -1185,7 +1185,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function EditRequest_OpenLogs() {
-        SF.sleep(1);
+        WaitWhileBusy();
         SF.click(By.xpath('//a[@ng-click="select(tabs[5])"]'));
         SF.sleep(1);
         JS.waitForNotExist('div.busyoverlay:visible');
