@@ -753,7 +753,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.send(By.xpath('//input[@ng-model="agentModel.zip_code"]'), V.carrierNew.zipCode);
 		SF.sleep(2);
 		SF.click(By.xpath('//md-checkbox[@ng-model="agentModel.company_carrier"]'));
-		SF.click(By.xpath('//md-checkbox[@ng-model="agentModel.active"]'));
 		V.carrierNew.perCf = "2";
 		V.carrierNew.iccMc = SF.randomCifra(10);
 		SF.send(By.xpath('//input[@ng-model="agentModel.per_cf"]'), V.carrierNew.perCf);
