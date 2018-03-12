@@ -39,7 +39,6 @@ condition.nowWeDoing = 'первый раз в админке открываем
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
-    MF.EditRequest_OpenSettings ();
     MF.EditRequest_ClickCreatePAckingDay();
     SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
     MF.WaitWhileBusy();
@@ -47,7 +46,6 @@ condition.nowWeDoing = 'первый раз в админке открываем
         V.PackingDayID = SF.cleanPrice(text);
     }),config.timeout);
     MF.EditRequest_CloseCloneRequest();
-    MF.EditRequest_OpenRequest();
 
 condition.nowWeDoing = 'тут проверяем что наш пекинг открывается с реквеста по кнопке и закрываем оба реквеста';
     MF.EditRequest_OpenBindingPackingDayRequest();

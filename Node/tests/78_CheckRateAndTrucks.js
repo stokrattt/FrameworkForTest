@@ -34,6 +34,7 @@ condition.nowWeDoing = 'тут мы сделаем пакинг дей с рек
     driver.close();
     SF.openTab(0);
     SF.sleep(1);
+    MF.EditRequest_OpenRequest();
     MF.EditRequest_ClickCreatePAckingDay();
     SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
     MF.WaitWhileBusy();

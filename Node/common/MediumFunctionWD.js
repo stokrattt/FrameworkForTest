@@ -970,8 +970,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep (15);
     }
     function EditRequest_ClickCreatePAckingDay() {
-        SF.click(By.xpath('//button[@ng-click="createPackingDay()"]'));
-        SF.sleep(3);
+        SF.click(By.xpath('//img[@class="request-multiple-button__icon"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//img[@class="request-multiple-button__icon"]/following-sibling::img[@ng-click="doAction($index)"][3]'));
+        SF.sleep(1);
         SweetConfirm ();
         WaitWhileBusy ();
         JS.waitForNotExist('div.busy:visible');
