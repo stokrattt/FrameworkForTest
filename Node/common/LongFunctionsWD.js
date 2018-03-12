@@ -767,7 +767,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.send(By.xpath('//input[@ng-model="agentModel.web_site"]'), V.carrierNew.webSite);
 		SF.send(By.xpath('//input[@ng-model="agentModel.phones[$index]"]'), V.carrierNew.phoneNumber1);
 		SF.sleep(2);
-		JS.click('span:contains(\\"Save\\")');
+        SF.click(By.xpath('//button[@ng-click="create(agentModel)"]'));
 		SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));
 	}
 
