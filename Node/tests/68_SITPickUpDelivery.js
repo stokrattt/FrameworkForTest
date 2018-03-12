@@ -67,6 +67,7 @@ condition.nowWeDoing = 'Закриваем роботу заходим в СІТ
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
     MF.EditRequest_SendRateForLD (V.perCubicFeet);
+    MF.ConfirmCalculatorOff();
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_WaitForOpenRequest();

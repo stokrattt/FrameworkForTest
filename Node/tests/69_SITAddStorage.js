@@ -111,6 +111,7 @@ condition.nowWeDoing = 'Проверяем есть ли сторадж в ре�
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
     MF.EditRequest_SendRateForLD (V.perCubicFeet);
+    MF.ConfirmCalculatorOff();
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));

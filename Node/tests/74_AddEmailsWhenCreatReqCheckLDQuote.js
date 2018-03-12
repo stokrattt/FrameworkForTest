@@ -51,7 +51,7 @@ condition.nowWeDoing = 'идём в логи, потом выставляем с
     LF.SetClientPasswd (V.client.passwd);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SendRateForLD (15);
-    MF.SweetConfirm();
+    MF.ConfirmCalculatorOff();
     SF.sleep(8); // save
     MF.EditRequest_RememberId (V.boardNumbersBeforeAddInvent);
     LF.RememberDigitsRequestBoard (V.boardNumbersBeforeAddInvent);
