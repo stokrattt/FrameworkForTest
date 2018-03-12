@@ -45,6 +45,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click (By.xpath('//button[@ng-click="addMessage()"]'));
         SF.sleep(2);
     }
+    function ConfirmCalculatorOff() {
+        SF.waitForVisible(By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
+        SF.click(By.xpath('//button[@class="confirm"]'));
+    }
     //================================MAIL.RU  and Gmail=======================================
     function MailRu_Login(login, password){
         SF.send(By.xpath('//input[@id="mailbox__login"]'),login);
@@ -2109,6 +2113,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SweetCancel: SweetCancel,
         BoardAccount_SendMessage: BoardAccount_SendMessage,
         WaitWhileBusySymbol:WaitWhileBusySymbol,
+        ConfirmCalculatorOff:ConfirmCalculatorOff,
         //==================================MAIL.RU and GMAIL=========================================
 		MailRu_Login:MailRu_Login,
 		MailRu_CheckEmailExistBySubject:MailRu_CheckEmailExistBySubject,

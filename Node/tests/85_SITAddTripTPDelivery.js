@@ -25,6 +25,7 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
     MF.EditRequest_SendRateForLD (V.perCubicFeet);
+    MF.ConfirmCalculatorOff();
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
     driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Balance:")]/..//div')).getText().then(function(text){

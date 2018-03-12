@@ -17,6 +17,7 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
     V.perCubicFeet = '5';
     MF.EditRequest_SendRateForLD (V.perCubicFeet);
+    MF.ConfirmCalculatorOff();
     MF.EditRequest_SetAdressToFrom();
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
