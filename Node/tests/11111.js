@@ -39,7 +39,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	SF.click(By.xpath('//div/span[@ng-click="showWarningBeforeSendEmail()"]'));
 	SF.click(By.xpath('//span[contains(.,"Default")]'));
 	SF.sleep(1);
-	SF.click(By.xpath('//h4[contains(text(), "CalcOff")][1]'));
+	SF.click(By.xpath('//h4[contains(text(), "CalculatarOFF")][1]'));
 	SF.sleep(1);
 	MF.EditRequest_MailDialog_ClickSend();
 	JS.scroll('a[ng-click="select(tabs[5])"]');
@@ -51,21 +51,30 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 	condition.nowWeDoing = 'сверяем цифры в емаиле,которое отправилось клиенту с реквестом,запоминаем то,что в письме, переменная sendclient';
 	SF.click(By.xpath('//div[@ng-click="allLogsShow[allLogsIndex] = !allLogsShow[allLogsIndex]"]'));
-	MF.WaitWhileBusy();
 	V.sendclient ={};
-	LF.RememberDigitsRequestBoard(V.sendclient);
-	SF.sleep(2);
+
+	MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Crew Size")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.CrewSize=text;
 		console.log(V.sendclient.CrewSize);
 	}),config.timeout);
 	SF.sleep(1);
 	VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize +" movers", V.sendclient.CrewSize , ' Crew Size  в логах письма не сошелся со значением в реквесте');
-	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Hourly Rate")]/../following-sibling::div')).getText().then(function(text){
+	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Hourly Rate :")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.HourlyRate = text;
 		console.log(V.sendclient.HourlyRate);
 	}),config.timeout);
 	VD.IWant(VD.ToEqual,"$"+V.NewHourlyRate+"/hr", V.sendclient.HourlyRate , ' Hourly Rate в логах письма не сошелся со значением в реквесте');
+	SF.sleep(1);
+
+	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Estimated Quote :")]/../following-sibling::div')).getText().then(function(text){
+		V.sendclient.EstimatedQuote = text;
+		V.sendclient.EstimateQuote = SF.cleanPrice(text);
+		console.log(V.sendclient.EstimatedQuote);
+	}),config.timeout);
+	VD.IWant(VD.ToEqual,`${V.boardNumbers.TotalMin} - ${(V.boardNumbers.TotalMax).toFixed(2)}`, V.sendclient.EstimatedQuote ,' Hourly Rate в логах письма не сошелся со значением в реквесте');
+	Debug.pause();
+
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 

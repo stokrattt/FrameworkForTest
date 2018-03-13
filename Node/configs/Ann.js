@@ -3,7 +3,7 @@ module.exports = function (config, V) {
 	config.timeout = 50000;
 
 	config.suite = [
-		'./tests/117_HomeEstimatePortal.js'
+		'./tests/115_LDCommercialMoveSizeInSIT.js'
 		// './tests/31_FlateRateBooking.js'
 	];
 	config.chainFail = false;
