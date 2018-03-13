@@ -3,7 +3,7 @@ module.exports = function (config, V) {
 	config.timeout = 50000;
 
 	config.suite = [
-		'./tests/115_LDCommercialMoveSizeInSIT.js'
+		'./tests/51_ServiceTypesOnOff.js'
 		// './tests/31_FlateRateBooking.js'
 	];
 	config.chainFail = false;
@@ -32,6 +32,9 @@ module.exports = function (config, V) {
 	V.foremanName2 = 'Foreman Flow1';
 	V.foremanLogin2 = 'ForemanFlow1';
 	V.foremanPassword2 = '123';
+	V.managerFirstName = 'emilia';
+	V.foremanLoginFlatRate = 'FlatRateForeman';
+	V.foremanPassword = '123';
 	V.testMail = {
 		login: 'test.boston',
 		mail: 'test.boston@mail.ru',

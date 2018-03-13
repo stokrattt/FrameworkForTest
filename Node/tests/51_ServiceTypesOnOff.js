@@ -211,9 +211,9 @@ condition.nowWeDoing='проверяем на борде: включено ли 
         'not(contains(text(),"Storage"))]')).then(function(array){
         VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Local Moving');
     }),config.timeout);
-    driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Moving & Storage")]'))
+    driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Moving With Storage")]'))
         .then(function(array){
-            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Moving & Storage');
+            VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Moving With Storage');
         }),config.timeout);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Loading")]'))
         .then(function(array){
