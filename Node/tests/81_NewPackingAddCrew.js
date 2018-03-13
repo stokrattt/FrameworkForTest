@@ -157,7 +157,7 @@ condition.nowWeDoing = 'заходим под форменом,проверяе�
         V.RateContr = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.RateCrew, V.RateContr, 'Rate не совпадает');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@id="main-contract"]//p[contains(text(),"total packing charges")]/../following-sibling::td')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//local-moves[@id="main-contract"]//p[contains(text(),"total packing charges")]/../following-sibling::td')).getText().then(function(text){
         V.PackingContract = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.PackingContract, V.boxCostAc, 'Не совпали суммы коробок аккаунт и контракт');
     }),config.timeout);

@@ -44,10 +44,10 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     JS.click('a[ng-click=\\"showAdditionalServicesRef.show = !showAdditionalServicesRef.show\\"]:visible');
-    SF.click(By.xpath('//div[@id="main-contract"]//li[@ng-click="addService(s)"][contains(text(), "Tip")]'));
+    SF.click(By.xpath('//local-moves[@id="main-contract"]//li[@ng-click="addService(s)"][contains(text(), "Tip")]'));
     SF.sleep(3);
-    SF.clear(By.xpath('//div[@id="main-contract"]//input[@ng-model="service.extra_services[0].services_default_value"]'));
-    SF.send(By.xpath('//div[@id="main-contract"]//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'), 200);
+    SF.clear(By.xpath('//local-moves[@id="main-contract"]//input[@ng-model="service.extra_services[0].services_default_value"]'));
+    SF.send(By.xpath('//local-moves[@id="main-contract"]//tr[@ng-repeat="service in additionalServices track by $index"]/td[3]/input'), 200);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();

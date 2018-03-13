@@ -255,8 +255,9 @@ condition.nowWeDoing = 'Открываем реквест в Trip-Planner. Ме�
 condition.nowWeDoing = 'Добавляем реквест в трип. Проверямем, что Discount, Fuel, Packing и AdServices не изменились после добавления работы в трип. Проверяем, что баланс реквеста равен 0.';
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
     JS.click('span:contains(\\"Add requests to trip\\")');
+    SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
-    SF.waitForNotVisible(By.xpath('//div[@class="md-toast-content"]'));
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
     MF.EditRequest_WaitForBalanceVisible();
     V.boardNumbersAddedToTrip = {};

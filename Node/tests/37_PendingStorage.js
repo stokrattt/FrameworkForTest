@@ -167,7 +167,7 @@ condition.nowWeDoing = 'валидация инвентаря на контра�
     MF.SweetConfirm();
 
 condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
-    SF.waitForVisible(By.xpath('//div[@id="main-contract"]//div[@class="empty-signature"]'));
+    SF.waitForVisible(By.xpath('//local-moves[@id="main-contract"]//div[@class="empty-signature"]'));
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');

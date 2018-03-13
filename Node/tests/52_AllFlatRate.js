@@ -220,7 +220,7 @@ condition.nowWeDoing = 'заходим под вторым фореманом п
     driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = totalFlatRateClosing()"]/following-sibling::td')).getText().then(function (text) {
         V.fullTotalCost = SF.cleanPrice(text);
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="calcData.tip && calcData.tip !=0 && pushTips"]/td[2]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="finance.tip && finance.tip !=0"]/td[2]')).getText().then(function (text) {
         VD.IWant(VD.NotToEqual, SF.cleanPrice(text), 0, 'не насчитало типсы для флет рейт деливери контракта');
     }),config.timeout);
     LF.MakeSignInContractFlatRate();
