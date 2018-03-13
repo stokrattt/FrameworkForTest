@@ -186,6 +186,7 @@ condition.nowWeDoing = 'ищем в contract page текст который мы
     }),config.timeout);
     SF.click (By.xpath('//button[@ng-click="vm.setDefaultStorage()"]'));
     JS.waitForNotExist('div.busyoverlay:visible');
+    MF.SweetConfirm();
     driver.wait(driver.findElement(By.xpath('//text-angular[@ng-model="vm.contract_page.textContent.last"]/div[2]/div[3]')).getText().then(function (text) {
         q = text.indexOf(V.textContent);
         VD.IWant(VD.NotToEqual, q, -1, 'не нашло текст textContent');
