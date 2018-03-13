@@ -13,7 +13,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.FrontSite_ClickQuoteCalculator();
     MF.FrontSiteDown_SendZipCode('01260', '06461');
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//div/span[contains(text()," South Lee, MA 01260")]')).getText().then(function(text){
+        driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"South Lee, MA 01260")]')).getText().then(function(text){
         V.WeDontFrom1 = text;
         VD.IWant(VD.ToEqual,V.WeDontFrom1, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
