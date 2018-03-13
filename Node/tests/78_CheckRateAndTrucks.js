@@ -32,6 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'тут мы сделаем пакинг дей с реквеста и отвяжем его от этого реквеста, проверим что работает отвязка';
     driver.close();
+    SF.sleep(0.5);
     SF.openTab(0);
     SF.sleep(1);
     MF.EditRequest_OpenRequest();

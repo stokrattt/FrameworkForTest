@@ -111,15 +111,18 @@ condition.nowWeDoing = 'Заходим в реквест , виставляем 
     SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
     MF.EditRequest_SaveDetails();
+    MF.EditRequest_OpenConfirmWork ();
     SF.send(By.xpath('//input[@ng-model="scheduleDeliveryDate"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
     SF.sleep(2);
+    MF.EditRequest_CloseConfirmWork ();
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'Заходим в PickUp и проверям по филтрам и по введенним даним';
     MF.Board_OpenSideBar();
-    MF.Board_ClickLongDistanceDispach();
+    // MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenPickup();
     MF.Board_OpenSideBar();
+    SF.sleep(2);
     SF.click(By.xpath('//md-select[@ng-model="selectedStatus"]'));
     SF.sleep(1);
     SF.click(By.xpath('//md-option[@ng-repeat="item in ldStatuses"]/div[text()="LD"]'));

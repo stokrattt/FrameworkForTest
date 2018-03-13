@@ -140,6 +140,7 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     SF.waitForLocated (By.xpath('//input[@ng-model="receipt.account_number"]'));
     MF.WaitWhileBusy();
     JS.click('button[ng-click=\\"save()\\"]:visible');
+    SF.sleep(2);
     V.boardNumbersClosingAfterDiscountAndPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterDiscountAndPaymentInRequest);
     LF.closeEditRequest();
@@ -175,6 +176,7 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
     MF.EditRequest_OpenInventoryTab();
     LF.addInventoryBoard();
+    SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
     MF.EditRequest_AddPackingAndFullPAcking();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork ();
@@ -204,10 +206,10 @@ condition.nowWeDoing = 'запоминаем номер трипа, выходи
     driver.wait(driver.findElement(By.xpath('//h2[@class="trip-create-modal-form__toolbar__label md-truncate flex"]')).getText().then(function (text) {
         V.TripID = SF.cleanPrice(text);
     }),config.timeout);
-    // MF.Board_OpenSideBar();
     MF.Board_ClickLongDistanceDispach();
+    MF.Board_OpenSideBar();
     // MF.Board_OpenTripPlanner();
-    SF.sleep(7);
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//div[@class="trip-list__body trip-list__body_not-selected"]//div[contains(text(), "'+V.TripID+'")]')).getText().then(function (text) {
         V.TripPlannerID = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual,  V.TripID, V.TripPlannerID, 'нет работы в трипе');

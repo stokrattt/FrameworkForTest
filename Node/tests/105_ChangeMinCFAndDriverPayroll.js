@@ -43,7 +43,7 @@ condition.nowWeDoing = '1й раз меняем только цену в minimum
         }
     }),config.timeout);
     SF.sleep (1);
-    MF.EditRequest_SaveChanges();
+    // MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork ();
     driver.wait(driver.executeScript('return $(\'div.quote-cost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
@@ -66,7 +66,8 @@ condition.nowWeDoing = '2й раз меняем  цену и объем в minim
             V.boardNumbers.QuoteSales2 = SF.cleanPrice(text);
         }
     }),config.timeout);
-    SF.sleep (1);
+    SF.sleep (3);
+    MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork ();
     driver.wait(driver.executeScript('return $(\'div.quote-cost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {

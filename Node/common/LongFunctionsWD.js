@@ -732,43 +732,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		console.log('создали реквест');
 	}
 
-	function CreateCarrier() {
-		V.carrierNew = {};
-		V.carrierNew2 = {};
-		V.carrierNew3 = {};
-
-		condition.nowWeDoing = 'Создаем карьера';
-		SF.click(By.xpath('//button[@ng-click="addCarrier()"]'));
-		JS.waitForExist('input[ng-model=\\"agentModel.name\\"]');
-		SF.sleep(2);
-		V.carrierNew.name = SF.randomBukva(6) + '_t';
-		V.carrierNew.contactPerson = SF.randomBukva(6) + '_t';
-		V.carrierNew.contactPersonPhone = SF.randomCifra(10);
-		SF.send(By.xpath('//input[@ng-model="agentModel.name"]'), V.carrierNew.name);
-		SF.send(By.xpath('//input[@ng-model="agentModel.contact_person"]'), V.carrierNew.contactPerson);
-		SF.send(By.xpath('//input[@ng-model="agentModel.contact_person_phone"]'), V.carrierNew.contactPersonPhone);
-		V.carrierNew.address = SF.randomBukva(6) + '_t';
-		V.carrierNew.zipCode = "90001";
-		SF.send(By.xpath('//textarea[@ng-model="agentModel.address"]'), V.carrierNew.address);
-		SF.send(By.xpath('//input[@ng-model="agentModel.zip_code"]'), V.carrierNew.zipCode);
-		SF.sleep(2);
-		SF.click(By.xpath('//md-checkbox[@ng-model="agentModel.company_carrier"]'));
-		V.carrierNew.perCf = "2";
-		V.carrierNew.iccMc = SF.randomCifra(10);
-		SF.send(By.xpath('//input[@ng-model="agentModel.per_cf"]'), V.carrierNew.perCf);
-		SF.send(By.xpath('//input[@ng-model="agentModel.icc_mc_number"]'), V.carrierNew.iccMc);
-		V.carrierNew.usdot = SF.randomCifra(10);
-		V.carrierNew.eMail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
-		SF.send(By.xpath('//input[@ng-model="agentModel.usdot_number"]'), V.carrierNew.usdot);
-		SF.send(By.xpath('//input[@ng-model="agentModel.email"]'), V.carrierNew.eMail);
-		V.carrierNew.webSite = "fdsfd.com";
-		V.carrierNew.phoneNumber1 = SF.randomCifra(10);
-		SF.send(By.xpath('//input[@ng-model="agentModel.web_site"]'), V.carrierNew.webSite);
-		SF.send(By.xpath('//input[@ng-model="agentModel.phones[$index]"]'), V.carrierNew.phoneNumber1);
-		SF.sleep(2);
-        SF.click(By.xpath('//button[@ng-click="create(agentModel)"]'));
-		SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));
-	}
 
 	function CreateLoadingHelpFromBoard(client) {
 		MF.Board_ClickCreate();
@@ -1983,37 +1946,37 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function RememberCarrier(carrierData) {
-		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.name"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.name"]\').val()').then(function (text) {
 			carrierData.name = text;
 		}), config.timeout);
-		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.contact_person"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.contact_person"]\').val()').then(function (text) {
 			carrierData.contactPerson = text;
 		}), config.timeout);
-		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.contact_person_phone"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.contact_person_phone"]\').val()').then(function (text) {
 			carrierData.contactPersonPhone = text;
 		}), config.timeout);
-		driver.wait(driver.executeScript('return $(\'textarea[ng-model="agentModel.data.address"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'textarea[ng-model="agentModel.address"]\').val()').then(function (text) {
 			carrierData.address = text;
 		}), config.timeout);
-		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.zip_code"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.zip_code"]\').val()').then(function (text) {
 			carrierData.zipCode = text;
 		}), config.timeout);
-		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.per_cf"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.per_cf"]\').val()').then(function (text) {
 			carrierData.perCf = SF.cleanPrice(text);
 		}), config.timeout);
-		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.usdot_number"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.usdot_number"]\').val()').then(function (text) {
 			carrierData.usdot = text;
 		}), config.timeout);
-		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.web_site"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.web_site"]\').val()').then(function (text) {
 			carrierData.webSite = text;
 		}), config.timeout);
-		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.icc_mc_number"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.icc_mc_number"]\').val()').then(function (text) {
 			carrierData.iccMc = text;
 		}), config.timeout);
-		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.email"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.email"]\').val()').then(function (text) {
 			carrierData.eMail = text;
 		}), config.timeout);
-		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.data.phones[$index]"]\').val()').then(function (text) {
+		driver.wait(driver.executeScript('return $(\'input[ng-model="agentModel.phones[$index]"]\').val()').then(function (text) {
 			carrierData.phoneNumber1 = text;
 		}), config.timeout);
 		SF.sleep(1);
@@ -2577,7 +2540,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		CreateStorageTenant: CreateStorageTenant,
 		CreateFlatRateFromBoard: CreateFlatRateFromBoard,
 		CreateLongDistanceFromBoard: CreateLongDistanceFromBoard,
-		CreateCarrier: CreateCarrier,
 		RememberDigitsRequestBoard_Up: RememberDigitsRequestBoard_Up,
 		RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
 		RememberDigitsRequestBoard: RememberDigitsRequestBoard,

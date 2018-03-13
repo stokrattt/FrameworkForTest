@@ -716,11 +716,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(4);
     }
     function Account_ClickSaveInventory() {
-        SF.sleep(1);
+        SF.sleep(2);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(1);
+        SF.sleep(2);
         SweetConfirm();
-        SF.sleep(8);
+        SF.sleep(6);
     }
     function Account_OpenEditModal() {
         SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));
