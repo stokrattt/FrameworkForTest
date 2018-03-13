@@ -60,10 +60,11 @@ condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
     V.dateEnd = (future.toLocaleDateString('en-US', options));
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.start"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.start"]/div/input'), V.dateStart);
+    SF.sleep(1);
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'), V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
-    SF.sleep(2);
+    SF.sleep(5);
     V.notes = SF.randomBukva(25) + '_t';
     SF.send (By.xpath('//textarea[@ng-model="trip.data.note"]'), V.notes);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.foreman"]'));
@@ -136,7 +137,7 @@ condition.nowWeDoing = 'Заходим в пейрол и заполняем и 
         V.сleanTotalDaily = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.сleanTotalDaily, V.totalDaily, 'total Daily не совпали');
     }),config.timeout);
-
+    SF.sleep(3);
     V.hourlyRate = 12;
     V.totalHours = 10;
     V.totalHourly = V.hourlyRate * V.totalHours;
@@ -185,7 +186,7 @@ condition.nowWeDoing = 'Заходим в пейрол и заполняем и 
 condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"helper")]'));
     SF.waitForVisible (By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
-    SF.sleep(3);
+    SF.sleep(4);
     SF.click(By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
     SF.sleep(2);
     V.helper1DailyAmount = 60;

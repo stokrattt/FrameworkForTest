@@ -81,7 +81,7 @@ condition.nowWeDoing = 'запоминаем данные с калькулят�
 condition.nowWeDoing = 'сравниваем данные которые были в калькуляторе при создании и внутри реквеста, первый раз';
     LF.Validation_Compare_CalcLocalMove_Admin (V.LocalMoveAdminCalc, V.boardNumbersClean);
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "service-type-label")]')).getText().then(function (text) {
-        VD.IWant (VD.ToEqual, text, "LOCAL MOVE", 'тип реквеста не совпал, должен быть локал мув');
+        VD.IWant (VD.ToEqual, text, "LOCAL MOVING", 'тип реквеста не совпал, должен быть локал мув');
     }),config.timeout);
     MF.EditRequest_RememberId (V.request);
     MF.EditRequest_OpenClient ();
