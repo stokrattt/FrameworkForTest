@@ -704,6 +704,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
         SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
         SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
+        SF.sleep(1);
         JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
         SF.sleep(1);
         WaitWhileBusy ();
@@ -2044,12 +2045,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.last_name"]'), client.fam);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.email"]'), client.email);
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.primaryPhone"]'), client.phone);
-        SF.sleep(2);
+        SF.sleep(0.5);
     }
     function FrontSiteSmallCalc_SubmitQuoteAndGoToAccount() {
         JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
-        JS.waitForExist('ultrasmall-form #request-form p:contains("Proceed To View Your Quote")');
-        JS.link('ultrasmall-form a.submit_btn ');
+        JS.waitForExist('ultrasmall-form #request-form .step4 p:contains("Proceed To View Your Quote"):visible');
+        SF.sleep(1);
+        JS.link('ultrasmall-form #step4 a.submit_btn:visible');
     }
     function FrontSiteSmallCalc_SendZipTo(zipTo) {
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), zipTo);
