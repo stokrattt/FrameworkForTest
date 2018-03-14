@@ -24,7 +24,7 @@ module.exports = function(config,V) {
         './tests/101_CustomCommMoveWithInventory.js',
         './tests/57_UnloadingAllSteps.js',
         './tests/98_RemindersForOtherPerson.js',
-       './tests/56_LoadingAllSteps.js',
+        './tests/117_HomeEstimatePortal.js',
         './tests/100_LeadScoring.js',
         './tests/105_ChangeMinCFAndDriverPayroll.js',
         './tests/109_SITBalance.js',
@@ -37,6 +37,7 @@ module.exports = function(config,V) {
         './tests/95_Statistic.js',
         './tests/112_ExtraDropLocalMove.js',
         './tests/120_LDFlag.js',
+        './tests/56_LoadingAllSteps.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
     ];
     config.timeout = 90000;

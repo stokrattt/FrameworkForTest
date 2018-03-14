@@ -122,6 +122,7 @@ module.exports = function(config,V) {
         './tests/113_CheckAdminPermissions.js',
         './tests/120_LDFlag.js',
         './tests/121_FAQ.js',
+        './tests/117_HomeEstimatePortal.js',
         './tests/111_ZIPCode.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
         './tests/51_ServiceTypesOnOff.js',
