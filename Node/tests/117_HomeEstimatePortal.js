@@ -98,6 +98,7 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	V.boardAfterPortal = {};
 	LF.RememberDigitsRequestBoard(V.boardAfterPortal);
 	LF.Validation_Compare_Account_Admin(V.boardNumbersPortal,V.boardAfterPortal);
+	SF.sleep(1);
 
 	SF.endOfTest();
 };
