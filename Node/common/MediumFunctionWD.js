@@ -1743,7 +1743,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     //================================FRONT SITE======================================
     function FrontSite_GoToAccount() {
-        JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
+        JS.link('ultrasmall-form a.submit_btn ');
     }
 
     //================================SETTINGS========================================
@@ -2048,8 +2048,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function FrontSiteSmallCalc_SubmitQuoteAndGoToAccount() {
         JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
-        JS.waitForExist('ultrasmall-form #congrats_menu[style="right: 0px;"] a:contains("Proceed To View Your Quote")');
-        JS.link('ultrasmall-form a:contains("Proceed To View Your Quote")');
+        JS.waitForExist('ultrasmall-form #request-form p:contains("Proceed To View Your Quote")');
+        JS.link('ultrasmall-form a.submit_btn ');
     }
     function FrontSiteSmallCalc_SendZipTo(zipTo) {
         SF.send(By.xpath('//ultrasmall-form//input[@ng-model="request.zipTo"]'), zipTo);
