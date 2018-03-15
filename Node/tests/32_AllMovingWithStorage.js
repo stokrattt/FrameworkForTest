@@ -212,7 +212,7 @@ condition.nowWeDoing = 'валидация инвентаря на контра�
         VD.IWant(VD.ToEqual, text, ' Sofa, With Bed  Sofa, With Bed  Sofa, Recliner  Sofa, Recliner  Sofa, Chaise  Sofa, 4 Seat  Sofa, 4 Seat  Sofa, 3 Seat  Sofa, 3 Seat  Sofa, 2pcs Sectional  Loveseat  Futon  Futon                         ',
             'не нашло инвенторий на контракте от первого реквеста to storage '+V.accountNumbersTo.Id+'');
     }),config.timeout);
-    driver.wait(driver.executeScript("return $('div[ng-if=\"data.inventoryMoving.signatures[stepId]\"] img').length").then(function (chislo) {
+    driver.wait(driver.executeScript("return $('div[ng-if=\"data[fieldName].signatures[stepId]\"] img').length").then(function (chislo) {
         VD.IWant(VD.ToEqual, chislo, '2',  'не нашло подписи для инвентаря на контракте от первого реквеста to storage '+V.accountNumbersTo.Id+'');
     }),config.timeout);
     LF.Contract_SubmitInventoryDelivery(13);

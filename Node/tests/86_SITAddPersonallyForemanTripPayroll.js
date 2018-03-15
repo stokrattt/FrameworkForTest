@@ -19,8 +19,8 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
     MF.EditRequest_SetToConfirmed();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-    SF.select(By.xpath('//select[@id="edit-service"]'), 7);
-    SF.sleep(1);
+    // SF.select(By.xpath('//select[@id="edit-service"]'), 7);
+    // SF.sleep(1);
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
@@ -181,7 +181,7 @@ condition.nowWeDoing = 'Заходим в пейрол и заполняем и 
     SF.clear(By.xpath('//input[@ng-model="payroll.foreman.total_hours"]'));
     SF.send(By.xpath('//input[@ng-model="payroll.foreman.total_hours"]'), V.totalHours);
     SF.click(By.xpath('//input[@ng-model="search"]'));
-    SF.sleep(3);
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="payroll.foreman.total_hourly"]')).getAttribute('value').then(function (text) {
         V.сleanTotalHourly = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.сleanTotalHourly, V.totalHourly, 'total Hourly не совпали');

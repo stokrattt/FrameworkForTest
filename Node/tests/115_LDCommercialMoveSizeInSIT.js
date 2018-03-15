@@ -118,7 +118,6 @@ condition.nowWeDoing = 'В аккаунте удаляем весь инвент
         console.log(V.accountcbf);
         VD.IWant(VD.ToEqual, V.defaultcbf, V.accountcbf, 'Cubic feet не ушел в дефолтные 1500 после удаления инвентаря на аккаунте');
     }),config.timeout);
-    Debug.pause();
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'Возвращаемся на дашборд и проверяем что cubic feet стал дефолтным. В табе Sales меняем Fuel, добавляем Packing и Discount, запоминаем эти изменения';
@@ -126,7 +125,6 @@ condition.nowWeDoing = 'Возвращаемся на дашборд и пров
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest (V.requestNumber.Id);
-    Debug.pause();
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '1500', 'Cubic feet на дашборде не вернулся к дефолтному значению в 1500 после удаления инвентаря на аккаунте')
     }),config.timeout);
@@ -255,7 +253,7 @@ condition.nowWeDoing = 'Открываем реквест в Trip-Planner. Ме�
 condition.nowWeDoing = 'Добавляем реквест в трип. Проверямем, что Discount, Fuel, Packing и AdServices не изменились после добавления работы в трип. Проверяем, что баланс реквеста равен 0.';
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
     JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.sleep(2);
+    SF.sleep(5);
     SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);

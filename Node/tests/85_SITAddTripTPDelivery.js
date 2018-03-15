@@ -300,7 +300,6 @@ condition.nowWeDoing = 'Редактируем TP Delivery, заполняем �
         V.newCleanTpTotalJob = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpTotalJob, V.newTpTotalJob, 'Total Job не совпали');
     }),config.timeout);
-    Debug.pause();
     V.newTpAddress = SF.randomCifra(10);
     V.newTpZip = '90001';
     SF.send(By.xpath('//input[@ng-model="tp.details.address"]'), V.newTpAddress);

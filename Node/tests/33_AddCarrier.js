@@ -108,7 +108,6 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     SF.click(By.xpath('//div[text()="'+ V.carrierNew2.name +'"]'));
     JS.waitForExist('input[ng-model=\\"agentModel.name\\"]');
     SF.sleep(2);
-Debug.pause();
     LF.RememberCarrier(V.carrierNew3);
     VD.IWant(VD.NotToEqual,V.carrierNew.name, V.carrierNew2.name,'Поля совпадают');
     VD.IWant(VD.NotToEqual,V.carrierNew.contactPerson, V.carrierNew2.contactPerson,'Поля совпадают');

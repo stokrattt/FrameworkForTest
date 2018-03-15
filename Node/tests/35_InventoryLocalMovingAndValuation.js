@@ -37,7 +37,6 @@ condition.nowWeDoing = 'добавляем valuation';
     SF.click (By.xpath('//button[@ng-click="saveValuation()"]'));
     MF.SweetConfirm ();
     MF.WaitWhileBusy ();
-    Debug.pause();
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SetAdressToFrom();
     SF.sleep(4);

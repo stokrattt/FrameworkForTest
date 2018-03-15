@@ -125,7 +125,6 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
         V.LogsQuote = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.LogsQuote, V.boardNumbers2PendingAfterAddInven.Total, 'в письме клиенту  тотал отправился неверный в нот конферм работе');
     }),config.timeout);
-    Debug.pause();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 

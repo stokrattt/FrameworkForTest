@@ -45,7 +45,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	JS.scroll('a[ng-click="select(tabs[5])"]');
 	SF.sleep(1);
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
-	Debug.pause();
 	MF.EditRequest_OpenLogs();
 	MF.WaitWhileBusy();
 
@@ -73,13 +72,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		console.log(V.sendclient.EstimatedQuote);
 	}),config.timeout);
 	VD.IWant(VD.ToEqual,`${V.boardNumbers.TotalMin} - ${(V.boardNumbers.TotalMax).toFixed(2)}`, V.sendclient.EstimatedQuote ,' Hourly Rate в логах письма не сошелся со значением в реквесте');
-	Debug.pause();
 
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
 	condition.nowWeDoing = 'переходим в аккаунт,делаем сравнения';
-	Debug.pause();
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -93,7 +90,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_ClickFullPacking();
 	JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
 	MF.WaitWhileBusy();
-	Debug.pause();
 	SF.click(By.xpath('//div/span[@ng-bind="::room.name"][contains(text(),"Patio")]'));
 	SF.click (By.xpath('//div[@ng-class="{disabled: item.isCannotEdit}"]'));
 	SF.click (By.xpath('//div[@data-index="1"]//div[@ng-class="{disabled: item.isCannotEdit}"]'));
@@ -106,7 +102,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	SF.sleep(1);
 	LF.RememberAccountNumbers(V.accountNumbers.New);
 	LF.RememberAccountNumbers(V.accountNumbers.New);
-	Debug.pause();
 	LF.LogoutFromAccount();
 
 	condition.nowWeDoing = 'идем на мувборд, что бы сверить цифры.Выбираем кастомный вес, меняем цену на топливо, и реит. Запоминаем цифры.';

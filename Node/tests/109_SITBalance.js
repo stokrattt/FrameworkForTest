@@ -24,7 +24,6 @@ condition.nowWeDoing = 'Создаем Long Distance работу, добавл�
     MF.WaitWhileBusy();
     MF.EditRequest_SetAdressToFrom ();
     MF.EditRequest_SaveChanges();
-    Debug.pause();
     V.boardNumbers = {};
     MF.EditRequest_CloseConfirmWork ();
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
@@ -210,7 +209,7 @@ condition.nowWeDoing = 'запоминаем номер трипа, выходи
     MF.Board_OpenSideBar();
     // MF.Board_OpenTripPlanner();
     SF.sleep(4);
-    driver.wait(driver.findElement(By.xpath('//div[@class="trip-list__body trip-list__body_not-selected"]//div[contains(text(), "'+V.TripID+'")]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@class="trip-list__body trip-list__body_hide"]/div[contains(text(), "'+V.TripID+'")]')).getText().then(function (text) {
         V.TripPlannerID = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual,  V.TripID, V.TripPlannerID, 'нет работы в трипе');
     }),config.timeout);

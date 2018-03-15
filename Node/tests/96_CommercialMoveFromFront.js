@@ -109,7 +109,6 @@ condition.nowWeDoing = 'идем в админку, открываем рекв�
         'и сравниваем все остальные цифры с аккаунтом';
     MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     MF.EditRequest_SetAdressTo();
-    Debug.pause();
     driver.wait(driver.findElement(By.xpath('//li[@ng-click="removeItem($index)"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), '5200', 'не совпал или не нашелся выбраный при создании мувсайз реквест From');
     }),config.timeout);

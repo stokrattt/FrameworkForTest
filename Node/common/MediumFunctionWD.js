@@ -1519,6 +1519,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function EditRequest_CreateCustomBedroom() {
+        SF.sleep(2);
         SF.click(By.xpath('//div[@ng-click="createCustomRoom(\'2\')"]'));
         SweetConfirm();
         SF.sleep(6);
