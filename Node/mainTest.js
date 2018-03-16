@@ -69,6 +69,6 @@ require('./system/proxy/proxySetup')(config.P).then(proxyAddr => {
 
 //=====================running tests=======================================
 		require('./system/testRunner')
-		(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants, webdriverSetup);
+		(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants, webdriverSetup, fileSystem);
 	});
 });
