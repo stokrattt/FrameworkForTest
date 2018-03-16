@@ -59,10 +59,9 @@ for (attrs = 2; attrs < process.argv.length; attrs++) {
 require('./system/proxy/proxySetup')(config.P).then(proxyAddr => {
 	
 	let webdriverSetup = require('./system/webdriverSetup')(system, config, condition, webdriver, proxy, proxyAddr);
-	let getNewDriver = webdriverSetup.getNewDriver;
 	
 	webdriverSetup.initErrorHandler().then(() => {
-	
+
 //========================linking all modules============================
 		
 		SF = require('./system/ShortFunctionsWD.js')(system, config, By, until, constants, condition);
@@ -79,77 +78,7 @@ require('./system/proxy/proxySetup')(config.P).then(proxyAddr => {
 		}
 
 //=====================running tests=======================================
-		
-		function getTestName(string) {
-			let pos = 0;
-			for (let i = 0; i < string.length; i++) {
-				if (string[i] == '/') {
-					pos = i;
-				}
-			}
-			return string.substring(pos, string.indexOf('.js'));
-		}
-		let deleteFolderRecursive = require("./system/fileSystem").deleteFolderRecursive;
-		
-		let testPassed = [];
-		condition.testN = 0;
-		condition.fails = 0;
-		let EventEmitter = require('events');
-		class MyEmitter extends EventEmitter {
-		}
-		system.myEmitter = new MyEmitter();
-		system.myEmitter.on('event', () => {
-			if (condition.testN > 0) {
-				if (!condition.Success || condition.NotValid) {
-					testPassed.push('Failed '.red + condition.testName);
-					condition.fails++;
-				}
-				else {
-					testPassed.push('Passed'.green + condition.testName);
-				}
-			}
-			if ((condition.testN < config.suite.length) && (!(config.chainFail && !condition.Success))) {
-				condition.Success = false;
-				condition.NotValid = false;
-				condition.nowWeDoing = 'something';
-				condition.errorNumber = 0;
-				condition.testName = getTestName(config.suite[condition.testN]);
-				console.log(('next...' + condition.testN + ' ' + condition.testName).yellow);
-				deleteFolderRecursive(system, 'reports/' + condition.testName);
-				getNewDriver().then(res => {
-					condition.testN++;
-					Fiber(function () {
-						require(config.suite[condition.testN - 1])
-						(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants);
-					}).run();
-				});
-			} else {
-				console.log('======Тесты кончились======'.blue);
-				let endLog = '';
-				for (let i = 0; i < testPassed.length; i++) {
-					endLog += testPassed[i] + '\n';
-					console.log(testPassed[i]);
-				}
-				
-				let endTests = Math.floor((new Date().getTime() - startTests) / 1000);
-				let timeString = 'Это длилось ' + Math.floor(endTests / 60) + ' мин ' + endTests % 60 + ' сек';
-				console.log(timeString.green);
-				system.fs.writeFile('reports/' + config.fileName + '.txt', endLog + timeString,
-					function (err) {
-						if (err != null) {
-							console.log(err);
-						}
-					}
-				);
-				system.myEmitter.removeAllListeners('event');
-				if (condition.fails) {
-					console.log('Process will die with failure code'.red);
-					process.exitCode = 1;
-				}
-			}
-		});
-		condition.Success = true;
-		system.myEmitter.emit('event');
-		
+		require('./system/testRunner')
+		(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants, webdriverSetup);
 	});
 });

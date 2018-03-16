@@ -59,3 +59,15 @@ function deleteFolderRecursive(system, path) {
 		system.fs.rmdirSync(path);
 	}
 }
+
+module.exports.writeFinalLog = writeFinalLog;
+function writeFinalLog(logText) {
+	let fileName = 'reports/' + config.fileName + '.txt';
+	system.fs.writeFile(fileName, logText,
+		function (err) {
+			if (err != null) {
+				console.log(err);
+			}
+		}
+	);
+}
