@@ -40,7 +40,7 @@ module.exports = (system, config, condition, webdriver, proxy, proxyAddr) => {
 							
 							console.log("Сделал скрин".yellow);
 							
-							writeErrorFiles(system, condition, image, e, config);
+							writeErrorFiles(condition, image, e, config);
 							
 							if (!config.D) {
 								global.driver.quit().then(function () {

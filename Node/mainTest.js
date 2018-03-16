@@ -10,6 +10,7 @@ let proxy = require('selenium-webdriver/proxy');
 let FileDetector = webdriver.FileDetector;
 let By = webdriver.By;
 let until = webdriver.until;
+let fileSystem = require("./system/fileSystem");
 system.colors = require('colors');
 system.path = require('path');
 system.fs = require('fs');
@@ -26,11 +27,7 @@ condition.Success = false;
 condition.NotValid = false;
 condition.nowWeDoing = 'something';
 
-//=======================creating reports folder ============================
-let exist = system.fs.existsSync('reports');
-if (!exist) {
-	system.fs.mkdirSync('reports');
-}
+fileSystem.createReportsFolder();
 
 //=================reading parametres from CLI===========================
 for (attrs = 2; attrs < process.argv.length; attrs++) {

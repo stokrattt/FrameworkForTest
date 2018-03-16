@@ -28,7 +28,7 @@ module.exports = (SF, JS, MF, LF, JSstep, VD, V, By, until, FileDetector, system
 			condition.errorNumber = 0;
 			condition.testName = getTestName(config.suite[condition.testN]);
 			console.log(('next...' + condition.testN + ' ' + condition.testName).yellow);
-			fileSystem.deleteFolderRecursive(system, 'reports/' + condition.testName);
+			fileSystem.deleteFolderRecursive('reports/' + condition.testName);
 			webdriverSetup.getNewDriver().then(res => {
 				condition.testN++;
 				global.Fiber(function () {
