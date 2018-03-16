@@ -13,7 +13,6 @@ let until = webdriver.until;
 let fileSystem = require("./system/fileSystem");
 system.colors = require('colors');
 system.path = require('path');
-system.fs = require('fs');
 global.Fiber = require('fibers');
 config.chainFail = false;
 config.D = false;
