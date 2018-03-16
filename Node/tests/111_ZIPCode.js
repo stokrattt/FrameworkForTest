@@ -41,7 +41,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.clear (By.id('edit-zip-code-to'));
     MF.FrontSiteDown_SendZipCode('02381', '75007');
     SF.sleep(5);
-    driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"Plymouth, MA 02381")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div/span[contains(text(),"White Horse Beach, MA 02381")]')).getText().then(function(text){
         V.WeDontFrom3 = text;
         VD.IWant(VD.ToEqual, V.WeDontFrom3, text, 'не совпала надпись слева в колонке по мувинг ту');
     }),config.timeout);
