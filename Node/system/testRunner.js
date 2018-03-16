@@ -1,4 +1,5 @@
 module.exports = (SF, JS, MF, LF, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants, webdriverSetup) => {
+	startTests = new Date().getTime();
 	console.log('running tests...'.green);
 	
 	let fileSystem = require("./fileSystem");

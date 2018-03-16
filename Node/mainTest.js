@@ -1,14 +1,7 @@
-let startTests = new Date().getTime();
 //============================initializing globals====================
 let system = {};
 let constants = require('./common/constants');
-let SF = {};
-let JS = {};
-let JSstep = {};
-let VD = {};
 let V = {};
-let MF = {};
-let LF = {};
 let config = {};
 let condition = {};
 let webdriver = require('selenium-webdriver');
@@ -64,12 +57,12 @@ require('./system/proxy/proxySetup')(config.P).then(proxyAddr => {
 
 //========================linking all modules============================
 		
-		SF = require('./system/ShortFunctionsWD.js')(system, config, By, until, constants, condition);
-		JS = require('./system/JSshortFunctions.js')(system, config, By, until, constants, condition);
-		JSstep = require('./common/JSsteps');
-		VD = require('./system/ValidationsWD')(system, condition, config);
-		MF = require('./common/MediumFunctionWD.js')(SF, JS, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants);
-		LF = require('./common/LongFunctionsWD.js')(SF, JS, MF, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants);
+		let SF = require('./system/ShortFunctionsWD.js')(system, config, By, until, constants, condition);
+		let JS = require('./system/JSshortFunctions.js')(system, config, By, until, constants, condition);
+		let JSstep = require('./common/JSsteps');
+		let VD = require('./system/ValidationsWD')(system, condition, config);
+		let MF = require('./common/MediumFunctionWD.js')(SF, JS, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants);
+		let LF = require('./common/LongFunctionsWD.js')(SF, JS, MF, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants);
 
 //=====================enable debug========================================
 		global.Debug = require("./system/DebugWD.js")(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDetector, system, condition, config, constants);
