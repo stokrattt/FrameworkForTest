@@ -120,7 +120,9 @@ condition.nowWeDoing = 'Заходим в реквест , виставляем 
 condition.nowWeDoing = 'Заходим в PickUp и проверям по филтрам и по введенним даним';
     MF.Board_OpenSideBar();
     // MF.Board_ClickLongDistanceDispach();
-    MF.Board_OpenPickup();
+    SF.sleep(1);
+    SF.click(By.xpath('//a[@ui-sref="lddispatch.pick_up"]'));
+    SF.sleep(2);
     MF.Board_OpenSideBar();
     SF.sleep(2);
     SF.click(By.xpath('//md-select[@ng-model="selectedStatus"]'));

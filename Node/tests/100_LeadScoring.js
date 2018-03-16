@@ -36,6 +36,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, добавля�
     MF.Account_OpenMessage();
     V.toAdmin = SF.randomBukva(6) + '_toAdmin';
     MF.BoardAccount_SendMessage(V.toAdmin);
+    SF.sleep(3);
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'первый раз в админке,сверяю очки,проверяю логи, включаю дисконт';

@@ -100,6 +100,7 @@ condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
     V.notes = SF.randomBukva(25) + '_t';
     SF.send (By.xpath('//textarea[@ng-model="trip.data.note"]'), V.notes);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.foreman"]'));
+    SF.sleep(0.5);
     SF.waitForVisible (By.xpath('//div[text()="'+V.foremanName+'"]'));
     SF.click(By.xpath('//div[text()="'+V.foremanName+'"]'));
     SF.sleep(1);
@@ -296,6 +297,7 @@ condition.nowWeDoing = 'Редактируем TP Delivery, заполняем �
         V.newCleanTpJobCost = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpJobCost, V.newTpJobCost, 'Job cost не совпали');
     }),config.timeout);
+    SF.sleep(1.5);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.job_total"]')).getAttribute('value').then(function (text) {
         V.newCleanTpTotalJob = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpTotalJob, V.newTpTotalJob, 'Total Job не совпали');
