@@ -78,7 +78,6 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 
 	condition.nowWeDoing = 'добавляем инвентарь';
 	LF.AddInventory_InHomeEstimate();
-	Debug.pause();
 	JS.scroll('span[ng-if="!states.invoiceState"]');
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
 		V.boardNumbersPortalnewcf=text;
