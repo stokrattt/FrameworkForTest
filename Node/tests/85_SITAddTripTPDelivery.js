@@ -19,8 +19,8 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
     MF.EditRequest_SetToConfirmed();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
-    SF.select(By.xpath('//select[@id="edit-service"]'), 7);
-    SF.sleep(1);
+    // SF.select(By.xpath('//select[@id="edit-service"]'), 7);
+    // SF.sleep(1);
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
@@ -338,7 +338,7 @@ condition.nowWeDoing = 'Редактируем TP Delivery, заполняем �
     }),config.timeout);
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
     SF.sleep(5);
-    SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != nul//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
+    SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
 
 condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
     SF.click(By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
