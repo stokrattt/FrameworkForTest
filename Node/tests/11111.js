@@ -59,19 +59,21 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	}),config.timeout);
 	SF.sleep(1);
 	VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize +" movers", V.sendclient.CrewSize , ' Crew Size  в логах письма не сошелся со значением в реквесте');
+
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Hourly Rate :")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.HourlyRate = text;
 		console.log(V.sendclient.HourlyRate);
 	}),config.timeout);
-	VD.IWant(VD.ToEqual,"$"+V.NewHourlyRate+"/hr", V.sendclient.HourlyRate , ' Hourly Rate в логах письма не сошелся со значением в реквесте');
 	SF.sleep(1);
+	VD.IWant(VD.ToEqual,"$"+V.NewHourlyRate+"/hr", V.sendclient.HourlyRate , ' Hourly Rate в логах письма не сошелся со значением в реквесте');
 
-	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Estimated Quote :")]/../following-sibling::div')).getText().then(function(text){
-		V.sendclient.EstimatedQuote = text;
-		V.sendclient.EstimateQuote = SF.cleanPrice(text);
-		console.log(V.sendclient.EstimatedQuote);
+	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Valuation :")]/../following-sibling::div')).getText().then(function(text){
+		V.sendclient.Valuation = text;
+		console.log(V.sendclient.Valuation);
 	}),config.timeout);
-	VD.IWant(VD.ToEqual,`${V.boardNumbers.TotalMin} - ${(V.boardNumbers.TotalMax).toFixed(2)}`, V.sendclient.EstimatedQuote ,' Hourly Rate в логах письма не сошелся со значением в реквесте');
+	SF.sleep(1);
+	VD.IWant(VD.ToEqual,"$"+V.boardNumbers.Valuation, V.sendclient.HourlyRate , ' Hourly Rate в логах письма не сошелся со значением в реквесте');
+
 
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
@@ -90,6 +92,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_ClickFullPacking();
 	JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
 	MF.WaitWhileBusy();
+	Debug.pause();
 	SF.click(By.xpath('//div/span[@ng-bind="::room.name"][contains(text(),"Patio")]'));
 	SF.click (By.xpath('//div[@ng-class="{disabled: item.isCannotEdit}"]'));
 	SF.click (By.xpath('//div[@data-index="1"]//div[@ng-class="{disabled: item.isCannotEdit}"]'));

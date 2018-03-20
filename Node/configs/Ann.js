@@ -35,6 +35,7 @@ module.exports = function (config, V) {
 	V.managerFirstName = 'emilia';
 	V.foremanLoginFlatRate = 'FlatRateForeman';
 	V.foremanPassword = '123';
+	V.managerName = 'emilia clark';
 	V.testMail = {
 		login: 'test.boston',
 		mail: 'test.boston@mail.ru',
