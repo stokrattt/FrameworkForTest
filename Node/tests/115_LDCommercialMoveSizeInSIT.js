@@ -132,6 +132,7 @@ condition.nowWeDoing = 'Возвращаемся на дашборд и пров
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'));
     SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'),222);
     MF.EditRequest_ClickApplyInFuelWindow();
+    SF.sleep(3);
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
     MF.EditRequest_AddPacking();
