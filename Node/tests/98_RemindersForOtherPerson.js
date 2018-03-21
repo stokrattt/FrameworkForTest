@@ -58,7 +58,7 @@ condition.nowWeDoing = 'заходим за сеилса, сверяем рим�
         V.RemaindTextSales = color;
         VD.IWant(VD.ToEqual, V.RemaindTextAdmin, V.RemaindTextSales,'цвет римайндера не совпал');
     }),config.timeout);
-    SF.click(By.xpath('//button[@ng-click="$ctrl.reminder.dismiss();"]'));
+    SF.click(By.xpath('//button[@ng-click="$ctrl.dismiss();"]'));
     MF.WaitWhileToaster();
     MF.WaitWhileToaster();
     SF.sleep(4);
