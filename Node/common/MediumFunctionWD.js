@@ -713,8 +713,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickInventoryOpenTab() {
         WaitWhileBusy();
         SF.click(By.id('tab_Inventory'));
+        WaitWhileBusy();
         JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
-        SF.sleep(4);
+        SF.sleep(2);
     }
     function Account_ClickSaveInventory() {
         SF.sleep(2);

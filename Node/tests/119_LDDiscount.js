@@ -162,7 +162,7 @@ condition.nowWeDoing = 'Идем в настроику ЛД, удалем нас
     SF.click (By.xpath('//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
     SF.sleep(0.5);
     SF.click (By.xpath('//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
-    SF.sleep(1);
+    SF.sleep(3);
 
 
     SF.endOfTest();
