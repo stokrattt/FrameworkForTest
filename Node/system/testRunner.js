@@ -46,7 +46,7 @@ module.exports = (SF, JS, MF, LF, JSstep, VD, V, By, until, FileDetector, system
 			let endTests = Math.floor((new Date().getTime() - startTests) / 1000);
 			let timeString = 'Это длилось ' + Math.floor(endTests / 60) + ' мин ' + endTests % 60 + ' сек';
 			console.log(timeString.green);
-			fileSystem.writeFinalLog(endLog + timeString);
+			fileSystem.writeFinalLog(endLog + timeString, config);
 			system.myEmitter.removeAllListeners('event');
 			if (condition.fails) {
 				console.log('Process will die with failure code'.red);

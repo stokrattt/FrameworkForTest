@@ -62,7 +62,7 @@ function deleteFolderRecursive(path) {
 }
 
 module.exports.writeFinalLog = writeFinalLog;
-function writeFinalLog(logText) {
+function writeFinalLog(logText, config) {
 	let fileName = 'reports/' + config.fileName + '.txt';
 	fs.writeFile(fileName, logText,
 		function (err) {

@@ -28,11 +28,16 @@ module.exports = (system, config, condition, webdriver, proxy, proxyAddr) => {
 		});
 	}
 	
+	let fatalErrors = [
+		"NoSuchSessionError",
+		"NoSuchWindowError"
+	];
+	
 	function initErrorHandler() {
 		return new Promise((resolve, rej) => {
 			getNewDriver().then(res => {
 				webdriver.promise.controlFlow().on('uncaughtException', function (e) {
-					if (e.name == "NoSuchWindowError" || ~e.message.indexOf("chrome not reachable")) {
+					if (~fatalErrors.indexOf(e.name)	|| ~e.message.indexOf("chrome not reachable")) {
 						console.log('Закрылось окно: '.red, e);
                         if (!config.D) {
                             global.driver.quit().then(function () {
