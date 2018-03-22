@@ -183,8 +183,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function AccountFlatRateAddInventory() {
-		JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
 		SF.sleep(5);
+		JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
+		SF.sleep(2);
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(1)"]'));

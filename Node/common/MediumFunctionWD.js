@@ -2051,6 +2051,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function FrontSiteSmallCalc_SubmitQuoteAndGoToAccount() {
         JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
+        SF.sleep(5);
         JS.waitForExist('ultrasmall-form #request-form .step4 p:contains("Proceed To View Your Quote"):visible');
         SF.sleep(1);
         JS.link('ultrasmall-form #step4 a.submit_btn:visible');

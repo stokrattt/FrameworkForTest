@@ -1,9 +1,9 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/21_LDFromAdminCheckPayroll.js'];
+    config.suite = ['./tests/37_PendingStorage.js'];
     config.chainFail = false;
     config.browser = 'chrome';
-    config.timeout = 45000;
+    config.timeout = 55000;
     // V.frontURL = 'http://test1.stage.themoveboard.com:81/front_site/';                    //dev
     // V.accountURL = 'http://test1.stage.themoveboard.com:81/account/';  //dev
     // V.adminURL = 'http://test1.stage.themoveboard.com:81/moveBoard/';  //dev
