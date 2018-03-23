@@ -722,7 +722,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
         SF.sleep(2);
         SweetConfirm();
-        SF.sleep(6);
+        SF.sleep(4);
     }
     function Account_OpenEditModal() {
         SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));
@@ -899,6 +899,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Contract_RemoveMonthlyStorageFee() {
         SF.click(By.xpath('//input[@value="Monthly Storage Fee"]/../following-sibling::td[3]/p[@ng-click="removeCharge($index)"]'));
+    }
+    function Contract_PayCash() {
+        SF.click(By.xpath('//div[@ng-click="choosePayment(\'cashPay\')"]'));
+        SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+        WaitWhileBusy();
+        SF.sleep(2);
     }
     //=================================EDIT STORAGE REQUEST=====================================
 
@@ -2294,6 +2300,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_ClickCorningToStorage:Contract_ClickCorningToStorage,
         Contract_ClickDoneWithInventory:Contract_ClickDoneWithInventory,
         Contract_RemoveMonthlyStorageFee:Contract_RemoveMonthlyStorageFee,
+        Contract_PayCash:Contract_PayCash,
         //=================================EDIT STORAGE REQUEST=====================================
         EditStorage_RememberId: EditStorage_RememberId,
         EditStorage_OpenLedger: EditStorage_OpenLedger,

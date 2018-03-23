@@ -1343,7 +1343,18 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
 		JS.waitForExist('input#inputImage');
 	}
-
+    function payRentalInventoryCash(boardNumbers) {
+        SF.click(By.xpath('//button[@ng-click="openPayment()"]'));
+        JS.waitForExist('input[ng-model=\\"charge_value.value\\"]');
+        SF.sleep(1);
+        if (boardNumbers != undefined) {
+            driver.wait(driver.executeScript('return $(\'input[ng-model="charge_value.value"]\').val()').then(function (text) {
+                boardNumbers.prepaid = SF.cleanPrice(text);
+            }), config.timeout);
+        }
+        SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
+        MF.Contract_PayCash();
+    }
 	function RememberDateFromRequest(boardNumbers) {
 		driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
 			dateString = dateString.toUpperCase();
@@ -2632,6 +2643,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		EditRequest_EditCrewCalculOff:EditRequest_EditCrewCalculOff,
         EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff:EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff,
         LongDistanceSettings_SetDiscounts:LongDistanceSettings_SetDiscounts,
-        LongDistanceSettings_AddLDStatusFlag:LongDistanceSettings_AddLDStatusFlag
+        LongDistanceSettings_AddLDStatusFlag:LongDistanceSettings_AddLDStatusFlag,
+        payRentalInventoryCash:payRentalInventoryCash
 	};
 };
