@@ -38,6 +38,7 @@ condition.nowWeDoing = 'пошли на дашборд, открываем ре�
     MF.EditRequest_OpenRequest ();
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(500);
+    SF.sleep(2);
     V.boardNumbersDiscount = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersDiscount);
     VD.IWant (VD.NotToEqual, V.boardNumbers.TotalMin, V.boardNumbersDiscount.TotalMin, 'скидка не применилась');

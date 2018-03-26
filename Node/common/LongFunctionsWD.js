@@ -2501,7 +2501,16 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//button[@ng-click="saveNewFlag(); "]'));
         SF.sleep(3);
     }
-
+	function PayCheck() {
+        JS.waitForExist('input[ng-model="payment.card_num"]');
+        SF.sleep(1);
+        SF.click(By.xpath('//div[@ng-click="choosePayment(\'checkPay\');"]'));
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@ng-model="paymentCheck.check_num"]'), 3453453453453);
+        SF.sleep(1);
+        SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+        SF.sleep(2);
+    }
 
 
     return {
@@ -2644,6 +2653,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff:EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff,
         LongDistanceSettings_SetDiscounts:LongDistanceSettings_SetDiscounts,
         LongDistanceSettings_AddLDStatusFlag:LongDistanceSettings_AddLDStatusFlag,
-        payRentalInventoryCash:payRentalInventoryCash
+        payRentalInventoryCash:payRentalInventoryCash,
+        PayCheck:PayCheck
 	};
 };

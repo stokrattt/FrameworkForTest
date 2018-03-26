@@ -68,18 +68,18 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
     MF.Contract_ClickPaymentInfo();
-    LF.FillCardPayModal();
-    LF.MakeSignJS('signatureCanvasPayment');
-    SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
-    JS.waitForExist('input#inputImage');
-    /**********************************************************************************************************************************************/
-    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-        V.path = path;
-    }), config.timeout);
-    SF.sleep(1);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_SaveImages();
+    MF.Contract_PayCash();
+    // LF.MakeSignJS('signatureCanvasPayment');
+    // SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
+    // JS.waitForExist('input#inputImage');
+    // /**********************************************************************************************************************************************/
+    // driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+    //     V.path = path;
+    // }), config.timeout);
+    // SF.sleep(1);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_SaveImages();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     V.contractNumbers = {};

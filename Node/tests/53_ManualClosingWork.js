@@ -62,7 +62,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     SF.click (By.xpath('//input[@ng-model="charge_value.value"]'));
     SF.send (By.xpath('//input[@ng-model="charge_value.value"]'),V.cardInput);
     SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
-    LF.FillCardPayModal ();
+    LF.PayCheck();
     JS.waitForExist('div.payment-receipt-modal');
     MF.WaitWhileToaster();
     MF.WaitWhileBusy ();

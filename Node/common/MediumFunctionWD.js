@@ -718,9 +718,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
     }
     function Account_ClickSaveInventory() {
-        SF.sleep(2);
+        SF.sleep(3);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(2);
+        SF.sleep(3);
         SweetConfirm();
         SF.sleep(4);
     }

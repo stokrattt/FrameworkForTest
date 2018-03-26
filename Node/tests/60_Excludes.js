@@ -58,21 +58,22 @@ condition.nowWeDoing = 'заходим под фореманом и подпис
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
     MF.Contract_ClickPaymentInfo();
-    LF.FillCardPayModal();
-    LF.Contract_SignMainPayment();
-    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-        V.path = path;
-    }), config.timeout);
-    SF.sleep(1);
-    function HideFlyingCircle() {
-		driver.wait(driver.executeScript("$('#FlyingCircle').css('display','none');"), config.timeout);
-	}
-	function ShowFlyingCircle() {
-		driver.wait(driver.executeScript("$('#FlyingCircle').css('display','block');"), config.timeout);
-	}
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_SaveImages();
+    LF.PayCheck();
+    // LF.FillCardPayModal();
+    // LF.Contract_SignMainPayment();
+    // driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+    //     V.path = path;
+    // }), config.timeout);
+    // SF.sleep(1);
+    // function HideFlyingCircle() {
+		// driver.wait(driver.executeScript("$('#FlyingCircle').css('display','none');"), config.timeout);
+    // }
+    // function ShowFlyingCircle() {
+		// driver.wait(driver.executeScript("$('#FlyingCircle').css('display','block');"), config.timeout);
+    // }
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_SaveImages();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     V.contractNumbers = {};
