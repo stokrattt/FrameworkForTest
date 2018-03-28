@@ -47,7 +47,6 @@ condition.nowWeDoing = 'добавляем valuation';
     }),config.timeout);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime) / 60));
     MF.WaitWhileBusy();
-    Debug.pause();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
@@ -59,7 +58,6 @@ condition.nowWeDoing = 'второй раз в аккаунте сверяем �
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
-    Debug.pause();
     LF.RememberAccountNumbers(V.accountNumbers);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.request_all_data.valuation.lability_amount"]')).getText().then(function (text) {
         text = SF.cleanPrice (text);

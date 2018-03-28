@@ -100,6 +100,7 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     LF.MakeSignInInventory(0);
     LF.MakeSignInInventory(1);
     MF.Contract_SubmitInventory();
+    MF.WaitWhileBusy();
     MF.Contract_WaitForRental();
     // driver.wait(driver.findElement(By.xpath('//input[@ng-model="storageVolume"]')).getAttribute('value').then(function (text) {
     //     VD.IWant(VD.ToEqual, text, (V.CFRequest + V.totalCubicFitAddInventory), 'не совпал кубик фит всего добавленного инвентрая и кубик фит реквеста');
@@ -113,6 +114,7 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     }),config.timeout);
     LF.MakeSignInRental();
     MF.SweetConfirm ();
+    MF.WaitWhileBusy();
     LF.payRentalInventoryCash(V.boardNumbers);
     JS.waitForExist('input#inputImage');
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {

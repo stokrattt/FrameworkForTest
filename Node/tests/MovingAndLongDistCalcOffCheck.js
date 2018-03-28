@@ -31,7 +31,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.clientMS.passwd = 123;
 
     MF.Board_CreateDraftRequest(V.clientMS);
-    Debug.pause();
     MF.FrontSiteSmallCalc_SelectServiceType(2);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.clientMS.passwd);

@@ -132,12 +132,14 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     LF.MakeSignInInventory(1);
     MF.Contract_SubmitInventory();
     MF.SweetCancel();
+    MF.WaitWhileBusy();
     MF.Contract_WaitForRental();
     MF.Contract_SetRentalPhone(V.client.phone);
     MF.Contract_SetRentalAddress('Address To');
     MF.Contract_SetRentalZip('02461');
     LF.MakeSignInRental();
     MF.SweetConfirm ();
+    MF.WaitWhileBusy();
     LF.payRentalInventory();
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
