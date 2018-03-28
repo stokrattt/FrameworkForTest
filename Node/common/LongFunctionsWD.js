@@ -2461,9 +2461,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.send(By.xpath('//div/input[@ng-change="calcDiscount()"]'),rate);
 		SF.sleep(1);
 		SF.click(By.xpath('//div/button[@ng-click="Apply()"]'));
-		SF.sleep(1);
-		SF.click(By.xpath('//div/button[@class="confirm"]'));
-		SF.sleep(1);
+		MF.SweetConfirm();
 	}
 	function EditRequest_EditCrewCalculOff() {
 		SF.click(By.xpath('//div[@class="col-md-1 col-xs-1 form-item form-type-textfield form-item-movers-crew"]' +
