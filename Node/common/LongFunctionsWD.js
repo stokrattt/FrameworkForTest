@@ -2511,7 +2511,17 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
         SF.sleep(2);
     }
-
+	function SendClientInfoForDraftRequest(client) {
+        SF.clear(By.xpath('//input[@ng-model="client.field_user_first_name"]'));
+        SF.send(By.xpath('//input[@ng-model="client.field_user_first_name"]'), client.name);
+        SF.clear(By.xpath('//input[@ng-model="client.field_user_last_name"]'));
+        SF.send(By.xpath('//input[@ng-model="client.field_user_last_name"]'), client.fam);
+        SF.clear(By.xpath('//input[@ng-model="client.field_primary_phone"]'));
+        SF.send(By.xpath('//input[@ng-model="client.field_primary_phone"]'), client.phone);
+        SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
+        SF.send(By.xpath('//input[@ng-model="client.mail"]'), client.email);
+        SF.sleep(3);
+    }
 
     return {
 		FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -2654,6 +2664,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         LongDistanceSettings_SetDiscounts:LongDistanceSettings_SetDiscounts,
         LongDistanceSettings_AddLDStatusFlag:LongDistanceSettings_AddLDStatusFlag,
         payRentalInventoryCash:payRentalInventoryCash,
-        PayCheck:PayCheck
+        PayCheck:PayCheck,
+        SendClientInfoForDraftRequest:SendClientInfoForDraftRequest
 	};
 };

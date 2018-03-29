@@ -13,14 +13,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_CreateDraftRequest();
     MF.EditRequest_OpenClient();
-    SF.clear(By.xpath('//input[@ng-model="client.field_user_first_name"]'));
-    SF.send(By.xpath('//input[@ng-model="client.field_user_first_name"]'), V.client.name);
-    SF.clear(By.xpath('//input[@ng-model="client.field_user_last_name"]'));
-    SF.send(By.xpath('//input[@ng-model="client.field_user_last_name"]'), V.client.fam);
-    SF.clear(By.xpath('//input[@ng-model="client.field_primary_phone"]'));
-    SF.send(By.xpath('//input[@ng-model="client.field_primary_phone"]'), V.client.phone);
-    SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
-    SF.send(By.xpath('//input[@ng-model="client.mail"]'), V.client.email);
+    LF.SendClientInfoForDraftRequest(V.client);
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
     LF.addInventoryBoard();
