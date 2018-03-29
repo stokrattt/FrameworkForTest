@@ -99,6 +99,7 @@ condition.nowWeDoing = 'иду в админку в наш реквест, св�
         VD.IWant(VD.ToEqual,V.boardNumbersCubFit1, V.accountNumbers.cbf, 'Сравниваем к.ф. в модалке с аккаунтом');
     }),config.timeout);
     MF.EditRequest_OpenInventoryTab();
+    SF.sleep(20);
     driver.wait(driver.findElement(By.xpath('//div[@class="inventory__toolbar-item inventory__toolbar-item_info"]/span[@ng-bind="total.count"]')).getText().then(function (text) {
         V.InventoryTotalRequest = SF.cleanPrice(text.replace('Total Items:', ''));
         VD.IWant(VD.ToEqual,V.InventoryTotalItemsAccount, V.InventoryTotalRequest, 'Сравниваем кол-во аитемов в аккаунте и модалке');

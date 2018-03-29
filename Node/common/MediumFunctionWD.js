@@ -1411,6 +1411,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_ClickViewRequest() {
         SF.click(By.xpath('//button[@ng-click="goToRequest()"]'));
+        SF.sleep(1);
     }
     function EditRequest_OpenPaymentModalWindow() {
         SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));

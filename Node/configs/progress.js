@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/112_ExtraDropLocalMove.js'];
+    config.suite = ['./tests/118_CommercialPackingDayCalculatorOff.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 55000;
