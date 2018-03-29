@@ -72,6 +72,7 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     SF.sleep(1);
     JS.waitForExist('div.showSweetAlert button.cancel:visible');
     JS.click('div.showSweetAlert button.cancel:visible');
+    MF.WaitWhileBusy();
     SF.waitForVisible(By.xpath('//input[@ng-model="data.agreement.phone"]'));
     SF.sleep(3);
     SF.send(By.xpath('//input[@ng-model="data.agreement.phone"]'), V.client.phone);

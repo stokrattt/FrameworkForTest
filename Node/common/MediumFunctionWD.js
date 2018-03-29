@@ -741,6 +741,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
     }
     function Account_ClickDetails() {
+        WaitWhileBusy();
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
         WaitWhileBusy();
     }
@@ -1995,9 +1996,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function FrontSite_ClickGoToCalculatorResults() {
         SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(5);
+        SF.sleep(8);
         JS.waitForNotExist ('div[ng-if="loadingImg"]');
-        SF.sleep(4);
+        SF.sleep(2);
     }
     function FrontSite_SelectCommercialExtraRooms(value) {
         JS.select('select[ng-model="request.field_commercial_extra_rooms"]', 'string:'+value+'');
