@@ -19,8 +19,9 @@ condition.nowWeDoing = 'Зайти на аккаунт, добавить инв�
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
     LF.RememberAccountNumbers(V.accountNumbers);
+    SF.sleep(1);
     LF.LogoutFromAccount();
-
+SF.sleep(2);
 condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

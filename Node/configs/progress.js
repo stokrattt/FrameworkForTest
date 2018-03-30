@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/MovingAndLongDistCalcOffCheck.js'];
+    config.suite = ['./tests/95_Statistic.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 55000;

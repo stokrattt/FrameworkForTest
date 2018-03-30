@@ -19,6 +19,7 @@ condition.nowWeDoing = 'зашли первый раз в аккаунт';
     MF.Account_ClickViewRequest();
     LF.AccountToStorageEnterAddress();
     LF.AccountLocalAddInventory();
+    SF.sleep(2);
     LF.AccountLocalDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
