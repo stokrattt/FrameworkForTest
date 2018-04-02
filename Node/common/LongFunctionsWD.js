@@ -183,7 +183,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function AccountFlatRateAddInventory() {
-		SF.sleep(5);
+		SF.sleep(2);
 		JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
 		SF.sleep(2);
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(1)"]'));
@@ -199,7 +199,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-		SF.sleep(7);
+		SF.sleep(5);
 	}
 
 	function AccountLocalAddInventory(accountNumbers) {
@@ -244,7 +244,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(5);
+        SF.sleep(2);
         // MF.Account_ClickSaveInventory();
         // if (accountNumbers != undefined) {
         //     driver.wait(driver.executeScript('return $(\'div.inventory__toolbar-item:contains("Total Estimated Cubic Feet:")\').text()').then(
@@ -259,7 +259,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	function AddInventory_InHomeEstimate() {
 		JS.scroll('a[ng-click="select(tabs[1])"]');
 		SF.click(By.xpath('//a[@ng-click="select(tabs[1])"]'));
-		SF.sleep(5);
+		SF.sleep(3);
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(1)"]'));
@@ -278,7 +278,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.sleep(1);
 		SF.click(By.xpath('//button[@ng-click="openAdditionalInventory()"]'));
 		JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
-		SF.sleep(4);
+		SF.sleep(3);
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(1)"]'));
@@ -286,7 +286,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[6]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('//a[@ng-click="setCustomItemMode()"]'));
-		SF.sleep(4);
+		SF.sleep(3);
 		SF.send(By.id('customInventoryName'), 'custom item sofa');
 		SF.sleep(0.5);
 		SF.send(By.xpath('//input[@ng-model="newItem.height.value"]'), 40);
@@ -304,7 +304,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	function AccountLocalAddAdditionalInventory() {
 		MF.WaitWhileBusy();
 		JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
-		SF.sleep(8);
+		SF.sleep(3);
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
@@ -321,7 +321,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
     function AccountLocalAddAdditionalInventoryWhenCalcOff() {
         MF.WaitWhileBusy();
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
-        SF.sleep(8);
+        SF.sleep(3);
         SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
@@ -335,7 +335,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(5);
+        SF.sleep(2);
         // MF.Account_ClickSaveInventory();
     }
 
@@ -613,7 +613,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         console.log(V.request.mdate);
         SF.send(By.id("edit-zip-code-from"), client.zipFrom == undefined ? "01101" : client.zipFrom);
         SF.send(By.id("edit-zip-code-to"), client.zipTo == undefined ? "01102" : client.zipTo);
-        SF.sleep(5);
+        SF.sleep(3);
         MF.CreateRequest_ClickCalculate();
         MF.CreateRequest_ClickContinue();
         MF.CreateRequest_SendClientInfo(client);
@@ -640,7 +640,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		console.log(V.request.mdate);
 		SF.send(By.id("edit-zip-code-from"), client.zipFrom == undefined ? "02032" : client.zipFrom);
 		SF.send(By.id("edit-zip-code-to"), client.zipTo == undefined ? "02136" : client.zipTo);
-		SF.sleep(5);
+		SF.sleep(3);
 		MF.CreateRequest_ClickCalculate();
 		MF.CreateRequest_ClickContinue();
 		MF.CreateRequest_SendClientInfo(client);
@@ -1302,14 +1302,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('//local-moves[@id="main-contract"]//div[@class="empty-signature"]'));
 		MakeSignJS("signatureCanvas");
 		SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
-		SF.sleep(2);
+		SF.sleep(1);
 	}
     function MakeSignInContractFlatRate() {
         MF.WaitWhileBusy();
         SF.click(By.xpath('//div[@id="local_moves"]//div[@class="empty-signature"]'));
         MakeSignJS("signatureCanvas");
         SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
-        SF.sleep(2);
+        SF.sleep(1);
     }
 
 	function MakeSignInInventory(step) {
@@ -1320,7 +1320,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function MakeSignInRental() {
-		SF.sleep(2);
+		SF.sleep(1);
 		SF.click(By.xpath('//span[contains(text(),"Tenant Signature:")]/following-sibling::div[1]/div[@ng-click="openService(\'monthly_storage_fee\', 1)"]'));
 		MakeSignJS("signatureCanvasService");
 		SF.click(By.xpath('//button[@ng-click="saveService()"]'));
@@ -1892,13 +1892,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			}), config.timeout);
 		}
 		SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-		SF.sleep(4);
+		SF.sleep(2);
 	}
 
 	function addAdditionalInventoryBoard(boardNumbers) {
 		SF.click(By.xpath('//ul[@class="nav nav-tabs"]//a[@ng-click="select(tabs[1])"]'));
 		MF.WaitWhileBusy();
-		SF.sleep(3);
+		SF.sleep(1.5);
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
@@ -1915,7 +1915,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			}), config.timeout);
 		}
 		SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-		SF.sleep(4);
+		SF.sleep(2);
 	}
 
 	function RememberStorageNumbers(storageNumbers) {
@@ -2520,7 +2520,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.send(By.xpath('//input[@ng-model="client.field_primary_phone"]'), client.phone);
         SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
         SF.send(By.xpath('//input[@ng-model="client.mail"]'), client.email);
-        SF.sleep(3);
+        SF.sleep(1.5);
     }
 
     return {
