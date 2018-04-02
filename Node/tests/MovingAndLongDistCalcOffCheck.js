@@ -81,7 +81,10 @@ condition.nowWeDoing = 'первое сравнение просто нечег�
 condition.nowWeDoing = 'меняем мув сайз и после него сравним второй раз, если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
     SF.select(By.xpath('//select[@field="request.move_size"]'), 9);
-    SF.sleep(20); // долго обновляется смена мув сайза на акке
+    MF.Account_SendAdressFromModalWindow();
+    MF.Account_SendAdressToModalWindow();
+    SF.sleep(10); // долго обновляется смена мув сайза на акке
+    Debug.pause();
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
@@ -132,7 +135,8 @@ condition.nowWeDoing = 'первое сравнение мувинг стора�
 condition.nowWeDoing = 'мувинг сторадж ТУ - меняем мув сайз и после него сравним второй раз, если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
     SF.select(By.xpath('//select[@field="request.move_size"]'), 9);
-    SF.sleep(20); // долго обновляется смена мув сайза на акке
+    MF.Account_SendAdressFromModalWindow();
+    SF.sleep(10); // долго обновляется смена мув сайза на акке
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
@@ -143,8 +147,8 @@ condition.nowWeDoing = 'мувинг сторадж ТУ - меняем мув �
 
 condition.nowWeDoing= 'мувинг сторадж ТУ - меняем зип код и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
-    SF.clear(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
-    SF.send(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'), '01001');
+    SF.clear(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'));
+    SF.send(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'), '01001');
     SF.sleep(10);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();

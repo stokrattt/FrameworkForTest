@@ -733,8 +733,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//oi-select[@ng-model="commercialSize"]/div[2]//li[1]'));
     }
     function Account_SendAdressFromModalWindow() {
+        SF.click(By.xpath('//input[@ng-value="request.field_moving_from.thoroughfare"]'));
         SF.send(By.xpath('//input[@ng-value="request.field_moving_from.thoroughfare"]'), 'blablabla');
         SF.send(By.xpath('//input[@ng-value="request.apt_from.value"]'), 123);
+    }
+    function Account_SendAdressToModalWindow() {
+        SF.click(By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'));
+        SF.send(By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'), 'tratatata');
+        SF.send(By.xpath('//input[@ng-value="request.apt_to.value"]'), 258);
     }
     function Account_ClickUpdateClientInModalWindow() {
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
@@ -2281,6 +2287,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ClickUpdateClientInModalWindow:Account_ClickUpdateClientInModalWindow,
         Account_ClickDetails:Account_ClickDetails,
         Account_ClickSaveDetails:Account_ClickSaveDetails,
+        Account_SendAdressToModalWindow:Account_SendAdressToModalWindow,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
