@@ -29,9 +29,9 @@ condition.nowWeDoing = 'создаём реквест localMoving';
 	SF.sleep(1);
 	for (var t in V.targets) {
 		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
-		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),999);
+		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),245);
 	}
-	SF.sleep(8);
+	SF.sleep(5);
 	MF.Board_OpenDashboard();
 	MF.Board_OpenConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
@@ -41,7 +41,7 @@ condition.nowWeDoing = 'создаём реквест localMoving';
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_OpenSettingsRates();
 	V.targets2=[];
-	driver.wait(driver.executeScript(JSstep.findAllDetermPrices(999)).then(function(array) {
+	driver.wait(driver.executeScript(JSstep.findAllDetermPrices(245)).then(function(array) {
 		V.targets2=array;
 	}),config.timeout);
 	SF.sleep(1);
@@ -54,7 +54,9 @@ condition.nowWeDoing = 'создаём реквест localMoving';
         SF.sleep(1.5);
 
     }
-	SF.sleep(8);
-	//=========================закончили писать тест=============================
+	SF.sleep(4);
+    MF.Board_OpenDashboard();
+
+    //=========================закончили писать тест=============================
     SF.endOfTest();
 };

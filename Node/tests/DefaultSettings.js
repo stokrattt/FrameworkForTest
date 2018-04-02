@@ -97,6 +97,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.executeScript("if ($('input[ng-model=\"vm.calcSettings.doubleDriveTime\"]').hasClass('ng-empty')){" +
         "return true;} else {$('input[ng-model=\"vm.calcSettings.doubleDriveTime\"]~span').click()}"),config.timeout);
     SF.sleep(1);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.doubleDriveTime\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[ng-model=\"vm.calcSettings.doubleDriveTime\"] ~span').click()}"),config.timeout);
+    SF.sleep(1);
+    SF.click(By.xpath('//input[@ng-model="vm.calcSettings.doubleDriveTimeName"]'));
+    SF.sleep(4);
     SF.click(By.linkText('Form Style'));
     SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[ng-if=\"isSecondStepFirst()\"]').length").then(function (length) {

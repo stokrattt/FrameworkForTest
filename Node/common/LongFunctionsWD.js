@@ -1892,7 +1892,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			}), config.timeout);
 		}
 		SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-		SF.sleep(2);
+		SF.sleep(3);
 	}
 
 	function addAdditionalInventoryBoard(boardNumbers) {

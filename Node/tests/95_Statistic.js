@@ -83,11 +83,11 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     driver.wait(driver.findElement(By.xpath('//div[@class="col-lg-3"]//p[@class="no-margins margtop"]')).getText().then(function(text) {
         V.SalesAmountAsMainSales = SF.cleanPrice(text);
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@class="col-lg-3"]//p[@ng-if="!!vm.secondConfirmedJobs"]')).getText().then(function(text) {
-        V.SalesAmountAsAdditionalSales = SF.cleanPrice(text);
-        }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//div[@class="col-lg-3"]//p[@ng-if="!!vm.secondConfirmedJobs"]')).getText().then(function(text) {
+    //     V.SalesAmountAsAdditionalSales = SF.cleanPrice(text);
+    //     }),config.timeout);
     SF.sleep(1);
-    V.SalesCommonAmountSalesPage = V.SalesAmountAsMainSales + V.SalesAmountAsAdditionalSales;
+    V.SalesCommonAmountSalesPage = V.SalesAmountAsMainSales;
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.SalesAmount, V.SalesCommonAmountSalesPage,'не совпало общее кол-во работ оунерпеидж/салеспеидж из коммон стата');
     driver.wait(driver.findElement(By.xpath('//div[@class="col-lg-3"]//p[@class="no-margins margtop"][2]')).getText().then(function(text) {

@@ -120,8 +120,11 @@ condition.nowWeDoing = 'Сохраняем трип и добавляем раб
     }),config.timeout);
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"Add Pickup/Delivery")]'));
     SF.waitForVisible (By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
+    SF.sleep(2);
+    SF.click(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateFrom"]/div/input'), V.dateStart);
+    SF.click(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'));
     SF.clear(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'));
     SF.send(By.xpath('//md-datepicker[@ng-model="pickupDateTo"]/div/input'), V.dateEnd);
     SF.click(By.xpath('//input[@ng-model="search"]'));
