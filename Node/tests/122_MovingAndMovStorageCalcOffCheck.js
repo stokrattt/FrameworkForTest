@@ -22,7 +22,7 @@ condition.nowWeDoing = 'создаем локал мув и выключаем �
     LF.RememberDigitsRequestBoard(V.boardNumbersLM);
     MF.EditRequest_CloseEditRequest();
 
-condition.nowWeDoing = 'создаем moving storage и выключаем калькулятор';
+condition.nowWeDoing = 'создаем moving storage из  драфта и выключаем калькулятор';
     V.clientMS = {};
     V.clientMS.name = SF.randomBukva(6) + '_t';
     V.clientMS.fam = SF.randomBukva(6) + '_t';
