@@ -33,7 +33,7 @@ module.exports = function(config,V) {
         './tests/61_SITInvoices.js',
         './tests/72_ChangingRateAfterConfirming.js',
         './tests/121_FAQ.js',
-
+        './tests/122_MovingAndLongDistCalcOffCheck.js',
         './tests/73_CustomTrackSpeed.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/74_AddEmailsWhenCreatReqCheckLDQuote.js',

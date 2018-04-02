@@ -172,6 +172,59 @@ condition.nowWeDoing= 'мувинг сторадж ТУ - добавляем и�
     V.accountNumbersMStoChangeMoveSizeChangeZipChangeDetailsAddInventory = {};
     LF.RememberAccountNumbers (V.accountNumbersMStoChangeMoveSizeChangeZipChangeDetailsAddInventory);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSto, V.accountNumbersMStoChangeMoveSizeChangeZipChangeDetailsAddInventory);
+
+condition.nowWeDoing = 'переходим на фром сторадж';
+    MF.Account_ClickFromStorage();
+
+condition.nowWeDoing = 'заходим в аккаунт для мувинг стораджа второго который фром';
+    V.accountNumbersMSfrom = {};
+    LF.RememberAccountNumbers (V.accountNumbersMSfrom);
+
+condition.nowWeDoing = 'первое сравнение мувинг стораджа From просто нечего не меняя в акке ';
+    LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfrom);
+
+condition.nowWeDoing = 'мувинг сторадж from - меняем мув сайз и после него сравним, если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
+    MF.Account_OpenEditModal ();
+    SF.select(By.xpath('//select[@field="request.move_size"]'), 9);
+    MF.Account_SendAdressToModalWindow();
+    SF.sleep(10); // долго обновляется смена мув сайза на акке
+    MF.Account_ClickUpdateClientInModalWindow();
+    MF.SweetConfirm();
+    MF.SweetConfirm();
+    SF.sleep(20); // долго обновляется смена мув сайза на акке
+    V.accountNumbersMSfromChangeMoveSize = {};
+    LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSize);
+    LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSize);
+
+condition.nowWeDoing= 'мувинг сторадж from - меняем зип код и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
+    MF.Account_OpenEditModal ();
+    SF.clear(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
+    SF.send(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'), '01001');
+    SF.sleep(10);
+    MF.Account_ClickUpdateClientInModalWindow();
+    MF.SweetConfirm();
+    MF.SweetConfirm();
+    SF.sleep(20);
+    V.accountNumbersMSfromChangeMoveSizeChangeZip = {};
+    LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSizeChangeZip);
+    LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSizeChangeZip);
+
+condition.nowWeDoing= 'мувинг сторадж from - меняем details и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
+    MF.Account_ClickDetails ();
+    MF.AccountFR_SeelectOptions();
+    MF.Account_WaitForDetailsCheck();
+    V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetails = {};
+    LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetails);
+    LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetails);
+
+condition.nowWeDoing= 'мувинг сторадж from - добавляем инветорий и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
+    LF.AccountLocalAddAdditionalInventoryWhenCalcOff ();
+    SF.sleep(3);
+    V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetailsAddInventory = {};
+    LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetailsAddInventory);
+    LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetailsAddInventory);
+    SF.sleep(1);
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

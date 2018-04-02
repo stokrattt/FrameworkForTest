@@ -125,6 +125,7 @@ module.exports = function(config,V) {
         './tests/117_HomeEstimatePortal.js',
         './tests/111_ZIPCode.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
+        './tests/122_MovingAndLongDistCalcOffCheck.js',
         './tests/51_ServiceTypesOnOff.js',
 
         './tests/56_LoadingAllSteps.js',
