@@ -25,8 +25,8 @@ condition.nowWeDoing = 'Законфёрмить сразу реквест';
     JS.scroll('div.ServicesCost:visible');
     MF.EditRequest_OpenSettings ();
     LF.SetManager('emilia');
-    MF.EditRequest_OpenClient ();
-    LF.SetClientPasswd(V.client.passwd);
+    // MF.EditRequest_OpenClient ();
+    // LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest ();
     MF.EditRequest_SetToConfirmed ();
     SF.send(By.xpath('//input[@ng-model="request.field_moving_from.thoroughfare"]'),'Address From');
@@ -49,9 +49,11 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     JS.scroll("tr[ng-repeat=\"n in rangeArr\"]:eq(0)");
     for (let i = 1, invCount = 1; i <= 9; i++) {
         SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//button[1]'));
-        SF.sleep(1);
+        SF.sleep(1.5);
         JS.click("ul#inventory-dropdown:visible li[ng-repeat=\"articles in  inventoryList | toArray | orderBy: \\'title\\'  \"]:visible");
+        SF.sleep(1.5);
         SF.select(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//select[1]'), "CP");
+        SF.sleep(1.5);
         SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//button[@ng-click="openCondition(data[fieldName].inventory[n], n)"]'));
         JS.waitForExist('button[ng-click=\\"addCondition(key)\\"]:has(div:contains(\\"burned\\")):visible');
         SF.sleep(1);
@@ -70,21 +72,27 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     SF.sleep(1);
     JS.waitForExist('div.showSweetAlert button.cancel:visible');
     JS.click('div.showSweetAlert button.cancel:visible');
+    MF.WaitWhileBusy();
     SF.waitForVisible(By.xpath('//input[@ng-model="data.agreement.phone"]'));
+    SF.sleep(3);
     SF.send(By.xpath('//input[@ng-model="data.agreement.phone"]'), V.client.phone);
     SF.send(By.xpath('//input[@ng-model="data.agreement.address"]'), 'Address To');
     SF.send(By.xpath('//input[@ng-model="data.agreement.zipCode"]'), '02461');
     LF.MakeSignInRental();
     MF.SweetConfirm ();
-    LF.payRentalInventory(V.boardNumbersTo);
+    MF.WaitWhileBusy();
+    LF.payRentalInventoryCash(V.boardNumbersTo);
     JS.waitForExist('input#inputImage');
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
-    SF.sleep(1);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_SaveImages();
+    SF.sleep(2);
+    JS.click('button[ng-click=\\"saveFile();logClickButtons(\\\'Save Images button clicked\\\')\\"]');
+    SF.sleep(5);
+    // MF.Contract_UploadImage(V.path);
+    // SF.send(By.xpath('//input[@class="upload-card-btn"]'),V.path);
+    // SF.click(By.xpath('//input[@id="inputImage"]'));
+    // MF.Contract_SaveImages();
 
 condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт';
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
@@ -101,18 +109,7 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
     MF.Contract_ClickPaymentInfo();
-    LF.FillCardPayModal();
-    LF.MakeSignJS('signatureCanvasPayment');
-    SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
-    JS.waitForExist('input#inputImage');
-    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-        V.path = path;
-    }), config.timeout);
-    SF.sleep(1);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_SaveImages();
-
+    MF.Contract_PayCash();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     V.contractNumbers = {};
@@ -182,17 +179,7 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
     MF.Contract_ClickPaymentInfo();
-    LF.FillCardPayModal();
-    LF.MakeSignJS('signatureCanvasPayment');
-    SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
-    JS.waitForExist('input#inputImage');
-    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-        V.path = path;
-    }), config.timeout);
-    SF.sleep(1);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_SaveImages();
+    MF.Contract_PayCash();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     V.contractNumbersFrom = {};

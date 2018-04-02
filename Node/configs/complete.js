@@ -61,7 +61,7 @@ module.exports = function(config,V) {
 
         './tests/55_CreateFlagAndCheckOnDashboard.js',
         './tests/58_Discount.js',
-        './tests/59_PayrollAddMiscCustomPayment.js',
+        // './tests/59_PayrollAddMiscCustomPayment.js',
        // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/60_Excludes.js',
 
@@ -84,7 +84,7 @@ module.exports = function(config,V) {
         // './tests/44_CreateForemanAndAssignCheck.js',
         './tests/77_CustomTooltips.js',
         './tests/78_CheckRateAndTrucks.js',
-        './tests/40_PayrollTableCheckSumJobs.js',
+        // './tests/40_PayrollTableCheckSumJobs.js',
         './tests/79_ExtraFeeForAdditionalPickUp.js',
         './tests/81_NewPackingAddCrew.js',
         './tests/82_LDSetPrice.js',
@@ -131,7 +131,7 @@ module.exports = function(config,V) {
         // './tests/107_SallaryProfitLossAndPayroll.js',
 
     ];
-    config.timeout = 80000;
+    config.timeout = 110000;
     config.chainFail = false;
 	config.browser = 'chrome';
     // config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu"] };

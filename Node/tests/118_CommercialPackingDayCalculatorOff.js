@@ -119,6 +119,7 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     LF.MakeSignInInventory(0);
     LF.MakeSignInInventory(1);
     MF.Contract_SubmitInventory();
+    MF.WaitWhileBusy();
     MF.Contract_WaitForRental();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="storageVolume"]')).getAttribute('value').then(function (text) {
         V.rentaAgreementCF = text;
@@ -129,6 +130,7 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     MF.Contract_SetRentalZip('02461');
     LF.MakeSignInRental();
     MF.SweetConfirm ();
+    MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'тут идем дальше доподписывать контракт и удалим monthly storage fee и проверим что контракт засабмитится';
     MF.Contract_OpenBillOfLading();

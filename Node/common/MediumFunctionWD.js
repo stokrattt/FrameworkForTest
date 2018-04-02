@@ -713,15 +713,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickInventoryOpenTab() {
         WaitWhileBusy();
         SF.click(By.id('tab_Inventory'));
+        WaitWhileBusy();
         JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
-        SF.sleep(4);
+        SF.sleep(2);
     }
     function Account_ClickSaveInventory() {
-        SF.sleep(2);
+        SF.sleep(3);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(2);
+        SF.sleep(3);
         SweetConfirm();
-        SF.sleep(6);
+        SF.sleep(4);
     }
     function Account_OpenEditModal() {
         SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));
@@ -732,14 +733,21 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//oi-select[@ng-model="commercialSize"]/div[2]//li[1]'));
     }
     function Account_SendAdressFromModalWindow() {
+        SF.click(By.xpath('//input[@ng-value="request.field_moving_from.thoroughfare"]'));
         SF.send(By.xpath('//input[@ng-value="request.field_moving_from.thoroughfare"]'), 'blablabla');
         SF.send(By.xpath('//input[@ng-value="request.apt_from.value"]'), 123);
+    }
+    function Account_SendAdressToModalWindow() {
+        SF.click(By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'));
+        SF.send(By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'), 'tratatata');
+        SF.send(By.xpath('//input[@ng-value="request.apt_to.value"]'), 258);
     }
     function Account_ClickUpdateClientInModalWindow() {
         SF.click(By.xpath('//button[@ng-click="update(client)"]'));
         SF.sleep(1);
     }
     function Account_ClickDetails() {
+        WaitWhileBusy();
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
         WaitWhileBusy();
     }
@@ -898,6 +906,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Contract_RemoveMonthlyStorageFee() {
         SF.click(By.xpath('//input[@value="Monthly Storage Fee"]/../following-sibling::td[3]/p[@ng-click="removeCharge($index)"]'));
+    }
+    function Contract_PayCash() {
+        SF.click(By.xpath('//div[@ng-click="choosePayment(\'cashPay\')"]'));
+        SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+        WaitWhileBusy();
+        SF.sleep(2);
     }
     //=================================EDIT STORAGE REQUEST=====================================
 
@@ -1403,6 +1417,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_ClickViewRequest() {
         SF.click(By.xpath('//button[@ng-click="goToRequest()"]'));
+        SF.sleep(1);
     }
     function EditRequest_OpenPaymentModalWindow() {
         SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
@@ -1619,7 +1634,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 	    WaitWhileToaster();
 	    WaitWhileBusy();
     }
-
+    function EditRequest_SetZipCodeFrom(zipFrom) {
+        SF.click(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'));
+        SF.clear(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'));
+        SF.send(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'), zipFrom);
+    }
+    function EditRequest_SetZipTo(zipTo) {
+        SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
+        SF.clear(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
+        SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), zipTo);
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -1988,9 +2012,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function FrontSite_ClickGoToCalculatorResults() {
         SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(5);
+        SF.sleep(8);
         JS.waitForNotExist ('div[ng-if="loadingImg"]');
-        SF.sleep(4);
+        SF.sleep(2);
     }
     function FrontSite_SelectCommercialExtraRooms(value) {
         JS.select('select[ng-model="request.field_commercial_extra_rooms"]', 'string:'+value+'');
@@ -2050,6 +2074,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function FrontSiteSmallCalc_SubmitQuoteAndGoToAccount() {
         JS.click('div[ng-click=\\"blockCalculateSmallForm = true; Calculate(1,\\\'Website\\\')\\"]');
+        SF.sleep(5);
         JS.waitForExist('ultrasmall-form #request-form .step4 p:contains("Proceed To View Your Quote"):visible');
         SF.sleep(1);
         JS.link('ultrasmall-form #step4 a.submit_btn:visible');
@@ -2262,6 +2287,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ClickUpdateClientInModalWindow:Account_ClickUpdateClientInModalWindow,
         Account_ClickDetails:Account_ClickDetails,
         Account_ClickSaveDetails:Account_ClickSaveDetails,
+        Account_SendAdressToModalWindow:Account_SendAdressToModalWindow,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -2292,6 +2318,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_ClickCorningToStorage:Contract_ClickCorningToStorage,
         Contract_ClickDoneWithInventory:Contract_ClickDoneWithInventory,
         Contract_RemoveMonthlyStorageFee:Contract_RemoveMonthlyStorageFee,
+        Contract_PayCash:Contract_PayCash,
         //=================================EDIT STORAGE REQUEST=====================================
         EditStorage_RememberId: EditStorage_RememberId,
         EditStorage_OpenLedger: EditStorage_OpenLedger,
@@ -2417,6 +2444,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SetMinWeight:EditRequest_SetMinWeight,
         EditRequest_MinPriceWindowSwitchOnOff:EditRequest_MinPriceWindowSwitchOnOff,
 	    EditRequest_HomeEstimate_SaveChanges:EditRequest_HomeEstimate_SaveChanges,
+        EditRequest_SetZipCodeFrom:EditRequest_SetZipCodeFrom,
+        EditRequest_SetZipTo:EditRequest_SetZipTo,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

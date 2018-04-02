@@ -39,7 +39,8 @@ condition.nowWeDoing = 'идем в леджер и создаем паймен�
     SF.click (By.xpath('//input[@ng-model="charge_value.value"]'));
     SF.send (By.xpath('//input[@ng-model="charge_value.value"]'),1050);
     SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
-    LF.FillCardPayModal ();
+    // LF.FillCardPayModal ();
+    MF.Contract_PayCash();
     SF.sleep (2);
     MF.WaitWhileToaster();
     JS.click('button[ng-click=\\"cancel()\\"]:visible');

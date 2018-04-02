@@ -118,13 +118,19 @@ condition.nowWeDoing = 'В аккаунте удаляем весь инвент
         console.log(V.accountcbf);
         VD.IWant(VD.ToEqual, V.defaultcbf, V.accountcbf, 'Cubic feet не ушел в дефолтные 1500 после удаления инвентаря на аккаунте');
     }),config.timeout);
+    V.accountNumbers = {};
+    LF.RememberAccountNumbersLD(V.accountNumbers);
     LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'Возвращаемся на дашборд и проверяем что cubic feet стал дефолтным. В табе Sales меняем Fuel, добавляем Packing и Discount, запоминаем эти изменения';
+    condition.nowWeDoing = 'Возвращаемся на дашборд. Сверяем данные с аккаунта с данными на мувборде и проверяем, что cubic feet стал дефолтным. В табе Sales меняем Fuel, добавляем Packing и Discount, запоминаем эти изменения';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest (V.requestNumber.Id);
+    V.boardNumbersAfterDeleteInventory = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersAfterDeleteInventory);
+    console.log(V.boardNumbersAfterDeleteInventory);
+    LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbers, V.boardNumbersAfterDeleteInventory);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '1500', 'Cubic feet на дашборде не вернулся к дефолтному значению в 1500 после удаления инвентаря на аккаунте')
     }),config.timeout);
@@ -132,6 +138,7 @@ condition.nowWeDoing = 'Возвращаемся на дашборд и пров
     SF.click(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'));
     SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'),222);
     MF.EditRequest_ClickApplyInFuelWindow();
+    SF.sleep(3);
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
     MF.EditRequest_AddPacking();
@@ -286,6 +293,60 @@ condition.nowWeDoing = 'Сравниваем Balance и TP collected трипа 
     driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[13]')).getText().then(function(text){
         text = SF.cleanPrice(text.substring(text.indexOf('$')));
         VD.IWant(VD.ToEqual, text,V.boardNumbersAddedToTrip.Balance, 'не совпад Job total в трипе и реквесте');
+    }),config.timeout);
+
+condition.nowWeDoing = 'Открываем Closing трипа, открываем TP collected и создаём кастомный пеймент. Запоминаем новый TP collected.';
+    JS.click('span:contains(\\"Closing\\")');
+    SF.sleep(1);
+    SF.click(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
+    SF.click(By.xpath('//input[@id="customPaymentAmount"]'));
+    SF.send(By.xpath('//input[@id="customPaymentAmount"]'), 200);
+    driver.wait(driver.findElement(By.xpath('//div[@class="add-custom-payment-form__toolbar__info"]//span[2]')).getText().then(function(text){
+        V.NewTPCollected = SF.cleanPrice(text.substring(text.indexOf('$')));
+        console.log(V.NewTPCollected);
+    }),config.timeout);
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep(2);
+    SF.click(By.xpath('//button[@ng-click="back()"]'));
+    SF.sleep(2);
+
+condition.nowWeDoing = 'Идём на табу Trip Details, проверяем, что суммы в колонках TP collected и Shipping Balance пересчитались в соответствии с новым TP collected.';
+    JS.click('span:contains(\\"Trip details\\")');
+    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[14]')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.NewTPCollected,text, 'TP collected в трипе не пересчитался после создания кастомного пеймента на клоузинге трипа');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[13]')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.NewTPCollected,text, 'Shipping balance в трипе не пересчитался после создания кастомного пеймента на клоузинге трипа');
+    }),config.timeout);
+
+condition.nowWeDoing = 'Открываем реквест, заходим в Payment и удаляем кастомный пеймент. Проверяем, что баланс реквеста равен нулю. Закрываем реквест.';
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
+    MF.EditRequest_WaitForBalanceVisible();
+    MF.EditRequest_OpenPayment();
+    SF.click(By.xpath('//span[@ng-if="receipt.transaction_id == \'Custom Payment\'"]'));
+    SF.click(By.xpath('//a[@ng-click="removeReceipt()"]'));
+    MF.SweetConfirm();
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    V.boardNumbersDelCustomPayment = {};
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbersDelCustomPayment);
+    console.log(V.boardNumbersDelCustomPayment);
+    VD.IWant(VD.ToEqual, V.boardNumbersDelCustomPayment.Balance,'0', 'Balance в реквесте не равен 0 после удаления кастомного пеймента в модалке реквеста');
+    MF.EditRequest_CloseEditRequest();
+
+condition.nowWeDoing = 'Сравниваем Balance и TP collected трипа с тоталом и пейментом в реквесте.';
+    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[15]')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbersDelCustomPayment.Total, 'не совпад Balance в трипе и реквесте после удаления кастомного пеймента в модалке реквеста');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[14]')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbersDelCustomPayment.Payment, 'не совпад Total paid в трипе и реквесте после удаления кастомного пеймента в модалке реквеста');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[13]')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbersDelCustomPayment.Balance, 'не совпад Job total в трипе и реквесте после удаления кастомного пеймента в модалке реквеста');
     }),config.timeout);
     SF.sleep(1);
     SF.endOfTest();

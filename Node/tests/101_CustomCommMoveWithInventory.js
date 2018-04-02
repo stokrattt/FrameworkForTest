@@ -90,6 +90,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Total, V.accountNumbersLD.Total, 'не изменился гранд тотал после добавления инвентрая');
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Fuel, V.accountNumbersLD.Fuel, 'не изменился fuel после добавления инвентрая');
     MF.Account_ClickFullPacking();
+    SF.sleep(5);
     V.accountNumbersLDAfterAddInvenAfterAddFullPacing={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInvenAfterAddFullPacing);
     LF.LogoutFromAccount();
@@ -104,6 +105,7 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     V.boardNumbers2PendingAfterAddInven = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers2PendingAfterAddInven);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDAfterAddInvenAfterAddFullPacing, V.boardNumbers2PendingAfterAddInven);
+    Debug.pause();
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickCustomCubFit();
     MF.EditRequest_SendNumberCustomCubFit(999);

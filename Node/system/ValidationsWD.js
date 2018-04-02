@@ -28,7 +28,7 @@ module.exports = function (system, condition, config) {
 			console.log('Ошибка валидации: '.red, e);
 			driver.wait(driver.takeScreenshot().then(function (image) {
 				console.log("Сделал скрин".yellow);
-				require('./fileSystem').writeErrorFiles(system, condition, image, e, config);
+				require('./fileSystem').writeErrorFiles(condition, image, e, config);
 			}));
 		} else {
 			console.log((value1 + ' ' + getFnName(func) + ' ' + value2).green);

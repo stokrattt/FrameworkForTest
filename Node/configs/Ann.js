@@ -3,7 +3,7 @@ module.exports = function (config, V) {
 	config.timeout = 50000;
 
 	config.suite = [
-		'./tests/51_ServiceTypesOnOff.js'
+		'./tests/11111.js'
 		// './tests/31_FlateRateBooking.js'
 	];
 	config.chainFail = false;
@@ -35,6 +35,7 @@ module.exports = function (config, V) {
 	V.managerFirstName = 'emilia';
 	V.foremanLoginFlatRate = 'FlatRateForeman';
 	V.foremanPassword = '123';
+	V.managerName = 'emilia clark';
 	V.testMail = {
 		login: 'test.boston',
 		mail: 'test.boston@mail.ru',

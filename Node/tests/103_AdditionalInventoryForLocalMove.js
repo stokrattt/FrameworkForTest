@@ -70,7 +70,7 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
     SF.sleep(8);
     SF.click(By.xpath('//button[@ng-click="openAdditionalInventory()"]'));
-    JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
+    JS.waitForExist('div[class=\"inventory__toolbar\"]');
     SF.sleep(4);
 
 condition.nowWeDoing = 'тут после добавления адишинал инвентаря и кастомного айтема мы закрыли модалку с инвентарем и опять октрыли для сравнения что все что добавили осталось на месте';
@@ -100,6 +100,7 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     LF.MakeSignInInventory(0);
     LF.MakeSignInInventory(1);
     MF.Contract_SubmitInventory();
+    MF.WaitWhileBusy();
     MF.Contract_WaitForRental();
     // driver.wait(driver.findElement(By.xpath('//input[@ng-model="storageVolume"]')).getAttribute('value').then(function (text) {
     //     VD.IWant(VD.ToEqual, text, (V.CFRequest + V.totalCubicFitAddInventory), 'не совпал кубик фит всего добавленного инвентрая и кубик фит реквеста');
@@ -113,29 +114,40 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     }),config.timeout);
     LF.MakeSignInRental();
     MF.SweetConfirm ();
-    LF.payRentalInventory();
+    MF.WaitWhileBusy();
+    LF.payRentalInventoryCash(V.boardNumbers);
+    JS.waitForExist('input#inputImage');
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
-    SF.sleep(1);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_SaveImages();
+    SF.sleep(2);
+    JS.click('button[ng-click=\\"saveFile();logClickButtons(\\\'Save Images button clicked\\\')\\"]');
+    SF.sleep(5);
+
+    // LF.payRentalInventory();
+    // driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+    //     V.path = path;
+    // }), config.timeout);
+    // SF.sleep(1);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_SaveImages();
 
     LF.MakeSignInContract();
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
     MF.Contract_ClickPaymentInfo();
-    LF.FillCardPayModal();
-    LF.Contract_SignMainPayment();
-    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-        V.path = path;
-    }), config.timeout);
-    SF.sleep(1);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_SaveImages();
+    MF.Contract_PayCash();
+    // LF.FillCardPayModal();
+    // LF.Contract_SignMainPayment();
+    // driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+    //     V.path = path;
+    // }), config.timeout);
+    // SF.sleep(1);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_SaveImages();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     V.contractNumbers = {};

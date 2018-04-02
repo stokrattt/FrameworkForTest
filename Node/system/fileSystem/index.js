@@ -1,10 +1,11 @@
 let saveHAR = require('../proxy/commonFuncs').saveHAR;
+let fs = require('fs');
 
 module.exports.writeScreenshot = writeScreenshot;
-function writeScreenshot(system, condition, image) {
+function writeScreenshot(condition, image) {
 	console.log("Сохраняю картинку".yellow);
 	let fileName = 'reports/' + condition.testName + '/' + condition.errorNumber + '.png';
-	system.fs.writeFile(fileName, image, 'base64', function (err) {
+	fs.writeFile(fileName, image, 'base64', function (err) {
 		if (err != null) {
 			console.log(err);
 		} else {
@@ -14,10 +15,10 @@ function writeScreenshot(system, condition, image) {
 }
 
 module.exports.writeErrorText = writeErrorText;
-function writeErrorText(system, condition, error) {
+function writeErrorText(condition, error) {
 	console.log("Сохраняю текст".yellow);
 	let fileName = 'reports/' + condition.testName + '/' + condition.errorNumber + '.txt';
-	system.fs.writeFile(fileName, condition.nowWeDoing + '\n' + error + '\n' + error.stack, function (err) {
+	fs.writeFile(fileName, condition.nowWeDoing + '\n' + error + '\n' + error.stack, function (err) {
 		if (err != null) {
 			console.log(err);
 		} else {
@@ -27,35 +28,55 @@ function writeErrorText(system, condition, error) {
 }
 
 module.exports.makeDir = makeDir;
-function makeDir(system, condition) {
-	let exist = system.fs.existsSync('reports/' + condition.testName);
+function makeDir(condition) {
+	let exist = fs.existsSync('reports/' + condition.testName);
 	if (!exist) {
 		console.log("Создаю папку".yellow);
-		system.fs.mkdirSync('reports/' + condition.testName);
+		fs.mkdirSync('reports/' + condition.testName);
 	}
 }
 
 module.exports.writeErrorFiles = writeErrorFiles;
-function writeErrorFiles(system, _condition, image, error, config) {
+function writeErrorFiles(_condition, image, error, config) {
 	_condition.errorNumber++;
 	let condition = Object.assign({}, _condition);
-	makeDir(system, condition);
-	writeScreenshot(system, condition, image);
-	writeErrorText(system, condition, error);
-	if (config.P) saveHAR(system, condition);
+	makeDir(condition);
+	writeScreenshot(condition, image);
+	writeErrorText(condition, error);
+	if (config.P) saveHAR(condition);
 }
 
 module.exports.deleteFolderRecursive = deleteFolderRecursive;
-function deleteFolderRecursive(system, path) {
-	if (system.fs.existsSync(path)) {
-		system.fs.readdirSync(path).forEach(function (file, index) {
+function deleteFolderRecursive(path) {
+	if (fs.existsSync(path)) {
+		fs.readdirSync(path).forEach(function (file, index) {
 			let curPath = path + "/" + file;
-			if (system.fs.lstatSync(curPath).isDirectory()) { // recurse
+			if (fs.lstatSync(curPath).isDirectory()) { // recurse
 				deleteFolderRecursive(curPath);
 			} else { // delete file
-				system.fs.unlinkSync(curPath);
+				fs.unlinkSync(curPath);
 			}
 		});
-		system.fs.rmdirSync(path);
+		fs.rmdirSync(path);
+	}
+}
+
+module.exports.writeFinalLog = writeFinalLog;
+function writeFinalLog(logText, config) {
+	let fileName = 'reports/' + config.fileName + '.txt';
+	fs.writeFile(fileName, logText,
+		function (err) {
+			if (err != null) {
+				console.log(err);
+			}
+		}
+	);
+}
+
+module.exports.createReportsFolder = createReportsFolder;
+function createReportsFolder() {
+	let exist = fs.existsSync('reports');
+	if (!exist) {
+		fs.mkdirSync('reports');
 	}
 }

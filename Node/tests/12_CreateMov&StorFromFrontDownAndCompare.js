@@ -15,7 +15,7 @@ condition.nowWeDoing = 'заполняем нижний калькулятор �
     LF.CreateMovAndStorFromFrontDown (V.client);
     driver.wait(driver.findElement(By.xpath('//div[@class="box_info general"]/div/span')).getText().then(function(text){
         V.nameRequest = text;
-        VD.IWant(VD.ToEqual, V.nameRequest, 'Moving & Storage', 'тип реквеста не совпал с созданным');
+        VD.IWant(VD.ToEqual, V.nameRequest, 'Moving With Storage', 'тип реквеста не совпал с созданным');
     }), config.timeout);
 
 condition.nowWeDoing = 'запоминаем данные которые посчитал кальк';

@@ -183,8 +183,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function AccountFlatRateAddInventory() {
-		JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
 		SF.sleep(5);
+		JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
+		SF.sleep(2);
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(1)"]'));
@@ -1342,7 +1343,18 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
 		JS.waitForExist('input#inputImage');
 	}
-
+    function payRentalInventoryCash(boardNumbers) {
+        SF.click(By.xpath('//button[@ng-click="openPayment()"]'));
+        JS.waitForExist('input[ng-model=\\"charge_value.value\\"]');
+        SF.sleep(1);
+        if (boardNumbers != undefined) {
+            driver.wait(driver.executeScript('return $(\'input[ng-model="charge_value.value"]\').val()').then(function (text) {
+                boardNumbers.prepaid = SF.cleanPrice(text);
+            }), config.timeout);
+        }
+        SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
+        MF.Contract_PayCash();
+    }
 	function RememberDateFromRequest(boardNumbers) {
 		driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
 			dateString = dateString.toUpperCase();
@@ -2015,7 +2027,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//button[1]'));
 			SF.sleep(1);
 			JS.click("ul#inventory-dropdown:visible li[ng-repeat=\"articles in  inventoryList | toArray | orderBy: \\'title\\'  \"]:visible");
+			SF.sleep(1.5);
 			SF.select(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//select[1]'), "CP");
+            SF.sleep(1.5);
 			SF.click(By.xpath('//tr[@ng-repeat="n in rangeArr"][' + i + ']//button[@ng-click="openCondition(data[fieldName].inventory[n], n)"]'));
 			JS.waitForExist('button[ng-click=\\"addCondition(key)\\"]:has(div:contains(\\"burned\\")):visible');
 			SF.sleep(1);
@@ -2447,9 +2461,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.send(By.xpath('//div/input[@ng-change="calcDiscount()"]'),rate);
 		SF.sleep(1);
 		SF.click(By.xpath('//div/button[@ng-click="Apply()"]'));
-		SF.sleep(1);
-		SF.click(By.xpath('//div/button[@class="confirm"]'));
-		SF.sleep(1);
+		MF.SweetConfirm();
 	}
 	function EditRequest_EditCrewCalculOff() {
 		SF.click(By.xpath('//div[@class="col-md-1 col-xs-1 form-item form-type-textfield form-item-movers-crew"]' +
@@ -2489,8 +2501,27 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//button[@ng-click="saveNewFlag(); "]'));
         SF.sleep(3);
     }
-
-
+	function PayCheck() {
+        JS.waitForExist('input[ng-model="payment.card_num"]');
+        SF.sleep(1);
+        SF.click(By.xpath('//div[@ng-click="choosePayment(\'checkPay\');"]'));
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@ng-model="paymentCheck.check_num"]'), 3453453453453);
+        SF.sleep(1);
+        SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+        SF.sleep(2);
+    }
+	function SendClientInfoForDraftRequest(client) {
+        SF.clear(By.xpath('//input[@ng-model="client.field_user_first_name"]'));
+        SF.send(By.xpath('//input[@ng-model="client.field_user_first_name"]'), client.name);
+        SF.clear(By.xpath('//input[@ng-model="client.field_user_last_name"]'));
+        SF.send(By.xpath('//input[@ng-model="client.field_user_last_name"]'), client.fam);
+        SF.clear(By.xpath('//input[@ng-model="client.field_primary_phone"]'));
+        SF.send(By.xpath('//input[@ng-model="client.field_primary_phone"]'), client.phone);
+        SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
+        SF.send(By.xpath('//input[@ng-model="client.mail"]'), client.email);
+        SF.sleep(3);
+    }
 
     return {
 		FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -2631,6 +2662,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		EditRequest_EditCrewCalculOff:EditRequest_EditCrewCalculOff,
         EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff:EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff,
         LongDistanceSettings_SetDiscounts:LongDistanceSettings_SetDiscounts,
-        LongDistanceSettings_AddLDStatusFlag:LongDistanceSettings_AddLDStatusFlag
+        LongDistanceSettings_AddLDStatusFlag:LongDistanceSettings_AddLDStatusFlag,
+        payRentalInventoryCash:payRentalInventoryCash,
+        PayCheck:PayCheck,
+        SendClientInfoForDraftRequest:SendClientInfoForDraftRequest
 	};
 };
