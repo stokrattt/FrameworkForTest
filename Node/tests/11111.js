@@ -33,7 +33,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.WaitWhileBusy();
 
 	condition.nowWeDoing = 'запоминаем конечные цифры с реквеста при выключенном калькуляторе(начальные)';
-	V.boardNumbers = {};
+
 	SF.click(By.xpath('//div/span[@ng-click="showWarningBeforeSendEmail()"]'));
 	SF.click(By.xpath('//span[contains(.,"Default")]'));
 	SF.sleep(1);
@@ -42,6 +42,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_MailDialog_ClickSend();
 	JS.scroll('a[ng-click="select(tabs[5])"]');
 	SF.sleep(1);
+	V.boardNumbers= {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	MF.EditRequest_OpenLogs();
 	MF.WaitWhileBusy();
@@ -57,10 +58,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	}),config.timeout);
 	SF.sleep(1);
 	VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize +" movers", V.sendclient.CrewSize , ' Crew Size  в логах письма не сошелся со значением в реквесте');
+
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Hourly Rate :")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.HourlyRate = text;
 		console.log(V.sendclient.HourlyRate);
 	}),config.timeout);
+	SF.sleep(1);
 	VD.IWant(VD.ToEqual,"$"+V.NewHourlyRate+"/hr", V.sendclient.HourlyRate , ' Hourly Rate в логах письма не сошелся со значением в реквесте');
 	SF.sleep(1);
 
@@ -98,7 +101,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 	MF.Account_ClickFullPacking();
 	JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
-	MF.WaitWhileBusy();
+	SF.sleep(3);
+	SF.waitForVisible(By.xpath('//div/span[@ng-bind="::room.name"][contains(text(),"Patio")]'));
 	SF.click(By.xpath('//div/span[@ng-bind="::room.name"][contains(text(),"Patio")]'));
 	SF.click (By.xpath('//div[@ng-class="{disabled: item.isCannotEdit}"]'));
 	SF.click (By.xpath('//div[@data-index="1"]//div[@ng-class="{disabled: item.isCannotEdit}"]'));
@@ -108,6 +112,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 	condition.nowWeDoing = 'запоминаем новые цифры после изменения на аккаунте';
 	V.accountNumbers.New = {};
+	SF.sleep(1);
 	LF.RememberAccountNumbers(V.accountNumbers.New);
 	SF.sleep(5);
 	LF.LogoutFromAccount();
@@ -179,7 +184,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_ClickPartialPacking();
 	JS.waitForExist('div[class="sa-confirm-button-container"]');
 	SF.click(By.xpath('//div/button[contains(text(),"Yes, I agree")]'));
-	SF.sleep(3);
+	SF.waitForVisible(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text(),"Pending-info")]'));
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text(),"Pending-info")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'PENDING-INFO');
 	}), config.timeout);
