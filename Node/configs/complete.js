@@ -99,6 +99,7 @@ module.exports = function(config,V) {
         './tests/92_PackingDay.js',
         './tests/94_CommercialMoveFromBord.js',
         './tests/89_DraftRequest.js',
+        './tests/DefaultSettings.js',
         './tests/103_AdditionalInventoryForLocalMove.js',
         './tests/96_CommercialMoveFromFront.js',
         './tests/97_OutgoingEmailAndSignature.js',
@@ -126,6 +127,8 @@ module.exports = function(config,V) {
         './tests/111_ZIPCode.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
         './tests/122_MovingAndMovStorageCalcOffCheck.js',
+        './tests/123_DraftCheckRateDoubleDriveTime.js',
+        './tests/DefaultSettings.js',
         './tests/51_ServiceTypesOnOff.js',
 
         './tests/56_LoadingAllSteps.js',

@@ -37,6 +37,8 @@ module.exports = function(config,V) {
         './tests/95_Statistic.js',
         './tests/112_ExtraDropLocalMove.js',
         './tests/120_LDFlag.js',
+        './tests/123_DraftCheckRateDoubleDriveTime.js',
+        './tests/DefaultSettings.js',
         './tests/56_LoadingAllSteps.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
     ];

@@ -10,6 +10,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
+condition.nowWeDoing = 'идем в настройки рейтов и выставляем свой рейт 97 для регуляр';
     MF.Board_OpenSettingsRates();
     V.boardNumbers={HourlyRate:90};
     V.targets=[];
@@ -22,6 +24,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),97);
     }
     SF.sleep(4);
+
+condition.nowWeDoing = 'идем в настройки калькулятора и включаем дабл драйв тайм и ставим 15 минут';
     MF.Board_OpenSettingsCalculator();
     MF.CalculatorSettings_OpenTravelTime();
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.doubleDriveTime\"]').hasClass('ng-not-empty')){" +
@@ -30,6 +34,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.select(By.xpath('//select[@ng-model="vm.basicSettings.minCATavelTime"]'), 15);
     SF.click(By.xpath('//input[@ng-model="vm.calcSettings.doubleDriveTimeName"]'));
     SF.sleep(4);
+
+condition.nowWeDoing = 'идем на дашборд и создаем драфт реквест и проверяем что драфт создался с новым рейтом и что есть дабл драйв тайм 15 минут';
     MF.Board_OpenDashboard();
     MF.Board_Refresh();
     MF.Board_CreateDraftRequest();
@@ -40,12 +46,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, text, 97, 'рейт для драфта не подтянулся из настроек на тот который мы поменяли');
     }), config.timeout);
     MF.EditRequest_SetAdressToFrom();
+
+condition.nowWeDoing = 'меняем мувдейт в реквесте и конфермим его, запоминаем все данные';
     SF.click (By.xpath('//input[@ng-model="moveDateInput"]'));
-    SF.sleep(1);
-    V.request = {};
-    driver.wait(driver.executeScript(JSstep.Click31DaysCalendar).then(function (calDate) {
-        V.request.moveDate = calDate;
-    }),config.timeout);
+    let now = new Date();
+    let msInDay = 86400000;
+    let future = new Date(now.getTime() + msInDay * 6);
+    let month = { month: 'numeric'};
+    let day = {day: 'numeric'};
+    V.firstDate = {};
+    V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
+    V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+    SF.click(By.xpath('//td[@data-month="'+ V.firstDate.Month +'"]/a[contains(text(),"'+ V.firstDate.Day +'")]'));
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 97, 'после смены мув дейт рейт поменялся, а не должен');
@@ -54,10 +66,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToConfirmed();
-    MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
 
+condition.nowWeDoing = 'идем в настройки рейтов и меняем новый рейт на старый который был до этого (был 90)';
     MF.Board_OpenSettingsRates();
     V.targets2=[];
     driver.wait(driver.executeScript(JSstep.findAllDetermPrices(97)).then(function(array) {
@@ -72,6 +84,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),90);
     }
     SF.sleep(2);
+
+condition.nowWeDoing = 'идем на дашборд в конферм реквесты, проверяем что работа законфермилась, дата сменилась, рейт остался новый а не старый и что все данные совпадают и что дабл драйв тайм на месте';
     MF.Board_OpenDashboard();
     SF.sleep(2);
     MF.Board_Refresh();
@@ -87,6 +101,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
 
+condition.nowWeDoing = 'идем в настройки калькулятора и выключаем дабл драйв тайм';
     MF.Board_OpenSettingsCalculator();
     MF.CalculatorSettings_OpenTravelTime();
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.doubleDriveTime\"]').hasClass('ng-empty')){" +
