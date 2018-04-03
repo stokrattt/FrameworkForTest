@@ -74,6 +74,7 @@ condition.nowWeDoing = 'идем заново в реквест сверяем �
     JS.click('button[ng-click=\\"save()\\"]:visible');
     V.boardNumbersClosingAfterPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterPaymentInRequest);
+    SF.sleep(3);
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'идем в SIT создаем трип, добавляем в него наш реквест';

@@ -81,6 +81,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
         VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом нот конферм');
     }),config.timeout);
     LF.AccountLocalAddInventory();
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountcbfWithInventory = SF.cleanPrice(text.substring(text.indexOf('Inventory ')+9, text.indexOf('c.f.')));
         VD.IWant(VD.NotToEqual, V.accountcbfWithInventory, V.accountcbf, 'не поменялся кубик фит на инвенторий, после, добавления его');
@@ -90,7 +91,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Total, V.accountNumbersLD.Total, 'не изменился гранд тотал после добавления инвентрая');
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Fuel, V.accountNumbersLD.Fuel, 'не изменился fuel после добавления инвентрая');
     MF.Account_ClickFullPacking();
-    SF.sleep(5);
+    SF.sleep(9);
     V.accountNumbersLDAfterAddInvenAfterAddFullPacing={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInvenAfterAddFullPacing);
     LF.LogoutFromAccount();
@@ -105,7 +106,6 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     V.boardNumbers2PendingAfterAddInven = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers2PendingAfterAddInven);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDAfterAddInvenAfterAddFullPacing, V.boardNumbers2PendingAfterAddInven);
-    Debug.pause();
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickCustomCubFit();
     MF.EditRequest_SendNumberCustomCubFit(999);
