@@ -28,7 +28,7 @@ module.exports = function(config,V) {
         './tests/100_LeadScoring.js',
         './tests/105_ChangeMinCFAndDriverPayroll.js',
         './tests/109_SITBalance.js',
-        './tests/102_InhomeEstimate.js',
+        // './tests/102_InhomeEstimate.js',
         './tests/104_AddBedroomAddRoom.js',
         './tests/119_LDDiscount.js',
         './tests/106_AdditionalContact.js',
