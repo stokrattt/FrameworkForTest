@@ -19,6 +19,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, добавля�
     LF.AccountLocalDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
+    SF.sleep(3);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     // LF.addToCleanerJob(V.accountNumbers.Id);

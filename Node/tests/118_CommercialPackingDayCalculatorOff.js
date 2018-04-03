@@ -36,6 +36,7 @@ condition.nowWeDoing = 'создаем пакинг дей с фронта с в
     MF.SweetConfirm();
     MF.SweetConfirm();
     LF.AccountLocalAddInventory ();
+    SF.sleep(5);
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();

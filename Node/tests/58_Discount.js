@@ -101,6 +101,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
+    SF.sleep(5);
     JS.scroll('span[ng-click="showDiscountInContract()"]');
     SF.click(By.xpath('//span[@ng-click="showDiscountInContract()"]'));
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
@@ -113,6 +114,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     SF.send(By.xpath('//input[@placeholder="Promo code"]'), V.DiscountCode);
     MF.WaitWhileBusy ();
     MF.SweetConfirm();
+    SF.sleep(5);
     MF.SweetConfirm ();
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
         V.TotalLessWithDiscount = SF.cleanPrice(text);

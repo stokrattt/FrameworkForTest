@@ -17,13 +17,13 @@ condition.nowWeDoing = 'первый раз в админке';
     MF.Board_OpenSettingsGeneral ();
     MF.Board_OpenSettingsAccountPageCustomTooltips();
     MF.Board_OpenSideBar();
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Job Time = Labor Time + Travel Time")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Job Time = Labor Time + Travel Time")]')).getText().then(function(text){
         V.jobTimeText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Labor Time start")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Labor Time start")]')).getText().then(function(text){
         V.laborTimeText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Travel Time - time added to Labor Time")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Travel Time - time added to Labor Time")]')).getText().then(function(text){
         V.travelTimeText = text;
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Fuel Surcharge Tooltip")]')).getText().then(function(text){
@@ -46,15 +46,15 @@ condition.nowWeDoing = 'первый раз в акаунте';
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));
     MF.Account_ClickViewRequest();
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.jobTime.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="tips rmtips"]//p[contains(text(), "Job Time = Labor Time + Travel Time")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@class="tips rmtips"]//span[contains(text(), "Job Time = Labor Time + Travel Time")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.jobTimeText, text, 'не совпали Job Time tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.laborTime.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="tips rmtips"]//p[contains(text(), "Labor Time start")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@class="tips rmtips"]//span[contains(text(), "Labor Time start")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.laborTimeText, text, 'не совпали Labor Time tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.travelTime.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Travel Time - time added to Labor Time")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Travel Time - time added to Labor Time")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.travelTimeText, text, 'не совпали Travel Time tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.fuelSurchrge.isDisplay"]'));
@@ -89,22 +89,22 @@ condition.nowWeDoing = 'первый раз в акаунте';
         "return true;} else {$('input[ng-model=\"vm.movecalcFormSettings.rateTooltips.showBig\"]~span').click()}"),config.timeout);
     driver.wait(driver.executeScript("if ($('input[ng-model=\"vm.movecalcFormSettings.rateTooltips.showSmall\"]').hasClass('ng-not-empty')){" +
         "return true;} else {$('input[ng-model=\"vm.movecalcFormSettings.rateTooltips.showSmall\"]~span').click()}"),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div/p[contains(text(), "general tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div//span[contains(text(), "general tooltip")]')).getText().then(function(text){
         V.generalTooltip = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div/p[contains(text(), "discount tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div//span[contains(text(), "discount tooltip")]')).getText().then(function(text){
         V.discountTooltip = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div/p[contains(text(), "regular tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div//span[contains(text(), "regular tooltip")]')).getText().then(function(text){
         V.regularTooltip = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div/p[contains(text(), "subpeak tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div//span[contains(text(), "subpeak tooltip")]')).getText().then(function(text){
         V.subpeakTooltip = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div/p[contains(text(), "peak tooltips")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div//span[contains(text(), "peak tooltips")]')).getText().then(function(text){
         V.peakTooltip = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div/p[contains(text(), "hipeak tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div//span[contains(text(), "hipeak tooltip")]')).getText().then(function(text){
         V.hipeakTooltip = text;
     }),config.timeout);
     SF.sleep(1);

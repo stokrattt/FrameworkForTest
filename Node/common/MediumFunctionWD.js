@@ -747,7 +747,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_ClickDetails() {
         WaitWhileBusy();
-        JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
+        SF.sleep(2.5);
+        SF.click(By.xpath('//li[@id="tab_Details"]'));
+        // JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Details\\")');
         WaitWhileBusy();
     }
     function Account_ClickSaveDetails() {

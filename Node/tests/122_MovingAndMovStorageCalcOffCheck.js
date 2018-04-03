@@ -187,11 +187,11 @@ condition.nowWeDoing = 'мувинг сторадж from - меняем мув �
     MF.Account_OpenEditModal ();
     SF.select(By.xpath('//select[@field="request.move_size"]'), 9);
     MF.Account_SendAdressToModalWindow();
-    SF.sleep(10); // долго обновляется смена мув сайза на акке
+    SF.sleep(15); // долго обновляется смена мув сайза на акке
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(20); // долго обновляется смена мув сайза на акке
+    SF.sleep(10); // долго обновляется смена мув сайза на акке
     V.accountNumbersMSfromChangeMoveSize = {};
     LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSize);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSize);
