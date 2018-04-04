@@ -57,7 +57,7 @@ condition.nowWeDoing = 'меняем мувдейт в реквесте и ко�
     V.firstDate = {};
     V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
     V.firstDate.Day = (future.toLocaleDateString('en-US', day));
-    SF.click(By.xpath('//td[@data-month="'+ V.firstDate.Month +'"]/a[contains(text(),"'+ V.firstDate.Day +'")]'));
+    SF.click(By.xpath('//div[@id="ui-datepicker-div"]//td[@data-month="'+ V.firstDate.Month +'"]/a[contains(text(),"'+ V.firstDate.Day +'")]'));
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 97, 'после смены мув дейт рейт поменялся, а не должен');
@@ -87,8 +87,8 @@ condition.nowWeDoing = 'идем в настройки рейтов и меня�
 
 condition.nowWeDoing = 'идем на дашборд в конферм реквесты, проверяем что работа законфермилась, дата сменилась, рейт остался новый а не старый и что все данные совпадают и что дабл драйв тайм на месте';
     MF.Board_OpenDashboard();
-    SF.sleep(2);
-    MF.Board_Refresh();
+    // SF.sleep(2);
+    // MF.Board_Refresh();
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest(V.boardNumbers.Id);
     V.boardNumbers2={};

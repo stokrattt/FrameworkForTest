@@ -32,13 +32,15 @@ condition.nowWeDoing = 'создаем пакинг дей с фронта с в
     MF.Account_OpenEditModal();
     MF.Account_SetCommercialMoveSize();
     MF.Account_SendAdressFromModalWindow();
+    SF.sleep(5);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
     LF.AccountLocalAddInventory ();
-    SF.sleep(5);
+    SF.sleep(3);
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
+    Debug.pause();
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'идем в админку сверять данные, выключать калькулятор, поменять время ворк тай и травел тайм и еще что то)';
