@@ -2460,7 +2460,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.sleep(1);
 		SF.send(By.xpath('//div/input[@ng-change="calcDiscount()"]'),rate);
 		SF.sleep(1);
-		SF.click(By.xpath('//div/button[@ng-click="Apply()"]'));
+		SF.click(By.xpath('//div/button[@ng-class="{\'disabled\': request.request_all_data.add_rate_discount == request.rate.value}"]'));
 		MF.SweetConfirm();
 	}
 	function EditRequest_EditCrewCalculOff() {

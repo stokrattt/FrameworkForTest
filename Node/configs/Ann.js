@@ -1,6 +1,6 @@
 module.exports = function (config, V) {
 
-	config.timeout = 50000;
+	config.timeout = 100000;
 
 	config.suite = [
 		'./tests/11111.js'
@@ -19,7 +19,7 @@ module.exports = function (config, V) {
 	//V.adminLogin = 'JACK_RATE';
 	//V.adminPassword = '123';
 	V.adminLogin = 'AnnS';
-	V.adminPassword = 'root';
+	V.adminPassword = '1234';
 	V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
 	V.foremanLogin = 'TestForeman';
 	V.foremanPassword = '123';
