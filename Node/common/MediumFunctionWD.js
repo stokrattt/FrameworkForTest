@@ -107,6 +107,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(3);
     }
     function CreateRequest_ClickCalculate() {
+        SF.sleep(1.5);
         SF.click(By.xpath('//button[@ng-click="Calculate()"]'));
         WaitWhileBusy ();
         SF.sleep(1);

@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/123_DraftCheckRateDoubleDriveTime.js'];
+    config.suite = ['./tests/58_Discount.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
