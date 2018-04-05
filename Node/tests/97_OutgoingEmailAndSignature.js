@@ -21,7 +21,7 @@ condition.nowWeDoing = 'идем в департмент, заходим за с
     MF.WaitWhileBusy ();
     SF.click (By.linkText('Signature'));
     MF.WaitWhileBusy ();
-    driver.wait(driver.findElement(By.xpath('//div[@class="ta-scroll-window ta-text ta-editor form-control"]//span[contains(text(), "ddd")]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@class="ta-scroll-window ta-text ta-editor form-control"]//p[contains(text(), "ddd")]')).getText().then(function (text) {
         V.SalesSig = text;
            }),config.timeout);
     MF.Department_SaveUser();
@@ -41,7 +41,7 @@ condition.nowWeDoing = 'создаем реквест, назначаем нуж
     MF.WaitWhileToaster();
     MF.EditRequest_OpenLogs();
     SF.click(By.xpath('//i[@ng-show="!allLogsShow[allLogsIndex]"][1]'));
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(),"'+V.SalesSig+'")]')).getText().then(function(text) {
+    driver.wait(driver.findElement(By.xpath('//p[contains(text(),"'+V.SalesSig+'")]')).getText().then(function(text) {
         V.SignatReq = text;
         VD.IWant(VD.ToEqual, V.SalesSig, V.SignatReq,'не совпала или нет Signature');
     }),config.timeout);

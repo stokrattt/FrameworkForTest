@@ -153,6 +153,7 @@ condition.nowWeDoing = 'Переводим работу в Closing, провер
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Fuel, V.boardNumbersBeforeSITClosing.Fuel, 'не совпал Fuel  после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Packing, V.boardNumbersBeforeSITClosing.Packing, 'не совпал Packing  после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.AdServices, V.boardNumbersBeforeSITClosing.AdServices, 'не совпал AdServices после перевода реквеста с Sales в Closing');
+    Debug.pause();
     SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
@@ -222,6 +223,7 @@ condition.nowWeDoing = 'Создаём Carrier, заходим в Trip-Planner, 
     SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
     SF.waitForVisible(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
+    SF.sleep(1.5);
     SF.send (By.xpath('//input[@ng-model="trip.data.carrier.driver_name"]'), V.driver);
     SF.send (By.xpath('//input[@ng-model="trip.data.carrier.driver_phone"]'), V.driverPhone);
     MF.WaitWhileToaster();
@@ -312,13 +314,14 @@ condition.nowWeDoing = 'Открываем Closing трипа, открывае�
 
 condition.nowWeDoing = 'Идём на табу Trip Details, проверяем, что суммы в колонках TP collected и Shipping Balance пересчитались в соответствии с новым TP collected.';
     JS.click('span:contains(\\"Trip details\\")');
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[14]')).getText().then(function(text){
         text = SF.cleanPrice(text.substring(text.indexOf('$')));
         VD.IWant(VD.ToEqual, V.NewTPCollected,text, 'TP collected в трипе не пересчитался после создания кастомного пеймента на клоузинге трипа');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[13]')).getText().then(function(text){
         text = SF.cleanPrice(text.substring(text.indexOf('$')));
-        VD.IWant(VD.ToEqual, V.NewTPCollected,text, 'Shipping balance в трипе не пересчитался после создания кастомного пеймента на клоузинге трипа');
+        VD.IWant(VD.ToEqual, V.NewTPCollected, text, 'Shipping balance в трипе не пересчитался после создания кастомного пеймента на клоузинге трипа');
     }),config.timeout);
 
 condition.nowWeDoing = 'Открываем реквест, заходим в Payment и удаляем кастомный пеймент. Проверяем, что баланс реквеста равен нулю. Закрываем реквест.';

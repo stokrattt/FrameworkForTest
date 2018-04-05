@@ -720,7 +720,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_ClickSaveInventory() {
         SF.sleep(2);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(1);
+        SF.sleep(3);
         SweetConfirm();
         SF.sleep(2);
     }

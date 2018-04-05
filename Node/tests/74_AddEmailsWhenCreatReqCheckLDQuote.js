@@ -69,7 +69,7 @@ condition.nowWeDoing = 'идем на аккаунт, добавляем инв�
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDBeforeAddInvent, V.boardNumbersBeforeAddInvent);
     LF.AccountLocalAddInventoryWhenCalcOff();
     LF.AccountLocalAddAdditionalInventoryWhenCalcOff();
-    SF.sleep(2);
+    SF.sleep(6);
     MF.WaitWhileBusy();
     V.accountNumbersLD = {};
     LF.RememberAccountNumbersLD (V.accountNumbersLD);
