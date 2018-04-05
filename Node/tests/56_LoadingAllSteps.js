@@ -7,18 +7,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
 
-//     SF.get(V.adminURL);
-//     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-//
-// condition.nowWeDoing = 'идем в департмент включить календарь для форемана';
-//     MF.Board_OpenSettingsDepartment ();
-//     MF.WaitWhileBusy();
-//     MF.Department_OpenForeman();
-//     MF.Department_OpenHuman ("Test Foreman");
-//     MF.Department_User_OpenAccount();
-//     MF.Department_ClearSendGmailAdress(V.ForEmail);
-//     MF.Department_SaveUser();
-//     MF.Board_LogoutAdmin();
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+
+condition.nowWeDoing = 'идем в департмент включить календарь для форемана';
+    MF.Board_OpenSettingsDepartment ();
+    MF.WaitWhileBusy();
+    MF.Department_OpenForeman();
+    MF.Department_OpenHuman ("Test Foreman");
+    MF.Department_User_OpenAccount();
+    MF.Department_ClearSendGmailAdress(V.ForEmail);
+    MF.Department_SaveUser();
+    MF.Board_LogoutAdmin();
     SF.get(V.frontURL);
 
 condition.nowWeDoing = 'заполняем калькулятор верхний';
