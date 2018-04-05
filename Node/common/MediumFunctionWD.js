@@ -1637,12 +1637,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_SetZipCodeFrom(zipFrom) {
         SF.click(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'));
-        SF.clear(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'));
+        driver.findElement(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
         SF.send(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'), zipFrom);
     }
     function EditRequest_SetZipTo(zipTo) {
         SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
-        SF.clear(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
+        driver.findElement(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
         SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), zipTo);
     }
 

@@ -95,7 +95,8 @@ condition.nowWeDoing = 'меняем мув сайз и после него ср
 
 condition.nowWeDoing= 'меняем зип код и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
-    SF.clear(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
+    SF.click(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
+    driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
     SF.send(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'), '01001');
     SF.sleep(10);
     MF.Account_ClickUpdateClientInModalWindow();
@@ -147,7 +148,8 @@ condition.nowWeDoing = 'мувинг сторадж ТУ - меняем мув �
 
 condition.nowWeDoing= 'мувинг сторадж ТУ - меняем зип код и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
-    SF.clear(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'));
+    SF.click(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'));
+    driver.findElement(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
     SF.send(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'), '01001');
     SF.sleep(10);
     MF.Account_ClickUpdateClientInModalWindow();
@@ -198,7 +200,8 @@ condition.nowWeDoing = 'мувинг сторадж from - меняем мув �
 
 condition.nowWeDoing= 'мувинг сторадж from - меняем зип код и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
-    SF.clear(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
+    SF.click(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
+    driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
     SF.send(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'), '01001');
     SF.sleep(10);
     MF.Account_ClickUpdateClientInModalWindow();
