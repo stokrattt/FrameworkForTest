@@ -1,6 +1,6 @@
 module.exports = function (config, V) {
 
-	config.timeout = 100000;
+	config.timeout = 120000;
 
 	config.suite = [
 		'./tests/11111.js'

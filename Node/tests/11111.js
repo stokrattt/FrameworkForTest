@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 	V.client.passwd = 123;
 
-	condition.nowWeDoing = 'создаем мувинг с фронта, отключаем калькулятор';
+	condition.nowWeDoing = 'создаем мувинг с борда, отключаем калькулятор, заполняем форму адреса, ставим пароль у клиента';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	LF.CreateLocalMovingFromBoard(V.client);
@@ -20,10 +20,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 	condition.nowWeDoing = 'начинаем добавлять пэкинг, адишинал,валюэйшн, инвентарь, дисконт и меняем цену на топливо';
 	MF.EditRequest_AddAdditionalServicesFullPack();
-	MF.EditRequest_AddPackingAndFullPAcking();
 	MF.WaitWhileBusy();
 	MF.EditRequest_AddValuation();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.request_all_data.valuation.valuation_charge"]')).getAttribute('value').then(function(text){
+		V.Valuation= text;
+	}),config.timeout);
 	LF.addInventoryBoard();
+	JS.scroll('i[ng-click="OpenDiscountRateModal();"]');
 	LF.EditRequest_EditRateCalculOff(333);
 	MF.EditRequest_SaveChanges();
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rateDiscount"]')).getAttribute('value').then(function(text){
@@ -32,7 +35,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	}),config.timeout);
 	MF.WaitWhileBusy();
 
-	condition.nowWeDoing = 'запоминаем конечные цифры с реквеста при выключенном калькуляторе(начальные)';
+	condition.nowWeDoing = 'отправлемя письмо, сравниваем числа в письме,запоминаем конечные цифры с реквеста при выключенном калькуляторе(начальные)';
 
 	SF.click(By.xpath('//div/span[@ng-click="showWarningBeforeSendEmail()"]'));
 	SF.click(By.xpath('//span[contains(.,"Default")]'));
@@ -47,34 +50,27 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_OpenLogs();
 	MF.WaitWhileBusy();
 
-	condition.nowWeDoing = 'сверяем цифры в емаиле,которое отправилось клиенту с реквестом,запоминаем то,что в письме, переменная sendclient';
 	SF.click(By.xpath('//div[@ng-click="allLogsShow[allLogsIndex] = !allLogsShow[allLogsIndex]"]'));
 	V.sendclient ={};
-
 	MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Crew Size")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.CrewSize=text;
-		console.log(V.sendclient.CrewSize);
 	}),config.timeout);
 	SF.sleep(1);
 	VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize +" movers", V.sendclient.CrewSize , ' Crew Size  в логах письма не сошелся со значением в реквесте');
 
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Hourly Rate :")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.HourlyRate = text;
-		console.log(V.sendclient.HourlyRate);
 	}),config.timeout);
 	SF.sleep(1);
 	VD.IWant(VD.ToEqual,"$"+V.NewHourlyRate+"/hr", V.sendclient.HourlyRate , ' Hourly Rate в логах письма не сошелся со значением в реквесте');
-	SF.sleep(1);
 
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Valuation :")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.Valuation = text;
-		console.log(V.sendclient.Valuation);
 	}),config.timeout);
+
 	SF.sleep(1);
 	VD.IWant(VD.ToEqual,"$"+V.boardNumbers.Valuation, V.sendclient.Valuation , ' Valuation в логах письма не сошелся со значением в реквесте');
-
-
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
@@ -99,6 +95,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize, V.accountNumbers.CrewSize,'не совпал крюсайз  изменения на  реквест/аккаунт');
 	VD.IWant(VD.ToEqual, V.boardNumbers.cbf, V.accountNumbers.cbf,'не совпали кубикфиты  изменения на реквест/аккаунт');
 
+	driver.wait(driver.findElement(By.xpath('//div[@id="valuation-block-account"]/div[6]')).getText().then(function(text){
+		V.accountNumbers.Valuation= text;
+		console.log();
+	}),config.timeout);
+	VD.IWant(VD.ToEqual, "$ "+V.boardNumbers.Valuation, V.accountNumbers.Valuation ,'не совпала страховка на реквест/аккаунт');
+
+
 	MF.Account_ClickFullPacking();
 	JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
 	SF.sleep(3);
@@ -111,31 +114,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	SF.sleep(3);
 
 	condition.nowWeDoing = 'запоминаем новые цифры после изменения на аккаунте';
+	Debug.pause();
 	V.accountNumbers.New = {};
-	SF.sleep(1);
 	LF.RememberAccountNumbers(V.accountNumbers.New);
-	SF.sleep(5);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'идем на мувборд, что бы сверить цифры.Выбираем кастомный вес, меняем цену на топливо, и реит. Запоминаем цифры.';
+	condition.nowWeDoing = 'идем на мувборд, что бы сверить цифры.Выбираем кастомный вес, меняем цену на топливо, и реит';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
 	MF.WaitVisibleDashboard();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
+	MF.EditRequest_WaitForOpenRequest();
 
-	condition.nowWeDoing = 'сравниваем цифры с аккаунта и на обновленном реквесте';
+	condition.nowWeDoing = 'второй раз в админке, делаем сравнения с тем что на аккаунте и с тем,что на мувборде';
 	V.boardNumbers.New = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers.New);
-	VD.IWant (VD.ToEqual, V.boardNumbers.New.TotalMin, V.accountNumbers.New.TotalMin, 'не совпала квота последние изменения на ');
-	VD.IWant (VD.ToEqual, V.boardNumbers.New.TotalMax, V.accountNumbers.New.TotalMax, 'не совпала квота последние изменения на ');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.TravelTime,V.accountNumbers.New.TravelTime,'не совпал трэвел тайм последние изменения на');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.Packing , V.accountNumbers.New.Packing,'не совпал пэкинг последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.Fuel, V.accountNumbers.New.Fuel,'не совпал фюел последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.NewHourlyRate, V.accountNumbers.New.HourlyRate,'не совпал рейт последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.Trucks, V.accountNumbers.New.Trucks,'не совпало количество траков последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.AdServices,V.accountNumbers.New.AdServices,'не совпали сервисы последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.CrewSize, V.accountNumbers.New.CrewSize,'не совпал крюсайз последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.cbf, V.accountNumbers.New.cbf,'не совпали кубикфиты последние изменения на аккаунте/реквест пэдинг-инф');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.TotalMin, V.accountNumbers.New.TotalMin, 'не совпала квота последние изменения на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.TotalMax, V.accountNumbers.New.TotalMax, 'не совпала квота последние изменения на аккаунт/мувборд ');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.TravelTime,V.accountNumbers.New.TravelTime,'не совпал трэвел тайм последние изменения на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.Packing , V.accountNumbers.New.Packing,'не совпал пэкинг последние изменения на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.Fuel, V.accountNumbers.New.Fuel,'не совпал фюел последние изменения на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.NewHourlyRate, V.accountNumbers.New.HourlyRate,'не совпал рейт последние изменения на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.Trucks, V.accountNumbers.New.Trucks,'не совпало количество траков последние изменения на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.AdServices,V.accountNumbers.New.AdServices,'не совпали сервисы последние изменения на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.CrewSize, V.accountNumbers.New.CrewSize,'не совпал крюсайз последние изменения на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.cbf, V.accountNumbers.New.cbf,'не совпали кубикфиты последние изменения на аккаунт/мувборд');
 	// меняем топливо
 	MF.EditRequest_OpenFuel();
 	SF.click(By.xpath('//input[@ng-change="changeSurcharge(\'request\',\'perc\')"]'));
