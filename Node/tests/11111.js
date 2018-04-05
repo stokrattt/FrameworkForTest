@@ -68,7 +68,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Valuation :")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.Valuation = text;
 	}),config.timeout);
-
 	SF.sleep(1);
 	VD.IWant(VD.ToEqual,"$"+V.boardNumbers.Valuation, V.sendclient.Valuation , ' Valuation в логах письма не сошелся со значением в реквесте');
 	MF.EditRequest_CloseEditRequest();
@@ -99,6 +98,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.accountNumbers.Valuation= text;
 		console.log();
 	}),config.timeout);
+	SF.sleep(1);
 	VD.IWant(VD.ToEqual, "$ "+V.boardNumbers.Valuation, V.accountNumbers.Valuation ,'не совпала страховка на реквест/аккаунт');
 
 
@@ -113,8 +113,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	JS.click('button[ng-click="close()"]');
 	SF.sleep(3);
 
-	condition.nowWeDoing = 'запоминаем новые цифры после изменения на аккаунте';
-	Debug.pause();
+	condition.nowWeDoing = 'запоминаем новые цифры после изменений на аккаунте';
+	MF.Account_Refresh();
 	V.accountNumbers.New = {};
 	LF.RememberAccountNumbers(V.accountNumbers.New);
 	LF.LogoutFromAccount();
@@ -125,20 +125,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.WaitVisibleDashboard();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
 	MF.EditRequest_WaitForOpenRequest();
-
-	condition.nowWeDoing = 'второй раз в админке, делаем сравнения с тем что на аккаунте и с тем,что на мувборде';
 	V.boardNumbers.New = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers.New);
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.TotalMin, V.accountNumbers.New.TotalMin, 'не совпала квота последние изменения на аккаунт/мувборд');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.TotalMax, V.accountNumbers.New.TotalMax, 'не совпала квота последние изменения на аккаунт/мувборд ');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.TravelTime,V.accountNumbers.New.TravelTime,'не совпал трэвел тайм последние изменения на аккаунт/мувборд');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.Packing , V.accountNumbers.New.Packing,'не совпал пэкинг последние изменения на аккаунт/мувборд');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.Fuel, V.accountNumbers.New.Fuel,'не совпал фюел последние изменения на аккаунт/мувборд');
-	VD.IWant(VD.ToEqual, V.NewHourlyRate, V.accountNumbers.New.HourlyRate,'не совпал рейт последние изменения на аккаунт/мувборд');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.Trucks, V.accountNumbers.New.Trucks,'не совпало количество траков последние изменения на аккаунт/мувборд');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.AdServices,V.accountNumbers.New.AdServices,'не совпали сервисы последние изменения на аккаунт/мувборд');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.CrewSize, V.accountNumbers.New.CrewSize,'не совпал крюсайз последние изменения на аккаунт/мувборд');
-	VD.IWant(VD.ToEqual, V.boardNumbers.New.cbf, V.accountNumbers.New.cbf,'не совпали кубикфиты последние изменения на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.TotalMin, V.accountNumbers.New.TotalMin, 'не совпала квота на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.TotalMax, V.accountNumbers.New.TotalMax, 'не совпала квота на аккаунт/мувборд ');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.TravelTime,V.accountNumbers.New.TravelTime,'не совпал трэвел тайм на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.Packing , V.accountNumbers.New.Packing,'не совпал пэкинг на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.Fuel, V.accountNumbers.New.Fuel,'не совпал фюел  на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.NewHourlyRate, V.accountNumbers.New.HourlyRate,'не совпал рейт,который мы в самом начале меняли на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.Trucks, V.accountNumbers.New.Trucks,'не совпало количество траков на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.AdServices,V.accountNumbers.New.AdServices,'не совпали адишинал сервисы на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.CrewSize, V.accountNumbers.New.CrewSize,'не совпал крюсайз на аккаунт/мувборд');
+	VD.IWant(VD.ToEqual, V.boardNumbers.New.cbf, V.accountNumbers.New.cbf,'не совпали кубикфиты на аккаунт/мувборд');
 	// меняем топливо
 	MF.EditRequest_OpenFuel();
 	SF.click(By.xpath('//input[@ng-change="changeSurcharge(\'request\',\'perc\')"]'));
@@ -152,11 +150,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		console.log(V.NewHourlyRate1);
 	}),config.timeout);
 	// устанавливаем кастомный вес
+	JS.scroll('a[ng-click="select(tabs[7])"]');
 	MF.EditRequest_OpenSettings();
-	JS.click('input[ng-change="setCustom()"]');
-	SF.send(By.xpath('//input[@ng-change="setCustom()"]'),666);
-	SF.sleep(1);
-	JS.click('a[ng-click="select(tabs[0])"]');
+	MF.EditRequest_ClickCustomCubFit();
+	MF.EditRequest_SendNumberCustomCubFit(666);
+	MF.EditRequest_OpenRequest();
+	condition.nowWeDoing ='выбираем трак,переводим работу в нот конферм'
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 	SF.sleep(2);
 	MF.EditRequest_SetToNotConfirmed();
@@ -173,16 +172,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_OpenRequest(V.boardNumbers.Id);
 	V.accountNumbersAfterEdit = {};
 	LF.RememberAccountNumbers(V.accountNumbersAfterEdit);
-	VD.IWant (VD.ToEqual, V.boardNumbers.AfterEdit.TotalMin, V.accountNumbersAfterEdit.TotalMin, 'не совпала квота последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant (VD.ToEqual, V.boardNumbers.AfterEdit.TotalMax, V.accountNumbersAfterEdit.TotalMax, 'не совпала квота последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.TravelTime,V.accountNumbersAfterEdit.TravelTime,'не совпал трэвел тайм последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.Packing , V.accountNumbersAfterEdit.Packing,'не совпал пэкинг последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.Fuel, V.accountNumbersAfterEdit.Fuel,'не совпал фюел последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.NewHourlyRate1, V.accountNumbersAfterEdit.HourlyRate,'не совпал рейт последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.Trucks, V.accountNumbersAfterEdit.Trucks,'не совпало количество траков последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.AdServices,V.accountNumbersAfterEdit.AdServices,'не совпали сервисы последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.CrewSize, V.accountNumbersAfterEdit.CrewSize,'не совпал крюсайз последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.cbf, V.accountNumbersAfterEdit.cbf,'не совпали кубикфиты последние изменения на аккаунте/реквест пэдинг-инфо');
+	VD.IWant (VD.ToEqual, V.boardNumbers.AfterEdit.TotalMin, V.accountNumbersAfterEdit.TotalMin, 'не совпала  минимальная квота в реквесте и на аккаунте');
+	VD.IWant (VD.ToEqual, V.boardNumbers.AfterEdit.TotalMax, V.accountNumbersAfterEdit.TotalMax, 'не совпала максимальная квота в реквесте и на аккаунте ');
+	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.TravelTime,V.accountNumbersAfterEdit.TravelTime,'не совпал трэвел тайм в реквесте и на аккаунте');
+	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.Packing , V.accountNumbersAfterEdit.Packing,'не совпал пэкинг в реквесте и на аккаунте');
+	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.Fuel, V.accountNumbersAfterEdit.Fuel,'не совпал фюел в реквесте и на аккаунте');
+	VD.IWant(VD.ToEqual, V.NewHourlyRate1, V.accountNumbersAfterEdit.HourlyRate,'не совпал рейт,который мы меняли во второй раз в реквесте и на аккаунте ');
+	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.Trucks, V.accountNumbersAfterEdit.Trucks,'не совпало количество траков в реквесте и на аккаунте');
+	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.AdServices,V.accountNumbersAfterEdit.AdServices,'не совпали адишинал сервисы в реквесте и на аккаунте');
+	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.CrewSize, V.accountNumbersAfterEdit.CrewSize,'не совпал крюсайз в реквесте и на аккаунте');
+	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.cbf, V.accountNumbersAfterEdit.cbf,'не совпали кастомные кубикфиты в реквесте и на аккаунте');
 	MF.WaitWhileBusy();
 	MF.Account_ClickPartialPacking();
 	JS.waitForExist('div[class="sa-confirm-button-container"]');
@@ -215,7 +214,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.TravelTime,V.accountNumbers.LastEdit.TravelTime,'не совпал трэвел тайм последние изменения на аккаунте/реквест пэдинг-инфо');
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.Packing , V.accountNumbers.LastEdit.Packing,'не совпал пэкинг последние изменения на аккаунте/реквест пэдинг-инфо');
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.Fuel, V.accountNumbers.LastEdit.Fuel,'не совпал фюел последние изменения на аккаунте/реквест пэдинг-инфо');
-	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.HourlyRate, V.accountNumbers.LastEdit.HourlyRate,'не совпал рейт последние изменения на аккаунте/реквест пэдинг-инфо');
+	VD.IWant(VD.ToEqual, V.NewHourlyRate1, V.accountNumbers.LastEdit.HourlyRate,'не совпал рейт последние изменения на аккаунте/реквест пэдинг-инфо');
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.Trucks, V.accountNumbers.LastEdit.Trucks,'не совпало количество траков последние изменения на аккаунте/реквест пэдинг-инфо');
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.AdServices,V.accountNumbers.LastEdit.AdServices,'не совпали сервисы последние изменения на аккаунте/реквест пэдинг-инфо');
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.CrewSize, V.accountNumbers.LastEdit.CrewSize,'не совпал крюсайз последние изменения на аккаунте/реквест пэдинг-инфо');
