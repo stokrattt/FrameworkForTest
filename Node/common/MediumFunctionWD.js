@@ -726,6 +726,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_OpenEditModal() {
         SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));
+        SF.sleep(1.5);
     }
     function Account_SetCommercialMoveSize() {
         SF.click(By.xpath('//oi-select[@ng-model="commercialSize"]'));
