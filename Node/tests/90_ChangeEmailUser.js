@@ -121,15 +121,16 @@ condition.nowWeDoing = 'Идем в аккаунт проверить налич
         V.firstRequestId = text;
         VD.IWant(VD.ToEqual, V.req1.Id, V.firstRequestId, 'не наидена работа 1');
     }),config.timeout);
+    SF.sleep(1.5);
 
-condition.nowWeDoing = 'Идем в админку, заходим в реквест и удаляем юзера';
-    LF.LogoutFromAccount();
-    SF.get(V.adminURL);
-    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.Board_OpenRequest(V.accountNumbers.Id);
-    MF.EditRequest_OpenClient();
-    SF.click(By.xpath('//button[@ng-click="delete(client)"]'));
-    MF.SweetConfirm();
+// condition.nowWeDoing = 'Идем в админку, заходим в реквест и удаляем юзера';
+//     LF.LogoutFromAccount();
+//     SF.get(V.adminURL);
+//     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+//     MF.Board_OpenRequest(V.accountNumbers.Id);
+//     MF.EditRequest_OpenClient();
+//     SF.click(By.xpath('//button[@ng-click="delete(client)"]'));
+//     MF.SweetConfirm();
 
     SF.endOfTest();
 };
