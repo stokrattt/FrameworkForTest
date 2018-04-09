@@ -83,11 +83,11 @@ condition.nowWeDoing = 'меняем мув сайз и после него ср
     SF.select(By.xpath('//select[@field="request.move_size"]'), 9);
     MF.Account_SendAdressFromModalWindow();
     MF.Account_SendAdressToModalWindow();
-    SF.sleep(10); // долго обновляется смена мув сайза на акке
+    SF.sleep(6); // долго обновляется смена мув сайза на акке
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(20); // долго обновляется смена мув сайза на акке
+    SF.sleep(12); // долго обновляется смена мув сайза на акке
     V.accountNumbersLMChangeMoveSize = {};
     LF.RememberAccountNumbers (V.accountNumbersLMChangeMoveSize);
     LF.Validation_Compare_Account_Admin (V.boardNumbersLM, V.accountNumbersLMChangeMoveSize);
@@ -97,11 +97,11 @@ condition.nowWeDoing= 'меняем зип код и опять сверяем �
     SF.click(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
     SF.clear(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
     SF.send(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'), '01001');
-    SF.sleep(10);
+    SF.sleep(6);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(20);
+    SF.sleep(12);
     V.accountNumbersLMChangeMoveSizeChangeZip = {};
     LF.RememberAccountNumbers (V.accountNumbersLMChangeMoveSizeChangeZip);
     LF.Validation_Compare_Account_Admin (V.boardNumbersLM, V.accountNumbersLMChangeMoveSizeChangeZip);
@@ -136,11 +136,11 @@ condition.nowWeDoing = 'мувинг сторадж ТУ - меняем мув �
     MF.Account_OpenEditModal ();
     SF.select(By.xpath('//select[@field="request.move_size"]'), 9);
     MF.Account_SendAdressFromModalWindow();
-    SF.sleep(10); // долго обновляется смена мув сайза на акке
+    SF.sleep(6); // долго обновляется смена мув сайза на акке
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(20); // долго обновляется смена мув сайза на акке
+    SF.sleep(12); // долго обновляется смена мув сайза на акке
     V.accountNumbersMStoChangeMoveSize = {};
     LF.RememberAccountNumbers (V.accountNumbersMStoChangeMoveSize);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSto, V.accountNumbersMStoChangeMoveSize);
@@ -150,11 +150,11 @@ condition.nowWeDoing= 'мувинг сторадж ТУ - меняем зип к
     SF.click(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'));
     SF.clear(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'));
     SF.send(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'), '01001');
-    SF.sleep(10);
+    SF.sleep(6);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(20);
+    SF.sleep(12);
     V.accountNumbersMStoChangeMoveSizeChangeZip = {};
     LF.RememberAccountNumbers (V.accountNumbersMStoChangeMoveSizeChangeZip);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSto, V.accountNumbersMStoChangeMoveSizeChangeZip);
@@ -188,7 +188,7 @@ condition.nowWeDoing = 'мувинг сторадж from - меняем мув �
     MF.Account_OpenEditModal ();
     SF.select(By.xpath('//select[@field="request.move_size"]'), 9);
     MF.Account_SendAdressToModalWindow();
-    SF.sleep(15); // долго обновляется смена мув сайза на акке
+    SF.sleep(7); // долго обновляется смена мув сайза на акке
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
@@ -202,11 +202,11 @@ condition.nowWeDoing= 'мувинг сторадж from - меняем зип к
     SF.click(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
     SF.clear(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
     SF.send(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'), '01001');
-    SF.sleep(10);
+    SF.sleep(6);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(20);
+    SF.sleep(12);
     V.accountNumbersMSfromChangeMoveSizeChangeZip = {};
     LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSizeChangeZip);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSizeChangeZip);

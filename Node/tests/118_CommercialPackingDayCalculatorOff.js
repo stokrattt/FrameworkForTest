@@ -36,10 +36,12 @@ condition.nowWeDoing = 'создаем пакинг дей с фронта с в
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
+    SF.sleep(5);
     LF.AccountLocalAddInventory ();
     SF.sleep(5);
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
+    Debug.pause();
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'идем в админку сверять данные, выключать калькулятор, поменять время ворк тай и травел тайм и еще что то)';
