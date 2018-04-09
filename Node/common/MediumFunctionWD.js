@@ -1792,7 +1792,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Department_OpenHuman(name) {
         driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"" + name + "\")').dblclick();"), config.timeout);
-        SF.waitForVisible (By.xpath('//label[contains(text(),"Department:")]'));
+        SF.waitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
     }
 
     function Department_OpenMansPermissions() {
