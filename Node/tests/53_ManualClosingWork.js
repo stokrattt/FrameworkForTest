@@ -41,7 +41,7 @@ condition.nowWeDoing = 'считаем квоту от времени и гра�
     V.TotalSum = V.boardNumbersClose.QuoteMax + V.boardNumbersClose.Fuel + V.boardNumbersClose.AdServices;
     VD.IWant (VD.ToEqual, V.boardNumbersClose.Total, V.TotalSum, 'не правильно посчитало гранд  по формуле фуел + квота');
 
-condition.nowWeDoing = 'добавляем два паймента, один кастомный, один карточкой, так чтобы баланс был равен 0 и закрываем реквест';
+condition.nowWeDoing = 'добавляем два паймента, один кастомный, один карточкой, так чтобы баланс был равен 0 и закрываем реквест, так же добавляем кастомный рефанд и проверяем что он отнимается от тотала';
     MF.EditRequest_OpenPayment();
     MF.EditRequest_ClickAddCustomPayment();
     SF.click (By.xpath('//input[@ng-model="receipt.amount"]'));
@@ -56,7 +56,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     MF.WaitWhileBusy ();
     MF.EditRequest_OpenPayment();
     MF.WaitWhileBusy();
-    V.cardInput = V.boardNumbersClose.Total - 100;
+    V.cardInput = V.boardNumbersClose.Total;
     SF.click(By.xpath('//a[@ng-click="addAuthPayment()"]'));
     SF.sleep(2);
     SF.click (By.xpath('//input[@ng-model="charge_value.value"]'));
@@ -67,6 +67,26 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     MF.WaitWhileToaster();
     MF.WaitWhileBusy ();
     SF.click(By.xpath('//div[contains(@class,"payment-receipt-modal")]/following-sibling::div[1]/button[@ng-click="cancel()"]'));
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="entity_type != fieldData.enums.entities.STORAGEREQUEST"]')).getText().then(function (text) {
+        V.totalBeforeRefund = SF.cleanPrice(text);
+    }),config.timeout);
+    MF.EditRequest_ClickAddCustomPayment();
+    SF.select(By.xpath('//select[@ng-model="receipt.type"]'), 'customrefund');
+    SF.send (By.xpath('//input[@ng-model="receipt.amount"]'),100);
+    SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
+    SF.sleep (1);
+    SF.click(By.xpath('//button[@ng-click="Save()"]'));
+    MF.WaitWhileToaster();
+    MF.WaitWhileBusy ();
+    JS.click('button[ng-click=\\"save()\\"]:visible');
+    SF.sleep (3);
+    MF.WaitWhileBusy ();
+    MF.EditRequest_OpenPayment();
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="entity_type != fieldData.enums.entities.STORAGEREQUEST"]')).getText().then(function (text) {
+        V.totalAfterRefund = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.totalAfterRefund, (V.totalBeforeRefund - 100), 'не сработал кастомный рефанд');
+    }),config.timeout);
     SF.sleep(1);
     SF.click(By.xpath('//div[contains(@class,"modal-footer")]/button[@ng-click="cancel()" and contains(text(),"Cancel")]'));
     SF.sleep(1);

@@ -135,7 +135,7 @@ module.exports = function(config,V) {
         // './tests/107_SallaryProfitLossAndPayroll.js',
 
     ];
-    config.timeout = 70000;
+    config.timeout = 50000;
     config.chainFail = false;
 	config.browser = 'chrome';
     // config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu"] };
