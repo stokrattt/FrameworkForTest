@@ -200,7 +200,7 @@ condition.nowWeDoing = 'мувинг сторадж from - меняем мув �
 condition.nowWeDoing= 'мувинг сторадж from - меняем зип код и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
     SF.click(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
-    SF.clear(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'));
+    SF.clear(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
     SF.send(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'), '01001');
     SF.sleep(10);
     MF.Account_ClickUpdateClientInModalWindow();
