@@ -15,6 +15,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
 	LF.CreateLocalMovingFromBoard(V.client);
 	MF.EditRequest_SetAdressToFrom();
+
 	MF.EditRequest_ChangeStatusRequest (4);
 	MF.EditRequest_ClickHomeEstimateDate();
 	driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
@@ -23,10 +24,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	JS.click('div[uib-tooltip="emilia clark"]');
 	MF.WaitWhileBusy();
 	SF.click(By.id('home-estimate-start-time'));
-	SF.send(By.id('home-estimate-start-time'),"12:30 AM");
+	SF.send(By.id('home-estimate-start-time'),"08:00 AM");
 	SF.click(By.xpath('//input[@ng-model="request.home_estimate_start_time.value"]'));
-	SF.send(By.xpath('//input[@ng-model="request.home_estimate_start_time.value"]'),"02:00 AM");
-	V.boardNumbers = {};
+	SF.send(By.xpath('//input[@ng-model="request.home_estimate_start_time.value"]'),"12:00 AM");
+	SF.sleep(1);
+	SF.click(By.id('home-estimate-duration'));
+	SF.click(By.xpath('//div[@class="ui-timepicker-wrapper"][3]/ul/li[8]'));
+	V.Duration={};
+	driver.wait(driver.findElement(By.id('home-estimate-duration')).getAttribute('value').then(function (text) {
+		V.Duration= text;
+	}), config.timeout);
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
@@ -36,6 +43,7 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	MF.EditRequest_OpenPayment();
 	LF.EditRequest_Payment_AddOnlinePayment();
 	MF.EditRequest_ClosePayment();
+	V.boardNumbers = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	LF.closeEditRequest();
 
@@ -60,9 +68,30 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	}), config.timeout);
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'заходим в портал как сейлс';
+	condition.nowWeDoing = 'заходим в портал как сейлс и открываем реквест';
 	SF.get(V.adminURL);
 	LF.HomeEstimate_SalesGoInPortalandOpenRequest(V.salesLogin,V.salesPassword, V.boardNumbers);
+	V.homeestimateNumbers ={};
+	LF.RememberDigitsRequestBoard(V.homeestimateNumbers);
+
+	condition.nowWeDoing = 'проверка цифр на портале';
+	V.DurationPortal={};
+	driver.wait(driver.findElement(By.id('home-estimate-duration')).getAttribute('value').then(function (text) {
+		V.DurationPortal= text;
+	}), config.timeout);
+	VD.IWant(VD.ToEqual, V.Duration, V.DurationPortal, 'не совпал отрезок времени работы хоум эстимейтора на мувборде/ портале');
+	Debug.pause();
+	VD.IWant (VD.ToEqual, V.boardNumbers.TotalMin, V.homeestimateNumbers.TotalMin, 'не совпала минимальная квота на мувборде/ в портале');
+	VD.IWant (VD.ToEqual, V.boardNumbers.TotalMax, V.homeestimateNumbers.TotalMax, 'не совпала максимальная квота на мувборде/ в портале ');
+	VD.IWant(VD.ToEqual, V.boardNumbers.TravelTime,V.homeestimateNumbers.TravelTime,'не совпал трэвел тайм на мувборде / в портале');
+	VD.IWant(VD.ToEqual, V.boardNumbers.Packing , V.homeestimateNumbers.Packing,'не совпал пэкинг на мувборде/ в портале');
+	VD.IWant(VD.ToEqual, V.boardNumbers.Fuel, V.homeestimateNumbers.Fuel,'не совпал фюел на мувборде/ в портале');
+	VD.IWant(VD.ToEqual, V.boardNumbers.HourlyRate, V.homeestimateNumbers.HourlyRate,'не совпал рейт на мувборде / в портале');
+	VD.IWant(VD.ToEqual, V.boardNumbers.Trucks, V.homeestimateNumbers.Trucks,'не совпало количество траков на мувборде/ в портале');
+	VD.IWant(VD.ToEqual, V.boardNumbers.AdServices,V.homeestimateNumbers.AdServices,'не совпали адишинал сервисы на мувборде/ в портале');
+	VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize, V.homeestimateNumbers.CrewSize,'не совпал крюсайз на мувборде/ в портале');
+	VD.IWant(VD.ToEqual, V.boardNumbers.cbf, V.homeestimateNumbers.cbf,'не совпали кубикфиты на мувборде/ в портале');
+
 
 	condition.nowWeDoing = 'добавляем пэкинг и адишенал сервисы';
 	JS.scroll('label[ng-click="openAddPackingModal();"]');
@@ -72,17 +101,15 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	condition.nowWeDoing = 'запоминаем исходное значение c/f';
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
 		V.boardNumbersPortalcf=text;
-		console.log(V.boardNumbersPortalcf);
 	}),config.timeout);
 
 
-	condition.nowWeDoing = 'добавляем инвентарь';
+	condition.nowWeDoing = 'добавляем инвентарь, делаем проверку по кубикфитам';
 	LF.AddInventory_InHomeEstimate();
 	SF.waitForVisible(By.xpath('//div[@ng-show="isShowParklot"]'));
 	JS.scroll('span[ng-if="!states.invoiceState"]');
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
 		V.boardNumbersPortalnewcf=text;
-		console.log(V.boardNumbersPortalnewcf);
 	}),config.timeout);
 	SF.sleep(1);
 	VD.IWant(VD.NotToEqual, V.boardNumbersPortalcf , V.boardNumbersPortalnewcf , 'если не равны, то пересчет произошел на новые cf, если равные, то баг ');
@@ -114,6 +141,47 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	LF.RememberDigitsRequestBoard(V.boardAfterPortal);
 	LF.Validation_Compare_Account_Admin(V.boardNumbersPortal,V.boardAfterPortal);
 	SF.sleep(1);
+
+	condition.nowWeDoing = 'идем в локалдиспатч, назначаем работников';
+	MF.EditRequest_CloseEditRequest();
+	MF.Board_OpenLocalDispatch();
+	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
+	MF.Dispatch_GridView();
+	LF.SelectRequestDispatch(V.boardNumbers.Id);
+	Debug.pause();
+	LF.selectCrew(V.foremanName);
+	MF.Board_LogoutAdmin();
+
+	condition.nowWeDoing = 'заходим под фореманом, идем на контракт';
+	LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
+	LF.OpenRequestInForemanPage(V.boardNumbers.Id);
+	MF.Contract_WaitConfirmationPage();
+	MF.Contract_OpenBillOfLading();
+
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	MF.Contract_DeclarationValueA();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	MF.Contract_ClickPay();
+	MF.Contract_ClickTips10();
+	MF.Contract_ClickAddTips();
+	MF.Contract_ClickPaymentInfo();
+	LF.FillCardPayModal();
+	LF.Contract_SignMainPayment();
+	driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+		V.path = path;
+	}), config.timeout);
+	SF.sleep(1);
+	MF.Contract_UploadImage(V.path);
+	MF.Contract_UploadImage(V.path);
+	MF.Contract_SaveImages();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	V.contractNumbers = {};
+	MF.Contract_Submit(V.contractNumbers);
+	MF.Contract_ReturnToForeman();
 
 	SF.endOfTest();
 };
