@@ -101,7 +101,7 @@ condition.nowWeDoing='проверяем на борде: включено ли 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_ClickCreate();
-    driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Moving") and ' +
+    driver.wait(driver.findElements(By.xpath('//select[@ng-model="editrequest.data.field_move_service_type"]/option[contains(text(),"Local Move") and ' +
         'not(contains(text(),"Storage"))]')).then(function(array){
         VD.IWant(VD.ToEqual,array.length,1,'не работает настройка Local Moving');
     }),config.timeout);
