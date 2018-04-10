@@ -41,9 +41,9 @@ condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsDepartment();
-    MF.Board_OpenSideBar();
     MF.WaitWhileBusy ();
     MF.Department_OpenHuman ("Test Admin");
+    MF.WaitWhileBusy ();
     MF.Department_OpenNotificationTab();
     driver.wait(driver.executeScript("if($('md-switch[ng-repeat=\"selectAllNotification in selectAllNotifications track by $index\"]').hasClass('md-checked')){" +
         "return true;}else{$('md-switch[ng-repeat=\"selectAllNotification in selectAllNotifications track by $index\"]').click()}"),config.timeout);
