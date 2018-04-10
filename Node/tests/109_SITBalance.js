@@ -94,8 +94,9 @@ condition.nowWeDoing = 'идем в SIT создаем трип, добавля�
     SF.send (By.xpath('//input[@ng-model="trip.data.details.internal_code"]'), V.internalCode);
     SF.sleep(1.5);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.foreman"]'));
+    V.foremanName = 'Test Foreman';
     SF.sleep(1);
-    SF.click(By.xpath('//div[text()="'+V.foremanName+'"]'));
+    SF.click(By.xpath('//md-option[@ng-repeat="item in foremen"]/div[text()="'+V.foremanName+'"]'));
     SF.sleep(1);
     SF.click(By.xpath('//md-select[@ng-model="trip.data.helper"]'));
     SF.waitForVisible (By.xpath('//div[text()="helper test1"]'));

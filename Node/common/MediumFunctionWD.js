@@ -427,7 +427,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_ClickLongDistanceDispach();
         SF.sleep(1);
         SF.click(By.xpath('//a[@ui-sref="lddispatch.sitJobs"]'));
-        SF.sleep(2);
+        SF.sleep(3);
     }
     function BoardSIT_OpenStorages() {
         SF.sleep(1);
@@ -1792,7 +1792,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Department_OpenHuman(name) {
         driver.wait(driver.executeScript("$('.mdDataTable tbody tr td:contains(\"" + name + "\")').dblclick();"), config.timeout);
-        SF.waitForVisible (By.xpath('//a[@ui-sref="settings.department"]'));
+        SF.waitForVisible (By.xpath('//label[contains(text(),"Department:")]'));
     }
 
     function Department_OpenMansPermissions() {

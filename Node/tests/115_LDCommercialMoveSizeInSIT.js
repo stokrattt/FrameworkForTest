@@ -169,7 +169,7 @@ condition.nowWeDoing = 'Переводим работу в Closing, провер
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.requestNumber.Id, 'не найден реквест в Jobs in SIT')
     }),config.timeout);
-
+Debug.pause();
 condition.nowWeDoing = 'Создаём Carrier, заходим в Trip-Planner, создаём трип (Type: Carrier/Agent).';
     MF.Board_OpenSideBar ();
     MF.Board_OpenCourier ();//Создаем Carrier

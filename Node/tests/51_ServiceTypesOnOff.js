@@ -68,7 +68,7 @@ condition.nowWeDoing='проверяем на фронте: включено л�
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
     SF.sleep(6);
     SF.click(By.xpath('//input[@ng-change="serviceneed = true"]/..'));
-    driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Moving") and ' +
+    driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Move") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
             VD.IWant(VD.ToEqual,array.length,2,'не работает настройка Local Moving');
     }),config.timeout);
@@ -174,7 +174,7 @@ condition.nowWeDoing='проверяем на фронте: включено л�
     SF.get(V.frontURL);
     JS.waitForExist('select[ng-model=\\"request.serviceType\\"]:visible');
     SF.sleep(8);
-    driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Moving") and ' +
+    driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Move") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
         VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Local Moving');
     }),config.timeout);

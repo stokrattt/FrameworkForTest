@@ -18,6 +18,7 @@ condition.nowWeDoing = 'добавляем два разы инвенторий 
     LF.AccountLocalAddInventory ();
     LF.AccountLocalAddAdditionalInventory ();
     MF.Account_ClickFullPacking();
+    SF.sleep(8); //долго добавляет пакинг
     V.accountNumbers = {};
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.LogoutFromAccount ();
