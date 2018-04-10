@@ -155,7 +155,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_ClickCustomCubFit();
 	MF.EditRequest_SendNumberCustomCubFit(666);
 	MF.EditRequest_OpenRequest();
-	condition.nowWeDoing ='выбираем трак,переводим работу в нот конферм'
+	condition.nowWeDoing ='выбираем трак,переводим работу в нот конферм';
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
 	SF.sleep(2);
 	MF.EditRequest_SetToNotConfirmed();

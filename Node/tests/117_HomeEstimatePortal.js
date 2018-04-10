@@ -148,7 +148,6 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
 	MF.Dispatch_GridView();
 	LF.SelectRequestDispatch(V.boardNumbers.Id);
-	Debug.pause();
 	LF.selectCrew(V.foremanName);
 	MF.Board_LogoutAdmin();
 
@@ -182,6 +181,46 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	V.contractNumbers = {};
 	MF.Contract_Submit(V.contractNumbers);
 	MF.Contract_ReturnToForeman();
+
+	condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
+	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+	MF.Board_OpenLocalDispatch();
+	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
+	MF.Dispatch_GridView();
+	MF.Dispatch_ShowDoneJobs();
+	LF.OpenRequestDispatch(V.boardNumbers.Id);
+	MF.EditRequest_WaitForBalanceVisible();
+	LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
+	MF.EditRequest_ScrollDown();
+	VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+	MF.EditRequest_OpenPayroll();
+	V.managerName = 'emilia clark';
+	LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
+	SF.sleep (1);
+	MF.EditRequest_CloseModal();
+	LF.closeEditRequest();
+
+	condition.nowWeDoing = 'сейчас идём в пейролл';
+	// MF.Board_OpenSideBar();
+	MF.Board_OpenPayroll();
+	LF.selectDateInPayroll(V.boardNumbers.moveDate);
+	LF.findTestForemanInPayroll(V.foremanName);
+
+	condition.nowWeDoing = 'выбираем цифры формена';
+	V.payrollNumbers = {
+		Foreman:{}, Sale:{}
+	};
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
+	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
+		'id=' + V.boardNumbers.Id);
+	MF.Payroll_ClickAllDepartment();
+
+	condition.nowWeDoing = 'выбираем цифры менеджера';
+	LF.findSaleInPayroll(V.managerName);
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
+	VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+		'id=' + V.boardNumbers.Id);
+	SF.sleep(1);
 
 	SF.endOfTest();
 };
