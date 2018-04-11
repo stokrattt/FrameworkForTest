@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/26_CloneRequest.js'];
+    config.suite = ['./tests/115_LDCommercialMoveSizeInSIT.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
