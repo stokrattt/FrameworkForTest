@@ -349,6 +349,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
         SF.sleep (4);
     }
+    function Board_OpenSettingsAccountPagePendingInfo() {
+	    SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
+	    SF.sleep(3);
+	    SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][10]'));
+	    SF.sleep(2);
+    }
     function BoardOpenSettingsLongDistanceStatus() {
         SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][5]'));
     }
@@ -2244,6 +2250,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         BoardRequestPage_SetStartEndDate:BoardRequestPage_SetStartEndDate,
         Board_OpenSettingsAccountPageFAQ:Board_OpenSettingsAccountPageFAQ,
         BoardOpenSettingsLongDistanceStatus:BoardOpenSettingsLongDistanceStatus,
+	    Board_OpenSettingsAccountPagePendingInfo,Board_OpenSettingsAccountPagePendingInfo,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
