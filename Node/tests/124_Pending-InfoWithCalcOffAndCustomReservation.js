@@ -111,6 +111,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	SF.click (By.xpath('//div[@data-index="1"]//div[@ng-class="{disabled: item.isCannotEdit}"]'));
 	SF.click (By.xpath('//div[@data-index="2"]//div[@ng-class="{disabled: item.isCannotEdit}"]'));
 	JS.click('button[ng-click="close()"]');
+	MF.Account_WaitForInventoryCheck();
 	SF.sleep(3);
 
 	condition.nowWeDoing = 'запоминаем новые цифры после изменений на аккаунте';
