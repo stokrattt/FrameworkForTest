@@ -126,8 +126,8 @@ condition.nowWeDoing = 'создаем реквест 6';
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'получаем текущую дату';
-    var d = new Date();
-    var options = { month: 'short', day: 'numeric', year: 'numeric' };
+    let d = new Date();
+    let options = { month: 'short', day: 'numeric', year: 'numeric' };
     V.createdate = (d.toLocaleDateString('en-US', options));
 
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по create date';

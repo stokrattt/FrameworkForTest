@@ -43,10 +43,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
 	SF.send(By.xpath('//elromco-field-date-picker[@field="request.home_estimate_date"]/input'),
 		SF.dateToStringMMMMDDYYYY(V.request.moveDate));
 	
-	//MF.EditRequest_SaveChanges();
 	SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-	//MF.EditRequest_CloseEditRequest();
-	
+
 	condition.nowWeDoing = 'заходим в портал как сейлс';
 	SF.waitForVisible(By.xpath('//h1[@ng-click="homeEstimate = true; moveBoard = false;"]'));
 	SF.click(By.xpath('//h1[@ng-click="homeEstimate = true; moveBoard = false;"]'));

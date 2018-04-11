@@ -76,10 +76,10 @@ condition.nowWeDoing = 'Создаем Трип';
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
     SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 10);
-    options = { month: 'numeric', day: 'numeric', year: 'numeric' };
+    let now = new Date();
+    let msInDay = 86400000;
+    let future = new Date(now.getTime() + msInDay * 10);
+    let options = { month: 'numeric', day: 'numeric', year: 'numeric' };
     V.dateStart = (now.toLocaleDateString('en-US', options));
     V.dateEnd = (future.toLocaleDateString('en-US', options));
     SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.start"]/div/input'));
@@ -144,7 +144,7 @@ condition.nowWeDoing = 'вибираем карьера, вибираем раб
     SF.sleep(1);
     SF.click(By.xpath('//md-checkbox[@ng-model="selectAll"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.balance)"]'));
-    SF.click(By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.balance)"]'))
+    SF.click(By.xpath('//button[@ng-click="openInvoice($event, charge, false, selectedJobs, total.balance)"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="sendInvoice()"]'));
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="sendInvoice()"]'));

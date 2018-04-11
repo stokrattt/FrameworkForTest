@@ -103,8 +103,6 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
 condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
     MF.EditRequest_SetToConfirmed();
-    // SF.select(By.xpath('//select[@id="edit-service"]'), 7);
-    // SF.sleep(1);
 
 condition.nowWeDoing = 'Проверяем есть ли сторадж в реквести в SIT';
     JS.step(JSstep.selectTruck(5));

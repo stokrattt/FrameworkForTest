@@ -185,17 +185,6 @@ condition.nowWeDoing = 'тут оставляем коменты на контр
     MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
-//
-// condition.nowWeDoing = 'тут идем в админку открываем реквест, переходим на контракт и проверяем что наши коменты сохранилисб и отображаются';
-//     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-//     MF.Board_OpenConfirmed();
-//     MF.Board_OpenRequest(V.accountNumbers.Id);
-//     SF.click(By.xpath('//a[@ng-show="states.invoiceState"]'));
-//     SF.openTab(1);
-//     SF.sleep (3);
-//     MF.Contract_OpenBillOfLading();
-//     MF.Contract_WaitBillOfLading ();
-
 
     SF.endOfTest();
     };

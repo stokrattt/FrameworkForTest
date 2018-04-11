@@ -34,7 +34,6 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     MF.Account_ClickPartialPacking();
     MF.SweetConfirm();
     LF.AccountLocalAddInventory();
-    // MF.SweetConfirm();
     LF.AccountLocalAddAdditionalInventory();
     SF.sleep(11);
     V.accountNumbers={};

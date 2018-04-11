@@ -123,15 +123,6 @@ condition.nowWeDoing = 'Идем в аккаунт проверить налич
     }),config.timeout);
     SF.sleep(1.5);
 
-// condition.nowWeDoing = 'Идем в админку, заходим в реквест и удаляем юзера';
-//     LF.LogoutFromAccount();
-//     SF.get(V.adminURL);
-//     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-//     MF.Board_OpenRequest(V.accountNumbers.Id);
-//     MF.EditRequest_OpenClient();
-//     SF.click(By.xpath('//button[@ng-click="delete(client)"]'));
-//     MF.SweetConfirm();
-
     SF.endOfTest();
 };
 

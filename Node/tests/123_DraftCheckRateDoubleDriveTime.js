@@ -19,7 +19,7 @@ condition.nowWeDoing = 'идем в настройки рейтов и выст�
         V.targets=array;
     }),config.timeout);
     SF.sleep(1);
-    for (var t in V.targets) {
+    for (let t in V.targets) {
         SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
         SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),97);
     }
@@ -77,7 +77,7 @@ condition.nowWeDoing = 'идем в настройки рейтов и меня�
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.NotToEqual, V.targets2.length, 0, 'какая-то фигня с соххранением настроек Rates');
-    for (var t in V.targets) {
+    for (let t in V.targets) {
         SF.sleep(1.5);
         SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
         SF.sleep(0.5);
@@ -87,8 +87,6 @@ condition.nowWeDoing = 'идем в настройки рейтов и меня�
 
 condition.nowWeDoing = 'идем на дашборд в конферм реквесты, проверяем что работа законфермилась, дата сменилась, рейт остался новый а не старый и что все данные совпадают и что дабл драйв тайм на месте';
     MF.Board_OpenDashboard();
-    // SF.sleep(2);
-    // MF.Board_Refresh();
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest(V.boardNumbers.Id);
     V.boardNumbers2={};

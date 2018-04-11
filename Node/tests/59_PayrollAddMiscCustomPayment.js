@@ -14,7 +14,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'идем в пейрол вводи дату в промежутке 20 дней и нажимаем update payroll cache';
     MF.Board_OpenPayroll ();
     LF.Payroll_SelectPeriod20Days();
-    // MF.Payroll_UpdateCache ();
 
 condition.nowWeDoing = 'заходим у форемана и счтаем сначала сумму в таблице и сравниваем с итого, перед этим удаляем все пейчеки если есть и миск пайменты';
     LF.findTestForemanInPayroll(V.foremanName);
@@ -120,28 +119,6 @@ condition.nowWeDoing = 'добавляем миск паймент Deduct и п�
     LF.RememberPayrollNumbers_OutsideNameWorker (V.foremanName, V.payrollNumbersOutsideAfterToPaidAndToDeduct);
     VD.IWant (VD.ToEqual, V.payrollNumbersOutsideAfterToPaidAndToDeduct.total, V.payrollNumbersInsideAfterDeletePayCheck.balanceDown, 'Тотал у форемана снаружи напротив имени чувака не совпал с тоталом внутри после оплаты To Paid и оплаты Deduct');
     VD.IWant (VD.ToEqual, V.payrollNumbersOutsideAfterToPaidAndToDeduct.paid, 0, 'To paid и Deduct которую оплатили внутри чувачка снаружи поменялась, а должно быть ноль');
-
-// condition.nowWeDoing = 'добавляем Paid и проверяем';
-//     MF.Payroll_GoToWorkerJobs (V.foremanName);
-//     MF.Payroll_ClickAddMiscPayment();
-//     MF.PayrollMiscPayment_ClickAmountPaid();
-//     MF.PayrollMiscPayment_SendAmountSumm (200);
-//     MF.PayrollMiscPayment_ClickSave();
-//     MF.Payroll_RefreshTable ();
-//     V.balanceAfterPaid = (V.payrollNumbersInsideAfterDeletePayCheck.balanceDown - 200).toFixed(2);
-//
-//     V.payrollNumbersInsideAfterToPaidAndDeductAndPaid = {};
-//     LF.RememberPayrollNumbers_InsideWorker (V.payrollNumbersInsideAfterToPaidAndDeductAndPaid);
-//     VD.IWant (VD.ToEqual, V.payrollNumbersInsideAfterToPaidAndDeductAndPaid.balanceDown, V.balanceAfterPaid, 'сумма изменилась, а должна быть на 200 баков меньше так как мы добавили еще Paid до  To paid и Deduct');
-//     VD.IWant (VD.ToEqual, V.payrollNumbersInsideAfterToPaidAndDeductAndPaid.paid, 200, 'после оплаты to paid и Deduct, а потом Paid сумма не увеличилась на 200, или стала еще больше');
-//     SF.sleep(1);
-//
-//     MF.Payroll_ClickStepBackToNameWorker ();
-//     V.payrollNumbersOutsideAfterToPaidAndToDeductAndPaid = {};
-//     LF.RememberPayrollNumbers_OutsideNameWorker (V.foremanName, V.payrollNumbersOutsideAfterToPaidAndToDeductAndPaid);
-//     VD.IWant (VD.ToEqual, V.payrollNumbersOutsideAfterToPaidAndToDeductAndPaid.total, V.balanceAfterPaid, 'Тотал у форемана снаружи напротив имени чувака не совпал с тоталом внутри после оплаты To Paid и оплаты Deduct и после оплаты Paid');
-//     VD.IWant (VD.ToEqual, V.payrollNumbersOutsideAfterToPaidAndToDeductAndPaid.paid, 200, 'To paid и Deduct, а потом Paid которую оплатили внутри чувачка снаружи не изменилась или стала больше чем 200');
-//     SF.sleep(0,5);
 
 condition.nowWeDoing = 'идем удалять миск пайменты, и еще раз перепроверим сумму в столбце с итого';
     MF.Payroll_GoToWorkerJobs (V.foremanName);

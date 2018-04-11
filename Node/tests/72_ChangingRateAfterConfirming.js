@@ -27,7 +27,7 @@ condition.nowWeDoing = 'создаём реквест localMoving';
 		V.targets=array;
 	}),config.timeout);
 	SF.sleep(1);
-	for (var t in V.targets) {
+	for (let t in V.targets) {
 		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
 		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),245);
 	}
@@ -46,7 +46,7 @@ condition.nowWeDoing = 'создаём реквест localMoving';
 	}),config.timeout);
 	SF.sleep(1);
 	VD.IWant(VD.NotToEqual, V.targets2.length, 0, 'какая-то фигня с соххранением настроек Rates');
-	for (var t in V.targets) {
+	for (let t in V.targets) {
 		SF.sleep(1.5);
 		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
 		SF.sleep(0.5);

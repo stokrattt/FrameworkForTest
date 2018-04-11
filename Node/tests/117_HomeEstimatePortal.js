@@ -201,7 +201,6 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	LF.closeEditRequest();
 
 	condition.nowWeDoing = 'сейчас идём в пейролл';
-	// MF.Board_OpenSideBar();
 	MF.Board_OpenPayroll();
 	LF.selectDateInPayroll(V.boardNumbers.moveDate);
 	LF.findTestForemanInPayroll(V.foremanName);

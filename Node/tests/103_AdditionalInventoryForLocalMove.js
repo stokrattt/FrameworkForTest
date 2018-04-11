@@ -102,10 +102,6 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     MF.Contract_SubmitInventory();
     MF.WaitWhileBusy();
     MF.Contract_WaitForRental();
-    // driver.wait(driver.findElement(By.xpath('//input[@ng-model="storageVolume"]')).getAttribute('value').then(function (text) {
-    //     VD.IWant(VD.ToEqual, text, (V.CFRequest + V.totalCubicFitAddInventory), 'не совпал кубик фит всего добавленного инвентрая и кубик фит реквеста');
-    // }),config.timeout);
-    // SF.sleep(0.5);
     MF.Contract_SetRentalPhone(V.client.phone);
     MF.Contract_SetRentalAddress('Address To');
     MF.Contract_SetRentalZip('02461');
@@ -123,31 +119,12 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     SF.sleep(2);
     JS.click('button[ng-click=\\"saveFile();logClickButtons(\\\'Save Images button clicked\\\')\\"]');
     SF.sleep(5);
-
-    // LF.payRentalInventory();
-    // driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-    //     V.path = path;
-    // }), config.timeout);
-    // SF.sleep(1);
-    // MF.Contract_UploadImage(V.path);
-    // MF.Contract_UploadImage(V.path);
-    // MF.Contract_SaveImages();
-
     LF.MakeSignInContract();
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
     MF.Contract_ClickPaymentInfo();
     MF.Contract_PayCash();
-    // LF.FillCardPayModal();
-    // LF.Contract_SignMainPayment();
-    // driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-    //     V.path = path;
-    // }), config.timeout);
-    // SF.sleep(1);
-    // MF.Contract_UploadImage(V.path);
-    // MF.Contract_UploadImage(V.path);
-    // MF.Contract_SaveImages();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     V.contractNumbers = {};

@@ -25,8 +25,6 @@ condition.nowWeDoing = 'Законфёрмить сразу реквест';
     JS.scroll('div.ServicesCost:visible');
     MF.EditRequest_OpenSettings ();
     LF.SetManager('emilia');
-    // MF.EditRequest_OpenClient ();
-    // LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest ();
     MF.EditRequest_SetToConfirmed ();
     SF.send(By.xpath('//input[@ng-model="request.field_moving_from.thoroughfare"]'),'Address From');
@@ -89,10 +87,6 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     SF.sleep(2);
     JS.click('button[ng-click=\\"saveFile();logClickButtons(\\\'Save Images button clicked\\\')\\"]');
     SF.sleep(5);
-    // MF.Contract_UploadImage(V.path);
-    // SF.send(By.xpath('//input[@class="upload-card-btn"]'),V.path);
-    // SF.click(By.xpath('//input[@id="inputImage"]'));
-    // MF.Contract_SaveImages();
 
 condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт';
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {

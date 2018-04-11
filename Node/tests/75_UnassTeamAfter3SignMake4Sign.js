@@ -150,7 +150,6 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'сейчас идём в пейролл';
-    // MF.Board_OpenSideBar();
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll(V.foremanName);

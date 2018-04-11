@@ -111,7 +111,6 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'сейчас идём в пейролл';
-    // MF.Board_OpenSideBar();
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll(V.foremanName);
@@ -158,10 +157,10 @@ condition.nowWeDoing = 'выбираем цифры helper';
     }), config.timeout);
     SF.sleep(8);
     if (V.current == V.Dates) {
-        now = new Date();
-        msInDay = 86400000;
-        future = new Date(now.getTime());
-        options = { day: 'numeric' };
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime());
+        let options = { day: 'numeric' };
         V.datescedule = (future.toLocaleDateString('en-US', options));
         SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
         MF.WaitWhileBusy();
