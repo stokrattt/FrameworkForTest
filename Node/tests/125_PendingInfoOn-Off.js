@@ -71,7 +71,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.RememberDigitsRequestBoard(V.boardNumbers.New);
 	LF.Validation_Compare_Account_Admin(V.accountNumbersNew, V.boardNumbersNew);
 	MF.Board_OpenSettingsGeneral();
-	MF.Board_OpenSettingsAccountPagePedingInfo();
+	MF.Board_OpenSettingsAccountPagePendingInfo();
 	SF.click(By.xpath('//input[@ng-change="updateSetting()"]/../span'));
 	MF.WaitWhileToaster();
 
