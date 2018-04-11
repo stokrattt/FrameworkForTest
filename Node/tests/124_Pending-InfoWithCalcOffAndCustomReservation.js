@@ -166,7 +166,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем в аккаунт,сверяем цифры, проверяем на наличие,после внесенных изменений появления статуса нот-конферм';
+	condition.nowWeDoing = 'идем в аккаунт,сверяем цифры, проверяем на наличие,после внесенных изменений появления статуса нот-конферм,' +
+		'+ проверка на конфермейшн пэйдж появление блока оплаты и после возвращения на аккаунт статуса (должен оставаться нот конферм)';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -183,6 +184,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.CrewSize, V.accountNumbersAfterEdit.CrewSize,'не совпал крюсайз в реквесте и на аккаунте');
 	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.cbf, V.accountNumbersAfterEdit.cbf,'не совпали кастомные кубикфиты в реквесте и на аккаунте');
 	MF.WaitWhileBusy();
+	MF.Account_ClickProceedBookYourMove();
+	driver.wait(driver.findElement(By.xpath('//div[@ng-class="{\'disabled\':vm.admin}"]/div/h2[contains(text(),"Deposit: ")]')).getText().then(function (text) {
+		VD.IWant(VD.ToEqual, text, 'Deposit: $150',
+			'не появился блок с оплатой ');
+	}),config.timeout);
+	MF.Account_ConfirmationBackToRequest();
+	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
+		VD.IWant(VD.NotToEqual, Status, 'PENDING-INFO');
+	}), config.timeout);
 	MF.Account_ClickPartialPacking();
 	JS.waitForExist('div[class="sa-confirm-button-container"]');
 	SF.click(By.xpath('//div/button[contains(text(),"Yes, I agree")]'));
@@ -219,6 +229,32 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.AdServices,V.accountNumbers.LastEdit.AdServices,'не совпали сервисы последние изменения на аккаунте/реквест пэдинг-инфо');
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.CrewSize, V.accountNumbers.LastEdit.CrewSize,'не совпал крюсайз последние изменения на аккаунте/реквест пэдинг-инфо');
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.cbf, V.accountNumbers.LastEdit.cbf,'не совпали кубикфиты последние изменения на аккаунте/реквест пэдинг-инфо');
+
+	condition.nowWeDoing = 'переводим в статус нот конферм   снова, проверяем оплату кастомным платежом';
+	MF.EditRequest_SetToNotConfirmed();
+	MF.EditRequest_OpenPaymentModalWindow();
+	SF.click(By.xpath('//a[@ng-click="addReservationPayment()"]'));
+	SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
+	LF.FillCardPayModal();
+	MF.WaitWhileToaster();
+	MF.EditRequest_ClosePayment();
+	MF.EditRequest_OpenClient();
+	LF.SetClientPasswd(123);
+	MF.EditRequest_OpenRequest();
+	MF.EditRequest_SaveChanges();
+	MF.EditRequest_CloseEditRequest();
+	MF.Board_LogoutAdmin();
+
+	condition.nowWeDoing = 'идем на аккаунт проверять статус реквеста и букаемся без оплаты резервейшн прайс';
+	SF.get(V.accountURL);
+	LF.LoginToAccountAsClient(V.client);
+	MF.Account_OpenRequest(V.boardNumbers.Id);
+	LF.ConfirmRequestInAccount_NoReservation();
+	MF.Account_ConfirmationBackToRequest();
+	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]//div[contains(text(),"Your move is confirmed and scheduled")]')).getText().then(function (Status) {
+		VD.IWant(VD.ToEqual, Status, 'YOUR MOVE IS CONFIRMED AND SCHEDULED');
+	}), config.timeout);
+
 
 	SF.endOfTest();
 };
