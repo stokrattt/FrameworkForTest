@@ -39,10 +39,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_OpenRequest();
 	MF.EditRequest_SaveChanges();
 
-condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
+
+	condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
 	MF.EditRequest_OpenPayment();
 	LF.EditRequest_Payment_AddOnlinePayment();
 	MF.EditRequest_ClosePayment();
+	Debug.pause();
+	MF.EditRequest_WaitForOpenRequest();
 	V.boardNumbers = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	LF.closeEditRequest();
@@ -63,6 +66,7 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
 	MF.Account_ClickViewRequest();
+	Debug.pause();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text()," In-home Estimate")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'IN-HOME ESTIMATE');
 	}), config.timeout);
@@ -71,16 +75,19 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	condition.nowWeDoing = 'заходим в портал как сейлс и открываем реквест';
 	SF.get(V.adminURL);
 	LF.HomeEstimate_SalesGoInPortalandOpenRequest(V.salesLogin,V.salesPassword, V.boardNumbers);
+	SF.sleep(2);
+	Debug.pause();
 	V.homeestimateNumbers ={};
 	LF.RememberDigitsRequestBoard(V.homeestimateNumbers);
 
 	condition.nowWeDoing = 'проверка цифр на портале';
+	JS.scroll('i[ng-hide="isShowHomeEstimate"]');
+	SF.click(By.xpath('//i[@ng-hide="isShowHomeEstimate"]'));
 	V.DurationPortal={};
 	driver.wait(driver.findElement(By.id('home-estimate-duration')).getAttribute('value').then(function (text) {
 		V.DurationPortal= text;
 	}), config.timeout);
 	VD.IWant(VD.ToEqual, V.Duration, V.DurationPortal, 'не совпал отрезок времени работы хоум эстимейтора на мувборде/ портале');
-	Debug.pause();
 	VD.IWant (VD.ToEqual, V.boardNumbers.TotalMin, V.homeestimateNumbers.TotalMin, 'не совпала минимальная квота на мувборде/ в портале');
 	VD.IWant (VD.ToEqual, V.boardNumbers.TotalMax, V.homeestimateNumbers.TotalMax, 'не совпала максимальная квота на мувборде/ в портале ');
 	VD.IWant(VD.ToEqual, V.boardNumbers.TravelTime,V.homeestimateNumbers.TravelTime,'не совпал трэвел тайм на мувборде / в портале');

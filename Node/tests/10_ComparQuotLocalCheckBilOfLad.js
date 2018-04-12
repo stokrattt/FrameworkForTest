@@ -12,6 +12,7 @@ condition.nowWeDoing = 'заполняем калькулятор верхний
 
 condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
+    MF.Account_WaitForLoadingAccount();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
