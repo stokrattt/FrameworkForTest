@@ -65,7 +65,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
 	MF.Account_ClickViewRequest();
-	Debug.pause();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text()," In-home Estimate")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'IN-HOME ESTIMATE');
 	}), config.timeout);
@@ -75,7 +74,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	SF.get(V.adminURL);
 	LF.HomeEstimate_SalesGoInPortalandOpenRequest(V.salesLogin,V.salesPassword, V.boardNumbers);
 	SF.sleep(2);
-	Debug.pause();
 	V.homeestimateNumbers ={};
 	LF.RememberDigitsRequestBoard(V.homeestimateNumbers);
 
