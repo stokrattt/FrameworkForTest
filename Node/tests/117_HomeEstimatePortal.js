@@ -44,7 +44,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_OpenPayment();
 	LF.EditRequest_Payment_AddOnlinePayment();
 	MF.EditRequest_ClosePayment();
-	Debug.pause();
 	MF.EditRequest_WaitForOpenRequest();
 	V.boardNumbers = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
