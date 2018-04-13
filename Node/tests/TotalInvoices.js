@@ -18,27 +18,22 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//div[@ng-if="vm.canSeeInvoices"]'));
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.canSeeInvoices"]//span[@class="total text-center"]')).getText().then(function (text) {
         V.TotalInvoices = SF.cleanPrice (text);
-        console.log(V.TotalInvoices);
     }), config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//div/span[@uib-tooltip="Total Paid"]')).getText().then(function (text) {
         V.TotalPaidInv = SF.cleanPrice(text.substring(text.indexOf('(')));
-        console.log(V.TotalPaidInv);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div/span[@uib-tooltip="Total Unpaid"]')).getText().then(function (text) {
         V.TotalUnpaidInv = SF.cleanPrice(text.substring(text.indexOf('(')));
-        console.log(V.TotalUnpaidInv);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div/span[@uib-tooltip="Total"]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text.substring(text.indexOf('('))), V.TotalPaidInv+V.TotalUnpaidInv, 'не совпало количество инвойсов сверху в блоке');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div/span[@uib-tooltip="Total Paid"]')).getText().then(function (text) {
         V.TotalPaidSum = SF.cleanPrice(text.substring(0, text.indexOf('(')));
-        console.log(V.TotalPaidSum);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div/span[@uib-tooltip="Total Unpaid"]')).getText().then(function (text) {
         V.TotalUnpaidSum = SF.cleanPrice(text.substring(0, text.indexOf('(')));
-        console.log(V.TotalUnpaidSum);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div/span[@uib-tooltip="Total"]')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text.substring(0, text.indexOf('('))), V.TotalPaidSum+V.TotalUnpaidSum, 'не совпала сумма сверху в блоке');
@@ -58,7 +53,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.EditRequest_SaveChanges ();
-    SF.sleep(1);
 
     condition.nowWeDoing = 'создаем инвойс';
     SF.click(By.xpath('//div/label[@ng-click="OpenPaymentModal();"]'));
@@ -114,7 +108,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.ClientNameFam = text;
         VD.IWant(VD.ToEqual, (V.client.name + ' ' + V.client.fam), V.ClientNameFam, 'не совпали имя/фамилия клиента')
     }), config.timeout);
-    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.ClientNameFam+'")]/following-sibling::td[1]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, V.InvDescription, 'не совпал дескрипшн')
     }), config.timeout);
