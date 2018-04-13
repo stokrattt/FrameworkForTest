@@ -26,7 +26,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.boardNumbers={};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-	SF.sleep(2);
+	MF.WaitWhileBusy();
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
@@ -42,6 +42,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.RememberAccountNumbers(V.accountNumbers);
 	LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
 	LF.AccountLocalAddInventory();
+	SF.waitForVisible(By.xpath('//button[@tabindex="1"]'));
 	SF.click(By.xpath('//button[@tabindex="1"]'));
 	MF.Account_WaitForInventoryCheck();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')
@@ -69,7 +70,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_WaitForOpenRequest();
 	V.boardNumbers.New = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers.New);
-	LF.Validation_Compare_Account_Admin(V.accountNumbersNew, V.boardNumbersNew);
+	LF.Validation_Compare_Account_Admin(V.accountNumbersNew, V.boardNumbers.New);
+	MF.EditRequest_CloseEditRequest();
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
 	SF.click(By.xpath('//input[@ng-change="updateSetting()"]/../span'));
