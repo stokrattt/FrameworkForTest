@@ -28,40 +28,33 @@ module.exports = (system, config, condition, webdriver, proxy, proxyAddr) => {
 		});
 	}
 	
-	let fatalErrors = [
-		"NoSuchSessionError",
-		"NoSuchWindowError"
-	];
-	
 	function initErrorHandler() {
 		return new Promise((resolve, rej) => {
 			getNewDriver().then(res => {
 				webdriver.promise.controlFlow().on('uncaughtException', function (e) {
-					if (~fatalErrors.indexOf(e.name)	|| ~e.message.indexOf("chrome not reachable")) {
-						console.log('Закрылось окно: '.red, e);
-                        if (!config.D) {
-                            global.driver.quit().then(function () {
-                                console.log('Закрыл браузер'.blue);
-                                system.myEmitter.emit('event');
-                            });
-                        }
-					} else {
-						console.log('Ошибка selenium: '.red, e);
-						global.driver.wait(global.driver.takeScreenshot().then(function (image) {
-							
-							console.log("Сделал скрин".yellow);
-							
-							writeErrorFiles(condition, image, e, config);
-
+					global.driver.getSession()
+						.then(() => {
+							console.log('Ошибка selenium: '.red, e);
+							global.driver.wait(global.driver.takeScreenshot().then(function (image) {
+								console.log("Сделал скрин".yellow);
+								writeErrorFiles(condition, image, e, config);
+								if (!config.D) {
+									global.driver.quit().then(function () {
+										console.log('Закрыл браузер'.blue);
+										system.myEmitter.emit('event');
+									});
+								}
+							}));
+						})
+						.catch(() => {
+							console.log('Закрылось окно: '.red, e);
 							if (!config.D) {
 								global.driver.quit().then(function () {
 									console.log('Закрыл браузер'.blue);
 									system.myEmitter.emit('event');
 								});
 							}
-							
-						}));
-					}
+						});
 					if (config.D) {
 						condition.busy = true;
 						Debug.pauseWatcher();
