@@ -32,6 +32,7 @@ module.exports = (system, config, condition, webdriver, proxy, proxyAddr) => {
 		return new Promise((resolve, rej) => {
 			getNewDriver().then(res => {
 				webdriver.promise.controlFlow().on('uncaughtException', function (e) {
+					console.log('uncaughtException'.red);
 					global.driver.getSession()
 						.then(() => {
 							console.log('Ошибка selenium: '.red, e);
@@ -49,10 +50,7 @@ module.exports = (system, config, condition, webdriver, proxy, proxyAddr) => {
 						.catch(() => {
 							console.log('Закрылось окно: '.red, e);
 							if (!config.D) {
-								global.driver.quit().then(function () {
-									console.log('Закрыл браузер'.blue);
-									system.myEmitter.emit('event');
-								});
+								system.myEmitter.emit('event');
 							}
 						});
 					if (config.D) {
