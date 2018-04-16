@@ -7,15 +7,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 	V.client.passwd = 123;
 
-
-	condition.nowWeDoing = 'заходим под админом, выключаем настройку пэдинг инфо';
+condition.nowWeDoing = 'заходим под админом, выключаем настройку пэдинг инфо';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
 	SF.click(By.xpath(' //input[@ng-change="updateSetting()"]/../span'));
 	MF.WaitWhileToaster();
-	condition.nowWeDoing = 'создаем через криейт реквест и ставим статус нот конферм';
+
+condition.nowWeDoing = 'создаем через криейт реквест и ставим статус нот конферм';
 	LF.CreateLocalMovingFromBoard(V.client);
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
@@ -31,7 +31,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'выходим с мувборда,заходим под клиентом. проверяем все значения' +
+condition.nowWeDoing = 'выходим с мувборда,заходим под клиентом. проверяем все значения' +
 		'плюс проверка на то,что не будет статуса пендинг-инфо';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
@@ -42,8 +42,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.RememberAccountNumbers(V.accountNumbers);
 	LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
 	LF.AccountLocalAddInventory();
-	SF.waitForVisible(By.xpath('//button[@tabindex="1"]'));
-	SF.click(By.xpath('//button[@tabindex="1"]'));
+	MF.SweetConfirm();
 	MF.Account_WaitForInventoryCheck();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')
 	).getText().then(function(text){
@@ -60,14 +59,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	}), config.timeout);
 	LF.LogoutFromAccount();
 
-
-	condition.nowWeDoing = 'выходим с аккаунта, проверяем все изменения на мувборде, включаем настройку пэдинг-инфо';
+condition.nowWeDoing = 'выходим с аккаунта, проверяем все изменения на мувборде, включаем настройку пэдинг-инфо';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-	MF.WaitVisibleDashboard();
 	MF.Board_OpenNotConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
-	MF.EditRequest_WaitForOpenRequest();
 	V.boardNumbers.New = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers.New);
 	LF.Validation_Compare_Account_Admin(V.accountNumbersNew, V.boardNumbers.New);

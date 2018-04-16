@@ -7,20 +7,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 	V.client.passwd = 123;
 
-	condition.nowWeDoing = 'создаем мувинг с борда, отключаем калькулятор, заполняем форму адреса, ставим пароль у клиента';
+condition.nowWeDoing = 'создаем мувинг с борда, отключаем калькулятор, заполняем форму адреса, ставим пароль у клиента';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	LF.CreateLocalMovingFromBoard(V.client);
 	MF.EditRequest_SwitchCalculator();
 	MF.EditRequest_SetAdressToFrom();
-	SF.sleep(1);
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
 
-	condition.nowWeDoing = 'начинаем добавлять пэкинг, адишинал,валюэйшн, инвентарь, дисконт и меняем цену на топливо';
+condition.nowWeDoing = 'начинаем добавлять пэкинг, адишинал,валюэйшн, инвентарь, дисконт и меняем цену на топливо';
 	MF.EditRequest_AddAdditionalServicesFullPack();
-	MF.WaitWhileBusy();
 	MF.EditRequest_AddValuation();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.request_all_data.valuation.valuation_charge"]')).getAttribute('value').then(function(text){
 		V.Valuation= text;
@@ -35,8 +33,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	}),config.timeout);
 	MF.WaitWhileBusy();
 
-	condition.nowWeDoing = 'отправлемя письмо, сравниваем числа в письме,запоминаем конечные цифры с реквеста при выключенном калькуляторе(начальные)';
-
+condition.nowWeDoing = 'отправлемя письмо, сравниваем числа в письме,запоминаем конечные цифры с реквеста при выключенном калькуляторе(начальные)';
 	SF.click(By.xpath('//div/span[@ng-click="showWarningBeforeSendEmail()"]'));
 	SF.click(By.xpath('//span[contains(.,"Default")]'));
 	SF.sleep(1);
@@ -48,39 +45,32 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.boardNumbers= {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	MF.EditRequest_OpenLogs();
-	MF.WaitWhileBusy();
-
 	SF.click(By.xpath('//div[@ng-click="allLogsShow[allLogsIndex] = !allLogsShow[allLogsIndex]"]'));
 	V.sendclient ={};
 	MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Crew Size")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.CrewSize=text;
-	}),config.timeout);
-	SF.sleep(1);
-	VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize +" movers", V.sendclient.CrewSize , ' Crew Size  в логах письма не сошелся со значением в реквесте');
-
+        VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize +" movers", V.sendclient.CrewSize , ' Crew Size  в логах письма не сошелся со значением в реквесте');
+    }),config.timeout);
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Hourly Rate :")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.HourlyRate = text;
-	}),config.timeout);
-	SF.sleep(1);
-	VD.IWant(VD.ToEqual,"$"+V.NewHourlyRate+"/hr", V.sendclient.HourlyRate , ' Hourly Rate в логах письма не сошелся со значением в реквесте');
-
+        VD.IWant(VD.ToEqual,"$"+V.NewHourlyRate+"/hr", V.sendclient.HourlyRate , ' Hourly Rate в логах письма не сошелся со значением в реквесте');
+    }),config.timeout);
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Valuation :")]/../following-sibling::div')).getText().then(function(text){
 		V.sendclient.Valuation = text;
-	}),config.timeout);
-	SF.sleep(1);
-	VD.IWant(VD.ToEqual,"$"+V.boardNumbers.Valuation, V.sendclient.Valuation , ' Valuation в логах письма не сошелся со значением в реквесте');
+        VD.IWant(VD.ToEqual,"$"+V.boardNumbers.Valuation, V.sendclient.Valuation , ' Valuation в логах письма не сошелся со значением в реквесте');
+    }),config.timeout);
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'переходим в аккаунт,делаем сравнения';
+condition.nowWeDoing = 'переходим в аккаунт,делаем сравнения';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
 	MF.Account_ClickViewRequest();
 	MF.Account_WaitForLoadingAccount();
 
-	condition.nowWeDoing = 'запоминаем цифры с аккаунта,что бы сравнить реквест и аккаунт';
+condition.nowWeDoing = 'запоминаем цифры с аккаунта,что бы сравнить реквест и аккаунт';
 	V.accountNumbers= {};
 	LF.RememberAccountNumbers(V.accountNumbers);
 	VD.IWant (VD.ToEqual, V.boardNumbers.TotalMin, V.accountNumbers.TotalMin, 'не совпала квота изменения на  реквест/аккаунт');
@@ -93,15 +83,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	VD.IWant(VD.ToEqual, V.boardNumbers.AdServices,V.accountNumbers.AdServices,'не совпали сервисы  изменения на реквест/аккаунт');
 	VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize, V.accountNumbers.CrewSize,'не совпал крюсайз  изменения на  реквест/аккаунт');
 	VD.IWant(VD.ToEqual, V.boardNumbers.cbf, V.accountNumbers.cbf,'не совпали кубикфиты  изменения на реквест/аккаунт');
-
 	driver.wait(driver.findElement(By.xpath('//div[@id="valuation-block-account"]/div[6]')).getText().then(function(text){
 		V.accountNumbers.Valuation= text;
-		console.log();
+        VD.IWant(VD.ToEqual, "$ "+V.boardNumbers.Valuation, V.accountNumbers.Valuation ,'не совпала страховка на реквест/аккаунт');
 	}),config.timeout);
-	SF.sleep(1);
-	VD.IWant(VD.ToEqual, "$ "+V.boardNumbers.Valuation, V.accountNumbers.Valuation ,'не совпала страховка на реквест/аккаунт');
-
-
 	MF.Account_ClickFullPacking();
 	JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
 	SF.sleep(3);
@@ -114,18 +99,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_WaitForInventoryCheck();
 	SF.sleep(3);
 
-	condition.nowWeDoing = 'запоминаем новые цифры после изменений на аккаунте';
+condition.nowWeDoing = 'запоминаем новые цифры после изменений на аккаунте';
 	MF.Account_Refresh();
 	V.accountNumbers.New = {};
 	LF.RememberAccountNumbers(V.accountNumbers.New);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'идем на мувборд, что бы сверить цифры.Выбираем кастомный вес, меняем цену на топливо, и реит';
+condition.nowWeDoing = 'идем на мувборд, что бы сверить цифры.Выбираем кастомный вес, меняем цену на топливо, и реит';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
-	MF.WaitVisibleDashboard();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
-	MF.EditRequest_WaitForOpenRequest();
 	V.boardNumbers.New = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers.New);
 	VD.IWant(VD.ToEqual, V.boardNumbers.New.TotalMin, V.accountNumbers.New.TotalMin, 'не совпала квота на аккаунт/мувборд');
@@ -140,10 +123,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	VD.IWant(VD.ToEqual, V.boardNumbers.New.cbf, V.accountNumbers.New.cbf,'не совпали кубикфиты на аккаунт/мувборд');
 	// меняем топливо
 	MF.EditRequest_OpenFuel();
-	SF.click(By.xpath('//input[@ng-change="changeSurcharge(\'request\',\'perc\')"]'));
-	SF.send(By.xpath('//input[@ng-change="changeSurcharge(\'request\',\'perc\')"]'), 222);
-	JS.click('button[ng-click="Apply()"]');
-	MF.WaitWhileBusy();
+	MF.EditRequest_SendFlatSurchargeInFuelWindow(222);
+	MF.EditRequest_ClickApplyInFuelWindow();
 	// меняем рейт
 	LF.EditRequest_EditRateCalculOff(444);
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rateDiscount"]')).getAttribute('value').then(function(text){
@@ -156,18 +137,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_ClickCustomCubFit();
 	MF.EditRequest_SendNumberCustomCubFit(666);
 	MF.EditRequest_OpenRequest();
-	condition.nowWeDoing ='выбираем трак,переводим работу в нот конферм';
+
+condition.nowWeDoing ='выбираем трак,переводим работу в нот конферм';
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-	SF.sleep(2);
-	MF.EditRequest_SetToNotConfirmed();
-	MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
+    MF.EditRequest_SetToNotConfirmed();
 	V.boardNumbers.AfterEdit = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers.AfterEdit);
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем в аккаунт,сверяем цифры, проверяем на наличие,после внесенных изменений появления статуса нот-конферм,' +
+condition.nowWeDoing = 'идем в аккаунт,сверяем цифры, проверяем на наличие,после внесенных изменений появления статуса нот-конферм,' +
 		'+ проверка на конфермейшн пэйдж появление блока оплаты и после возвращения на аккаунт статуса (должен оставаться нот конферм)';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
@@ -184,7 +165,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.AdServices,V.accountNumbersAfterEdit.AdServices,'не совпали адишинал сервисы в реквесте и на аккаунте');
 	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.CrewSize, V.accountNumbersAfterEdit.CrewSize,'не совпал крюсайз в реквесте и на аккаунте');
 	VD.IWant(VD.ToEqual, V.boardNumbers.AfterEdit.cbf, V.accountNumbersAfterEdit.cbf,'не совпали кастомные кубикфиты в реквесте и на аккаунте');
-	MF.WaitWhileBusy();
 	MF.Account_ClickProceedBookYourMove();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-class="{\'disabled\':vm.admin}"]/div/h2[contains(text(),"Deposit: ")]')).getText().then(function (text) {
 		VD.IWant(VD.ToEqual, text, 'Deposit: $150',
@@ -195,31 +175,27 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		VD.IWant(VD.NotToEqual, Status, 'PENDING-INFO');
 	}), config.timeout);
 	MF.Account_ClickPartialPacking();
-	JS.waitForExist('div[class="sa-confirm-button-container"]');
-	SF.click(By.xpath('//div/button[contains(text(),"Yes, I agree")]'));
+	MF.SweetConfirm();
 	SF.waitForVisible(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text(),"Pending-info")]'));
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text(),"Pending-info")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'PENDING-INFO');
 	}), config.timeout);
-	MF.WaitWhileBusy();
 	V.accountNumbers.LastEdit={};
 	LF.RememberAccountNumbers(V.accountNumbers.LastEdit);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'переходим на мувборд, проверяем цифры, проверяем статус пэндинг-инфо';
+condition.nowWeDoing = 'переходим на мувборд, проверяем цифры, проверяем статус пэндинг-инфо';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-	MF.WaitVisibleDashboard();
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.boardNumbers.Id+'")]')).getText().then(function(text){
 		V.PendingDashboard = SF.cleanPrice (text);
 		VD.IWant (VD.ToEqual, V.PendingDashboard, V.boardNumbers.Id, 'реквеста нет в табе пендинг на дашборде')
 	}),config.timeout);
 	MF.Board_OpenRequest(V.boardNumbers.Id);
-	MF.EditRequest_WaitForOpenRequest();
 	V.boardNumbers.LastNumbers={};
 	LF.RememberDigitsRequestBoard(V.boardNumbers.LastNumbers);
 
-	condition.nowWeDoing = 'проверка цифр последних изменений на аккаунте и новых чисел на мув-борде.';
+condition.nowWeDoing = 'проверка цифр последних изменений на аккаунте и новых чисел на мув-борде.';
 	VD.IWant (VD.ToEqual, V.boardNumbers.LastNumbers.TotalMin, V.accountNumbers.LastEdit.TotalMin, 'не совпала квота последние изменения на аккаунте/реквест пэдинг-инфо');
 	VD.IWant (VD.ToEqual, V.boardNumbers.LastNumbers.TotalMax, V.accountNumbers.LastEdit.TotalMax, 'не совпала квота последние изменения на аккаунте/реквест пэдинг-инфо');
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.TravelTime,V.accountNumbers.LastEdit.TravelTime,'не совпал трэвел тайм последние изменения на аккаунте/реквест пэдинг-инфо');
@@ -231,7 +207,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.CrewSize, V.accountNumbers.LastEdit.CrewSize,'не совпал крюсайз последние изменения на аккаунте/реквест пэдинг-инфо');
 	VD.IWant(VD.ToEqual, V.boardNumbers.LastNumbers.cbf, V.accountNumbers.LastEdit.cbf,'не совпали кубикфиты последние изменения на аккаунте/реквест пэдинг-инфо');
 
-	condition.nowWeDoing = 'переводим в статус нот конферм   снова, проверяем оплату кастомным платежом';
+condition.nowWeDoing = 'переводим в статус нот конферм   снова, проверяем оплату кастомным платежом';
 	MF.EditRequest_SetToNotConfirmed();
 	MF.EditRequest_OpenPaymentModalWindow();
 	SF.click(By.xpath('//a[@ng-click="addReservationPayment()"]'));
@@ -246,7 +222,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем на аккаунт проверять статус реквеста и букаемся без оплаты резервейшн прайс';
+condition.nowWeDoing = 'идем на аккаунт проверять статус реквеста и букаемся без оплаты резервейшн прайс';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -255,7 +231,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]//div[contains(text(),"Your move is confirmed and scheduled")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'YOUR MOVE IS CONFIRMED AND SCHEDULED');
 	}), config.timeout);
-
+	SF.sleep(1);
 
 	SF.endOfTest();
 };
