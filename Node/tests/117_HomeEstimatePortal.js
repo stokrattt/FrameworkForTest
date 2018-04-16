@@ -80,10 +80,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	condition.nowWeDoing = 'проверка цифр на портале';
 	JS.scroll('i[ng-hide="isShowHomeEstimate"]');
 	SF.click(By.xpath('//i[@ng-hide="isShowHomeEstimate"]'));
+	SF.click(By.id('home-estimate-duration'));
 	V.DurationPortal={};
 	driver.wait(driver.findElement(By.id('home-estimate-duration')).getAttribute('value').then(function (text) {
 		V.DurationPortal= text;
+		console.log(V.DurationPortal);
 	}), config.timeout);
+	SF.sleep(1);
 	VD.IWant(VD.ToEqual, V.Duration, V.DurationPortal, 'не совпал отрезок времени работы хоум эстимейтора на мувборде/ портале');
 	VD.IWant (VD.ToEqual, V.boardNumbers.TotalMin, V.homeestimateNumbers.TotalMin, 'не совпала минимальная квота на мувборде/ в портале');
 	VD.IWant (VD.ToEqual, V.boardNumbers.TotalMax, V.homeestimateNumbers.TotalMax, 'не совпала максимальная квота на мувборде/ в портале ');
