@@ -1715,7 +1715,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (MovDateFront) {
 			V.request.moveDate = MovDateFront;
 		}), config.timeout);
-		SF.sleep(1);
+		SF.sleep(2);
 		MF.FrontSite_SelectServiceType(6);
 		MF.FrontSiteDown_SendZipCode('02032', '02136');
 		MF.FrontDown_SelectMoveSize(8);

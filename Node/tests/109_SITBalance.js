@@ -47,7 +47,7 @@ condition.nowWeDoing = 'добавляем адишенал, типсы, дел�
     MF.EditRequest_ClickApplyInFuelWindow();
     V.boardNumbersClosingTab1 = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingTab1);
-    MF.EditRequest_SaveChangesClosingTab();
+    // MF.EditRequest_SaveChangesClosingTab();
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'идем заново в реквест сверяем цифры на клоузинге, делаем проплату';
