@@ -84,11 +84,6 @@ condition.nowWeDoing = 'Закриваем роботу заходим в СІТ
     SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     SF.sleep(3);
-    SF.click(By.xpath('//button[@ng-click="UpdateRequestInvoice()"]'));
-    JS.waitForExist('button[ng-click="update(request)"]:visible');
-    SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="update(request)"]'));
-    JS.waitForExist("div.toast-success:visible");
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'Заходим в Jobs in SIT Проверям есть ли ета робота и совпали ли Storage NAme';
