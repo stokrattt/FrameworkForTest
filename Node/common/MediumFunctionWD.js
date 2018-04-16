@@ -1652,6 +1652,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
         SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), zipTo);
     }
+    function EditRequest_ChangeStairsFrom(number) {
+        SF.select(By.xpath('//select[@field="[request.type_from, \'type_from\']"]'), number);
+        WaitWhileBusy();
+    }
+    function EditRequest_ChangeStairsTo(number) {
+        SF.select(By.xpath('//select[@field="[request.type_to, \'type_to\']"]'), number);
+        WaitWhileBusy();
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -2455,6 +2463,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 	    EditRequest_HomeEstimate_SaveChanges:EditRequest_HomeEstimate_SaveChanges,
         EditRequest_SetZipCodeFrom:EditRequest_SetZipCodeFrom,
         EditRequest_SetZipTo:EditRequest_SetZipTo,
+        EditRequest_ChangeStairsFrom:EditRequest_ChangeStairsFrom,
+        EditRequest_ChangeStairsTo:EditRequest_ChangeStairsTo,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

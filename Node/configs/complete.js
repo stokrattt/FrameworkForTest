@@ -61,7 +61,7 @@ module.exports = function(config,V) {
 
         './tests/55_CreateFlagAndCheckOnDashboard.js',
         './tests/58_Discount.js',
-        './tests/59_PayrollAddMiscCustomPayment.js',
+        // './tests/59_PayrollAddMiscCustomPayment.js',
        // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/60_Excludes.js',
 
@@ -84,7 +84,7 @@ module.exports = function(config,V) {
         // './tests/44_CreateForemanAndAssignCheck.js',
         './tests/77_CustomTooltips.js',
         './tests/78_CheckRateAndTrucks.js',
-        './tests/40_PayrollTableCheckSumJobs.js',
+        // './tests/40_PayrollTableCheckSumJobs.js',
         './tests/79_ExtraFeeForAdditionalPickUp.js',
         './tests/81_NewPackingAddCrew.js',
         './tests/82_LDSetPrice.js',

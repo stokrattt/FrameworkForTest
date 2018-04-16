@@ -16,16 +16,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
     LF.addInventoryBoard();
+    LF.addAdditionalInventoryBoard();
     MF.EditRequest_AddPacking ();
     MF.EditRequest_AddAdditionalServicesFullPack ();
     SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
     driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
     SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");
     MF.EditRequest_SetAdressToFrom ();
-    SF.sleep(15);
+    SF.sleep(5);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
-    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+
+condition.nowWeDoing = 'тут меняем этажи и проверяем что время пересчитывается и рейт и крю';
+    MF.EditRequest_ChangeStairsFrom(5);
+    V.boardNumbersChangeStairsFrom = {};
+    LF.RememberDigitsRequestBoard (V.boardNumbersChangeStairsFrom);
+    VD.IWant(VD.NotToEqual, V.boardNumbers.LaborTimeMin, V.boardNumbersChangeStairsFrom.LaborTimeMin, 'не пересчитало LaborTimeMin в реквесте после смены этажей from');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.LaborTimeMax, V.boardNumbersChangeStairsFrom.LaborTimeMax, 'не пересчитало LaborTimeMax в реквесте после смены этажей from');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.CrewSize, V.boardNumbersChangeStairsFrom.CrewSize, 'не пересчитало crew size в реквесте после смены этажей from');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.HourlyRate, V.boardNumbersChangeStairsFrom.HourlyRate, 'не пересчитало Rate в реквесте после смены этажей from');
+    MF.EditRequest_ChangeStairsTo(5);
+    V.boardNumbersChangeStairsTo = {};
+    LF.RememberDigitsRequestBoard (V.boardNumbersChangeStairsTo);
+    VD.IWant(VD.NotToEqual, V.boardNumbers.LaborTimeMin, V.boardNumbersChangeStairsTo.LaborTimeMin, 'не пересчитало LaborTimeMin в реквесте после смены этажей to');
+    VD.IWant(VD.NotToEqual, V.boardNumbers.LaborTimeMax, V.boardNumbersChangeStairsTo.LaborTimeMax, 'не пересчитало LaborTimeMax в реквесте после смены этажей to');
+    JS.step(JSstep.selectTruck((V.boardNumbersChangeStairsTo.LaborTimeMax + V.boardNumbersChangeStairsTo.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
     MF.EditRequest_SaveChanges ();
@@ -38,7 +53,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     MF.Account_ClickViewRequest();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
-    LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
+    LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbersChangeStairsTo);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
 
