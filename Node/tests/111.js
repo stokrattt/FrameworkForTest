@@ -29,9 +29,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_OpenRequest(V.boardNumbers.Id);
 	MF.Account_ClickViewRequest();
 	MF.Account_WaitForLoadingAccount();
-	V.accountNumbers={};
-	LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
-	LF.AccountLocalAddInventory(V.accountNumbers);
+	V.accountNumbersLD={};
+	LF.Validation_Compare_Account_Admin_LongDistance(V.boardNumbers, V.accountNumbersLD);
+	LF.AccountLocalAddInventory(V.accountNumbersLD);
 	MF.Account_WaitForInventoryCheck();
 	MF.Account_ClickDetails();
 	SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 250);
@@ -44,7 +44,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.AccountLocalAddInventory();
 	MF.Account_WaitForLoadingAccount();
 	V.accountNumbers1={};
-	LF.RememberAccountNumbers(V.accountNumbers1);
+	LF.RememberAccountNumbersLD(V.accountNumbers1);
 	LF.LogoutFromAccount();
 
 	condition.nowWeDoing = 'заходи на мувборд под админом' +
@@ -80,7 +80,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = '';
+	condition.nowWeDoing = 'заходим в аккаунт, проверять все числа и адишинал сервисы,которые должны быть.';
 
 
 
