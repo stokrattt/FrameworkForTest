@@ -28,7 +28,7 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
     V.changedateDelivery = (future.toLocaleDateString('en-US', options));
     SF.send(By.xpath('//div[contains(@class, "dateRange delivery")]/input'), V.changedateDelivery);
     SF.click(By.xpath('//div[contains(@class, "ng-pristine")]'));
-    MF.AccountFR_SeelectOptions();
+    LF.AccountFR_SeelectOptions();
 
 condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.AccountFlatRateAddInventory();

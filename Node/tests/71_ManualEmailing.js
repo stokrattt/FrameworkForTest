@@ -20,7 +20,7 @@ condition.nowWeDoing = 'открываем любой реквест и отпр
 
 condition.nowWeDoing = 'открываем тестовую почту и ищем письмо';
 	SF.get('http://mail.ru');
-	MF.MailRu_Login(V.testMail.login, V.testMail.password);
+	LF.MailRu_Login(V.testMail.login, V.testMail.password);
 	MF.MailRu_CheckEmailExistBySubject(V.subject);
 	SF.sleep(3);
 

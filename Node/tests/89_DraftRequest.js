@@ -17,8 +17,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     MF.EditRequest_OpenRequest();
     LF.addInventoryBoard();
     LF.addAdditionalInventoryBoard();
-    MF.EditRequest_AddPacking ();
-    MF.EditRequest_AddAdditionalServicesFullPack ();
+    LF.EditRequest_AddPacking ();
+    LF.EditRequest_AddAdditionalServicesFullPack ();
     SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
     driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
     SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");

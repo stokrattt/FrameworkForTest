@@ -108,7 +108,7 @@ condition.nowWeDoing= 'меняем зип код и опять сверяем �
 
 condition.nowWeDoing= 'меняем details и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_ClickDetails ();
-    MF.AccountFR_SeelectOptions();
+    LF.AccountFR_SeelectOptions();
     MF.Account_WaitForDetailsCheck();
     V.accountNumbersLMChangeMoveSizeChangeZipChangeDetails = {};
     LF.RememberAccountNumbers (V.accountNumbersLMChangeMoveSizeChangeZipChangeDetails);
@@ -161,7 +161,7 @@ condition.nowWeDoing= 'мувинг сторадж ТУ - меняем зип к
 
 condition.nowWeDoing= 'мувинг сторадж ТУ - меняем details и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_ClickDetails ();
-    MF.AccountFR_SeelectOptions();
+    LF.AccountFR_SeelectOptions();
     MF.Account_WaitForDetailsCheck();
     V.accountNumbersMStoChangeMoveSizeChangeZipChangeDetails = {};
     LF.RememberAccountNumbers (V.accountNumbersMStoChangeMoveSizeChangeZipChangeDetails);
@@ -213,7 +213,7 @@ condition.nowWeDoing= 'мувинг сторадж from - меняем зип к
 
 condition.nowWeDoing= 'мувинг сторадж from - меняем details и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_ClickDetails ();
-    MF.AccountFR_SeelectOptions();
+    LF.AccountFR_SeelectOptions();
     MF.Account_WaitForDetailsCheck();
     V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetails = {};
     LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetails);

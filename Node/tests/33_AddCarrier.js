@@ -20,9 +20,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.carrierNew2 = {};
     V.carrierNew3 = {};
     condition.nowWeDoing = 'Создаем карьера';
-    SF.click(By.xpath('//button[@ng-click="addCarrier()"]'));
-    JS.waitForExist('input[ng-model=\\"agentModel.name\\"]');
-    SF.sleep(2);
+    MF.SIT_ClickAddCarrier();
     V.carrierNew.name = SF.randomBukva(6) + '_t';
     V.carrierNew.contactPerson = SF.randomBukva(6) + '_t';
     V.carrierNew.contactPersonPhone = SF.randomCifra(10);
@@ -48,8 +46,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@ng-model="agentModel.web_site"]'), V.carrierNew.webSite);
     SF.send(By.xpath('//input[@ng-model="agentModel.phones[$index]"]'), V.carrierNew.phoneNumber1);
     SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="create(agentModel)"]'));
-    SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));
+    MF.SIT_ClickSaveCarrier();
 
 condition.nowWeDoing = 'Редактируем карьера';
     SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));

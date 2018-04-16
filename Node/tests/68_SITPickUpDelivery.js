@@ -73,17 +73,12 @@ condition.nowWeDoing = 'Закриваем роботу заходим в СІТ
     MF.EditRequest_WaitForOpenRequest();
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     SF.waitForVisible (By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
-    SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
-    MF.WaitWhileBusy();
-    SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
-    SF.click(By.xpath('//option[text()="test"]'));
+    MF.EditRequest_OpenSITmodal();
+    MF.EditRequest_SITmodalSetStorage('test');
     V.SITRooms = 1;
-    SF.clear(By.xpath('//input[@ng-model="sit.rooms"]'));
-    SF.send(By.xpath('//input[@ng-model="sit.rooms"]'), V.SITRooms);
-    SF.clear(By.xpath('//input[@ng-model="moveInDate"]'));
-    SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
-    SF.click(By.xpath('//a[@ng-click="save()"]'));
-    SF.sleep(3);
+    MF.EditRequest_SITmodalSendNumberRooms(V.SITRooms);
+    MF.EditRequest_SITmodalSetMoveDate(V.request);
+    MF.EditRequest_SITmodalClickSave();
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'Заходим в Jobs in SIT Проверям есть ли ета робота и совпали ли Storage NAme';

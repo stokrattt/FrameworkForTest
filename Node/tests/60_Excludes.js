@@ -14,9 +14,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'Создаем локал мув, добавляем пеккинги, аддишинал сервисы, валюейшн, конфермим его';
     LF.CreateLocalMovingFromBoard (V.client);
     MF.EditRequest_SetAdressToFrom ();
-    MF.EditRequest_AddPacking ();
+    LF.EditRequest_AddPacking ();
     MF.EditRequest_SetSizeOfMoveNumber (3);
-    MF.EditRequest_AddValuation ();
+    LF.EditRequest_AddValuation ();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));

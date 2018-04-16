@@ -40,7 +40,7 @@ condition.nowWeDoing = 'первый раз в админке,сверяю то�
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
-    MF.EditRequest_AddPacking();
+    LF.EditRequest_AddPacking();
     SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
     SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
     SF.click(By.xpath('//input[@ng-model="add_extra_charge.quantity"][1]'));

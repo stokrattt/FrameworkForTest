@@ -25,21 +25,18 @@ condition.nowWeDoing = 'Создаем Long Distance работу, добавл�
     MF.EditRequest_SaveChanges();
     V.boardNumbers = {};
     MF.EditRequest_CloseConfirmWork ();
-    SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
-    SF.sleep(1);
-    V.SITRooms = 3;
-    SF.clear(By.xpath('//input[@ng-model="sit.rooms"]'));
-    SF.send(By.xpath('//input[@ng-model="sit.rooms"]'), V.SITRooms);
-    SF.clear(By.xpath('//input[@ng-model="moveInDate"]'));
-    SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
-    SF.click(By.xpath('//a[@ng-click="save()"]'));
-    SF.sleep(1);
+    MF.EditRequest_OpenSITmodal();
+    MF.EditRequest_SITmodalSetStorage('test');
+    V.SITRooms = 1;
+    MF.EditRequest_SITmodalSendNumberRooms(V.SITRooms);
+    MF.EditRequest_SITmodalSetMoveDate(V.request);
+    MF.EditRequest_SITmodalClickSave();
 
 condition.nowWeDoing = 'добавляем адишенал, типсы, делаем проплату в клоузинге';
     SF.click(By.xpath('//input[@ng-model="tips.value"]'));
     SF.send(By.xpath('//input[@ng-model="tips.value"]'),50);
     SF.sleep(3);
-    MF.EditRequest_AddAdditionalServClosingTab();
+    LF.EditRequest_AddAdditionalServClosingTab();
     SF.click(By.xpath('//label[@ng-click="OpenSurchargeInvoiceModal();"]'));
     SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
     SF.clear(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
@@ -177,7 +174,7 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     MF.EditRequest_OpenInventoryTab();
     LF.addInventoryBoard();
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'sales\')"]'));
-    MF.EditRequest_AddPackingAndFullPAcking();
+    LF.EditRequest_AddPackingAndFullPAcking();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork ();
     SF.click(By.xpath('//label[@ng-click="OpenDiscountInvoiceModal();"]'));

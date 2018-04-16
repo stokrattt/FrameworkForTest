@@ -72,7 +72,7 @@ condition.nowWeDoing = 'сравниваем данные калькулятор
     VD.IWant(VD.ToEqual, V.LDAdminCalc.Quote, V.boardNumbers.Quote, 'не совпали Quote калькулятора и борда');
     LF.addInventoryBoard ();
     LF.addAdditionalInventoryBoard();
-    MF.EditRequest_AddPacking ();
+    LF.EditRequest_AddPacking ();
     SF.sleep(2);
 
 condition.nowWeDoing = 'запоминаем данные после добавления всех сервисов ';

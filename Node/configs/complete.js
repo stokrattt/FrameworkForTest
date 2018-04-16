@@ -67,7 +67,7 @@ module.exports = function(config,V) {
 
         './tests/62_MovingCustomBlock.js',
         './tests/63_MovingStorageCustomBlock.js',
-        './tests/64_LoadingHelpCustomBlock.js',
+        // './tests/64_LoadingHelpCustomBlock.js',
         './tests/65_StorageEmailTemplate.js',
         './tests/66_ProfitAndLoss.js',
         './tests/67_EditRequestPayrollAdding.js',
@@ -106,7 +106,7 @@ module.exports = function(config,V) {
         './tests/99_PendingInfoInventoryTotal.js',
         './tests/101_CustomCommMoveWithInventory.js',
         './tests/98_RemindersForOtherPerson.js',
-        './tests/57_UnloadingAllSteps.js',
+        // './tests/57_UnloadingAllSteps.js',
         './tests/100_LeadScoring.js',
         './tests/105_ChangeMinCFAndDriverPayroll.js',
         './tests/109_SITBalance.js',

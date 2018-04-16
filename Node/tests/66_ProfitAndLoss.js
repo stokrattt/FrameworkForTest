@@ -33,11 +33,11 @@ condition.nowWeDoing = 'Заходим в профит и лосс и удаля
     SF.sleep(1);
 
 condition.nowWeDoing = 'теперь добавляем все возможные експенсе, добавляем нотес и проверяем что сумма сверху в итого увеличилась ровно настолько, сколько добавлили';
-    MF.ProfitLoss_AddExpense (500, 'Trucks', 'Notes Trucks');
-    MF.ProfitLoss_AddExpense (500, 'Salary', 'Notes Salary');
-    MF.ProfitLoss_AddExpense (500, 'Office', 'Notes Office');
-    MF.ProfitLoss_AddExpense (500, 'Tolls', 'Notes Tolls');
-    MF.ProfitLoss_AddExpense (500, 'Misc', 'Notes Misc');
+    LF.ProfitLoss_AddExpense (500, 'Trucks', 'Notes Trucks');
+    LF.ProfitLoss_AddExpense (500, 'Salary', 'Notes Salary');
+    LF.ProfitLoss_AddExpense (500, 'Office', 'Notes Office');
+    LF.ProfitLoss_AddExpense (500, 'Tolls', 'Notes Tolls');
+    LF.ProfitLoss_AddExpense (500, 'Misc', 'Notes Misc');
     driver.wait(driver.findElement(By.xpath('//div[@class="panel-body blueBox"]/span[1]')).getText().then(function (text) {
         V.sumExpenseAfterAddExpense = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, V.sumExpenseAfterAddExpense, (V.sumExpenseClean+2500), 'не совпало итого сверху с тем что мы добавили');

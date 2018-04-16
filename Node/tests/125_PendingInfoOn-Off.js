@@ -49,7 +49,7 @@ condition.nowWeDoing = 'выходим с мувборда,заходим под
 		VD.IWant(VD.ToEqual, text, '(Inventory 755 c.f. / 5285 lbs)');
 	}),config.timeout);
 	MF.Account_ClickDetails();
-	MF.AccountFR_SeelectOptions();
+    LF.AccountFR_SeelectOptions();
 	MF.Account_WaitForDetailsCheck();
 	MF.Account_ClickFullPacking();
 	V.accountNumbersNew={};

@@ -14,7 +14,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'создаем лонг дистанс и добавляем кастомный комершиал мувсайз';
     LF.CreateLongDistanceFromBoard (V.client);
     MF.EditRequest_SetSizeOfMoveNumber (11);
-    MF.EditRequest_AddCustomCommersialMove('TrasirCompany', 777);
+    LF.EditRequest_AddCustomCommersialMove('TrasirCompany', 777);
 
 condition.nowWeDoing = 'проверяем что сервис тип стал тоже комершиалом, также проверяем что кубик фит стал тем какой мы ввели, ' +
         'идем в клиента инфо и добавляем company name и проверяем что вверху отобразился он. Также запоминаем все данные';

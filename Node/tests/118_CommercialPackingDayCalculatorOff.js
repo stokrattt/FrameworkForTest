@@ -63,8 +63,8 @@ condition.nowWeDoing = 'идем в админку сверять данные, 
     MF.EditRequest_OpenFuelSurchModal();
     MF.EditRequest_SendFlatSurchargeInFuelWindow(150);
     MF.EditRequest_ClickApplyInFuelWindow();
-    MF.EditRequest_AddPacking();
-    MF.EditRequest_AddAdditionalServicesFullPack ();
+    LF.EditRequest_AddPacking();
+    LF.EditRequest_AddAdditionalServicesFullPack ();
     MF.EditRequest_SetToNotConfirmed ();
     V.boardNumbersAfterCalcOff = {};
     LF.RememberDigitsRequestBoard (V.boardNumbersAfterCalcOff);

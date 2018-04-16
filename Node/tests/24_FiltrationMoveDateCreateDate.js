@@ -132,7 +132,7 @@ condition.nowWeDoing = 'получаем текущую дату';
 
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по create date';
     MF.Board_OpenAllRequest();
-    MF.BoardRequestPage_SetStartEndDate(V.createdate,  V.createdate);
+    LF.BoardRequestPage_SetStartEndDate(V.createdate,  V.createdate);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]')).getText().then(function (id1) {
         VD.IWant (VD.ToEqual, V.Id1, id1, 'не нашел реквест1 по фильтрации create date')
     }),config.timeout);
@@ -146,7 +146,7 @@ condition.nowWeDoing = 'идем на реквест пейдж проверят
 condition.nowWeDoing = 'идем на реквест пейдж проверять фильтрацию по Move date';
     SF.select (By.xpath('//select[@ng-model="dateFields.selected"]'), 2);
     MF.WaitWhileBusy ();
-    MF.BoardRequestPage_SetStartEndDate(V.mdateLong,  V.mdateLong);
+    LF.BoardRequestPage_SetStartEndDate(V.mdateLong,  V.mdateLong);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id4Long + '")]')).getText().then(function (id4Long) {
         VD.IWant (VD.ToEqual, V.Id4Long, id4Long, 'не нашел реквест4 по фильтрации по Move date')
     }),config.timeout);

@@ -114,8 +114,7 @@ condition.nowWeDoing = 'Проверяем есть ли сторадж в ре�
     MF.EditRequest_SaveChanges();
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     SF.sleep(2);
-    SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
-    MF.WaitWhileBusy ();
+    MF.EditRequest_OpenSITmodal();
     SF.waitForVisible (By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//option[text()="'+ V.storage2.name +'"]'));

@@ -18,8 +18,8 @@ condition.nowWeDoing = 'создаем мувинг с борда, отключ�
 	MF.EditRequest_OpenRequest();
 
 condition.nowWeDoing = 'начинаем добавлять пэкинг, адишинал,валюэйшн, инвентарь, дисконт и меняем цену на топливо';
-	MF.EditRequest_AddAdditionalServicesFullPack();
-	MF.EditRequest_AddValuation();
+    LF.EditRequest_AddAdditionalServicesFullPack();
+    LF.EditRequest_AddValuation();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.request_all_data.valuation.valuation_charge"]')).getAttribute('value').then(function(text){
 		V.Valuation= text;
 	}),config.timeout);

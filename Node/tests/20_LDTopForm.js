@@ -112,8 +112,8 @@ condition.nowWeDoing = 'конфермим работу, делаем клози
     SF.click(By.xpath('//input[@ng-model="invoice.closing_weight.value"]'));
     SF.clear(By.xpath('//input[@ng-model="invoice.closing_weight.value"]'));
     SF.send(By.xpath('//input[@ng-model="invoice.closing_weight.value"]'), 1200);
-    MF.EditRequest_AddPackingClosingTab();
-    MF.EditRequest_AddAdditionalServClosingTab();
+    LF.EditRequest_AddPackingClosingTab();
+    LF.EditRequest_AddAdditionalServClosingTab();
     V.boardNumbersClosingTab = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingTab);
     SF.sleep (1);

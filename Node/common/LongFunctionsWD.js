@@ -337,9 +337,20 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
         SF.sleep(2);
-        // MF.Account_ClickSaveInventory();
     }
-
+	function Account_DeleteInventory() {
+        SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+        SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+        SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+        SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+        SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+        SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+        SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+        SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+        SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
+        MF.Account_ClickSaveInventory();
+        SF.sleep(5);
+    }
 
 	function HomeEstimate_CheckStatusinMoveboard() {
 		MF.Board_OpenDashboard();
@@ -2525,6 +2536,182 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep(1.5);
     }
 
+    ///===============================Profit and loss===============================
+
+    function ProfitLoss_AddExpense(suma, categoria, notes) {
+        SF.click(By.xpath('//button[@ng-click="vm.createExpense()"]'));
+        MF.WaitWhileBusy ();
+        SF.click(By.xpath('//input[@ng-model="expense.amount"]'));
+        SF.send(By.xpath('//input[@ng-model="expense.amount"]'), suma);
+        SF.select(By.xpath('//select[@ng-model="expense.category"]'), categoria);
+        SF.send(By.xpath('//textarea[@ng-model="expense.notes"]'), notes);
+        SF.click(By.xpath('//button[@ng-click="saveExpense()"]'));
+        MF.SweetConfirm ();
+        MF.SweetConfirm ();
+        MF.WaitWhileBusy ();
+    }
+
+    ///===============================Profit and loss===============================
+
+    function MailRu_Login(login, password){
+        SF.send(By.xpath('//input[@id="mailbox__login"]'),login);
+        SF.send(By.xpath('//input[@id="mailbox__password"]'),password);
+        SF.click(By.xpath('//input[@id="mailbox__auth__button"]'));
+        SF.waitForVisible(By.xpath('//div[contains(@class,"b-datalist__item")]'));
+        SF.sleep(1);
+    }
+
+
+    function Gmail_Login(login, password) {
+        SF.send(By.xpath('//input[@type="email"]'), login);
+        SF.sleep(2);
+        SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
+        SF.sleep(3);
+        SF.send(By.xpath('//input[@type="password"]'), password);
+        SF.sleep(2);
+        SF.click(By.xpath('//span[@class="RveJvd snByac"]'));
+        SF.sleep(10);
+    }
+    function AccountFR_SeelectOptions() {
+        SF.select (By.xpath('//select[@ng-model="details.current_door"]'), 30);
+        SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
+        SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
+        SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
+        SF.sleep(1);
+        JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
+        SF.sleep(1);
+        MF.WaitWhileBusy ();
+        SF.sleep (2);
+    }
+    function EditRequest_AddPacking() {
+        MF.WaitWhileBusy ();
+        SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
+        SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        MF.WaitWhileBusy ();
+        SF.sleep (3);
+    }
+    function EditRequest_AddPackingAndFullPAcking() {
+        SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
+        SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        MF.WaitWhileBusy ();
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
+        SF.sleep (0.5);
+        JS.click('label[ng-model="packing_service"]:contains("Full Packing"):visible');
+        SF.sleep(0.5);
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        SF.sleep (3);
+        MF.WaitWhileBusy ();
+    }
+    function EditRequest_AddAdditionalServicesFullPack() {
+        SF.sleep(0.5);
+        SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
+        SF.waitForVisible (By.id('extra-service-modal'));
+        SF.sleep(3);
+        SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        MF.WaitWhileBusy ();
+        SF.sleep (2);
+    }
+    function EditRequest_AddValuation() {
+        SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
+        SF.waitForLocated (By.xpath('//button[@ng-click="saveValuation()"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//input[@id="full-protection"]/..'));
+        SF.sleep(2);
+        SF.click(By.xpath('//td[@ng-repeat="(key, value) in amoutValuation"][2]/div'));
+        SF.click (By.xpath('//button[@ng-click="saveValuation()"]'));
+        MF.SweetConfirm ();
+        MF.WaitWhileBusy ();
+    }
+    function EditRequest_AddPackingClosingTab() {
+        SF.click(By.xpath('//label[@ng-click="openAddPackingInvoiceModal();"]'));
+        SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        MF.WaitWhileBusy ();
+        SF.sleep (2);
+    }
+    function EditRequest_AddAdditionalServClosingTab() {
+        SF.click(By.xpath('//label[@ng-click="openAddServicesInvoiceModal();"]'));
+        SF.waitForVisible (By.id('extra-service-modal'));
+        SF.sleep(3);
+        SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        MF.WaitWhileBusy ();
+        SF.sleep (2);
+    }
+    function EditRequest_AddAdditionalServSalesTab() {
+        SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
+        SF.waitForVisible (By.id('extra-service-modal'));
+        SF.sleep(3);
+        SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        MF.WaitWhileBusy ();
+        SF.sleep (2);
+    }
+    function BoardRequestPage_SetStartEndDate(start, end) {
+        SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
+        SF.send (By.xpath('//input[@ng-model="dateFrom"]'), start);
+        SF.clear (By.xpath('//input[@ng-model="dateTo"]'));
+        SF.send (By.xpath('//input[@ng-model="dateTo"]'), end);
+        SF.sleep(2);
+        SF.click (By.xpath('//button[@ng-click="GetMonthStats()"]'));
+        MF.WaitWhileBusy ();
+        SF.sleep(2);
+    }
+    function EditStorage_AddLotNumber() {
+        SF.click(By.xpath('//button[@id="addColor"]'));
+        SF.send(By.xpath('//input[@ng-model="lotNumber.number"]'), 'test');
+        SF.click(By.xpath('//button[@id="colorPick"]'));
+        SF.click(By.xpath('//button[@id="colorPick"]/following-sibling::ul/li[3]'));
+        SF.send(By.xpath('//input[@ng-model="lotNumber.from"]'), 111111);
+        SF.send(By.xpath('//input[@ng-model="lotNumber.to"]'), 222222);
+        MF.EditStorage_UpdateStorage ();
+    }
+    function EditRequest_AddCustomCommersialMove(name, weight) {
+        SF.click(By.xpath('//input[@ng-model="query"]'));
+        SF.send(By.xpath('//input[@ng-model="query"]'), name);
+        driver.actions().sendKeys(Key.ENTER).perform();
+        MF.SweetConfirm();
+        SF.waitForLocated(By.xpath('//button[@ng-click="updateCommercialMoveSizes()"]'));
+        SF.click(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'));
+        SF.clear(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'));
+        SF.send(By.xpath('//input[@ng-model="commercialItem.cubic_feet"]'), weight);
+        SF.click(By.xpath('//button[@ng-click="updateCommercialMoveSizes()"]'));
+        MF.WaitWhileBusy();
+    }
+    function EditRequest_AddPAckingOnClosingTab() {
+        SF.click(By.xpath('//label[@ng-click="openAddPackingInvoiceModal();"]'));
+        SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        MF.WaitWhileToaster();
+    }
+
     return {
 		FullSmallCalcAsLocal: FullSmallCalcAsLocal,
 		FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
@@ -2537,6 +2724,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         AccountLocalAddInventoryWhenCalcOff:AccountLocalAddInventoryWhenCalcOff,
 		AccountLocalAddAdditionalInventory: AccountLocalAddAdditionalInventory,
         AccountLocalAddAdditionalInventoryWhenCalcOff:AccountLocalAddAdditionalInventoryWhenCalcOff,
+        Account_DeleteInventory:Account_DeleteInventory,
 		ContractAdditionalInventoryAdd: ContractAdditionalInventoryAdd,
 		AccountFlatRateAddInventory: AccountFlatRateAddInventory,
 		AddInventory_InHomeEstimate: AddInventory_InHomeEstimate,
@@ -2667,6 +2855,26 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         LongDistanceSettings_AddLDStatusFlag:LongDistanceSettings_AddLDStatusFlag,
         payRentalInventoryCash:payRentalInventoryCash,
         PayCheck:PayCheck,
-        SendClientInfoForDraftRequest:SendClientInfoForDraftRequest
-	};
+        SendClientInfoForDraftRequest:SendClientInfoForDraftRequest,
+
+
+        ProfitLoss_AddExpense: ProfitLoss_AddExpense,
+
+        MailRu_Login:MailRu_Login,
+        Gmail_Login:Gmail_Login,
+        AccountFR_SeelectOptions:AccountFR_SeelectOptions,
+        EditRequest_AddPacking: EditRequest_AddPacking,
+        EditRequest_AddPackingAndFullPAcking:EditRequest_AddPackingAndFullPAcking,
+        EditRequest_AddAdditionalServicesFullPack: EditRequest_AddAdditionalServicesFullPack,
+        EditRequest_AddValuation: EditRequest_AddValuation,
+        EditRequest_AddPackingClosingTab:EditRequest_AddPackingClosingTab,
+        EditRequest_AddAdditionalServClosingTab:EditRequest_AddAdditionalServClosingTab,
+        EditRequest_AddAdditionalServSalesTab:EditRequest_AddAdditionalServSalesTab,
+        BoardRequestPage_SetStartEndDate:BoardRequestPage_SetStartEndDate,
+        EditStorage_AddLotNumber: EditStorage_AddLotNumber,
+        EditRequest_AddCustomCommersialMove:EditRequest_AddCustomCommersialMove,
+        EditRequest_AddPAckingOnClosingTab:EditRequest_AddPAckingOnClosingTab,
+
+
+    };
 };

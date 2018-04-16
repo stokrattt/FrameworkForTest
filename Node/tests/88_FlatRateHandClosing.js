@@ -55,7 +55,7 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "dateRange delivery")]/input')).getAttribute("value").then(function(text){
        V.deliveryDates = text;
     }),config.timeout);
-    MF.AccountFR_SeelectOptions();
+    LF.AccountFR_SeelectOptions();
 
 condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.AccountFlatRateAddInventory();

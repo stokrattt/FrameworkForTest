@@ -82,7 +82,7 @@ condition.nowWeDoing = 'добавляем инвенторий и опять п
     VD.IWant(VD.ToEqual,V.boardNumbersAddInventory.Total, V.totalAddInventory, 'total не правильно посчитался после добавления инвентория');
 
 condition.nowWeDoing = 'добавляем пакинг и сервисы и проверяем что гранд тотал верный';
-    MF.EditRequest_AddPacking ();
+    LF.EditRequest_AddPacking ();
     SF.sleep(3);
     V.boardNumbersAddServices = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddServices);

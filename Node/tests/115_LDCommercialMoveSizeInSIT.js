@@ -18,13 +18,9 @@ condition.nowWeDoing = 'В дашборде (через Create Request) созд
         V.request.moveDate = calDate;
     }),config.timeout);
     SF.sleep(0.5);
-    SF.click(By.xpath('//select[@ng-model="editrequest.data.field_size_of_move"]/option[@value="number:11"]'));
-    SF.click(By.xpath('//oi-select[@ng-model="commercialSize"]'));
-    SF.click(By.xpath('//oi-select[@ng-model="commercialSize"]/div[2]//li[1]'));
-    SF.click(By.xpath('//select[@id="edit-type-from"]/option[@value="string:2"]'));
-    SF.click(By.xpath('//select[@id="edit-type-to"]/option[@value="string:2"]'));
+    MF.CreateRequest_SelectCommercialMove();
+    MF.CreateRequest_SelectStairsToFrom();
     MF.CreateRequest_SendZipToZipFrom ('02032', '90001');
-    SF.sleep(2);
     MF.CreateRequest_ClickCalculate();
     MF.CreateRequest_ClickContinue();
     MF.CreateRequest_SendClientInfo(V.client);
@@ -33,7 +29,6 @@ condition.nowWeDoing = 'В дашборде (через Create Request) созд
 condition.nowWeDoing = 'Добавляем инвентарь, меняем Fuel и этажи, ставим статус Confirmed. Запоминаем данные (Total, Fuel, AdServices), сохраянем изменения и закрываем реквест';
     V.requestNumber={};
     MF.EditRequest_RememberId(V.requestNumber);
-    SF.sleep(0.5);
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         V.defaultcbf = SF.cleanPrice(text.substring(text.indexOf('$')));
     }),config.timeout);
@@ -42,14 +37,11 @@ condition.nowWeDoing = 'Добавляем инвентарь, меняем Fuel
     LF.SetClientPasswd(V.client.passwd);
     LF.addInventoryBoard();
     MF.EditRequest_OpenRequest();
-    SF.waitForVisible(By.xpath('//label[@ng-click="OpenSurchargeModal();"]'));
     MF.EditRequest_OpenFuelSurchModal();
-    SF.click(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'));
-    SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'),213);
+    MF.EditRequest_SendFlatSurchargeInFuelWindow(213);
     MF.EditRequest_ClickApplyInFuelWindow();
-    SF.click(By.xpath('//select[@oldvalue="request.type_from.raw"]/option[@value="3"]'));//меняем этаж
+    MF.EditRequest_ChangeStairsFrom(3);
     MF.EditRequest_SetAdressToFrom ();
-    SF.sleep(1);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
@@ -100,19 +92,7 @@ condition.nowWeDoing = 'Выходим с дашборда, логинимся �
 
 condition.nowWeDoing = 'В аккаунте удаляем весь инвентарь, проверяем что cubic feet стал дефолтным.';
     MF.Account_ClickInventoryOpenTab();
-    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
-    SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
-    MF.Account_ClickSaveInventory();
-    MF.Account_WaitForLoadingAccount();
-    SF.sleep(5);
-    SF.waitForLocated (By.xpath('//div[contains(text(),"Move Size")]'));
+    MF.Account_DeleteInventory();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
         V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('100 Offices and 1000 employees ')+17, text.indexOf('c.f.')));
         console.log(V.accountcbf);
@@ -135,13 +115,11 @@ condition.nowWeDoing = 'Возвращаемся на дашборд. Сверя
         VD.IWant(VD.ToEqual, text, '1500', 'Cubic feet на дашборде не вернулся к дефолтному значению в 1500 после удаления инвентаря на аккаунте')
     }),config.timeout);
     MF.EditRequest_OpenFuelSurchModal();
-    SF.click(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'));
-    SF.send(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel_perc"]'),222);
+    MF.EditRequest_SendFlatSurchargeInFuelWindow(222);
     MF.EditRequest_ClickApplyInFuelWindow();
-    SF.sleep(3);
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
-    MF.EditRequest_AddPacking();
+    LF.EditRequest_AddPacking();
     V.boardNumbersBeforeSITSales = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersBeforeSITSales);
 
@@ -153,16 +131,12 @@ condition.nowWeDoing = 'Переводим работу в Closing, провер
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Fuel, V.boardNumbersBeforeSITClosing.Fuel, 'не совпал Fuel  после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Packing, V.boardNumbersBeforeSITClosing.Packing, 'не совпал Packing  после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.AdServices, V.boardNumbersBeforeSITClosing.AdServices, 'не совпал AdServices после перевода реквеста с Sales в Closing');
-    SF.click(By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
-    MF.WaitWhileBusy();
-    SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
-    SF.click(By.xpath('//option[text()="test"]'));
+    MF.EditRequest_OpenSITmodal();
+    MF.EditRequest_SITmodalSetStorage('test');
     V.SITRooms = 1;
-    SF.clear(By.xpath('//input[@ng-model="sit.rooms"]'));
-    SF.send(By.xpath('//input[@ng-model="sit.rooms"]'), V.SITRooms);
-    SF.clear(By.xpath('//input[@ng-model="moveInDate"]'));
-    SF.send(By.xpath('//input[@ng-model="moveInDate"]'),SF.dateToStringMMMDDYYYY(V.request.moveDate));
-    SF.click(By.xpath('//a[@ng-click="save()"]'));
+    MF.EditRequest_SITmodalSendNumberRooms(V.SITRooms);
+    MF.EditRequest_SITmodalSetMoveDate(V.request);
+    MF.EditRequest_SITmodalClickSave();
     LF.closeEditRequest();
     MF.Board_OpenSideBar();
     MF.Board_OpenJobsInSIT();
@@ -176,9 +150,7 @@ condition.nowWeDoing = 'Создаём Carrier, заходим в Trip-Planner, 
     V.carrierNew = {};
     V.carrierNew2 = {};
     V.carrierNew3 = {};
-    SF.click(By.xpath('//button[@ng-click="addCarrier()"]'));
-    JS.waitForExist('input[ng-model=\\"agentModel.name\\"]');
-    SF.sleep(2);
+    MF.SIT_ClickAddCarrier();
     V.carrierNew.name = SF.randomBukva(6) + '_t';
     V.carrierNew.contactPerson = SF.randomBukva(6) + '_t';
     V.carrierNew.contactPersonPhone = SF.randomCifra(10);
@@ -204,13 +176,11 @@ condition.nowWeDoing = 'Создаём Carrier, заходим в Trip-Planner, 
     SF.send(By.xpath('//input[@ng-model="agentModel.web_site"]'), V.carrierNew.webSite);
     SF.send(By.xpath('//input[@ng-model="agentModel.phones[$index]"]'), V.carrierNew.phoneNumber1);
     SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="create(agentModel)"]'));
-    SF.waitForVisible(By.xpath('//input[@ng-model="searchTerm"]'));
+    MF.SIT_ClickSaveCarrier();
     MF.Board_OpenSideBar ();
     MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenTripPlanner();
     MF.SIT_ClickAddTrip();
-    SF.waitForVisible(By.xpath('//div[@class="trip-create-modal-form__form"]'));
     MF.SIT_ChangeStatusTrip('Pending');
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
@@ -227,32 +197,15 @@ condition.nowWeDoing = 'Создаём Carrier, заходим в Trip-Planner, 
     MF.WaitWhileToaster();
 
 condition.nowWeDoing = 'Открываем реквест в Trip-Planner. Меняем Additional Services, Fuel, Packing. Запоминаем эти изменения.';
-    JS.click('span:contains(\\"Add Pickup/Delivery\\")');
-    MF.WaitWhileBusy();
+    MF.SIT_ClickAddPickupDelivery();
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
-    SF.click(By.xpath('//label[@ng-click="OpenSurchargeInvoiceModal();"]'));
-    SF.waitForVisible(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
-    SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
-    SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'),300);
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    SF.waitForVisible(By.xpath('//div[@class="toast toast-success"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//label[@ng-click="openAddPackingInvoiceModal();"]'));
-    SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
-    SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
-    SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][2]'));
-    SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
-    SF.click(By.xpath('//button[@ng-click="save()"]'));
-    MF.WaitWhileToaster();
-    SF.click(By.xpath('//label[@ng-click="OpenDiscountInvoiceModal();"]'));
-    SF.waitForLocated (By.xpath('//button[@ng-click="openCouponModal()"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'));
-    SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'), 180);
-    SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.add_percent_discount"]'));
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    MF.SweetConfirm ();
-    SF.waitForVisible(By.xpath('//div[@class="toast-message"]'));
+    MF.EditRequest_OpenFuelModalClosingTab();
+    MF.EditRequest_SendSumFuelModalClocingTab(300);
+    MF.EditRequest_ClickSaveFuelModalClosingTab();
+    LF.EditRequest_AddPAckingOnClosingTab();
+    MF.EditRequest_ClosingTabOpenDiscountModal();
+    MF.EditRequest_ClosingTabDiscountModalSendMoney(180);
+    MF.EditRequest_ClosingTabDiscountModalClickSave();
     V.boardNumbersBeforeAddToTrip = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersBeforeAddToTrip);
     LF.closeEditRequest ();

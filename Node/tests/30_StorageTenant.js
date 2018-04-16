@@ -179,7 +179,7 @@ condition.nowWeDoing = 'идем в леджер и создаем про рей
 
 condition.nowWeDoing = 'добавляем лот намберс';
     MF.EditStorage_OpenLotNumbers();
-    MF.EditStorage_AddLotNumber ();
+    LF.EditStorage_AddLotNumber ();
     MF.EditStorage_SelectMoveIn ();
 
 condition.nowWeDoing = 'старт рекуринг';

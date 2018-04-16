@@ -123,7 +123,7 @@ condition.nowWeDoing = 'конфермим, переводим в клоузин
     MF.EditRequest_ChangeStatusRequest (3);
     MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges();
-    MF.EditRequest_AddPacking();
+    LF.EditRequest_AddPacking();
     V.boardNumbersSales = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersSales);
     MF.EditRequest_CloseConfirmWork ();

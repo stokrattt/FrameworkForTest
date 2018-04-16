@@ -102,8 +102,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 	condition.nowWeDoing = 'добавляем пэкинг и адишенал сервисы';
 	JS.scroll('label[ng-click="openAddPackingModal();"]');
-	MF.EditRequest_AddPackingAndFullPAcking();
-	MF.EditRequest_AddAdditionalServSalesTab();
+    LF.EditRequest_AddPackingAndFullPAcking();
+	LF.EditRequest_AddAdditionalServSalesTab();
 
 	condition.nowWeDoing = 'запоминаем исходное значение c/f';
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
