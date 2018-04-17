@@ -30,7 +30,8 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
     V.carrierNew = {};
     V.carrierNew2 = {};
     V.carrierNew3 = {};
-    condition.nowWeDoing = 'Создаем карьера';
+
+condition.nowWeDoing = 'Создаем карьера';
     MF.SIT_ClickAddCarrier();
     V.carrierNew.name = SF.randomBukva(6) + '_t';
     V.carrierNew.contactPerson = SF.randomBukva(6) + '_t';

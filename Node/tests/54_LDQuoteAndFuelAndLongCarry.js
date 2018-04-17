@@ -88,7 +88,43 @@ condition.nowWeDoing = 'добавляем пакинг и сервисы и п�
     LF.RememberDigitsRequestBoard(V.boardNumbersAddServices);
     V.totalAllServices = V.boardNumbersAddInventory.Quote + V.boardNumbersAddInventory.Fuel + V.boardNumbersAddServices.Packing + V.boardNumbersAddServices.AdServices;
     VD.IWant(VD.ToEqual,V.boardNumbersAddServices.Total, V.totalAllServices, 'total не правильно посчитался после добавления всех сервисов и инвентория');
+
+condition.nowWeDoing = 'тут будем проверять long carry идем в детаилс и добавим шагов больше 70 на  фром и на ту';
+    MF.EditRequest_OpenDetails();
+    MF.EditRequest_SelectDistanceFromCurentDoor(140);
+    MF.EditRequest_SaveDetails();
+    driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
+        V.AdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.AdServices, 100, 'после добавления в деталях шагов для лонг кари фи в реквесте не добавился екстра сервис лонг кари фи, должен был добавится по формуле 70 шагов это 10 дол за каждые 100 кубик фит');
+    }), config.timeout);
+    MF.EditRequest_OpenDetails();
+    MF.EditRequest_SelectDistanceFromNewDoor(140);
+    MF.EditRequest_SaveDetails();
+    driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
+        V.AdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.AdServices, 200, 'после второго добавления в деталях шагов для лонг кари фи в реквесте не добавился екстра сервис лонг кари фи, должен был добавится по формуле 70 шагов это 10 дол за каждые 100 кубик фит');
+    }), config.timeout);
+
+condition.nowWeDoing = 'тут проверим Charge for stairs, пойдем в детаилс и будем добавлять и проверять что они есть в екстра сервисах';
+    MF.EditRequest_OpenDetails();
+    MF.EditRequest_SetStepsOnStairsOrigin(100);
+    MF.EditRequest_SaveDetails();
+    driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
+        V.AdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.AdServices, 207, 'после добавления в деталях шагов для stairs в реквесте не добавился екстра сервис charge stairs, должен был добавится по формуле 7 дол за каждые 50 шагов (первые 50 бесплатно)');
+    }), config.timeout);
+    MF.EditRequest_OpenDetails();
+    MF.EditRequest_SetStepsOnStairsDestination(100);
+    MF.EditRequest_SaveDetails();
+    driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
+        V.AdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.AdServices, 214, 'после второго добавления в деталях шагов для stairs в реквесте не добавился екстра сервис charge stairs, должен был добавится по формуле 7 дол за каждые 50 шагов (первые 50 бесплатно)');
+    }), config.timeout);
     MF.EditRequest_SaveChanges ();
+    V.boardNumbersAddServices = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersAddServices);
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd(V.client.passwd);
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'сохранили и закрыли ревест. Идем на дашборд, открываем и сравниваем, проверяем что все осталось на своих местах(последние изменения)';
@@ -99,6 +135,69 @@ condition.nowWeDoing = 'сохранили и закрыли ревест. Ид�
     LF.RememberDigitsRequestBoard(V.boardNumbersLast);
     LF.Validation_Compare_Account_Admin (V.boardNumbersAddServices, V.boardNumbersLast);
     SF.sleep(1);
+    LF.closeEditRequest ();
+    MF.Board_LogoutAdmin();
+
+condition.nowWeDoing = 'идем в аккаунт проверять и там поменяем детаилс и посмотрим что екстра сервисы пересчитываются';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient (V.client, V.client.passwd);
+    MF.Account_OpenRequest(V.boardNumbers.Id);
+    MF.Account_ClickViewRequest();
+    V.accountNumbers = {};
+    LF.RememberAccountNumbersLD(V.accountNumbers);
+    LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbers, V.boardNumbersAddServices);
+    MF.Account_ClickDetails();
+    MF.EditRequest_SelectDistanceFromCurentDoor(200);
+    MF.Account_SelectParking();
+    SF.click(By.xpath('//div[@ng-model="html"]'));
+    MF.Account_ClickSaveDetails();
+    SF.sleep(3);
+    driver.wait(driver.executeScript(JSstep.getServicesCostAccount), config.timeout).then(function (ServicesText) {
+        V.accountAdServices = SF.cleanPrice(ServicesText);
+        VD.IWant(VD.ToEqual, V.accountAdServices, 264, 'после смены в деталях аккаунта шагов для лонг кари фи в реквесте аккаунта не пересчитался екстра сервис лонг кари фи')
+    });
+
+    MF.Account_ClickDetails();
+    MF.EditRequest_SelectDistanceFromNewDoor(35);
+    SF.click(By.xpath('//div[@ng-model="html"]'));
+    MF.Account_ClickSaveDetails();
+    SF.sleep(3);
+    driver.wait(driver.executeScript(JSstep.getServicesCostAccount), config.timeout).then(function (ServicesText) {
+        V.accountAdServices = SF.cleanPrice(ServicesText);
+        VD.IWant(VD.ToEqual, V.accountAdServices, 164, 'после второй смены в деталях аккаунта шагов для лонг кари фи в реквесте аккаунта не пересчитался екстра сервис лонг кари фи')
+    });
+
+condition.nowWeDoing = 'тут проверим Charge for stairs для аккаунта, пойдем в детаилс и будем добавлять и проверять что они есть в екстра сервисах';
+    MF.Account_ClickDetails();
+    MF.EditRequest_SetStepsOnStairsOrigin(50);
+    SF.click(By.xpath('//div[@ng-model="html"]'));
+    MF.Account_ClickSaveDetails();
+    SF.sleep(3);
+    driver.wait(driver.executeScript(JSstep.getServicesCostAccount), config.timeout).then(function (ServicesText) {
+        V.accountAdServices = SF.cleanPrice(ServicesText);
+        VD.IWant(VD.ToEqual, V.accountAdServices, 157, 'после добавления в деталях аккаунта шагов, для stairs в реквесте аккаунта не пересчитался екстра сервис charge stairs')
+    });
+    MF.Account_ClickDetails();
+    MF.EditRequest_SetStepsOnStairsDestination(70);
+    SF.click(By.xpath('//div[@ng-model="html"]'));
+    MF.Account_ClickSaveDetails();
+    SF.sleep(3);
+    driver.wait(driver.executeScript(JSstep.getServicesCostAccount), config.timeout).then(function (ServicesText) {
+        V.accountAdServices = SF.cleanPrice(ServicesText);
+        VD.IWant(VD.ToEqual, V.accountAdServices, 157, 'после второго добавления в деталях аккаунта, шагов для stairs в реквесте аккаунта не пересчитался екстра сервис charge stairs')
+    });
+    V.accountNumbersChangeDetails = {};
+    LF.RememberAccountNumbersLD(V.accountNumbersChangeDetails);
+    LF.LogoutFromAccount();
+
+condition.nowWeDoing = 'второй раз в админке, вторая проверка, что после смены на акке, в админке тоже все пересчитало';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenRequest(V.boardNumbers.Id);
+    V.boardNumbersLastCheck = {};
+    LF.RememberDigitsRequestBoard (V.boardNumbersLastCheck);
+    LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersChangeDetails, V.boardNumbersLastCheck);
+
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

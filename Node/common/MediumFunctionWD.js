@@ -723,7 +723,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_ClickDetails() {
         WaitWhileBusy();
-        SF.sleep(2);
         SF.click(By.xpath('//li[@id="tab_Details"]'));
         WaitWhileBusy();
     }
@@ -732,6 +731,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
         driver.executeScript("$('body').scrollTop(0);");
         SF.sleep(2);
+    }
+    function Account_SelectParking() {
+        SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
+        SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
+        SF.sleep(1);
     }
 
     //===================================CONTRACT===================================
@@ -1355,6 +1359,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_SaveDetails() {
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
+        WaitWhileBusy();
     }
     function EditRequest_ClickDefaultCubFit() {
         SF.click (By.xpath('//div[@ng-click="selectList(1)"]'));
@@ -1563,6 +1568,19 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SweetConfirm ();
         SF.waitForVisible(By.xpath('//div[@class="toast-message"]'));
     }
+    function EditRequest_SelectDistanceFromCurentDoor(feet) {
+        SF.select(By.xpath('//select[@ng-model="details.current_door"]'), feet);
+    }
+    function EditRequest_SelectDistanceFromNewDoor(feet) {
+        SF.select(By.xpath('//select[@ng-model="details.new_door"]'), feet);
+    }
+    function EditRequest_SetStepsOnStairsOrigin(steps) {
+        SF.select(By.xpath('//select[@ng-model="details.steps_origin"]'), steps);
+    }
+    function EditRequest_SetStepsOnStairsDestination(steps) {
+        SF.select(By.xpath('//select[@ng-model="details.steps_destination"]'), steps);
+    }
+    
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
@@ -2209,6 +2227,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ClickDetails:Account_ClickDetails,
         Account_ClickSaveDetails:Account_ClickSaveDetails,
         Account_SendAdressToModalWindow:Account_SendAdressToModalWindow,
+        Account_SelectParking:Account_SelectParking,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -2372,6 +2391,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ClosingTabOpenDiscountModal:EditRequest_ClosingTabOpenDiscountModal,
         EditRequest_ClosingTabDiscountModalSendMoney:EditRequest_ClosingTabDiscountModalSendMoney,
         EditRequest_ClosingTabDiscountModalClickSave:EditRequest_ClosingTabDiscountModalClickSave,
+        EditRequest_SelectDistanceFromCurentDoor:EditRequest_SelectDistanceFromCurentDoor,
+        EditRequest_SelectDistanceFromNewDoor:EditRequest_SelectDistanceFromNewDoor,
+        EditRequest_SetStepsOnStairsOrigin:EditRequest_SetStepsOnStairsOrigin,
+        EditRequest_SetStepsOnStairsDestination:EditRequest_SetStepsOnStairsDestination,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

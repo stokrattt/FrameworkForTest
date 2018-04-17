@@ -57,7 +57,7 @@ module.exports = function(config,V) {
         './tests/46_FuelByMileage.js',
         './tests/50_AddJobToTrip.js',
         './tests/53_ManualClosingWork.js',
-        './tests/54_LDQuoteAndFuel.js',
+        './tests/54_LDQuoteAndFuelAndLongCarry.js',
 
         './tests/55_CreateFlagAndCheckOnDashboard.js',
         './tests/58_Discount.js',
