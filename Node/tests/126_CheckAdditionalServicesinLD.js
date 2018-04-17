@@ -53,13 +53,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_ClickSaveInventory();
 	MF.Account_WaitForInventoryCheck();
 	MF.Account_WaitForLoadingAccount();
-	V.AdditionalServices={};
-	driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="service in vm.extraServices"]/div[contains(text(),"$880.00")]')).getText().then(function (text) {
-		V.AdditionalServices=text;
-		console.log(V.AdditionalServices);
-	}), config.timeout);
-	V.accountNumbers1={};
-	LF.RememberAccountNumbersLD(V.accountNumbers1);
+	V.accountNumbersLD1={};
+	LF.RememberAccountNumbersLD(V.accountNumbersLD1);
 	LF.LogoutFromAccount();
 
 	condition.nowWeDoing = 'заходи на мувборд под админом' +
@@ -72,37 +67,45 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_WaitForOpenRequest();
 	V.boardNumbers2 = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers2);
-	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbers1,V.boardNumbers2);
-	SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
-	SF.waitForVisible(By.xpath('//li[@ng-repeat="extra_charge in extra_charges"][10]'))
-	V.AdditionalServicesBoard={};
-	driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="add_extra_charge in add_extra_charges track by $index"]//tbody//tr//td[5]')).getText().then(function (text) {
-		V.AdditionalServicesBoard=text;
-		console.log(V.AdditionalServicesBoard);
-	}), config.timeout);
-	SF.sleep(1);
-	VD.IWant(VD.ToEqual, V.AdditionalServices, V.AdditionalServicesBoard, 'не cовпали адишинал сервисы на аккаунте и мувборде');
-	SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Cancel")]'));
+	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD1,V.boardNumbers2);
 	MF.EditRequest_OpenDiscountModal();
 	MF.EditRequest_SendMoneyDiscount(555);
-	MF.WaitWhileToaster();
+	SF.waitForVisible(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]'));
 	MF.EditRequest_SendRateForLD(5);
 	SF.click(By.xpath('//button[@tabindex="1"]'));
 	MF.EditRequest_ChangeCrew(3);
-	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-	SF.sleep(2);
+	MF.WaitWhileBusy();
 	MF.EditRequest_OpenDiscountModal();
 	MF.EditRequest_SendMoneyDiscount(333);
+	MF.EditRequest_WaitForOpenRequest();
 	MF.EditRequest_SetToNotConfirmed();
-	MF.WaitWhileBusy();
 	V.boardNumbers.AfterEdit = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers.AfterEdit);
+	JS.step(JSstep.selectTruck((V.boardNumbers.AfterEdit.LaborTimeMax + V.boardNumbers.AfterEdit.TravelTime)/60));
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
 	condition.nowWeDoing = 'заходим в аккаунт, проверять все числа и адишинал сервисы,которые должны быть.';
+	SF.get(V.accountURL);
+	LF.LoginToAccountAsClient(V.client);
+	MF.Account_OpenRequest(V.boardNumbers.Id);
+	MF.Account_WaitForLoadingAccount();
+	V.accountNumbersLD2={};
+	LF.RememberAccountNumbersLD(V.accountNumbersLD2);
+	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD2, V.boardNumbers.AfterEdit);
+	LF.LogoutFromAccount();
 
+	condition.nowWeDoing = 'идем на мувборд, для проверки всего. что бы не потерялось';
+	SF.get(V.adminURL);
+	LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
+	MF.WaitVisibleDashboard();
+	MF.Board_OpenNotConfirmed();
+	MF.Board_OpenRequest(V.boardNumbers.Id);
+	MF.EditRequest_WaitForOpenRequest();
+	V.boardNumbers2 = {};
+	LF.RememberDigitsRequestBoard(V.boardNumbers2);
+	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD2,V.boardNumbers2);
 
-
+	SF.endOfTest();
 };
