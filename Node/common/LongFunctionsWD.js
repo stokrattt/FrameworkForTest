@@ -2613,6 +2613,16 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep (3);
         MF.WaitWhileBusy ();
     }
+    function EditRequest_AddPartialPacking() {
+        SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
+        SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        MF.WaitWhileBusy ();
+        JS.click('label[ng-model="packing_service"]:contains("Partial Packing"):visible');
+        SF.sleep(0.5);
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        SF.sleep (3);
+        MF.WaitWhileBusy ();
+    }
     function EditRequest_AddAdditionalServicesFullPack() {
         SF.sleep(0.5);
         SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
@@ -2865,6 +2875,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         AccountFR_SeelectOptions:AccountFR_SeelectOptions,
         EditRequest_AddPacking: EditRequest_AddPacking,
         EditRequest_AddPackingAndFullPAcking:EditRequest_AddPackingAndFullPAcking,
+        EditRequest_AddPartialPacking: EditRequest_AddPartialPacking,
         EditRequest_AddAdditionalServicesFullPack: EditRequest_AddAdditionalServicesFullPack,
         EditRequest_AddValuation: EditRequest_AddValuation,
         EditRequest_AddPackingClosingTab:EditRequest_AddPackingClosingTab,
