@@ -55,7 +55,7 @@ condition.nowWeDoing = 'идем в аккаунт, и на конфирмеиш
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickViewRequest();
     SF.openTab(1);
-    SF.sleep(10);
+    MF.Account_WaitForLoadingAccount();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Extra Drop-off")]')).getText().then(function(text){
         V.extraDropOffAcc = text;
         VD.IWant(VD.ToEqual, V.extraDropOffAcc , V.extraDropOffAcc, 'нет ектра дроп офф на аккаунте');

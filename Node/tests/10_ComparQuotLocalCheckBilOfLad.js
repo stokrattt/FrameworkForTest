@@ -38,7 +38,7 @@ condition.nowWeDoing = 'тут выключаем кальк и меняем к�
         }
     }),config.timeout);
     SF.sleep(1);
-    V.QuoteCalcOff = V.boardNumbers.HourlyRateCalcOff *5.25;
+    V.QuoteCalcOff = V.boardNumbers.HourlyRateCalcOff *5;
     driver.wait(driver.executeScript('return $(\'div.quote-cost:visible\').text()').then(function (text) {
         if (text.indexOf('$', text.indexOf('$') + 3) !== -1) {
             V.boardNumbers.QuoteMinCalcOff = SF.cleanPrice(text.substring(text.indexOf('$'), text.indexOf('-')));
