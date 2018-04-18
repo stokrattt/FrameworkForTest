@@ -314,7 +314,7 @@ condition.nowWeDoing = 'выбираем цифры helper delivery';
     MF.WaitWhileBusy ();
     LF.findHelperInPayroll('Test Helper1');
     MF.Payroll_getTotalById(V.FRId, V.payrollNumbersDelivery.Helper);
-    VD.IWant(VD.ToEqual, V.payrollNumbersDelivery.Helper.Total, (V.boardNumbersDelivery.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper\n' +
+    VD.IWant(VD.ToEqual, V.payrollNumbersDelivery.Helper.Total, (V.boardNumbersDelivery.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper delivery\n' +
         'id=' + V.FRId);
     SF.sleep(1);
 
