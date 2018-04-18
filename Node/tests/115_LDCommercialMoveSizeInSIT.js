@@ -92,7 +92,7 @@ condition.nowWeDoing = 'Выходим с дашборда, логинимся �
 
 condition.nowWeDoing = 'В аккаунте удаляем весь инвентарь, проверяем что cubic feet стал дефолтным.';
     MF.Account_ClickInventoryOpenTab();
-    MF.Account_DeleteInventory();
+    LF.Account_DeleteInventory();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
         V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('100 Offices and 1000 employees ')+17, text.indexOf('c.f.')));
         console.log(V.accountcbf);

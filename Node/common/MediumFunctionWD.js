@@ -177,7 +177,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Board_LogoutAdmin() {
         JS.waitForNotExist('div.toast-success');
         JS.waitForNotExist('div.toast-message');
-		WaitWhileBusy ();
 		JS.scroll('a[ng-click=\"vm.Logout()\"]');
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
         SF.sleep(1);

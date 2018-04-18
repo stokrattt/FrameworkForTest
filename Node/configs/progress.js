@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/54_LDQuoteAndFuelAndLongCarry.js'];
+    config.suite = ['./tests/49_FlatRateLocalMoveCheckSchedule.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;

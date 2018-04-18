@@ -153,15 +153,16 @@ condition.nowWeDoing = 'добавляем дисконт';
     SF.sleep(1);
     SF.click(By.xpath('//div[contains(@class, "dateRange")]/input'));
     MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
-    SF.sleep (1);
+    SF.sleep (2);
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
+    Debug.pause();
     VD.IWant (VD.ToEqual, 4500, V.boardNumbers.Total, 'тотал не совпал с выбранной суммой');
     MF.EditRequest_SetToNotConfirmed ();
     SF.click (By.xpath('//button[@ng-click="DeliveryDay()"]'));
     MF.WaitWhileBusy ();
-    SF.sleep (15);
+    SF.sleep (5);
     driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (check) {
         VD.IWant(VD.ToEqual, check, 1, 'трак (желтая линия, реквест) на таблице траков в реквесте не нашелся в деливери дейт');
     }),config.timeout);
