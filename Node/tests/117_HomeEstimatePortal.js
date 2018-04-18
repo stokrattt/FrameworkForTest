@@ -188,6 +188,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.contractNumbers = {};
 	MF.Contract_Submit(V.contractNumbers);
 	MF.Contract_ReturnToForeman();
+	LF.LogoutFromBoardForeman();
 
 	condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
