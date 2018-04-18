@@ -355,6 +355,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         WaitWhileBusy();
     }
+    function Board_OpenSettingsContract() {
+        Board_OpenSideBar();
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+        SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+        Board_OpenSideBar();
+        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[7]'));
+        SF.waitForVisible(By.xpath('//h2[contains(text(),"Contract Settings")]'));
+        SF.sleep(1);
+    }
     function Board_OpenSettingsTemplateBuilder() {
         Board_OpenSettingsGeneral();
         SF.click(By.xpath('//a[@ui-sref="settings.templatebuilder"]'));
@@ -2168,6 +2177,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSettingsAccountPageCustomBlock: Board_OpenSettingsAccountPageCustomBlock,
         Board_OpenSettingsAccountPageCustomTooltips:Board_OpenSettingsAccountPageCustomTooltips,
         Board_OpenSettingsAccountPageFlatRate: Board_OpenSettingsAccountPageFlatRate,
+        Board_OpenSettingsContract:Board_OpenSettingsContract,
         Board_OpenStatistic: Board_OpenStatistic,
         Board_OpenProfitLoss: Board_OpenProfitLoss,
 		Board_OpenRequest: Board_OpenRequest,
