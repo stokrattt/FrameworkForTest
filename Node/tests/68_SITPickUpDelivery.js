@@ -14,8 +14,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-condition.nowWeDoing = 'Создаем Long Distance работу';
+condition.nowWeDoing = 'Создаем Long Distance работу с мувборда, добавляем partial packing, меняем статус реквеста на Confirmed и меняем мув сайз';
     LF.CreateLongDistanceFromBoard(V.client);
+    V.requestNumber={};
+    MF.EditRequest_RememberId(V.requestNumber);
     V.boardNumbers = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
         dateString = dateString.toUpperCase();
@@ -24,14 +26,19 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
         V.boardNumbers.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));
         V.boardNumbers.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
     }),config.timeout);
-    LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd(V.client.passwd);
+    MF.EditRequest_OpenRequest();
+    LF.EditRequest_AddPartialPacking();
     MF.EditRequest_SetToConfirmed();
     SF.select(By.xpath('//select[@id="edit-service"]'), 7);
     SF.sleep(1);
     SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
     SF.sleep(1);
+    MF.EditRequest_SetSizeOfMoveNumber(8);
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
 
-condition.nowWeDoing = 'Закриваем роботу заходим в СІТ и заполняем поля';
+condition.nowWeDoing = 'Проверяем пэймент в пэндинге. Выключаем калькулятор, закрываем роботу, заходим в SIT и заполняем поля';
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     MF.EditRequest_OpenPaymentModalWindow();
@@ -73,6 +80,9 @@ condition.nowWeDoing = 'Закриваем роботу заходим в СІТ
     MF.EditRequest_WaitForOpenRequest();
     SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
     SF.waitForVisible (By.xpath('//a[@ng-click="openSendRequestToSITModal()"]'));
+    V.boardNumbersClosing = {};
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosing);
+    VD.IWant(VD.ToEqual, V.boardNumbersClosing.Packing, 0, 'Partial packing был перенесен в табу closing после изменения мув сайза в зелёном реквесте');
     MF.EditRequest_OpenSITmodal();
     MF.EditRequest_SITmodalSetStorage('test');
     V.SITRooms = 1;
@@ -81,17 +91,17 @@ condition.nowWeDoing = 'Закриваем роботу заходим в СІТ
     MF.EditRequest_SITmodalClickSave();
     LF.closeEditRequest ();
 
-condition.nowWeDoing = 'Заходим в Jobs in SIT Проверям есть ли ета робота и совпали ли Storage NAme';
+condition.nowWeDoing = 'Заходим в Jobs in SIT Проверям есть ли эта работа и совпали ли Storage Name';
     MF.Board_OpenSideBar();
     MF.Board_OpenJobsInSIT();
     MF.Board_OpenSideBar();
     SF.waitForVisible (By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]')).getText().then(function(text){
         V.storageName = text;
-        VD.IWant(VD.ToEqual, V.storageName, 'test', 'Starage Name не совпали');
+        VD.IWant(VD.ToEqual, V.storageName, 'test', 'Storage Name не совпали');
     }),config.timeout);
 
-condition.nowWeDoing = 'Заходим в реквест , виставляем Delivery day и Schedule day и LD status';
+condition.nowWeDoing = 'Заходим в реквест , выставляем Delivery day и Schedule day и LD status';
     SF.click(By.xpath('//div[contains(text(), "'+ V.client.name +'")]/..//div[@ng-click="openRequest(id)"]'));
     MF.EditRequest_WaitForOpenRequest();
     MF.EditRequest_OpenConfirmWork ();
@@ -130,7 +140,7 @@ condition.nowWeDoing = 'Заходим в PickUp и проверям по фил
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]')).getText().then(function(text){
         V.pickupFrom =  SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.pickupFrom, '234234234242402200', 'picupFrom не совпали');
+        VD.IWant(VD.ToEqual, V.pickupFrom, '234234234242402200', 'pickupFrom не совпали');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[5]')).getText().then(function(text){
         V.deliveryTo =  SF.cleanPrice(text);
@@ -139,6 +149,17 @@ condition.nowWeDoing = 'Заходим в PickUp и проверям по фил
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[8]')).getText().then(function(text){
         V.statusLD =  text;
         VD.IWant(VD.ToEqual, V.statusLD, 'LD', 'LD status не совпали');
+    }),config.timeout);
+    MF.Board_LogoutAdmin ();
+    condition.nowWeDoing = 'Идём клиентом на аккаунт, открываем confirmation page и проверяем, чтобы partial packing отображался на странице.';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient (V.client, V.client.passwd);
+    MF.Account_OpenRequest(V.requestNumber.Id);
+    MF.Account_ClickViewRequest();
+    MF.Account_ClickViewConfirmationPage();
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="packing in vm.packings"]/div[5]')).getText().then(function (text) {
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbers.Packing, 'Не отображается partial packing на confirmation page');
     }),config.timeout);
     //VD.IWant(VD.ToEqual,V.boardNumbers.moveDate.Month, V.SITdate.Date,'не совпала дата');
    // VD.IWant(VD.ToEqual,V.boardNumbers.moveDate.Date, V.SITdate.Date,'не совпала дата');

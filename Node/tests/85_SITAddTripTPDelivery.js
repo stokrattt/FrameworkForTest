@@ -14,9 +14,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-condition.nowWeDoing = 'Создаем Long Distance работу';
+condition.nowWeDoing = 'Создаем Long Distance работу с мувборда. Добавляем full packing, конфёрмим работу, меняем мув сайз, меняем рейт и выключаем калькулятор';
     LF.CreateLongDistanceFromBoard(V.client);
+    V.requestNumber={};
+    MF.EditRequest_RememberId(V.requestNumber);
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd(V.client.passwd);
+    MF.EditRequest_OpenRequest();
+    LF.EditRequest_AddFullPacking();
     MF.EditRequest_SetToConfirmed();
+    MF.EditRequest_SetSizeOfMoveNumber(8);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck(5));
@@ -26,6 +33,10 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
     MF.ConfirmCalculatorOff();
     MF.EditRequest_SetAdressToFrom();
     MF.EditRequest_SaveChanges();
+    SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
+    V.boardNumbersClosing = {};
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosing);
+    VD.IWant(VD.ToEqual, V.boardNumbersClosing.Packing, 0, 'Full packing был перенесен в табу closing после изменения мув сайза в зелёном реквесте');
     driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Balance:")]/..//div')).getText().then(function(text){
         V.tpCollected = SF.cleanPrice(text);
     }),config.timeout);
@@ -104,7 +115,7 @@ condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
     SF.click(By.xpath('//button[@ng-click="closeSelectBox($event)"]'));
     SF.sleep(1);
 
-condition.nowWeDoing = 'Создаем TP Delivery, заполняем поля и проверям рассчети';
+condition.nowWeDoing = 'Создаем TP Delivery, заполняем поля и проверяем рассчеты';
     driver.actions().mouseMove(driver.findElement(By.xpath('//button[@ng-click="createTrip(trip)"]'))).doubleClick().perform();
     JS.waitForNotExist('span.toast-message:visible');
     SF.sleep(2);
@@ -251,7 +262,7 @@ condition.nowWeDoing = 'Проверяем сохранились ли изме�
         VD.IWant(VD.ToEqual, V.cleanTpDeliveryPhone1, V.tpDeliveryPhone1, 'Phone cf не совпали');
     }),config.timeout);
 
-condition.nowWeDoing = 'Редактируем TP Delivery, заполняем поля и проверям рассчети';
+condition.nowWeDoing = 'Редактируем TP Delivery, заполняем поля и проверяем рассчеты';
     V.newCustomer = SF.randomBukva(6) + '_t';
     V.newTpDeliveryEmail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.newTpDeliveryPhone1 = SF.randomCifra(10);
@@ -376,6 +387,17 @@ condition.nowWeDoing = 'Проверяем сохранились ли изме�
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.details.phones[$index]"]')).getAttribute('value').then(function (text) {
         V.newCleanTpDeliveryPhone1 = -SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpDeliveryPhone1, V.newTpDeliveryPhone1, 'Phone cf не совпали');
+    }),config.timeout);
+    MF.Board_LogoutAdmin ();
+    condition.nowWeDoing = 'Идём клиентом на аккаунт, открываем confirmation page и проверяем, чтобы full packing отображался на странице.';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient (V.client, V.client.passwd);
+    MF.Account_OpenRequest(V.requestNumber.Id);
+    MF.Account_ClickViewRequest();
+    MF.Account_ClickViewConfirmationPage();
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="packing in vm.packings"]/div[5]')).getText().then(function (text) {
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, text,V.boardNumbers.Packing, 'Не отображается partial packing на confirmation page');
     }),config.timeout);
     SF.sleep(1);
     SF.endOfTest();
