@@ -165,6 +165,7 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     }),config.timeout);
     MF.WaitWhileBusy();
     SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
+    SF.sleep(2);
     MF.EditRequest_WaitForBalanceVisible();
 //
 //

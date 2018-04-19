@@ -158,7 +158,9 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     SF.click(By.xpath('//li[contains(text(), "04:00 PM")]'));
     SF.sleep(1);
     LF.MakeSignInContract();
+    SF.sleep(2);
     SF.click(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'));
+    SF.sleep(1);
     SF.waitForVisible (By.xpath('//div[4]/ul/li[contains(text(), "07:00 PM")]'));
     SF.click(By.xpath('//div[4]/ul/li[contains(text(), "07:00 PM")]'));
     SF.sleep(1);
