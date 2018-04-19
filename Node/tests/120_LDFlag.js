@@ -90,14 +90,13 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	condition.nowWeDoing = 'переходим на мувборд, менем статус у реквеста на нот конферм, сохраняем. ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-	MF.WaitVisibleDashboard();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
-    MF.EditRequest_WaitForOpenRequest();
 	V.boardNumbers2 = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers2);
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD1,V.boardNumbers2);
 	MF.EditRequest_SetToNotConfirmed();
     JS.step(JSstep.selectTruck((V.boardNumbers2.LaborTimeMax + V.boardNumbers2.TravelTime)/60));
+    MF.WaitWhileBusy();
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
@@ -130,9 +129,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	condition.nowWeDoing = 'переходим на мувборд, менем статус у реквеста на нот конферм, сохраняем. ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-	MF.WaitVisibleDashboard();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
-	MF.EditRequest_WaitForOpenRequest();
 	V.boardNumbers3 = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers3);
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD2,V.boardNumbers3);
