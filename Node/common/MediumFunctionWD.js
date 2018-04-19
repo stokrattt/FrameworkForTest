@@ -587,6 +587,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             VD.IWant(VD.ToEqual, Status, 'Pending');
         }), config.timeout);
     }
+	function Account_CheckRequestStatus_PendingInfo() {
+		SF.waitForVisible(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text(),"Pending-info")]'));
+		driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text(),"Pending-info")]')).getText().then(function (Status) {
+			VD.IWant(VD.ToEqual, Status, 'PENDING-INFO');
+		}), config.timeout);
+	}
 
     function Account_ChooseOptionFlatRate() {
         SF.click(By.xpath('//button[@ng-click="vm.chooseOption(option)"]'));
@@ -2251,6 +2257,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ClickSaveDetails:Account_ClickSaveDetails,
         Account_SendAdressToModalWindow:Account_SendAdressToModalWindow,
         Account_SelectParking:Account_SelectParking,
+	    Account_CheckRequestStatus_PendingInfo: Account_CheckRequestStatus_PendingInfo,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
