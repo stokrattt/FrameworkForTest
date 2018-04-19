@@ -33,6 +33,7 @@ condition.nowWeDoing = 'Проверяем есть ли в SIT флаг в Пи
     SF.sleep(1);
     SF.click(By.xpath('//md-option[@ng-repeat="item in ldStatuses"]/div[text()="Flag"]'));
     MF.Board_OpenSideBar();
+    MF.Board_OpenSideBar();
     MF.Board_ClickLongDistanceDispach();
     SF.click(By.xpath('//a[@ui-sref="lddispatch.pick_up"]'));
     SF.sleep(2);

@@ -971,6 +971,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.waitForNotExist('div.busy:visible');
         SF.sleep (15);
     }
+    function EditRequest_ClickCreateClone() {
+        SF.click(By.xpath('//img[@class="request-multiple-button__icon"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//img[@class="request-multiple-button__icon"]/following-sibling::img[@ng-click="doAction($index)"][1]'));
+        SF.sleep(1);
+        SweetConfirm ();
+        WaitWhileBusy ();
+        JS.waitForNotExist('div.busy:visible');
+        SF.sleep (15);
+    }
     function EditRequest_WaitForVisibleCloneRequest() {
         SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
         WaitWhileBusy();
@@ -1611,6 +1621,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Dispatch_ShowDoneJobs() {
         SF.select(By.xpath('//select[@ng-model="vm.reqFilter.type"]'), 0);
+        WaitWhileBusy();
+    }
+    function Dispatch_ShowScheduledJobs() {
+        SF.select(By.xpath('//select[@ng-model="vm.reqFilter.type"]'), 1);
         WaitWhileBusy();
     }
 
@@ -2360,6 +2374,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_WaitForOpenRequest:EditRequest_WaitForOpenRequest,
         EditRequest_ClickAddCustomPayment:EditRequest_ClickAddCustomPayment,
         EditRequest_ClickCreatePAckingDay:EditRequest_ClickCreatePAckingDay,
+        EditRequest_ClickCreateClone:EditRequest_ClickCreateClone,
         EditRequest_CloseCloneRequest:EditRequest_CloseCloneRequest,
         EditRequest_OpenBindingPackingDayRequest:EditRequest_OpenBindingPackingDayRequest,
         EditRequest_OpenPackingRequestFromRequest:EditRequest_OpenPackingRequestFromRequest,
@@ -2408,6 +2423,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
         Dispatch_WaitForCalendar: Dispatch_WaitForCalendar,
+        Dispatch_ShowScheduledJobs:Dispatch_ShowScheduledJobs,
         //===================================PAYROLL========================================
         Payroll_ClickAllDepartment: Payroll_ClickAllDepartment,
         Payroll_RefreshTable: Payroll_RefreshTable,

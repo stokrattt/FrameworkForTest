@@ -150,7 +150,7 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     MF.EditRequest_OpenConfirmWork();
     driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
         V.SalesCF = SF.cleanPrice(text);
-        VD.IWant(VD.NotToEqual, V.RentalCF,V.SalesCF,'совпал сеилс к ф с рентал агримент');
+        VD.IWant(VD.NotToEqual, V.RentalCF,V.SalesCF,'совпал сеилс к ф с рентал агримент а не должен, потому что ы на акке добавили адишинал инвентаря');
     }),config.timeout);
     MF.EditRequest_CloseConfirmWork ();
     MF.EditRequest_WaitForBalanceVisible();
@@ -166,7 +166,112 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     MF.WaitWhileBusy();
     SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
     MF.EditRequest_WaitForBalanceVisible();
+//
+//
+// condition.nowWeDoing = 'создаем клон из реквеста, конфермим его и идем подписывать контракт и сделаем трансфер инвентаря с уже подписанного реквеста в этот клон';
+//     MF.EditRequest_ClickCreateClone();
+//     MF.EditRequest_WaitForVisibleCloneRequest();
+//     driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
+//         V.Clone = {};
+//         V.Clone.Id = SF.cleanPrice(text);
+//     }),config.timeout);
+//     MF.EditRequest_CloseCloneRequest();
+//     MF.EditRequest_OpenContractCloseJob();
+//     SF.openTab (1);
+//     SF.sleep (3);
+//     MF.Contract_OpenBillOfLading();
+//     // MF.Contract_WaitBillOfLading ();
+//     MF.Contract_OpenInventory();
+//     SF.click(By.xpath('//button[@ng-click="openTransferModal(fieldName)"]'));
+//     SF.waitForLocated(By.xpath('//button[@ng-click="transfer()"]'));
+//     SF.click(By.xpath('//input[@ng-model="requestNid"]'));
+//     SF.send(By.xpath('//input[@ng-model="requestNid"]'), V.Clone.Id);
+//     MF.WaitWhileBusy();
+//     SF.sleep(5); //тут идет долго трансфер инвентаря
+//     MF.WaitWhileToaster();
+//     driver.close();
+//     SF.openTab(0);
+//     LF.closeEditRequest();
+//     MF.Board_SearchRequest(V.Clone.Id);
+//     SF.sleep(3);
+//     SF.click(By.xpath('//div[@ng-bind-html="request.nid | searchfilter:search"]/span[contains(text(),"' + V.Clone.Id + '")]/..'));
+//     MF.EditRequest_WaitForBalanceVisible();
+//     SF.sleep(2);// тут  нужно
+//     SF.click (By.xpath('//input[@ng-model="moveDateInput"]'));
+//     let now = new Date();
+//     let msInDay = 86400000;
+//     let future = new Date(now.getTime() + msInDay * 10);
+//     let month = { month: 'numeric'};
+//     let day = {day: 'numeric'};
+//     V.firstDate = {};
+//     V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
+//     V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+//     SF.click(By.xpath('//div[@id="ui-datepicker-div"]//td[@data-month="'+ V.firstDate.Month +'"]/a[contains(text(),"'+ V.firstDate.Day +'")]'));
+//     MF.WaitWhileBusy();
+//     MF.EditRequest_SetToConfirmed ();
+//     V.boardNumbersClone = {};
+//     LF.RememberDigitsRequestBoard(V.boardNumbersClone);
+//     JS.step(JSstep.selectTruck((V.boardNumbersClone.LaborTimeMax + V.boardNumbersClone.TravelTime)/60));
+//     MF.WaitWhileBusy();
+//     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
+//         V.CFRequest = text;
+//         VD.IWant(VD.ToEqual, V.CFRequest, V.SalesCF, 'не совпал кубик фит с родительского реквеста с табы сейлс с клоном');
+//     }),config.timeout);
+//     SF.sleep(1);
+//     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest();
+//     LF.findDayInLocalDispatch(V.boardNumbersClone.moveDate.Year, V.boardNumbersClone.moveDate.Month, V.boardNumbersClone.moveDate.Day);
+//     MF.Dispatch_ShowScheduledJobs();
+//     LF.SelectRequestDispatch(V.boardNumbersClone.Id);
+//     V.foremanName = 'Test Foreman';
+//     LF.selectCrew(V.foremanName);
+//     MF.Board_LogoutAdmin();
+//
+// condition.nowWeDoing = 'заходим под форменом, открываем контракт для клона';
+//     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
+//     LF.OpenRequestInForemanPage(V.boardNumbersClone.Id);
+//     MF.Contract_WaitConfirmationPage();
+//     MF.Contract_OpenInventory();
+//     Debug.pause();
+//     MF.Contract_SubmitInventory();
+//     MF.WaitWhileBusy();
+//     MF.Contract_WaitForRental();
+//     MF.Contract_SetRentalPhone(V.client.phone);
+//     MF.Contract_SetRentalAddress('Address To Clone');
+//     MF.Contract_SetRentalZip('02461');
+//     driver.wait(driver.findElement(By.xpath('//input[@ng-model="storageVolume"]')).getAttribute('value').then(function (text) {
+//         V.RentalCFclone = SF.cleanPrice(text);
+//         VD.IWant(VD.ToEqual, V.RentalCF, V.RentalCFclone,'не совпал c f рентал агримент и сторадж первого реквеста');
+//     }),config.timeout);
+//     LF.MakeSignInRental();
+//     MF.SweetConfirm ();
+//     MF.WaitWhileBusy();
+//     LF.payRentalInventoryCash(V.boardNumbersClone);
+//     JS.waitForExist('input#inputImage');
+//     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+//         V.path = path;
+//     }), config.timeout);
+//     SF.sleep(2);
+//     JS.click('button[ng-click=\\"saveFile();logClickButtons(\\\'Save Images button clicked\\\')\\"]');
+//     SF.sleep(5);
+//
+//
+//
+//
+//
+//     MF.Contract_OpenBillOfLading();
+//     LF.MakeSignInContract();
+//     LF.MakeSignInContract();
+//     MF.Contract_DeclarationValueA();
+//     LF.MakeSignInContract();
+//     LF.MakeSignInContract();
+//
+//     condition.nowWeDoing = 'добавляем сторадж и сделаем трансфер инвентаря с первого реквеста в этот клон';
+//     MF.Contract_ClickPlusForOpenSubMenuStorageAndOvernight();
+//     MF.Contract_ClickCorningToStorage();
+//
+//
+
 
 condition.nowWeDoing = 'сейчас идём в пейролл';
     MF.Board_OpenPayroll();
