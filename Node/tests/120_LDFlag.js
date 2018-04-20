@@ -78,6 +78,10 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	V.accountNumbersLD={};
 	LF.RememberAccountNumbersLD(V.accountNumbersLD);
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD, V.boardNumbers);
+	MF.Account_OpenAdressModal();
+	MF.Account_SendAdressFromModalWindow();
+	MF.Account_SendAdressToModalWindow();
+	MF.Account_ClickUpdateClientInModalWindow();
 	LF.AccountLocalAddInventory(V.accountNumbersLD);
 	MF.Account_WaitForInventoryCheck();
 	MF.Account_ClickDetails();
