@@ -10,18 +10,25 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.Board_OpenSettingsGeneral ();
-    MF.Board_OpenSettingsAccountPageCustomBlock ();
+
+condition.nowWeDoing = 'Заходим в настройки контракта и выключаем настройку Show Quote and Time on confirmation page, если она включена';
+    MF.Board_OpenSettingsContract();
+    driver.wait(driver.executeScript("if ($('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').hasClass('ng-pristine ng-untouched ng-valid ng-empty')){" +
+        "return true;} else {$('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').click()}"),config.timeout);
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    MF.WaitWhileBusy();
     MF.Board_OpenSideBar ();
 
 condition.nowWeDoing = 'зашли в настройки кастомных блоков мувинга стораджа для Pending и включаем их если они выключены';
+    MF.Board_OpenSettingsGeneral ();
+    MF.Board_OpenSettingsAccountPageCustomBlock ();
+    MF.Board_OpenSideBar ();
     driver.wait(driver.executeScript("if ($('div[class=\"custom-block movingstorage\"] tr[ng-repeat=\"pending_tab in movingPendingBody[$index]\"]" +
         " h3:contains(\"Show in account\") ~input').hasClass('ng-not-empty')){return true;} else {$('div[class=\"custom-block movingstorage\"]" +
         " tr[ng-repeat=\"pending_tab in movingPendingBody[$index]\"] h3:contains(\"Show in account\") ~span').click()}"));
     SF.sleep(1);
     SF.click(By.xpath('//div[@class="custom-block movingstorage"]//tr[@ng-repeat="pending_tab in movingPendingBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep (2);
-
 condition.nowWeDoing = 'создаем мувинг сторадж, пендинг, и идем в аккаунт проверять что есть кастомный блок';
     LF.CreateMovAndStorFromBoard (V.client);
     MF.EditRequest_OpenSettings ();
@@ -105,8 +112,13 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     }),config.timeout);
     MF.Account_ClickProceedBookYourMove();
     SF.sleep(2);
+    driver.wait(driver.executeScript("return $('div[class=\"estimated_job_time_row\"]:visible').length").then(function (text) {
+        VD.IWant (VD.NotToEqual, text, 1, 'Job time на confirmation page отображается с выключенной настройкой show job time & quote on confirmation page ');
+    }),config.timeout);
+    driver.wait(driver.executeScript("return $('div[class=\"estimated_quote_row\"]:visible').length").then(function (text) {
+        VD.IWant(VD.NotToEqual, text, 1, 'Quote на confirmation page отображается с выключенной настройкой show job time & quote on confirmation page');
+    }),config.timeout);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
-        VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To not confirmed на аккаунте на confirmation page');
     }),config.timeout);
     MF.AccountConfirmationPage_ClickBackToRequest ();
     MF.Account_ClickFromStorage ();
@@ -231,12 +243,27 @@ condition.nowWeDoing = 'выключаем кастомный блок confirmed
     SF.openTab (0);
     SF.sleep(1);
 
-condition.nowWeDoing = 'тут включаем чекбоксы для конферм* и все ';
+condition.nowWeDoing = 'тут включаем чекбоксы для конферм* ';
     SF.click(By.xpath('//div[@class="custom-block movingstorage"]//input[@ng-model="confirmed_tab.showCustomBlock"]/following-sibling::span'));
     SF.click(By.xpath('//div[@class="custom-block movingstorage"]//input[@ng-model="confirmed_tab.showOnConfirmationPage"]/following-sibling::span'));
     SF.click(By.xpath('//div[@class="custom-block movingstorage"]//tr[@ng-repeat="confirmed_tab in movingConfirmedBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
-
+condition.nowWeDoing = 'Открываем настройки контракта, включаем обратно настройку show quote and time on confirmation page и идём проверять, что эти поля отображаются на confirmation page ';
+    MF.Board_OpenSettingsContract();
+    driver.wait(driver.executeScript("if ($('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').hasClass('ng-pristine ng-untouched ng-valid ng-not-empty')){" +
+        "return true;} else {$('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').click()}"),config.timeout);
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    MF.WaitWhileBusy();
+    SF.openTab (1);
+    SF.sleep(1);
+    MF.Account_Refresh ();
+    MF.Account_ClickViewConfirmationPage ();
+    driver.wait(driver.executeScript("return $('div[class=\"estimated_job_time_row\"]:visible').length").then(function (text) {
+        VD.IWant (VD.ToEqual, text, 1, 'Job time на confirmation page не отображается с включенной настройкой show job time & quote on confirmation page ');
+    }),config.timeout);
+    driver.wait(driver.executeScript("return $('div[class=\"estimated_quote_row\"]:visible').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 1, 'Quote на confirmation page не отображается с включенной настройкой show job time & quote on confirmation page');
+    }),config.timeout);
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
