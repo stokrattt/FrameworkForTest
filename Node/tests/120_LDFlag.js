@@ -35,8 +35,8 @@ condition.nowWeDoing = 'Проверяем есть ли в SIT флаг в Пи
     MF.Board_OpenSideBar();
     MF.Board_ClickLongDistanceDispach();
     SF.click(By.xpath('//a[@ui-sref="lddispatch.pick_up"]'));
-    SF.sleep(2);
-    SF.click(By.xpath('//a[@ui-sref="lddispatch.ld_delivery"]'));
+	MF.Board_ClickLongDistanceDispach();
+	SF.click(By.xpath('//a[@ui-sref="lddispatch.ld_delivery"]'));
     SF.sleep(2);
     SF.click(By.xpath('//md-select[@ng-model="selectedStatus"]'));
     SF.sleep(1);
@@ -80,7 +80,14 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD, V.boardNumbers);
 	LF.AccountLocalAddInventory(V.accountNumbersLD);
 	MF.Account_WaitForInventoryCheck();
-	LF.AccountLocalDetails();
+	MF.Account_ClickDetails();
+	SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 60);
+	SF.select(By.xpath('//select[@id="new_door_to_parking"]'), 60);
+	SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
+	SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
+	driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
+	SF.click(By.xpath('//div[@ng-blur="details_change(\'Additional Comments\',details.addcomment, \'addcomment\')"]'));
+	MF.Account_ClickSaveDetails();
 	MF.Account_WaitForDetailsCheck();
 	MF.Account_WaitForLoadingAccount();
 	V.accountNumbersLD1={};
@@ -122,6 +129,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	MF.SweetConfirm();
 	MF.Account_WaitForInventoryCheck();
     MF.Account_CheckRequestStatus_PendingInfo();
+	MF.SweetConfirm();
 	V.accountNumbersLD2={};
 	LF.RememberAccountNumbersLD(V.accountNumbersLD2);
 	LF.LogoutFromAccount();
@@ -134,12 +142,20 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	LF.RememberDigitsRequestBoard(V.boardNumbers3);
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD2,V.boardNumbers3);
 	MF.EditRequest_SetToNotConfirmed();
+	JS.scroll('input[ng-model="request.reservation_rate.value"]');
 	SF.waitForVisible(By.xpath('//input[@ng-model="request.reservation_rate.value"]'));
-	V.Deposit={};
-	driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.reservation_rate.value"]')).getAttribute('value').then(function (text) {
+	driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.reservation_rate.value"]')).getText().then(function (text) {
 		V.Deposit= text;
-		VD.IWant(VD.ToEqual, text, '$2,462.50');
+		V.Deposit= Math.round((2462)*100)/100;
 	}), config.timeout);
+	SF.sleep(1);
+	const percents= 0.25;
+	const rate = 10;
+	const cbf = V.boardNumbers3.cbf;
+	const quote = rate * cbf;
+	let reservation = quote * percents;
+	reservation = Math.floor(reservation) * 100/100;
+	VD.IWant(VD.ToEqual, V.Deposit , reservation);
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
@@ -151,10 +167,44 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	MF.Account_WaitForLoadingAccount();
 	MF.Account_ClickProceedBookYourMove();
 	JS.scroll('div[ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]');
-	V.DepositinConfPage={};
-	driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]/h2[contains(text(),"Deposit:")]')).getAttribute('value').then(function (text) {
-		V.DepositinComfPage = text;
-		VD.IWant(VD.ToEqual, V.Deposit, V.DepositinConfPage);
+	driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]/h2[contains(text(),"Deposit: $2462")]')).getText().then(function (text) {
+		V.DepositinCP = text;
 	}), config.timeout);
+	VD.IWant(VD.ToEqual, "Deposit: $"+V.Deposit, V.DepositinCP);
+	MF.Account_ClickIAgreeWithAll();
+	SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
+	SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+	LF.MakeSignJS('signatureCanvasReserv');
+	SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
+	driver.wait(driver.findElement(By.xpath('//div[@ng-init="payment.setPaymentBlockHeight(\'.credit_form.credit-pay\')"]/div')).getText().then(function (text) {
+		V.DepositPay = text;
+		V.DepositPay= Math.round((2462)*100)/100;
+	}), config.timeout);
+	VD.IWant(VD.ToEqual,V.Deposit, V.DepositPay);
+	LF.FillCardPayModal();
+	MF.WaitWhileSpinner();
+	MF.Account_WaitForGreenTextAfterConfirm();
+	V.accountNumbersLD3={};
+	LF.RememberAccountNumbersLD(V.accountNumbersLD3);
+	LF.LogoutFromAccount();
+
+	condition.nowWeDoing = 'выходим из аккаунта, проверяем наш реквест, ставим настройки на дефолтные ';
+	SF.get(V.adminURL);
+	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+	MF.Board_OpenConfirmed();
+	MF.Board_OpenRequest(V.boardNumbers.Id);
+	V.boardNumbers4 = {};
+	LF.RememberDigitsRequestBoard(V.boardNumbers4);
+	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD3,V.boardNumbers4);
+	JS.scroll('input[ng-model="request.reservation_rate.value"]');
+	driver.wait(driver.findElement(By.xpath('//label[@ng-click="cancelReservation();"][contains(text(),"Reservation Received")]')).getText().then(function (Status) {
+		VD.IWant(VD.ToEqual, Status, 'Reservation Received');
+	}), config.timeout);
+	MF.EditRequest_CloseEditRequest();
+	MF.Board_OpenSettingsSchedule();
+	SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.longReservationRate"]'), 500);
+	SF.select(By.xpath('//select[@ng-model="vm.scheduleSettings.longReservation"]'), 0);
+	SF.click(By.xpath('//section[@ng-controller="ScheduleContorller as vm"]'));
+
 	SF.endOfTest();
 };
