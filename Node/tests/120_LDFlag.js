@@ -159,7 +159,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	const quote = rate * cbf;
 	let reservation = quote * percents;
 	reservation = Math.floor(reservation) * 100/100;
-	VD.IWant(VD.ToEqual, V.Deposit , reservation);
+	VD.IWant(VD.ToEqual, V.Deposit , reservation,'не совпали депозиты у реквеста с расчетами по формулам');
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
@@ -174,7 +174,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]/h2[contains(text(),"Deposit: $2462")]')).getText().then(function (text) {
 		V.DepositinCP = text;
 	}), config.timeout);
-	VD.IWant(VD.ToEqual, "Deposit: $"+V.Deposit, V.DepositinCP);
+	VD.IWant(VD.ToEqual, "Deposit: $"+V.Deposit, V.DepositinCP,'не совпал депозит на реквесте и на резервейшн прайс');
 	MF.Account_ClickIAgreeWithAll();
 	SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
 	SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
@@ -184,7 +184,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 		V.DepositPay = text;
 		V.DepositPay= Math.round((2462)*100)/100;
 	}), config.timeout);
-	VD.IWant(VD.ToEqual,V.Deposit, V.DepositPay);
+	VD.IWant(VD.ToEqual,V.Deposit, V.DepositPay,'не совпали депозиты на реквесте и на окне оплаты резервейшн прайс');
 	LF.FillCardPayModal();
 	MF.WaitWhileSpinner();
 	MF.Account_WaitForGreenTextAfterConfirm();
@@ -202,7 +202,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD3,V.boardNumbers4);
 	JS.scroll('input[ng-model="request.reservation_rate.value"]');
 	driver.wait(driver.findElement(By.xpath('//label[@ng-click="cancelReservation();"][contains(text(),"Reservation Received")]')).getText().then(function (Status) {
-		VD.IWant(VD.ToEqual, Status, 'Reservation Received');
+		VD.IWant(VD.ToEqual, Status, 'Reservation Received','после оплаты на реквесте не отобразился статус, что резервация была оплачена');
 	}), config.timeout);
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_OpenSettingsSchedule();
