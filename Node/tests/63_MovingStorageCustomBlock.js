@@ -13,7 +13,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'Заходим в настройки контракта и выключаем настройку Show Quote and Time on confirmation page, если она включена';
     MF.Board_OpenSettingsContract();
-    driver.wait(driver.executeScript("if ($('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').hasClass('ng-pristine ng-untouched ng-valid ng-empty')){" +
+    driver.wait(driver.executeScript("if ($('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').hasClass('ng-empty')){" +
         "return true;} else {$('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').click()}"),config.timeout);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     MF.WaitWhileBusy();
@@ -250,7 +250,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для конф
     SF.sleep(2);
 condition.nowWeDoing = 'Открываем настройки контракта, включаем обратно настройку show quote and time on confirmation page и идём проверять, что эти поля отображаются на confirmation page ';
     MF.Board_OpenSettingsContract();
-    driver.wait(driver.executeScript("if ($('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').hasClass('ng-pristine ng-untouched ng-valid ng-not-empty')){" +
+    driver.wait(driver.executeScript("if ($('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').hasClass('ng-not-empty')){" +
         "return true;} else {$('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').click()}"),config.timeout);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     MF.WaitWhileBusy();
@@ -264,6 +264,7 @@ condition.nowWeDoing = 'Открываем настройки контракта
     driver.wait(driver.executeScript("return $('div[class=\"estimated_quote_row\"]:visible').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'Quote на confirmation page не отображается с включенной настройкой show job time & quote on confirmation page');
     }),config.timeout);
+    SF.sleep(1);
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
