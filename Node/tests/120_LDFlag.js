@@ -82,6 +82,8 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	MF.Account_SendAdressFromModalWindow();
 	MF.Account_SendAdressToModalWindow();
 	MF.Account_ClickUpdateClientInModalWindow();
+	MF.SweetConfirm();
+	MF.SweetConfirm();
 	LF.AccountLocalAddInventory(V.accountNumbersLD);
 	MF.Account_WaitForInventoryCheck();
 	MF.Account_ClickDetails();
@@ -174,6 +176,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]/h2[contains(text(),"Deposit: $2462")]')).getText().then(function (text) {
 		V.DepositinCP = text;
 	}), config.timeout);
+	SF.sleep(1);
 	VD.IWant(VD.ToEqual, "Deposit: $"+V.Deposit, V.DepositinCP,'не совпал депозит на реквесте и на резервейшн прайс');
 	MF.Account_ClickIAgreeWithAll();
 	SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
@@ -184,6 +187,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 		V.DepositPay = text;
 		V.DepositPay= Math.round((2462)*100)/100;
 	}), config.timeout);
+	SF.sleep(1);
 	VD.IWant(VD.ToEqual,V.Deposit, V.DepositPay,'не совпали депозиты на реквесте и на окне оплаты резервейшн прайс');
 	LF.FillCardPayModal();
 	MF.WaitWhileSpinner();
