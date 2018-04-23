@@ -1141,12 +1141,25 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			"return true;}else{$('input[ng-model=\"request.permissions.canSeeStorageMenu\"]').parent().click()}"));
 		driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeLongDistanceMenu\"]').hasClass('ng-empty')){" +
 			"return true;}else{$('input[ng-model=\"request.permissions.canSeeLongDistanceMenu\"]').parent().click()}"));
-		driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeScheduleMen\"]').hasClass('ng-empty')){" +
+		driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeScheduleMenu\"]').hasClass('ng-empty')){" +
 			"return true;}else{$('input[ng-model=\"request.permissions.canSeeScheduleMenu\"]').parent().click()}"));
 		driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeDispatchMenu\"]').hasClass('ng-empty')){" +
 			"return true;}else{$('input[ng-model=\"request.permissions.canSeeDispatchMenu\"]').parent().click()}"));
-
 	}
+    function AdminPermissionsTurnOn() {
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeSettingsMenu\"]').hasClass('ng-not-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeSettingsMenu\"]').parent().click()}"));
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeStatisticsMenu\"]').hasClass('ng-not-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeStatisticsMenu\"]').parent().click()}"));
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeStorageMenu\"]').hasClass('ng-not-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeStorageMenu\"]').parent().click()}"));
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeLongDistanceMenu\"]').hasClass('ng-not-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeLongDistanceMenu\"]').parent().click()}"));
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeScheduleMenu\"]').hasClass('ng-not-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeScheduleMenu\"]').parent().click()}"));
+        driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeDispatchMenu\"]').hasClass('ng-not-empty')){" +
+            "return true;}else{$('input[ng-model=\"request.permissions.canSeeDispatchMenu\"]').parent().click()}"));
+    }
 
 	function PermissionCanSeeOtherLeads() {
 		driver.wait(driver.executeScript("$('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').parent().click()"));
@@ -2809,6 +2822,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		PermissionCanEditOtherLeads: PermissionCanEditOtherLeads,
 		PermissionCanSeeUnsignedLeads: PermissionCanSeeUnsignedLeads,
 		PermissionCanSignedSales: PermissionCanSignedSales,
+        AdminPermissionsTurnOn:AdminPermissionsTurnOn,
 //Permissions for Sales --- end
 		closeEditRequest: closeEditRequest,
 		SelectRequestDispatch: SelectRequestDispatch,

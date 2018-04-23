@@ -157,7 +157,6 @@ condition.nowWeDoing = 'добавляем дисконт';
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    Debug.pause();
     VD.IWant (VD.ToEqual, 4500, V.boardNumbers.Total, 'тотал не совпал с выбранной суммой');
     MF.EditRequest_SetToNotConfirmed ();
     SF.click (By.xpath('//button[@ng-click="DeliveryDay()"]'));

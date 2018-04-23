@@ -15,12 +15,13 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и создаем �
     MF.Board_OpenSettingsGeneral ();
     MF.Board_OpenSettingsLongDistance ();
     MF.BoardOpenSettingsLongDistanceStatus();
-    LF.LongDistanceSettings_AddLDStatusFlag('Flag');
+    V.flag = SF.randomBukva(6) + '_flag';
+    LF.LongDistanceSettings_AddLDStatusFlag(V.flag);
 
 condition.nowWeDoing = 'Создаем реквест, и проверяем есть ли в нем флаг';
     MF.Board_CreateDraftRequest();
     SF.click(By.xpath('//select[@id="edit-service"]/option[@value="7"]'));
-    SF.click(By.xpath('//select[@ng-model="request.ld_status"]/option[contains(text(),"Flag")]'));
+    SF.click(By.xpath('//select[@ng-model="request.ld_status"]/option[contains(text(),"'+V.flag+'")]'));
     LF.closeEditRequest();
     SF.click(By.xpath('//button[@ng-click="quit()"]'));
 
@@ -31,20 +32,20 @@ condition.nowWeDoing = 'Проверяем есть ли в SIT флаг в Пи
     MF.Board_OpenSideBar();
     SF.click(By.xpath('//md-select[@ng-model="selectedStatus"]'));
     SF.sleep(1);
-    SF.click(By.xpath('//md-option[@ng-repeat="item in ldStatuses"]/div[text()="Flag"]'));
-    MF.Board_OpenSideBar();
+    SF.click(By.xpath('//md-option[@ng-repeat="item in ldStatuses"]/div[text()="'+V.flag+'"]'));
+    // MF.Board_OpenSideBar();
     MF.Board_ClickLongDistanceDispach();
     SF.click(By.xpath('//a[@ui-sref="lddispatch.pick_up"]'));
-	MF.Board_ClickLongDistanceDispach();
+	// MF.Board_ClickLongDistanceDispach();
 	SF.click(By.xpath('//a[@ui-sref="lddispatch.ld_delivery"]'));
     SF.sleep(2);
     SF.click(By.xpath('//md-select[@ng-model="selectedStatus"]'));
     SF.sleep(1);
-    SF.click(By.xpath('//md-option[@ng-repeat="item in ldStatuses"]/div[text()="Flag"]'));
+    SF.click(By.xpath('//md-option[@ng-repeat="item in ldStatuses"]/div[text()="'+V.flag+'"]'));
     SF.sleep(2);
 
 condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем флаг';
-    MF.Board_OpenSideBar();
+    // MF.Board_OpenSideBar();
     MF.Board_OpenSettingsGeneral ();
     MF.Board_OpenSettingsLongDistance ();
     SF.click(By.xpath('//input[@ng-model="search"]'));
@@ -52,15 +53,14 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
     SF.click(By.xpath('//tr[@ng-repeat="values in longdistance.ldStatus track by $index"]/../tr[last()]/td/div[@ng-click="removeFlag($index,values)"]'));
     SF.sleep(1);
 
-    condition.nowWeDoing = 'Идем в настройки  ЛД и выставляем резервэйшин  прайс в процентах';
+condition.nowWeDoing = 'Идем в настройки  ЛД и выставляем резервэйшин  прайс в процентах';
     MF.Board_OpenSettingsSchedule();
     SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.longReservationRate"]'), 0);
     SF.select(By.xpath('//select[@ng-model="vm.scheduleSettings.longReservation"]'), 25);
     MF.WaitWhileBusySymbol();
 
-	condition.nowWeDoing = 'Создаем ЛД реквест, ставим клиенту пароль и идем на аккаунт.';
+condition.nowWeDoing = 'Создаем ЛД реквест, ставим клиенту пароль и идем на аккаунт.';
 	LF.CreateLongDistanceFromBoard(V.client);
-	MF.EditRequest_WaitForOpenRequest();
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
@@ -69,12 +69,11 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'пришли на аккаунт,добавляем инвентарь, вносим детали, выходим из аккаунта.';
+condition.nowWeDoing = 'пришли на аккаунт,добавляем инвентарь, вносим детали, выходим из аккаунта.';
     SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
 	MF.Account_ClickViewRequest();
-	MF.Account_WaitForLoadingAccount();
 	V.accountNumbersLD={};
 	LF.RememberAccountNumbersLD(V.accountNumbersLD);
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD, V.boardNumbers);
@@ -100,7 +99,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	LF.RememberAccountNumbersLD(V.accountNumbersLD1);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'переходим на мувборд, менем статус у реквеста на нот конферм, сохраняем. ';
+condition.nowWeDoing = 'переходим на мувборд, менем статус у реквеста на нот конферм, сохраняем. ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenRequest(V.boardNumbers.Id);
@@ -114,13 +113,11 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем на аккаунт клиента, проверяем статус нот конферм, вносим инвентарь. проверка статуса пэдинг-инфо' +
+condition.nowWeDoing = 'идем на аккаунт клиента, проверяем статус нот конферм, вносим инвентарь. проверка статуса пэдинг-инфо' +
         'выходим из аккаунта';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
-	MF.Account_WaitForLoadingAccount();
-	SF.waitForVisible(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]'));
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed');
 	}), config.timeout);
@@ -140,7 +137,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	LF.RememberAccountNumbersLD(V.accountNumbersLD2);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'переходим на мувборд, менем статус у реквеста на нот конферм, сохраняем. ';
+condition.nowWeDoing = 'переходим на мувборд, менем статус у реквеста на нот конферм, сохраняем. ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenRequest(V.boardNumbers.Id);
@@ -148,8 +145,6 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	LF.RememberDigitsRequestBoard(V.boardNumbers3);
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD2,V.boardNumbers3);
 	MF.EditRequest_SetToNotConfirmed();
-	JS.scroll('input[ng-model="request.reservation_rate.value"]');
-	SF.waitForVisible(By.xpath('//input[@ng-model="request.reservation_rate.value"]'));
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.reservation_rate.value"]')).getText().then(function (text) {
 		V.Deposit= text;
 		V.Deposit= Math.round((2462)*100)/100;
@@ -166,18 +161,16 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем на аккаунт букаться, проверяем нашу цифру на резервейшн прайс ';
+condition.nowWeDoing = 'идем на аккаунт букаться, проверяем нашу цифру на резервейшн прайс ';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
-	MF.Account_WaitForLoadingAccount();
 	MF.Account_ClickProceedBookYourMove();
 	JS.scroll('div[ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]/h2[contains(text(),"Deposit: $2462")]')).getText().then(function (text) {
 		V.DepositinCP = text;
-	}), config.timeout);
-	SF.sleep(1);
-	VD.IWant(VD.ToEqual, "Deposit: $"+V.Deposit, V.DepositinCP,'не совпал депозит на реквесте и на резервейшн прайс');
+        VD.IWant(VD.ToEqual, "Deposit: $"+V.Deposit, V.DepositinCP,'не совпал депозит на реквесте и на резервейшн прайс');
+    }), config.timeout);
 	MF.Account_ClickIAgreeWithAll();
 	SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
 	SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
@@ -186,9 +179,8 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	driver.wait(driver.findElement(By.xpath('//div[@ng-init="payment.setPaymentBlockHeight(\'.credit_form.credit-pay\')"]/div')).getText().then(function (text) {
 		V.DepositPay = text;
 		V.DepositPay= Math.round((2462)*100)/100;
-	}), config.timeout);
-	SF.sleep(1);
-	VD.IWant(VD.ToEqual,V.Deposit, V.DepositPay,'не совпали депозиты на реквесте и на окне оплаты резервейшн прайс');
+        VD.IWant(VD.ToEqual,V.Deposit, V.DepositPay,'не совпали депозиты на реквесте и на окне оплаты резервейшн прайс');
+    }), config.timeout);
 	LF.FillCardPayModal();
 	MF.WaitWhileSpinner();
 	MF.Account_WaitForGreenTextAfterConfirm();
@@ -196,7 +188,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	LF.RememberAccountNumbersLD(V.accountNumbersLD3);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'выходим из аккаунта, проверяем наш реквест, ставим настройки на дефолтные ';
+condition.nowWeDoing = 'выходим из аккаунта, проверяем наш реквест, ставим настройки на дефолтные ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenConfirmed();
@@ -204,7 +196,6 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	V.boardNumbers4 = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers4);
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD3,V.boardNumbers4);
-	JS.scroll('input[ng-model="request.reservation_rate.value"]');
 	driver.wait(driver.findElement(By.xpath('//label[@ng-click="cancelReservation();"][contains(text(),"Reservation Received")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'Reservation Received','после оплаты на реквесте не отобразился статус, что резервация была оплачена');
 	}), config.timeout);
@@ -213,6 +204,7 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
 	SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.longReservationRate"]'), 500);
 	SF.select(By.xpath('//select[@ng-model="vm.scheduleSettings.longReservation"]'), 0);
 	SF.click(By.xpath('//section[@ng-controller="ScheduleContorller as vm"]'));
+	SF.sleep(2);
 
 	SF.endOfTest();
 };

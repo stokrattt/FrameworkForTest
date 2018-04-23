@@ -18,13 +18,7 @@ condition.nowWeDoing = 'идем в департмент, заходим за с
     MF.Department_OpenMansPermissions();
     LF.AdminPermissionsClear();
     SF.sleep(2);
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeSettingsMenu"]/..'));
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeStatisticsMenu"]/..'));
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeStorageMenu"]/..'));
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeLongDistanceMenu"]/..'));
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeScheduleMenu"]/..'));
-	SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeScheduleMenu"]/..'));
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeDispatchMenu"]/..'));
+    LF.AdminPermissionsTurnOn();
     MF.Department_ClickPermissionsRequestWindow();
     driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeAllStatuses\"]').hasClass('ng-empty')){" +
         "return true;}else{$('input[ng-model=\"request.permissions.canSeeAllStatuses\"]').parent().click()}"));
