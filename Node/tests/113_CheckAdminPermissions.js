@@ -23,6 +23,7 @@ condition.nowWeDoing = 'идем в департмент, заходим за с
     SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeStorageMenu"]/..'));
     SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeLongDistanceMenu"]/..'));
     SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeScheduleMenu"]/..'));
+	SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeScheduleMenu"]/..'));
     SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeDispatchMenu"]/..'));
     MF.Department_ClickPermissionsRequestWindow();
     driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeAllStatuses\"]').hasClass('ng-empty')){" +
