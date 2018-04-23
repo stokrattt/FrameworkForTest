@@ -57,6 +57,7 @@ condition.nowWeDoing = 'меняем мувдейт в реквесте и ко�
     V.firstDate = {};
     V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
     V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+    SF.click(By.xpath('//div[@id="ui-datepicker-div"]/div/div/a[@title="Prev"]'));
     SF.click(By.xpath('//div[@id="ui-datepicker-div"]//td[@data-month="'+ V.firstDate.Month +'"]/a[contains(text(),"'+ V.firstDate.Day +'")]'));
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function (text) {
