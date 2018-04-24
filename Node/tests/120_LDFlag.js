@@ -156,7 +156,7 @@ condition.nowWeDoing = 'переходим на мувборд, менем ст�
 	const quote = rate * cbf;
 	let reservation = quote * percents;
 	reservation = Math.floor(reservation) * 100/100;
-	VD.IWant(VD.ToEqual, V.Deposit , reservation,'не совпали депозиты у реквеста с расчетами по формулам');
+	VD.IWant(VD.ToEqual, V.Deposit , reservation,'не совпали reservation price у реквеста с расчетами по формулам');
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
@@ -169,7 +169,7 @@ condition.nowWeDoing = 'идем на аккаунт букаться, пров�
 	JS.scroll('div[ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]/h2[contains(text(),"Deposit: $2462")]')).getText().then(function (text) {
 		V.DepositinCP = text;
-        VD.IWant(VD.ToEqual, "Deposit: $"+V.Deposit, V.DepositinCP,'не совпал депозит на реквесте и на резервейшн прайс');
+        VD.IWant(VD.ToEqual, "Deposit: $"+V.Deposit, V.DepositinCP,'не совпал reservation price на реквесте и на странице confirmation page');
     }), config.timeout);
 	MF.Account_ClickIAgreeWithAll();
 	SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
@@ -179,7 +179,7 @@ condition.nowWeDoing = 'идем на аккаунт букаться, пров�
 	driver.wait(driver.findElement(By.xpath('//div[@ng-init="payment.setPaymentBlockHeight(\'.credit_form.credit-pay\')"]/div')).getText().then(function (text) {
 		V.DepositPay = text;
 		V.DepositPay= Math.round((2462)*100)/100;
-        VD.IWant(VD.ToEqual,V.Deposit, V.DepositPay,'не совпали депозиты на реквесте и на окне оплаты резервейшн прайс');
+        VD.IWant(VD.ToEqual,V.Deposit, V.DepositPay,'не совпали reservation price на реквесте и в окне при оплате reservation price');
     }), config.timeout);
 	LF.FillCardPayModal();
 	MF.WaitWhileSpinner();
