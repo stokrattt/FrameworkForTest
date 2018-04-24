@@ -157,10 +157,13 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
     MF.EditRequest_CloseModal();
-	MF.SweetConfirm();
+    let window = '//div[@class="sweet-alert showSweetAlert visible"]';
+	if (window !== true){
+        MF.SweetConfirm();
+    }
 	MF.WaitWhileBusy();
 	SF.click(By.xpath('//div[@ng-if="states.invoiceState"]//span[@ng-if="request.request_all_data.storage_request_id"]'));
-    MF.WaitWhileSpinner();
+    MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//input[@id="volume"]')).getAttribute('value').then(function(text) {
         V.StorageCF = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.RentalCF, V.StorageCF,'не совпал c f рентал агримент и сторадж');
