@@ -71,6 +71,7 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
 	SF.click(By.xpath('//input[@ng-change="updateSetting()"]/../span'));
+	SF.sleep(2);
 	MF.WaitWhileToaster();
 
 	SF.endOfTest();

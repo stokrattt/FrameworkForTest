@@ -61,6 +61,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     MF.WaitWhileBusy();
     SF.click(By.xpath('//input[@id="pickup"]'));
     SF.click(By.xpath('//button[@ng-click="saveSettings()"]'));
+    MF.WaitWhileBusy();
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим под 1м форменом, открываем контракт';

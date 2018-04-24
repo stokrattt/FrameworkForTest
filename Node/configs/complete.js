@@ -9,7 +9,6 @@ module.exports = function(config,V) {
         './tests/7_DepartmenTest.js',
         './tests/DefaultSettings.js',
         './tests/47_SendMessage.js',
-        './tests/21_LDFromAdminCheckPayroll.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/6_WithoutReservationMov&Stor.js',
         './tests/SetReservationPrice.js',
@@ -123,6 +122,7 @@ module.exports = function(config,V) {
         './tests/113_CheckAdminPermissions.js',
         './tests/120_LDFlag.js',
         './tests/121_FAQ.js',
+        './tests/21_LDFromAdminCheckPayroll.js',
         './tests/117_HomeEstimatePortal.js',
         './tests/111_ZIPCode.js',
         './tests/24_FiltrationMoveDateCreateDate.js',

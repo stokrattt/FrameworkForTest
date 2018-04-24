@@ -1121,7 +1121,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.findElement(By.xpath('//div[@id="invoice_content"]//option[contains(text(),"'+name+'") and @selected="selected"]' +
             '/../../../../..//tr[1]//input[@ng-model="sale.rate"]/../following-sibling::td[1]')).getText().then(
             function (text) {
-                objectToStore.total = SF.cleanPrice(text);
+                objectToStore.total = Math.floor(SF.cleanPrice(text));
             }
         ), config.timeout);
         SF.sleep(1);
@@ -1159,7 +1159,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
                 '/../../../../../..//option[contains(text(),"' + type + '") and @selected="selected"]' +
                 '/../../..//input[@ng-model="foreman.for_commission"]/../following-sibling::td[2]/span')).getText().then(
                 function (text) {
-                    objectToStore.total = SF.cleanPrice(text);
+                    objectToStore.total = Math.floor(SF.cleanPrice(text));
                 }
             ), config.timeout);
         } else {
