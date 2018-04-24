@@ -24,24 +24,19 @@ condition.nowWeDoing = 'Создаем Long Distance работу в админ�
     LF.CreateLongDistanceFromBoard(V.client);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
-    SF.click(By.xpath('//i[@ng-click="request.extraPickup=true"]'));
     SF.sleep(1);
     V.extraPickUpAddress = SF.randomBukva(6) + '_t';
     V.extraDropOffAddress = SF.randomBukva(6) + '_t';
     V.extraPickUpApt = 123;
     V.extraDropOffpApt = 321;
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_pickup.thoroughfare"]'),V.extraPickUpAddress);
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_pickup.postal_code"]'),V.client.zipFrom);
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_pickup.premise"]'), V.extraPickUpApt);
-    SF.select(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_pickup\')"]'),3);
-    SF.sleep(2);
-    SF.click(By.xpath('//i[@ng-click="request.extraDropoff=true"]'));
-    SF.sleep(1);
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_dropoff.thoroughfare"]'),V.extraDropOffAddress);
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_dropoff.postal_code"]'),V.client.zipTo);
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_dropoff.premise"]'), V.extraDropOffpApt);
-    SF.select(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_dropoff\')"]'),3);
-    SF.sleep(2);
+    MF.EditRequest_AddExtraPickUpZip(V.client.zipFrom);
+    MF.EditRequest_SetExtraPickUpAdress(V.extraPickUpAddress);
+    MF.EditRequest_SetExtraPickUpApt(V.extraPickUpApt);
+    MF.EditRequest_SetExtraPickUpStairs(3);
+    MF.EditRequest_AddExtraDropOffZip(V.client.zipTo);
+    MF.EditRequest_SetExtraDropOffAdress(V.extraDropOffAddress);
+    MF.EditRequest_SetExtraDropOffApt(V.extraDropOffpApt);
+    MF.EditRequest_SetExtraDropOffStairs(3);
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenLogs ();
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Extra Pickup")]/../../following-sibling::span//span[contains(text(), "'+V.extraPickUpAddress+'")]')).getText().then(function(text){
@@ -92,10 +87,10 @@ condition.nowWeDoing = 'Заходим на акаунт и проверяем 
     SF.select(By.xpath('//select[@ng-value="request.field_extra_dropoff.organisation_name"]'),2);
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//input[@ng-value="request.field_extra_pickup.premise"]')).getAttribute('value').then(function(text){
-        VD.IWant(VD.ToEqual, text, 123, 'не совпал апт у екстра пикапа');
+        VD.IWant(VD.ToEqual, text, V.extraPickUpApt, 'не совпал апт у екстра пикапа');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@ng-value="request.field_extra_dropoff.premise"]')).getAttribute('value').then(function(text){
-        VD.IWant(VD.ToEqual, text, 321, 'не совпал апт у екстра дроп офа');
+        VD.IWant(VD.ToEqual, text, V.extraDropOffpApt, 'не совпал апт у екстра дроп офа');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//select[@ng-value="request.field_extra_pickup.organisation_name"]')).getAttribute('value').then(function(text){
         V.extraPickUpValue = text;

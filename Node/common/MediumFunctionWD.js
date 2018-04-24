@@ -1537,6 +1537,32 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
         SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), zipTo);
     }
+    function EditRequest_AddExtraPickUpZip(ExtraPickUpZip) {
+        SF.click(By.xpath('//i[@ng-click="request.extraPickup=true"]'));
+        SF.send(By.xpath('//input[@ng-model="request.field_extra_pickup.postal_code"]'), ExtraPickUpZip);
+    }
+    function EditRequest_AddExtraDropOffZip(ExtraDropOffZip) {
+        SF.click(By.xpath('//i[@ng-click="request.extraDropoff=true"]'));
+        SF.send(By.xpath('//input[@ng-model="request.field_extra_dropoff.postal_code"]'), ExtraDropOffZip);
+    }
+    function EditRequest_SetExtraPickUpAdress(ExtraPickUpAdress) {
+        SF.send (By.xpath('//input[@ng-model="request.field_extra_pickup.thoroughfare"]'), ExtraPickUpAdress);
+    }
+    function EditRequest_SetExtraDropOffAdress(ExtraDropOffAdress) {
+        SF.send (By.xpath('//input[@ng-model="request.field_extra_dropoff.thoroughfare"]'), ExtraDropOffAdress);
+    }
+    function EditRequest_SetExtraPickUpApt(ExtraPickUpApt) {
+        SF.send(By.xpath('//input[@ng-model="request.field_extra_pickup.premise"]'), ExtraPickUpApt);
+    }
+    function EditRequest_SetExtraDropOffApt(ExtraDropOffApt) {
+        SF.send(By.xpath('//input[@ng-model="request.field_extra_dropoff.premise"]'), ExtraDropOffApt);
+    }
+    function EditRequest_SetExtraPickUpStairs(number) {
+        SF.select(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_pickup\')"]'), number);
+    }
+    function EditRequest_SetExtraDropOffStairs(number) {
+        SF.select(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_dropoff\')"]'), number);
+    }
     function EditRequest_ChangeStairsFrom(number) {
         SF.select(By.xpath('//select[@field="[request.type_from, \'type_from\']"]'), number);
         WaitWhileBusy();
@@ -2409,6 +2435,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 	    EditRequest_HomeEstimate_SaveChanges:EditRequest_HomeEstimate_SaveChanges,
         EditRequest_SetZipCodeFrom:EditRequest_SetZipCodeFrom,
         EditRequest_SetZipTo:EditRequest_SetZipTo,
+        EditRequest_AddExtraPickUpZip:EditRequest_AddExtraPickUpZip,
+        EditRequest_AddExtraDropOffZip:EditRequest_AddExtraDropOffZip,
+        EditRequest_SetExtraPickUpAdress:EditRequest_SetExtraPickUpAdress,
+        EditRequest_SetExtraDropOffAdress:EditRequest_SetExtraDropOffAdress,
+        EditRequest_SetExtraPickUpApt:EditRequest_SetExtraPickUpApt,
+        EditRequest_SetExtraDropOffApt:EditRequest_SetExtraDropOffApt,
+        EditRequest_SetExtraPickUpStairs:EditRequest_SetExtraPickUpStairs,
+        EditRequest_SetExtraDropOffStairs:EditRequest_SetExtraDropOffStairs,
         EditRequest_ChangeStairsFrom:EditRequest_ChangeStairsFrom,
         EditRequest_ChangeStairsTo:EditRequest_ChangeStairsTo,
         EditRequest_OpenSITmodal:EditRequest_OpenSITmodal,

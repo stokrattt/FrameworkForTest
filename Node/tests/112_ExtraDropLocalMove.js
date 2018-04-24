@@ -12,23 +12,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'создаем рекевст с борда, добавляем еестра сервисы, вводим адрес, апт, и этаж. Зип не вводим';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
-    SF.click(By.xpath('//i[@ng-click="request.extraPickup=true"]'));
-    SF.sleep(1);
     V.extraPickUpAddress = SF.randomBukva(6) + '_t';
     V.extraDropOffAddress = SF.randomBukva(6) + '_t';
     V.extraPickUpApt = 123;
     V.extraDropOffpApt = 321;
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_pickup.thoroughfare"]'),V.extraPickUpAddress);
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_pickup.postal_code"]'),'01101');
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_pickup.premise"]'), V.extraPickUpApt);
-    SF.select(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_pickup\')"]'),3);
-    SF.sleep(2);
-    SF.click(By.xpath('//i[@ng-click="request.extraDropoff=true"]'));
-    SF.sleep(1);
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_dropoff.thoroughfare"]'),V.extraDropOffAddress);
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_dropoff.postal_code"]'),'02222');
-    SF.send(By.xpath('//input[@ng-model="request.field_extra_dropoff.premise"]'), V.extraDropOffpApt);
-    SF.select(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_dropoff\')"]'),3);
+    MF.EditRequest_AddExtraPickUpZip('01101');
+    MF.EditRequest_SetExtraPickUpAdress(V.extraPickUpAddress);
+    MF.EditRequest_SetExtraPickUpApt(V.extraPickUpApt);
+    MF.EditRequest_SetExtraPickUpStairs(3);
+    MF.EditRequest_AddExtraDropOffZip('02222');
+    MF.EditRequest_SetExtraDropOffAdress(V.extraDropOffAddress);
+    MF.EditRequest_SetExtraDropOffApt(V.extraDropOffpApt);
+    MF.EditRequest_SetExtraDropOffStairs(3);
     MF.EditRequest_SaveChanges();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -45,8 +40,8 @@ condition.nowWeDoing = 'заходим заново в реквест, и про
         V.ExtraPickU = text;
         VD.IWant(VD.ToEqual, V.ExtraPickU, text,'нет сервиса экстра пикап');
     }),config.timeout);
-    SF.select(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_pickup\')"]'),2);
-    SF.select(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_dropoff\')"]'),2);
+    MF.EditRequest_SetExtraPickUpStairs(2);
+    MF.EditRequest_SetExtraDropOffStairs(2);
     MF.EditRequest_SaveChanges();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -77,7 +72,7 @@ condition.nowWeDoing = 'идем в аккаунт, и на конфирмеиш
     SF.waitForLocated(By.xpath('//button[@ng-click="goToConfirmation()"]'));
     SF.click (By.xpath('//button[@ng-click="goToConfirmation()"]'));
     SF.openTab(1);
-    SF.sleep(8);
+    SF.waitForVisible(By.xpath('//h1[contains(text(),"Confirmation Page")]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Extra Drop-off")]')).getText().then(function(text){
         V.extraDropOffConf = text;
         VD.IWant(VD.ToEqual, V.extraDropOffAcc , text, 'нет ектра дроп офф на конфирмеишен');
@@ -87,6 +82,5 @@ condition.nowWeDoing = 'идем в аккаунт, и на конфирмеиш
         VD.IWant(VD.ToEqual, (V.ExtraPickU  + ':'), text, 'нет екстра дроп оф на конфирмеишен');
     }),config.timeout);
     SF.sleep(1);
-
     SF.endOfTest();
 };
