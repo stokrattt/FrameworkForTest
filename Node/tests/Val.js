@@ -13,8 +13,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		'сходятся ли расчеты в таблице Valuation с формулой расчетов ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-	// MF.Board_OpenSettingsGeneral();
-	// SF.click(By.xpath('//*[@id="compose-wrapper"]/div[1]/aside/ul/li[3]/a'));
+	MF.Board_OpenSettingsGeneral();
+	SF.click(By.xpath('//*[@id="compose-wrapper"]/div[1]/aside/ul/li[3]/a'));
+	let check = '//md-radio-button[@id="radio_2"]';
+	if (check){
+		SF.click(By.xpath('//md-radio-button[@id="radio_2"]'));
+	}
 	// MF.WaitWhileBusy();
 	// // берем опцию By persent и начинаем запихивать значения по вертикали
 	// SF.click(By.xpath('//md-radio-button[@id="radio_2"]'));
@@ -95,20 +99,22 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	// 	if (index===3||index===6) cellValue = 10;
 	// });
 	//
-	// SF.click(By.xpath('//button[@ng-click="saveChanges()"]'));
+	MF.WaitWhileBusy();
+	SF.click(By.xpath('//button[@ng-click="saveChanges()"]'));
+	MF.WaitWhileToaster();
 	LF.CreateLocalMovingFromBoard(V.client);
 	JS.scroll('label[ng-click="openValuationModal()"]');
 	SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
 	SF.waitForVisible(By.xpath('//div[@class="valuation-modal__info"]'));
-	driver.wait(driver.findElement(By.xpath('//td[@class="valuation-modal__info-table-cell"]')).getText().then(function (text) {
+	SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
+	MF.WaitWhileToaster();
+	driver.wait(driver.findElement(By.xpath('//div[@class="req-valuation"]/div[2]/div/table/tbody/tr[2]/td[1]')).getText().then(function (text) {
 		V.Weight= text;
 	}), config.timeout);
 	SF.sleep(1);
 	const centPerPound= 0.6;
 	const Weight = V.Weight;
 	let AmountOfLiability = centPerPound * Weight;
-	SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
-	MF.WaitWhileToaster();
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]')).getAttribute('value').then(function (text) {
 		V.AmountOfLiability= text;
 		V.AmountOfLiability = SF.cleanPrice(text.substring(text.indexOf('$')));
@@ -148,11 +154,57 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		VD.IWant(VD.ToEqual, DeductibleLevel3 ,V.DeductibleLevel4,'не совпали Valuation у реквеста с расчетами по формулам');
 	}), config.timeout);
 	SF.click(By.xpath('//td[3]/div[@ng-click="setDeductibleLevel(value)"]'));
-	
+	V.SelectLevel= {};
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/table/tbody[2]/tr/td[3]')).getText().then(function (text) {
+		V.SelectLevel = text;
+		console.log(V.SelectLevel);
+	}), config.timeout);
 	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
 	MF.SweetConfirm();
+	MF.WaitWhileBusy();
+	MF.WaitWhileToaster();
+	MF.EditRequest_OpenClient();
+	LF.SetClientPasswd(V.client.passwd);
+	MF.EditRequest_OpenRequest();
+	MF.EditRequest_SetToNotConfirmed();
+	V.boardNumbers = {};
+	LF.RememberDigitsRequestBoard(V.boardNumbers);
+	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+	MF.WaitWhileBusy();
+	MF.EditRequest_CloseEditRequest();
+	MF.Board_LogoutAdmin();
 
-
+	condition.nowWeDoing = 'идем на аккаунт,проверяем все значения,проверяем то,что мы выбрали на мувборде( какой дедактбл левел) ' +
+		'смотрим,не переведется ли при смене страховки в статус пэдинг-инфо';
+	SF.get(V.accountURL);
+	LF.LoginToAccountAsClient(V.client);
+	MF.Account_OpenRequest(V.boardNumbers.Id);
+	MF.Account_ClickViewRequest();
+	V.accountNumbers={};
+	LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
+	V.SelectLevelinAccount= {};
+	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-select-block__info-table"]/tbody[2]/tr/td[3]')).getText().then(function (text) {
+		V.SelectLevelinAccount = text;
+		console.log(V.SelectLevelinAccount);
+		VD.IWant(VD.ToEqual, V.SelectLevelinAccount ,V.SelectLevel,'не совпали Valuation выбранный на реквесте и на аккаунте');
+	}), config.timeout);
+	SF.click(By.xpath('//table[@class="valuation-select-block__info-table"]/tbody/tr/td[4]/md-checkbox'));
+	V.SelectLevelinAccount2= {};
+	driver.wait(driver.findElement(By.xpath('//div[@ng-class="{\'disabled\': readOnly}"]/table/tbody[2]/tr/td[4]')).getText().then(function (text) {
+		V.SelectLevelinAccount2 = text;
+		console.log(V.SelectLevelinAccount2);
+	}), config.timeout);
+	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
+		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed');
+	}), config.timeout);
+	MF.Account_ClickProceedBookYourMove();
+	V.SelectLevelinConfPage={};
+	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table"]/tbody/tr[2]/td[4]/span[contains(text(),"$ 970.20")]'))
+		.getText()
+		.then(function (text) {
+			V.SelectLevelinConfPage = text;
+			console.log(V.SelectLevelinConfPage);
+		}), config.timeout);
 
 
 	SF.endOfTest();

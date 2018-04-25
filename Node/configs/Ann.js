@@ -16,6 +16,7 @@ module.exports = function (config, V) {
 	//V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';  //stage
 	//V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';  //stage
 	V.adminURL = 'http://moversboard.net:8051/moveBoard/#/login';
+	V.accountURL = 'http://moversboard.net:8051/account/#/login';
 	//V.adminLogin = 'RibaAdmin';
 	//V.adminLogin = 'JACK_RATE';
 	//V.adminPassword = '123';
