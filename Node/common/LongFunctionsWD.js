@@ -113,7 +113,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		}), config.timeout);
 		SF.sleep(2);
 		driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.deliveryDate\"]').focus();"), config.timeout);
-		JS.waitForExist('div.picker__box:visible');
+		JS.waitForExist('div.er-picker__box:visible');
 		SF.sleep(2);
 		driver.wait(driver.executeScript(JSstep.Click8DaysNewCalendar).then(function (D) {
 			V.frontNumbers.deliveryDate = D;
