@@ -2025,7 +2025,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function FrontSiteSmallCalc_ClickCalendar() {
         driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.moveDate\"]').focus();"),config.timeout);
-        JS.waitForExist('div.picker__box:visible');
+        JS.waitForExist('div.er-picker__box:visible');
         SF.sleep(2);
     }
     function FrontSiteSmallCalc_ClickContinue() {

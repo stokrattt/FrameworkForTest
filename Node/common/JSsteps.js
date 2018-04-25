@@ -15,24 +15,24 @@ exports.Click4DaysNewCalendar = function () {
     };
 
     function checkMonth() {
-        while (Number(($('div.picker--opened div.picker__year').get(0).innerHTML)) < future.getFullYear()) {
-            console.log('current Year ' + $('div.picker--opened div.picker__year').get(0).innerHTML);
-            $('div.picker--opened div.picker__nav--next').click();
+        while (Number(($('div.er-picker--opened div.er-picker__year').get(0).innerHTML)) < future.getFullYear()) {
+            console.log('current Year ' + $('div.er-picker--opened div.er-picker__year').get(0).innerHTML);
+            $('div.er-picker--opened div.er-picker__nav--next').click();
         }
 
-        while (Number(($('div.picker--opened div.picker__year').get(0).innerHTML)) > future.getFullYear()) {
-            console.log('current Year ' + $('div.picker--opened div.picker__year').get(0).innerHTML);
-            $('div.picker--opened div.picker__nav--prev').click();
+        while (Number(($('div.er-picker--opened div.er-picker__year').get(0).innerHTML)) > future.getFullYear()) {
+            console.log('current Year ' + $('div.er-picker--opened div.er-picker__year').get(0).innerHTML);
+            $('div.er-picker--opened div.er-picker__nav--prev').click();
         }
-        console.log('current Year ' + $('div.picker--opened div.picker__year').get(0).innerHTML);
+        console.log('current Year ' + $('div.er-picker--opened div.er-picker__year').get(0).innerHTML);
 
-        while (monthNumbers[$('div.picker--opened div.picker__month').get(0).innerHTML.toUpperCase()] < future.getMonth()) {
-            console.log('current Month ' + $('div.picker--opened div.picker__month').get(0).innerHTML);
-            $('div.picker--opened div.picker__nav--next').click();
+        while (monthNumbers[$('div.er-picker--opened div.er-picker__month').get(0).innerHTML.toUpperCase()] < future.getMonth()) {
+            console.log('current Month ' + $('div.er-picker--opened div.er-picker__month').get(0).innerHTML);
+            $('div.er-picker--opened div.er-picker__nav--next').click();
         }
-        while (monthNumbers[$('div.picker--opened div.picker__month').get(0).innerHTML.toUpperCase()] > future.getMonth()) {
-            console.log('current Month ' + $('div.picker--opened div.picker__month').get(0).innerHTML);
-            $('div.picker--opened div.picker__nav--prev').click();
+        while (monthNumbers[$('div.er-picker--opened div.er-picker__month').get(0).innerHTML.toUpperCase()] > future.getMonth()) {
+            console.log('current Month ' + $('div.er-picker--opened div.er-picker__month').get(0).innerHTML);
+            $('div.er-picker--opened div.er-picker__nav--prev').click();
         }
     }
 
@@ -42,14 +42,14 @@ exports.Click4DaysNewCalendar = function () {
 
     var i = 5;
     checkMonth();
-    while ($("div.picker--opened table.picker__table>tbody>tr>td>div.picker__day--infocus.calendarDay5:contains('" + future.getDate() + "'):first").length !== 0) {
+    while ($("div.er-picker--opened table.picker__table>tbody>tr>td>div.er-picker__day--infocus.calendarDay5:contains('" + future.getDate() + "'):first").length !== 0) {
         future = new Date(now.getTime() + msInDay * i);
         checkMonth();
         i++;
     }
 
-    console.log("div.picker--opened table.picker__table>tbody>tr>td>div.picker__day--infocus:contains('" + future.getDate() + "'):first");
-    $("div.picker--opened table.picker__table>tbody>tr>td>div.picker__day--infocus:contains('" + future.getDate() + "'):first").click();
+    console.log("div.er-picker--opened table.er-picker__table>tbody>tr>td>div.er-picker__day--infocus:contains('" + future.getDate() + "'):first");
+    $("div.er-picker--opened table.er-picker__table>tbody>tr>td>div.er-picker__day--infocus:contains('" + future.getDate() + "'):first").click();
 
     return {
         Year: future.getFullYear(),
@@ -75,24 +75,24 @@ exports.Click8DaysNewCalendar = function () {
     };
 
     function checkMonth() {
-        while (Number(($('div.picker--opened div.picker__year').get(0).innerHTML)) < farFuture.getFullYear()) {
-            console.log('current Year ' + $('div.picker--opened div.picker__year').get(0).innerHTML);
-            $('div.picker--opened div.picker__nav--next').click();
+        while (Number(($('div.er-picker--opened div.er-picker__year').get(0).innerHTML)) < farFuture.getFullYear()) {
+            console.log('current Year ' + $('div.er-picker--opened div.er-picker__year').get(0).innerHTML);
+            $('div.er-picker--opened div.er-picker__nav--next').click();
         }
 
-        while (Number(($('div.picker--opened div.picker__year').get(0).innerHTML)) > farFuture.getFullYear()) {
-            console.log('current Year ' + $('div.picker--opened div.picker__year').get(0).innerHTML);
-            $('div.picker--opened div.picker__nav--prev').click();
+        while (Number(($('div.er-picker--opened div.er-picker__year').get(0).innerHTML)) > farFuture.getFullYear()) {
+            console.log('current Year ' + $('div.er-picker--opened div.er-picker__year').get(0).innerHTML);
+            $('div.er-picker--opened div.er-picker__nav--prev').click();
         }
-        console.log('current Year ' + $('div.picker--opened div.picker__year').get(0).innerHTML);
+        console.log('current Year ' + $('div.er-picker--opened div.er-picker__year').get(0).innerHTML);
 
-        while (monthNumbers[$('div.picker--opened div.picker__month').get(0).innerHTML.toUpperCase()] < farFuture.getMonth()) {
-            console.log('current Month ' + $('div.picker--opened div.picker__month').get(0).innerHTML);
-            $('div.picker--opened div.picker__nav--next').click();
+        while (monthNumbers[$('div.er-picker--opened div.er-picker__month').get(0).innerHTML.toUpperCase()] < farFuture.getMonth()) {
+            console.log('current Month ' + $('div.er-picker--opened div.er-picker__month').get(0).innerHTML);
+            $('div.er-picker--opened div.er-picker__nav--next').click();
         }
-        while (monthNumbers[$('div.picker--opened div.picker__month').get(0).innerHTML.toUpperCase()] > farFuture.getMonth()) {
-            console.log('current Month ' + $('div.picker--opened div.picker__month').get(0).innerHTML);
-            $('div.picker--opened div.picker__nav--prev').click();
+        while (monthNumbers[$('div.er-picker--opened div.er-picker__month').get(0).innerHTML.toUpperCase()] > farFuture.getMonth()) {
+            console.log('current Month ' + $('div.er-picker--opened div.er-picker__month').get(0).innerHTML);
+            $('div.er-picker--opened div.er-picker__nav--prev').click();
         }
     }
 
@@ -102,14 +102,14 @@ exports.Click8DaysNewCalendar = function () {
 
     var i = 9;
     checkMonth();
-    while ($("div.picker--opened table.picker__table>tbody>tr>td>div.picker__day--infocus.calendarDay5:contains('" + farFuture.getDate() + "'):first").length !== 0) {
+    while ($("div.er-picker--opened table.er-picker__table>tbody>tr>td>div.er-picker__day--infocus.calendarDay5:contains('" + farFuture.getDate() + "'):first").length !== 0) {
         farFuture = new Date(now.getTime() + msInDay * i);
         checkMonth();
         i++;
     }
 
-    console.log("div.picker--opened table.picker__table>tbody>tr>td>div.picker__day--infocus:contains('" + farFuture.getDate() + "'):first");
-    $("div.picker--opened table.picker__table>tbody>tr>td>div.picker__day--infocus:contains('" + farFuture.getDate() + "'):first").click();
+    console.log("div.er-picker--opened table.er-picker__table>tbody>tr>td>div.er-picker__day--infocus:contains('" + farFuture.getDate() + "'):first");
+    $("div.er-picker--opened table.er-picker__table>tbody>tr>td>div.er-picker__day--infocus:contains('" + farFuture.getDate() + "'):first").click();
 
     return {
         Year: farFuture.getFullYear(),
