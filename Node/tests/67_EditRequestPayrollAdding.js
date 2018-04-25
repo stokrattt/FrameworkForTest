@@ -63,7 +63,7 @@ condition.nowWeDoing = 'создаём local moving';
 		Foreman2:{}
     };
 	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+    VD.IWant(VD.ToEqual, Math.floor(V.payrollNumbers.Sale.Total), V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(1);
     MF.Payroll_ClickAllDepartment();

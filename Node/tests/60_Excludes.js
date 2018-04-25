@@ -100,7 +100,7 @@ condition.nowWeDoing = 'тут открываем пейрол в реквест
         helpersForComission: []
     };
     driver.wait(driver.executeScript('return $(\'input[ng-model="sale.for_commission "]\').val()').then(function (text) {
-        V.boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
+        V.boardNumbers.Payroll.managerForCommission.office = Math.floor(SF.cleanPrice(text));
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, Math.floor(V.boardNumbers.Payroll.managerForCommission.office),
@@ -109,13 +109,13 @@ condition.nowWeDoing = 'тут открываем пейрол в реквест
         'Не совпал ForCommission менеджера');
 
     driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
-        V.boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
+        V.boardNumbers.Payroll.managerForCommission.total = Math.floor(SF.cleanPrice(text));
     }),config.timeout);
 
 condition.nowWeDoing = 'проверяем фореманан в пейроле в реквесте';
     MF.EditRequest_PayrollOpenForemanTab();
     driver.wait(driver.executeScript('return $(\'input[ng-model="foreman.for_commission"]\').val()').then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.office = SF.cleanPrice(text);
+        V.boardNumbers.Payroll.foremanForCommission.office = Math.floor(SF.cleanPrice(text));
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.office),
@@ -125,7 +125,7 @@ condition.nowWeDoing = 'проверяем фореманан в пейроле 
     driver.wait(driver.executeScript('return ' +
         '$(\'tr:has(td>select>option[selected="selected"]:contains("Tips"))>td>input[ng-model="foreman.for_commission"]\').val()'
     ).then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.Tips = SF.cleanPrice(text);
+        V.boardNumbers.Payroll.foremanForCommission.Tips = Math.floor(SF.cleanPrice(text));
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.Tips),
@@ -134,7 +134,7 @@ condition.nowWeDoing = 'проверяем фореманан в пейроле 
     driver.wait(driver.executeScript('return ' +
         '$(\'tr:has(td>select>option[selected="selected"]:contains("Extras Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
     ).then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
+        V.boardNumbers.Payroll.foremanForCommission.AdServices = Math.floor(SF.cleanPrice(text));
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.AdServices),
@@ -143,14 +143,14 @@ condition.nowWeDoing = 'проверяем фореманан в пейроле 
     driver.wait(driver.executeScript('return ' +
         '$(\'tr:has(td>select>option[selected="selected"]:contains("Packing Commission"))>td>input[ng-model="foreman.for_commission"]\').val()'
     ).then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
+        V.boardNumbers.Payroll.foremanForCommission.Packing = Math.floor(SF.cleanPrice(text));
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, Math.floor(V.boardNumbers.Payroll.foremanForCommission.Packing),
         Math.floor(V.boardNumbers.Packing),
         'Не совпал Packing формена');
     driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
-        V.boardNumbers.Payroll.foremanForCommission.total = SF.cleanPrice(text);
+        V.boardNumbers.Payroll.foremanForCommission.total = Math.floor(SF.cleanPrice(text));
     }),config.timeout);
     SF.sleep(1);
 
@@ -158,7 +158,7 @@ condition.nowWeDoing = 'проверяем хелпера в пейроле в �
     SF.click(By.xpath('//li[@heading="Helpers"]/a'));
     driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="helpers in helper track by $index"][1]' +
         '//tr[@ng-repeat="helper in helpers.commissions track by $index"][1]/td[3]/input[@ng-model="helper.for_commission"]')).getAttribute('value').then(function (text) {
-        V.boardNumbers.Payroll.helpersForComission.office = SF.cleanPrice(text);
+        V.boardNumbers.Payroll.helpersForComission.office = Math.floor(SF.cleanPrice(text));
     }),config.timeout);
     SF.sleep(1);
     VD.IWant(VD.ToEqual, Math.floor(V.boardNumbers.Payroll.helpersForComission.office),
