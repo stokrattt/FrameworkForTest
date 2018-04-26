@@ -250,6 +250,89 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		VD.IWant(VD.ToEqual, V.ValuationSales ,V.ValuationClosing,'не совпали Valuation на Sales и Closing');
 	}), config.timeout);
 
+	condition.nowWeDoing = 'идем в локалдиспатч, назначаем работников';
+	MF.EditRequest_CloseEditRequest();
+	MF.Board_OpenLocalDispatch();
+	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
+	MF.Dispatch_GridView();
+	LF.SelectRequestDispatch(V.boardNumbers.Id);
+	LF.selectCrew(V.foremanName);
+	MF.Board_LogoutAdmin();
+
+	condition.nowWeDoing = 'заходим под фореманом, идем на контракт';
+	LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
+	LF.OpenRequestInForemanPage(V.boardNumbers.Id);
+	MF.Contract_WaitConfirmationPage();
+	MF.Contract_OpenBillOfLading();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	MF.Contract_DeclarationValueA();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	driver.wait(driver.findElement(By.xpath('//tr[@ng-if="finance.valuation && finance.valuation != 0"]/td[2]')).getText().then(function (text) {
+		V.ValuationContract = text;
+		VD.IWant(VD.ToEqual, V.ValuationSales ,V.ValuationContract,'не совпали Valuation на реквесте в табе Sales и на контракте');
+	}), config.timeout);
+	MF.Contract_ClickPay();
+	MF.Contract_ClickTips10();
+	MF.Contract_ClickAddTips();
+	MF.Contract_ClickPaymentInfo();
+	LF.FillCardPayModal();
+	LF.Contract_SignMainPayment();
+	driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+		V.path = path;
+	}), config.timeout);
+	SF.sleep(1);
+	MF.Contract_UploadImage(V.path);
+	MF.Contract_UploadImage(V.path);
+	MF.Contract_SaveImages();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	V.contractNumbers = {};
+	MF.Contract_Submit(V.contractNumbers);
+	MF.Contract_ReturnToForeman();
+	LF.LogoutFromBoardForeman();
+
+	condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
+	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+	MF.Board_OpenLocalDispatch();
+	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
+	MF.Dispatch_GridView();
+	MF.Dispatch_ShowDoneJobs();
+	LF.OpenRequestDispatch(V.boardNumbers.Id);
+	MF.EditRequest_WaitForBalanceVisible();
+	LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
+	MF.EditRequest_ScrollDown();
+	VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+	MF.EditRequest_OpenPayroll();
+	V.managerName = 'emilia clark';
+	LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
+	SF.sleep (1);
+	MF.EditRequest_CloseModal();
+	LF.closeEditRequest();
+
+	condition.nowWeDoing = 'сейчас идём в пейролл';
+	MF.Board_OpenPayroll();
+	LF.selectDateInPayroll(V.boardNumbers.moveDate);
+	LF.findTestForemanInPayroll(V.foremanName);
+
+	condition.nowWeDoing = 'выбираем цифры формена';
+	V.payrollNumbers = {
+		Foreman:{}, Sale:{}
+	};
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
+	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
+		'id=' + V.boardNumbers.Id);
+	MF.Payroll_ClickAllDepartment();
+
+	condition.nowWeDoing = 'выбираем цифры менеджера';
+	LF.findSaleInPayroll(V.managerName);
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
+	VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+		'id=' + V.boardNumbers.Id);
+	SF.sleep(1);
+
 
 	SF.endOfTest();
 
