@@ -175,13 +175,22 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Board_LogoutAdmin();
 
 	condition.nowWeDoing = 'идем на аккаунт,проверяем все значения,проверяем то,что мы выбрали на мувборде( какой дедактбл левел) ' +
-		'смотрим,не переведется ли при смене страховки в статус пэдинг-инфо';
+		'смотрим,не переведется ли при смене страховки в статус пэдинг-инфо' +
+		'после оплаты резервейшн прайс будем пытаться в статусе конферм поменять страховку ';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
 	MF.Account_ClickViewRequest();
 	V.accountNumbers={};
 	LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
+	MF.Account_OpenAdressModal();
+	MF.Account_SendAdressToModalWindow();
+	MF.Account_SendAdressFromModalWindow();
+	SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+	MF.WaitWhileBusy();
+	MF.SweetConfirm();
+	MF.SweetConfirm();
+	MF.Account_WaitForLoadingAccount();
 	V.SelectLevelinAccount= {};
 	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-select-block__info-table"]/tbody[2]/tr/td[3]')).getText().then(function (text) {
 		V.SelectLevelinAccount = text;
@@ -199,12 +208,47 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	}), config.timeout);
 	MF.Account_ClickProceedBookYourMove();
 	V.SelectLevelinConfPage={};
-	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table"]/tbody/tr[2]/td[4]/span[contains(text(),"$ 970.20")]'))
+	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table"]/tbody/tr[2]/td[4]/span'))
 		.getText()
 		.then(function (text) {
 			V.SelectLevelinConfPage = text;
 			console.log(V.SelectLevelinConfPage);
+			VD.IWant(VD.ToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinConfPage,'не совпали Valuation выбранный во второй раз ' +
+				'на аккаунте и в таблице на конфирмейшн пэйдж');
 		}), config.timeout);
+	JS.scroll('div[ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]');
+	MF.Account_ClickIAgreeWithAll();
+	SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
+	SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+	LF.MakeSignJS('signatureCanvasReserv');
+	SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
+	LF.FillCardPayModal();
+	MF.WaitWhileSpinner();
+	MF.Account_WaitForGreenTextAfterConfirm();
+	driver.findElement(By.xpath('//div[@ng-class="{\'disabled\': isCannotEditValuation}"]')).isDisplayed();
+	V.accountNumbers1={};
+	LF.RememberAccountNumbers(V.accountNumbers1);
+	LF.LogoutFromAccount();
+	condition.nowWeDoing = 'идем на мувборд,проверяем цифры на мувборде в реквесте и валюэушн,который мы выбрали';
+	SF.get(V.adminURL);
+	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+	MF.Board_OpenConfirmed();
+	MF.Board_OpenRequest(V.boardNumbers.Id);
+	V.boardNumbers1 = {};
+	LF.RememberDigitsRequestBoard(V.boardNumbers1);
+	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbers1,V.boardNumbers1);
+	V.ValuationSales= {};
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!request.request_all_data.valuation.selected.valuation_charge"]')).getText().then(function (text) {
+		V.ValuationSales = text;
+		console.log(V.ValuationSales);
+	}), config.timeout);
+	SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
+	V.ValuationClosing= {};
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!invoice.request_all_data.valuation.selected.valuation_charge"]')).getText().then(function (text) {
+		V.ValuationClosing = text;
+		console.log(V.ValuationClosing);
+		VD.IWant(VD.ToEqual, V.ValuationSales ,V.ValuationClosing,'не совпали Valuation на Sales и Closing');
+	}), config.timeout);
 
 
 	SF.endOfTest();

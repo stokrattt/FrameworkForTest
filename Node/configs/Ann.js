@@ -3,7 +3,7 @@ module.exports = function (config, V) {
 	config.timeout = 120000;
 
 	config.suite = [
-		'./tests/10_ComparQuotLocalCheckBilOfLad.js'
+		'./tests/Val.js'
 		// './tests/31_FlateRateBooking.js'
 	];
 	config.chainFail = false;
@@ -12,11 +12,11 @@ module.exports = function (config, V) {
 	//V.frontURL = 'http://dev.stage.themoveboard.com:90/';                    //dev
 	//V.accountURL = 'http://dev.stage.themoveboard.com:90/account/#/login';  //dev
 	//V.adminURL = 'http://dev.stage.themoveboard.com:90/moveBoard/#/login';  //dev
-	V.frontURL = 'http://stage.stage.themoveboard.com:91/';        //stage
-	V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';  //stage
-	V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';  //stage
-	//V.adminURL = 'http://moversboard.net:8051/moveBoard/#/login';
-	//V.accountURL = 'http://moversboard.net:8051/account/#/login';
+	//V.frontURL = 'http://stage.stage.themoveboard.com:91/';        //stage
+	//V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';  //stage
+	//V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';  //stage
+	V.adminURL = 'http://moversboard.net:8051/moveBoard/#/login';
+	V.accountURL = 'http://moversboard.net:8051/account/#/login';
 	//V.adminLogin = 'RibaAdmin';
 	//V.adminLogin = 'JACK_RATE';
 	//V.adminPassword = '123';
