@@ -193,7 +193,7 @@ condition.nowWeDoing = 'выбираем цифры формена';
         Foreman:{}, Sale:{}, Helper:{}
     };
 	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
-	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
+	VD.IWant(VD.ToEqual, Math.floor(V.payrollNumbers.Foreman.Total), V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
 		'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
 
@@ -201,7 +201,7 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll('SalesExclude');
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+    VD.IWant(VD.ToEqual, Math.floor(V.payrollNumbers.Sale.Total), V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
 
 condition.nowWeDoing = 'выбираем цифры хелпера';

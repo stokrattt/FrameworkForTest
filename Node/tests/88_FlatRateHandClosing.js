@@ -177,7 +177,7 @@ condition.nowWeDoing = 'идем в большой пейрол проверят
         Foreman2:{}
     };
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, '1 не совпали цифры в Payroll manager\n' +
+    VD.IWant(VD.ToEqual, Math.floor(V.payrollNumbers.Sale.Total), V.boardNumbers.Payroll.managerForCommission.total, '1 не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
     LF.findTestForemanInPayroll(V.foremanName);
