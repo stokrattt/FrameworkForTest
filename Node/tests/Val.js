@@ -127,7 +127,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/table/tbody[2]/tr/td[2]')).getText().then(function (text) {
 		V.DeductibleLevel1= text;
 		V.DeductibleLevel1 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, DeductibleLevel0 ,V.DeductibleLevel1,'не совпали Valuation у реквеста с расчетами по формулам');
+		VD.IWant(VD.ToEqual, DeductibleLevel0 ,V.DeductibleLevel1,'не совпали Valuation у реквеста с расчетами по формулам(первый дедактбл левел)');
 	}), config.timeout);
 	SF.sleep(1);
 	let percent1 = 0.15;
@@ -135,7 +135,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/table/tbody[2]/tr/td[3]')).getText().then(function (text) {
 		V.DeductibleLevel2= text;
 		V.DeductibleLevel2 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, DeductibleLevel1 ,V.DeductibleLevel2,'не совпали Valuation у реквеста с расчетами по формулам');
+		VD.IWant(VD.ToEqual, DeductibleLevel1 ,V.DeductibleLevel2,'не совпали Valuation у реквеста с расчетами по формулам (второй дедактбл левел)');
 	}), config.timeout);
 	SF.sleep(1);
 	let percent2 = 0.2;
@@ -143,7 +143,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/table/tbody[2]/tr/td[4]')).getText().then(function (text) {
 		V.DeductibleLevel3= text;
 		V.DeductibleLevel3 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, DeductibleLevel2 ,V.DeductibleLevel3,'не совпали Valuation у реквеста с расчетами по формулам');
+		VD.IWant(VD.ToEqual, DeductibleLevel2 ,V.DeductibleLevel3,'не совпали Valuation у реквеста с расчетами по формулам(третий дедактбл левел)');
 	}), config.timeout);
 	SF.sleep(1);
 	let percent3 = 0.25;
@@ -151,7 +151,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/table/tbody[2]/tr/td[5]')).getText().then(function (text) {
 		V.DeductibleLevel4= text;
 		V.DeductibleLevel4 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, DeductibleLevel3 ,V.DeductibleLevel4,'не совпали Valuation у реквеста с расчетами по формулам');
+		VD.IWant(VD.ToEqual, DeductibleLevel3 ,V.DeductibleLevel4,'не совпали Valuation у реквеста с расчетами по формулам(четвертый дедактбл левел)');
 	}), config.timeout);
 	SF.click(By.xpath('//td[3]/div[@ng-click="setDeductibleLevel(value)"]'));
 	V.SelectLevel= {};
