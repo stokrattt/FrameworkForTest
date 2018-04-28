@@ -15,6 +15,10 @@ condition.nowWeDoing = 'создаем лоадинг хелп с аккаунт
     MF.Account_ClickPartialPacking();
     LF.AccountLoadingEnterAddress();
     LF.AccountLocalAddInventory();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
+		V.CBFinAccount = SF.cleanPrice(text);
+		console.log(V.CBFinAccount);
+	}),config.timeout);
     LF.AccountLoadingDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
@@ -29,6 +33,12 @@ condition.nowWeDoing = 'идем в админку,сравниваем данн
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
+    Debug.pause();
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+		V.CBFinAdmin = SF.cleanPrice(text);
+		console.log(V.CBFinAdmin);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес инвентаря в аккаунте и реквесте на мувборде');
+    }),config.timeout);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//select[@id="edit-service"]/option[@value="1"]'));

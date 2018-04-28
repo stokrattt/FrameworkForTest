@@ -73,6 +73,10 @@ condition.nowWeDoing = 'Создаем ЛД в наш штат с верхней
     VD.IWant(VD.ToEqual, V.WhenCreateRequest, 100,'гранд тотал не совпал с настроиками');
 
 condition.nowWeDoing = 'добавляем инвентарь 1й раз, и проверям гранд тотал, должна быть цена по скидке = мин к.ф.+ разница к.ф.* реит. Здесь расчеты для 1й скидки';
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'1\' && vm.request.total_weight.weight"]')).getText().then(function(text) {
+		V.CBFinAccount = SF.cleanPrice(text);
+		console.log(V.CBFinAccount);
+	}),config.timeout);
     LF.AccountLocalAddInventory();
     V.accountNumbersLDAfterFirsrInventory={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterFirsrInventory);
@@ -80,13 +84,20 @@ condition.nowWeDoing = 'добавляем инвентарь 1й раз, и п�
     V.PriceAfterFirstInventory = V.DiffrentAfterFirstInventory * 2; //считаем цену за доп.вес разнцица* реит(1я скидка)
     V.TotalAfterFirstInventory = V.PriceAfterFirstInventory + V.accountNumbersLDAfterFirsrInventory.Fuel + 100;// считаем гранд тотал
     VD.IWant(VD.ToEqual, V.TotalAfterFirstInventory, V.accountNumbersLDAfterFirsrInventory.Total,'гранд тотал не правильно посчитался после первого инвентаря');
-
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
+		V.CBFinAccountAfterInventory = SF.cleanPrice(text);
+		VD.IWant(VD.NotToEqual, V.CBFinAccount ,V.CBFinAccountAfterInventory,'совпал вес до добавления инвенторя и после или иная ошибка');
+    }),config.timeout);
 condition.nowWeDoing = '2й раз добавляем инвентарь, подгоняем под 2ю скидку';
     MF.Account_ClickInventoryOpenTab();
     SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
     SF.click(By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
     SF.click(By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
     MF.Account_ClickSaveInventory();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
+		V.CBFinAccountAfterInventory2 = SF.cleanPrice(text);
+		VD.IWant(VD.NotToEqual, V.CBFinAccountAfterInventory2 ,V.CBFinAccountAfterInventory,'совпал вес после добавления инвентаря  второй раз или иная ошибка ');
+	}),config.timeout);
     V.accountNumbersLDAfterSecondInventory={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterSecondInventory);
     V.DiffrentAfterSecondInventory = V.accountNumbersLDAfterSecondInventory.cbf - V.accountcb;//считаем разницу к.ф. до и после инвентаря
@@ -99,6 +110,12 @@ condition.nowWeDoing = 'идем в модалку проверяем цену, 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbersLD.Id);
+    JS.scroll('div[ng-show="!request.isInventory"]');
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+		V.CBFinAdmin = SF.cleanPrice(text);
+		console.log(V.CBFinAdmin);
+		VD.IWant(VD.ToEqual, V.CBFinAccountAfterInventory2 ,V.CBFinAdmin,'не совпал вес инвентаря в аккаунте и реквесте на мувборде');
+	}),config.timeout);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
@@ -112,6 +129,10 @@ condition.nowWeDoing = 'идем в модалку проверяем цену, 
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickCustomCubFit();
     MF.EditRequest_SendNumberCustomCubFit(1300);
+	driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.custom_weight.value"]')).getAttribute('value').then(function(text) {
+		V.CBFCustom = SF.cleanPrice(text);
+		console.log(V.CBFCustom);
+	}),config.timeout);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SaveChanges();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
@@ -142,6 +163,11 @@ condition.nowWeDoing = 'заходим из-под админа в аккаун�
     MF.EditRequest_ClickViewRequest();
     SF.openTab(1);
     SF.sleep(10);
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'3\' && vm.request.custom_weight.value"]')).getText().then(function(text) {
+		V.CBFCustominAccount = SF.cleanPrice(text);
+		console.log(V.CBFCustominAccount);
+		VD.IWant(VD.ToEqual,V.CBFCustom, V.CBFCustominAccount, 'не совпали кубикфты после добавления кастомного кубикфита на реквесте и на аккаунте');
+	}),config.timeout);
     V.accountNumbersLDAfterCustomWeight={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterCustomWeight);
     VD.IWant (VD.ToEqual, V.boardNumbersSales.Total, V.accountNumbersLDAfterCustomWeight.Total, 'не совпал тотал в сэилс и аккаунте');

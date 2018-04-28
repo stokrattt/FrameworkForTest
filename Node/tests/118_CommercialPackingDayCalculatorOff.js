@@ -41,15 +41,26 @@ condition.nowWeDoing = 'создаем пакинг дей с фронта с в
     SF.sleep(5);
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.request.move_size.raw == 11"]/div/span')).getText().then(function(text) {
+		V.CBFinAccount = SF.cleanPrice(text);
+		console.log(V.CBFinAccount);
+	}),config.timeout);
     LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'идем в админку сверять данные, выключать калькулятор, поменять время ворк тай и травел тайм и еще что то)';
+condition.nowWeDoing = 'идем в админку сверять данные, выключать калькулятор, ' +
+    'поменять время ворк тай и травел тайм и еще что то, делаем проверку кубикфитов)';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbers.Id);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     LF.Validation_Compare_Account_Admin (V.accountNumbers, V.boardNumbers);
+    JS.scroll('div[ng-show="!request.isInventory"]');
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+		V.CBFinAdmin = SF.cleanPrice(text);
+		console.log(V.CBFinAdmin);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес инвентаря в аккаунте и реквесте на мувборде');
+	}),config.timeout);
     MF.EditRequest_OpenSettings();
     V.managerFirstName = 'emilia';
     LF.SetManager(V.managerFirstName);

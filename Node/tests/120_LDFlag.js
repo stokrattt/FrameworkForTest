@@ -85,6 +85,9 @@ condition.nowWeDoing = 'пришли на аккаунт,добавляем ин
 	MF.SweetConfirm();
 	LF.AccountLocalAddInventory(V.accountNumbersLD);
 	MF.Account_WaitForInventoryCheck();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
+		V.CBFinAccount = SF.cleanPrice(text);
+	}),config.timeout);
 	MF.Account_ClickDetails();
 	SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 60);
 	SF.select(By.xpath('//select[@id="new_door_to_parking"]'), 60);
@@ -107,6 +110,11 @@ condition.nowWeDoing = 'переходим на мувборд, менем ст�
 	LF.RememberDigitsRequestBoard(V.boardNumbers2);
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD1,V.boardNumbers2);
 	MF.EditRequest_SetToNotConfirmed();
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+		V.CBFinAdmin = SF.cleanPrice(text);
+		console.log(V.CBFinAdmin);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес после первого добавления инвентаря в аккаунте и реквесте на мувборде');
+	}),config.timeout);
     JS.step(JSstep.selectTruck((V.boardNumbers2.LaborTimeMax + V.boardNumbers2.TravelTime)/60));
     MF.WaitWhileBusy();
 	MF.EditRequest_SaveChanges();
@@ -131,6 +139,9 @@ condition.nowWeDoing = 'идем на аккаунт клиента, прове�
 	MF.Account_ClickSaveInventory();
 	MF.SweetConfirm();
 	MF.Account_WaitForInventoryCheck();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
+		V.CBFinAccountAfterInventory = SF.cleanPrice(text);
+	}),config.timeout);
     MF.Account_CheckRequestStatus_PendingInfo();
 	MF.SweetConfirm();
 	V.accountNumbersLD2={};
@@ -145,6 +156,12 @@ condition.nowWeDoing = 'переходим на мувборд, менем ст�
 	LF.RememberDigitsRequestBoard(V.boardNumbers3);
 	LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersLD2,V.boardNumbers3);
 	MF.EditRequest_SetToNotConfirmed();
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+		V.CBFinAdminAfterInventory = SF.cleanPrice(text);
+		console.log(V.CBFinAdminAfterInventory);
+		VD.IWant(VD.ToEqual, V.CBFinAccountAfterInventory ,V.CBFinAdminAfterInventory,'не совпал вес после второго раза добавления ' +
+			'инвентаря в аккаунте и в реквесте на мувборде');
+	}),config.timeout);
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.reservation_rate.value"]')).getText().then(function (text) {
 		V.Deposit= text;
 		V.Deposit= Math.round((2462)*100)/100;

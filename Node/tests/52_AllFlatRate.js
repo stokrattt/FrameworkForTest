@@ -33,6 +33,10 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
 condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.AccountFlatRateAddInventory();
     MF.Account_SubmitFlatRateAfterAddInventory ();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
+		V.CBFinAccount = SF.cleanPrice(text);
+		console.log(V.CBFinAccount);
+	}),config.timeout);
     JS.scroll ('a[ng-click=\\"vm.Logout()\\"]');
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
         V.FRId = SF.cleanPrice(text);
@@ -45,6 +49,15 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
 condition.nowWeDoing = 'пошли в админку, открыли реквест и заполняем опции';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.OpenRequestFlatRate (V.FRId);
+	MF.EditRequest_OpenRequest();
+	JS.scroll('div[ng-show="!request.isInventory"]');
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+		V.CBFinAdmin = SF.cleanPrice(text);
+		console.log(V.CBFinAdmin);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес после добавления инвентаря в аккаунте и реквесте на мувборде');
+	}),config.timeout);
+	JS.scroll('a[ng-click="select(tabs[6])"]');
+	SF.click(By.xpath('//a[@ng-click="select(tabs[6])"]'));
     LF.FlatRateEditRequest_AddTwoOption();
     /*********************************************************************************************/
     MF.EditRequest_OpenClient ();
@@ -118,6 +131,13 @@ condition.nowWeDoing = 'идем в акк под клиентом букать 
         VD.IWant (VD.ToEqual, V.quoteFlatRate, 5000, 'не нашло цену флет рейт')
     }),config.timeout);
     LF.ConfirmRequestInAccount_WithReservation ();
+	MF.Account_ClickViewConfirmationPage();
+	JS.scroll('div[class="inventory row"]');
+    driver.wait(driver.findElement(By.xpath('//div[@class="inventory row"]/h2/span/span[4]')).getText().then(function(text) {
+		V.CBFinConfPage = SF.cleanPrice(text);
+		console.log(V.CBFinConfPage);
+		VD.IWant(VD.ToEqual, V.CBFinConfPage ,V.CBFinAdmin,'не совпал вес на мувборде и на конфирмейшн пэйдж');
+	}),config.timeout);
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);

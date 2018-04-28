@@ -22,6 +22,10 @@ condition.nowWeDoing = 'зашли первый раз в аккаунт';
     SF.sleep(2);
     LF.AccountLocalDetails();
     MF.Account_WaitForInventoryCheck();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
+		V.CBFinAccount = SF.cleanPrice(text);
+		console.log(V.CBFinAccount);
+	}),config.timeout);
     MF.Account_WaitForDetailsCheck();
     V.accountNumbersTo = {};
     LF.RememberAccountNumbers(V.accountNumbersTo);
@@ -45,6 +49,12 @@ condition.nowWeDoing = 'Зайти на админку, найти реквес�
     MF.Board_OpenRequest(V.accountNumbersTo.Id);
     V.boardNumbersTo = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersTo);
+	JS.scroll('div[ng-show="!request.isInventory"]');
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+		V.CBFinAdmin = SF.cleanPrice(text);
+		console.log(V.CBFinAdmin);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес после добавления инвентаря в аккаунте и реквесте на мувборде');
+	}),config.timeout);
     JS.step(JSstep.selectTruck((V.boardNumbersTo.LaborTimeMax + V.boardNumbersTo.TravelTime) / 60));
     MF.WaitWhileBusy();
     JS.scroll('div.ServicesCost:visible');
@@ -91,17 +101,37 @@ condition.nowWeDoing = 'Зайти в аккаунт и подтвердить �
     LF.Validation_Compare_Account_Admin(V.accountNumbersTo, V.boardNumbersTo);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
-    LF.LogoutFromAccount();
+	MF.Account_ClickViewConfirmationPage();
+	JS.scroll('div[class="inventory row"]');
+	driver.wait(driver.findElement(By.xpath('//div[@class="inventory row"]/h2/span/span[4]')).getText().then(function(text) {
+		V.CBFinConfPage = SF.cleanPrice(text);
+		console.log(V.CBFinConfPage);
+		VD.IWant(VD.ToEqual, V.CBFinConfPage ,V.CBFinAccount,'не совпал вес на первом реквсете( ту сторадж) и на конфирмейшн пэйдж');
+	}),config.timeout);
+	LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'Зайти в аккаунт и подтвердить второй реквест. Можно ещё раз сравнить все цифры с админкой';
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbersFrom.Id);
     MF.Account_OpenRequest(V.accountNumbersFrom.Id);
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
+		V.CBFinAccountFromStorage = SF.cleanPrice(text);
+		console.log(V.CBFinAccountFromStorage);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAccountFromStorage,'не совпал вес в аккаунте на первом реквесте ( ту сторадж) ' +
+            'и на втором (фром сторадж)');
+	}),config.timeout);
     V.accountNumbersFrom = {};
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
     LF.ConfirmRequestInAccount_WithReservation();
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
+	MF.Account_ClickViewConfirmationPage();
+	JS.scroll('div[class="inventory row"]');
+	driver.wait(driver.findElement(By.xpath('//div[@class="inventory row"]/h2/span/span[4]')).getText().then(function(text) {
+		V.CBFinConfPage = SF.cleanPrice(text);
+		console.log(V.CBFinConfPage);
+		VD.IWant(VD.ToEqual, V.CBFinConfPage ,V.CBFinAccountFromStorage,'не совпал вес на втором реквесте аккаунте( фром сторадж) и на конфирмейшн пэйдж');
+	}),config.timeout);
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'Зайти в local Dispatch, найти первый реквест, назначить команду и отправить работу.';

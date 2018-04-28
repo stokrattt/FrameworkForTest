@@ -3,7 +3,7 @@ module.exports = function (config, V) {
 	config.timeout = 120000;
 
 	config.suite = [
-		'./tests/Val.js'
+		'./tests/52_AllFlatRate.js'
 		// './tests/31_FlateRateBooking.js'
 	];
 	config.chainFail = false;
