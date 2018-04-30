@@ -168,6 +168,21 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy();
     }
 
+    function SIT_RefreshJobsInTrip() {
+        JS.scroll('button[ng-click="getJobs()"]');
+        SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
+        SF.sleep(3);
+    }
+    function SIT_ChangeStatusTripForemanHelper() {
+        SF.click(By.xpath('//md-select[@ng-model="type"]'));
+        SF.waitForVisible (By.xpath('//div[text()="Foreman/Helper"]'));
+        SF.click(By.xpath('//div[text()="Foreman/Helper"]'));
+    }
+    function SIT_AddDescriptionAndInternalCode(description, internalCode) {
+        SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), description);
+        SF.send (By.xpath('//input[@ng-model="trip.data.details.internal_code"]'), internalCode);
+        SF.sleep(1.5);
+    }
     ///===============================BOARD=========================================
 
     function Board_ClickLongDistanceDispach() {
@@ -1610,6 +1625,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_ClosingTabDiscountModalSendMoney(sum) {
         SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'));
+        SF.clear(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'));
         SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.add_money_discount"]'), sum);
         SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.add_percent_discount"]'));
     }
@@ -2182,6 +2198,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SIT_ClickAddCarrier:SIT_ClickAddCarrier,
         SIT_ClickSaveCarrier:SIT_ClickSaveCarrier,
         SIT_ClickAddPickupDelivery:SIT_ClickAddPickupDelivery,
+        SIT_RefreshJobsInTrip:SIT_RefreshJobsInTrip,
+        SIT_ChangeStatusTripForemanHelper:SIT_ChangeStatusTripForemanHelper,
+        SIT_AddDescriptionAndInternalCode:SIT_AddDescriptionAndInternalCode,
 
         //------------------------------------BOARD=========================================
         Board_ClickLongDistanceDispach:Board_ClickLongDistanceDispach,

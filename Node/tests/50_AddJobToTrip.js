@@ -66,7 +66,7 @@ condition.nowWeDoing = 'Создаем Трип';
     MF.SIT_ChangeStatusTrip('Pending');
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
-    SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
+    MF.SIT_AddDescriptionAndInternalCode(V.decription, V.internalCode);
     let now = new Date();
     let msInDay = 86400000;
     let future = new Date(now.getTime() + msInDay * 10);

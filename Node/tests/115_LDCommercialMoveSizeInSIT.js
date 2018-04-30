@@ -186,8 +186,7 @@ condition.nowWeDoing = 'Создаём Carrier, заходим в Trip-Planner, 
     V.decription = SF.randomBukva(6) + '_t';
     V.driver = SF.randomBukva(6);
     V.driverPhone = SF.randomCifra(10);
-    SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
-    SF.send (By.xpath('//input[@ng-model="trip.data.details.internal_code"]'), V.internalCode);
+    MF.SIT_AddDescriptionAndInternalCode(V.decription, V.internalCode);
     SF.click(By.xpath('//md-select[@ng-model="carrierId"]'));
     SF.waitForVisible(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
     SF.click(By.xpath('//div[text()="'+ V.carrierNew.name +'"]'));
@@ -214,8 +213,7 @@ condition.nowWeDoing = 'Добавляем реквест в трип. Пров�
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
     JS.click('span:contains(\\"Add requests to trip\\")');
     SF.sleep(5);
-    SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
-    SF.sleep(2);
+    MF.SIT_RefreshJobsInTrip();
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
     MF.EditRequest_WaitForBalanceVisible();
     V.boardNumbersAddedToTrip = {};
@@ -296,8 +294,7 @@ condition.nowWeDoing = 'Открываем реквест, заходим в Pay
     MF.EditRequest_CloseEditRequest();
 
 condition.nowWeDoing = 'Сравниваем Balance и TP collected трипа с тоталом и пейментом в реквесте.';
-    SF.click(By.xpath('//button[@ng-click="getJobs()"]'));
-    SF.sleep(2);
+    MF.SIT_RefreshJobsInTrip();
     driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[15]')).getText().then(function(text){
         text = SF.cleanPrice(text.substring(text.indexOf('$')));
         VD.IWant(VD.ToEqual, text,V.boardNumbersDelCustomPayment.Total, 'не совпад Balance в трипе и реквесте после удаления кастомного пеймента в модалке реквеста');

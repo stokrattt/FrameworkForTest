@@ -70,16 +70,13 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
 condition.nowWeDoing = 'Создаем Трип Foreman/Helper';
     MF.SIT_ClickAddTrip();
     MF.SIT_ChangeStatusTrip('Pending');
-    SF.click(By.xpath('//md-select[@ng-model="type"]'));
-    SF.waitForVisible (By.xpath('//div[text()="Foreman/Helper"]'));
-    SF.click(By.xpath('//div[text()="Foreman/Helper"]'));
+    MF.SIT_ChangeStatusTripForemanHelper();
     driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Trip Info #")]')).getText().then(function(text){
         V.tripId = SF.cleanPrice(text);
     }),config.timeout);
     V.internalCode = SF.randomCifra(10);
     V.decription = SF.randomBukva(6) + '_t';
-    SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), V.decription);
-    SF.send (By.xpath('//input[@ng-model="trip.data.details.internal_code"]'), V.internalCode);
+    MF.SIT_AddDescriptionAndInternalCode(V.decription, V.internalCode);
     let now = new Date();
     let msInDay = 86400000;
     let future = new Date(now.getTime() + msInDay * 10);
