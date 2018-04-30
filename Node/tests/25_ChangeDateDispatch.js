@@ -36,11 +36,18 @@ condition.nowWeDoing = 'идем в конфернутные работы и м�
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenConfirmWork();
     SF.sleep(1);
-    SF.click (By.xpath('//input[@ng-model="moveDateInput"]'));
-    driver.wait(driver.executeScript(JSstep.Click31DaysCalendar).then(function (calDate) {
-        V.request.moveDate = calDate;
-    }),config.timeout);
+    SF.click (By.xpath('//input[@ng-click="openCalendar()"]'));
+    let now = new Date();
+    let msInDay = 86400000;
+    let future = new Date(now.getTime() + msInDay * 24);
+    let month = { month: '2-digit'};
+    let day = {day: '2-digit'};
+    V.firstDate = {};
+    V.firstDate.Month = (future.toLocaleDateString('en-US', month));
+    V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+    SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.firstDate.Month + '-' + V.firstDate.Day +'"]'));
     MF.WaitWhileBusy();
+    Debug.pause();
     SF.sleep (4);
     LF.RememberDateFromRequest(V.boardNumbers);
     MF.EditRequest_WaitForBalanceVisible();

@@ -787,7 +787,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function RememberDigitsRequestBoard_Up(boardNumbers) {
-		driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
+		driver.wait(driver.findElement(By.xpath('//input[@ng-click="openCalendar()"]')).getAttribute("value").then(function (dateString) {
 			dateString = dateString.toUpperCase();
 			boardNumbers.moveDate = {};
 			boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);
@@ -1382,7 +1382,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         MF.Contract_PayCash();
     }
 	function RememberDateFromRequest(boardNumbers) {
-		driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
+		driver.wait(driver.findElement(By.xpath('//input[@ng-click="openCalendar()"]')).getAttribute("value").then(function (dateString) {
 			dateString = dateString.toUpperCase();
 			boardNumbers.moveDate = {};
 			boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);

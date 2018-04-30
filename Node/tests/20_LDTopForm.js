@@ -48,7 +48,7 @@ condition.nowWeDoing = 'запоминаем данные по лонг дист
 condition.nowWeDoing = 'зашли на админку для сравнения';
     MF.Board_OpenRequest (V.accountNumbersLD.Id);
     V.boardNumbers = {};
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
+    driver.wait(driver.findElement(By.xpath('//input[@ng-click="openCalendar()"]')).getAttribute("value").then(function (dateString) {
         dateString = dateString.toUpperCase();
         V.boardNumbers.moveDate = {};
         V.boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);
@@ -91,7 +91,7 @@ condition.nowWeDoing = 'зашли на админку второй раз дл�
         VD.IWant(VD.ToEqual, V.boardNumbersCubFit, V.accountNumbersLDWithInvent.CubicFit, 'Кубик фит не совпадает с аккаунтом');
     }),config.timeout);
     V.boardNumbers = {};
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
+    driver.wait(driver.findElement(By.xpath('//input[@ng-click="openCalendar()"]')).getAttribute("value").then(function (dateString) {
         dateString = dateString.toUpperCase();
         V.boardNumbers.moveDate = {};
         V.boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);

@@ -48,17 +48,16 @@ condition.nowWeDoing = 'идем на дашборд и создаем драф�
     MF.EditRequest_SetAdressToFrom();
 
 condition.nowWeDoing = 'меняем мувдейт в реквесте и конфермим его, запоминаем все данные';
-    SF.click (By.xpath('//input[@ng-model="moveDateInput"]'));
+    SF.click (By.xpath('//input[@ng-click="openCalendar()"]'));
     let now = new Date();
     let msInDay = 86400000;
     let future = new Date(now.getTime() + msInDay * 6);
-    let month = { month: 'numeric'};
-    let day = {day: 'numeric'};
+    let month = { month: '2-digit'};
+    let day = {day: '2-digit'};
     V.firstDate = {};
-    V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
+    V.firstDate.Month = (future.toLocaleDateString('en-US', month));
     V.firstDate.Day = (future.toLocaleDateString('en-US', day));
-    SF.click(By.xpath('//div[@id="ui-datepicker-div"]/div/div/a[@title="Prev"]'));
-    SF.click(By.xpath('//div[@id="ui-datepicker-div"]//td[@data-month="'+ V.firstDate.Month +'"]/a[contains(text(),"'+ V.firstDate.Day +'")]'));
+    SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.firstDate.Month + '-' + V.firstDate.Day +'"]'));
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 97, 'после смены мув дейт рейт поменялся, а не должен');

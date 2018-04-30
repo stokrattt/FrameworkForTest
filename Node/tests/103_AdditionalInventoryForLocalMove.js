@@ -200,7 +200,7 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
 //     SF.click(By.xpath('//div[@ng-bind-html="request.nid | searchfilter:search"]/span[contains(text(),"' + V.Clone.Id + '")]/..'));
 //     MF.EditRequest_WaitForBalanceVisible();
 //     SF.sleep(2);// тут  нужно
-//     SF.click (By.xpath('//input[@ng-model="moveDateInput"]'));
+//     SF.click (By.xpath('//input[@ng-click="openCalendar()"]'));
 //     let now = new Date();
 //     let msInDay = 86400000;
 //     let future = new Date(now.getTime() + msInDay * 10);

@@ -19,7 +19,7 @@ condition.nowWeDoing = 'Создаем Long Distance работу с мувбо�
     V.requestNumber={};
     MF.EditRequest_RememberId(V.requestNumber);
     V.boardNumbers = {};
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="moveDateInput"]')).getAttribute("value").then(function (dateString) {
+    driver.wait(driver.findElement(By.xpath('//input[@ng-click="openCalendar()"]')).getAttribute("value").then(function (dateString) {
         dateString = dateString.toUpperCase();
         V.boardNumbers.moveDate = {};
         V.boardNumbers.moveDate.Month = SF.FindMonthInString(dateString);
