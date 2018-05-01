@@ -2660,12 +2660,12 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
     }
     function EditRequest_AddValuation() {
         SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
-        SF.waitForLocated (By.xpath('//button[@ng-click="saveValuation()"]'));
+        SF.waitForLocated (By.xpath('//div[@class="valuation__modal"]'));
         SF.sleep(1);
-        SF.click(By.xpath('//input[@id="full-protection"]/..'));
+        SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
         SF.sleep(2);
-        SF.click(By.xpath('//td[@ng-repeat="(key, value) in amoutValuation"][2]/div'));
-        SF.click (By.xpath('//button[@ng-click="saveValuation()"]'));
+        SF.click(By.xpath('//table[@class="valuation-modal__info-table"]/tbody[2]/tr[2]/td[3]'));
+        SF.click (By.xpath('//button[@ng-click="clickSave()"]'));
         MF.SweetConfirm ();
         MF.WaitWhileBusy ();
     }

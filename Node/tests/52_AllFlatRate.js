@@ -106,7 +106,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     SF.sleep (2);
     MF.EditRequest_SaveChanges ();
     V.boardNumbersDeliveryDate = {};
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="deliveryDateInput"]')).getAttribute("value").then(function (dateString) {
+    driver.wait(driver.findElement(By.xpath('//input[@ng-click="openCalendar()"]')).getAttribute("value").then(function (dateString) {
         V.boardNumbersDeliveryDate.moveDate = {};
         V.boardNumbersDeliveryDate.moveDate.Month = SF.FindShortMonthInString(dateString);
         V.boardNumbersDeliveryDate.moveDate.Day = SF.cleanPrice(dateString.substring(0, dateString.indexOf(',')));

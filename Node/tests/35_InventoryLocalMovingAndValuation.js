@@ -29,13 +29,13 @@ condition.nowWeDoing = 'первый раз в админке';
 
 condition.nowWeDoing = 'добавляем valuation';
     SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
-    SF.waitForLocated (By.xpath('//button[@ng-click="saveValuation()"]'));
+    SF.waitForLocated (By.xpath('//div[@class="valuation__modal"]'));
     SF.sleep(1);
-    SF.click(By.xpath('//input[@id="full-protection"]/..'));
-    SF.click(By.xpath('//input[@ng-model="valuation.amount.liability"]'));
-    SF.send(By.xpath('//input[@ng-model="valuation.amount.liability"]'), 10570);
-    SF.click(By.xpath('//td[@ng-repeat="(key, value) in amoutValuation"][2]/div'));
-    SF.click (By.xpath('//button[@ng-click="saveValuation()"]'));
+    SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
+    SF.click(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]'));
+    SF.send(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]'), 10570);
+    SF.click(By.xpath('//table[@class="valuation-modal__info-table"]/tbody[2]/tr[2]/td[3]'));
+    SF.click (By.xpath('//button[@ng-click="clickSave()"]'));
     MF.SweetConfirm ();
     MF.WaitWhileBusy ();
     MF.EditRequest_SetToNotConfirmed();
@@ -91,7 +91,7 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Full value Protection")]/following-sibling::span')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), 10570, 'не совпал full valuation на конфирмейшн с тем что выставили на админке в реквесте');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.request.request_all_data.valuation.valuation_charge"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@class="col-md-9 info"][@ng-show="request.request_all_data.valuation.selected.valuation_charge"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.Valuation, 'не совпал valuation charge на конфирмейшине с тем что на админке в реквесте');
     }),config.timeout);
     MF.Account_ConfirmationBackToRequest();

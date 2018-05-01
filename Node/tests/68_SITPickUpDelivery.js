@@ -112,7 +112,7 @@ condition.nowWeDoing = 'Заходим в реквест , выставляем 
     driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
     MF.EditRequest_SaveDetails();
     MF.EditRequest_OpenConfirmWork ();
-    SF.send(By.xpath('//input[@ng-model="scheduleDeliveryDate"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
+    SF.send(By.xpath('//input[@ng-click="openCalendar()"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
     SF.sleep(2);
     MF.EditRequest_CloseConfirmWork ();
     LF.closeEditRequest ();
