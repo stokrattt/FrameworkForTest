@@ -60,11 +60,11 @@ condition.nowWeDoing = 'второй раз в аккаунте сверяем �
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
     LF.RememberAccountNumbers(V.accountNumbers);
-    driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.request_all_data.valuation.lability_amount"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[2]')).getText().then(function (text) {
         text = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, text, 10570, 'не совпал full valuation с тем что выставили на админке в реквесте');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Valuation charge")]/following-sibling::div')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"]/following-sibling::div')).getText().then(function (text) {
         text = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, text, V.Valuation, 'не совпал valuation charge с тем что на админке в реквесте');
     }),config.timeout);
@@ -88,10 +88,10 @@ condition.nowWeDoing = 'перешли на конфирмейшн пейдж и
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMin, V.boardNumbers.TotalMin, 'не совпали TotalMin в конфирмейшн пейдж и борда до резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.TotalMax, V.boardNumbers.TotalMax, 'не совпали TotalMax в конфирмейшн пейдж и борда до резервации');
     VD.IWant(VD.ToEqual, V.ConfirmationPage.Fuel, V.boardNumbers.Fuel, 'не совпали Fuel в конфирмейшн пейдж и борда до резервации');
-    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Full value Protection")]/following-sibling::span')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Full Value Protection Amount of Liability:")]/span')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), 10570, 'не совпал full valuation на конфирмейшн с тем что выставили на админке в реквесте');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@class="col-md-9 info"][@ng-show="request.request_all_data.valuation.selected.valuation_charge"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Valuation charge")]/span')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.Valuation, 'не совпал valuation charge на конфирмейшине с тем что на админке в реквесте');
     }),config.timeout);
     MF.Account_ConfirmationBackToRequest();
