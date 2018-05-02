@@ -585,6 +585,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(6);
     }
     function Account_ClickFullPacking() {
+        WaitWhileBusy();
         SF.click(By.xpath('//label[@for="full"]/input[@ng-model="vm.packing_service"]'));
         WaitWhileBusy();
         SF.sleep(6);

@@ -60,7 +60,7 @@ condition.nowWeDoing = 'тут мы сделаем пакинг дей с рек
     driver.close();
     SF.openTab(0);
     LF.closeEditRequest ();
-    MF.Board_OpenRequest (V.PackingDayID+1);
+    MF.Board_OpenRequest (V.PackingDayID);
     driver.wait(driver.executeScript("return $('div[class=\"addPackingInfo\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не пропал род реквест с пакинг дея в котором мы его отвязали на мувборде');
     }),config.timeout);

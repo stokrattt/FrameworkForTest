@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/47_SendMessage.js'];
+    config.suite = ['./tests/93_PackingDayFromLocMove.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
@@ -29,8 +29,8 @@ module.exports = function(config,V) {
     // V.accountURL = 'http://dev.stage.themoveboard.com:90/account/#/login';      //dev
     // V.adminURL = 'http://dev.stage.themoveboard.com:90/moveBoard/#/login';      //dev
 
-    V.adminLogin = 'WorkAdmin';
-    // V.adminLogin = 'TestAdmin';
+    // V.adminLogin = 'WorkAdmin';
+    V.adminLogin = 'TestAdmin';
     V.adminPassword = 'test';
     V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';
