@@ -34,7 +34,6 @@ module.exports = function(config,V) {
         './tests/22_WeDontMoveToThisState.js',
 
         './tests/25_ChangeDateDispatch.js',
-        './tests/26_CloneRequest.js',
         './tests/27_Receipt.js',
         './tests/29_CheckFewMoverForUserCalcOffManual.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
@@ -134,6 +133,8 @@ module.exports = function(config,V) {
         './tests/51_ServiceTypesOnOff.js',
 
         './tests/56_LoadingAllSteps.js',
+        './tests/26_CloneRequest.js',
+
         // './tests/107_SallaryProfitLossAndPayroll.js',
 
     ];
