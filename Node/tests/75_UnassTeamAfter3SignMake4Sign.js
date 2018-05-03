@@ -16,6 +16,10 @@ condition.nowWeDoing = 'первый раз в аккаунте';
     LF.AccountLocalEnterAddress();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'1\' && vm.request.total_weight.weight"]')).getText().then(function(text) {
+		V.CBFinAccount = SF.cleanPrice(text);
+		console.log(V.CBFinAccount);
+	}),config.timeout);
     // LF.addToCleanerJob(V.accountNumbers.Id);
     LF.LogoutFromAccount();
 
@@ -35,6 +39,10 @@ condition.nowWeDoing = 'первый раз в админке';
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+		V.CBFinAdmin = SF.cleanPrice(text);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'различный вес на аккаунте и в реквесте на мувборде(хотя инвенторий не добавлялся и одинаковые сервис типы)');
+	}),config.timeout);
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();

@@ -66,6 +66,9 @@ condition.nowWeDoing = 'создаем третий реквест, ставим
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+		V.CBFinAdmin = text;
+	}),config.timeout);
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
     SF.sleep (0.5);
@@ -83,6 +86,11 @@ condition.nowWeDoing = 'идем в аккаунт букать третью р�
     }),config.timeout);
     SF.click(By.xpath('//td[contains(text(),"'+V.Id3+'")]/following-sibling::td/button[contains(text(),"View")]'));
     MF.Account_ClickViewRequest ();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'1\' && vm.request.total_weight.weight"]')).getText().then(function(text) {
+		V.CBFinAccount = SF.cleanPrice(text);
+		console.log(V.CBFinAccount);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес на мувборде и на аккаунте у третьего реквеста');
+	}),config.timeout);
     LF.ConfirmRequestInAccount_WithReservationWithAdress ();
     LF.LogoutFromAccount ();
     SF.get (V.adminURL);

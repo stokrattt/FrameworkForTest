@@ -32,6 +32,10 @@ condition.nowWeDoing = 'первый раз в аккаунте';
     LF.AccountLoadingDetails();
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text){
+		V.CBFinAccount = SF.cleanPrice(text);
+		console.log(V.CBFinAccount);
+	}),config.timeout);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     //LF.addToCleanerJob(V.accountNumbers.Id);
@@ -78,6 +82,10 @@ condition.nowWeDoing = 'первый раз в админке';
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+		V.CBFinAdmin = SF.cleanPrice(text);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не сошелся вес после добавления инвентория на аккаунте и в реквесте на мувборде');
+	}),config.timeout);
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Loading Not Confirmed");
@@ -89,6 +97,10 @@ condition.nowWeDoing = 'второй раз в аккаунте, конфёрм�
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text){
+		V.CBFinAccount2 = SF.cleanPrice(text);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAccount2,'не сошелся вес после добавления инвентория на аккаунте и в реквесте на мувборде');
+	}),config.timeout);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);

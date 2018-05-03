@@ -21,6 +21,9 @@ condition.nowWeDoing = 'создаем локал мув с борда и ста
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+		V.CBFinAdmin = SF.cleanPrice(text);
+	}),config.timeout);
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
@@ -35,7 +38,11 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     MF.SweetConfirm();
     LF.AccountLocalAddInventory();
     LF.AccountLocalAddAdditionalInventory();
-    SF.sleep(14);
+    MF.Account_WaitForInventoryCheck();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text){
+		V.CBFinAccount = SF.cleanPrice(text);
+		VD.IWant(VD.NotToEqual, V.CBFinAccount ,V.CBFinAdmin,'не обновился вес после добавления инвентория во второй раз.( значит бага)');
+	}),config.timeout);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();
@@ -47,6 +54,12 @@ condition.nowWeDoing = 'пошли в админку и проверили, чт
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
+	JS.scroll('div[ng-show="!request.isInventory"]');
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+		V.CBFinAdmin2 = SF.cleanPrice(text);
+		console.log(V.CBFinAdmin);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin2,'не совпал вес после добавления инвентаря в аккаунте и реквесте на мувборде');
+	}),config.timeout);
     SF.sleep(1);
 
     //=========================закончили писать тест=============================
