@@ -16,6 +16,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
     LF.AccountLocalDetails();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text){
+		V.CBFinAccount = SF.cleanPrice(text);
+	}),config.timeout);
     MF.Account_WaitForInventoryCheck();
     MF.Account_WaitForDetailsCheck();
     V.accountNumbers={};
@@ -28,6 +31,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbers.Id);
+	JS.scroll('div[ng-show="!request.isInventory"]');
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+		V.CBFinAdmin = SF.cleanPrice(text);
+		console.log(V.CBFinAdmin);
+		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес после добавления инвентаря в аккаунте и реквесте на мувборде');
+	}),config.timeout);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
@@ -60,8 +69,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text){
+		V.CBFinAccount2 = SF.cleanPrice(text);
+		VD.IWant(VD.ToEqual, V.CBFinAccount2 ,V.CBFinAdmin,'не совпал вес инвентаря после перехода с админки на аккаунт');
+	}),config.timeout);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
+    MF.Account_ClickViewConfirmationPage();
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text){
+		V.CBFinConfPage = SF.cleanPrice(text);
+		VD.IWant(VD.ToEqual, V.CBFinAccount2 ,V.CBFinConfPage,'не совпал вес инвентаря после перехода с аккаунта на конфирмейшн пэйдж');
+	}),config.timeout);
+	MF.Account_ConfirmationBackToRequest();
     LF.Account_CheckSignature();
     LF.LogoutFromAccount();
 
@@ -74,6 +93,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
+    Debug.pause();
+	JS.scroll('div[ng-show="!request.isInventory"]');
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+		V.CBFinAdmin2 = SF.cleanPrice(text);
+		console.log(V.CBFinAdmin2);
+		VD.IWant(VD.ToEqual, V.CBFinConfPage ,V.CBFinAdmin2,'не совпал вес на конфирмейшн пэйдж и на ' +
+            'мувборде после открытия реквеста в диспатче');
+	}),config.timeout);
     MF.WaitWhileBusy ();
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Local Quote (Confirmed)");

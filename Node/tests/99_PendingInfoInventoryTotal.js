@@ -57,7 +57,7 @@ condition.nowWeDoing = 'пошли в админку и проверили, чт
 	JS.scroll('div[ng-show="!request.isInventory"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin2 = SF.cleanPrice(text);
-		console.log(V.CBFinAdmin);
+		console.log(V.CBFinAdmin2);
 		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin2,'не совпал вес после добавления инвентаря в аккаунте и реквесте на мувборде');
 	}),config.timeout);
     SF.sleep(1);

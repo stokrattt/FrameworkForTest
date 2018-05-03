@@ -92,6 +92,11 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     V.accountNumbersAfterCalcOff={};
     LF.RememberAccountNumbers(V.accountNumbersAfterCalcOff);
     LF.Validation_Compare_Account_Admin(V.accountNumbersAfterCalcOff, V.boardNumbersAfterCalcOff);
+    Debug.pause();
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.request.move_size.raw == 11"]')).getText().then(function(text){
+		V.CBFinAccountCalcOff = SF.cleanPrice(text);
+		VD.IWant(VD.ToEqual, V.CBFinAccountCalcOff ,V.CBFinAdmin,'не совпал вес инвентаря на реквесте после отключения калькулятора и на аккаунте');
+	}),config.timeout);
     LF.ConfirmRequestInAccount_WithReservation();
     LF.LogoutFromAccount();
 
