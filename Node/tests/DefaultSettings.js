@@ -184,6 +184,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]').click()}"),config.timeout);
     SF.sleep(4);
+	condition.nowWeDoing = 'включение настройки пэдинг-инфо,если тест упал';
+	MF.Board_OpenSettingsGeneral();
+	MF.Board_OpenSettingsAccountPagePendingInfo();
+    driver.wait(driver.executeScript("if($('div[class=\"pending-info-settings-wrapper__setting-switcher-block\"] span').hasClass('box-shadow: rgb(179, 184, 195) 0px 0px 0px 0px inset')){" +
+        ";}else{$('div[class=\"pending-info-settings-wrapper__setting-switcher-block\"] span').click()}"),config.timeout);
+	SF.sleep(2);
+	MF.WaitWhileToaster();
+	condition.nowWeDoing = 'возвращаем настройки в скеджуал,если 120 тест вальнулся';
+	MF.Board_OpenSettingsSchedule();
+	driver.wait(driver.executeScript("if($('select[ng-model=\"vm.scheduleSettings.longReservation\"]').hasClass('form-control floor form-element ng-valid ng-not-empty ng-touched ng-dirty ng-valid-parse')){" +
+		";}else{$('select[ng-model=\"vm.scheduleSettings.longReservation\"]').click()}"),config.timeout);
+    SF.send(By.xpath('//select[@ng-model="vm.scheduleSettings.longReservation"]'),0);
+	SF.sleep(2);
+	SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.longReservationRate"]'),500);
     MF.Board_LogoutAdmin ();
     //=========================закончили писать тест=============================
     SF.endOfTest();

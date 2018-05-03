@@ -355,7 +355,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Board_OpenSettingsAccountPagePendingInfo() {
 	    SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
-	    SF.sleep(3);
+	    SF.click(By.xpath('//span[@ng-if="greetingsSettings.showPeriod === \'first\'"]'));
 	    SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][10]'));
 	    SF.sleep(2);
     }
