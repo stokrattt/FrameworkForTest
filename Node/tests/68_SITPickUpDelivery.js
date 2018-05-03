@@ -109,11 +109,22 @@ condition.nowWeDoing = 'Заходим в реквест , выставляем 
     SF.click(By.xpath('//input[@ng-model="disableDeliveryDatesCheckbox.checkboxValue"]'));
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
-    driver.wait(driver.executeScript(JSstep.Click4DaysCalendar),config.timeout);
+
+    let now = new Date();
+    let msInDay = 86400000;
+    let future = new Date(now.getTime() + msInDay * 4);
+    let options = { month: 'long', day: 'numeric', year: 'numeric' };
+    V.deliveryDay = (future.toLocaleDateString('en-US', options));
+    SF.send(By.xpath('//input[@ng-model="details.delivery"]'), V.deliveryDay);
+    SF.sleep(0.5);
+    SF.click(By.xpath('//button[contains(text(), "Done")]'));
     MF.EditRequest_SaveDetails();
     MF.EditRequest_OpenConfirmWork ();
-    SF.send(By.xpath('//input[@ng-click="openCalendar()"]'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
-    SF.sleep(2);
+    SF.send(By.xpath('//er-datepicker-input[@er-value="scheduleDeliveryDate"]/span/input'),SF.dateToStringMMMMDDYYYY(V.request.moveDate));
+    SF.sleep(4);
+    SF.click(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
+    SF.sleep(3);
+    MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork ();
     LF.closeEditRequest ();
 

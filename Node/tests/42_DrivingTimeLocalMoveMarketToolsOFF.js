@@ -49,7 +49,8 @@ condition.nowWeDoing = 'тут идем в калькулятор и выста�
     SF.send (By.xpath('//input[@ng-model="vm.calcSettings.flatTravelTime.amount"]'), "15");
     SF.clear (By.xpath('//input[@ng-model="vm.basicSettings.local_flat_miles"]'));
     SF.send (By.xpath('//input[@ng-model="vm.basicSettings.local_flat_miles"]'), "350");
-    SF.click (By.xpath('//input[@ng-model="vm.calcSettings.flatTravelTime.radius"]'));
+    JS.click ('input[ng-model=\"vm.calcSettings.flatTravelTime.radius\"]');
+    // SF.click (By.xpath('//input[@ng-model="vm.calcSettings.flatTravelTime.radius"]'));
     SF.sleep(3);
     MF.Board_OpenDashboard ();
 

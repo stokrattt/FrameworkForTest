@@ -34,7 +34,7 @@ condition.nowWeDoing = 'создаем реквест и добавляем ра
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges ();
-
+Debug.pause();
 condition.nowWeDoing = 'идём в настройки клонировать реквест';
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickCloneRequest();

@@ -1,6 +1,7 @@
 module.exports = function(config,V) {
     config.suite = [
        './tests/DefaultSettings.js',
+        './tests/24_FiltrationMoveDateCreateDate.js',
         './tests/48_Review.js',
        './tests/80_OverBookingVol1.js',
         './tests/91_Overbooking.js',
@@ -125,7 +126,7 @@ module.exports = function(config,V) {
         './tests/21_LDFromAdminCheckPayroll.js',
         './tests/117_HomeEstimatePortal.js',
         './tests/111_ZIPCode.js',
-        './tests/24_FiltrationMoveDateCreateDate.js',
+
         './tests/122_MovingAndMovStorageCalcOffCheck.js',
         './tests/123_DraftCheckRateDoubleDriveTime.js',
         './tests/DefaultSettings.js',
