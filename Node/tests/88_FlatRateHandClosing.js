@@ -205,13 +205,13 @@ condition.nowWeDoing = 'в акаунте проверяем Quote Explanation';
     driver.wait(driver.findElements(By.xpath('//p[contains(text(),"Flat Rate Quote Explanation")]')).then(function(arr){
         V.QuoteExplanation=(arr.length==1);
     }),config.timeout);
-    //MF.Account_ClickViewConfirmationPage();
-    //driver.wait(driver.executeScript("return $('div[ng-if=\"vm.extraPickup\"]').length").then(function (text) {
-    //  VD.IWant(VD.ToEqual, text, 1, 'не нашло блок Extra PickUp на confirmation page');
-    // }),config.timeout);
-    //   driver.wait(driver.executeScript("return $('div[ng-if=\"vm.extraDropoff\"]').length").then(function (text) {
-    //     VD.IWant(VD.ToEqual, text, 1, 'не нашло блок Extra DropOff на confirmation page');
-    // }),config.timeout);
+    MF.Account_ClickViewConfirmationPage();
+    driver.wait(driver.executeScript("return $('div[ng-if=\"vm.extraPickup\"]').length").then(function (text) {
+      VD.IWant(VD.ToEqual, text, 1, 'не нашло блок Extra PickUp на confirmation page');
+     }),config.timeout);
+       driver.wait(driver.executeScript("return $('div[ng-if=\"vm.extraDropoff\"]').length").then(function (text) {
+         VD.IWant(VD.ToEqual, text, 1, 'не нашло блок Extra DropOff на confirmation page');
+     }),config.timeout);
     SF.sleep(1);
     //=========================закончили писать тест=============================
     SF.endOfTest();
