@@ -1601,6 +1601,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_SITmodalClickSave() {
         SF.click(By.xpath('//a[@ng-click="save()"]'));
+        WaitWhileBusy();
     }
     function EditRequest_SITmodalSetMoveDate(request) {
         SF.clear(By.xpath('//input[@ng-model="moveInDate"]'));

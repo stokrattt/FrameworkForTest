@@ -13,11 +13,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'идем в настройки и выставляем настройки для драйвинг тайма и травел тайма';
     MF.Board_OpenSettingsGeneral ();
-    JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-empty')){" +
-        "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
-    SF.clear (By.xpath('//input[@ng-model="vm.basicSettings.flat_rate_miles"]'));
-    SF.send (By.xpath('//input[@ng-model="vm.basicSettings.flat_rate_miles"]'), 150);
+    JS.scroll ('input[ng-model=\\"basicSettings.isflat_rate_miles\\"]');
+    driver.wait(driver.executeScript("if($('input[ng-model=\"basicSettings.isflat_rate_miles\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[ng-model=\"basicSettings.isflat_rate_miles\"]').click()}"));
+    SF.clear (By.xpath('//input[@ng-model="basicSettings.flat_rate_miles"]'));
+    SF.send (By.xpath('//input[@ng-model="basicSettings.flat_rate_miles"]'), 150);
     JS.scroll('td:contains("Company Address")');
 
 condition.nowWeDoing = 'тут заходим в маркетинг тулс и выключаем их';

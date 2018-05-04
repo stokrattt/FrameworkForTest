@@ -47,7 +47,6 @@ condition.nowWeDoing = 'идем в конфернутные работы и м�
     V.firstDate.Day = (future.toLocaleDateString('en-US', day));
     SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.firstDate.Month + '-' + V.firstDate.Day +'"]'));
     MF.WaitWhileBusy();
-    Debug.pause();
     SF.sleep (4);
     LF.RememberDateFromRequest(V.boardNumbers);
     MF.EditRequest_WaitForBalanceVisible();

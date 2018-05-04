@@ -31,9 +31,7 @@ condition.nowWeDoing = 'Создаем Long Distance работу с мувбо�
     MF.EditRequest_OpenRequest();
     LF.EditRequest_AddPartialPacking();
     MF.EditRequest_SetToConfirmed();
-    SF.select(By.xpath('//select[@id="edit-service"]'), 7);
-    SF.sleep(1);
-    SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
+    SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 'number:1');
     SF.sleep(1);
     MF.EditRequest_SetSizeOfMoveNumber(8);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
@@ -89,6 +87,7 @@ condition.nowWeDoing = 'Проверяем пэймент в пэндинге. �
     MF.EditRequest_SITmodalSendNumberRooms(V.SITRooms);
     MF.EditRequest_SITmodalSetMoveDate(V.request);
     MF.EditRequest_SITmodalClickSave();
+    SF.sleep(3);
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'Заходим в Jobs in SIT Проверям есть ли эта работа и совпали ли Storage Name';

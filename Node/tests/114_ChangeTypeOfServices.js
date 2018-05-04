@@ -33,7 +33,6 @@ condition.nowWeDoing = 'идем в админку,сравниваем данн
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
-    Debug.pause();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin = SF.cleanPrice(text);
 		console.log(V.CBFinAdmin);

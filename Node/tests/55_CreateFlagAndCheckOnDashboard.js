@@ -16,7 +16,7 @@ condition.nowWeDoing = 'Идем в настройки и создаем фла�
     MF.Board_OpenSettingsGeneral ();
     SF.click(By.linkText('Company Flags'));
     SF.sleep(3.5);
-    JS.scroll ('h1:contains("General Settigs ")');
+    JS.scroll ('h1:contains("General Settings ")');
     SF.click(By.xpath('//button[@ng-click="vm.addNewFlag(); vm.addFlag = true"]'));
     SF.send(By.xpath('//input[@ng-model="vm.newFlag.name"]'), V.flagName);
     SF.clear(By.xpath('//input[@ng-model="vm.newFlag.color"]'));
@@ -90,7 +90,7 @@ condition.nowWeDoing = 'идем в настройки и удаляем наш 
     SF.sleep(2);
     SF.click(By.linkText('Company Flags'));
     SF.sleep(2);
-    JS.scroll ('h1:contains("General Settigs ")');
+    JS.scroll ('h1:contains("General Settings ")');
     SF.click(By.xpath('//tr[@ng-repeat="values in vm.companyFlags track by $index"][last()]/td[4]//i'));
     MF.SweetConfirm ();
     SF.sleep(1);

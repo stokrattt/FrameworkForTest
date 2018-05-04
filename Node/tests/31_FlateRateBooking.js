@@ -13,9 +13,9 @@ condition.nowWeDoing = 'идем в админку проверяем что с�
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsGeneral ();
     SF.sleep (2);
-    JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
-        "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"));
+    JS.scroll ('input[ng-model=\\"basicSettings.isflat_rate_miles\\"]');
+    driver.wait(driver.executeScript("if($('input[ng-model=\"basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"basicSettings.isflat_rate_miles\"]').click()}"));
     SF.sleep(3);
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);

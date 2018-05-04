@@ -17,7 +17,7 @@ condition.nowWeDoing = 'Создаем Long Distance работу, добавл�
     V.requestNumber={};
     MF.EditRequest_RememberId(V.requestNumber);
     MF.EditRequest_SetToConfirmed();
-    SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 1);
+    SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 'number:1');
     SF.sleep(1);
     JS.step(JSstep.selectTruck(2));
     MF.WaitWhileBusy();

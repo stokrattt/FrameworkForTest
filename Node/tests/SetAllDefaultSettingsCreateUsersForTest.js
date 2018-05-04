@@ -42,18 +42,18 @@ condition.nowWeDoing = 'выставляем адреса и зип коды н�
     SF.clear(By.xpath('//input[@ng-model="vm.basicSettings.company_logo_url"]'));
     SF.send(By.xpath('//input[@ng-model="vm.basicSettings.company_logo_url"]'), 'http://stage.themoveboard.com:8001/moveBoard/content/img/moveboardlogo.png');
 
-    JS.scroll ('input[ng-model=\\"vm.basicSettings.isflat_rate_miles\\"]');
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
-        "return true;}else{$('input[ng-model=\"vm.basicSettings.isflat_rate_miles\"]').click()}"),config.timeout);
+    JS.scroll ('input[ng-model=\\"basicSettings.isflat_rate_miles\\"]');
+    driver.wait(driver.executeScript("if($('input[ng-model=\"basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"basicSettings.isflat_rate_miles\"]').click()}"),config.timeout);
     SF.sleep(3);
-    SF.clear(By.xpath('//input[@ng-model="vm.basicSettings.flat_rate_miles"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.basicSettings.flat_rate_miles"]'), '150');
+    SF.clear(By.xpath('//input[@ng-model="basicSettings.flat_rate_miles"]'));
+    SF.send(By.xpath('//input[@ng-model="basicSettings.flat_rate_miles"]'), '150');
 
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.long_distance_miles\"]').hasClass('ng-not-empty')){" +
-        "return true;}else{$('input[ng-model=\"vm.basicSettings.long_distance_miles\"]').click()}"),config.timeout);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"basicSettings.long_distance_miles\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"basicSettings.long_distance_miles\"]').click()}"),config.timeout);
     SF.sleep(3);
-    SF.clear(By.xpath('//input[@ng-model="vm.basicSettings.long_distance_miles"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.basicSettings.long_distance_miles"]'), '325');
+    SF.clear(By.xpath('//input[@ng-model="basicSettings.long_distance_miles"]'));
+    SF.send(By.xpath('//input[@ng-model="basicSettings.long_distance_miles"]'), '325');
 
 condition.nowWeDoing = 'создаем траки 10 штук';
     JS.scroll ('.pageheader');
