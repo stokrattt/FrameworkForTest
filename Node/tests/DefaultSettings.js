@@ -175,6 +175,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(3);
 
     condition.nowWeDoing = 'тут заходим в маркетинг тулс и выключаем их';
+    JS.scroll ('h1:contains("General Settings ")');
     SF.click(By.linkText('Marketing Tools'));
     SF.sleep(3);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.promoTextOn\"]').hasClass('ng-not-empty')){" +
@@ -183,10 +184,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.localDistountOn\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.localDistountOn\"]').click()}"),config.timeout);
     SF.sleep(3);
-
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"vm.basicSettings.longDistanceDistountOn\"]').click()}"),config.timeout);
     SF.sleep(4);
+
 	condition.nowWeDoing = 'включение настройки пэдинг-инфо,если тест упал';
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
@@ -201,7 +202,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//select[@ng-model="vm.scheduleSettings.longReservation"]'),0);
 	SF.sleep(2);
 	SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.longReservationRate"]'),500);
-    MF.Board_LogoutAdmin ();
+    SF.sleep(3)
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
