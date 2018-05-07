@@ -133,7 +133,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	SF.waitForVisible(By.xpath('//div[@ng-class="{\'mobile-subbox-wrapper\': isMobile}"]'));
 	LF.HomeEstimate_EditClientInfo();
 	MF.EditRequest_OpenRequest();
-	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+	JS.step(JSstep.selectTruck(4));
 	MF.WaitWhileBusy();
 	MF.EditRequest_SetToNotConfirmed();
 	MF.EditRequest_HomeEstimate_SaveChanges();
