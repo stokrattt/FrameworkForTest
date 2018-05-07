@@ -157,7 +157,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	SF.click(By.xpath('//td[3]/div[@ng-click="setDeductibleLevel(value)"]'));
 	V.SelectLevel= {};
 	driver.wait(driver.findElement(By.xpath('//tbody[2]/tr/td[3]')).getText().then(function (text) {
-		V.SelectLevel = text;
+		V.SelectLevel = SF.cleanPrice(text);
 		console.log(V.SelectLevel);
 	}), config.timeout);
 	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
@@ -197,7 +197,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_WaitForLoadingAccount();
 	V.SelectLevelinAccount= {};
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[6]')).getText().then(function (text) {
-		V.SelectLevelinAccount = text;
+		V.SelectLevelinAccount = SF.cleanPrice(text);
 		console.log(V.SelectLevelinAccount);
 		VD.IWant(VD.ToEqual, V.SelectLevelinAccount ,V.SelectLevel,'не совпали Valuation выбранный на реквесте и на аккаунте');
 	}), config.timeout);
@@ -206,7 +206,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	SF.click(By.xpath('//button[@ng-show="edit_amount_of_valuation"]'));
 	V.SelectLevelinAccount2= {};
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[6]')).getText().then(function (text) {
-		V.SelectLevelinAccount2 = text;
+		V.SelectLevelinAccount2 = SF.cleanPrice(text);
 		console.log(V.SelectLevelinAccount2);
 	}), config.timeout);
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
@@ -217,7 +217,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table"]/tbody/tr[2]/td[4]/span'))
 		.getText()
 		.then(function (text) {
-			V.SelectLevelinConfPage = text;
+			V.SelectLevelinConfPage = SF.cleanPrice(text);
 			console.log(V.SelectLevelinConfPage);
 			VD.IWant(VD.ToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinConfPage,'не совпали Valuation выбранный во второй раз ' + 'на аккаунте и в таблице на конфирмейшн пэйдж');
 		}), config.timeout);
