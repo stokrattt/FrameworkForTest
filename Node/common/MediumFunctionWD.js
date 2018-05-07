@@ -1253,6 +1253,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         }),config.timeout);
         SF.sleep(1);
     }
+    function EditRequest_RememberLbs(boardNumbers){
+        driver.wait(driver.findElement(By.xpath('//span[contains(text(),"lbs")]/preceding-sibling::span[1]')).getText().then(function(text){
+            boardNumbers.lbs = SF.cleanPrice(text);
+        }),config.timeout);
+        SF.sleep(1);
+    }
     function EditRequest_SwitchCalculator(){
         SF.click(By.xpath('//span[@ng-click="switchCalc()"]'));
         WaitWhileBusy();
@@ -1493,7 +1499,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
     }
     function EditRequest_ClickHomeEstimateDate() {
-        SF.click (By.xpath('//input[@ng-model="field.value"]'));
+        SF.click (By.xpath('//input[@ng-click="opentDatePicker()"]'));
     }
 
     function EditRequest_SaveChangesClosingTab() {
@@ -1594,6 +1600,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_SITmodalSetStorage(nameStorage) {
         SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
         SF.click(By.xpath('//option[text()="'+nameStorage+'"]'));
+    }
+    function EditRequest_SITmodalSetForeman(SITForeman) {
+        SF.click(By.xpath('//select[@ng-model="sit.foreman"]'));
+        SF.click(By.xpath('//option[text()="'+SITForeman+'"]'));
     }
     function EditRequest_SITmodalSendNumberRooms(SITRooms) {
         SF.clear(By.xpath('//input[@ng-model="sit.rooms"]'));
@@ -2382,6 +2392,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SetSaleNumber:EditRequest_SetSaleNumber,
         EditRequest_SetSizeOfMoveNumber:EditRequest_SetSizeOfMoveNumber,
         EditRequest_RememberCbf:EditRequest_RememberCbf,
+        EditRequest_RememberLbs:EditRequest_RememberLbs,
         EditRequest_SwitchCalculator:EditRequest_SwitchCalculator,
         EditRequest_AddRoomNumber:EditRequest_AddRoomNumber,
         EditRequest_OpenFuel:EditRequest_OpenFuel,
@@ -2468,6 +2479,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ChangeStairsTo:EditRequest_ChangeStairsTo,
         EditRequest_OpenSITmodal:EditRequest_OpenSITmodal,
         EditRequest_SITmodalSetStorage:EditRequest_SITmodalSetStorage,
+        EditRequest_SITmodalSetForeman:EditRequest_SITmodalSetForeman,
         EditRequest_SITmodalSendNumberRooms:EditRequest_SITmodalSendNumberRooms,
         EditRequest_SITmodalClickSave:EditRequest_SITmodalClickSave,
         EditRequest_SITmodalSetMoveDate:EditRequest_SITmodalSetMoveDate,

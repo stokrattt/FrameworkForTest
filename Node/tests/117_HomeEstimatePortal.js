@@ -18,9 +18,16 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 	MF.EditRequest_ChangeStatusRequest (4);
 	MF.EditRequest_ClickHomeEstimateDate();
-	driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
-		V.RequestInhomeDate = calDate;
-	}),config.timeout);
+    let now = new Date();
+    let msInDay = 86400000;
+    let future = new Date(now.getTime() + msInDay * 24);
+    let month = { month: 'numeric'};
+    let day = {day: 'numeric'};
+    V.firstDate = {};
+    V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
+    V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+    SF.click(By.xpath('//div[@id="ui-datepicker-div"]//td[@data-month="'+ V.firstDate.Month +'"]/a[contains(text(),"'+ V.firstDate.Day +'")]'));
+    MF.WaitWhileBusy();
 	JS.click('div[uib-tooltip="emilia clark"]');
 	MF.WaitWhileBusy();
 	SF.click(By.id('home-estimate-start-time'));

@@ -90,7 +90,7 @@ condition.nowWeDoing = 'Выходим с дашборда, логинимся �
     }),config.timeout);
     MF.Account_ConfirmationBackToRequest();
 
-condition.nowWeDoing = 'В аккаунте удаляем весь инвентарь, проверяем что cubic feet стал дефолтным.';
+condition.nowWeDoing = 'В аккаунте удаляем весь инвентарь, проверяем что cubic feet стал дефолтным. Добавляем Full packing, проверяем что цена посчитана правильно и прибавлена к тоталу.';
     MF.Account_ClickInventoryOpenTab();
     LF.Account_DeleteInventory();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
@@ -98,8 +98,19 @@ condition.nowWeDoing = 'В аккаунте удаляем весь инвент
         console.log(V.accountcbf);
         VD.IWant(VD.ToEqual, V.defaultcbf, V.accountcbf, 'Cubic feet не ушел в дефолтные 1500 после удаления инвентаря на аккаунте');
     }),config.timeout);
-    V.accountNumbers = {};
-    LF.RememberAccountNumbersLD(V.accountNumbers);
+    V.accountNumbersBeforeFullPacking = {};
+    LF.RememberAccountNumbersLD(V.accountNumbersBeforeFullPacking);
+    MF.Account_ClickFullPacking();
+    SF.sleep(3);
+    V.accountNumbersAfterFullPacking = {};
+    LF.RememberAccountNumbersLD(V.accountNumbersAfterFullPacking);
+    const centPerPound= 0.7;
+    const Weight = V.defaultcbf;
+    let FullPacking = Weight * centPerPound;
+    VD.IWant(VD.ToEqual, V.accountNumbersAfterFullPacking.Packing ,FullPacking, 'Неправильно посчитался Full packing');
+    V.totalWithPacking = V.accountNumbersBeforeFullPacking.Total + V.accountNumbersAfterFullPacking.Packing;
+    VD.IWant(VD.ToEqual, V.totalWithPacking  ,V.accountNumbersAfterFullPacking.Total, 'Цена за full packing не была прибавлена к grand total');
+    SF.sleep(1);
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'Возвращаемся на дашборд. Сверяем данные с аккаунта с данными на мувборде и проверяем, что cubic feet стал дефолтным. В табе Sales меняем Fuel, добавляем Packing и Discount, запоминаем эти изменения';
@@ -110,7 +121,7 @@ condition.nowWeDoing = 'Возвращаемся на дашборд. Сверя
     V.boardNumbersAfterDeleteInventory = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAfterDeleteInventory);
     console.log(V.boardNumbersAfterDeleteInventory);
-    LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbers, V.boardNumbersAfterDeleteInventory);
+    LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersAfterFullPacking, V.boardNumbersAfterDeleteInventory);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '1500', 'Cubic feet на дашборде не вернулся к дефолтному значению в 1500 после удаления инвентаря на аккаунте')
     }),config.timeout);
@@ -127,9 +138,9 @@ condition.nowWeDoing = 'Переводим работу в Closing, провер
     MF.EditRequest_CloseConfirmWork();
     V.boardNumbersBeforeSITClosing = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersBeforeSITClosing);
-    VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Total,V.boardNumbersBeforeSITClosing.Total, 'не совпал Total после перевода реквеста с Sales в Closing');
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Total - V.accountNumbersAfterFullPacking.Packing ,V.boardNumbersBeforeSITClosing.Total, 'не совпал Total после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Fuel, V.boardNumbersBeforeSITClosing.Fuel, 'не совпал Fuel  после перевода реквеста с Sales в Closing');
-    VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Packing, V.boardNumbersBeforeSITClosing.Packing, 'не совпал Packing  после перевода реквеста с Sales в Closing');
+    VD.IWant(VD.ToEqual, 30, V.boardNumbersBeforeSITClosing.Packing, 'не совпал Packing после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.AdServices, V.boardNumbersBeforeSITClosing.AdServices, 'не совпал AdServices после перевода реквеста с Sales в Closing');
     MF.EditRequest_OpenSITmodal();
     MF.EditRequest_SITmodalSetStorage('test');
