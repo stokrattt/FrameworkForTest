@@ -9,7 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.AdditionalName = SF.randomBukva(7) + '_t';
     V.AdditionalFam = SF.randomBukva(7) + '_t';
     V.AdditionalPhone = SF.randomCifra(10);
-    V.AdditionalEmail = SF.randomBukvaSmall(7) + '@' + SF.randomBukvaSmall(4) + '.tes';
+    V.AdditionalEmail = SF.randomBukvaSmall(7) + '@' + SF.randomBukvaSmall(4) + '.adtes';
     V.adminEmailTemperary = 'test.boston@mail.ru';
 
 condition.nowWeDoing = 'создаем мувинг с фронта';

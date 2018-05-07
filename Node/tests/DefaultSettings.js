@@ -166,6 +166,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(2);
     MF.Board_OpenSettingsGeneral ();
     SF.sleep (3);
+    JS.scroll ('h1:contains("General Settings ")');
+    SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[1]'));
+    SF.sleep (3);
     JS.scroll ('input[ng-model=\\"basicSettings.isflat_rate_miles\\"]');
     driver.wait(driver.executeScript("if($('input[ng-model=\"basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"basicSettings.isflat_rate_miles\"]').click()}"));
