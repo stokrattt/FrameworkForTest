@@ -293,7 +293,7 @@ condition.nowWeDoing = 'Открываем реквест, заходим в Pay
     SF.click(By.xpath('//span[@ng-if="receipt.transaction_id == \'Custom Payment\'"]'));
     SF.click(By.xpath('//a[@ng-click="removeReceipt()"]'));
     MF.SweetConfirm();
-    SF.sleep (2);
+    SF.sleep (3);
     MF.WaitWhileBusy ();
     SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
     SF.sleep (1);
