@@ -767,6 +767,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
         SF.sleep(1);
     }
+    function Account_ChangeAmountOfLiability(number){
+	    SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
+	    SF.click(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'));
+	    SF.send(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'),number);
+	    SF.click(By.xpath('//div[@ng-bind-html="textforshow"]'));
+	    SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
+    }
 
     //===================================CONTRACT===================================
 
@@ -2315,6 +2322,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_SendAdressToModalWindow:Account_SendAdressToModalWindow,
         Account_SelectParking:Account_SelectParking,
 	    Account_CheckRequestStatus_PendingInfo: Account_CheckRequestStatus_PendingInfo,
+	    Account_ChangeAmountOfLiability: Account_ChangeAmountOfLiability,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
