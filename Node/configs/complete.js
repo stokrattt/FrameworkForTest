@@ -121,6 +121,7 @@ module.exports = function(config,V) {
         './tests/95_Statistic.js',
         './tests/113_CheckAdminPermissions.js',
         './tests/120_LDFlag.js',
+        './tests/DefaultSettings.js',
         './tests/121_FAQ.js',
         './tests/21_LDFromAdminCheckPayroll.js',
         './tests/117_HomeEstimatePortal.js',

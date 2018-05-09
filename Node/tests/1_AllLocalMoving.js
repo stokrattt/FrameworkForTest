@@ -93,7 +93,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
-    SF.sleep(2);
+    MF.WaitWhileBusy ();
 	// JS.scroll('div[ng-show="!request.isInventory"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin2 = SF.cleanPrice(text);
@@ -101,7 +101,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		VD.IWant(VD.ToEqual, V.CBFinConfPage ,V.CBFinAdmin2,'не совпал вес на конфирмейшн пэйдж и на ' +
             'мувборде после открытия реквеста в диспатче');
 	}),config.timeout);
-    MF.WaitWhileBusy ();
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Local Quote (Confirmed)");
     MF.EditRequest_Check1EmailExist(V.client.email, "YOUR MOVE IS CONFIRMED AND SCHEDULED!");
