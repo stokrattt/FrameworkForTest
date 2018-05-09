@@ -31,17 +31,14 @@ condition.nowWeDoing = 'начинаем добавлять пэкинг, ади
 		V.NewHourlyRate= text;
 		console.log(V.NewHourlyRate);
 	}),config.timeout);
-	MF.WaitWhileBusy();
 
 condition.nowWeDoing = 'отправлемя письмо, сравниваем числа в письме,запоминаем конечные цифры с реквеста при выключенном калькуляторе(начальные)';
-	SF.click(By.xpath('//div/span[@ng-click="showWarningBeforeSendEmail()"]'));
+	SF.click(By.xpath('//span[@ng-click="showWarningBeforeSendEmail()"]'));
 	SF.click(By.xpath('//span[contains(.,"Default")]'));
 	SF.sleep(1);
 	SF.click(By.xpath('//h4[contains(text(), "CalculatarOFF")][1]'));
 	SF.sleep(1);
 	MF.EditRequest_MailDialog_ClickSend();
-	JS.scroll('a[ng-click="select(tabs[5])"]');
-	SF.sleep(1);
 	V.boardNumbers= {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	MF.EditRequest_OpenLogs();
@@ -88,16 +85,13 @@ condition.nowWeDoing = 'запоминаем цифры с аккаунта,чт
         VD.IWant(VD.ToEqual, "$ "+V.boardNumbers.Valuation, V.accountNumbers.Valuation ,'не совпала страховка на реквест/аккаунт');
 	}),config.timeout);
 	MF.Account_ClickFullPacking();
-	JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
-	SF.sleep(3);
-	SF.waitForVisible(By.xpath('//div/span[@ng-bind="::room.name"][contains(text(),"Patio")]'));
+	MF.Account_ClickInventoryOpenTab();
 	SF.click(By.xpath('//div/span[@ng-bind="::room.name"][contains(text(),"Patio")]'));
 	SF.click (By.xpath('//div[@ng-class="{disabled: item.isCannotEdit}"]'));
 	SF.click (By.xpath('//div[@data-index="1"]//div[@ng-class="{disabled: item.isCannotEdit}"]'));
 	SF.click (By.xpath('//div[@data-index="2"]//div[@ng-class="{disabled: item.isCannotEdit}"]'));
 	JS.click('button[ng-click="close()"]');
 	MF.Account_WaitForInventoryCheck();
-	SF.sleep(3);
 
 condition.nowWeDoing = 'запоминаем новые цифры после изменений на аккаунте';
 	MF.Account_Refresh();
@@ -132,7 +126,6 @@ condition.nowWeDoing = 'идем на мувборд, что бы сверить
 		console.log(V.NewHourlyRate1);
 	}),config.timeout);
 	// устанавливаем кастомный вес
-	JS.scroll('a[ng-click="select(tabs[7])"]');
 	MF.EditRequest_OpenSettings();
 	MF.EditRequest_ClickCustomCubFit();
 	MF.EditRequest_SendNumberCustomCubFit(666);

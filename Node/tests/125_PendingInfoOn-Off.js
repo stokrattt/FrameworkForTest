@@ -12,8 +12,10 @@ condition.nowWeDoing = 'заходим под админом, выключаем
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
-	SF.click(By.xpath(' //input[@ng-change="updateSetting()"]/../span'));
-	MF.WaitWhileToaster();
+    driver.wait(driver.executeScript("if($('input[ng-model=\"setting\"] span').hasClass('ng-empty')){return true;}else{" +
+		"$('input[ng-model=\"setting\"] span').click()}"),config.timeout);
+    SF.sleep(2);
+    MF.WaitWhileToaster();
 
 condition.nowWeDoing = 'создаем через криейт реквест и ставим статус нот конферм';
 	LF.CreateLocalMovingFromBoard(V.client);
@@ -37,7 +39,6 @@ condition.nowWeDoing = 'выходим с мувборда,заходим под
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
 	MF.Account_ClickViewRequest();
-	MF.Account_WaitForLoadingAccount();
 	V.accountNumbers={};
 	LF.RememberAccountNumbers(V.accountNumbers);
 	LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
