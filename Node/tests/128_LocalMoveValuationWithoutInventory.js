@@ -136,7 +136,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.ValuationCharge2= text;
 		V.ValuationCharge2 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, ValuationCharge1 ,V.ValuationCharge2,'не совпали Valuation у реквеста с расчетами по формулам (второй дедактбл левел)');
+		VD.IWant(VD.ToEqual, ValuationCharge1 ,V.ValuationCharge2,'не совпали Valuation Charge у реквеста с расчетами по формулам (второй дедактбл левел)');
 	}), config.timeout);
 	SF.sleep(1);
 	let percent2 = 0.2;
@@ -144,7 +144,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[3]')).getText().then(function (text) {
 		V.ValuationCharge3= text;
 		V.ValuationCharge3 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, ValuationCharge2 ,V.ValuationCharge3,'не совпали Valuation у реквеста с расчетами по формулам(третий дедактбл левел)');
+		VD.IWant(VD.ToEqual, ValuationCharge2 ,V.ValuationCharge3,'не совпали Valuation Charge у реквеста с расчетами по формулам(третий дедактбл левел)');
 	}), config.timeout);
 	SF.sleep(1);
 	let percent3 = 0.25;
@@ -152,7 +152,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[4]')).getText().then(function (text) {
 		V.ValuationCharge4= text;
 		V.ValuationCharge4 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, ValuationCharge3 ,V.ValuationCharge4,'не совпали Valuation у реквеста с расчетами по формулам(четвертый дедактбл левел)');
+		VD.IWant(VD.ToEqual, ValuationCharge3 ,V.ValuationCharge4,'не совпали Valuation Charge у реквеста с расчетами по формулам(четвертый дедактбл левел)');
 	}), config.timeout);
 	SF.click(By.xpath('//td[@ng-repeat="value in currentPlan.header track by $index"][2]/div[@ng-click="setDeductibleLevel(value)"]'));
 	V.SelectLevel= {};

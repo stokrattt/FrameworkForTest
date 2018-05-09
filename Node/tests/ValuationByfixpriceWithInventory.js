@@ -41,19 +41,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		VD.IWant(VD.ToEqual, AmountOfLiability ,V.AmountOfLiability1,'не совпали Valuation у реквеста с расчетами по формулам');
 	}), config.timeout);
 	// проверка Valuation Charge
-	driver.wait(driver.findElement(By.xpath('//tbody[2]/tr[1]/td[2]')).getText().then(function (text) {
+	Debug.pause();
+	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[1]')).getText().then(function (text) {
 		V.DeductibleLevel1= text;
 		V.DeductibleLevel1 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, 150 ,V.DeductibleLevel1,'не совпали Valuation у реквеста с расчетами по формулам(первый дедактбл левел)');
 	}), config.timeout);
-	driver.wait(driver.findElement(By.xpath('//tbody[2]/tr[1]/td[3]')).getText().then(function (text) {
+	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.DeductibleLevel2= text;
 		V.DeductibleLevel2 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, 200 ,V.DeductibleLevel2,'не совпали Valuation у реквеста с расчетами по формулам(второй дедактбл левел)');
 	}), config.timeout);
 	SF.click(By.xpath('//td[3]/div[@ng-click="setDeductibleLevel(value)"]'));
 	V.SelectLevel= {};
-	driver.wait(driver.findElement(By.xpath('//tbody[2]/tr/td[3]')).getText().then(function (text) {
+	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.SelectLevel = text;
 		V.SelectLevel = SF.cleanPrice(text.substring(text.indexOf('$')));
 		console.log(V.SelectLevel);
@@ -69,6 +70,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_OpenRequest();
 	V.boardNumbers = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
+	MF.EditRequest_SetToNotConfirmed();
+	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+	MF.WaitWhileBusy();
+	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 	condition.nowWeDoing = 'идем на аккаунт, ставим свой amount of liability,добавляем инвентарь, проверяем,что бы не пересчитывалось все.';
@@ -86,6 +91,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.SweetConfirm();
 	MF.SweetConfirm();
 	MF.Account_WaitForLoadingAccount();
+	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
+		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed');
+	}), config.timeout);
 	V.SelectLevelinAccount= {};
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[6]')).getText().then(function (text) {
 		V.SelectLevelinAccount = text;
@@ -98,6 +106,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	SF.send(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'),15001);
 	SF.click(By.xpath('//div[@ng-bind-html="textforshow"]'));
 	MF.SweetConfirm(); //если тут вальнется, то бага, не появился свит аллерт о том,чо страховка превышает лимиты компании
+	SF.waitForVisible(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
 	SF.click(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'));
 	SF.send(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'),9000);
 	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
@@ -108,14 +117,45 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		VD.IWant(VD.NotToEqual, V.SelectLevelinAccount2 ,V.SelectLevel,'совпали Valuation выбранный на реквесте и на аккаунте');
 	}), config.timeout);
 	LF.AccountLocalAddInventory(V.accountNumbers);
+	MF.SweetConfirm();
 	MF.Account_WaitForInventoryCheck();
 	MF.SweetConfirm();
+	MF.Account_CheckRequestStatus_PendingInfo();
+	SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
+	SF.click(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'));
+	SF.click(By.xpath('//td[contains(text(),"Select Valuation")]/following-sibling::td[1]'));
+	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[6]')).getText().then(function (text) {
 		V.SelectLevelinAccount2 = text;
 		V.SelectLevelinAccount2 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		console.log(V.SelectLevelinAccount2);
-		VD.IWant(VD.ToEqual, V.SelectLevelinAccount2 ,V.SelectLevel,'совпали Valuation выбранный на реквесте и на аккаунте');
+		VD.IWant(VD.NotToEqual, V.SelectLevelinAccount2 ,V.SelectLevel,'после внесения амаунт оф лиабилити не поменялась страховка( такого быть не должно)');
 	}), config.timeout);
+	V.accountNumbersAfterInventory= {};
+	LF.RememberAccountNumbers(V.accountNumbersAfterInventory);
+	LF.LogoutFromAccount();
+	condition.nowWeDoing = 'идем на мувборд, проверяем наш инвенторий и страховку,ставим статус нот конферм.';
+	SF.get(V.adminURL);
+	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+	MF.Board_OpenRequest(V.boardNumbers.Id);
+	V.boardNumbersAfterInventory={};
+	LF.RememberDigitsRequestBoard(V.boardNumbersAfterInventory);
+	LF.Validation_Compare_Account_Admin(V.accountNumbersAfterInventory,V.boardNumbersAfterInventory);
+	JS.scroll('label[ng-click="openValuationModal()"]');
+	SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
+	SF.waitForVisible(By.xpath('//div[@ng-if="valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]'));
+	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[1]')).getText().then(function (text) {
+		V.SelectLevelinAdmin = text;
+		V.SelectLevelinAdmin = SF.cleanPrice(text.substring(text.indexOf('$')));
+		console.log(V.SelectLevelinAdmin);
+		VD.IWant(VD.ToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinAdmin,'не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
+	}), config.timeout);
+
+
+
+
+
+
 
 
 

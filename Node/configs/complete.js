@@ -126,6 +126,7 @@ module.exports = function(config,V) {
         './tests/21_LDFromAdminCheckPayroll.js',
         './tests/117_HomeEstimatePortal.js',
         './tests/111_ZIPCode.js',
+	    './tests/128_LocalMoveValuationWithoutInventory.js',
 
         './tests/122_MovingAndMovStorageCalcOffCheck.js',
         './tests/123_DraftCheckRateDoubleDriveTime.js',
