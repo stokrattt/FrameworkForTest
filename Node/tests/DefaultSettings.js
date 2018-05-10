@@ -191,7 +191,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	condition.nowWeDoing = 'включение настройки пэдинг-инфо,если тест упал';
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
-	driver.wait(driver.executeScript("if($('input[ng-model=\"setting\"] span').hasClass('ng-not-empty')){return true;}else{$('input[ng-model=\"setting\"] span').click()}"),config.timeout);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"setting\"]').hasClass('ng-not-empty')){return true;}else{" +
+        "$('input[ng-model=\"setting\"] ~span').click()}"),config.timeout);
 	SF.sleep(2);
 	MF.WaitWhileToaster();
 

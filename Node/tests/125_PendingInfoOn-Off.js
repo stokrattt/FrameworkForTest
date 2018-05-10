@@ -12,11 +12,11 @@ condition.nowWeDoing = 'заходим под админом, выключаем
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
-    driver.wait(driver.executeScript("if($('input[ng-model=\"setting\"] span').hasClass('ng-empty')){return true;}else{" +
-		"$('input[ng-model=\"setting\"] span').click()}"),config.timeout);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"setting\"]').hasClass('ng-empty')){return true;}else{" +
+		"$('input[ng-model=\"setting\"] ~span').click()}"),config.timeout);
     SF.sleep(2);
     MF.WaitWhileToaster();
-
+Debug.pause();
 condition.nowWeDoing = 'создаем через криейт реквест и ставим статус нот конферм';
 	LF.CreateLocalMovingFromBoard(V.client);
 	MF.EditRequest_OpenClient();
@@ -71,8 +71,8 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
-	SF.click(By.xpath('//input[@ng-change="updateSetting()"]/../span'));
-	SF.sleep(2);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"setting\"]').hasClass('ng-not-empty')){return true;}else{" +
+        "$('input[ng-model=\"setting\"] ~span').click()}"),config.timeout);	SF.sleep(2);
 	MF.WaitWhileToaster();
 
 	SF.endOfTest();
