@@ -370,6 +370,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         WaitWhileBusy();
     }
+    function  Board_OpenSettingsValuation() {
+        Board_OpenSideBar();
+        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[13]'));
+        SF.waitForVisible(By.xpath('//div[@class="valuation-plan-settings"]'));
+        SF.sleep(1);
+    }
     function Board_OpenSettingsContract() {
         Board_OpenSideBar();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
@@ -2267,6 +2273,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		Board_OpenRequest: Board_OpenRequest,
 		Board_OpenFirstRequest: Board_OpenFirstRequest,
 		Board_OpenSettingsCalculator: Board_OpenSettingsCalculator,
+        Board_OpenSettingsValuation:Board_OpenSettingsValuation,
         Board_CreateDraftRequest:Board_CreateDraftRequest,
         Board_OpenReserved:Board_OpenReserved,
         Board_OpenReviewSettings:Board_OpenReviewSettings,
