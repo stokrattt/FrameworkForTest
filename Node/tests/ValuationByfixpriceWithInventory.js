@@ -41,7 +41,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		VD.IWant(VD.ToEqual, AmountOfLiability ,V.AmountOfLiability1,'не совпали Valuation у реквеста с расчетами по формулам');
 	}), config.timeout);
 	// проверка Valuation Charge
-	Debug.pause();
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[1]')).getText().then(function (text) {
 		V.DeductibleLevel1= text;
 		V.DeductibleLevel1 = SF.cleanPrice(text.substring(text.indexOf('$')));
@@ -120,11 +119,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.SweetConfirm();
 	MF.Account_WaitForInventoryCheck();
 	MF.SweetConfirm();
+	Debug.pause();
 	MF.Account_CheckRequestStatus_PendingInfo();
-	SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
-	SF.click(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'));
-	SF.click(By.xpath('//td[contains(text(),"Select Valuation")]/following-sibling::td[1]'));
-	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
+	MF.Account_ChangeAmountOfLiability(9000);
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[6]')).getText().then(function (text) {
 		V.SelectLevelinAccount2 = text;
 		V.SelectLevelinAccount2 = SF.cleanPrice(text.substring(text.indexOf('$')));
@@ -141,23 +138,101 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.boardNumbersAfterInventory={};
 	LF.RememberDigitsRequestBoard(V.boardNumbersAfterInventory);
 	LF.Validation_Compare_Account_Admin(V.accountNumbersAfterInventory,V.boardNumbersAfterInventory);
+	MF.EditRequest_OpenClient();
+	LF.SetClientPasswd(V.client.passwd);
+	MF.EditRequest_OpenRequest();
 	JS.scroll('label[ng-click="openValuationModal()"]');
 	SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
 	SF.waitForVisible(By.xpath('//div[@ng-if="valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]'));
-	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[1]')).getText().then(function (text) {
+	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.SelectLevelinAdmin = text;
 		V.SelectLevelinAdmin = SF.cleanPrice(text.substring(text.indexOf('$')));
 		console.log(V.SelectLevelinAdmin);
 		VD.IWant(VD.ToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinAdmin,'не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
 	}), config.timeout);
+	SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+	let TimeMin = (V.boardNumbersAfterInventory.LaborTimeMin + V.boardNumbersAfterInventory.TravelTime)/60;
+	console.log(TimeMin);
+	let TimeMax = (V.boardNumbersAfterInventory.LaborTimeMax + V.boardNumbersAfterInventory.TravelTime)/60;
+	console.log(TimeMax);
+	SF.sleep(1);
+	MF.EditRequest_SetToNotConfirmed();
+	MF.EditRequest_SaveChanges();
+	MF.EditRequest_CloseEditRequest();
+	MF.Board_LogoutAdmin();
+	condition.nowWeDoing = 'идем на аккаунт букать работу';
+	SF.get(V.accountURL);
+	LF.LoginToAccountAsClient(V.client);
+	MF.Account_OpenRequest(V.boardNumbers.Id);
+	MF.Account_ClickProceedBookYourMove();
+	JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
+	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]/h2/span')).getText().then(function (text) {
+		V.SelectLevelinConfPage = text;
+		V.SelectLevelinConfPage = SF.cleanPrice(text.substring(text.indexOf('$')));
+		console.log(V.SelectLevelinConfPage);
+		VD.IWant(VD.ToEqual, V.SelectLevelinAdmin ,V.SelectLevelinConfPage,'не совпал выбраный deductible level на админке и на конфирмейшн пэйдж');
+	}), config.timeout);
+	JS.scroll('div[ng-click="addReservationPayment()"]');
+	MF.Account_ClickIAgreeWithAll();
+	SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
+	SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+	LF.MakeSignJS('signatureCanvasReserv');
+	SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
+	LF.FillCardPayModal();
+	MF.WaitWhileSpinner();
+	MF.Account_WaitForGreenTextAfterConfirm();
+	V.accountNumbersAfterConfirmed={};
+	LF.RememberAccountNumbers(V.accountNumbersAfterConfirmed);
+	LF.LogoutFromAccount();
+	condition.nowWeDoing = 'выходим из аккаунта,назначаем команду,идем на контракт со стороны форемана';
+	SF.get(V.adminURL);
+	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+	MF.Board_OpenConfirmed();
+	MF.Board_OpenRequest(V.boardNumbers.Id);
+	V.boardAfterConfirmed = {};
+	LF.RememberDigitsRequestBoard(V.boardAfterConfirmed);
+	LF.Validation_Compare_Account_Admin(V.accountNumbersAfterConfirmed,V.boardAfterConfirmed);
+	JS.scroll('div[ng-if="Invoice"]');
+	V.ValuationSales= {};
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]')).getText().then(function (text) {
+		V.ValuationSales = text;
+		console.log(V.ValuationSales);
+	}), config.timeout);
+	SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
+	MF.WaitWhileBusy();
+	V.ValuationClosing= {};
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="invoice.request_all_data.valuation.selected.valuation_charge"]')).getText().then(function (text) {
+		V.ValuationClosing = text;
+		console.log(V.ValuationClosing);
+		VD.IWant(VD.ToEqual, V.ValuationSales ,V.ValuationClosing,'не совпали Valuation на Sales и Closing');
+	}), config.timeout);
+
+	condition.nowWeDoing = 'идем в локалдиспатч, назначаем работников';
+	MF.EditRequest_CloseEditRequest();
+	MF.Board_OpenLocalDispatch();
+	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
+	MF.Dispatch_GridView();
+	LF.SelectRequestDispatch(V.boardNumbers.Id);
+	LF.selectCrew(V.foremanName);
+	MF.Board_LogoutAdmin();
+
+	condition.nowWeDoing = 'заходим под фореманом, идем на контракт';
+	LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
+	LF.OpenRequestInForemanPage(V.boardNumbers.Id);
+	MF.Contract_WaitConfirmationPage();
+	MF.Contract_OpenBillOfLading();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	MF.Contract_DeclarationValueA();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
 
 
 
 
 
-
-
-
+	SF.endOfTest();
 
 
 

@@ -147,9 +147,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	condition.nowWeDoing = 'идем на дэшборд, сверяем цифры портала с цифрами в реквесте';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
-	MF.WaitVisibleDashboard();
 	MF.Board_OpenConfirmed();
-	MF.WaitWhileBusy();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
 	V.boardAfterPortal = {};
 	LF.RememberDigitsRequestBoard(V.boardAfterPortal);
