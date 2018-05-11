@@ -35,8 +35,8 @@ condition.nowWeDoing = 'Создаем LD реквест, выставляем �
     LF.closeEditRequest();
     MF.Board_OpenDashboard();
     MF.Board_OpenRequest(V.boardNumbers.Id);
-    driver.wait(driver.findElement(By.xpath('//select[@ng-model="request.ld_status"]/option[5]')).getText().then(function(text) {
-        VD.IWant(VD.ToEqual, text ,V.flag,'Не совпал флаг после закрытия реквеста');
+    driver.wait(driver.findElement(By.xpath('//select[@ng-model="request.ld_status"]/option[@selected="selected"]')).getText().then(function(text) {
+        VD.IWant(VD.ToEqual, text ,V.flag,'Не сохранился или не совпал флаг после закрытия реквеста');
     }),config.timeout);
     LF.closeEditRequest();
 
@@ -62,14 +62,19 @@ condition.nowWeDoing = 'пришли на аккаунт,добавляем ин
     MF.SweetConfirm();
     MF.SweetConfirm();
     LF.AccountLocalAddInventory(V.accountNumbersLD);
-    MF.WaitWhileBusy();
-    MF.SweetConfirm();
-    MF.Account_WaitForInventoryCheck();
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
         V.CBFinAccount = SF.cleanPrice(text);
     }),config.timeout);
-    LF.AccountLocalDetails();
+    MF.Account_ClickDetails();
+    SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 60);
+    SF.select(By.xpath('//select[@id="new_door_to_parking"]'), 60);
+    SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
+    SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
+    driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
+    SF.click(By.xpath('//div[@ng-blur="details_change(\'Additional Comments\',details.addcomment, \'addcomment\')"]'));
+    MF.Account_ClickSaveDetails();
     MF.Account_WaitForDetailsCheck();
+    MF.Account_WaitForInventoryCheck();
     V.accountNumbersLD1={};
     LF.RememberAccountNumbersLD(V.accountNumbersLD1);
     LF.LogoutFromAccount();
@@ -115,7 +120,7 @@ condition.nowWeDoing = 'Открываем Full value protection, меняем a
     SF.click(By.xpath('//input[@ng-change="changeOnlyLiabilityAmount()"]'));
     SF.send(By.xpath('//input[@ng-change="changeOnlyLiabilityAmount()"]'),4000);
     SF.click(By.xpath('//td[contains(text(), "Select Valuation")]/following-sibling::td[3]'));
-    SF.click(By.xpath('//div[@ng-bind-html="textforshow"]'));
+    SF.click(By.xpath('//td[contains(text(), "Select Valuation")]/following-sibling::td[3]'));
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="valuation.selected.valuation_charge"]/div[2]')).getText().then(function(text) {
         V.valuationCharge = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.valuationCharge ,4000/100*20,'Неправильно посчитан valuation charge');
