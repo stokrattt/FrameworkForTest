@@ -8,7 +8,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.passwd = 123;
 
 
-	condition.nowWeDoing = 'заходим под админом в настройки валюэйшн,создаем реквест и проверяем ' +
+	condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by fixed price,создаем реквест и проверяем ' +
 		'сходятся ли расчеты в таблице Valuation с формулой расчетов ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
@@ -38,20 +38,21 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]')).getAttribute('value').then(function (text) {
 		V.AmountOfLiability1= text;
 		V.AmountOfLiability1 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, AmountOfLiability ,V.AmountOfLiability1,'не совпали Valuation у реквеста с расчетами по формулам');
+		VD.IWant(VD.ToEqual, AmountOfLiability ,V.AmountOfLiability1,'не совпали Amount Of Liability у реквеста с расчетами по формулам');
 	}), config.timeout);
 	// проверка Valuation Charge
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[1]')).getText().then(function (text) {
 		V.DeductibleLevel1= text;
 		V.DeductibleLevel1 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, 150 ,V.DeductibleLevel1,'не совпали Valuation у реквеста с расчетами по формулам(первый дедактбл левел)');
+		VD.IWant(VD.ToEqual, 150 ,V.DeductibleLevel1,'не совпали Valuation Charge у реквеста с расчетами по формулам(первый дедактбл левел)');
 	}), config.timeout);
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.DeductibleLevel2= text;
 		V.DeductibleLevel2 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, 200 ,V.DeductibleLevel2,'не совпали Valuation у реквеста с расчетами по формулам(второй дедактбл левел)');
+		VD.IWant(VD.ToEqual, 200 ,V.DeductibleLevel2,'не совпали Valuation Charge у реквеста с расчетами по формулам(второй дедактбл левел)');
 	}), config.timeout);
 	SF.click(By.xpath('//td[3]/div[@ng-click="setDeductibleLevel(value)"]'));
+	// выбираем второй Valuation Charge
 	V.SelectLevel= {};
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.SelectLevel = text;
@@ -62,6 +63,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.SweetConfirm();
 	MF.WaitWhileBusy();
 	MF.WaitWhileToaster();
+
+	condition.nowWeDoing = 'назначаем менеджера,назначаем клиенту пароль,выбираем трак, ставим нот конферм';
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenSettings();
@@ -75,7 +78,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
-	condition.nowWeDoing = 'идем на аккаунт, ставим свой amount of liability,добавляем инвентарь, проверяем,что бы не пересчитывалось все.';
+
+	condition.nowWeDoing = 'идем на аккаунт, ставим свой amount of liability,добавляем инвентарь,добавляем адрес, проверяем,что бы не пересчитывалось все, проверяем можно ли изменить страховку в статусе пэдинг-инфо,делаем проверку на то,что бы сраховка не превышала лимит компании';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -98,7 +102,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.SelectLevelinAccount = text;
 		V.SelectLevelinAccount = SF.cleanPrice(text.substring(text.indexOf('$')));
 		console.log(V.SelectLevelinAccount);
-		VD.IWant(VD.ToEqual, V.SelectLevelinAccount ,V.SelectLevel,'не совпали Valuation выбранный на реквесте и на аккаунте');
+		VD.IWant(VD.ToEqual, V.SelectLevelinAccount ,V.SelectLevel,'не совпали Valuation Charge выбранный на реквесте и на аккаунте');
 	}), config.timeout);
 	SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
 	SF.click(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'));
@@ -113,24 +117,24 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.SelectLevelinAccount2 = text;
 		V.SelectLevelinAccount2 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		console.log(V.SelectLevelinAccount2);
-		VD.IWant(VD.NotToEqual, V.SelectLevelinAccount2 ,V.SelectLevel,'совпали Valuation выбранный на реквесте и на аккаунте');
+		VD.IWant(VD.NotToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinAccount,'совпали Valuation Charge выбранный на аккаунте в первый раз и во второй раз ( такого быть не должно)');
 	}), config.timeout);
 	LF.AccountLocalAddInventory(V.accountNumbers);
 	MF.SweetConfirm();
 	MF.Account_WaitForInventoryCheck();
 	MF.SweetConfirm();
-	Debug.pause();
 	MF.Account_CheckRequestStatus_PendingInfo();
-	MF.Account_ChangeAmountOfLiability(9000);
+	MF.Account_ChangeAmountOfLiability(15000);
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[6]')).getText().then(function (text) {
-		V.SelectLevelinAccount2 = text;
-		V.SelectLevelinAccount2 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		console.log(V.SelectLevelinAccount2);
-		VD.IWant(VD.NotToEqual, V.SelectLevelinAccount2 ,V.SelectLevel,'после внесения амаунт оф лиабилити не поменялась страховка( такого быть не должно)');
+		V.SelectLevelinAccount3 = text;
+		V.SelectLevelinAccount3 = SF.cleanPrice(text.substring(text.indexOf('$')));
+		console.log(V.SelectLevelinAccount3);
+		VD.IWant(VD.NotToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinAccount3,'после внесения амаунт оф лиабилити не поменялась страховка( такого быть не должно)');
 	}), config.timeout);
 	V.accountNumbersAfterInventory= {};
 	LF.RememberAccountNumbers(V.accountNumbersAfterInventory);
 	LF.LogoutFromAccount();
+
 	condition.nowWeDoing = 'идем на мувборд, проверяем наш инвенторий и страховку,ставим статус нот конферм.';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -148,7 +152,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.SelectLevelinAdmin = text;
 		V.SelectLevelinAdmin = SF.cleanPrice(text.substring(text.indexOf('$')));
 		console.log(V.SelectLevelinAdmin);
-		VD.IWant(VD.ToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinAdmin,'не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
+		VD.IWant(VD.ToEqual, V.SelectLevelinAccount3 ,V.SelectLevelinAdmin,'не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
 	}), config.timeout);
 	SF.click(By.xpath('//button[@ng-click="cancel()"]'));
 	let TimeMin = (V.boardNumbersAfterInventory.LaborTimeMin + V.boardNumbersAfterInventory.TravelTime)/60;
@@ -225,8 +229,84 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.MakeSignInContract();
 	MF.Contract_DeclarationValueA();
 	LF.MakeSignInContract();
+	driver.wait(driver.findElement(By.xpath('//tr[@ng-if="finance.valuation && finance.valuation != 0"]/td[2]')).getText().then(function (text) {
+		V.ValuationinContract = text;
+		console.log(V.ValuationClosing);
+		VD.IWant(VD.ToEqual, V.ValuationinContract ,V.ValuationClosing,'не совпали Valuation на Sales и Closing');
+	}), config.timeout);
 	LF.MakeSignInContract();
 	LF.MakeSignInContract();
+	MF.Contract_ClickPay();
+	MF.Contract_ClickTips10();
+	MF.Contract_ClickAddTips();
+	MF.Contract_ClickPaymentInfo();
+	LF.FillCardPayModal();
+	LF.Contract_SignMainPayment();
+	driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+		V.path = path;
+	}), config.timeout);
+	SF.sleep(1);
+	MF.Contract_UploadImage(V.path);
+	MF.Contract_UploadImage(V.path);
+	MF.Contract_SaveImages();
+	LF.MakeSignInContract();
+	LF.MakeSignInContract();
+	V.contractNumbers = {};
+	MF.Contract_Submit(V.contractNumbers);
+	MF.Contract_ReturnToForeman();
+	LF.LogoutFromBoardForeman();
+
+	condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
+	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+	MF.Board_OpenLocalDispatch();
+	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
+	MF.Dispatch_GridView();
+	MF.Dispatch_ShowDoneJobs();
+	LF.OpenRequestDispatch(V.boardNumbers.Id);
+	MF.EditRequest_WaitForBalanceVisible();
+	LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
+	MF.EditRequest_ScrollDown();
+	VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+	MF.EditRequest_OpenPayroll();
+	V.managerName = 'emilia clark';
+	LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
+	SF.sleep (1);
+	MF.EditRequest_CloseModal();
+	LF.closeEditRequest();
+
+	condition.nowWeDoing = 'сейчас идём в пейролл';
+	MF.Board_OpenPayroll();
+	LF.selectDateInPayroll(V.boardNumbers.moveDate);
+	LF.findTestForemanInPayroll(V.foremanName);
+
+	condition.nowWeDoing = 'выбираем цифры формена';
+	V.payrollNumbers = {
+		Foreman:{}, Sale:{}
+	};
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
+	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
+		'id=' + V.boardNumbers.Id);
+	MF.Payroll_ClickAllDepartment();
+
+	condition.nowWeDoing = 'выбираем цифры менеджера';
+	LF.findSaleInPayroll(V.managerName);
+	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
+	VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
+		'id=' + V.boardNumbers.Id);
+	SF.sleep(1);
+
+	condition.nowWeDoing = 'возвращаем настройку на By percent';
+	MF.Board_OpenSettingsGeneral();
+	MF.Board_OpenSideBar();
+	SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][13]'));
+	JS.scroll('div[class="pageheader"]');
+	SF.sleep(1);
+	driver.wait(driver.executeScript("if ($('md-radio-button[area-label=\"By percent\"]').hasClass('md-checked')){return true;} else {$('md-radio-button[area-label=\"By percent\"]').click()}"),config.timeout);
+	SF.waitForVisible(By.xpath('//md-radio-button[@class="valuation-plan-settings__radio md-primary md-checked"]'));
+	driver.wait(driver.executeScript("if($('button[ng-click=\"saveChanges()\"]').hasClass('disabled')){" +
+		";}else{$('button[ng-click=\"saveChanges()\"]').click()}"),config.timeout);
+	MF.WaitWhileToaster();
+
 
 
 
