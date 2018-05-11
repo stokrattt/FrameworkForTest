@@ -128,7 +128,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[1]')).getText().then(function (text) {
 		V.ValuationCharge1= text;
 		V.ValuationCharge1 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, ValuationCharge0 ,V.DeductibleLevel1,'не совпали Valuation Charge у реквеста с расчетами по формулам(первый дедактбл левел)');
+		VD.IWant(VD.ToEqual, ValuationCharge0 ,V.ValuationCharge1,'не совпали Valuation Charge у реквеста с расчетами по формулам(первый дедактбл левел)');
 	}), config.timeout);
 	SF.sleep(1);
 	let percent1 = 0.15;
