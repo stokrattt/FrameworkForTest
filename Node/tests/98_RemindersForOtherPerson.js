@@ -24,7 +24,7 @@ condition.nowWeDoing = 'создаем рекевст под оунером, д�
     SF.click(By.xpath('//textarea[@name="description"]'));
     SF.send(By.xpath('//textarea[@name="description"]'),V.RemaindText);
     SF.sleep(2);
-    SF.click(By.xpath('//button[@ng-click="$ctrl.switchDatepicker()"]'));
+    SF.click(By.xpath('//button[@ng-click="$ctrl.switchDatepicker();"]'));
     SF.click(By.xpath('//button[@ng-click="move(1)"]'));
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="select(dt.date)"]//span[contains(text(),"01")]'));
