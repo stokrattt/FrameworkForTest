@@ -117,6 +117,7 @@ condition.nowWeDoing = 'идем на аккаунт клиентом, пров�
 condition.nowWeDoing = 'Открываем Full value protection, меняем amount of liability и выбираем deductible level. Проверяем, что charge посчитан правильно и появился блок explanation';
     SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
     SF.waitForLocated(By.xpath('//button[@ng-show="edit_amount_of_valuation"]'));
+    SF.sleep(2);
     SF.click(By.xpath('//input[@ng-change="changeOnlyLiabilityAmount()"]'));
     SF.send(By.xpath('//input[@ng-change="changeOnlyLiabilityAmount()"]'),4000);
     SF.click(By.xpath('//td[contains(text(), "Select Valuation")]/following-sibling::td[3]'));
