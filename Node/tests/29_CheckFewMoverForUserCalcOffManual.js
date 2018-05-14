@@ -34,6 +34,12 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     driver.wait(driver.executeScript('return $("div:contains(\\"All Moves\\") tbody tr.request").length').then(function (length) {
         VD.IWant (VD.ToEqual, length, '3', 'на вкладке клиент нету всех работ данного юзера');
     }),config.timeout);
+
+condition.nowWeDoing = 'тут проверяем одной функцией или совпадате или вообще есть статус реквеста на табе клиент';
+    driver.wait(driver.findElement(By.xpath('//td[@class="dtStatus "]/span[@ng-hide="request.status.raw == 9 && request.service_type.raw == 7"]')).getText().then(function
+        (text) {
+        VD.IWant(VD.ToEqual, 'Pending', text, 'не нашло статус реквеста на табе клиент или не совпало' );
+    }), config.timeout);
     MF.EditRequest_OpenRequest ();
     SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
     SF.click(By.xpath('//li[@class="ui-timepicker-selected"]/following-sibling::li[2]'));
