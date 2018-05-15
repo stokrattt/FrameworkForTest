@@ -153,13 +153,33 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.WaitWhileBusy();
 	MF.EditRequest_SetToNotConfirmed();
 	MF.EditRequest_SaveChanges();
+	Debug.pause();
+	MF.EditRequest_OpenMailDialog();
+	SF.click(By.xpath('//span[@ng-class="{\'text-muted\': isDisabled}"]'));
+
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем на аккаунт букать работу';
+	condition.nowWeDoing = 'идем на аккаунт букать работу,выбираем 60 цент перпаунд,проверяем на конфирмейшн пейдж что в табличке нету нулей,возвращаемся обратно,выбираем максимальный уровень страховки,букаем работу';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
+	SF.click(By.xpath('//md-checkbox[@ng-change="setValuationType(valuationTypes.PER_POUND)"]'));
+	MF.Account_WaitForLoadingAccount();
+	MF.Account_ClickProceedBookYourMove();
+	JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
+	driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="charge in calculatedValuations track by $index"]/span')).getText().then(function (text) {
+		V.ConfPage60cent=text;
+		console.log(V.ConfPage60cent);
+		VD.IWant(VD.NotToEqual, 0, V.ConfPage60cent,'обнулился Valuation Charge, а не должен был');
+	}), config.timeout);
+	driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="charge in calculatedValuations track by $index"][2]/span')).getText().then(function (text) {
+		V.ConfPage60cent1=text;
+		console.log(V.ConfPage60cent1);
+		VD.IWant(VD.NotToEqual, 0, V.ConfPage60cent1,'обнулился Valuation Charge, а не должен был');
+	}), config.timeout);
+	SF.click(By.xpath('//a[@ng-if="!vm.isForeman && !vm.isHomeEstimator"]'));
+	MF.Account_ChangeAmountOfLiability(15000);
 	MF.Account_ClickProceedBookYourMove();
 	JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]/h2/span')).getText().then(function (text) {
@@ -180,7 +200,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.RememberAccountNumbers(V.accountNumbersAfterConfirmed);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'выходим из аккаунта,назначаем команду,идем на контракт со стороны форемана';
+	condition.nowWeDoing = 'выходим из аккаунта, идем на админку,проверяем значения и сверяем что наш валюэйшен есть в табе сейлс и клозинг,переходим на контракт, сравниваем что бы там была страховка,которую мы выставили на аккаунте';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenConfirmed();
@@ -200,101 +220,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.ValuationClosing = text;
 		VD.IWant(VD.ToEqual, V.ValuationSales ,V.ValuationClosing,'не совпали Valuation на Sales и Closing');
 	}), config.timeout);
+	MF.EditRequest_OpenContractCloseJob();
+	MF.SweetConfirm();
+	Debug.pause();
 
-	condition.nowWeDoing = 'идем в локалдиспатч, назначаем работников';
-	MF.EditRequest_CloseEditRequest();
-	MF.Board_OpenLocalDispatch();
-	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-	MF.Dispatch_GridView();
-	LF.SelectRequestDispatch(V.boardNumbers.Id);
-	LF.selectCrew(V.foremanName);
-	MF.Board_LogoutAdmin();
-
-	condition.nowWeDoing = 'заходим под фореманом, идем на контракт';
-	LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
-	LF.OpenRequestInForemanPage(V.boardNumbers.Id);
-	MF.Contract_WaitConfirmationPage();
-	MF.Contract_OpenBillOfLading();
-	LF.MakeSignInContract();
-	LF.MakeSignInContract();
-	MF.Contract_DeclarationValueA();
-	LF.MakeSignInContract();
-	driver.wait(driver.findElement(By.xpath('//tr[@ng-if="finance.valuation && finance.valuation != 0"]/td[2]')).getText().then(function (text) {
-		V.ValuationinContract = text;
-		VD.IWant(VD.ToEqual, V.ValuationinContract ,V.ValuationClosing,'не совпали Valuation Charge на клозинге в реквесте и на контракте');
-	}), config.timeout);
-	LF.MakeSignInContract();
-	LF.MakeSignInContract();
-	MF.Contract_ClickPay();
-	MF.Contract_ClickTips10();
-	MF.Contract_ClickAddTips();
-	MF.Contract_ClickPaymentInfo();
-	LF.FillCardPayModal();
-	LF.Contract_SignMainPayment();
-	driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-		V.path = path;
-	}), config.timeout);
-	SF.sleep(1);
-	MF.Contract_UploadImage(V.path);
-	MF.Contract_UploadImage(V.path);
-	MF.Contract_SaveImages();
-	LF.MakeSignInContract();
-	LF.MakeSignInContract();
-	V.contractNumbers = {};
-	MF.Contract_Submit(V.contractNumbers);
-	MF.Contract_ReturnToForeman();
-	LF.LogoutFromBoardForeman();
-
-	condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
-	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-	MF.Board_OpenLocalDispatch();
-	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
-	MF.Dispatch_GridView();
-	MF.Dispatch_ShowDoneJobs();
-	LF.OpenRequestDispatch(V.boardNumbers.Id);
-	MF.EditRequest_WaitForBalanceVisible();
-	LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
-	MF.EditRequest_ScrollDown();
-	VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
-	MF.EditRequest_OpenPayroll();
-	V.managerName = 'emilia clark';
-	LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
-	SF.sleep (1);
-	MF.EditRequest_CloseModal();
-	LF.closeEditRequest();
-
-	condition.nowWeDoing = 'сейчас идём в пейролл';
-	MF.Board_OpenPayroll();
-	LF.selectDateInPayroll(V.boardNumbers.moveDate);
-	LF.findTestForemanInPayroll(V.foremanName);
-
-	condition.nowWeDoing = 'выбираем цифры формена';
-	V.payrollNumbers = {
-		Foreman:{}, Sale:{}
-	};
-	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
-	VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
-		'id=' + V.boardNumbers.Id);
-	MF.Payroll_ClickAllDepartment();
-
-	condition.nowWeDoing = 'выбираем цифры менеджера';
-	LF.findSaleInPayroll(V.managerName);
-	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
-	VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
-		'id=' + V.boardNumbers.Id);
-	SF.sleep(1);
-
-	condition.nowWeDoing = 'возвращаем настройку на By percent';
-	MF.Board_OpenSettingsGeneral();
-	MF.Board_OpenSideBar();
-	SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][13]'));
-	JS.scroll('div[class="pageheader"]');
-	SF.sleep(1);
-	driver.wait(driver.executeScript("if ($('md-radio-button[area-label=\"By percent\"]').hasClass('md-checked')){return true;} else {$('md-radio-button[area-label=\"By percent\"]').click()}"),config.timeout);
-	SF.waitForVisible(By.xpath('//md-radio-button[@class="valuation-plan-settings__radio md-primary md-checked"]'));
-	driver.wait(driver.executeScript("if($('button[ng-click=\"saveChanges()\"]').hasClass('disabled')){" +
-		";}else{$('button[ng-click=\"saveChanges()\"]').click()}"),config.timeout);
-	MF.WaitWhileToaster();
 
 	SF.endOfTest();
 };

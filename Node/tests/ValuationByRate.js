@@ -72,7 +72,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_WaitForLoadingAccount();
 	LF.AccountLocalAddInventory();
 	MF.Account_WaitForInventoryCheck();
-	Debug.pause();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"][2]')).getText().then(function (text) {
 		V.SelectLevelAfterInnventory = text;
 		V.SelectLevelAfterInnventory = SF.cleanPrice(text.substring(text.indexOf('$')));
@@ -106,8 +105,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.WaitWhileBusy();
 
 	condition.nowWeDoing = 'назначаем менеджера,назначаем клиенту пароль,выбираем трак, ставим нот конферм';
-	MF.EditRequest_OpenClient();
-	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenSettings();
 	LF.SetManager('emilia');
 	MF.EditRequest_OpenRequest();
@@ -116,6 +113,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_SetToNotConfirmed();
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime) / 60));
 	MF.WaitWhileBusy();
+	Debug.pause();
+	MF.EditRequest_OpenClient();
+	LF.SetClientPasswd(V.client.passwd);
+	MF.EditRequest_OpenRequest();
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
