@@ -35,6 +35,7 @@ condition.nowWeDoing = 'создаем кастомный аитем и каст
         V.boardNumbers.InventoryCubicFit = SF.cleanPrice(text.replace('Total Estimated Cubic Feet:', ''));
     }), config.timeout);
     MF.EditRequest_ClickSaveInventory();
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFit = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual,V.boardNumbersCubFit, V.boardNumbers.InventoryCubicFit, 'Сравниваем инвенторий на 1й странице и в табе инвентаря');

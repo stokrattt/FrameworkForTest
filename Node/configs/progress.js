@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/29_CheckFewMoverForUserCalcOffManual.js'];
+    config.suite = ['./tests/47_SendMessage.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
