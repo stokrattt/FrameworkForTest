@@ -128,8 +128,7 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
     SF.sleep(2);
     SF.send (By.id('edit-moving-from'), 'otkuda edem');
     SF.send (By.id('edit-moving-from-apt'), 324535);
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep(2);
+    MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));

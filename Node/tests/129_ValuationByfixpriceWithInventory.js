@@ -8,26 +8,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.passwd = 123;
 
 
-	condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by fixed price,создаем реквест и проверяем ' +
+condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by fixed price,создаем реквест и проверяем ' +
 		'сходятся ли расчеты в таблице Valuation с формулой расчетов ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
 	MF.Board_OpenSettingsGeneral();
-	MF.Board_OpenSideBar();
-	SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][13]'));
-	JS.scroll('div[class="pageheader"]');
-	SF.sleep(1);
+    MF.Board_OpenSettingsValuation();
 	driver.wait(driver.executeScript("if ($('md-radio-button[area-label=\"By fixed price\"]').hasClass('md-checked')){return true;} else {$('md-radio-button[area-label=\"By fixed price\"]').click()}"), config.timeout);
 	SF.waitForVisible(By.xpath('//md-radio-button[@class="valuation-plan-settings__radio md-primary md-checked"]'));
 	driver.wait(driver.executeScript("if($('button[ng-click=\"saveChanges()\"]').hasClass('disabled')){" +
 		";}else{$('button[ng-click=\"saveChanges()\"]').click()}"), config.timeout);
 	MF.WaitWhileToaster();
 	LF.CreateLocalMovingFromBoard(V.client);
-	JS.scroll('label[ng-click="openValuationModal()"]');
-	SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
-	SF.waitForVisible(By.xpath('//div[@ng-if="valuation.selected.valuation_type == valuationTypes.PER_POUND"]'));
-	SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
-	MF.WaitWhileToaster();
+    MF.EditRequest_OpenValuationModal();
+    MF.EditRequest_ClickTabFullValue();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]//tr[2]/td')).getText().then(function (text) {
 		V.Weight= text;
 	}), config.timeout);
@@ -58,12 +52,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.SelectLevel = text;
 		V.SelectLevel = SF.cleanPrice(text.substring(text.indexOf('$')));
 	}), config.timeout);
-	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
+    MF.Account_ClickSaveFullValueModal();
 	MF.SweetConfirm();
 	MF.WaitWhileBusy();
-	MF.WaitWhileToaster();
 
-	condition.nowWeDoing = 'назначаем менеджера,назначаем клиенту пароль,выбираем трак, ставим нот конферм';
+condition.nowWeDoing = 'назначаем менеджера,назначаем клиенту пароль,выбираем трак, ставим нот конферм';
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenSettings();
@@ -78,7 +71,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем на аккаунт, ставим свой amount of liability,добавляем инвентарь,добавляем адрес, проверяем,что бы не пересчитывалось все, проверяем можно ли изменить страховку в статусе пэдинг-инфо,делаем проверку на то,что бы сраховка не превышала лимит компании';
+condition.nowWeDoing = 'идем на аккаунт, ставим свой amount of liability,добавляем инвентарь,добавляем адрес, проверяем,что бы не пересчитывалось все, проверяем можно ли изменить страховку в статусе пэдинг-инфо,делаем проверку на то,что бы сраховка не превышала лимит компании';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -89,10 +82,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_OpenAdressModal();
 	MF.Account_SendAdressToModalWindow();
 	MF.Account_SendAdressFromModalWindow();
-	SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+	MF.Account_ClickUpdateClientInModalWindow();
 	MF.SweetConfirm();
 	MF.SweetConfirm();
-	MF.Account_WaitForLoadingAccount();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed');
 	}), config.timeout);
@@ -102,15 +94,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.SelectLevelinAccount = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.SelectLevelinAccount ,V.SelectLevel,'не совпали Valuation Charge выбранный на реквесте и на аккаунте');
 	}), config.timeout);
-	SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
-	SF.click(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'));
-	SF.send(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'),15001);
+	MF.Account_ClickAndOpenFullValueModal();
+	MF.Account_SendAmountOfLiability(15001);
 	SF.click(By.xpath('//div[@ng-bind-html="textforshow"]'));
 	MF.SweetConfirm(); //если тут вальнется, то бага, не появился свит аллерт о том,чо страховка превышает лимиты компании
-	SF.waitForVisible(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
-	SF.click(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'));
-	SF.send(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'),9000);
-	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
+	MF.Account_SendAmountOfLiability(9000);
+    MF.Account_ClickSaveFullValueModal();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"][2]')).getText().then(function (text) {
 		V.SelectLevelinAccount2 = text;
 		V.SelectLevelinAccount2 = SF.cleanPrice(text.substring(text.indexOf('$')));
@@ -131,7 +120,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.RememberAccountNumbers(V.accountNumbersAfterInventory);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'идем на мувборд, проверяем наш инвенторий и страховку,ставим статус нот конферм.';
+condition.nowWeDoing = 'идем на мувборд, проверяем наш инвенторий и страховку,ставим статус нот конферм.';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenRequest(V.boardNumbers.Id);
@@ -141,9 +130,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
-	JS.scroll('label[ng-click="openValuationModal()"]');
-	SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
-	SF.waitForVisible(By.xpath('//div[@ng-if="valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]'));
+    MF.EditRequest_OpenValuationModal();
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.SelectLevelinAdmin = text;
 		V.SelectLevelinAdmin = SF.cleanPrice(text.substring(text.indexOf('$')));
@@ -153,32 +140,26 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.WaitWhileBusy();
 	MF.EditRequest_SetToNotConfirmed();
 	MF.EditRequest_SaveChanges();
-	Debug.pause();
 	MF.EditRequest_OpenMailDialog();
 	SF.click(By.xpath('//span[@ng-class="{\'text-muted\': isDisabled}"]'));
-
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем на аккаунт букать работу,выбираем 60 цент перпаунд,проверяем на конфирмейшн пейдж что в табличке нету нулей,возвращаемся обратно,выбираем максимальный уровень страховки,букаем работу';
+condition.nowWeDoing = 'идем на аккаунт букать работу,выбираем 60 цент перпаунд,проверяем на конфирмейшн пейдж что в табличке нету нулей,возвращаемся обратно,выбираем максимальный уровень страховки,букаем работу';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
-	SF.click(By.xpath('//md-checkbox[@ng-change="setValuationType(valuationTypes.PER_POUND)"]'));
-	MF.Account_WaitForLoadingAccount();
+	MF.Account_Click60centPerPound();
 	MF.Account_ClickProceedBookYourMove();
-	JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
 	driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="charge in calculatedValuations track by $index"]/span')).getText().then(function (text) {
 		V.ConfPage60cent=text;
-		console.log(V.ConfPage60cent);
 		VD.IWant(VD.NotToEqual, 0, V.ConfPage60cent,'обнулился Valuation Charge, а не должен был');
 	}), config.timeout);
 	driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="charge in calculatedValuations track by $index"][2]/span')).getText().then(function (text) {
 		V.ConfPage60cent1=text;
-		console.log(V.ConfPage60cent1);
 		VD.IWant(VD.NotToEqual, 0, V.ConfPage60cent1,'обнулился Valuation Charge, а не должен был');
 	}), config.timeout);
-	SF.click(By.xpath('//a[@ng-if="!vm.isForeman && !vm.isHomeEstimator"]'));
+	MF.Account_ConfirmationBackToRequest();
 	MF.Account_ChangeAmountOfLiability(15000);
 	MF.Account_ClickProceedBookYourMove();
 	JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
@@ -187,12 +168,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.SelectLevelinConfPage = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.SelectLevelinAdmin ,V.SelectLevelinConfPage,'не совпал выбраный deductible level на админке и на конфирмейшн пэйдж');
 	}), config.timeout);
-	JS.scroll('div[ng-click="addReservationPayment()"]');
 	MF.Account_ClickIAgreeWithAll();
-	SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
-	SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+	MF.Account_ConfirmationClickPayDeposit();
 	LF.MakeSignJS('signatureCanvasReserv');
-	SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
+    MF.Account_ConfirmationClickSaveSignature();
 	LF.FillCardPayModal();
 	MF.WaitWhileSpinner();
 	MF.Account_WaitForGreenTextAfterConfirm();
@@ -200,7 +179,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.RememberAccountNumbers(V.accountNumbersAfterConfirmed);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'выходим из аккаунта, идем на админку,проверяем значения и сверяем что наш валюэйшен есть в табе сейлс и клозинг,переходим на контракт, сравниваем что бы там была страховка,которую мы выставили на аккаунте';
+condition.nowWeDoing = 'выходим из аккаунта, идем на админку,проверяем значения и сверяем что наш валюэйшен есть в табе сейлс и клозинг,переходим на контракт, сравниваем что бы там была страховка,которую мы выставили на аккаунте';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenConfirmed();
@@ -208,13 +187,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.boardAfterConfirmed = {};
 	LF.RememberDigitsRequestBoard(V.boardAfterConfirmed);
 	LF.Validation_Compare_Account_Admin(V.accountNumbersAfterConfirmed,V.boardAfterConfirmed);
-	JS.scroll('div[ng-if="Invoice"]');
 	V.ValuationSales= {};
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]')).getText().then(function (text) {
 		V.ValuationSales = text;
 	}), config.timeout);
-	SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-	MF.WaitWhileBusy();
+	MF.EditRequest_CloseConfirmWork();
 	V.ValuationClosing= {};
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="invoice.request_all_data.valuation.selected.valuation_charge && invoice.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]')).getText().then(function (text) {
 		V.ValuationClosing = text;

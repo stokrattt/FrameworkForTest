@@ -28,7 +28,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.FullSmallCalcAsLocal(V.client);
 	condition.nowWeDoing = 'первый раз на аккаунте';
 	MF.Account_ClickViewRequest();
-	SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
+    MF.Account_ClickAndOpenFullValueModal();
 	driver.wait(driver.findElement(By.xpath('//input[@ng-change="changeOnlyLiabilityAmount()"]')).getAttribute('value').then(function (text) {
 		V.AmountOfLiability = text;
 		V.AmountOfLiability = SF.cleanPrice(text.substring(text.indexOf('$')));
@@ -68,8 +68,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.SelectLevel = text;
 		V.SelectLevel = SF.cleanPrice(text.substring(text.indexOf('$')));
 	}), config.timeout);
-	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
-	MF.Account_WaitForLoadingAccount();
+    MF.Account_ClickSaveFullValueModal();
 	LF.AccountLocalAddInventory();
 	MF.Account_WaitForInventoryCheck();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"][2]')).getText().then(function (text) {
@@ -91,16 +90,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
-	JS.scroll('label[ng-click="openValuationModal()"]');
-	SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
-	SF.waitForVisible(By.xpath('//div[@ng-if="valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]'));
+	MF.EditRequest_OpenValuationModal();
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.SelectLevelinAdmin = text;
 		V.SelectLevelinAdmin = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.SelectLevelAfterInnventory ,V.SelectLevelinAdmin,'не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
 		console.log(V.SelectLevelAfterInnventory);
 	}), config.timeout);
-	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
+    MF.Account_ClickSaveFullValueModal();
 	MF.SweetConfirm();
 	MF.WaitWhileBusy();
 

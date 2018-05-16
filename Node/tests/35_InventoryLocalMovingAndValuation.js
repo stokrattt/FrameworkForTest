@@ -21,23 +21,19 @@ condition.nowWeDoing = 'Зайти на аккаунт, добавить инв�
     LF.RememberAccountNumbers(V.accountNumbers);
     SF.sleep(1);
     LF.LogoutFromAccount();
-SF.sleep(2);
+    SF.sleep(1);
+
 condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbers.Id);
 
 condition.nowWeDoing = 'добавляем valuation';
-    SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
-    SF.waitForLocated (By.xpath('//div[@class="valuation__modal"]'));
-    SF.sleep(1);
-    SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
-    SF.click(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]'));
-    SF.send(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]'), 10570);
+    MF.EditRequest_OpenValuationModal();
+    MF.EditRequest_ClickTabFullValue();
+    MF.EditRequest_SendAmountOfLiability(10570);
     SF.click(By.xpath('//table[@class="valuation-modal__info-table"]/tbody[2]/tr[2]/td[3]'));
-    SF.click (By.xpath('//button[@ng-click="clickSave()"]'));
-    MF.SweetConfirm ();
-    MF.WaitWhileBusy ();
+    MF.EditRequest_ClickSaveValuation();
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SetAdressToFrom();
     SF.sleep(4);

@@ -104,8 +104,7 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     SF.sleep(2);
     SF.send (By.xpath('//input[@ng-value="request.field_moving_to.thoroughfare"]'), 'otkuda edem');
     SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
-    SF.click (By.xpath('//button[@ng-click="update(client)"]'));
-    SF.sleep(2);
+    MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));

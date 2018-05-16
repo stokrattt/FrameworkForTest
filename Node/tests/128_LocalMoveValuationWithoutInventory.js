@@ -99,9 +99,8 @@ condition.nowWeDoing = 'заходим под админом в настройк
 	//
 	LF.CreateLocalMovingFromBoard(V.client);
     MF.EditRequest_RememberLbs(V.request);
-	SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
-	SF.waitForVisible(By.xpath('//div[@ng-if="valuation.selected.valuation_type == valuationTypes.PER_POUND"]'));
-	SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
+	MF.EditRequest_OpenValuationModal();
+    MF.EditRequest_ClickTabFullValue();
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]')).getAttribute('value').then(function (text) {
 		V.AmountOfLiability1 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.request.lbs*0.6 ,V.AmountOfLiability1,'не совпали Valuation у реквеста с расчетами по формулам');
@@ -127,10 +126,7 @@ condition.nowWeDoing = 'заходим под админом в настройк
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.SelectLevel = SF.cleanPrice(text.substring(text.indexOf('$')));
 	}), config.timeout);
-	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
-	MF.SweetConfirm();
-	MF.WaitWhileBusy();
-	MF.WaitWhileToaster();
+    MF.EditRequest_ClickSaveValuation();
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenSettings();
@@ -158,18 +154,17 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 	MF.Account_OpenAdressModal();
 	MF.Account_SendAdressToModalWindow();
 	MF.Account_SendAdressFromModalWindow();
-	SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+	MF.Account_ClickUpdateClientInModalWindow();
 	MF.SweetConfirm();
 	MF.SweetConfirm();
-	MF.Account_WaitForLoadingAccount();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[6]')).getText().then(function (text) {
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, text ,V.SelectLevel,'не совпали Valuation выбранный на реквесте и на аккаунте');
 	}), config.timeout);
-	SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
+	MF.Account_ClickAndOpenFullValueModal();
 	SF.click(By.xpath('//td[4]/md-checkbox[@aria-label="$ 500"]'));
 	SF.sleep(0.5);
-	SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
+	MF.Account_ClickSaveFullValueModal();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[6]')).getText().then(function (text) {
 		V.ValuationChargeinAccount2 = SF.cleanPrice(text.substring(text.indexOf('$')));
 	}), config.timeout);
@@ -183,10 +178,9 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 		}), config.timeout);
 	JS.scroll('div[ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]');
 	MF.Account_ClickIAgreeWithAll();
-	SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
-	SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+	MF.Account_ConfirmationClickPayDeposit();
 	LF.MakeSignJS('signatureCanvasReserv');
-	SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
+	MF.Account_ConfirmationClickSaveSignature();
 	LF.FillCardPayModal();
 	MF.WaitWhileSpinner();
 	MF.Account_WaitForGreenTextAfterConfirm();
@@ -194,21 +188,19 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 	V.accountNumbersAfterConfPage={};
 	LF.RememberAccountNumbers(V.accountNumbersAfterConfPage);
 	LF.LogoutFromAccount();
-	condition.nowWeDoing = 'идем на мувборд,проверяем цифры на мувборде в реквесте и валюэушн,который мы выбрали';
+
+condition.nowWeDoing = 'идем на мувборд,проверяем цифры на мувборде в реквесте и валюэушн,который мы выбрали';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenConfirmed();
-	MF.WaitWhileBusy();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
-	MF.EditRequest_WaitForOpenRequest();
 	V.boardNumbersAfterConfirmationPage = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbersAfterConfirmationPage);
 	LF.Validation_Compare_Account_Admin(V.accountNumbersAfterConfPage,V.boardNumbersAfterConfirmationPage);
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]')).getText().then(function (text) {
 		V.ValuationSales = text;
 	}), config.timeout);
-	SF.click(By.xpath('//div[@ng-click="changeSalesClosingTab(\'closing\')"]'));
-	MF.WaitWhileBusy();
+	MF.EditRequest_CloseConfirmWork();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="invoice.request_all_data.valuation.selected.valuation_charge && invoice.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]')).getText().then(function (text) {
 		VD.IWant(VD.ToEqual, V.ValuationSales ,text,'не совпали Valuation на Sales и Closing');
 	}), config.timeout);

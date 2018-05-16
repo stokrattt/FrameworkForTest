@@ -774,11 +774,32 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
     }
     function Account_ChangeAmountOfLiability(number){
-	    SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
+        Account_ClickAndOpenFullValueModal();
 	    SF.click(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'));
 	    SF.send(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'),number);
 	    SF.click(By.xpath('//div[@ng-bind-html="textforshow"]'));
-	    SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
+        Account_ClickSaveFullValueModal();
+    }
+    function Account_ClickAndOpenFullValueModal() {
+        SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
+        SF.sleep(1);
+    }
+    function Account_SendAmountOfLiability(number) {
+        SF.click(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'));
+        SF.send(By.xpath('//input[@ng-model-options="{\'updateOn\': \'blur\'}"]'),number);
+    }
+    function Account_ClickSaveFullValueModal() {
+        SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
+    }
+    function Account_ConfirmationClickPayDeposit() {
+        SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
+        SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+    }
+    function Account_ConfirmationClickSaveSignature() {
+        SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
+    }
+    function Account_Click60centPerPound() {
+        SF.click(By.xpath('//md-checkbox[@ng-change="setValuationType(valuationTypes.PER_POUND)"]'));
     }
 
     //===================================CONTRACT===================================
@@ -1671,6 +1692,24 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_SetStepsOnStairsDestination(steps) {
         SF.select(By.xpath('//select[@ng-model="details.steps_destination"]'), steps);
     }
+    function EditRequest_OpenValuationModal() {
+        SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
+        SF.waitForLocated (By.xpath('//div[@class="valuation__modal"]'));
+        SF.sleep(1);
+    }
+    function EditRequest_ClickTabFullValue() {
+        SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
+        SF.sleep(1);
+    }
+    function EditRequest_ClickSaveValuation() {
+        SF.click (By.xpath('//button[@ng-click="clickSave()"]'));
+        SweetConfirm ();
+        WaitWhileBusy ();
+    }
+    function EditRequest_SendAmountOfLiability(sum) {
+        SF.click(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]'));
+        SF.send(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]'), sum);
+    }
     
     //=================================LOCAL DISPATCH============================
 
@@ -2330,6 +2369,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_SelectParking:Account_SelectParking,
 	    Account_CheckRequestStatus_PendingInfo: Account_CheckRequestStatus_PendingInfo,
 	    Account_ChangeAmountOfLiability: Account_ChangeAmountOfLiability,
+        Account_ClickAndOpenFullValueModal:Account_ClickAndOpenFullValueModal,
+        Account_SendAmountOfLiability:Account_SendAmountOfLiability,
+        Account_ClickSaveFullValueModal:Account_ClickSaveFullValueModal,
+        Account_ConfirmationClickPayDeposit:Account_ConfirmationClickPayDeposit,
+        Account_ConfirmationClickSaveSignature:Account_ConfirmationClickSaveSignature,
+        Account_Click60centPerPound:Account_Click60centPerPound,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -2508,6 +2553,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SelectDistanceFromNewDoor:EditRequest_SelectDistanceFromNewDoor,
         EditRequest_SetStepsOnStairsOrigin:EditRequest_SetStepsOnStairsOrigin,
         EditRequest_SetStepsOnStairsDestination:EditRequest_SetStepsOnStairsDestination,
+        EditRequest_OpenValuationModal:EditRequest_OpenValuationModal,
+        EditRequest_ClickTabFullValue:EditRequest_ClickTabFullValue,
+        EditRequest_ClickSaveValuation:EditRequest_ClickSaveValuation,
+        EditRequest_SendAmountOfLiability:EditRequest_SendAmountOfLiability,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

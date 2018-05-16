@@ -58,7 +58,7 @@ condition.nowWeDoing = 'второй раз в админке, заходим в
     LF.SetClientPasswd(V.NewClient.passwd);
     SF.clear(By.xpath('//input[@ng-model="client.mail"]'));
     SF.send(By.xpath('//input[@ng-model="client.mail"]'),V.NewClient.email);
-    SF.click(By.xpath('//button[@ng-click="update(client)"]'));
+    MF.Account_ClickUpdateClientInModalWindow();
     MF.WaitWhileBusy();
     SF.waitForLocated(By.xpath('//button[@ng-click="changeAll()"]'));
     SF.click(By.xpath('//button[@ng-click="changeAll()"]'));

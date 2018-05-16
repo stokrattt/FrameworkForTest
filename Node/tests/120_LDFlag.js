@@ -115,9 +115,7 @@ condition.nowWeDoing = 'идем на аккаунт клиентом, пров�
     SF.sleep(2);
 
 condition.nowWeDoing = 'Открываем Full value protection, меняем amount of liability и выбираем deductible level. Проверяем, что charge посчитан правильно и появился блок explanation';
-    SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
-    SF.waitForLocated(By.xpath('//button[@ng-show="edit_amount_of_valuation"]'));
-    SF.sleep(2);
+    MF.Account_ClickAndOpenFullValueModal();
     SF.click(By.xpath('//input[@ng-change="changeOnlyLiabilityAmount()"]'));
     SF.send(By.xpath('//input[@ng-change="changeOnlyLiabilityAmount()"]'),4000);
     SF.click(By.xpath('//td[contains(text(), "Select Valuation")]/following-sibling::td[3]'));
@@ -126,8 +124,7 @@ condition.nowWeDoing = 'Открываем Full value protection, меняем a
         V.valuationCharge = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.valuationCharge ,4000/100*20,'Неправильно посчитан valuation charge');
     }),config.timeout);
-    SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
-    MF.Account_WaitForLoadingAccount();
+    MF.Account_ClickSaveFullValueModal();
     driver.wait(driver.executeScript("return $('div[class=\"valuation-explanation-text\"]:visible').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'Не появился блок Full Value protection explanation');
     }),config.timeout);
@@ -171,10 +168,9 @@ condition.nowWeDoing = 'Идём клиентом на аккаунт букат
         VD.IWant(VD.ToEqual, V.Deposit, text,'не совпал reservation price на реквесте и на странице confirmation page');
     }), config.timeout);
     MF.Account_ClickIAgreeWithAll();
-    SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
-    SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+    MF.Account_ConfirmationClickPayDeposit();
     LF.MakeSignJS('signatureCanvasReserv');
-    SF.click(By.xpath('//button[contains(@ng-click,"saveReservSignature()")]'));
+    MF.Account_ConfirmationClickSaveSignature();
     driver.wait(driver.findElement(By.xpath('//div[@ng-init="payment.setPaymentBlockHeight(\'.credit_form.credit-pay\')"]/div')).getText().then(function (text) {
         text = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual,V.Deposit, text,'не совпали reservation price на реквесте и в окне при оплате reservation price');
