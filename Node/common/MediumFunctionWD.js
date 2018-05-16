@@ -781,6 +781,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ClickSaveFullValueModal();
     }
     function Account_ClickAndOpenFullValueModal() {
+        SF.sleep(1);
         SF.click(By.xpath('//div[@ng-click="openValuationAccountModalForFullValue()"]'));
         SF.sleep(1);
     }

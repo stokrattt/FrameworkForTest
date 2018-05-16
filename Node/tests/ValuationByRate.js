@@ -8,31 +8,29 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.passwd = 123;
 
 
-	condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by rate,создаем реквест и проверяем ' +
+condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by rate,создаем реквест и проверяем ' +
 		'сходятся ли расчеты в таблице Valuation с формулой расчетов ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSideBar();
-	SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][13]'));
-	JS.scroll('div[class="pageheader"]');
-	SF.sleep(1);
+    MF.Board_OpenSettingsValuation();
 	driver.wait(driver.executeScript("if ($('md-radio-button[area-label=\"By rate\"]').hasClass('md-checked')){return true;} else {$('md-radio-button[area-label=\"By rate\"]').click()}"), config.timeout);
 	SF.waitForVisible(By.xpath('//md-radio-button[@class="valuation-plan-settings__radio md-primary md-checked"]'));
 	driver.wait(driver.executeScript("if($('button[ng-click=\"saveChanges()\"]').hasClass('disabled')){" +
 		";}else{$('button[ng-click=\"saveChanges()\"]').click()}"), config.timeout);
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'выходим из админки, идем на фронт и создаем с верхней формы реквест. идем на аккаунт.';
+condition.nowWeDoing = 'выходим из админки, идем на фронт и создаем с верхней формы реквест. идем на аккаунт.';
 	SF.get(V.frontURL);
 	LF.FullSmallCalcAsLocal(V.client);
-	condition.nowWeDoing = 'первый раз на аккаунте';
+
+condition.nowWeDoing = 'первый раз на аккаунте';
 	MF.Account_ClickViewRequest();
     MF.Account_ClickAndOpenFullValueModal();
 	driver.wait(driver.findElement(By.xpath('//input[@ng-change="changeOnlyLiabilityAmount()"]')).getAttribute('value').then(function (text) {
 		V.AmountOfLiability = text;
 		V.AmountOfLiability = SF.cleanPrice(text.substring(text.indexOf('$')));
-		console.log(V.AmountOfLiability);
 	}), config.timeout);
 	SF.sleep(1);
 	let rate= 30;
@@ -43,7 +41,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.ValuationCharge1 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.ValuationCharge ,V.ValuationCharge1,'не совпали Valuation Charge у реквеста с расчетами по формулам(первый дедактбл левел)');
 	}), config.timeout);
-
 	let rate1= 35;
 	V.ValuationCharge1 = (V.AmountOfLiability * rate1)/1000 ;
 	SF.sleep(1);
@@ -52,7 +49,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.ValuationCharge2 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.ValuationCharge1 ,V.ValuationCharge2,'не совпали Valuation Charge у реквеста с расчетами по формулам(второй дедактбл левел)');
 	}), config.timeout);
-
 	let rate2= 40;
 	V.ValuationCharge2 = (V.AmountOfLiability * rate2)/1000 ;
 	SF.sleep(1);
@@ -80,7 +76,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.RememberAccountNumbers(V.accountNumbersAfterInventory);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'выходим из аккаунта, идем проверять наш реквест,все цифры и страховку. ставим статус нот конферм, идем букаться';
+condition.nowWeDoing = 'выходим из аккаунта, идем проверять наш реквест,все цифры и страховку. ставим статус нот конферм, идем букаться';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenRequest(V.accountNumbersAfterInventory.Id);
@@ -95,13 +91,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		V.SelectLevelinAdmin = text;
 		V.SelectLevelinAdmin = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.SelectLevelAfterInnventory ,V.SelectLevelinAdmin,'не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
-		console.log(V.SelectLevelAfterInnventory);
 	}), config.timeout);
     MF.Account_ClickSaveFullValueModal();
 	MF.SweetConfirm();
 	MF.WaitWhileBusy();
 
-	condition.nowWeDoing = 'назначаем менеджера,назначаем клиенту пароль,выбираем трак, ставим нот конферм';
+condition.nowWeDoing = 'назначаем менеджера,назначаем клиенту пароль,выбираем трак, ставим нот конферм';
 	MF.EditRequest_OpenSettings();
 	LF.SetManager('emilia');
 	MF.EditRequest_OpenRequest();
@@ -110,7 +105,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_SetToNotConfirmed();
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime) / 60));
 	MF.WaitWhileBusy();
-	Debug.pause();
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
@@ -118,7 +112,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем конфермить работу,сравниваем значения и все цифры на конфирмейшн пэйдж';
+condition.nowWeDoing = 'идем конфермить работу,сравниваем значения и все цифры на конфирмейшн пэйдж';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);

@@ -169,7 +169,7 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 		V.ValuationChargeinAccount2 = SF.cleanPrice(text.substring(text.indexOf('$')));
 	}), config.timeout);
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
-		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed');
+		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed', 'должен быть нот конферм статус');
 	}), config.timeout);
 	MF.Account_ClickProceedBookYourMove();
 	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table"]/tbody/tr[2]/td[4]/span')).getText().then(function (text) {

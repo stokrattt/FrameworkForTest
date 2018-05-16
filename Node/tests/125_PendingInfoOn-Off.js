@@ -16,7 +16,7 @@ condition.nowWeDoing = 'заходим под админом, выключаем
 		"$('input[ng-model=\"setting\"] ~span').click()}"),config.timeout);
     SF.sleep(2);
     MF.WaitWhileToaster();
-Debug.pause();
+
 condition.nowWeDoing = 'создаем через криейт реквест и ставим статус нот конферм';
 	LF.CreateLocalMovingFromBoard(V.client);
 	MF.EditRequest_OpenClient();

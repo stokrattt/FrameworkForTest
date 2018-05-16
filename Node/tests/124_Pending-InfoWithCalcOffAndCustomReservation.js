@@ -24,12 +24,10 @@ condition.nowWeDoing = 'начинаем добавлять пэкинг, ади
 		V.Valuation= text;
 	}),config.timeout);
 	LF.addInventoryBoard();
-	JS.scroll('i[ng-click="OpenDiscountRateModal();"]');
 	LF.EditRequest_EditRateCalculOff(333);
 	MF.EditRequest_SaveChanges();
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rateDiscount"]')).getAttribute('value').then(function(text){
 		V.NewHourlyRate= text;
-		console.log(V.NewHourlyRate);
 	}),config.timeout);
 
 condition.nowWeDoing = 'отправлемя письмо, сравниваем числа в письме,запоминаем конечные цифры с реквеста при выключенном калькуляторе(начальные)';
@@ -65,7 +63,6 @@ condition.nowWeDoing = 'переходим в аккаунт,делаем сра
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
 	MF.Account_ClickViewRequest();
-	MF.Account_WaitForLoadingAccount();
 
 condition.nowWeDoing = 'запоминаем цифры с аккаунта,что бы сравнить реквест и аккаунт';
 	V.accountNumbers= {};
@@ -123,7 +120,6 @@ condition.nowWeDoing = 'идем на мувборд, что бы сверить
 	LF.EditRequest_EditRateCalculOff(444);
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rateDiscount"]')).getAttribute('value').then(function(text){
 		V.NewHourlyRate1= text;
-		console.log(V.NewHourlyRate1);
 	}),config.timeout);
 	// устанавливаем кастомный вес
 	MF.EditRequest_OpenSettings();
@@ -165,13 +161,13 @@ condition.nowWeDoing = 'идем в аккаунт,сверяем цифры, п
 	}),config.timeout);
 	MF.Account_ConfirmationBackToRequest();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
-		VD.IWant(VD.NotToEqual, Status, 'PENDING-INFO');
+		VD.IWant(VD.NotToEqual, Status, 'PENDING-INFO', 'что тут должно быть неизвестно, спросить у Ани, она так пишет тесты');
 	}), config.timeout);
 	MF.Account_ClickPartialPacking();
 	MF.SweetConfirm();
 	SF.waitForVisible(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text(),"Pending-info")]'));
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.statusText.length"]//div[contains(text(),"Pending-info")]')).getText().then(function (Status) {
-		VD.IWant(VD.ToEqual, Status, 'PENDING-INFO');
+		VD.IWant(VD.ToEqual, Status, 'PENDING-INFO', 'что тут должно быть неизвестно, спросить у Ани, она так пишет тесты');
 	}), config.timeout);
 	V.accountNumbers.LastEdit={};
 	LF.RememberAccountNumbers(V.accountNumbers.LastEdit);
@@ -208,9 +204,6 @@ condition.nowWeDoing = 'переводим в статус нот конферм
 	LF.FillCardPayModal();
 	MF.WaitWhileToaster();
 	MF.EditRequest_ClosePayment();
-	MF.EditRequest_OpenClient();
-	LF.SetClientPasswd(123);
-	MF.EditRequest_OpenRequest();
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
