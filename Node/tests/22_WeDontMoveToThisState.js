@@ -265,6 +265,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
 
 condition.nowWeDoing = 'создаем реквест с фронтовой нижней формы 5 раз, должно ne пускать, если da то ошибка, так как создаем реквест в ту ареа где цена не выставлена';
     MF.FrontSite_ClickQuoteCalculator();
+    MF.FrontSite_ClickDesireMoveDate();
     MF.FrontSiteDown_SendZipCode('02111', '50701');
     SF.sleep(3);
     MF.SweetConfirm();
@@ -295,6 +296,7 @@ condition.nowWeDoing = 'создаем реквест с верхней форм
 
 condition.nowWeDoing = 'создаем реквест с нижней формы 6 раз, в территорию с указанной ценой и выключеной галкой Move to this state, должно выкинуть';
     MF.FrontSite_ClickQuoteCalculator();
+    MF.FrontSite_ClickDesireMoveDate();
     MF.FrontSiteDown_SendZipCode('02111', '50588');
     SF.sleep(3);
     MF.SweetConfirm();
