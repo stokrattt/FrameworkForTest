@@ -97,6 +97,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_SendAmountOfLiability(15001);
 	SF.click(By.xpath('//div[@ng-bind-html="textforshow"]'));
 	MF.SweetConfirm(); //если тут вальнется, то бага, не появился свит аллерт о том,чо страховка превышает лимиты компании
+	SF.waitForVisible(By.xpath('//div[@ng-show="edit_amount_of_valuation"]'));
 	MF.Account_SendAmountOfLiability(9000);
     MF.Account_ClickSaveFullValueModal();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"][2]')).getText().then(function (text) {
@@ -144,8 +145,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.WaitWhileBusy();
 	MF.EditRequest_SetToNotConfirmed();
 	MF.EditRequest_SaveChanges();
-	Debug.pause();
 	MF.EditRequest_OpenMailDialog();
+	SF.waitForVisible(By.xpath('//span[@ng-class="{\'text-muted\': isDisabled}"]'));
 	SF.click(By.xpath('//span[@ng-class="{\'text-muted\': isDisabled}"]'));
 	SF.click(By.xpath('//h4[contains(text(), "Valuation")][1]'));
 	MF.EditRequest_MailDialog_ClickSend();
@@ -209,17 +210,27 @@ condition.nowWeDoing = 'выходим из аккаунта, идем на ад
 	V.ValuationSales= {};
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]')).getText().then(function (text) {
 		V.ValuationSales = text;
+		V.ValuationSales = SF.cleanPrice(text.substring(text.indexOf('$')));
 	}), config.timeout);
 	MF.EditRequest_CloseConfirmWork();
 	V.ValuationClosing= {};
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="invoice.request_all_data.valuation.selected.valuation_charge && invoice.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]')).getText().then(function (text) {
 		V.ValuationClosing = text;
+		V.ValuationClosing = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.ValuationSales ,V.ValuationClosing,'не совпали Valuation на Sales и Closing');
 	}), config.timeout);
 	MF.EditRequest_OpenContractCloseJob();
+	SF.openTab(1);
 	MF.SweetConfirm();
-	Debug.pause();
-
-
+	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]/h2/span')).getText().then(function (text) {
+		text = SF.cleanPrice(text.substring(text.indexOf('$')));
+		VD.IWant(VD.ToEqual, V.ValuationClosing ,text,'не совпал выбраный deductible level в табе клозинг и на конфирмейшн пэйдж');
+	}), config.timeout);
+	MF.Contract_OpenBillOfLading();
+	JS.scroll('tr[ng-if="finance.valuation && finance.valuation != 0"]');
+	driver.wait(driver.findElement(By.xpath('//tr[@ng-if="finance.valuation && finance.valuation != 0"]/td[2]')).getText().then(function (text) {
+		text = SF.cleanPrice(text.substring(text.indexOf('$')));
+		VD.IWant(VD.ToEqual, V.ValuationClosing ,text,'не совпал выбраный deductible level в табе клозинг и контракте');
+	}), config.timeout);
 	SF.endOfTest();
 };
