@@ -8,7 +8,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.passwd = 123;
 
 
-condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by fixed price,создаем реквест и проверяем ' +
+	condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by fixed price,создаем реквест и проверяем ' +
 		'сходятся ли расчеты в таблице Valuation с формулой расчетов ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
@@ -56,11 +56,9 @@ condition.nowWeDoing = 'заходим под админом в настройк
 	MF.SweetConfirm();
 	MF.WaitWhileBusy();
 
-condition.nowWeDoing = 'назначаем менеджера,назначаем клиенту пароль,выбираем трак, ставим нот конферм';
+	condition.nowWeDoing = 'назначаем клиенту пароль,выбираем трак, ставим нот конферм';
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
-	MF.EditRequest_OpenSettings();
-	LF.SetManager('emilia');
 	MF.EditRequest_OpenRequest();
 	V.boardNumbers = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -71,7 +69,7 @@ condition.nowWeDoing = 'назначаем менеджера,назначаем
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-condition.nowWeDoing = 'идем на аккаунт, ставим свой amount of liability,добавляем инвентарь,добавляем адрес, проверяем,что бы не пересчитывалось все, проверяем можно ли изменить страховку в статусе пэдинг-инфо,делаем проверку на то,что бы сраховка не превышала лимит компании';
+	condition.nowWeDoing = 'идем на аккаунт, ставим свой amount of liability,добавляем инвентарь,добавляем адрес, проверяем,что бы не пересчитывалось все, проверяем можно ли изменить страховку в статусе пэдинг-инфо,делаем проверку на то,что бы сраховка не превышала лимит компании';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -85,6 +83,7 @@ condition.nowWeDoing = 'идем на аккаунт, ставим свой amou
 	MF.Account_ClickUpdateClientInModalWindow();
 	MF.SweetConfirm();
 	MF.SweetConfirm();
+	MF.Account_WaitForLoadingAccount();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed');
 	}), config.timeout);
@@ -120,7 +119,7 @@ condition.nowWeDoing = 'идем на аккаунт, ставим свой amou
 	LF.RememberAccountNumbers(V.accountNumbersAfterInventory);
 	LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'идем на мувборд, проверяем наш инвенторий и страховку,ставим статус нот конферм.';
+	condition.nowWeDoing = 'идем на мувборд, проверяем наш инвенторий и страховку,ставим статус нот конферм.';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenRequest(V.boardNumbers.Id);
@@ -131,6 +130,11 @@ condition.nowWeDoing = 'идем на мувборд, проверяем наш 
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
     MF.EditRequest_OpenValuationModal();
+	driver.wait(driver.findElement(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]')).getAttribute('value').then(function (text) {
+		V.AmountOfLiabylytiforleter = text;
+		V.AmountOfLiabylytiforleter = Math.floor(SF.cleanPrice(text));
+		console.log(V.AmountOfLiabylytiforleter);
+	}), config.timeout);
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.SelectLevelinAdmin = text;
 		V.SelectLevelinAdmin = SF.cleanPrice(text.substring(text.indexOf('$')));
@@ -140,12 +144,26 @@ condition.nowWeDoing = 'идем на мувборд, проверяем наш 
 	MF.WaitWhileBusy();
 	MF.EditRequest_SetToNotConfirmed();
 	MF.EditRequest_SaveChanges();
+	Debug.pause();
 	MF.EditRequest_OpenMailDialog();
 	SF.click(By.xpath('//span[@ng-class="{\'text-muted\': isDisabled}"]'));
+	SF.click(By.xpath('//h4[contains(text(), "Valuation")][1]'));
+	MF.EditRequest_MailDialog_ClickSend();
+	MF.EditRequest_OpenLogs();
+	SF.click(By.xpath('//span[@ng-show="!allLogsShow[allLogsIndex]"]'));
+	driver.wait(driver.findElement(By.xpath('//table[@class="sticky-enabled"]/tbody/tr[2]/td[3]')).getText().then(function (text) {
+		V.SendClient = text;
+		VD.IWant(VD.ToEqual, V.SendClient ,V.SelectLevelinAdmin+'$','не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
+	}), config.timeout);
+	driver.wait(driver.findElement(By.xpath('//th[contains(text(), "Full Value Protection Amount of Liability: 15000$")]')).getText().then(function (number) {
+		V.SendClientAmountOfLiabylyti = number;
+		V.SendClientAmountOfLiabylyti = SF.cleanPrice(number);
+		VD.IWant(VD.ToEqual, V.SendClientAmountOfLiabylyti ,V.AmountOfLiabylytiforleter,'не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
+	}), config.timeout);
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-condition.nowWeDoing = 'идем на аккаунт букать работу,выбираем 60 цент перпаунд,проверяем на конфирмейшн пейдж что в табличке нету нулей,возвращаемся обратно,выбираем максимальный уровень страховки,букаем работу';
+	condition.nowWeDoing = 'идем на аккаунт букать работу,выбираем 60 цент перпаунд,проверяем на конфирмейшн пейдж что в табличке нету нулей,возвращаемся обратно,выбираем максимальный уровень страховки,букаем работу';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -161,6 +179,7 @@ condition.nowWeDoing = 'идем на аккаунт букать работу,�
 	}), config.timeout);
 	MF.Account_ConfirmationBackToRequest();
 	MF.Account_ChangeAmountOfLiability(15000);
+	MF.Account_WaitForLoadingAccount();
 	MF.Account_ClickProceedBookYourMove();
 	JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]/h2/span')).getText().then(function (text) {
