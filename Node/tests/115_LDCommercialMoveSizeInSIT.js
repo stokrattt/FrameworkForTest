@@ -94,9 +94,8 @@ condition.nowWeDoing = 'В аккаунте удаляем весь инвент
     MF.Account_ClickInventoryOpenTab();
     LF.Account_DeleteInventory();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]/div')).getText().then(function(text){
-        V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('100 Offices and 1000 employees ')+17, text.indexOf('c.f.')));
-        console.log(V.accountcbf);
-        VD.IWant(VD.ToEqual, V.defaultcbf, V.accountcbf, 'Cubic feet не ушел в дефолтные 1500 после удаления инвентаря на аккаунте');
+        text = SF.cleanPrice(text.substring(text.indexOf('100 Offices and 1000 employees ')+17, text.indexOf('c.f.')));
+        VD.IWant(VD.ToEqual, V.defaultcbf, text, 'Cubic feet не ушел в дефолтные 1500 после удаления инвентаря на аккаунте');
     }),config.timeout);
     V.accountNumbersBeforeFullPacking = {};
     LF.RememberAccountNumbersLD(V.accountNumbersBeforeFullPacking);
@@ -104,10 +103,7 @@ condition.nowWeDoing = 'В аккаунте удаляем весь инвент
     SF.sleep(3);
     V.accountNumbersAfterFullPacking = {};
     LF.RememberAccountNumbersLD(V.accountNumbersAfterFullPacking);
-    const centPerPound= 0.7;
-    const Weight = V.defaultcbf;
-    let FullPacking = Weight * centPerPound;
-    VD.IWant(VD.ToEqual, V.accountNumbersAfterFullPacking.Packing ,FullPacking, 'Неправильно посчитался Full packing');
+    VD.IWant(VD.ToEqual, V.accountNumbersAfterFullPacking.Packing ,V.defaultcbf*0.7, 'Неправильно посчитался Full packing');
     V.totalWithPacking = V.accountNumbersBeforeFullPacking.Total + V.accountNumbersAfterFullPacking.Packing;
     VD.IWant(VD.ToEqual, V.totalWithPacking  ,V.accountNumbersAfterFullPacking.Total, 'Цена за full packing не была прибавлена к grand total');
     SF.sleep(1);
@@ -265,7 +261,6 @@ condition.nowWeDoing = 'Открываем Closing трипа, открывае�
     SF.send(By.xpath('//input[@id="customPaymentAmount"]'), 200);
     driver.wait(driver.findElement(By.xpath('//div[@class="add-custom-payment-form__toolbar__info"]//span[2]')).getText().then(function(text){
         V.NewTPCollected = SF.cleanPrice(text.substring(text.indexOf('$')));
-        console.log(V.NewTPCollected);
     }),config.timeout);
     SF.click(By.xpath('//input[@ng-model="payment.description"]'));
     SF.send(By.xpath('//input[@ng-model="payment.description"]'),'test');
@@ -300,7 +295,6 @@ condition.nowWeDoing = 'Открываем реквест, заходим в Pay
     JS.click('button[ng-click=\\"save()\\"]:visible');
     V.boardNumbersDelCustomPayment = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersDelCustomPayment);
-    console.log(V.boardNumbersDelCustomPayment);
     VD.IWant(VD.ToEqual, V.boardNumbersDelCustomPayment.Balance,'0', 'Balance в реквесте не равен 0 после удаления кастомного пеймента в модалке реквеста');
     MF.EditRequest_CloseEditRequest();
 

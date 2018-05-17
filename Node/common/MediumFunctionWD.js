@@ -1638,6 +1638,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
         SF.click(By.xpath('//option[text()="'+nameStorage+'"]'));
     }
+    function EditRequest_SITmodalSetBlankets(blankets) {
+        SF.click(By.xpath('//input[@ng-model="sit.blankets"]'));
+        SF.clear(By.xpath('//input[@ng-model="sit.blankets"]'));
+        SF.send(By.xpath('//input[@ng-model="sit.blankets"]'), blankets);
+    }
     function EditRequest_SITmodalSetForeman(SITForeman) {
         SF.click(By.xpath('//select[@ng-model="sit.foreman"]'));
         SF.click(By.xpath('//option[text()="'+SITForeman+'"]'));
@@ -2543,6 +2548,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenSITmodal:EditRequest_OpenSITmodal,
         EditRequest_SITmodalSetStorage:EditRequest_SITmodalSetStorage,
         EditRequest_SITmodalSetForeman:EditRequest_SITmodalSetForeman,
+        EditRequest_SITmodalSetBlankets:EditRequest_SITmodalSetBlankets,
         EditRequest_SITmodalSendNumberRooms:EditRequest_SITmodalSendNumberRooms,
         EditRequest_SITmodalClickSave:EditRequest_SITmodalClickSave,
         EditRequest_SITmodalSetMoveDate:EditRequest_SITmodalSetMoveDate,
