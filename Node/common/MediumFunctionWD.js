@@ -1524,7 +1524,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(6);
     }
     function EditRequest_CreateCustomRoom() {
+        SF.sleep(1.5);
         SF.click(By.xpath('//div[@ng-click="createCustomRoom(\'1\')"]'));
+        SF.sleep(1.5);
         SweetConfirm();
         SF.sleep(4);
     }

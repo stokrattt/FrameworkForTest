@@ -80,10 +80,12 @@ condition.nowWeDoing = 'идем во вкладку римайндеры, и и
     SF.click(By.xpath('//button[@ng-click="select(dt.date)"]//span[contains(text(),"01")]'));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//li[@index="1"]'));
+    SF.sleep(1.5);
     driver.wait(driver.findElement(By.xpath('//span[@ng-bind="$ctrl.reminder.description" and contains(text(), "'+V.RemaindText+'")]')).getText().then(function(text) {
         V.RemaindText2 = text;
         VD.IWant(VD.ToEqual, V.RemaindText, V.RemaindText2,'римайндера нет в PAST');
     }),config.timeout);
+    Debug.pause();
     SF.click(By.xpath('//div[@ng-click="$ctrl.service.togglePanel()"]'));
 
     condition.nowWeDoing = 'заходим в реквест, переводим его в статус нот конферм, а потом конферм ';
