@@ -104,24 +104,24 @@ condition.nowWeDoing = 'Заходим в Jobs in SIT Проверям есть 
     SF.waitForVisible (By.xpath('//div[text()="Test Foreman"]'));
     SF.click(By.xpath('//md-option[@ng-value="item"]/div[text()="Test Foreman"]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, 'test', 'Storage Name не совпали');
+        VD.IWant(VD.ToEqual, text, 'test', 'Не совпали Storage Name в модалке SIT и Jobs in SIT ');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[5]')).getText().then(function(text){
         V.pickUpFrom = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.pickUpFrom, '234234234242402200', 'pickupFrom не совпали');
+        VD.IWant(VD.ToEqual, V.pickUpFrom, '234234234242402200', 'Не совпали pick Up from в реквесте и в Jobs in SIT ');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[6]')).getText().then(function(text){
         V.readyForDelivery = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.readyForDelivery, '3465456456490001', 'delivery to не совпали');
+        VD.IWant(VD.ToEqual, V.readyForDelivery, '3465456456490001', 'Не совпали Delivery to в реквесте и в Jobs in SIT ');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[7]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, 'TestForeman', 'не совпал Foreman');
+        VD.IWant(VD.ToEqual, text, 'TestForeman', 'не совпал Foreman в модалке SIT и в jobs in SIT');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[2]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, V.requestNumber.Id, 'не совпал ID реквеста');
+        VD.IWant(VD.ToEqual, text, V.requestNumber.Id, 'не совпал ID реквеста в jobs in SIT');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[8]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, 5, 'не совпали SIT blankets');
+        VD.IWant(VD.ToEqual, text, 5, 'не совпали SIT blankets в модалке SIT и в jobs in SIT');
     }),config.timeout);
 
 condition.nowWeDoing = 'Заходим в реквест , выставляем Delivery day и Schedule day и LD status';
@@ -143,14 +143,14 @@ condition.nowWeDoing = 'Заходим в реквест , выставляем 
     MF.EditRequest_SaveDetails();
     MF.EditRequest_OpenConfirmWork ();
     SF.click(By.xpath('//er-datepicker-input[@er-value="scheduleDeliveryDate"]'));
-     now = new Date();
-     msInDay = 86400000;
-     future = new Date(now.getTime() + msInDay * 6);
-    let month1 = { month: '2-digit'};
-    let day1 = {day: '2-digit'};
+    now = new Date();
+    msInDay = 86400000;
+    future = new Date(now.getTime() + msInDay * 6);
+    let month = { month: '2-digit'};
+    let day = {day: '2-digit'};
     V.scheduleDate = {};
-    V.scheduleDate.Month = (future.toLocaleDateString('en-US', month1));
-    V.scheduleDate.Day = (future.toLocaleDateString('en-US', day1));
+    V.scheduleDate.Month = (future.toLocaleDateString('en-US', month));
+    V.scheduleDate.Day = (future.toLocaleDateString('en-US', day));
     SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.scheduleDate.Month + '-' + V.scheduleDate.Day +'"]'));
     SF.sleep(4);
     SF.click(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
@@ -179,27 +179,27 @@ condition.nowWeDoing = 'Заходим в реквест , выставляем 
         VD.IWant(VD.ToEqual, text, 'Ready', 'Ready for Delivery должен быть Ready');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[4]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, V.pickUpFrom, '234234234242402200', 'pickupFrom не совпали');
+        VD.IWant(VD.ToEqual, V.pickUpFrom, '234234234242402200', 'Не совпали Pick Up from в реквесте и в LD dispatch pick up');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[5]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, V.readyForDelivery, '3465456456490001', 'delivery to не совпали');
+        VD.IWant(VD.ToEqual, V.readyForDelivery, '3465456456490001', 'Не совпали Delivery to в реквесте и в LD dispatch pick up');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[8]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, 'LD', 'LD status не совпали');
+        VD.IWant(VD.ToEqual, text, 'LD', 'Не совпали LD status в реквесте и в LD dispatch pick up');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[2]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, V.requestNumber.Id, 'Job ID не совпал');
+        VD.IWant(VD.ToEqual, text, V.requestNumber.Id, 'Не совпал Job ID реквеста в LD dispatch pick up');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[7]')).getText().then(function (text) {
         text = SF.cleanPrice(text.substring(text.indexOf('/')));
-        VD.IWant(VD.ToEqual, text, V.boardNumbers.cbf, 'Cubic feet не совпал');
+        VD.IWant(VD.ToEqual, text, V.boardNumbers.cbf, 'Не совпал Cubic feet в реквесте и в LD dispatch pick up');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[7]')).getText().then(function (text) {
         text = SF.cleanPrice(text.substring(0, text.indexOf('/')));
-        VD.IWant(VD.ToEqual, text, V.boardNumbers.lbs, 'Lbs не совпал');
+        VD.IWant(VD.ToEqual, text, V.boardNumbers.lbs, 'Не совпал Lbs в реквесте и в LD dispatch pick up');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[10]')).getText().then(function(text){
-        VD.IWant(VD.ToEqual, text, V.scheduleDate.Month + '-' + V.scheduleDate.Day + '-' + '2018' , 'Schedule delivery date не совпала');
+        VD.IWant(VD.ToEqual, text, V.scheduleDate.Month + '-' + V.scheduleDate.Day + '-' + '2018' , 'Не совпал Schedule delivery date в реквесте и в LD dispatch pick up ');
     }),config.timeout);
     MF.Board_LogoutAdmin ();
 
