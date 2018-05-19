@@ -303,7 +303,6 @@ condition.nowWeDoing="Вернуться в localDispatch, найти первы
     SF.click(By.xpath('//div[@class="modal-footer"]/button[@ng-click="cancel()"]'));
     SF.sleep(2);
     MF.SweetConfirm();
-    MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
 
 condition.nowWeDoing="найти второй реквест, проверить и запомнить Payroll";

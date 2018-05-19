@@ -520,6 +520,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[@ng-click="vm.select(5)"]'));
         WaitWhileBusy();
     }
+    function Board_ShowProtectionOnAccountPage(){
+	    SF.click(By.xpath('//li[@uib-tooltip="Show Protection On Account Page"]'));
+    }
 
 
     //==============================CALCULATOR SETTINGS===========================
@@ -2328,7 +2331,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenInhomeEstimateTab:Board_OpenInhomeEstimateTab,
         Board_OpenSettingsAccountPageFAQ:Board_OpenSettingsAccountPageFAQ,
         BoardOpenSettingsLongDistanceStatus:BoardOpenSettingsLongDistanceStatus,
-	    Board_OpenSettingsAccountPagePendingInfo,Board_OpenSettingsAccountPagePendingInfo,
+	    Board_OpenSettingsAccountPagePendingInfo:Board_OpenSettingsAccountPagePendingInfo,
+        Board_ShowProtectionOnAccountPage : Board_ShowProtectionOnAccountPage,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,

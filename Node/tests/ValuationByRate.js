@@ -19,6 +19,10 @@ condition.nowWeDoing = 'заходим под админом в настройк
 	SF.waitForVisible(By.xpath('//md-radio-button[@class="valuation-plan-settings__radio md-primary md-checked"]'));
 	driver.wait(driver.executeScript("if($('button[ng-click=\"saveChanges()\"]').hasClass('disabled')){" +
 		";}else{$('button[ng-click=\"saveChanges()\"]').click()}"), config.timeout);
+	MF.Board_ShowProtectionOnAccountPage();
+	SF.click(By.xpath('//md-checkbox[@aria-label="Full value protection"]'));
+	JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
+	MF.WaitWhileToaster();
 	MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'выходим из админки, идем на фронт и создаем с верхней формы реквест. идем на аккаунт.';
@@ -27,35 +31,40 @@ condition.nowWeDoing = 'выходим из админки, идем на фро
 
 condition.nowWeDoing = 'первый раз на аккаунте';
 	MF.Account_ClickViewRequest();
-    MF.Account_ClickAndOpenFullValueModal();
+	MF.Account_OpenAdressModal();
+	MF.Account_SendAdressFromModalWindow();
+	MF.Account_SendAdressToModalWindow();
+	MF.Account_ClickUpdateClientInModalWindow();
+	MF.SweetConfirm();
+	MF.SweetConfirm();
+	V.accountNumbers={};
+	LF.RememberAccountNumbers(V.accountNumbers);
+	LF.LogoutFromAccount();
+	condition.nowWeDoing = 'идем в админку, проверяем наши числа,сверяем страховку( должна быть ))' +
+		'ставим фулл вэлью протекшен,нот конферм';
+	SF.get(V.adminURL);
+	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+	MF.Board_OpenRequest(V.accountNumbers.Id);
+
+
 	driver.wait(driver.findElement(By.xpath('//input[@ng-change="changeOnlyLiabilityAmount()"]')).getAttribute('value').then(function (text) {
 		V.AmountOfLiability = text;
 		V.AmountOfLiability = SF.cleanPrice(text.substring(text.indexOf('$')));
 	}), config.timeout);
 	SF.sleep(1);
-	let rate= 30;
-	V.ValuationCharge = (V.AmountOfLiability * rate)/1000 ;
-	SF.sleep(1);
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[1]')).getText().then(function (text) {
-		V.ValuationCharge1= text;
-		V.ValuationCharge1 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, V.ValuationCharge ,V.ValuationCharge1,'не совпали Valuation Charge у реквеста с расчетами по формулам(первый дедактбл левел)');
+		text = SF.cleanPrice(text.substring(text.indexOf('$')));
+		VD.IWant(VD.ToEqual, (V.AmountOfLiability * 30)/1000 ,text,'не совпали Valuation Charge у реквеста с расчетами по формулам(первый дедактбл левел)');
 	}), config.timeout);
-	let rate1= 35;
-	V.ValuationCharge1 = (V.AmountOfLiability * rate1)/1000 ;
 	SF.sleep(1);
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
-		V.ValuationCharge2= text;
-		V.ValuationCharge2 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, V.ValuationCharge1 ,V.ValuationCharge2,'не совпали Valuation Charge у реквеста с расчетами по формулам(второй дедактбл левел)');
+		text = SF.cleanPrice(text.substring(text.indexOf('$')));
+		VD.IWant(VD.ToEqual, (V.AmountOfLiability * 35)/1000 ,text,'не совпали Valuation Charge у реквеста с расчетами по формулам(второй дедактбл левел)');
 	}), config.timeout);
-	let rate2= 40;
-	V.ValuationCharge2 = (V.AmountOfLiability * rate2)/1000 ;
 	SF.sleep(1);
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[3]')).getText().then(function (text) {
-		V.ValuationCharge3= text;
-		V.ValuationCharge3 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, V.ValuationCharge2 ,V.ValuationCharge3,'не совпали Valuation Charge у реквеста с расчетами по формулам(третий дедактбл левел)');
+		text = SF.cleanPrice(text.substring(text.indexOf('$')));
+		VD.IWant(VD.ToEqual, (V.AmountOfLiability * 40)/1000 ,text,'не совпали Valuation Charge у реквеста с расчетами по формулам(третий дедактбл левел)');
 	}), config.timeout);
 	//выбираем уровень страховки (2)
 	SF.click(By.xpath('//td[3]/md-checkbox[@ng-change="setDeductibleLevel(value)"]'));
