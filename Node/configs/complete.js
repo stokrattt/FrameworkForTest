@@ -34,7 +34,6 @@ module.exports = function(config,V) {
         './tests/22_WeDontMoveToThisState.js',
 
         './tests/25_ChangeDateDispatch.js',
-        './tests/27_Receipt.js',
         './tests/29_CheckFewMoverForUserCalcOffManual.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/30_StorageTenant.js',
@@ -97,6 +96,7 @@ module.exports = function(config,V) {
         './tests/93_PackingDayFromLocMove.js',
         './tests/92_PackingDay.js',
         './tests/94_CommercialMoveFromBord.js',
+        './tests/27_Receipt.js',
         './tests/89_DraftRequest.js',
         './tests/DefaultSettings.js',
         './tests/103_AdditionalInventoryForLocalMove.js',
