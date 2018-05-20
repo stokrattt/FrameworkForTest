@@ -85,10 +85,9 @@ condition.nowWeDoing = 'идем во вкладку римайндеры, и и
         V.RemaindText2 = text;
         VD.IWant(VD.ToEqual, V.RemaindText, V.RemaindText2,'римайндера нет в PAST');
     }),config.timeout);
-    Debug.pause();
     SF.click(By.xpath('//div[@ng-click="$ctrl.service.togglePanel()"]'));
 
-    condition.nowWeDoing = 'заходим в реквест, переводим его в статус нот конферм, а потом конферм ';
+condition.nowWeDoing = 'заходим в реквест, переводим его в статус нот конферм, а потом конферм ';
     MF.Board_OpenRequest(V.requestAdmin.Id);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);

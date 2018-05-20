@@ -141,7 +141,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     }),config.timeout);
     MF.Account_ClickProceedBookYourMove ();
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.move_size.raw == 11"]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал  To storage');
+        VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал ');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
@@ -153,6 +153,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistancePackingTotal"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers2PendingAfterAddInven.Packing, 'не совпал пакинг на конфирмейшн');
     }),config.timeout);
+    SF.sleep(1);
     MF.Account_ConfirmationBackToRequest();
     LF.ConfirmRequestInAccount_WithReservation();
 
@@ -176,7 +177,7 @@ condition.nowWeDoing = 'идем в админку проверять что ч�
     MF.EditRequest_CloseJob();
     SF.click(By.xpath('//div[@class="request-view"]'));
     SF.openTab(1);
-    SF.sleep(4);
+    SF.sleep(5);
     MF.Account_ClickViewConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));
