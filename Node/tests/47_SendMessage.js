@@ -42,6 +42,7 @@ condition.nowWeDoing = 'зашли в админку идем в раздел с
     }),config.timeout);
     V.toClientFromAdmin = SF.randomBukva(6) + '_toClientFromAdmin';
     MF.BoardAccount_SendMessage(V.toClientFromAdmin);
+    MF.WaitWhileBusy();
     SF.click(By.xpath('//span[contains(text(), "'+ V.client.name +'")]/../following-sibling::div[1]//p/p'));
     MF.Board_OpenDashboard ();
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="vm.select(1)"]//span[1]')).getText().then(function (text) {
