@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/88_FlatRateHandClosing.js'];
+    config.suite = ['./tests/104_AddBedroomAddRoom.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
@@ -17,14 +17,14 @@ module.exports = function(config,V) {
     // V.adminURL = 'http://test3.stage.themoveboard.com:83/moveBoard/';  //dev
 
     //
-    // V.frontURL = 'http://stage.stage.themoveboard.com:91';                       //stage
-    //  V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';    //stage
-    //  V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';    //stage
+    V.frontURL = 'http://stage.stage.themoveboard.com:91';                       //stage
+     V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';    //stage
+     V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';    //stage
 
 
-    V.frontURL = 'http://dev.stage.themoveboard.com:90/';                       //dev
-    V.accountURL = 'http://dev.stage.themoveboard.com:90/account/#/login';      //dev
-    V.adminURL = 'http://dev.stage.themoveboard.com:90/moveBoard/#/login';      //dev
+    // V.frontURL = 'http://dev.stage.themoveboard.com:90/';                       //dev
+    // V.accountURL = 'http://dev.stage.themoveboard.com:90/account/#/login';      //dev
+    // V.adminURL = 'http://dev.stage.themoveboard.com:90/moveBoard/#/login';      //dev
 
     V.adminLogin = 'WorkAdmin';
     // V.adminLogin = 'TestAdmin';

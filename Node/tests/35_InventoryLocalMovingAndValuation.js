@@ -56,7 +56,7 @@ condition.nowWeDoing = 'второй раз в аккаунте сверяем �
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
     LF.RememberAccountNumbers(V.accountNumbers);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[2]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[2]')).getText().then(function (text) {
         text = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, text, 10570, 'не совпал full valuation с тем что выставили на админке в реквесте');
     }),config.timeout);

@@ -1479,6 +1479,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function EditRequest_ClickAddCustomPayment() {
+        WaitWhileBusy();
         SF.click(By.xpath('//a[@ng-click="addCustomPayment()"]'));
         SF.waitForVisible (By.xpath('//form[@name="clientForm"]'));
     }
