@@ -19,7 +19,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
     }
     function WaitVisibleDashboard() {
-        SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+        SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]|//div[@ng-if="vm.pageParams.totalCount == 0"]'));
         WaitWhileBusy();
     }
     function WaitVisibleDashboardForeman() {
