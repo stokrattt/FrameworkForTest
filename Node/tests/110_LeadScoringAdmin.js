@@ -30,7 +30,7 @@ condition.nowWeDoing = 'идем в аккаунт, и на конфирмеиш
     SF.waitForLocated(By.xpath('//button[@ng-click="goToConfirmation()"]'));
     SF.click (By.xpath('//button[@ng-click="goToConfirmation()"]'));
     SF.openTab(1);
-    SF.sleep(2);
+    SF.sleep(5);
     driver.close();
     SF.openTab(0);
     LF.closeEditRequest();
