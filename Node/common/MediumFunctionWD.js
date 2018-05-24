@@ -23,7 +23,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy();
     }
     function WaitVisibleDashboardForeman() {
-        SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
+        SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]|//div[@ng-if="vm.pageParams.totalCount == 0"]'));
         WaitWhileBusy();
     }
 
