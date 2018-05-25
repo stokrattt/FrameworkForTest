@@ -20,6 +20,7 @@ condition.nowWeDoing = 'заходим под админом в настройк
 	driver.wait(driver.executeScript("if($('button[ng-click=\"saveChanges()\"]').hasClass('disabled')){" +
 		";}else{$('button[ng-click=\"saveChanges()\"]').click()}"), config.timeout);
 	MF.Board_ShowProtectionOnAccountPage();
+	JS.scroll('div[class="btn btn-primary btn-block"]');
 	SF.click(By.xpath('//md-checkbox[@aria-label="Full value protection"]'));
 	JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
 	MF.WaitWhileToaster();
@@ -37,6 +38,8 @@ condition.nowWeDoing = 'первый раз на аккаунте';
 	MF.Account_ClickUpdateClientInModalWindow();
 	MF.SweetConfirm();
 	MF.SweetConfirm();
+    LF.AccountLocalAddInventory();
+    MF.Account_WaitForInventoryCheck();
 	V.accountNumbers={};
 	LF.RememberAccountNumbers(V.accountNumbers);
 	LF.LogoutFromAccount();
@@ -45,8 +48,11 @@ condition.nowWeDoing = 'первый раз на аккаунте';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenRequest(V.accountNumbers.Id);
-
-
+    V.boardNumbers={};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
+	MF.EditRequest_OpenValuationModal();
+	MF.EditRequest_OpenFullValueProtection();
 	driver.wait(driver.findElement(By.xpath('//input[@ng-change="changeOnlyLiabilityAmount()"]')).getAttribute('value').then(function (text) {
 		V.AmountOfLiability = text;
 		V.AmountOfLiability = SF.cleanPrice(text.substring(text.indexOf('$')));
@@ -67,67 +73,65 @@ condition.nowWeDoing = 'первый раз на аккаунте';
 		VD.IWant(VD.ToEqual, (V.AmountOfLiability * 40)/1000 ,text,'не совпали Valuation Charge у реквеста с расчетами по формулам(третий дедактбл левел)');
 	}), config.timeout);
 	//выбираем уровень страховки (2)
-	SF.click(By.xpath('//td[3]/md-checkbox[@ng-change="setDeductibleLevel(value)"]'));
+	SF.click(By.xpath('//td[3]/div[@ng-click="setDeductibleLevel(value)"]'));
 	V.SelectLevel= {};
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		V.SelectLevel = text;
 		V.SelectLevel = SF.cleanPrice(text.substring(text.indexOf('$')));
 	}), config.timeout);
     MF.Account_ClickSaveFullValueModal();
-	LF.AccountLocalAddInventory();
-	MF.Account_WaitForInventoryCheck();
-	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"][2]')).getText().then(function (text) {
-		V.SelectLevelAfterInnventory = text;
-		V.SelectLevelAfterInnventory = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.NotToEqual, V.SelectLevel ,V.SelectLevelAfterInnventory,'совпали Valuation Charge до добавления инвентаря и после ( хотя должен произойти пересчет)');
-	}), config.timeout);
-	V.accountNumbersAfterInventory= {};
-	LF.RememberAccountNumbers(V.accountNumbersAfterInventory);
-	LF.LogoutFromAccount();
+    MF.SweetConfirm();
+    MF.WaitWhileBusy();
+    MF.EditRequest_SetToNotConfirmed();
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd(V.client.passwd);
+    MF.EditRequest_OpenRequest();
+    V.boardNumbersAfterValuation={};
+    LF.RememberDigitsRequestBoard(V.boardNumbersAfterValuation);
+    MF.EditRequest_SaveChanges();
+    MF.EditRequest_CloseEditRequest();
+    MF.Board_LogoutAdmin();
 
-condition.nowWeDoing = 'выходим из аккаунта, идем проверять наш реквест,все цифры и страховку. ставим статус нот конферм, идем букаться';
-	SF.get(V.adminURL);
-	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-	MF.Board_OpenRequest(V.accountNumbersAfterInventory.Id);
-	V.boardNumbersAfterInventory={};
-	LF.RememberDigitsRequestBoard(V.boardNumbersAfterInventory);
-	LF.Validation_Compare_Account_Admin(V.accountNumbersAfterInventory,V.boardNumbersAfterInventory);
-	MF.EditRequest_OpenClient();
-	LF.SetClientPasswd(V.client.passwd);
-	MF.EditRequest_OpenRequest();
-	MF.EditRequest_OpenValuationModal();
-	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
-		V.SelectLevelinAdmin = text;
-		V.SelectLevelinAdmin = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, V.SelectLevelAfterInnventory ,V.SelectLevelinAdmin,'не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
-	}), config.timeout);
-    MF.Account_ClickSaveFullValueModal();
-	MF.SweetConfirm();
-	MF.WaitWhileBusy();
-
-condition.nowWeDoing = 'назначаем менеджера,назначаем клиенту пароль,выбираем трак, ставим нот конферм';
-	MF.EditRequest_OpenSettings();
-	LF.SetManager('emilia');
-	MF.EditRequest_OpenRequest();
-	V.boardNumbers = {};
-	LF.RememberDigitsRequestBoard(V.boardNumbers);
-	MF.EditRequest_SetToNotConfirmed();
-	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime) / 60));
-	MF.WaitWhileBusy();
-	MF.EditRequest_OpenClient();
-	LF.SetClientPasswd(V.client.passwd);
-	MF.EditRequest_OpenRequest();
-	MF.EditRequest_SaveChanges();
-	MF.EditRequest_CloseEditRequest();
-	MF.Board_LogoutAdmin();
-
-condition.nowWeDoing = 'идем конфермить работу,сравниваем значения и все цифры на конфирмейшн пэйдж';
-	SF.get(V.accountURL);
-	LF.LoginToAccountAsClient(V.client);
-	MF.Account_OpenRequest(V.boardNumbers.Id);
-
+condition.nowWeDoing = 'идем на аккаунт  проверять нашу страховку, все числа,выбираем 60 уент пер паунд, букаем работу';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient(V.client);
+    MF.Account_OpenRequest(V.boardNumbers.Id);
+    V.accountNumbersAfterValuation = {};
+    LF.RememberAccountNumbers(V.accountNumbersAfterValuation);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-class="{\'disabled\': readOnly}"]/div[6]')).getText().then(function (text) {
+    	text = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual,text,V.SelectLevel ,'не совпал валюэйшен чардж выбранный в админке и на аккаунте');
+    }), config.timeout);
+    MF.Account_Click60centPerPound();
+    MF.Account_ClickProceedBookYourMove();
+    MF.Account_ClickIAgreeWithAll();
+    MF.Account_ConfirmationClickPayDeposit();
+    LF.MakeSignJS('signatureCanvasReserv');
+    MF.Account_ConfirmationClickSaveSignature();
+    LF.FillCardPayModal();
+    MF.WaitWhileSpinner();
+    MF.Account_WaitForGreenTextAfterConfirm();
+    V.accountNumbersAfterConfirmed={};
+    LF.RememberAccountNumbers(V.accountNumbersAfterConfirmed);
+    LF.LogoutFromAccount();
+    condition.nowWeDoing = 'идем в админку, ставим дискаунт, переходим на табу клоузинг, идем на конфирмейшн пэйдж со стороны админа' +
+		'проверяем что там нет отрицательных чисел в третьей строке с тоталом ивалюэйшн чардж';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
+    MF.Board_OpenConfirmed();
+    MF.Board_OpenRequest(V.boardNumbers.Id);
+    MF.EditRequest_OpenDiscountModal();
+    MF.EditRequest_SendMoneyDiscount(500);
+    MF.EditRequest_ClosingTabDiscountModalClickSave();
+    MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_OpenContractCloseJob();
+    SF.openTab(1);
+    MF.SweetConfirm();
+    //здесь будем проверять что бы в таблицу в 3ей строке не было отрицательных чисел
 
 
 
-	SF.endOfTest();
+    SF.endOfTest();
 };

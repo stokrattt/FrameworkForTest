@@ -1721,7 +1721,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]'));
         SF.send(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]'), sum);
     }
-    
+    function EditRequest_OpenFullValueProtection (){
+        SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
+    }
+
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
@@ -2570,6 +2573,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ClickTabFullValue:EditRequest_ClickTabFullValue,
         EditRequest_ClickSaveValuation:EditRequest_ClickSaveValuation,
         EditRequest_SendAmountOfLiability:EditRequest_SendAmountOfLiability,
+        EditRequest_OpenFullValueProtection : EditRequest_OpenFullValueProtection,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
