@@ -34,7 +34,6 @@ condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_WaitForDetailsCheck();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text){
 		V.CBFinAccount = SF.cleanPrice(text);
-		console.log(V.CBFinAccount);
 	}),config.timeout);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);

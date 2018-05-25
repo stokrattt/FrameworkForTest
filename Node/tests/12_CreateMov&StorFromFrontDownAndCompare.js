@@ -20,7 +20,6 @@ condition.nowWeDoing = 'заполняем нижний калькулятор �
 
 condition.nowWeDoing = 'запоминаем данные которые посчитал кальк';
     LF.RememberFrontNumbersMovAndStorDown(V.frontNumbersDown);
-    Debug.pause();
     MF.FrontSite_GoToConfirmation();
     MF.FrontSite_ViewRequestPage();
     SF.openTab (1);
@@ -32,7 +31,6 @@ condition.nowWeDoing = 'запомнили данные в аке и сравн�
     LF.RememberAccountNumbers(V.accountNumbersTo);
     // LF.addToCleanerJob(V.accountNumbersTo.Id);
     LF.Validation_Compare_Account_Front_MovStorTo(V.accountNumbersTo,V.frontNumbersDown);
-    Debug.pause();
     MF.Account_ClickFromStorage();
     V.accountNumbersFrom = {};
     SF.sleep (0.5);
