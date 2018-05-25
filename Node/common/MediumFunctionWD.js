@@ -696,7 +696,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_ClickIAgreeWithAll() {
         SF.sleep(2);
-        SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
+        // SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
         SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
     }
     function Account_ClickConfirmReservation() {

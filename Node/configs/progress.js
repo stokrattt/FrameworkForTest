@@ -21,7 +21,7 @@ module.exports = function(config,V) {
      V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';    //stage
      V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';    //stage
 
-    //
+    // //
     // V.frontURL = 'http://dev.stage.themoveboard.com:90/';                       //dev
     // V.accountURL = 'http://dev.stage.themoveboard.com:90/account/#/login';      //dev
     // V.adminURL = 'http://dev.stage.themoveboard.com:90/moveBoard/#/login';      //dev
