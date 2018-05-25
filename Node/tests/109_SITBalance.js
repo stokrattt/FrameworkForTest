@@ -185,10 +185,15 @@ condition.nowWeDoing = 'запоминаем номер трипа, выходи
     MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenSideBar();
     SF.sleep(3);
-    driver.wait(driver.findElement(By.xpath('//div[@class="trip-list__body trip-list__body_hide"]/div[contains(text(), "'+V.TripID+'")]')).getText().then(function (text) {
-        V.TripPlannerID = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual,  V.TripID, V.TripPlannerID, 'нет работы в трипе');
-    }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//div[@class="trip-list__body trip-list__body_hide"]/div[contains(text(), "'+V.TripID+'")]')).getText().then(function (text) {
+    //     V.TripPlannerID = SF.cleanPrice(text);
+    //     VD.IWant(VD.ToEqual,  V.TripID, V.TripPlannerID, 'нет работы в трипе');
+    // }),config.timeout);
+    SF.click(By.xpath('//div[contains(text(), "'+V.TripID+'")]'));
+    SF.click(By.xpath('//div[contains(text(), "'+V.TripID+'")]'));
+    SF.waitForLocated (By.xpath('//div[@id="trucksTimelineId"]'));
+    SF.click(By.xpath('//md-tab-item[@ng-repeat="tab in $mdTabsCtrl.tabs"]/span[contains(text(), "Closing")]'));
+    SF.waitForLocated(By.xpath('//label[contains(text(), "Foreman/Driver:")]/following-sibling::span[contains(text(), "Test Foreman")]'));
     SF.sleep(1);
 
 

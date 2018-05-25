@@ -19,11 +19,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
     }
     function WaitVisibleDashboard() {
-        SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]'));
+        SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]|//div[@ng-if="vm.pageParams.totalCount == 0"]'));
         WaitWhileBusy();
     }
     function WaitVisibleDashboardForeman() {
-        SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]'));
+        SF.waitForVisible(By.xpath('//tr[@ng-click="vm.editReservation(request.nid)"]|//div[@ng-if="vm.pageParams.totalCount == 0"]'));
         WaitWhileBusy();
     }
 
@@ -1415,7 +1415,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_ClickViewRequest() {
         SF.click(By.xpath('//button[@ng-click="goToRequest()"]'));
-        SF.sleep(1);
+        SF.sleep(3);
     }
     function EditRequest_OpenPaymentModalWindow() {
         SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
@@ -1479,6 +1479,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
     }
     function EditRequest_ClickAddCustomPayment() {
+        WaitWhileBusy();
         SF.click(By.xpath('//a[@ng-click="addCustomPayment()"]'));
         SF.waitForVisible (By.xpath('//form[@name="clientForm"]'));
     }

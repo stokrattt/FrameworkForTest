@@ -34,7 +34,6 @@ module.exports = function(config,V) {
         './tests/22_WeDontMoveToThisState.js',
 
         './tests/25_ChangeDateDispatch.js',
-        './tests/27_Receipt.js',
         './tests/29_CheckFewMoverForUserCalcOffManual.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/30_StorageTenant.js',
@@ -97,6 +96,7 @@ module.exports = function(config,V) {
         './tests/93_PackingDayFromLocMove.js',
         './tests/92_PackingDay.js',
         './tests/94_CommercialMoveFromBord.js',
+        './tests/27_Receipt.js',
         './tests/89_DraftRequest.js',
         './tests/DefaultSettings.js',
         './tests/103_AdditionalInventoryForLocalMove.js',
@@ -118,7 +118,6 @@ module.exports = function(config,V) {
         './tests/119_LDDiscount.js',
         './tests/118_CommercialPackingDayCalculatorOff.js',
         './tests/115_LDCommercialMoveSizeInSIT.js',
-        './tests/95_Statistic.js',
         './tests/113_CheckAdminPermissions.js',
         './tests/120_LDFlag.js',
         './tests/SetReservationPrice.js',
@@ -127,7 +126,7 @@ module.exports = function(config,V) {
         './tests/117_HomeEstimatePortal.js',
         './tests/111_ZIPCode.js',
 	    './tests/128_LocalMoveValuationWithoutInventory.js',
-
+        './tests/95_Statistic.js',
         './tests/122_MovingAndMovStorageCalcOffCheck.js',
         './tests/123_DraftCheckRateDoubleDriveTime.js',
         './tests/DefaultSettings.js',

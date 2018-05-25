@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/22_WeDontMoveToThisState.js'];
+    config.suite = ['./tests/32_AllMovingWithStorage.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;
@@ -16,15 +16,12 @@ module.exports = function(config,V) {
     // V.accountURL = 'http://test3.stage.themoveboard.com:83/account/';  //dev
     // V.adminURL = 'http://test3.stage.themoveboard.com:83/moveBoard/';  //dev
 
-
+    //
     V.frontURL = 'http://stage.stage.themoveboard.com:91';                       //stage
      V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';    //stage
      V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';    //stage
 
-    // V.frontURL = 'http://stage.themoveboard.com:8082';
-    // V.accountURL = 'http://stage.themoveboard.com:8082/account/#/login';
-    // V.adminURL = 'http://stage.themoveboard.com:8082/moveBoard/#/login';
-
+    //
     // V.frontURL = 'http://dev.stage.themoveboard.com:90/';                       //dev
     // V.accountURL = 'http://dev.stage.themoveboard.com:90/account/#/login';      //dev
     // V.adminURL = 'http://dev.stage.themoveboard.com:90/moveBoard/#/login';      //dev

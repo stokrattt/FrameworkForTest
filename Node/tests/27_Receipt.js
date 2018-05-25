@@ -6,8 +6,18 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
+condition.nowWeDoing = 'создаем локал мув и идем в настройки контракта и включаем less initial contract';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenSettingsGeneral();
+    SF.click(By.linkText('Contract page'));
+    SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.lessInitialContract\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"contract_page.lessInitialContract\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+    SF.click (By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep (2); //сохранялка
+    MF.WaitWhileToaster();
     LF.CreateLocalMovingFromBoard(V.client);
     V.boardNumbers = {};
     LF.addInventoryBoard(V.boardNumbers);
@@ -49,17 +59,42 @@ condition.nowWeDoing = 'идем в диспач первый раз';
     LF.selectCrew(V.foremanName);
     MF.Board_LogoutAdmin();
 
-condition.nowWeDoing = 'заходим под форменом, открываем контракт';
+condition.nowWeDoing = 'заходим под форменом, открываем контракт, вводим свои значение старт и енд тайм, проверяем что все правильно считается с перерывом и что траки и команда и рейт все верно';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.request.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     LF.MakeSignInContract();
-    LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
-    LF.MakeSignInContract();
-    LF.MakeSignInContract();
-    LF.MakeSignInContract();
+    SF.click(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'));
+    SF.clear(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'));
+    SF.send(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'), "12:00 PM");
+
+    SF.click(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'));
+    SF.clear(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'));
+    SF.send(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'), "15:30 PM");
+
+    SF.click(By.xpath('//input[@ng-model="crew.timer.timeOff"]'));
+    SF.clear(By.xpath('//input[@ng-model="crew.timer.timeOff"]'));
+    SF.send(By.xpath('//input[@ng-model="crew.timer.timeOff"]'), "00:30");
+    MF.Contract_DeclarationValueA();
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="crew in data.crews"]/td[1]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, V.boardNumbers.Trucks, text, 'не совпало количество траков на контракте и в реквесте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="crew in data.crews"]/td[2]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize, text, 'не совпало количество муверов на контракте и в реквесте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="crew in data.crews"]/td[3]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, V.boardNumbers.HourlyRate, SF.cleanPrice(text), 'не совпал рейт на контракте и в реквесте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="crew in data.crews"]/td[4]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, 3, SF.cleanPrice(text), 'не правильно посчитало время работы, мы перед этим выставили старт тайм в 12 и енд тайм в 3,30 и добавили перерыв на пол часа, так что время работы должно быть 3 часа');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="crew in data.crews"]/td[5]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, (V.boardNumbers.HourlyRate*3), SF.cleanPrice(text), 'не совпал тотал по работе по формуле рейт умножено на количество часов');
+    }),config.timeout);
+
+//сюда еще пару проверок добавить
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
@@ -73,7 +108,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
-    LF.MakeSignInContract();
+    SF.sleep(3);
     LF.MakeSignInContract();
     V.contractNumbers = {};
     MF.Contract_Submit(V.contractNumbers);
@@ -92,6 +127,9 @@ condition.nowWeDoing = 'идем в админку в диспач второй 
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="invoice.work_time"]')).getAttribute('value').then(function (text) {
+        VD.IWant(VD.ToEqual, text, '03:00', 'не совпал лабор тайм с тем что выставили на контракте');
+    }),config.timeout);
 
 condition.nowWeDoing = 'идем в паймент и проверяем что данные оплаты совпадают с тем что написано в receipt';
     MF.EditRequest_OpenPayment();
@@ -120,7 +158,17 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
         VD.IWant (VD.ToEqual, V.paymentAmount2, V.payment2, 'оплата не совпала')
     }),config.timeout);
     SF.sleep (1);
-
+    JS.click('button[ng-click="cancel()"]');
+    MF.Board_OpenSideBar();
+    MF.Board_OpenSettingsGeneral();
+    SF.click(By.linkText('Contract page'));
+    SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.lessInitialContract\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[ng-model=\"contract_page.lessInitialContract\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+    SF.click (By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep (2); //сохранялка
+    MF.WaitWhileToaster();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

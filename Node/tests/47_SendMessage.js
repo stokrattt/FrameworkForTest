@@ -28,7 +28,11 @@ condition.nowWeDoing = 'первый раз в аккаунте, отправл�
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-condition.nowWeDoing = 'зашли в админку идем в раздел сообщения на дашборде и смотрим что смс есть от клиента админу';
+condition.nowWeDoing = 'зашли в админку идем в раздел сообщения на дашборде и смотрим что смс есть от клиента админу, ' +
+    'также проверяем что в главной табе уменьшиться число сообщений после прочтения';
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="vm.select(1)"]//span[1]')).getText().then(function (text) {
+        V.ChisloSMSdoProchteniya = text;
+    }),config.timeout);
     MF.Board_OpenSideBar ();
     MF.Board_OpenMessage ();
     SF.click (By.xpath('//tr[@ng-click="showComments(request)"]/td[contains(text(), "'+V.accountNumbers.Id+'")]'));
@@ -38,7 +42,12 @@ condition.nowWeDoing = 'зашли в админку идем в раздел с
     }),config.timeout);
     V.toClientFromAdmin = SF.randomBukva(6) + '_toClientFromAdmin';
     MF.BoardAccount_SendMessage(V.toClientFromAdmin);
+    MF.WaitWhileBusy();
+    SF.click(By.xpath('//span[contains(text(), "'+ V.client.name +'")]/../following-sibling::div[1]//p/p'));
     MF.Board_OpenDashboard ();
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="vm.select(1)"]//span[1]')).getText().then(function (text) {
+        VD.IWant(VD.NotToEqual, V.ChisloSMSdoProchteniya, text, 'после прочтения сообщения в главной табе на дашборде не изменилось число');
+    }),config.timeout);
     MF.Board_OpenRequest (V.accountNumbers.Id);
 
 condition.nowWeDoing = 'зашли в реквест';
