@@ -2510,10 +2510,10 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//div[contains(@class, "ui-timepicker-wrapper") and contains(@style,"display: block;")]/ul/li[contains(text(),"01:30")]'));
     }
     function LongDistanceSettings_SetDiscounts(numberDiscount, DiscountPrice, DiscountPriceCF) {
-        SF.clear(By.xpath('//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.rate"]'));
-        SF.send(By.xpath('//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.rate"]'),DiscountPrice);
-        SF.clear(By.xpath('//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.startWeight"]'));
-        SF.send(By.xpath('//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.startWeight"]'),DiscountPriceCF);
+        SF.clear(By.xpath('//table[@ng-show="!discountTabActive"]//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.rate"]'));
+        SF.send(By.xpath('//table[@ng-show="!discountTabActive"]//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.rate"]'),DiscountPrice);
+        SF.clear(By.xpath('//table[@ng-show="!discountTabActive"]//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.startWeight"]'));
+        SF.send(By.xpath('//table[@ng-show="!discountTabActive"]//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.startWeight"]'),DiscountPriceCF);
         SF.sleep(2);
     }
     function LongDistanceSettings_AddLDStatusFlag(text) {

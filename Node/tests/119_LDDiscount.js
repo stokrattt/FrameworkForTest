@@ -34,11 +34,11 @@ condition.nowWeDoing = 'Добавляем 3 дисконта';
     V.DiscountPriceCFFirst = 700;
 
     LF.LongDistanceSettings_SetDiscounts(1, V.DiscountPriceFirst, V.DiscountPriceCFFirst);
-    SF.click(By.xpath('//div[@ng-click="addDiscount($index)"]'));
+    SF.click(By.xpath('//table[@ng-show="!discountTabActive"]//div[@ng-click="addDiscount($index)"]'));
     V.DiscountPriceSecond = 3;
     V.DiscountPriceCFSecond = 900;
     LF.LongDistanceSettings_SetDiscounts(2, V.DiscountPriceSecond, V.DiscountPriceCFSecond);
-    SF.click(By.xpath('//tr[@ng-repeat="row in discounts"][2]//div[@ng-click="addDiscount($index)"]'));
+    SF.click(By.xpath('//table[@ng-show="!discountTabActive"]//tr[@ng-repeat="row in discounts"][2]//div[@ng-click="addDiscount($index)"]'));
     V.DiscountPriceThird = 4;
     V.DiscountPriceCFThird = 1300;
     LF.LongDistanceSettings_SetDiscounts(3, V.DiscountPriceThird, V.DiscountPriceCFThird);
@@ -183,11 +183,11 @@ condition.nowWeDoing = 'Идем в настроику ЛД, удалем нас
     MF.Board_OpenSettingsLongDistance ();
     MF.LongDistanceSettings_ClickOnMapState('#jqvmap1_mt');
     MF.Board_OpenSideBar();
-    SF.click (By.xpath('//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
+    SF.click (By.xpath('//table[@ng-show="!discountTabActive"]//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
     SF.sleep(1.5);
-    SF.click (By.xpath('//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
+    SF.click (By.xpath('//table[@ng-show="!discountTabActive"]//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
     SF.sleep(1.5);
-    SF.click (By.xpath('//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
+    SF.click (By.xpath('//table[@ng-show="!discountTabActive"]//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
     SF.sleep(3);
 
 

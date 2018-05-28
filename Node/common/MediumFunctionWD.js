@@ -690,7 +690,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Account_ClickProceedBookYourMove() {
-        SF.sleep(1);
+        SF.sleep(2);
         SF.click(By.xpath('//div[contains(@class,"notconfirmed")]'));
         WaitWhileBusy ();
     }
@@ -2206,7 +2206,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'), stateRate);
     }
     function LongDistanceSettings_AddDiscount() {
-        SF.click(By.xpath('//tbody/tr[@ng-click="addDiscount(-1)"]'));
+        SF.click(By.xpath('//div[@ng-click="addDiscount(-1)"]/span[contains(text(), "Set discount for larger shipments")]'));
         SF.sleep(2);
     }
 
