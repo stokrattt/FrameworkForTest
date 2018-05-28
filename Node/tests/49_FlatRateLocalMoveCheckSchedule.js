@@ -40,7 +40,7 @@ condition.nowWeDoing = 'идем в акк букаем работу';
     MF.Account_CheckRequestStatus_NotConfirmed(V.request.Id);
     MF.Account_OpenRequest(V.request.Id);
     MF.Account_ClickViewRequest ();
-    driver.wait(driver.findElement(By.xpath('//span[@ng-hide="vm.calculateFlatRateTotal() == 0"]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//span[@ng-hide="vm.getGrandTotal(\'flatrate\', vm.request) == 0"]')).getText().then(function (text) {
         text = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, 3000, text, 'не нашло флет рейт квоту на акке')
     }),config.timeout);

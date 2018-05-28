@@ -176,7 +176,6 @@ condition.nowWeDoing = 'зашли под клиентом букаем перв
     MF.Account_ClickProceedBookYourMove();
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
-    SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
 
@@ -194,7 +193,6 @@ condition.nowWeDoing = 'букаем вторую работу овернайт�
     MF.Account_ClickProceedBookYourMove();
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
-    SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));

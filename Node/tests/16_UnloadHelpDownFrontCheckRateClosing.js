@@ -96,7 +96,6 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     MF.Account_ClickProceedBookYourMove();
     SF.click (By.xpath('//i[@class="fa fa-angle-down arrow-down"]'));
     SF.sleep (0.5);
-    SF.click (By.id('terms'));
     SF.click (By.id('cancel_policy'));
     SF.click (By.id('paybutton'));
     MF.SweetConfirm();
