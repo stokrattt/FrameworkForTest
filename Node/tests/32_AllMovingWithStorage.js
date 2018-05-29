@@ -79,6 +79,7 @@ condition.nowWeDoing = 'Зайти на админку, найти реквес�
     MF.WaitWhileBusy();
     MF.EditRequest_ScrollDown();
     LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
+    Debug.pause();
     MF.EditRequest_OpenSettings();
     LF.SetManager('emilia');
     MF.EditRequest_OpenClient();
