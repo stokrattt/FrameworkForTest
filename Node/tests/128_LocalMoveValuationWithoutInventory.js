@@ -92,7 +92,7 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed', 'должен быть нот конферм статус');
 	}), config.timeout);
 	MF.Account_ClickProceedBookYourMove();
-	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table"]/tbody/tr[2]/td[4]/span')).getText().then(function (text) {
+	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table table"]/tbody/tr[2]/td[4]/span')).getText().then(function (text) {
 			text = SF.cleanPrice(text.substring(text.indexOf('$')));
 			VD.IWant(VD.ToEqual, V.ValuationChargeinAccount2 ,text ,'не совпали Valuation выбранный во второй раз на аккаунте и в таблице на конфирмейшн пэйдж');
 		}), config.timeout);
