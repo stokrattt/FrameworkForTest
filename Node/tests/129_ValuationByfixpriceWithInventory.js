@@ -8,7 +8,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.passwd = 123;
 
 
-	condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by fixed price,создаем реквест и проверяем ' +
+condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by fixed price,создаем реквест и проверяем ' +
 		'сходятся ли расчеты в таблице Valuation с формулой расчетов ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
@@ -56,7 +56,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.SweetConfirm();
 	MF.WaitWhileBusy();
 
-	condition.nowWeDoing = 'назначаем клиенту пароль,выбираем трак, ставим нот конферм';
+condition.nowWeDoing = 'назначаем клиенту пароль,выбираем трак, ставим нот конферм';
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
@@ -69,7 +69,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем на аккаунт, ставим свой amount of liability,добавляем инвентарь,добавляем адрес, проверяем,что бы не пересчитывалось все, проверяем можно ли изменить страховку в статусе пэдинг-инфо,делаем проверку на то,что бы сраховка не превышала лимит компании';
+condition.nowWeDoing = 'идем на аккаунт, ставим свой amount of liability,добавляем инвентарь,добавляем адрес, проверяем,что бы не пересчитывалось все, проверяем можно ли изменить страховку в статусе пэдинг-инфо,делаем проверку на то,что бы сраховка не превышала лимит компании';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -83,7 +83,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.Account_ClickUpdateClientInModalWindow();
 	MF.SweetConfirm();
 	MF.SweetConfirm();
-	MF.Account_WaitForLoadingAccount();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed');
 	}), config.timeout);
@@ -120,7 +119,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	LF.RememberAccountNumbers(V.accountNumbersAfterInventory);
 	LF.LogoutFromAccount();
 
-	condition.nowWeDoing = 'идем на мувборд, проверяем наш инвенторий и страховку,ставим статус нот конферм.';
+condition.nowWeDoing = 'идем на мувборд, проверяем наш инвенторий и страховку,ставим статус нот конферм.';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenRequest(V.boardNumbers.Id);
@@ -164,7 +163,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
 
-	condition.nowWeDoing = 'идем на аккаунт букать работу,выбираем 60 цент перпаунд,проверяем на конфирмейшн пейдж что в табличке нету нулей,возвращаемся обратно,выбираем максимальный уровень страховки,букаем работу';
+condition.nowWeDoing = 'идем на аккаунт букать работу,выбираем 60 цент перпаунд,проверяем на конфирмейшн пейдж что в табличке нету нулей,возвращаемся обратно,выбираем максимальный уровень страховки,букаем работу';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
@@ -227,7 +226,6 @@ condition.nowWeDoing = 'выходим из аккаунта, идем на ад
 		VD.IWant(VD.ToEqual, V.ValuationClosing ,text,'не совпал выбраный deductible level в табе клозинг и на конфирмейшн пэйдж');
 	}), config.timeout);
 	MF.Contract_OpenBillOfLading();
-	JS.scroll('tr[ng-if="finance.valuation && finance.valuation != 0"]');
 	driver.wait(driver.findElement(By.xpath('//tr[@ng-if="finance.valuation && finance.valuation != 0"]/td[2]')).getText().then(function (text) {
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.ValuationClosing ,text,'не совпал выбраный deductible level в табе клозинг и контракте');

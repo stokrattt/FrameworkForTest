@@ -1802,7 +1802,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			frontNumbersDown.RateFrom = text.indexOf('$', 4) == -1 ?
 				SF.cleanPrice(text) :
 				SF.cleanPrice(text.substring(text.indexOf('$', 4)));
-			// console.log(V.frontNumbersDown.RateFrom);
 		}), config.timeout);
 		driver.wait(driver.findElement(By.xpath('//span[@ng-if="!storageCalcResult.from.small_job"]')).getText().then(function (text) {
 			let textMin = text.substring(0, text.indexOf('-'));
@@ -1815,18 +1814,19 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			frontNumbersDown.JobTimeMaxFrom = hoursMax * 60 + minutesMax;
 		}), config.timeout);
 
-		// condition.nowWeDoing = 'запоминаем данные с мувинг сторадж Estimated Labor и Estimated Monthly Storage';
-		//
-		// driver.wait(driver.findElement(By.xpath('//div[contains(@class, form_block)]/div[@ng-if="basicsettings.showQuoteFront[request.serviceType]"]' +
-		//     '//h3[contains(text(), "Estimated labor:")]/following-sibling::span')).getText().then(function(text){
-		//     frontNumbersDown.EstimatedLaborMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
-		//     frontNumbersDown.EstimatedLaborMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
-		// }), config.timeout);
-		// driver.wait(driver.findElement(By.xpath('//div[@ng-if="!overnightMove"]/span')).getText().then(function(text){
-		//     frontNumbersDown.MonthlyStorageMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
-		//     frontNumbersDown.MonthlyStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
-		// }), config.timeout);
+		condition.nowWeDoing = 'запоминаем данные с мувинг сторадж Estimated Labor и Estimated Monthly Storage';
+
+		driver.wait(driver.findElement(By.xpath('//div[contains(@class, form_block)]/div[@ng-if="basicsettings.showQuoteFront[request.serviceType]"]' +
+		    '//h3[contains(text(), "Estimated labor:")]/following-sibling::span')).getText().then(function(text){
+		    frontNumbersDown.EstimatedLaborMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+		    frontNumbersDown.EstimatedLaborMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+		}), config.timeout);
+		driver.wait(driver.findElement(By.xpath('//div[@ng-if="!overnightMove"]/span')).getText().then(function(text){
+		    frontNumbersDown.MonthlyStorageMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
+		    frontNumbersDown.MonthlyStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
+		}), config.timeout);
 		SF.sleep(1);
+
 		console.log(frontNumbersDown);
 	}
 
