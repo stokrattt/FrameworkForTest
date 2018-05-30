@@ -53,8 +53,6 @@ condition.nowWeDoing = 'Создаем карьера';
 condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
     MF.EditRequest_SetToConfirmed();
-    SF.select(By.xpath('//select[@id="edit-service"]'), 7);
-    SF.sleep(1);
     JS.step(JSstep.selectTruck(5));
     MF.WaitWhileBusy();
     V.perCubicFeet = '5';
