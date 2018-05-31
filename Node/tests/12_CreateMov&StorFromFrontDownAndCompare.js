@@ -102,7 +102,7 @@ condition.nowWeDoing = 'сравниваем с акком второй рекв
     MF.Board_OpenRequest(V.accountNumbersFrom.Id);
     V.boardNumbersFrom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersFrom);
-Debug.pause();
+
 condition.nowWeDoing = 'сравниваем аккаунт и админку';
     // LF.Validation_Compare_Account_Admin(V.accountNumbersFrom,V.boardNumbersFrom);
     JS.step(JSstep.selectTruck((V.boardNumbersFrom.LaborTimeMax + V.boardNumbersFrom.TravelTime)/60));

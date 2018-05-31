@@ -119,7 +119,6 @@ condition.nowWeDoing = 'Зайти в аккаунт и подтвердить �
     V.accountNumbersFrom = {};
     LF.RememberAccountNumbers(V.accountNumbersFrom);
     LF.Validation_Compare_Account_Admin(V.accountNumbersFrom, V.boardNumbersFrom);
-    Debug.pause();
     LF.ConfirmRequestInAccount_WithReservation();
     SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
 	MF.Account_ClickViewConfirmationPage();
