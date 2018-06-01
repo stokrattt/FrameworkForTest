@@ -111,6 +111,7 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     LF.MakeSignInRental();
     MF.SweetConfirm ();
     MF.WaitWhileBusy();
+    Debug.pause();
     LF.payRentalInventoryCash(V.boardNumbers);
     JS.waitForExist('input#inputImage');
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
@@ -124,6 +125,7 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
     MF.Contract_ClickPaymentInfo();
+    Debug.pause();
     MF.Contract_PayCash();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
@@ -258,10 +260,6 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
 //     JS.click('button[ng-click=\\"saveFile();logClickButtons(\\\'Save Images button clicked\\\')\\"]');
 //     SF.sleep(5);
 //
-//
-//
-//
-//
 //     MF.Contract_OpenBillOfLading();
 //     LF.MakeSignInContract();
 //     LF.MakeSignInContract();
@@ -273,8 +271,6 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
 //     MF.Contract_ClickPlusForOpenSubMenuStorageAndOvernight();
 //     MF.Contract_ClickCorningToStorage();
 //
-//
-
 
 condition.nowWeDoing = 'сейчас идём в пейролл';
     MF.Board_OpenPayroll();
@@ -296,6 +292,40 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(1);
+
+    MF.Board_OpenSideBar();
+    MF.Board_OpenPaymentCollected();
+    let now = new Date();
+    let options = {month: 'short', day: '2-digit', year: 'numeric'};
+    V.dateStart = (now.toLocaleDateString('en-US', options));
+    V.dateEnd = (now.toLocaleDateString('en-US', options));
+    SF.clear(By.xpath('//md-datepicker[@ng-model="$ctrl.date.from"]/div/input'));
+    SF.send(By.xpath('//md-datepicker[@ng-model="$ctrl.date.from"]/div/input'), V.dateStart);
+    SF.sleep(1);
+    SF.clear(By.xpath('//md-datepicker[@ng-model="$ctrl.date.to"]/div/input'));
+    SF.send(By.xpath('//md-datepicker[@ng-model="$ctrl.date.to"]/div/input'), V.dateEnd);
+    SF.sleep(2);
+
+    SF.click(By.xpath('//md-select[@ng-model="$ctrl.advancedChoosedFilters"]'));
+    SF.sleep(0.5);
+    SF.click(By.xpath('//div[contains(text(), "Contract")]'));
+    SF.click(By.xpath('//button[@ng-click="$ctrl.applyFilters()"]'));
+    MF.WaitWhileBusy();
+    SF.click(By.xpath('//span[@sorting-arrows="$ctrl.column.entity_id"]'));
+    MF.WaitWhileBusy();
+    SF.click(By.xpath('//span[@sorting-arrows="$ctrl.column.entity_id"]'));
+    MF.WaitWhileBusy();
+
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Contract', 'не нашло слово контракт после платежа этим реквестом на контракте кешем или не нашло этот платеж');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[2]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Cash', 'не нашло слово кеш после платежа этим реквестом на контракте кешем или не нашло этот платеж');
+    }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+    //     VD.IWant(VD.ToEqual, text, 'Cash', 'не совпала сумма оплаченная на контракте с тем что в паймент колектед или не нашло этот платеж');
+    // }),config.timeout);
+
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

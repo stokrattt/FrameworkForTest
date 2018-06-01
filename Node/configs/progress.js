@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/106_AdditionalContact.js'];
+    config.suite = ['./tests/103_AdditionalInventoryForLocalMove.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 25000;

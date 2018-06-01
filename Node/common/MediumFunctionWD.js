@@ -523,6 +523,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Board_ShowProtectionOnAccountPage(){
 	    SF.click(By.xpath('//li[@uib-tooltip="Show Protection On Account Page"]'));
     }
+    function Board_OpenPaymentCollected() {
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'statistics.byrole\', \'\')"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ui-sref="statistics.paymentsCollected"]'));
+        WaitWhileBusy();
+    }
 
 
     //==============================CALCULATOR SETTINGS===========================
@@ -2337,6 +2343,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         BoardOpenSettingsLongDistanceStatus:BoardOpenSettingsLongDistanceStatus,
 	    Board_OpenSettingsAccountPagePendingInfo:Board_OpenSettingsAccountPagePendingInfo,
         Board_ShowProtectionOnAccountPage : Board_ShowProtectionOnAccountPage,
+        Board_OpenPaymentCollected:Board_OpenPaymentCollected,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
