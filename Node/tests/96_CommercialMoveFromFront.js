@@ -44,7 +44,7 @@ condition.nowWeDoing = 'создаем с фронтового сайта мув
 condition.nowWeDoing = 'первый раз в аккаунте, добавляем инвенторий в сторадж реквест ТО, и проверяем что кубик фит стал таким сколкьо инвентаря добавили, что пишется сервис тип с комершиал' +
     'что мувсайз комершиал вместе с инвентарем и запоминаем все числа';
     LF.AccountLocalAddInventory();
-    SF.sleep(15);
+    SF.sleep(8);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.move_size.raw == 11"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '- COMMERCIAL MOVE', 'после выбора мувсайза комершиал не сменился сервис тип на комершиал на аккаунте To реквеста');
     }),config.timeout);
