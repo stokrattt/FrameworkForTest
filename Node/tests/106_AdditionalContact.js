@@ -12,7 +12,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.AdditionalEmail = SF.randomBukvaSmall(7) + '@' + SF.randomBukvaSmall(4) + '.adtes';
     V.adminEmailTemperary = 'test.boston@mail.ru';
 
-condition.nowWeDoing = 'создаем мувинг с фронта';
+condition.nowWeDoing = 'создаем мувинг с мувборда';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
@@ -24,7 +24,9 @@ condition.nowWeDoing = 'создаем адишенал контакт';
     SF.send(By.xpath('//input[@ng-model="request.field_additional_user.last_name"]'),V.AdditionalFam);
     SF.send(By.xpath('//input[@ng-model="request.field_additional_user.mail"]'),V.AdditionalEmail);
     SF.send(By.xpath('//input[@ng-model="request.field_additional_user.phone"]'),V.AdditionalPhone);
+    SF.send(By.xpath('//input[@ng-model="client.field_user_additional_phone"]'), '1234567890');
     SF.click(By.xpath('//button[@ng-click="saveAddContact()"]'));
+    SF.click(By.xpath('//button[@ng-click="updateAddContact()"]'));
     MF.WaitWhileToaster();
     MF.EditRequest_OpenRequest();
     V.boardNumbers = {};
@@ -63,7 +65,55 @@ condition.nowWeDoing = 'отправиляем письмо вручную, и �
         V.ManualEmailSend = text;
         VD.IWant(VD.ToEqual, V.ManualEmailSend,('Mail was sent to "'+V.client.email+'", "'+V.AdditionalEmail+'" . From "'+V.adminEmailTemperary+'". Subject: "Sales Signature"'),'не отправились письма после ручного выбора писем');
     }),config.timeout);
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd(V.client.passwd);
+    LF.closeEditRequest();
+    MF.Board_LogoutAdmin();
+
+condition.nowWeDoing = 'Зайти в аккаунт на конфирмейшн и проверить что есть и основной контакт доп телефон и доп контакт, а  также проверить компани полиси что открывается и сенселатион полиси';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient(V.client);
+    MF.Account_OpenRequest(V.boardNumbers.Id);
+    MF.Account_ClickViewConfirmationPage();
+    driver.wait(driver.findElement(By.xpath('//h2[@ng-if="!vm.isCommercial || !vm.commercialName.length"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text.toUpperCase(), (V.client.name + ' '+ V.client.fam).toUpperCase(), 'не нашло или не совпало на конфирмейшине имя и фамилия основного контакта');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="phone"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), -V.client.phone, 'не нашло или не совпало на конфирмейшине phone основного контакта');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="additional-phone"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), -1234567890, 'не нашло или не совпало на конфирмейшине additional phone основного контакта');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="email"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.client.email, 'не нашло или не совпало на конфирмейшине email основного контакта');
+    }),config.timeout);
+
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.isEmptyFieldAdditionalUser"]/h2')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Additional Client Contacts', 'не нашло заголовок адишианл контакта на конфирмейшине');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[@class="additional_name_field"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text.toUpperCase(), (V.AdditionalName).toUpperCase(), 'не нашло или не совпало на конфирмейшине имя additional контакта');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_additional_user.last_name"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text.toUpperCase(), (V.AdditionalFam).toUpperCase(), 'не нашло или не совпало на конфирмейшине familiya additional контакта');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.request.field_additional_user.phone"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), -V.AdditionalPhone, 'не нашло или не совпало на конфирмейшине phone additional контакта');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.request.field_additional_user.mail"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.AdditionalEmail, 'не нашло или не совпало на конфирмейшине email additional контакта');
+    }),config.timeout);
+    MF.AccountConfirmationPage_ClickBackToRequest();
+    SF.click(By.xpath('//a[@ng-click="openPolicyModal(\'cancelation\')"]'));
+    SF.waitForLocated(By.xpath('//a[@ng-click="cancel()"]'));
+    JS.click('a[ng-click="cancel()"]');
+    SF.sleep(1.5);
+    SF.click(By.xpath('//a[@ng-click="openPolicyModal(\'company\')"]'));
+    SF.waitForLocated(By.xpath('//a[@ng-click="cancel()"]'));
+    JS.click('a[ng-click="cancel()"]');
     SF.sleep(1);
+
+
 
     SF.endOfTest();
 };
