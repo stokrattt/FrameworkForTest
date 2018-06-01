@@ -28,6 +28,9 @@ condition.nowWeDoing = 'создаем адишенал контакт';
     SF.click(By.xpath('//button[@ng-click="saveAddContact()"]'));
     SF.click(By.xpath('//button[@ng-click="updateAddContact()"]'));
     MF.WaitWhileToaster();
+    MF.Account_ClickUpdateClientInModalWindow();
+    MF.WaitWhileBusySymbol();
+    MF.WaitWhileToaster();
     MF.EditRequest_OpenRequest();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -74,6 +77,7 @@ condition.nowWeDoing = 'Зайти в аккаунт на конфирмейшн
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.boardNumbers.Id);
+    MF.Account_ClickViewRequest();
     MF.Account_ClickViewConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//h2[@ng-if="!vm.isCommercial || !vm.commercialName.length"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text.toUpperCase(), (V.client.name + ' '+ V.client.fam).toUpperCase(), 'не нашло или не совпало на конфирмейшине имя и фамилия основного контакта');
