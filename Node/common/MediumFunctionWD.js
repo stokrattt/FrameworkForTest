@@ -958,8 +958,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_RemoveMonthlyStorageFee() {
         SF.click(By.xpath('//input[@value="Monthly Storage Fee"]/../following-sibling::td[3]/p[@ng-click="removeCharge($index)"]'));
     }
-    function Contract_PayCash() {
+    function Contract_PayCash(boardNumbers) {
         SF.click(By.xpath('//div[@ng-click="choosePayment(\'cashPay\')"]'));
+        if (boardNumbers != undefined) {
+            driver.wait(driver.executeScript('return $(\'input[ng-click="applyPayment()"]\').val()').then(function (text) {
+                boardNumbers.paidContractCash = SF.cleanPrice(text);
+            }), config.timeout);
+        }
         SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
         WaitWhileBusy();
         SF.sleep(2);

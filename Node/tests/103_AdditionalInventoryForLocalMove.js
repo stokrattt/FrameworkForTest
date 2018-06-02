@@ -111,7 +111,6 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     LF.MakeSignInRental();
     MF.SweetConfirm ();
     MF.WaitWhileBusy();
-    Debug.pause();
     LF.payRentalInventoryCash(V.boardNumbers);
     JS.waitForExist('input#inputImage');
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
@@ -125,8 +124,7 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
     MF.Contract_ClickPaymentInfo();
-    Debug.pause();
-    MF.Contract_PayCash();
+    MF.Contract_PayCash(V.boardNumbers);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     V.contractNumbers = {};
@@ -159,13 +157,16 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
     MF.EditRequest_CloseModal();
-    MF.SweetConfirm();
+    // MF.SweetConfirm();
     MF.WaitWhileBusy();
     SF.click(By.xpath('//div[@ng-if="states.invoiceState"]//span[@ng-if="request.request_all_data.storage_request_id"]'));
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//input[@id="volume"]')).getAttribute('value').then(function(text) {
         V.StorageCF = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.RentalCF, V.StorageCF,'не совпал c f рентал агримент и сторадж');
+        VD.IWant(VD.ToEqual, V.RentalCF, V.StorageCF,'не совпал c f рентал агримент и стораджa');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.id"]')).getText().then(function (text) {
+        V.storageId = SF.cleanPrice(text);
     }),config.timeout);
     MF.WaitWhileBusy();
     SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
@@ -293,6 +294,8 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
         'id=' + V.boardNumbers.Id);
     SF.sleep(1);
 
+    condition.nowWeDoing = 'идем в паймент колектед, выбираем фильтр за день оплаты, то есть сегодняшинй, адвансед фильтр берем контракт и применяем фильтр' +
+        'проверяем что есть две оплаты по стораджу и по контракту';
     MF.Board_OpenSideBar();
     MF.Board_OpenPaymentCollected();
     let now = new Date();
@@ -322,10 +325,39 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[2]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Cash', 'не нашло слово кеш после платежа этим реквестом на контракте кешем или не нашло этот платеж');
     }),config.timeout);
-    // driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
-    //     VD.IWant(VD.ToEqual, text, 'Cash', 'не совпала сумма оплаченная на контракте с тем что в паймент колектед или не нашло этот платеж');
-    // }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers.paidContractCash, 'не совпала сумма оплаченная на контракте кешем с тем что в паймент колектед или не нашло этот платеж');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[2]//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers.prepaid, 'не совпала сумма оплаченная на контракте за  сторадж pay rental с тем что в паймент колектед или не нашло этот платеж');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[2]//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[7]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Storage first month payment', 'не нашло текст Storage first month payment за оплату стораджа');
+    }),config.timeout);
 
+condition.nowWeDoing = 'выбираем фильтр кеш и контракт и смотрим что есть два платежа по нашему реквесту';
+    SF.click(By.xpath('//md-select[@ng-model="$ctrl.pickUpPaymentFilters"]'));
+    SF.sleep(0.5);
+    SF.click(By.xpath('//div[contains(text(), "Cash")]'));
+    SF.click(By.xpath('//button[@ng-click="$ctrl.applyFilters()"]'));
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.boardNumbers.Id, 'не нашло рекквеста оплатой  кешем при таких фильтрах как кеш и контракт');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[2]//td[contains(text(), "'+ V.boardNumbers.Id+'")]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.boardNumbers.Id, 'не нашло рекквеста оплатой кешем за сторадж при таких фильтрах как кеш и контракт');
+    }),config.timeout);
+
+condition.nowWeDoing = 'выбираем фильтр кеш и сторадж тенант и там должен быть один наш платеж за первый месяц сторадажа который мы оплатили на странице рентал агримент';
+    SF.click(By.xpath('//md-select[@ng-model="$ctrl.advancedChoosedFilters"]'));
+    SF.sleep(0.5);
+    SF.click(By.xpath('//div[contains(text(), "Storage Tenant")]'));
+    SF.click(By.xpath('//button[@ng-click="$ctrl.applyFilters()"]'));
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.storageId +'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers.prepaid, 'не нашло оплату за первый месяц по стораджу, то что мы полатили за торадж агримент. Фильтра выставлены - кеш и сторадж тенант');
+    }),config.timeout);
+    SF.sleep(1);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

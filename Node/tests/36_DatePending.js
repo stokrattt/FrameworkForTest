@@ -99,10 +99,10 @@ condition.nowWeDoing = 'идем в аккаунт букать третью р�
 condition.nowWeDoing = 'идем в админку проверять или два реквеста ушли в дата пендинг';
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id1 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'первый реквест не ушел в дата пендинг а должен был');
-    }), 120000);
+    }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.Id2 + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Date Pending', 'второй реквест не ушел в дата пендинг а должен был');
-    }), 120000);
+    }),config.timeout);
     SF.sleep(1);
     //=========================закончили писать тест=============================
     SF.endOfTest();
