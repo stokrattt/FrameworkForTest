@@ -100,14 +100,73 @@ condition.nowWeDoing = 'иду в админку в наш реквест, св�
         V.boardNumbersCubFit1 = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual,V.boardNumbersCubFit1, V.accountNumbers.cbf, 'Сравниваем к.ф. в модалке с аккаунтом');
     }),config.timeout);
+
+condition.nowWeDoing = 'открываем инвенторий, через поиск ищем несуществующий элемент и проверяем что нам подставит система ввести кастомный айтем' +
+        'создаем сразу кастомный айтем и потом делаем нот конферм и проверим в емейле что отправляется правильный кубик фит и тотал айтемс';
     MF.EditRequest_OpenInventoryTab();
-    SF.sleep(20);
+    SF.sleep(8);
     driver.wait(driver.findElement(By.xpath('//div[@class="inventory__toolbar-item inventory__toolbar-item_info"]/span[@ng-bind="total.count"]')).getText().then(function (text) {
         V.InventoryTotalRequest = SF.cleanPrice(text.replace('Total Items:', ''));
         VD.IWant(VD.ToEqual,V.InventoryTotalItemsAccount, V.InventoryTotalRequest, 'Сравниваем кол-во аитемов в аккаунте и модалке');
     }), config.timeout);
+    SF.click(By.xpath('//div[@class="inventory__toolbar-item"]/input[@ng-change="search()"]'));
+    SF.send(By.xpath('//div[@class="inventory__toolbar-item"]/input[@ng-change="search()"]'), 'tralala');
+    SF.sleep(8);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="newItem.title.value"]')).getAttribute('value').then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'tralala', 'не открылся ввод для кастомного айтема и не подставилось наше имя в поле item name');
+    }),config.timeout);
+    SF.send(By.xpath('//input[@ng-model="newItem.pounds.value"]'), 100);
+    SF.send(By.xpath('//input[@ng-model="newItem.count.value"]'), 2);
+    SF.click(By.xpath('//button[@ng-click="customItemForm.$setSubmitted()"]'));
+    MF.EditRequest_ClickSaveInventory();
+    driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
+        V.CubFitWithCustomItem = SF.cleanPrice (text);
+        VD.IWant(VD.ToEqual,V.boardNumbersCubFit1+200, V.CubFitWithCustomItem, 'не совпал кубик фит в реквесте после того как мы добавили кастомный айтем');
+    }),config.timeout);
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
+    MF.EditRequest_SetToNotConfirmed();
+    MF.EditRequest_SaveChanges();
+    MF.EditRequest_OpenLogs();
+    SF.click(By.xpath('//span[@ng-show="!allLogsShow[allLogsIndex]"]'));
+    SF.sleep(1);
+    driver.wait(driver.findElement(By.xpath('//td[@ng-bind-html="enableStyle(block.template)"]//th[contains(text(), "Total items: ")]')).getText().then(function (text) {
+        V.TotalItemsEmail = SF.cleanPrice(text.substring(text.indexOf(': '), text.indexOf(' Total Boxes: 0')));
+        VD.IWant(VD.ToEqual, V.InventoryTotalRequest+2, V.TotalItemsEmail, 'не совпало количество айтемов в емейле с реквестом');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[@ng-bind-html="enableStyle(block.template)"]//th[contains(text(), "Total Volume/Weight: ")]')).getText().then(function (text) {
+        V.TotalCubicFitEmail = SF.cleanPrice(text.substring(text.indexOf(': '), text.indexOf('CuFt')));
+        VD.IWant(VD.ToEqual, V.boardNumbersCubFit1+200, V.TotalCubicFitEmail, 'не совпал total cubiс  fit в емейле с реквестом');
+    }),config.timeout);
+    MF.EditRequest_OpenRequest();
+
+condition.nowWeDoing = 'тут открываем в новой вкладке аккаунт и конфирмейшн с реквеста и проверяем там кубик фиты что все правильно потом проверяем тоже самое и в табличке нижней' +
+        'и на конфирмейшине это проверяем';
+    SF.click(By.xpath('//a[@ng-click="goTo()"]'));
+    SF.sleep(8);
+    SF.openTab(1);
+    driver.wait(driver.findElement(By.xpath('//span[contains(text()," Total Estimated: ")]/span')).getText().then(function (text) {
+        V.InvTotalAccountDownTableAfterAddCustomItem = SF.cleanPrice(text.substring(0, text.indexOf('c')));
+        VD.IWant(VD.ToEqual, V.InvTotalAccountDownTableAfterAddCustomItem, V.boardNumbersCubFit1+200, 'не совпал тотал кубик фит с реквеста и на аккаунте в нижней табличке поссле кастомного айтема');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="row inventory-box"]//div[@class="col-md-8 total-right total-indicators"]/span[1]')).getText().then(function (text) {
+        V.InvTotalItemsDownTableAfterAddCustomItem = SF.cleanPrice(text.replace('Total Items:', ''));
+        VD.IWant(VD.ToEqual,V.InventoryTotalRequest+2, V.InvTotalItemsDownTableAfterAddCustomItem, 'не совпал тотал items с реквеста и на аккаунте в нижней табличке поссле кастомного айтема');
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text){
+        V.accountcbf = SF.cleanPrice(text.substring(text.indexOf('Inventory ')+9, text.indexOf('c.f.')));
+        VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbersCubFit1+200, 'не совпал тотал кубик фит с реквеста и на аккаунте поссле кастомного айтема');
+    }),config.timeout);
+//    MF.Account_ClickProceedBookYourMove();
+// добавить еще сюда проверки на конфирмейшине нижнюю табличку что все сходится.
+    driver.close();
+    SF.openTab(0);
 
 condition.nowWeDoing = 'удаляем все аитемы, и проверяем что вес вернулся в дефолтный';
+    MF.EditRequest_OpenInventoryTab();
+    SF.sleep(8);
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
+    SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
     SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
     SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
     SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
