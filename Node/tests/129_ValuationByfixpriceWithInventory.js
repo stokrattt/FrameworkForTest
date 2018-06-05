@@ -26,30 +26,22 @@ condition.nowWeDoing = 'заходим под админом в настройк
 		V.Weight= text;
 	}), config.timeout);
 	SF.sleep(1);
-	const centPerPound= 0.6;
-	const Weight = V.Weight;
-	let AmountOfLiability = centPerPound * Weight;
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]')).getAttribute('value').then(function (text) {
-		V.AmountOfLiability1= text;
 		V.AmountOfLiability1 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, AmountOfLiability ,V.AmountOfLiability1,'не совпали Amount Of Liability у реквеста с расчетами по формулам');
+		VD.IWant(VD.ToEqual, V.Weight*0.6 ,V.AmountOfLiability1,'не совпали Amount Of Liability у реквеста с расчетами по формулам');
 	}), config.timeout);
 	// проверка Valuation Charge
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[1]')).getText().then(function (text) {
-		V.DeductibleLevel1= text;
-		V.DeductibleLevel1 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, 150 ,V.DeductibleLevel1,'не совпали Valuation Charge у реквеста с расчетами по формулам(первый дедактбл левел)');
+        text = SF.cleanPrice(text.substring(text.indexOf('$')));
+		VD.IWant(VD.ToEqual, 150 ,text,'не совпали Valuation Charge у реквеста с расчетами по формулам(первый дедактбл левел)');
 	}), config.timeout);
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
-		V.DeductibleLevel2= text;
-		V.DeductibleLevel2 = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, 200 ,V.DeductibleLevel2,'не совпали Valuation Charge у реквеста с расчетами по формулам(второй дедактбл левел)');
+		text = SF.cleanPrice(text.substring(text.indexOf('$')));
+		VD.IWant(VD.ToEqual, 200 ,text,'не совпали Valuation Charge у реквеста с расчетами по формулам(второй дедактбл левел)');
 	}), config.timeout);
 	SF.click(By.xpath('//td[3]/div[@ng-click="setDeductibleLevel(value)"]'));
 	// выбираем второй Valuation Charge
-	V.SelectLevel= {};
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
-		V.SelectLevel = text;
 		V.SelectLevel = SF.cleanPrice(text.substring(text.indexOf('$')));
 	}), config.timeout);
     MF.Account_ClickSaveFullValueModal();
@@ -86,9 +78,7 @@ condition.nowWeDoing = 'идем на аккаунт, ставим свой amou
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed');
 	}), config.timeout);
-	V.SelectLevelinAccount= {};
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"][2]')).getText().then(function (text) {
-		V.SelectLevelinAccount = text;
 		V.SelectLevelinAccount = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.SelectLevelinAccount ,V.SelectLevel,'не совпали Valuation Charge выбранный на реквесте и на аккаунте');
 	}), config.timeout);
@@ -100,7 +90,6 @@ condition.nowWeDoing = 'идем на аккаунт, ставим свой amou
 	MF.Account_SendAmountOfLiability(9000);
     MF.Account_ClickSaveFullValueModal();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"][2]')).getText().then(function (text) {
-		V.SelectLevelinAccount2 = text;
 		V.SelectLevelinAccount2 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.NotToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinAccount,'совпали Valuation Charge выбранный на аккаунте в первый раз и во второй раз ( такого быть не должно)');
 	}), config.timeout);
@@ -111,7 +100,6 @@ condition.nowWeDoing = 'идем на аккаунт, ставим свой amou
 	MF.Account_CheckRequestStatus_PendingInfo();
 	MF.Account_ChangeAmountOfLiability(15000);
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"][2]')).getText().then(function (text) {
-		V.SelectLevelinAccount3 = text;
 		V.SelectLevelinAccount3 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.NotToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinAccount3,'после внесения амаунт оф лиабилити не поменялась страховка( такого быть не должно)');
 	}), config.timeout);
@@ -131,12 +119,9 @@ condition.nowWeDoing = 'идем на мувборд, проверяем наш 
 	MF.EditRequest_OpenRequest();
     MF.EditRequest_OpenValuationModal();
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]')).getAttribute('value').then(function (text) {
-		V.AmountOfLiabylytiforleter = text;
 		V.AmountOfLiabylytiforleter = Math.floor(SF.cleanPrice(text));
-		console.log(V.AmountOfLiabylytiforleter);
 	}), config.timeout);
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
-		V.SelectLevelinAdmin = text;
 		V.SelectLevelinAdmin = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.SelectLevelinAccount3 ,V.SelectLevelinAdmin,'не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
 	}), config.timeout);
@@ -151,14 +136,13 @@ condition.nowWeDoing = 'идем на мувборд, проверяем наш 
 	MF.EditRequest_MailDialog_ClickSend();
 	MF.EditRequest_OpenLogs();
 	SF.click(By.xpath('//span[@ng-show="!allLogsShow[allLogsIndex]"]'));
-	driver.wait(driver.findElement(By.xpath('//table[@class="sticky-enabled"]/tbody/tr[2]/td[3]')).getText().then(function (text) {
-		V.SendClient = text;
-		VD.IWant(VD.ToEqual, V.SendClient ,V.SelectLevelinAdmin+'$','не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
+	driver.wait(driver.findElement(By.xpath('//b[contains(text(),"Your valuation charge")]')).getText().then(function (text) {
+		text = SF.cleanPrice(text.substring(text.indexOf('$')));
+		VD.IWant(VD.ToEqual, text ,V.SelectLevelinAdmin,'не совпад valuation charge в модалке реквеста и письме');
 	}), config.timeout);
 	driver.wait(driver.findElement(By.xpath('//th[contains(text(), "Full Value Protection Amount of Liability: 15000$")]')).getText().then(function (number) {
-		V.SendClientAmountOfLiabylyti = number;
-		V.SendClientAmountOfLiabylyti = SF.cleanPrice(number);
-		VD.IWant(VD.ToEqual, V.SendClientAmountOfLiabylyti ,V.AmountOfLiabylytiforleter,'не совпала страховка после добавления инвентаря на аккаунте и на мувборде');
+		number = SF.cleanPrice(number);
+		VD.IWant(VD.ToEqual, number ,V.AmountOfLiabylytiforleter,'не совпал amount of liability в модалке реквеста и письме');
 	}), config.timeout);
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
@@ -170,12 +154,10 @@ condition.nowWeDoing = 'идем на аккаунт букать работу,�
 	MF.Account_Click60centPerPound();
 	MF.Account_ClickProceedBookYourMove();
 	driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="charge in calculatedValuations track by $index"]/span')).getText().then(function (text) {
-		V.ConfPage60cent=text;
-		VD.IWant(VD.NotToEqual, 0, V.ConfPage60cent,'обнулился Valuation Charge, а не должен был');
+		VD.IWant(VD.NotToEqual, 0, text,'обнулился Valuation Charge, а не должен был');
 	}), config.timeout);
 	driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="charge in calculatedValuations track by $index"][2]/span')).getText().then(function (text) {
-		V.ConfPage60cent1=text;
-		VD.IWant(VD.NotToEqual, 0, V.ConfPage60cent1,'обнулился Valuation Charge, а не должен был');
+		VD.IWant(VD.NotToEqual, 0, text,'обнулился Valuation Charge, а не должен был');
 	}), config.timeout);
 	MF.Account_ConfirmationBackToRequest();
 	MF.Account_ChangeAmountOfLiability(15000);
@@ -183,7 +165,6 @@ condition.nowWeDoing = 'идем на аккаунт букать работу,�
 	MF.Account_ClickProceedBookYourMove();
 	JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]/h2/span')).getText().then(function (text) {
-		V.SelectLevelinConfPage = text;
 		V.SelectLevelinConfPage = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.SelectLevelinAdmin ,V.SelectLevelinConfPage,'не совпал выбраный deductible level на админке и на конфирмейшн пэйдж');
 	}), config.timeout);
@@ -206,15 +187,11 @@ condition.nowWeDoing = 'выходим из аккаунта, идем на ад
 	V.boardAfterConfirmed = {};
 	LF.RememberDigitsRequestBoard(V.boardAfterConfirmed);
 	LF.Validation_Compare_Account_Admin(V.accountNumbersAfterConfirmed,V.boardAfterConfirmed);
-	V.ValuationSales= {};
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]')).getText().then(function (text) {
-		V.ValuationSales = text;
 		V.ValuationSales = SF.cleanPrice(text.substring(text.indexOf('$')));
 	}), config.timeout);
 	MF.EditRequest_CloseConfirmWork();
-	V.ValuationClosing= {};
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="invoice.request_all_data.valuation.selected.valuation_charge && invoice.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]')).getText().then(function (text) {
-		V.ValuationClosing = text;
 		V.ValuationClosing = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.ValuationSales ,V.ValuationClosing,'не совпали Valuation на Sales и Closing');
 	}), config.timeout);
