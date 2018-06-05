@@ -1919,6 +1919,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		}
 		SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
 		SF.sleep(3);
+		MF.WaitWhileBusy();
 	}
 
 	function addAdditionalInventoryBoard(boardNumbers) {

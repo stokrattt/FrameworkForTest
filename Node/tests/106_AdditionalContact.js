@@ -31,6 +31,7 @@ condition.nowWeDoing = 'создаем адишенал контакт';
     MF.Account_ClickUpdateClientInModalWindow();
     MF.WaitWhileBusySymbol();
     MF.WaitWhileToaster();
+    MF.WaitWhileBusy();
     MF.EditRequest_OpenRequest();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);

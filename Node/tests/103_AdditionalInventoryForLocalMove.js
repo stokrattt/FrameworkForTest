@@ -71,7 +71,7 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     SF.sleep(8);
     SF.click(By.xpath('//button[@ng-click="openAdditionalInventory()"]'));
     JS.waitForExist('div[class=\"inventory__toolbar\"]');
-    SF.sleep(4);
+    SF.sleep(7);
 
 condition.nowWeDoing = 'тут после добавления адишинал инвентаря и кастомного айтема мы закрыли модалку с инвентарем и опять октрыли для сравнения что все что добавили осталось на месте';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Items:")]/span[@ng-bind="total.count"]')).getText().then(function (text) {
