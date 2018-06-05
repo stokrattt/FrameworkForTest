@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/32_AllMovingWithStorage.js'];
+    config.suite = ['./tests/SetReservationPrice.js'];
     config.chainFail = false;
     config.browser = 'chrome';
     config.timeout = 55000;

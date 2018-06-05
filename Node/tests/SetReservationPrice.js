@@ -11,7 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.waitForVisible (By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
     SF.click (By.xpath('//a[@ui-sref="settings.schedule"]'));
     SF.waitForVisible (By.xpath('//a[@ui-sref="settings.schedule"]'));
-    SF.sleep(3);
+    SF.sleep(7);
 
     SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'));
     SF.send (By.xpath('//input[@ng-model="vm.scheduleSettings.localReservationRate"]'), 150);
