@@ -1494,8 +1494,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		};
 		EditRequestPayroll_RememberManager(managerName, boardNumbers.Payroll.managerForCommission);
 		SF.sleep(2);
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.forCommission),
-			Math.floor(boardNumbers.Total
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.managerForCommission.forCommission),
+			Math.round(boardNumbers.Total
 				- boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips - contractNumbers.CreditCardPercentSumm),
 			'Не совпал ForCommission менеджера');
 
@@ -1508,27 +1508,27 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.sleep(2);
 		MF.EditRequest_PayrollGetForemansTotal(boardNumbers.Payroll.foremanForCommission);
 
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
-			Math.floor(boardNumbers.Tips / boardNumbers.CrewSize),
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.Tips.forCommission),
+			Math.round(boardNumbers.Tips / boardNumbers.CrewSize),
 			'Не совпал Tips формена');
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices.forCommission),
-			Math.floor(boardNumbers.AdServices),
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.AdServices.forCommission),
+			Math.round(boardNumbers.AdServices),
 			'Не совпал Extras формена');
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing.forCommission),
-			Math.floor(boardNumbers.Packing),
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.Packing.forCommission),
+			Math.round(boardNumbers.Packing),
 			'Не совпал Packing формена');
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.fromTotal.forCommission),
-			Math.floor(boardNumbers.Total
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.fromTotal.forCommission),
+			Math.round(boardNumbers.Total
 				- boardNumbers.AdServices - boardNumbers.Packing - boardNumbers.Fuel - boardNumbers.Valuation - boardNumbers.Tips - contractNumbers.CreditCardPercentSumm),
 			'Не совпал FromTotal формена');
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Daily.forCommission),
-			Math.floor(10),
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.Daily.forCommission),
+			Math.round(10),
 			'Не совпал Daily формена');
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Hourly.percent),
-			Math.floor(10),
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.Hourly.percent),
+			Math.round(10),
 			'Не совпал Hourly формена');
-		// VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
-		//     Math.floor(10),
+		// VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.Bonus.percent),
+		//     Math.round(10),
 		//     'Не совпал Bonus формена');
 		MF.EditRequest_PayrollOpenHelperTab();
 		driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'helper\'); calcWorkerTotal(\'foremanAsHelper\'); calcWorkerTotal(\'driver\');"]')).getText().then(function (text) {
@@ -1548,7 +1548,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			boardNumbers.Payroll.managerForCommission.office = SF.cleanPrice(text);
 		}), config.timeout);
 		SF.sleep(1);
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.managerForCommission.office), 5000, 'Не совпал ForCommission менеджера');
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.managerForCommission.office), 5000, 'Не совпал ForCommission менеджера');
 
 		driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'salesPerson\')"]')).getText().then(function (text) {
 			boardNumbers.Payroll.managerForCommission.total = SF.cleanPrice(text);
@@ -1561,8 +1561,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
 		}), config.timeout);
 		SF.sleep(1);
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
-			Math.floor(boardNumbers.AdServices),
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.AdServices),
+			Math.round(boardNumbers.AdServices),
 			'Не совпал Extras формена');
 
 		driver.wait(driver.executeScript('return ' +
@@ -1571,8 +1571,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
 		}), config.timeout);
 		SF.sleep(1);
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
-			Math.floor(boardNumbers.Packing),
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.Packing),
+			Math.round(boardNumbers.Packing),
 			'Не совпал Packing формена');
 
 		driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
@@ -1600,8 +1600,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			boardNumbers.Payroll.foremanForCommission.AdServices = SF.cleanPrice(text);
 		}), config.timeout);
 		SF.sleep(1);
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.AdServices),
-			Math.floor(boardNumbers.AdServices),
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.AdServices),
+			Math.round(boardNumbers.AdServices),
 			'Не совпал Extras формена');
 
 		driver.wait(driver.executeScript('return ' +
@@ -1610,8 +1610,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			boardNumbers.Payroll.foremanForCommission.Packing = SF.cleanPrice(text);
 		}), config.timeout);
 		SF.sleep(1);
-		VD.IWant(VD.ToEqual, Math.floor(boardNumbers.Payroll.foremanForCommission.Packing),
-			Math.floor(boardNumbers.Packing),
+		VD.IWant(VD.ToEqual, Math.round(boardNumbers.Payroll.foremanForCommission.Packing),
+			Math.round(boardNumbers.Packing),
 			'Не совпал Packing формена');
 
 		driver.wait(driver.findElement(By.xpath('//label[@ng-init="calcWorkerTotal(\'foreman\')"]')).getText().then(function (text) {
