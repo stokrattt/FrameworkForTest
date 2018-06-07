@@ -72,7 +72,7 @@ condition.nowWeDoing = 'идем в аккаунт, и на конфирмеиш
     SF.waitForLocated(By.xpath('//button[@ng-click="goToConfirmation()"]'));
     SF.click (By.xpath('//button[@ng-click="goToConfirmation()"]'));
     SF.openTab(1);
-    SF.waitForVisible(By.xpath('//h1[contains(text(),"Confirmation Page")]'));
+    SF.waitForVisible(By.xpath('//font[contains(text(),"CONFIRMATION PAGE")]'));
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Extra Drop-off")]')).getText().then(function(text){
         V.extraDropOffConf = text;
         VD.IWant(VD.ToEqual, V.extraDropOffAcc , text, 'нет ектра дроп офф на конфирмеишен');
