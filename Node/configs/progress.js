@@ -1,7 +1,7 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/1_AllLocalMoving.js'];
-    config.chainFail = false;
+    config.suite = ['./tests/37_PendingStorage.js'];
+    config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 55000;
     // V.frontURL = 'http://test1.stage.themoveboard.com:81/front_site/';

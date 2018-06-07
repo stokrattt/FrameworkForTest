@@ -819,7 +819,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     //===================================CONTRACT===================================
 
     function Contract_WaitConfirmationPage() {
-        JS.waitForExist('h1:contains("Confirmation Page"):visible');
+        JS.waitForExist('font:contains("CONFIRMATION PAGE"):visible');
     }
 
     function Contract_WaitBillOfLading() {
