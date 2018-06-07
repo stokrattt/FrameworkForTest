@@ -77,6 +77,7 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     MF.Board_OpenStatistic ();
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//chart-statistic-tab[@ng-if="vm.request_daily"]//p[@class="no-margins"]')).getText().then(function(text) {
         V.SalesBookedSalesPageTableAssignToday = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.SalesAssignToday, V.SalesBookedSalesPageTableAssignToday,'не совпало кол-во ассаинутых работ за Today с оунерпеидж и салеспеидж в верхней табличке Assign');

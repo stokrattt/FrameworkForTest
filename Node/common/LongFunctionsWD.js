@@ -2562,6 +2562,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.send(By.xpath('//textarea[@ng-model="expense.notes"]'), notes);
         SF.click(By.xpath('//button[@ng-click="saveExpense()"]'));
         MF.SweetConfirm ();
+        MF.WaitWhileBusy ();
         MF.SweetConfirm ();
         MF.WaitWhileBusy ();
     }

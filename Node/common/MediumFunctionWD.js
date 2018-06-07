@@ -573,12 +573,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     //==============================ACCOUNT=======================================
 
     function Account_SubmitFlatRateAfterAddInventory() {
-	    SF.sleep(2);
+	    SF.sleep(3);
         JS.scroll ('#conf_send,#conf_block :visible');
-        SF.sleep (5);
+        SF.sleep(5);
         SF.click (By.xpath('//button[@ng-click="submitFlatRate()"]'));
         JS.waitForExist('button.confirm:contains("OK")');
-        SF.sleep (2);
+        SF.sleep(2);
         SF.click(By.xpath('//button[@class="confirm"][contains(text(),"OK")]'));
     }
     function Account_Refresh() {
@@ -650,6 +650,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Account_WaitForGreenTextAfterConfirm() {
         SF.waitForVisible(By.xpath('//div[contains(text(),"Your move is confirmed and scheduled")]'));
+        WaitWhileBusy();
     }
     function Account_ClickViewConfirmationPage() {
         SF.click(By.xpath('//a[contains(text(),"View confirmation page")]'));

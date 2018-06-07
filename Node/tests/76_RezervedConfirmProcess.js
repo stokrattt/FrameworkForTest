@@ -55,7 +55,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу п�
     LF.MakeSignJS('signatureCanvasReserv');
     SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
     MF.Account_WaitForGreenTextAfterConfirm();
-    SF.sleep(2);
+    SF.sleep(3);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
