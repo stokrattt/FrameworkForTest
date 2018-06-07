@@ -45,6 +45,7 @@ condition.nowWeDoing = 'создаем мувинг сторадж, пендин
     MF.Account_ClickFromStorage ();
     V.accountNumbersFrom = {};
     LF.RememberAccountNumbers (V.accountNumbersFrom);
+    MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From пендинг на аккаунте');
     }),config.timeout);
@@ -192,6 +193,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     SF.openTab (1);
     SF.sleep(1);
     MF.Account_Refresh ();
+    MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To confirmed на аккаунте');
     }),config.timeout);

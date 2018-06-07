@@ -84,10 +84,11 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     }),config.timeout);
     JS.scroll("a[ng-click=\"vm.Logout()\"]");
     MF.Account_ClickProceedBookYourMove();
-    SF.sleep(2);
+    SF.sleep(3);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
     }),config.timeout);
+    Debug.pause();
     MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
     SF.sleep(1);
@@ -136,6 +137,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     SF.openTab (1);
     SF.sleep(1);
     MF.Account_Refresh ();
+    MF.WaitWhileBusy();
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга confirmed на аккаунте');
     }),config.timeout);

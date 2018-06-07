@@ -268,6 +268,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'statistics.byrole\', \'\')"]'));
         SF.click(By.xpath('//a[@ui-sref="statistics.reviews"]'));
         SF.sleep(3);
+        WaitWhileBusy();
     }
 
     function Board_OpenNotConfirmed() {
