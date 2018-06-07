@@ -575,7 +575,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Account_SubmitFlatRateAfterAddInventory() {
 	    SF.sleep(2);
         JS.scroll ('#conf_send,#conf_block :visible');
-        SF.sleep (2);
+        SF.sleep (5);
         SF.click (By.xpath('//button[@ng-click="submitFlatRate()"]'));
         JS.waitForExist('button.confirm:contains("OK")');
         SF.sleep (2);
@@ -665,6 +665,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function Account_WaitForInventoryCheck() {
         SF.waitForVisible(By.xpath('//li[@id="tab_Inventory"]//i[@class="icon-check"]'));
+        WaitWhileBusy();
     }
 
     function Account_WaitForDetailsCheck() {
@@ -672,6 +673,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Account_ClickFromStorage() {
+        WaitWhileBusy();
         SF.click(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
         SF.sleep(2);
         WaitWhileBusy ();
@@ -775,7 +777,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="saveDetails()"]'));
         driver.executeScript("$('body').scrollTop(0);");
-        SF.sleep(2);
+        SF.sleep(4);
     }
     function Account_SelectParking() {
         SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");

@@ -1943,6 +1943,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		}
 		SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
 		SF.sleep(2);
+		MF.WaitWhileBusy();
 	}
 
 	function RememberStorageNumbers(storageNumbers) {

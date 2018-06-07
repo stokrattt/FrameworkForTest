@@ -24,6 +24,7 @@ condition.nowWeDoing = 'открываем статистику и провер�
     MF.Board_OpenStatistic ();
     MF.WaitWhileBusy();
     MF.WaitWhileBusy();
+    MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[@class="statistics-conversions"][3]')).getText().then(function(text) {
         V.Confirmedinperiod = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.Confirmedinperiod, V.ConfBoard,'не совпал Common stat и работы из дашборда');
@@ -40,7 +41,7 @@ condition.nowWeDoing = 'открываем статистику и провер�
         V.SerType = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.SerType, V.Confirmedinperiod,'не совпал Service Type и Common stat');
     }),config.timeout);
-
+Debug.pause();
 condition.nowWeDoing = 'запоминаем кол-во Amount и Booked, и ассаин за тудэй у сеилса Эмилия';
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "emilia clark")]/following-sibling::td[1]')).getText().then(function (text) {
         V.SalesAmount = SF.cleanPrice(text);

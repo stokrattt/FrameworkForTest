@@ -32,6 +32,7 @@ condition.nowWeDoing = 'первый раз в админке,сверяю то�
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
+    Debug.pause();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     V.managerFirstName = 'emilia';
