@@ -512,6 +512,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 
 	function LogoutFromAccount() {
 		JS.scroll("a[ng-click=\"vm.Logout()\"]");
+		SF.sleep(1);
 		SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
 		SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
 		SF.sleep(2);
