@@ -140,7 +140,7 @@ condition.nowWeDoing = 'идем на мувборд, проверяем наш 
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, text ,V.SelectLevelinAdmin,'не совпад valuation charge в модалке реквеста и письме');
 	}), config.timeout);
-	driver.wait(driver.findElement(By.xpath('//th[contains(text(), "Full Value Protection Amount of Liability: 15000$")]')).getText().then(function (number) {
+	driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Full Value Protection Amount of Liability: 15000$")]')).getText().then(function (number) {
 		number = SF.cleanPrice(number);
 		VD.IWant(VD.ToEqual, number ,V.AmountOfLiabylytiforleter,'не совпал amount of liability в модалке реквеста и письме');
 	}), config.timeout);
