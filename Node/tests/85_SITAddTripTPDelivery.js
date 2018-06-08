@@ -189,7 +189,7 @@ condition.nowWeDoing = 'Создаем TP Delivery, заполняем поля 
     V.tpToReceive = V.tpTotalJob - V.tpPayment - V.orderBalance;
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.to_receive"]'));
-    SF.sleep(5);
+    SF.sleep(7);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.cleanTpToReceive = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали 1');

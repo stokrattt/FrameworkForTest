@@ -143,8 +143,9 @@ condition.nowWeDoing = 'открываем инвенторий, через по
 condition.nowWeDoing = 'тут открываем в новой вкладке аккаунт и конфирмейшн с реквеста и проверяем там кубик фиты что все правильно потом проверяем тоже самое и в табличке нижней' +
         'и на конфирмейшине это проверяем';
     SF.click(By.xpath('//a[@ng-click="goTo()"]'));
-    SF.sleep(8);
+    SF.sleep(4);
     SF.openTab(1);
+    SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//span[contains(text()," Total Estimated: ")]/span')).getText().then(function (text) {
         V.InvTotalAccountDownTableAfterAddCustomItem = SF.cleanPrice(text.substring(0, text.indexOf('c')));
         VD.IWant(VD.ToEqual, V.InvTotalAccountDownTableAfterAddCustomItem, V.boardNumbersCubFit1+200, 'не совпал тотал кубик фит с реквеста и на аккаунте в нижней табличке поссле кастомного айтема');

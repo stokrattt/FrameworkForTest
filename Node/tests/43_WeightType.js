@@ -40,6 +40,7 @@ condition.nowWeDoing = 'идем в аккаунт и проверяем что 
     V.accountNumbersDefault = {};
     LF.RememberAccountNumbers (V.accountNumbersDefault);
     LF.Validation_Compare_Account_Admin (V.accountNumbersDefault, V.boardNumbersDefault2);
+    Debug.pause();
     driver.close();
     SF.openTab (0);
     SF.sleep (1);

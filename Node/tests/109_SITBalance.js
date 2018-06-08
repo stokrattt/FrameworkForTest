@@ -42,6 +42,7 @@ condition.nowWeDoing = 'добавляем адишенал, типсы, дел�
     SF.clear(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
     SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'),200);
     MF.EditRequest_ClickApplyInFuelWindow();
+    SF.sleep(5); //софт тупит
     V.boardNumbersClosingTab1 = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingTab1);
     // MF.EditRequest_SaveChangesClosingTab();
@@ -100,7 +101,7 @@ condition.nowWeDoing = 'идем в SIT создаем трип, добавля�
     MF.WaitWhileBusy();
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
     JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.sleep(6);
+    SF.sleep(8);
     MF.SIT_RefreshJobsInTrip();
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openDialog(item)"]/following-sibling::div[@class="big-form__jobs-list__body__item"][5]')).getText().then(function (text) {
         V.TripBalance1 = SF.cleanPrice(text);

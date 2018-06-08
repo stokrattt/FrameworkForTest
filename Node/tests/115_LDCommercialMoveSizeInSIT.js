@@ -124,8 +124,10 @@ condition.nowWeDoing = 'Возвращаемся на дашборд. Сверя
     MF.EditRequest_OpenFuelSurchModal();
     MF.EditRequest_SendFlatSurchargeInFuelWindow(222);
     MF.EditRequest_ClickApplyInFuelWindow();
+    SF.sleep(8); //soft тупит
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
+    SF.sleep(8); //soft тупит
     LF.EditRequest_AddPacking();
     V.boardNumbersBeforeSITSales = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersBeforeSITSales);
@@ -219,7 +221,7 @@ condition.nowWeDoing = 'Открываем реквест в Trip-Planner. Ме�
 condition.nowWeDoing = 'Добавляем реквест в трип. Проверямем, что Discount, Fuel, Packing и AdServices не изменились после добавления работы в трип. Проверяем, что баланс реквеста равен 0.';
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
     JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.sleep(5);
+    SF.sleep(9);
     MF.SIT_RefreshJobsInTrip();
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
     MF.EditRequest_WaitForBalanceVisible();
@@ -288,7 +290,7 @@ condition.nowWeDoing = 'Открываем реквест, заходим в Pay
     SF.click(By.xpath('//span[@ng-if="receipt.transaction_id == \'Custom Payment\'"]'));
     SF.click(By.xpath('//a[@ng-click="removeReceipt()"]'));
     MF.SweetConfirm();
-    SF.sleep (3);
+    SF.sleep (5);
     MF.WaitWhileBusy ();
     SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
     SF.sleep (1);

@@ -43,28 +43,28 @@ condition.nowWeDoing = 'первый раз в аккаунте';
 condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.Board_OpenSettingsDepartment();
-    MF.WaitWhileBusy ();
-    MF.Department_OpenHuman ("Test Admin");
-    MF.WaitWhileBusy ();
-    MF.Department_OpenNotificationTab();
-    driver.wait(driver.executeScript("if($('md-switch[ng-repeat=\"selectAllNotification in selectAllNotifications track by $index\"]').hasClass('md-checked')){" +
-        "return true;}else{$('md-switch[ng-repeat=\"selectAllNotification in selectAllNotifications track by $index\"]').click()}"),config.timeout);
-    SF.sleep(2);
-    MF.Department_SaveUser();
+    // MF.Board_OpenSettingsDepartment();
+    // MF.WaitWhileBusy ();
+    // MF.Department_OpenHuman ("Test Admin");
+    // MF.WaitWhileBusy ();
+    // MF.Department_OpenNotificationTab();
+    // driver.wait(driver.executeScript("if($('md-switch[ng-repeat=\"selectAllNotification in selectAllNotifications track by $index\"]').hasClass('md-checked')){" +
+    //     "return true;}else{$('md-switch[ng-repeat=\"selectAllNotification in selectAllNotifications track by $index\"]').click()}"),config.timeout);
+    // SF.sleep(2);
+    // MF.Department_SaveUser();
     MF.Board_OpenSideBar ();
     MF.Board_OpenDashboard();
-    MF.WaitWhileToaster ();
-    SF.click (By.xpath('//li[@ng-if="!vm.userRoleIs.foreman && vm.isDesktop && !vm.userRoleIs.home_estimator"]//div[@class="elromco-notifications"]'));
-    JS.waitForExist('button[ng-click=\\"checkAll()\\"]:visible');
-    JS.click ('button[ng-click=\\"checkAll()\\"]:visible');
-    SF.sleep(5);
-    SF.click (By.xpath('//button[@ng-click="openFilters = !openFilters"]'));
-    JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
-    driver.wait(driver.executeScript("if($('md-switch[ng-change=\"turnAllNotifications()\"]').hasClass('md-checked')){" +
-        "return true;}else{$('md-switch[ng-change=\"turnAllNotifications()\"]').click()}"),config.timeout);
-    SF.sleep(2);
-    SF.click (By.xpath('//li[@ng-if="!vm.userRoleIs.foreman && vm.isDesktop && !vm.userRoleIs.home_estimator"]//div[@class="elromco-notifications"]'));
+    // MF.WaitWhileToaster ();
+    // SF.click (By.xpath('//li[@ng-if="!vm.userRoleIs.foreman && vm.isDesktop && !vm.userRoleIs.home_estimator"]//div[@class="elromco-notifications"]'));
+    // JS.waitForExist('button[ng-click=\\"checkAll()\\"]:visible');
+    // JS.click ('button[ng-click=\\"checkAll()\\"]:visible');
+    // SF.sleep(5);
+    // SF.click (By.xpath('//button[@ng-click="openFilters = !openFilters"]'));
+    // JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
+    // driver.wait(driver.executeScript("if($('md-switch[ng-change=\"turnAllNotifications()\"]').hasClass('md-checked')){" +
+    //     "return true;}else{$('md-switch[ng-change=\"turnAllNotifications()\"]').click()}"),config.timeout);
+    // SF.sleep(2);
+    // SF.click (By.xpath('//li[@ng-if="!vm.userRoleIs.foreman && vm.isDesktop && !vm.userRoleIs.home_estimator"]//div[@class="elromco-notifications"]'));
     MF.Board_OpenRequest(V.accountNumbers.Id);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -255,25 +255,25 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
 	VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
     SF.sleep(2);
-    SF.click (By.xpath('//li[@ng-if="!vm.userRoleIs.foreman && vm.isDesktop && !vm.userRoleIs.home_estimator"]//div[@class="elromco-notifications"]'));
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
-        'following-sibling::div[contains(text(),"User has viewed their account page")]')).getText().then(function(text){
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
-        'following-sibling::div[contains(text(),"User has viewed the confirmation page")]')).getText().then(function(text){
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
-        'following-sibling::div[contains(text(),"Request #'+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
-        'following-sibling::div[contains(text(),"Reservation received")]')).getText().then(function(text){
-    }),config.timeout);
-    SF.click (By.xpath('//button[@ng-click="checkAll()"]'));
-    SF.sleep(5);
-    SF.click (By.xpath('//button[@ng-click="openFilters = !openFilters"]'));
-    JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
-    SF.click (By.xpath('//md-switch[@ng-change="turnAllNotifications()"]'));
-    SF.sleep(1);
-    SF.click (By.xpath('//li[@ng-if="!vm.userRoleIs.foreman && vm.isDesktop && !vm.userRoleIs.home_estimator"]//div[@class="elromco-notifications"]'));
+    // SF.click (By.xpath('//li[@ng-if="!vm.userRoleIs.foreman && vm.isDesktop && !vm.userRoleIs.home_estimator"]//div[@class="elromco-notifications"]'));
+    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
+    //     'following-sibling::div[contains(text(),"User has viewed their account page")]')).getText().then(function(text){
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
+    //     'following-sibling::div[contains(text(),"User has viewed the confirmation page")]')).getText().then(function(text){
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
+    //     'following-sibling::div[contains(text(),"Request #'+V.accountNumbers.Id+' status was changed to  Confirmed")]')).getText().then(function(text){
+    // }),config.timeout);
+    // driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+V.client.name+'")]/' +
+    //     'following-sibling::div[contains(text(),"Reservation received")]')).getText().then(function(text){
+    // }),config.timeout);
+    // SF.click (By.xpath('//button[@ng-click="checkAll()"]'));
+    // SF.sleep(5);
+    // SF.click (By.xpath('//button[@ng-click="openFilters = !openFilters"]'));
+    // JS.waitForExist ('md-switch[ng-change=\\"turnAllNotifications()\\"]:visible');
+    // SF.click (By.xpath('//md-switch[@ng-change="turnAllNotifications()"]'));
+    // SF.sleep(1);
+    // SF.click (By.xpath('//li[@ng-if="!vm.userRoleIs.foreman && vm.isDesktop && !vm.userRoleIs.home_estimator"]//div[@class="elromco-notifications"]'));
     SF.endOfTest();
 };

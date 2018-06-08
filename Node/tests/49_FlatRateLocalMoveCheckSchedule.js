@@ -32,6 +32,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenSettings ();
     LF.SetManager('JackSales');
     LF.closeEditRequest ();
+    MF.WaitWhileToaster();
     MF.Board_LogoutAdmin();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);

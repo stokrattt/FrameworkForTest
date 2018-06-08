@@ -77,6 +77,7 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 	MF.Account_ClickUpdateClientInModalWindow();
 	MF.SweetConfirm();
 	MF.SweetConfirm();
+	MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[6]')).getText().then(function (text) {
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, text ,V.SelectLevel,'не совпали Valuation выбранный на реквесте и на аккаунте');
@@ -92,10 +93,12 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed', 'должен быть нот конферм статус');
 	}), config.timeout);
 	MF.Account_ClickProceedBookYourMove();
+	MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table table"]/tbody/tr[2]/td[4]/span')).getText().then(function (text) {
 			text = SF.cleanPrice(text.substring(text.indexOf('$')));
 			VD.IWant(VD.ToEqual, V.ValuationChargeinAccount2 ,text ,'не совпали Valuation выбранный во второй раз на аккаунте и в таблице на конфирмейшн пэйдж');
 		}), config.timeout);
+	Debug.pause();
     //driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table"]/tbody/tr[3]/td[4]/span')).getText().then(function (text) {
         //console.log(text);
         //VD.IWant(VD.ToEqual, V.ValuationChargeinAccount2 + V.boardNumbers.QuoteMin - V.ValuationChargeinAccount2 + V.boardNumbers.QuoteMax ,text ,'не совпали Valuation выбранный во второй раз на аккаунте и в таблице на конфирмейшн пэйдж');

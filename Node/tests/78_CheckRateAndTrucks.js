@@ -46,7 +46,7 @@ condition.nowWeDoing = 'тут мы сделаем пакинг дей с рек
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest (V.boardNumbers.Id);
     SF.click(By.xpath('//i[@ng-click="unbindPackingDay()"]'));
-    SF.sleep(3);
+    SF.sleep(5);
     MF.WaitWhileToaster();
     driver.wait(driver.executeScript("return $('span[ng-click=\"openBindingRequest(request.request_all_data.packing_request_id)\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отвязался пакинг реквест с родительского на мувборде');

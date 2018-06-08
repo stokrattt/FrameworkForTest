@@ -725,7 +725,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_WaitForLoadingAccount() {
         SF.waitForLocated (By.xpath('//div[@class="Move Overview"]'));
-        SF.sleep (2);
+        SF.sleep (3);
     }
     function Account_ViewPackingRequest() {
         SF.click(By.xpath('//a[@ng-click="vm.goToNewRequest(vm.request.request_all_data.packing_request_id)"]'));
@@ -804,6 +804,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_ClickSaveFullValueModal() {
         SF.click(By.xpath('//button[@ng-click="clickSave()"]'));
+        WaitWhileBusy();
     }
     function Account_ConfirmationClickPayDeposit() {
         SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
@@ -1552,7 +1553,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_ClickSaveInventory() {
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(2);
+        SF.sleep(3);
+        WaitWhileBusy();
     }
     function EditRequest_ClickHomeEstimateDate() {
         SF.click (By.xpath('//input[@ng-click="opentDatePicker()"]'));
@@ -1581,7 +1583,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_ClickApplyInFuelWindow() {
         SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-        SF.sleep(4);
+        SF.sleep(5);
         WaitWhileToaster();
     }
     function EditRequest_OpenMinPriceWindow() {
