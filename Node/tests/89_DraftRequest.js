@@ -8,9 +8,31 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until, FileDet
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
+
+condition.nowWeDoing = 'идем в настройки контракта и меняем тайтл для локал мува, чтобы потом проверить что он (тайтл) добавлен на аккаунте';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenSettingsGeneral ();
+    MF.Board_OpenSettingsAccountPageAccountTopText();
+    V.RandomTextTitleForAccount = SF.randomBukva(6) + '_title';
+    SF.click(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][1]/input'));
+    SF.clear(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][1]/input'));
+    SF.send(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][1]/input'), V.RandomTextTitleForAccount);
+    SF.click(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][2]/input'));
+    SF.sleep(3);
+    MF.WaitWhileToaster();
+
+condition.nowWeDoing = 'создаем драфт реквест и  сразу открываем в новой вкладке аккаунт проверить что есть наш тайтл что мы добавили';
     MF.Board_CreateDraftRequest();
+    SF.click(By.xpath('//a[@ng-click="goTo()"]'));
+    SF.sleep(4);
+    SF.openTab(1);
+    SF.sleep(5);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "service-type-title")]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, (V.RandomTextTitleForAccount).toUpperCase(), 'не нашло на аккаунте тайтл который мы добавили, статус реквеста пендинг');
+    }),config.timeout);
+    driver.close();
+    SF.openTab(0);
     MF.EditRequest_OpenClient();
     LF.SendClientInfoForDraftRequest(V.client);
     LF.SetClientPasswd(V.client.passwd);
@@ -46,16 +68,107 @@ condition.nowWeDoing = 'тут меняем этажи и проверяем ч�
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_CloseEditRequest();
     MF.Board_LogoutAdmin();
+
+condition.nowWeDoing = 'идем на аккаунт сверять все чилса с админкой и  проверить тайтл на нот конферм работе';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.boardNumbers.Id);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest();
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "service-type-title")]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, (V.RandomTextTitleForAccount).toUpperCase(), 'не нашло на аккаунте тайтл который мы добавили, статус реквеста not confirm');
+    }),config.timeout);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbersChangeStairsTo);
     LF.ConfirmRequestInAccount_WithReservation();
     MF.Account_WaitForGreenTextAfterConfirm();
+    driver.wait(driver.findElement(By.xpath('//div[contains(@class, "service-type-title")]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, (V.RandomTextTitleForAccount).toUpperCase(), 'не нашло на аккаунте тайтл который мы добавили, статус реквеста confirm');
+    }),config.timeout);
+    SF.sleep(1);
+    LF.LogoutFromAccount();
+
+condition.nowWeDoing = 'второй раз в админке, добаавим платеж и сделаем его пендинг или тот который был за резервацию, а потом откроем контракт и проверим чтобы он там не учитывался';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenConfirmed();
+    MF.Board_OpenRequest(V.boardNumbers.Id);
+    MF.EditRequest_OpenPaymentModalWindow();
+    SF.click(By.xpath('//input[@ng-click="changePending(receipt)"]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total")]')).getText().then(function(text){
+        V.cleanTotal = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, '0', V.cleanTotal, 'тотал после включения галочки pending должен бить 0');
+    }),config.timeout);
+    MF.EditRequest_ClosePayment();
+    driver.wait(driver.findElement(By.xpath('//label[@ng-click="OpenPaymentModal();"]/following-sibling::div')).getText().then(function(text){
+        V.cleanPayment = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.cleanPayment, '0', 'Payment в модалке реквеста после включения галочки pending должен бить 0');
+    }),config.timeout);
+    MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_OpenContractCloseJob();
+    SF.openTab (1);
+    SF.sleep (3);
+    MF.SweetConfirm();
+    MF.Contract_OpenBillOfLading();
+    MF.Contract_WaitBillOfLading ();
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="finance.deposit == 0 || !finance.deposit "]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 0, 'не сработала галочка пендинг возле платежа за резервацию, потому что должно быть ноль на контракте');
+    }),config.timeout);
+    driver.close();
+    SF.openTab(0);
+    MF.EditRequest_OpenConfirmWork();
+    MF.EditRequest_OpenPaymentModalWindow();
+    SF.click(By.xpath('//a[@ng-click="addAuthPayment()"]'));
+    SF.waitForLocated (By.xpath('//button[@ng-click="goStepTwo();"]'));
+    SF.send(By.xpath('//input[@ng-model="charge_value.value"]'), 500);
+    SF.click (By.xpath('//button[@ng-click="goStepTwo();"]'));
+    SF.click(By.xpath('//div[@ng-click="choosePayment(option.name);"]/p[contains(text(), "forTestNotDelete")]'));
+    SF.sleep(2);
+    SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+    MF.EditRequest_ClosePayment();
+    MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_OpenContractCloseJob();
+    SF.openTab (1);
+    SF.sleep (3);
+    MF.SweetConfirm();
+    MF.Contract_OpenBillOfLading();
+    MF.Contract_WaitBillOfLading ();
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="finance.deposit != 0 && finance.deposit "]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), -500, 'оплата в реквесте была кастомным онлайн платежом, но он не отобразился на контракте');
+    }),config.timeout);
+    driver.close();
+    SF.openTab(0);
+    MF.EditRequest_OpenConfirmWork();
+    MF.EditRequest_OpenPaymentModalWindow();
+    SF.click(By.xpath('//span[@ng-if="receipt.transaction_id != \'Custom Payment\'"]'));
+    SF.sleep(0.5);
+    SF.click(By.xpath('//a[@ng-click="removeReceipt()"]'));
+    MF.SweetConfirm();
+    SF.sleep(4);
+    SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
+    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+    SF.click(By.xpath('//input[@ng-click="changePending(receipt)"]'));
+    MF.EditRequest_ClosePayment();
+    LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
+    VD.IWant(VD.ToEqual, V.boardNumbers.Payment, 150, 'выключили галочку пендинг и удалили кастомный онлайн платеж, но что то не сработало раз первая переменная тут не  150, должно быть 150');
+    MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_OpenContractCloseJob();
+    SF.openTab (1);
+    SF.sleep (3);
+    MF.SweetConfirm();
+    MF.Contract_OpenBillOfLading();
+    MF.Contract_WaitBillOfLading ();
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="finance.deposit != 0 && finance.deposit "]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), -150, 'быыл удален кастомный онлайн паймент (500) и выключена галочка пендинг, ' +
+            'после этого на контракте долно быть 150 дол за резервацию, если видите эту ошибку значит что то не то. Или не сработала галочка пендинг или платеж не удалился');
+    }),config.timeout);
+    SF.sleep(1);
+
+
+
+
 
     //=========================закончили писать тест=============================
     SF.endOfTest();

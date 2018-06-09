@@ -53,6 +53,7 @@ condition.nowWeDoing = 'Проверяем пэймент в пэндинге. �
         VD.IWant(VD.ToEqual, V.cleanPayment, V.cashPayment, 'не совпали Payment в модалке реквеста до включения галочки pending');
     }),config.timeout);
     MF.EditRequest_OpenPaymentModalWindow();
+    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total")]')).getText().then(function(text){
         V.cleanTotal = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTotal, V.cashPayment, 'не совпали Payment и тотал в модалке реквеста до включения галочки pending');

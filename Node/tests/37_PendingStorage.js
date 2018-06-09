@@ -88,7 +88,11 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     JS.click('button[ng-click=\\"saveFile();logClickButtons(\\\'Save Images button clicked\\\')\\"]');
     SF.sleep(5);
 
-condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт';
+condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт и проверяем орижин блок';
+    LF.Contract_CheckOriginBlockNameZip('02032', V.client.name, V.client.fam);
+    driver.wait(driver.executeScript("return $('div[class=\"moving-storage-addr\"] img').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 1, 'не нашло картинку moving to storage в  блоке дестинейшн на контракте на');
+    }),config.timeout);
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         // VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
@@ -157,12 +161,16 @@ condition.nowWeDoing = 'валидация инвентаря на контра�
     SF.sleep(1);
     MF.SweetConfirm();
 
-condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
+condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт и  проверяем destination блок';
     SF.waitForVisible(By.xpath('//local-moves[@id="main-contract"]//div[@class="empty-signature"]'));
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
         VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
         VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }), config.timeout);
+    LF.Contract_CheckDestinationBlockNameZip('02136', V.client.name, V.client.fam);
+    driver.wait(driver.executeScript("return $('div[class=\"moving-storage-addr\"] img').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 1, 'не нашло картинку moving from storage в  блоке origin на контракте ');
+    }),config.timeout);
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();

@@ -7,10 +7,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.frontURL);
-    condition.nowWeDoing = 'заполняем калькулятор верхний';
+
+condition.nowWeDoing = 'заполняем калькулятор верхний';
     LF.FullSmallCalcAsLocal(V.client);
 
-    condition.nowWeDoing = 'первый раз в аккаунте';
+condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     MF.Account_ClickPartialPacking();
     LF.AccountLocalEnterAddress();
@@ -24,10 +25,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     // LF.addToCleanerJob(V.accountNumbers.Id);
-
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'первый раз в админке';
+condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbers.Id);
@@ -61,7 +61,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
+condition.nowWeDoing = 'второй раз в аккаунте, конфёрмим';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
@@ -84,7 +84,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.Account_CheckSignature();
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'второй раз в админке, локал диспатч';
+condition.nowWeDoing = 'второй раз в админке, локал диспатч';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
@@ -109,7 +109,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'заходим под форменом, открываем контракт';
+condition.nowWeDoing = 'заходим под форменом, открываем контракт';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
@@ -144,7 +144,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
-    condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
+condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -161,12 +161,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
-    condition.nowWeDoing = 'сейчас идём в пейролл';
+condition.nowWeDoing = 'сейчас идём в пейролл';
     MF.Board_OpenPayroll();
     LF.selectDateInPayroll(V.boardNumbers.moveDate);
     LF.findTestForemanInPayroll(V.foremanName);
 
-    condition.nowWeDoing = 'выбираем цифры формена';
+condition.nowWeDoing = 'выбираем цифры формена';
     V.payrollNumbers = {
         Foreman:{}, Sale:{}
     };
@@ -175,7 +175,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 		'id=' + V.boardNumbers.Id);
     MF.Payroll_ClickAllDepartment();
 
-    condition.nowWeDoing = 'выбираем цифры менеджера';
+condition.nowWeDoing = 'выбираем цифры менеджера';
     LF.findSaleInPayroll(V.managerName);
 	MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +

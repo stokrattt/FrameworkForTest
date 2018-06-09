@@ -22,6 +22,7 @@ module.exports = function(config,V) {
         './tests/60_Excludes.js',
         './tests/62_MovingCustomBlock.js',
         './tests/63_MovingStorageCustomBlock.js',
+        './tests/DefaultSettings.js',
         './tests/64_LoadingHelpCustomBlock.js',
         './tests/65_StorageEmailTemplate.js',
         './tests/66_ProfitAndLoss.js',

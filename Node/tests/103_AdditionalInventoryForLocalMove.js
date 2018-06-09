@@ -294,30 +294,14 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
         'id=' + V.boardNumbers.Id);
     SF.sleep(1);
 
-    condition.nowWeDoing = 'идем в паймент колектед, выбираем фильтр за день оплаты, то есть сегодняшинй, адвансед фильтр берем контракт и применяем фильтр' +
+condition.nowWeDoing = 'идем в паймент колектед, выбираем фильтр за день оплаты, то есть сегодняшинй, адвансед фильтр берем контракт и применяем фильтр' +
         'проверяем что есть две оплаты по стораджу и по контракту';
     MF.Board_OpenSideBar();
     MF.Board_OpenPaymentCollected();
-    let now = new Date();
-    let options = {month: 'short', day: '2-digit', year: 'numeric'};
-    V.dateStart = (now.toLocaleDateString('en-US', options));
-    V.dateEnd = (now.toLocaleDateString('en-US', options));
-    SF.clear(By.xpath('//md-datepicker[@ng-model="$ctrl.date.from"]/div/input'));
-    SF.send(By.xpath('//md-datepicker[@ng-model="$ctrl.date.from"]/div/input'), V.dateStart);
-    SF.sleep(1);
-    SF.clear(By.xpath('//md-datepicker[@ng-model="$ctrl.date.to"]/div/input'));
-    SF.send(By.xpath('//md-datepicker[@ng-model="$ctrl.date.to"]/div/input'), V.dateEnd);
-    SF.sleep(2);
-
-    SF.click(By.xpath('//md-select[@ng-model="$ctrl.advancedChoosedFilters"]'));
-    SF.sleep(0.5);
-    SF.click(By.xpath('//div[contains(text(), "Contract")]'));
-    SF.click(By.xpath('//button[@ng-click="$ctrl.applyFilters()"]'));
-    MF.WaitWhileBusy();
-    SF.click(By.xpath('//span[@sorting-arrows="$ctrl.column.entity_id"]'));
-    MF.WaitWhileBusy();
-    SF.click(By.xpath('//span[@sorting-arrows="$ctrl.column.entity_id"]'));
-    MF.WaitWhileBusy();
+    LF.PaymentCollected_ChooseCurrentDateStartEnd();
+    MF.PaymentCollected_ChooseAdvancedFilter('Contract');
+    MF.PaymentCollected_ClickApplyFilters();
+    MF.PaymentCollected_SortByDESC();
 
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Contract', 'не нашло слово контракт после платежа этим реквестом на контракте кешем или не нашло этот платеж');
@@ -336,11 +320,8 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     }),config.timeout);
 
 condition.nowWeDoing = 'выбираем фильтр кеш и контракт и смотрим что есть два платежа по нашему реквесту';
-    SF.click(By.xpath('//md-select[@ng-model="$ctrl.pickUpPaymentFilters"]'));
-    SF.sleep(0.5);
-    SF.click(By.xpath('//div[contains(text(), "Cash")]'));
-    SF.click(By.xpath('//button[@ng-click="$ctrl.applyFilters()"]'));
-    MF.WaitWhileBusy();
+    MF.PaymentCollected_ChoosePaymentFilter('Cash');
+    MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, V.boardNumbers.Id, 'не нашло рекквеста оплатой  кешем при таких фильтрах как кеш и контракт');
     }),config.timeout);
@@ -349,11 +330,8 @@ condition.nowWeDoing = 'выбираем фильтр кеш и контракт
     }),config.timeout);
 
 condition.nowWeDoing = 'выбираем фильтр кеш и сторадж тенант и там должен быть один наш платеж за первый месяц сторадажа который мы оплатили на странице рентал агримент';
-    SF.click(By.xpath('//md-select[@ng-model="$ctrl.advancedChoosedFilters"]'));
-    SF.sleep(0.5);
-    SF.click(By.xpath('//div[contains(text(), "Storage Tenant")]'));
-    SF.click(By.xpath('//button[@ng-click="$ctrl.applyFilters()"]'));
-    MF.WaitWhileBusy();
+    MF.PaymentCollected_ChooseAdvancedFilter('Storage Tenant');
+    MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.storageId +'")]/following-sibling::td[6]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers.prepaid, 'не нашло оплату за первый месяц по стораджу, то что мы полатили за торадж агримент. Фильтра выставлены - кеш и сторадж тенант');
     }),config.timeout);

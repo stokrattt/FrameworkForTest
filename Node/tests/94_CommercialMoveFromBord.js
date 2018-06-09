@@ -137,7 +137,52 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
+
+condition.nowWeDoing = 'тут проверяем блок орижин и блок дестинейшн, наличие зип кодов и имя кастомера';
+    LF.Contract_CheckOriginBlockNameZip('02032', V.client.name, V.client.fam);
+    LF.Contract_CheckDestinationBlockNameZip('02136', V.client.name, V.client.fam);
     LF.MakeSignInContract();
+
+condition.nowWeDoing = 'добавляем разных пакингови and екстра сервисов и запоминаем числа чтобы потом сравнить на админке';
+    LF.AddPackingOnContract();
+
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][1]/td[4]')).getText().then(function (text) {
+        V.totalPackingSmallBox = text;
+        VD.IWant(VD.NotToEqual, V.totalPackingSmallBox, '$ 0.00', 'не добавился пекинг на контракте small box');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][2]/td[4]')).getText().then(function (text) {
+        V.totalPackingMiddiumBox = text;
+        VD.IWant(VD.NotToEqual, V.totalPackingMiddiumBox, '$ 0.00', 'не добавился пекинг на контракте Middium Box');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][6]/td[4]')).getText().then(function (text) {
+        V.totalPackingKingBag = text;
+        VD.IWant(VD.NotToEqual, V.totalPackingKingBag, '$ 0.00', 'не добавился пекинг на контракте King Mattress Bag');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][9]/td[4]')).getText().then(function (text) {
+        V.totalPackingCustomPacking = text;
+        VD.IWant(VD.NotToEqual, V.totalPackingCustomPacking, '$ 0.00', 'не добавился пекинг на контракте Custom Packing');
+        VD.IWant(VD.ToEqual, SF.cleanPrice(V.totalPackingCustomPacking), 5*10, 'не правильно посчитался кастомный пакинг на контракте Custom Packing, было добавлено 5 штук по цене 10 дол за штуку');
+    }),config.timeout);
+    SF.sleep(1);
+    V.totalPacking = SF.cleanPrice(V.totalPackingSmallBox)+SF.cleanPrice(V.totalPackingMiddiumBox)+SF.cleanPrice(V.totalPackingKingBag)+SF.cleanPrice(V.totalPackingCustomPacking);
+
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddPackingBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw != \'7\' && request.service_type.raw != \'5\'"]/following-sibling::td')).getText().then(function (text) {
+        V.totalPackingContract = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.totalPackingContract, V.totalPacking, 'не правильно посчитался общий тотал для пакингов на контракте');
+    }),config.timeout);
+
+    SF.click(By.xpath('//a[@ng-click="showAdditionalServicesRef.show = !showAdditionalServicesRef.show"]'));
+    SF.sleep(0.3);
+    SF.click(By.xpath('//div[@ng-show="showAdditionalServicesRef.show"]//li[3]'));
+    SF.sleep(0.3);
+    SF.clear(By.xpath('//tr[@ng-repeat="service in additionalServices track by $index"]//input[@ng-model="service.extra_services[0].services_default_value"]'));
+    SF.send(By.xpath('//tr[@ng-repeat="service in additionalServices track by $index"]//input[@ng-model="service.extra_services[0].services_default_value"]'), 125);
+    SF.sleep(2);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddServicesBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw != \'7\' && request.service_type.raw != \'5\'"]/following-sibling::td')).getText().then(function (text) {
+        V.totalAddServices = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.totalAddServices, 125, 'не добавился адишинал сервис на контракте');
+    }),config.timeout);
+
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
@@ -163,7 +208,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
-condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
+condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл в  реквесте, кубик фиты, рейт чтобы не поменялся а также что пакинги и ад сервисы что мы добавили на контракте есть в реквесте на табе клозинг';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -173,6 +218,11 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     MF.EditRequest_WaitForBalanceVisible();
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
+    driver.wait(driver.executeScript("return $('speedy-inventory-icon[speedy-field=\"request.field_speedy_id\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 1, 'не нашло спиди значок на конферм работе');
+    }),config.timeout);
+    VD.IWant(VD.ToEqual, V.boardNumbers.Packing, V.totalPackingContract, 'пакинг добавленный на контракте не отобразился или не совпадает с реквестом на клозинге');
+    VD.IWant(VD.ToEqual, V.boardNumbers.AdServices, V.totalAddServices, 'additional services добавленный на контракте не отобразился или не совпадает с реквестом на клозинге');
     driver.wait(driver.findElement(By.xpath('//span[contains(text(),"c.f.")]/preceding-sibling::span[1]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, '1000', 'после подписания контракта в реквесте поменялся кубик фит зачем то')
     }),config.timeout);

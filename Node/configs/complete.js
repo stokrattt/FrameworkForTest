@@ -64,7 +64,6 @@ module.exports = function(config,V) {
         './tests/60_Excludes.js',
 
         './tests/62_MovingCustomBlock.js',
-        './tests/63_MovingStorageCustomBlock.js',
         // './tests/64_LoadingHelpCustomBlock.js',
         './tests/65_StorageEmailTemplate.js',
         './tests/66_ProfitAndLoss.js',
@@ -98,6 +97,7 @@ module.exports = function(config,V) {
         './tests/94_CommercialMoveFromBord.js',
         './tests/27_Receipt.js',
         './tests/89_DraftRequest.js',
+        './tests/63_MovingStorageCustomBlock.js',
         './tests/DefaultSettings.js',
         './tests/103_AdditionalInventoryForLocalMove.js',
         './tests/96_CommercialMoveFromFront.js',

@@ -58,7 +58,7 @@ condition.nowWeDoing='Включаем только Local,Loading,Unloading,Long
     if (!V.CompanyServices.Flat) {console.log('вкл Flat');SF.click(By.xpath(V.flatSelector+'/..'));}
     SF.sleep(1);
     if (V.CompanyServices.Long) {console.log('выкл Long');SF.click(By.xpath(V.longSelector+'/..'));}
-    JS.scroll ('div:contains("General Settings")');
+    JS.scroll ('h1:contains("General Settings")');
     SF.sleep(5);
     MF.Board_Refresh ();
     MF.Board_LogoutAdmin();

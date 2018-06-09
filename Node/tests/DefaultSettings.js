@@ -42,6 +42,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.lessInitialContract\"]').hasClass('ng-empty')){" +
         "return true;}else{$('input[ng-model=\"contract_page.lessInitialContract\"]').click()}"),config.timeout);
     SF.sleep(0.5);
+    driver.wait(driver.executeScript("if ($('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').hasClass('ng-not-empty')){" +
+        "return true;} else {$('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
     SF.click (By.xpath('//button[@ng-click="save()"]'));
     SF.sleep (5); //сохранялка
 

@@ -131,6 +131,14 @@ condition.nowWeDoing = 'заполняем опции 2';
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
     LF.closeEditRequest ();
+
+condition.nowWeDoing = 'закрыли реквест и пошли на табу нот конферм проверить что там появился наш реквест, так как у него статус wait  option и  он должен быть на табе нот конферм';
+    MF.Board_OpenNotConfirmed();
+    MF.Board_RefreshDashboard();
+    driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.FRId + '")]/../td[2]/span')).getText().then(function (text) {
+        VD.IWant (VD.ToEqual, text, 'Flat Rate (Wait Option)', 'реквест не появился на табе нот конферм а должен был, потому что у него статус должен быть Flaat Rate(wait option)');
+    }),config.timeout);
+    Debug.pause();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
 
@@ -217,12 +225,51 @@ condition.nowWeDoing = 'идем в акк под клиентом 2 раз бу
     SF.get (V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-condition.nowWeDoing = 'идем в админку проверять что работа конферм';
+condition.nowWeDoing = 'идем в админку проверять что работа конферм, перейдемна табу клозинг и добавим всяких пекиншов и екстра сервисов, закроем и откроем работу проверим что все сохранилось' +
+    'потом откроем контракт в новой вкладке и проверим что там тоже все есть - пекинги и екстра сервисы';
     MF.Board_OpenConfirmed ();
     MF.Board_OpenRequest (V.FRId);
+    MF.EditRequest_CloseConfirmWork();
+    LF.EditRequest_AddSpecialPackingClosingTab();
+    LF.EditRequest_AddAdditionalServClosingTab();
+    driver.wait(driver.executeScript('return $(\'div.PackingCost:visible\').text()').then(function (text) {
+        V.ClosingPacking = SF.cleanPrice(text.substring(text.indexOf('$')));
+    }), config.timeout);
+    driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
+        V.ClosingAdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
+    }), config.timeout);
     LF.closeEditRequest ();
+    MF.Board_RefreshDashboard();
+    MF.Board_OpenRequest (V.FRId);
+    MF.EditRequest_CloseConfirmWork();
+    LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
+    VD.IWant(VD.ToEqual, V.boardNumbers.Packing, V.ClosingPacking, 'не совпал пекинг после того как мы добавили пакинг на клозинге закрыли реквест и открыли для проверки');
+    VD.IWant(VD.ToEqual, V.boardNumbers.AdServices, V.ClosingAdServices, 'не совпал AdServices после того как мы добавили AdServices на клозинге закрыли реквест и открыли для проверки');
+    SF.sleep(1.5);
+    MF.EditRequest_OpenContractCloseJob();
+    SF.openTab (1);
+    SF.sleep (3);
+    MF.SweetConfirm();
+    MF.Contract_OpenBillOfLading();
+    LF.Contract_CheckOriginBlockNameZip('02461', V.client.name, V.client.fam);
+    LF.Contract_CheckDestinationBlockNameZip('07304', V.client.name, V.client.fam);
+    driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = totalFlatRateClosing()"]/following-sibling::td')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers.Total, 'не показался полный тотал на флет рейт на контракте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddPackingBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw == \'7\' || request.service_type.raw == \'5\'"]/following-sibling::td')).getText().then(function (text) {
+        V.totalPackingContract = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.totalPackingContract, V.ClosingPacking, 'на контракте не появился пекинг который мы добавили в реквесте на табе клозинг или не совпала сумма');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddServicesBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw == \'7\' || request.service_type.raw == \'5\'"]/following-sibling::td')).getText().then(function (text) {
+        V.totalAddServices = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.totalAddServices, V.ClosingAdServices, 'на контракте не появился адишинал сервис который мы добавили в реквесте на табе клозинг или не совпала сумма');
+    }),config.timeout);
+    driver.close();
+    SF.openTab(0);
+    LF.closeEditRequest();
+
+condition.nowWeDoing = 'идем в календарь проверять что трак есть на календаре';
     MF.Board_OpenSchedule ();
-    condition.nowWeDoing = 'идем в календарь проверять что трак есть на календаре';
     driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){
         V.current = date;
          now = new Date();

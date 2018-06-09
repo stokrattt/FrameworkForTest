@@ -183,7 +183,7 @@ condition.nowWeDoing = 'заходим в аккаунт для мувинг с�
 
 condition.nowWeDoing = 'первое сравнение мувинг стораджа From просто нечего не меняя в акке ';
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfrom);
-
+Debug.pause();
 condition.nowWeDoing = 'мувинг сторадж from - меняем мув сайз и после него сравним, если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
     SF.select(By.xpath('//select[@field="request.move_size"]'), 9);
@@ -196,7 +196,7 @@ condition.nowWeDoing = 'мувинг сторадж from - меняем мув �
     V.accountNumbersMSfromChangeMoveSize = {};
     LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSize);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSize);
-
+    Debug.pause();
 condition.nowWeDoing= 'мувинг сторадж from - меняем зип код и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
     SF.click(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
@@ -210,7 +210,7 @@ condition.nowWeDoing= 'мувинг сторадж from - меняем зип к
     V.accountNumbersMSfromChangeMoveSizeChangeZip = {};
     LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSizeChangeZip);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSizeChangeZip);
-
+    Debug.pause();
 condition.nowWeDoing= 'мувинг сторадж from - меняем details и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_ClickDetails ();
     LF.AccountFR_SeelectOptions();
@@ -218,7 +218,7 @@ condition.nowWeDoing= 'мувинг сторадж from - меняем details �
     V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetails = {};
     LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetails);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetails);
-
+    Debug.pause();
 condition.nowWeDoing= 'мувинг сторадж from - добавляем инветорий и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     LF.AccountLocalAddAdditionalInventoryWhenCalcOff ();
     SF.sleep(3);

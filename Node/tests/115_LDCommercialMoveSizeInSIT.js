@@ -40,6 +40,7 @@ condition.nowWeDoing = 'Добавляем инвентарь, меняем Fuel
     MF.EditRequest_OpenFuelSurchModal();
     MF.EditRequest_SendFlatSurchargeInFuelWindow(213);
     MF.EditRequest_ClickApplyInFuelWindow();
+    SF.sleep(3);
     MF.EditRequest_ChangeStairsFrom(3);
     MF.EditRequest_SetAdressToFrom ();
     V.boardNumbers = {};
@@ -269,7 +270,7 @@ condition.nowWeDoing = 'Открываем Closing трипа, открывае�
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.waitForVisible(By.xpath('//div[@class="jobs-trip-list__body__item"][contains(text(),"test")]'));
     SF.click(By.xpath('//button[@ng-click="back()"]'));
-    SF.sleep(2);
+    SF.sleep(6);
 
 condition.nowWeDoing = 'Идём на табу Trip Details, проверяем, что суммы в колонках TP collected и Shipping Balance пересчитались в соответствии с новым TP collected.';
     JS.click('span:contains(\\"Trip details\\")');

@@ -48,6 +48,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//div[@class="sweet-alert showSweetAlert visible"]'));
         SF.click(By.xpath('//button[@class="confirm"]'));
     }
+    function ContractSettings_OpenConfirmationPageTitleSettings() {
+        SF.click(By.xpath('//button[@ng-click="confirmationPageTitlesModal()"]'));
+        SF.waitForLocated(By.xpath('//div[@active="activeTab"]'));
+    }
+
     //================================MAIL.RU  and Gmail=======================================
 
     function MailRu_CheckEmailExistBySubject(subject){
@@ -331,6 +336,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][5]'));
         SF.sleep(2);
     }
+    function Board_OpenSettingsAccountPageAccountTopText() {
+        SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
+        SF.sleep(3);
+        SF.click(By.xpath('//li[@ng-repeat="menu in vm.menu"][12]'));
+        SF.sleep(2);
+    }
     function Board_OpenSettingsAccountPageCustomTooltips() {
         SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
         SF.sleep(3);
@@ -382,6 +393,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
         SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
         Board_OpenSideBar();
+        JS.scroll ('h1:contains("General Settings")');
+        SF.sleep(0.5);
         SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[7]'));
         SF.waitForVisible(By.xpath('//h2[contains(text(),"Contract Settings")]'));
         SF.sleep(1);
@@ -746,6 +759,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(3);
         SweetConfirm();
         SF.sleep(2);
+        WaitWhileBusy();
     }
     function Account_OpenEditModal() {
         SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));
@@ -1742,6 +1756,15 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_OpenFullValueProtection (){
         SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
     }
+    function EditRequest_OpenSettingsAccountPage() {
+        SF.click(By.xpath('//a[contains(text(), "  Account page")]'));
+        SF.sleep(0.5);
+    }
+    function EditRequest_SaveAccountPageSettings() {
+        SF.sleep(0.5);
+        SF.click(By.xpath('//button[@ng-click="saveComments()"]'));
+        WaitWhileToaster();
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -1931,6 +1954,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SweetConfirm();
         SF.sleep(2);
         WaitWhileBusy ();
+        WaitWhileToaster();
     }
     function Department_CreateUser() {
         SF.click(By.xpath('//button[@ng-click="submitted=true; create(createUserRequest)"]'));
@@ -2227,10 +2251,28 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
     }
 
-    //==============================REMAINDERS===========================================//
+    //==============================Payment collected===========================================//
 
-
-
+    function PaymentCollected_ClickApplyFilters() {
+        SF.click(By.xpath('//button[@ng-click="$ctrl.applyFilters()"]'));
+        WaitWhileBusy();
+    }
+    function PaymentCollected_ChooseAdvancedFilter(nameFilter) {
+        SF.click(By.xpath('//md-select[@ng-model="$ctrl.advancedChoosedFilters"]'));
+        SF.sleep(0.5);
+        SF.click(By.xpath('//div[contains(text(), "'+nameFilter+'")]'));
+    }
+    function PaymentCollected_SortByDESC() {
+        SF.click(By.xpath('//span[@sorting-arrows="$ctrl.column.entity_id"]'));
+        WaitWhileBusy();
+        SF.click(By.xpath('//span[@sorting-arrows="$ctrl.column.entity_id"]'));
+        WaitWhileBusy();
+    }
+    function PaymentCollected_ChoosePaymentFilter(nameFilter) {
+        SF.click(By.xpath('//md-select[@ng-model="$ctrl.pickUpPaymentFilters"]'));
+        SF.sleep(0.5);
+        SF.click(By.xpath('//div[contains(text(), "'+nameFilter+'")]'));
+    }
 
     //==================================TRIPS============================================
 
@@ -2246,6 +2288,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         BoardAccount_SendMessage: BoardAccount_SendMessage,
         WaitWhileBusySymbol:WaitWhileBusySymbol,
         ConfirmCalculatorOff:ConfirmCalculatorOff,
+        ContractSettings_OpenConfirmationPageTitleSettings:ContractSettings_OpenConfirmationPageTitleSettings,
+
         //==================================MAIL.RU and GMAIL=========================================
 
 		MailRu_CheckEmailExistBySubject:MailRu_CheckEmailExistBySubject,
@@ -2336,6 +2380,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenTripPlanner: Board_OpenTripPlanner,
         Board_OpenCarriersAndAgents: Board_OpenCarriersAndAgents,
         Board_OpenSettingsAccountPageCustomBlock: Board_OpenSettingsAccountPageCustomBlock,
+        Board_OpenSettingsAccountPageAccountTopText:Board_OpenSettingsAccountPageAccountTopText,
         Board_OpenSettingsAccountPageCustomTooltips:Board_OpenSettingsAccountPageCustomTooltips,
         Board_OpenSettingsAccountPageFlatRate: Board_OpenSettingsAccountPageFlatRate,
         Board_OpenSettingsContract:Board_OpenSettingsContract,
@@ -2593,6 +2638,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ClickSaveValuation:EditRequest_ClickSaveValuation,
         EditRequest_SendAmountOfLiability:EditRequest_SendAmountOfLiability,
         EditRequest_OpenFullValueProtection : EditRequest_OpenFullValueProtection,
+        EditRequest_OpenSettingsAccountPage:EditRequest_OpenSettingsAccountPage,
+        EditRequest_SaveAccountPageSettings:EditRequest_SaveAccountPageSettings,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
@@ -2692,7 +2739,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         FrontSiteSmallCalc_ClickNeedStorageCheckbox:FrontSiteSmallCalc_ClickNeedStorageCheckbox,
         FrontSiteSmallCalc_SelectServiceType:FrontSiteSmallCalc_SelectServiceType,
 		HomeEstimate_Logout:HomeEstimate_Logout,
-        //====================================TRIPS==========================================
+        //====================================Payment collected==========================================
 
+        PaymentCollected_ClickApplyFilters:PaymentCollected_ClickApplyFilters,
+        PaymentCollected_ChooseAdvancedFilter:PaymentCollected_ChooseAdvancedFilter,
+        PaymentCollected_SortByDESC:PaymentCollected_SortByDESC,
+        PaymentCollected_ChoosePaymentFilter:PaymentCollected_ChoosePaymentFilter,
     };
 };

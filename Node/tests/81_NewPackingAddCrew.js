@@ -32,7 +32,6 @@ condition.nowWeDoing = 'первый раз в админке,сверяю то�
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
-    Debug.pause();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     V.managerFirstName = 'emilia';
@@ -85,8 +84,6 @@ condition.nowWeDoing = 'второй раз в аккаунте,проверяю
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
     SF.sleep(1);
-    console.log(V.BoxMed);
-
     V.boxCostAc = V.boardNumbers.Packing - 888;
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
     LF.ConfirmRequestInAccount_WithReservation();
@@ -94,13 +91,37 @@ condition.nowWeDoing = 'второй раз в аккаунте,проверяю
     LF.Account_CheckSignature();
     LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'второй раз в админке, локал диспатч, назначаю Add Crew';
+condition.nowWeDoing = 'второй раз в админке, локал диспатч, назначаю Add Crew добаавляем пакинг на клозинге и адишинал сервисы, закроем и откроем реквест и проверим что все сохранилось';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
-    LF.SelectRequestDispatch(V.accountNumbers.Id);
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    MF.EditRequest_WaitForBalanceVisible();
+    driver.wait(driver.executeScript("return $('speedy-inventory-icon[speedy-field=\"request.field_speedy_id\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 1, 'не нашло спиди значок на конферм работе');
+    }),config.timeout);
+    LF.EditRequest_AddSpecialPackingClosingTab();
+    LF.EditRequest_AddAdditionalServClosingTab();
+    driver.wait(driver.executeScript('return $(\'div.PackingCost:visible\').text()').then(function (text) {
+        V.ClosingPacking = SF.cleanPrice(text.substring(text.indexOf('$')));
+    }), config.timeout);
+    driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
+        V.ClosingAdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
+    }), config.timeout);
+    LF.closeEditRequest();
+    LF.OpenRequestDispatch(V.accountNumbers.Id);
+    SF.sleep(2);
+    driver.wait(driver.executeScript('return $(\'div.PackingCost:visible\').text()').then(function (text) {
+        V.ClosingPackingAfterReopenRequest = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.ClosingPacking, V.ClosingPackingAfterReopenRequest, 'не совпал пекинг после того как мы добавили пакинг на клозинге закрыли реквест и открыли для проверки')
+    }), config.timeout);
+    driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
+        V.ClosingAdServicesAfterReopenRequest = SF.cleanPrice(text.substring(text.indexOf('$')));
+        VD.IWant(VD.ToEqual, V.ClosingAdServices, V.ClosingAdServicesAfterReopenRequest, 'не совпал AdServices после того как мы добавили AdServices на клозинге закрыли реквест и открыли для проверки')
+    }), config.timeout);
+    LF.closeEditRequest();
     V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
     MF.Dispach_ClickAddCrew();
@@ -123,13 +144,13 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     JS.waitForNotExist('div.toast-message:visible');
     MF.Board_LogoutAdmin();
 
-condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, и сумму коробок в бил оф лендинг ';
+condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, чтоо там не стало больше чем нужно, и сумму коробок в бил оф лендинг и то что екстра сервисы и пекинг который добавлен на клозинге есть на BOL';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.accountNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Custom Packing:")]')).getText().then(function(text){
         V.BoxCust2 = text;
-        VD.IWant(VD.ToEqual, V.BoxCust, V.BoxCust2, 'не совпали коробки');
+        VD.IWant(VD.ToEqual, V.BoxCust, V.BoxCust2, 'не совпали коробки сумма их не совпала');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Small Box:")]')).getText().then(function(text){
         V.BoxSm2 = text;
@@ -143,8 +164,21 @@ condition.nowWeDoing = 'заходим под форменом,проверяе�
         V.BoxMed2 = text;
         VD.IWant(VD.ToEqual, V.BoxMed, V.BoxMed2, 'не совпали коробки');
     }),config.timeout);
+    driver.wait(driver.executeScript("return $('div[ng-repeat=\"packing in vm.packings\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 4, 'на конфирмешине добавился пакинг который мы добавили на клозинге в реквесте, а не должен был');
+    }),config.timeout);
     MF.Contract_OpenBillOfLading();
     LF.MakeSignInContract();
+
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddPackingBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw != \'7\' && request.service_type.raw != \'5\'"]/following-sibling::td')).getText().then(function (text) {
+        V.totalPackingContract = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.totalPackingContract, V.ClosingPacking, 'на контракте не появился пекинг который мы добавили в реквесте на табе клозинг или не совпала сумма');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddServicesBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw != \'7\' && request.service_type.raw != \'5\'"]/following-sibling::td')).getText().then(function (text) {
+        V.totalAddServices = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.totalAddServices, V.ClosingAdServices, 'на контракте не появился адишинал сервис который мы добавили в реквесте на табе клозинг или не совпала сумма');
+    }),config.timeout);
+
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
@@ -158,10 +192,6 @@ condition.nowWeDoing = 'заходим под форменом,проверяе�
     driver.wait(driver.findElement(By.xpath('//th[contains(text(),"CREW 2")]/following-sibling::td[3]')).getText().then(function(text){
         V.RateContr = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.RateCrew, V.RateContr, 'Rate не совпадает');
-    }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//local-moves[@id="main-contract"]//p[contains(text(),"total packing charges")]/../following-sibling::td')).getText().then(function(text){
-        V.PackingContract = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.PackingContract, V.boxCostAc, 'Не совпали суммы коробок аккаунт и контракт');
     }),config.timeout);
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
@@ -186,6 +216,17 @@ condition.nowWeDoing = 'тут оставляем коменты на контр
     MF.Contract_Submit(V.contractNumbers);
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
+
+condition.nowWeDoing = 'возвращаемся в мувборд, и проверим что в реквесте на табе клозинг все осталось на своих местах и что баланс равен нулю и что пекинги и екстра сервисы есть';
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenConfirmed();
+    MF.Board_OpenRequest(V.accountNumbers.Id);
+    MF.EditRequest_WaitForBalanceVisible();
+    LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
+    MF.EditRequest_ScrollDown();
+    VD.IWant(VD.ToEqual, V.boardNumbers.Packing, V.totalPackingContract, 'пакинг добавленный на контракте не отобразился или не совпадает с реквестом на клозинге');
+    VD.IWant(VD.ToEqual, V.boardNumbers.AdServices, V.totalAddServices, 'additional services добавленный на контракте не отобразился или не совпадает с реквестом на клозинге');
+    SF.sleep(1.5);
 
     SF.endOfTest();
     };

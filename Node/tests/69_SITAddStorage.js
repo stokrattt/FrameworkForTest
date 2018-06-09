@@ -9,6 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
     V.client.zipFrom = '02222';
     V.client.zipTo = '90001';
+    V.boardNumbers = {};
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
@@ -102,6 +103,7 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
 
 condition.nowWeDoing = 'Создаем Long Distance работу';
     LF.CreateLongDistanceFromBoard(V.client);
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
     MF.EditRequest_SetToConfirmed();
 
 condition.nowWeDoing = 'Проверяем есть ли сторадж в реквести в SIT';
@@ -118,6 +120,34 @@ condition.nowWeDoing = 'Проверяем есть ли сторадж в ре�
     SF.waitForVisible (By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//option[text()="'+ V.storage2.name +'"]'));
+    SF.click(By.xpath('//a[@ng-click="save()"]'));
+    MF.EditRequest_OpenClient();
+    LF.SetClientPasswd(V.client.passwd);
+
+condition.nowWeDoing = 'заходим в настройки аккаунта в реквесте и выключаем галку для смены инвентаря на конферм работе';
+    MF.EditRequest_OpenSettings();
+    MF.EditRequest_OpenSettingsAccountPage();
+    driver.wait(driver.executeScript("if($('input[ng-model=\"localInventoryDetails\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[ng-model=\"localInventoryDetails\"] ~span').click()}"),config.timeout);
+    MF.EditRequest_SaveAccountPageSettings();
+    LF.closeEditRequest();
+    MF.Board_LogoutAdmin();
+
+condition.nowWeDoing = 'идем в аккаунт проверять что детали и инвенторий заблокированы, если  тест упадет значит ошибка';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient(V.client);
+    MF.Account_OpenRequest(V.boardNumbers.Id);
+    MF.Account_ClickViewRequest();
+    driver.wait(driver.executeScript("return $('li[id=\"tab_Inventory\"]').hasClass('disabled')").then(function (text) {
+        VD.IWant(VD.ToEqual, text, true, 'на аккаунте после выключения настройки Allow a customer to make changes to the Inventory & Details when the job is confirmed инвенторий остался не заблокирован' +
+            'хотя должен быть заблокирован');
+    }),config.timeout);
+    driver.wait(driver.executeScript("return $('li[id=\"tab_Details\"]').hasClass('disabled')").then(function (text) {
+        VD.IWant(VD.ToEqual, text, true, 'на аккаунте после выключения настройки Allow a customer to make changes to the Inventory & Details when the job is confirmed Details остался не заблокирован' +
+            'хотя должен быть заблокирован');
+    }),config.timeout);
+    SF.sleep(1);
+
     SF.endOfTest();
 
 };

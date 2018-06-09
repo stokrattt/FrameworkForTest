@@ -245,6 +245,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
         SF.sleep(3);
+        MF.WaitWhileBusy();
         // MF.Account_ClickSaveInventory();
         // if (accountNumbers != undefined) {
         //     driver.wait(driver.executeScript('return $(\'div.inventory__toolbar-item:contains("Total Estimated Cubic Feet:")\').text()').then(
@@ -1919,7 +1920,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			}), config.timeout);
 		}
 		SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-		SF.sleep(3);
+		SF.sleep(4);
 		MF.WaitWhileBusy();
 	}
 
@@ -2686,6 +2687,21 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         MF.WaitWhileBusy ();
         SF.sleep (2);
     }
+
+    function EditRequest_AddSpecialPackingClosingTab() {
+        SF.click(By.xpath('//label[@ng-click="openAddPackingInvoiceModal();"]'));
+        SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][5]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][6]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][7]'));
+        SF.sleep (0.5);
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        MF.WaitWhileBusy ();
+        SF.sleep (2);
+    }
+
     function EditRequest_AddAdditionalServClosingTab() {
         SF.click(By.xpath('//label[@ng-click="openAddServicesInvoiceModal();"]'));
         SF.waitForVisible (By.id('extra-service-modal'));
@@ -2693,6 +2709,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
         SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
         SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[5]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[9]'));
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         MF.WaitWhileBusy ();
         SF.sleep (2);
@@ -2747,6 +2765,52 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][3]'));
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         MF.WaitWhileToaster();
+    }
+    function Contract_CheckOriginBlockNameZip(zipCode, clientName, clientFam) {
+        driver.wait(driver.findElement(By.xpath('//p[@ng-bind="$ctrl.data.name"]')).getText().then(function (text) {
+            VD.IWant(VD.ToEqual, text, 'ORIGIN', 'не нашло блок орижин на контракте');
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//trip-data[@data="contract_page.origin"]//span[@ng-bind="$ctrl.data.customerName"]/following-sibling::b')).getText().then(function (text) {
+            VD.IWant(VD.ToEqual, text, (clientName + ' '+ clientFam).toUpperCase(), 'не нашло в орижин на контракте имя кастомера');
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//trip-data[@data="contract_page.origin"]//span[@ng-bind="$ctrl.data.zip"]/following-sibling::b')).getText().then(function (text) {
+            VD.IWant(VD.ToEqual, text, zipCode, 'не нашло в орижин на контракте zip origin');
+        }),config.timeout);
+    }
+    function Contract_CheckDestinationBlockNameZip(zipCode, clientName, clientFam) {
+        driver.wait(driver.findElement(By.xpath('//trip-data[@data="contract_page.destination"]/p[@ng-bind="$ctrl.data.name"]')).getText().then(function (text) {
+            VD.IWant(VD.ToEqual, text, 'DESTINATION', 'не нашло блок destination на контракте');
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//trip-data[@data="contract_page.destination"]//span[@ng-bind="$ctrl.data.customerName"]/following-sibling::b')).getText().then(function (text) {
+            VD.IWant(VD.ToEqual, text, (clientName + ' '+ clientFam).toUpperCase(), 'не нашло в destination на контракте имя кастомера');
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//trip-data[@data="contract_page.destination"]//span[@ng-bind="$ctrl.data.zip"]/following-sibling::b')).getText().then(function (text) {
+            VD.IWant(VD.ToEqual, text, zipCode, 'не нашло в destination на контракте zip destination');
+        }),config.timeout);
+    }
+    function AddPackingOnContract() {
+        SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][1]//select[@ng-model="p.quantity"]'),5);
+        SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][2]//select[@ng-model="p.quantity"]'),5);
+        SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][6]//select[@ng-model="p.quantity"]'),5);
+        SF.click(By.xpath('//a[@ng-click="showPackingServicesRef.show = !showPackingServicesRef.show"]'));
+        SF.sleep(0.3);
+        SF.click(By.xpath('//li[@ng-click="addPacking()"]'));
+        SF.sleep(0.3);
+        SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][9]//select[@ng-model="p.quantity"]'),5);
+        SF.send(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][9]//input[@ng-model="p.rate"]'),10);
+        SF.sleep(0.5);
+    }
+    function PaymentCollected_ChooseCurrentDateStartEnd() {
+        let now = new Date();
+        let options = {month: 'short', day: '2-digit', year: 'numeric'};
+        V.dateStart = (now.toLocaleDateString('en-US', options));
+        V.dateEnd = (now.toLocaleDateString('en-US', options));
+        SF.clear(By.xpath('//md-datepicker[@ng-model="$ctrl.date.from"]/div/input'));
+        SF.send(By.xpath('//md-datepicker[@ng-model="$ctrl.date.from"]/div/input'), V.dateStart);
+        SF.sleep(1);
+        SF.clear(By.xpath('//md-datepicker[@ng-model="$ctrl.date.to"]/div/input'));
+        SF.send(By.xpath('//md-datepicker[@ng-model="$ctrl.date.to"]/div/input'), V.dateEnd);
+        SF.sleep(2);
     }
 
     return {
@@ -2908,13 +2972,17 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         EditRequest_AddAdditionalServicesFullPack: EditRequest_AddAdditionalServicesFullPack,
         EditRequest_AddValuation: EditRequest_AddValuation,
         EditRequest_AddPackingClosingTab:EditRequest_AddPackingClosingTab,
+        EditRequest_AddSpecialPackingClosingTab:EditRequest_AddSpecialPackingClosingTab,
         EditRequest_AddAdditionalServClosingTab:EditRequest_AddAdditionalServClosingTab,
         EditRequest_AddAdditionalServSalesTab:EditRequest_AddAdditionalServSalesTab,
         BoardRequestPage_SetStartEndDate:BoardRequestPage_SetStartEndDate,
         EditStorage_AddLotNumber: EditStorage_AddLotNumber,
         EditRequest_AddCustomCommersialMove:EditRequest_AddCustomCommersialMove,
         EditRequest_AddPAckingOnClosingTab:EditRequest_AddPAckingOnClosingTab,
-
+        Contract_CheckOriginBlockNameZip:Contract_CheckOriginBlockNameZip,
+        Contract_CheckDestinationBlockNameZip:Contract_CheckDestinationBlockNameZip,
+        AddPackingOnContract:AddPackingOnContract,
+        PaymentCollected_ChooseCurrentDateStartEnd:PaymentCollected_ChooseCurrentDateStartEnd
 
     };
 };
