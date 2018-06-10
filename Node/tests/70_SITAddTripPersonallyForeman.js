@@ -31,7 +31,31 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
     }),config.timeout);
     SF.sleep(1);
     LF.closeEditRequest ();
-    MF.Board_OpenSideBar ();
+
+condition.nowWeDoing = 'тут идем в настройки лонг дистанса и создадим driver expense and cash advanced';
+    V.driverExpense = SF.randomBukva(6) + '_driver';
+    V.cashWires = SF.randomBukva(6) + '_cash';
+    MF.Board_OpenSettingsGeneral ();
+    MF.Board_OpenSettingsLongDistance ();
+    SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][7]'));
+    SF.sleep(0.5);
+    SF.click(By.xpath('//button[@ng-click="data.addExpenses = true"]'));
+    SF.click(By.xpath('//input[@ng-model="newExpenses.amount"]'));
+    SF.send(By.xpath('//input[@ng-model="newExpenses.amount"]'), 20);
+    SF.click(By.xpath('//input[@ng-model="newExpenses.description"]'));
+    SF.send(By.xpath('//input[@ng-model="newExpenses.description"]'), V.driverExpense);
+    SF.click(By.xpath('//button[@ng-click="saveNewItem(\'expenses\', newExpenses)"]'));
+    SF.sleep(2);
+    SF.click(By.xpath('//a[contains(text(), "Cash Advanced and Wires")]'));
+
+    SF.sleep(0.5);
+    SF.click(By.xpath('//button[@ng-click="data.addCash = true"]'));
+    SF.click(By.xpath('//input[@ng-model="newCash.amount"]'));
+    SF.send(By.xpath('//input[@ng-model="newCash.amount"]'), 40);
+    SF.click(By.xpath('//input[@ng-model="newCash.description"]'));
+    SF.send(By.xpath('//input[@ng-model="newCash.description"]'), V.cashWires);
+    SF.click(By.xpath('//button[@ng-click="saveNewItem(\'cash\', newCash)"]'));
+    SF.sleep(2);
     MF.Board_OpenCourier ();
     MF.Board_OpenSideBar ();
     V.carrierNew = {};
@@ -167,6 +191,26 @@ condition.nowWeDoing = 'Заходим в пейрол и заполняем и 
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//button[@ng-click="update()"]'));
     SF.sleep(2);
 
+
+condition.nowWeDoing = 'а тут добавим наши созданные driver expense and cash wires';
+    SF.click(By.xpath('//button[@ng-click="addExpenses(event)"]'));
+    SF.sleep(2);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[3]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.driverExpense, 'не нашло наш созданный driver expense');
+    }),config.timeout);
+    SF.click(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[1]'));
+    SF.click(By.xpath('//button[@ng-click="add()"]'));
+    SF.sleep(2);
+
+    SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../following-sibling::div/button[@ng-click="addExpenses(event)"]'));
+    SF.sleep(2);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[3]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.cashWires, 'не нашло наш созданный cash wires');
+    }),config.timeout);
+    SF.click(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[1]'));
+    SF.click(By.xpath('//button[@ng-click="add()"]'));
+    SF.sleep(2);
+
 condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"helper")]'));
     SF.waitForVisible (By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
@@ -203,7 +247,7 @@ condition.nowWeDoing = 'заполняем и сравниваем циферк�
     V.helper2Total = V.helper2DailyAmount * V.totalDays + V.helper2Other;
 
 condition.nowWeDoing = 'сравниваем циферки общий пейрол';
-    V.totalPayroll = V.totalMileage + V.totalHourly + V.totalDaily - V.totalCollected + V.driverExpensesAmount - V.cashAmount + V.helper1Total + V.helper2Total;
+    V.totalPayroll = V.totalMileage + V.totalHourly + V.totalDaily - V.totalCollected + 20 + V.driverExpensesAmount - 40 - V.cashAmount + V.helper1Total + V.helper2Total;
     V.foremanTotal = V.totalPayroll - V.helper2Total - V.helper1Total;
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total Payroll:")]')).getText().then(function(text){
         V.payroll = SF.cleanPrice(text);
@@ -257,6 +301,19 @@ condition.nowWeDoing = 'сравниваем циферки c большим п�
         V.helper2TotalPayroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.helper2TotalPayroll, V.helper2Total, 'зарплата helper1 в большом пейроле');
     }),config.timeout);
+    SF.sleep(1);
+
+condition.nowWeDoing = 'тут идем в настройки лонг дистанса и удалим driver expense and cash advanced';
+    MF.Board_OpenSideBar();
+    MF.Board_OpenSettingsGeneral ();
+    MF.Board_OpenSettingsLongDistance ();
+    SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][7]'));
+    SF.sleep(0.5);
+    SF.click(By.xpath('//div[@ng-click="removeItem(\'expenses\', $index)"]'));
+    SF.sleep(1);
+    SF.click(By.xpath('//a[contains(text(), "Cash Advanced and Wires")]'));
+    SF.sleep(0.5);
+    SF.click(By.xpath('//div[@ng-click="removeItem(\'cash\', $index)"]'));
     SF.sleep(1);
 
     SF.endOfTest();
