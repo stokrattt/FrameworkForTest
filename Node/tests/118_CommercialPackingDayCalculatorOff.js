@@ -43,7 +43,6 @@ condition.nowWeDoing = 'создаем пакинг дей с фронта с в
     LF.RememberAccountNumbers(V.accountNumbers);
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.request.move_size.raw == 11"]/div/span')).getText().then(function(text) {
 		V.CBFinAccount = SF.cleanPrice(text);
-		console.log(V.CBFinAccount);
 	}),config.timeout);
     LF.LogoutFromAccount();
 
@@ -58,7 +57,6 @@ condition.nowWeDoing = 'идем в админку сверять данные, 
     JS.scroll('div[ng-show="!request.isInventory"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin = SF.cleanPrice(text);
-		console.log(V.CBFinAdmin);
 		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес инвентаря в аккаунте и реквесте на мувборде');
 	}),config.timeout);
     MF.EditRequest_OpenSettings();

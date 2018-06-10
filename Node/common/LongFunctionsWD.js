@@ -386,7 +386,16 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
         MF.Account_ClickSaveDetails();
 	}
-
+    function Account_LongDistanceDetailsAdd() {
+        MF.Account_ClickDetails();
+        SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 60);
+        SF.select(By.xpath('//select[@id="new_door_to_parking"]'), 60);
+        SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
+        SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
+        driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
+        SF.click(By.xpath('//div[@ng-blur="details_change(\'Additional Comments\',details.addcomment, \'addcomment\')"]'));
+        MF.Account_ClickSaveDetails();
+    }
 	function Account_CheckSignature() {
 		MF.Account_ClickViewConfirmationPage();
 		MF.Account_CheckSignOnConfirmationPage();
@@ -746,6 +755,22 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.CreateRequest_ClickCreate();
 		console.log('создали реквест');
 	}
+	function CreateLongDistanceFromBoardWithCommercialMoveSizeAndStairs() {
+        MF.Board_ClickCreate();
+        MF.CreateRequest_ClickMoveDateInput();
+        V.request = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysCalendar).then(function (calDate) {
+            V.request.moveDate = calDate;
+        }),config.timeout);
+        SF.sleep(0.5);
+        MF.CreateRequest_SelectCommercialMove();
+        MF.CreateRequest_SelectStairsToFrom();
+        MF.CreateRequest_SendZipToZipFrom ('02032', '90001');
+        MF.CreateRequest_ClickCalculate();
+        MF.CreateRequest_ClickContinue();
+        MF.CreateRequest_SendClientInfo(V.client);
+        MF.CreateRequest_ClickCreate();
+    }
 
 
 	function CreateLoadingHelpFromBoard(client) {
@@ -978,6 +1003,87 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		VD.IWant(VD.ToEqual, accountNumbers.JobTimeMin, frontNumbersDown.JobTimeMinFrom, 'не совпали JobTimeMin аккаунта и фронта From');
 		VD.IWant(VD.ToEqual, accountNumbers.JobTimeMax, frontNumbersDown.JobTimeMaxFrom, 'не совпали JobTimeMax аккаунта и фронта From');
 	}
+	function Validation_Compare_Account_Admin_WhenSetNewRate(boardNumbers, accountNumbers) {
+        VD.IWant (VD.ToEqual, boardNumbers.TotalMin, accountNumbers.TotalMin, 'не совпала квота изменения на  реквест/аккаунт');
+        VD.IWant (VD.ToEqual, boardNumbers.TotalMax, accountNumbers.TotalMax, 'не совпала квота  изменения на  реквест/аккаунт');
+        VD.IWant(VD.ToEqual, boardNumbers.TravelTime,accountNumbers.TravelTime,'не совпал трэвел тайм изменения на реквест/аккаунт');
+        VD.IWant(VD.ToEqual, boardNumbers.Packing , accountNumbers.Packing,'не совпал пэкинг изменения на реквест/аккаунт');
+        VD.IWant(VD.ToEqual, boardNumbers.Fuel, accountNumbers.Fuel,'не совпал фюел изменения на  реквест/аккаунт');
+        VD.IWant(VD.ToEqual, boardNumbers.NewHourlyRate, accountNumbers.HourlyRate,'не совпал рейт  изменения на  реквест/аккаунт');
+        VD.IWant(VD.ToEqual, boardNumbers.Trucks, accountNumbers.Trucks,'не совпало количество траков  изменения на  реквест/аккаунт');
+        VD.IWant(VD.ToEqual, boardNumbers.AdServices, accountNumbers.AdServices,'не совпали сервисы  изменения на реквест/аккаунт');
+        VD.IWant(VD.ToEqual, boardNumbers.CrewSize, accountNumbers.CrewSize,'не совпал крюсайз  изменения на  реквест/аккаунт');
+        VD.IWant(VD.ToEqual, boardNumbers.cbf, accountNumbers.cbf,'не совпали кубикфиты изменения на реквест/аккаунт');
+    }
+    function Validation_Compare_Admin_HomePortal(boardNumbers, homeestimateNumbers) {
+        VD.IWant(VD.ToEqual, boardNumbers.Duration, homeestimateNumbers.DurationPortal, 'не совпал отрезок времени работы хоум эстимейтора на мувборде/ портале');
+        VD.IWant (VD.ToEqual, boardNumbers.TotalMin, homeestimateNumbers.TotalMin, 'не совпала минимальная квота на мувборде/ в портале');
+        VD.IWant (VD.ToEqual, boardNumbers.TotalMax, homeestimateNumbers.TotalMax, 'не совпала максимальная квота на мувборде/ в портале ');
+        VD.IWant(VD.ToEqual, boardNumbers.TravelTime, homeestimateNumbers.TravelTime,'не совпал трэвел тайм на мувборде / в портале');
+        VD.IWant(VD.ToEqual, boardNumbers.Packing , homeestimateNumbers.Packing,'не совпал пэкинг на мувборде/ в портале');
+        VD.IWant(VD.ToEqual, boardNumbers.Fuel, homeestimateNumbers.Fuel,'не совпал фюел на мувборде/ в портале');
+        VD.IWant(VD.ToEqual, boardNumbers.HourlyRate, homeestimateNumbers.HourlyRate,'не совпал рейт на мувборде / в портале');
+        VD.IWant(VD.ToEqual, boardNumbers.Trucks, homeestimateNumbers.Trucks,'не совпало количество траков на мувборде/ в портале');
+        VD.IWant(VD.ToEqual, boardNumbers.AdServices, homeestimateNumbers.AdServices,'не совпали адишинал сервисы на мувборде/ в портале');
+        VD.IWant(VD.ToEqual, boardNumbers.CrewSize, homeestimateNumbers.CrewSize,'не совпал крюсайз на мувборде/ в портале');
+        VD.IWant(VD.ToEqual, boardNumbers.cbf, homeestimateNumbers.cbf,'не совпали кубикфиты на мувборде/ в портале');
+    }
+    function Validation_Compare_CarrierInfo(carrierNew, carrierNew2, carrierNew3) {
+        VD.IWant(VD.NotToEqual,carrierNew.name, carrierNew2.name,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,carrierNew.contactPerson, carrierNew2.contactPerson,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,carrierNew.contactPersonPhone, carrierNew2.contactPersonPhone,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,carrierNew.address, carrierNew2.address,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,carrierNew.zipCode, carrierNew2.zipCode,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,carrierNew.perCf, carrierNew2.perCf,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,carrierNew.iccMc, carrierNew2.iccMc,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,carrierNew.usdot, carrierNew2.usdot,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,carrierNew.eMail, carrierNew2.eMail,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,carrierNew.webSite, carrierNew2.webSite,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,carrierNew.phoneNumber1, carrierNew2.phoneNumber1,'Поля совпадают');
+        VD.IWant(VD.ToEqual,carrierNew3.name, carrierNew2.name,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,carrierNew3.contactPerson, carrierNew2.contactPerson,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,-SF.cleanPrice(carrierNew3.contactPersonPhone), carrierNew2.contactPersonPhone,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,carrierNew3.address, carrierNew2.address,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,carrierNew3.zipCode, carrierNew2.zipCode,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,carrierNew3.perCf, carrierNew2.perCf,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,carrierNew3.iccMc, carrierNew2.iccMc,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,carrierNew3.usdot, carrierNew2.usdot,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,carrierNew3.eMail, carrierNew2.eMail,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,carrierNew3.webSite, carrierNew2.webSite,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,-SF.cleanPrice(carrierNew3.phoneNumber1), carrierNew2.phoneNumber1,'Поля не совпадают');
+    }
+    function Validation_Compare_SITstorageInfo(storage1, storage2, storage3) {
+        VD.IWant(VD.NotToEqual,storage1.name, storage2.name,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,storage1.address, storage2.address,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,storage1.zip, storage2.zip,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,storage1.email, storage2.email,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,storage1.notes, storage2.notes,'Поля совпадают');
+        VD.IWant(VD.NotToEqual,storage1.phone, storage2.phone,'Поля совпадают');
+        VD.IWant(VD.ToEqual,storage3.name, storage2.name,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,storage3.address, storage2.address,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,storage3.zip, storage2.zip,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,storage3.email, storage2.email,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,storage3.notes, storage2.notes,'Поля не совпадают');
+        VD.IWant(VD.ToEqual,-SF.cleanPrice(storage3.phone), storage2.phone,'Поля не совпадают');
+    }
+    function RememberAndCompare_Admin_ConfirmationPage_LongDistance(boardNumbers) {
+        driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
+            text = SF.cleanPrice(text.substring(text.indexOf('$')));
+            VD.IWant(VD.ToEqual, text,boardNumbers.Total, 'не совпал Total на Confirmation Page с Total в дашборде');
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistanceServicesTotal"]')).getText().then(function (text) {
+            text = SF.cleanPrice(text.substring(text.indexOf('$')));
+            VD.IWant(VD.ToEqual, text,boardNumbers.AdServices, 'не совпал AddServices на Confirmation Page с AddServices в дашборде');
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.fuelSurcharge"]')).getText().then(function (text) {
+            text = SF.cleanPrice(text.substring(text.indexOf('$')));
+            VD.IWant(VD.ToEqual, text, boardNumbers.Fuel, 'не совпал Fuel на Confirmation Page с Fuel в дашборде');
+        }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//span[@ng-if="!!vm.longDistanceQuote"]')).getText().then(function (text) {
+            text = SF.cleanPrice(text.substring(text.indexOf('$')));
+            VD.IWant(VD.ToEqual, text, boardNumbers.Quote, 'не совпал Quote на Confirmation Page c Quote в дашборде');
+        }),config.timeout);
+    }
 
 	function SetManager(name) {
 		JS.click('div[ng-show="::showManagerDropdown(currentManager.first_name)"] button');
@@ -2371,33 +2477,59 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function FlatRateEditRequest_AddTwoOption() {
-		SF.clear(By.xpath('//input[@ng-model="option.pickup"]'));
-		SF.sleep(0.5);
-		let now = new Date();
-		let msInDay = 86400000;
-		let future = new Date(now.getTime() + msInDay * 2);
-		let options = {month: 'long', day: 'numeric', year: 'numeric'};
-		V.changedateUpAdmin = (future.toLocaleDateString('en-US', options));
-		SF.send(By.xpath('//input[@ng-model="option.pickup"]'), V.changedateUpAdmin);
-		SF.select(By.xpath('//select[@ng-model="option.picktime1"]'), 3);
-		SF.select(By.xpath('//select[@ng-model="option.picktime2"]'), 4);
-		SF.sleep(0.5);
-		now = new Date();
-		msInDay = 86400000;
-		future = new Date(now.getTime() + msInDay * 4);
-		options = {month: 'long', day: 'numeric', year: 'numeric'};
-		V.newChangedateDelAdmin = (future.toLocaleDateString('en-US', options));
-		SF.send(By.xpath('//input[@ng-model="option.delivery"]'), V.newChangedateDelAdmin);
-		SF.select(By.xpath('//select[@ng-model="option.deltime1"]'), 5);
-		SF.select(By.xpath('//select[@ng-model="option.deltime2"]'), 6);
-		SF.send(By.xpath('//input[@ng-model="option.rate"]'), 5000);
-		SF.sleep(0.5);
-		SF.click(By.xpath('//a[@ng-click="addOption()"]'));
-		SF.sleep(1);
-		SF.click(By.xpath('//a[@ng-click="saveOptions()"]'));
-		SF.sleep(1);
-		MF.WaitWhileBusy();
-		MF.SweetConfirm();
+        SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
+        SF.sleep (0.5);
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() + msInDay * 2);
+        let options = { month: 'long', day: 'numeric', year: 'numeric' };
+        V.changedateUpAdmin = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//input[@ng-model="option.pickup"]'), V.changedateUpAdmin);
+        SF.select (By.xpath('//select[@ng-model="option.picktime1"]'), 3);
+        SF.select (By.xpath('//select[@ng-model="option.picktime2"]'), 4);
+        SF.sleep (0.5);
+        now = new Date();
+        msInDay = 86400000;
+        future = new Date(now.getTime() + msInDay * 4);
+        options = { month: 'long', day: 'numeric', year: 'numeric' };
+        V.changedateDelAdmin = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//input[@ng-model="option.delivery"]'), V.changedateDelAdmin);
+        SF.select (By.xpath('//select[@ng-model="option.deltime1"]'), 5);
+        SF.select (By.xpath('//select[@ng-model="option.deltime2"]'), 6);
+        SF.send(By.xpath('//input[@ng-model="option.rate"]'), 5000);
+        SF.sleep (0.5);
+        SF.click (By.xpath('//a[@ng-click="addOption()"]'));
+        SF.sleep (4);
+
+        condition.nowWeDoing = 'заполняем опции 2';
+        SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
+        SF.sleep (0.5);
+        now = new Date();
+        msInDay = 86400000;
+        future = new Date(now.getTime() + msInDay * 3);
+        options = { month: 'long', day: 'numeric', year: 'numeric' };
+        V.changedateUpAdminLong = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//input[@ng-model="option.pickup"]'), V.changedateUpAdminLong);
+        SF.select (By.xpath('//select[@ng-model="option.picktime1"]'), 5);
+        SF.select (By.xpath('//select[@ng-model="option.picktime2"]'), 7);
+        SF.sleep (0.5);
+        now = new Date();
+        msInDay = 86400000;
+        future = new Date(now.getTime() + msInDay * 5);
+        options = { month: 'long', day: 'numeric', year: 'numeric' };
+        V.changedateDelAdminLong = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//input[@ng-model="option.delivery"]'), V.changedateDelAdminLong);
+        SF.select (By.xpath('//select[@ng-model="option.deltime1"]'), 8);
+        SF.select (By.xpath('//select[@ng-model="option.deltime2"]'), 9);
+        SF.send(By.xpath('//input[@ng-model="option.rate"]'), 6000);
+        SF.sleep (0.5);
+        JS.scroll ('a[ng-click=\\"addOption()\\"]');
+        SF.click (By.xpath('//a[@ng-click="addOption()"]'));
+        SF.sleep (2);
+        SF.click(By.xpath('//a[@ng-click="saveOptions()"]'));
+        SF.sleep (3);
+        MF.WaitWhileToaster();
+        MF.SweetConfirm ();
 	}
 
 	function EditRequest_Payment_AddOnlinePayment() {
@@ -2812,6 +2944,257 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.send(By.xpath('//md-datepicker[@ng-model="$ctrl.date.to"]/div/input'), V.dateEnd);
         SF.sleep(2);
     }
+    function FlatRateEditRequest_SendDeliveryDates() {
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() + msInDay * 4);
+        let second_future = new Date(now.getTime() + msInDay * 7);
+        let month = { month: 'numeric'};
+        let day = {day: 'numeric'};
+        V.firstDate = {};
+        V.secondDate = {};
+        V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
+        V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+        V.secondDate.Month = (second_future.toLocaleDateString('en-US', month)) - 1;
+        V.secondDate.Day = (second_future.toLocaleDateString('en-US', day));
+        SF.sleep(1);
+        SF.click(By.xpath('//div[contains(@class, "dateRange")]/input'));
+        MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
+        SF.sleep (2);
+    }
+    function Schedule_CheckFlatRateTruck(Id) {
+        driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){
+            V.current = date;
+            let now = new Date();
+            let msInDay = 86400000;
+            let future = new Date(now.getTime() + msInDay * 2);
+            let options = {  month: 'long', year: 'numeric' };
+            V.Dates = (future.toLocaleDateString('en-US', options));
+        }), config.timeout);
+        SF.sleep(8);
+        if (V.current == V.Dates) {
+            let now = new Date();
+            let msInDay = 86400000;
+            let future = new Date(now.getTime() + msInDay * 2);
+            let options = { day: 'numeric' };
+            V.datescedule = (future.toLocaleDateString('en-US', options));
+            SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
+            SF.sleep(5);
+            driver.wait(driver.executeScript("return $('div.line1:contains("+Id+")').length").then (function (checkSchedule) {
+                VD.IWant(VD.NotToEqual, checkSchedule, 0, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся '+Id+'');
+            }),config.timeout);
+        } else {
+            let now = new Date();
+            let msInDay = 86400000;
+            let future = new Date(now.getTime() + msInDay * 2);
+            let options = { day: 'numeric' };
+            V.datescedule = (future.toLocaleDateString('en-US', options));
+            SF.click(By.xpath('//i[@ng-click="vm.nextMonth()"]'));
+            SF.sleep(5);
+            SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
+            SF.sleep(5);
+            driver.wait(driver.executeScript("return $('div.line1:contains("+Id+")').length").then (function (checkSchedule) {
+                VD.IWant(VD.NotToEqual, checkSchedule, 0, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся (вторая проверка)'+Id+'');
+            }),config.timeout);
+        }
+
+    }
+    function AccountFlatRate_ChoosePickupAndDeliveryDate() {
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() + msInDay * 2);
+        let options = { day: 'numeric', month: 'short', year: 'numeric' };
+        V.changedateUp = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//div[contains(@class, "dateRange")]/input'), V.changedateUp);
+        now = new Date();
+        msInDay = 86400000;
+        future = new Date(now.getTime() + msInDay * 3);
+        options = { day: 'numeric', month: 'short', year: 'numeric' };
+        V.changedateDelivery = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//div[contains(@class, "dateRange delivery")]/input'), V.changedateDelivery);
+        MF.WaitWhileBusy ();
+    }
+    function Payroll_SetDeliveryDateOnlyFlatRate() {
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() + msInDay * 4);
+        let options = { month: 'short', day: 'numeric', year: 'numeric' };
+        V.changedateDelPayrolol = (future.toLocaleDateString('en-US', options));
+        MF.Payroll_ClickAllDepartment();
+        SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));
+        SF.send(By.xpath('//input[@ng-model="dateRange.from"]'), V.changedateDelPayrolol);
+        SF.clear(By.xpath('//input[@ng-model="dateRange.to"]'));
+        SF.send(By.xpath('//input[@ng-model="dateRange.to"]'), V.changedateDelPayrolol);
+        SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
+        SF.sleep(1);
+        MF.WaitWhileBusy ();
+    }
+    function AccountFlatRate_SendTwoPrefferedDate() {
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() + msInDay * 2);
+        let second_future = new Date(now.getTime() + msInDay * 4);
+        let month = { month: 'numeric'};
+        let day = {day: 'numeric'};
+        V.firstDate = {};
+        V.secondDate = {};
+        V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
+        V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+        V.secondDate.Month = (second_future.toLocaleDateString('en-US', month)) - 1;
+        V.secondDate.Day = (second_future.toLocaleDateString('en-US', day));
+        SF.click(By.xpath('//h4[contains(text(),"Preferred Pick Up dates:")]/following-sibling::div[2]'));
+        SF.sleep(1);
+        MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
+        SF.click(By.xpath('//h2[contains(text(), "Flat Rate Request")]'));
+        SF.sleep(2);
+        now = new Date();
+        msInDay = 86400000;
+        future = new Date(now.getTime() + msInDay * 4);
+        second_future = new Date(now.getTime() + msInDay * 7);
+        month = { month: 'numeric'};
+        day = {day: 'numeric'};
+        V.firstDate = {};
+        V.secondDate = {};
+        V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
+        V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+        V.secondDate.Month = (second_future.toLocaleDateString('en-US', month)) - 1;
+        V.secondDate.Day = (second_future.toLocaleDateString('en-US', day));
+        SF.click(By.xpath('//h4[contains(text(),"Preferred Delivery dates:")]/following-sibling::div[2]'));
+        SF.sleep(1);
+        MF.Account_PreferredDeliveryDate(V.firstDate, V.secondDate);
+    }
+    function AccountFlatRate_AddExtraPickupAndDropOff() {
+        SF.sleep(3);
+        SF.click(By.xpath('//i[@ng-click="extraPickup=true"]'));
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@ng-value="request.field_extra_pickup.postal_code"]'),'02461');
+        SF.select(By.xpath('//select[@ng-value="request.field_extra_pickup.organisation_name"]'),2);
+        SF.click(By.xpath('//i[@ng-click="extraDropoff=true"]'));
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@ng-value="request.field_extra_dropoff.postal_code"]'),'07304');
+        SF.select(By.xpath('//select[@ng-value="request.field_extra_dropoff.organisation_name"]'),3);
+    }
+    function EditRequest_AddCustomPacking(quantity, rate) {
+        SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
+        SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.click(By.xpath('//input[@ng-model="add_extra_charge.quantity"][1]'));
+        SF.clear(By.xpath('//input[@ng-model="add_extra_charge.quantity"][1]'));
+        SF.send(By.xpath('//input[@ng-model="add_extra_charge.quantity"][1]'), quantity);
+        SF.click(By.xpath('//input[@ng-model="add_extra_charge.rate"][1]'));
+        SF.clear(By.xpath('//input[@ng-model="add_extra_charge.rate"][1]'));
+        SF.send(By.xpath('//input[@ng-model="add_extra_charge.rate"][1]'), rate);
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        MF.WaitWhileBusy ();
+        SF.sleep (5);
+    }
+    function EditRequest_ChangeMoveDate(dateInFuture) {
+        SF.click (By.xpath('//input[@ng-click="openCalendar()"]'));
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() + msInDay * dateInFuture);
+        let month = { month: '2-digit'};
+        let day = {day: '2-digit'};
+        V.firstDate = {};
+        V.firstDate.Month = (future.toLocaleDateString('en-US', month));
+        V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+        SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.firstDate.Month + '-' + V.firstDate.Day +'"]'));
+        MF.WaitWhileBusy();
+    }
+    function EditRequest_SetInHomeEstimateDate(dateInFuture) {
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() + msInDay * dateInFuture);
+        let month = { month: 'numeric'};
+        let day = {day: 'numeric'};
+        V.firstDate = {};
+        V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
+        V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+        SF.click(By.xpath('//div[@id="ui-datepicker-div"]//td[@data-month="'+ V.firstDate.Month +'"]/a[contains(text(),"'+ V.firstDate.Day +'")]'));
+        MF.WaitWhileBusy();
+    }
+    function SIT_CreateCarrier(carrierInfo) {
+        MF.SIT_ClickAddCarrier();
+        carrierInfo.name = SF.randomBukva(6) + '_t';
+        carrierInfo.contactPerson = SF.randomBukva(6) + '_t';
+        carrierInfo.contactPersonPhone = SF.randomCifra(10);
+        SF.send(By.xpath('//input[@ng-model="agentModel.name"]'), carrierInfo.name);
+        SF.send(By.xpath('//input[@ng-model="agentModel.contact_person"]'), carrierInfo.contactPerson);
+        SF.send(By.xpath('//input[@ng-model="agentModel.contact_person_phone"]'), carrierInfo.contactPersonPhone);
+        carrierInfo.address = SF.randomBukva(6) + '_t';
+        carrierInfo.zipCode = "90001";
+        SF.send(By.xpath('//textarea[@ng-model="agentModel.address"]'), carrierInfo.address);
+        SF.send(By.xpath('//input[@ng-model="agentModel.zip_code"]'), carrierInfo.zipCode);
+        SF.sleep(2);
+        SF.click(By.xpath('//md-checkbox[@ng-model="agentModel.company_carrier"]'));
+        carrierInfo.perCf = "2";
+        carrierInfo.iccMc = SF.randomCifra(10);
+        SF.send(By.xpath('//input[@ng-model="agentModel.per_cf"]'), carrierInfo.perCf);
+        SF.send(By.xpath('//input[@ng-model="agentModel.icc_mc_number"]'), carrierInfo.iccMc);
+        carrierInfo.usdot = SF.randomCifra(10);
+        carrierInfo.eMail = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
+        SF.send(By.xpath('//input[@ng-model="agentModel.usdot_number"]'), carrierInfo.usdot);
+        SF.send(By.xpath('//input[@ng-model="agentModel.email"]'), carrierInfo.eMail);
+        carrierInfo.webSite = "fdsfd.com";
+        carrierInfo.phoneNumber1 = SF.randomCifra(10);
+        SF.send(By.xpath('//input[@ng-model="agentModel.web_site"]'), carrierInfo.webSite);
+        SF.send(By.xpath('//input[@ng-model="agentModel.phones[$index]"]'), carrierInfo.phoneNumber1);
+        SF.sleep(2);
+        MF.SIT_ClickSaveCarrier();
+    }
+    function SIT_CreateCustomPaymentInTPcollectedInClosing(sum, NewTPCollectedRemember) {
+        SF.click(By.xpath('//input[@id="customPaymentAmount"]'));
+        SF.send(By.xpath('//input[@id="customPaymentAmount"]'), sum);
+        driver.wait(driver.findElement(By.xpath('//div[@class="add-custom-payment-form__toolbar__info"]//span[2]')).getText().then(function(text){
+            NewTPCollectedRemember = SF.cleanPrice(text.substring(text.indexOf('$')));
+        }),config.timeout);
+        SF.click(By.xpath('//input[@ng-model="payment.description"]'));
+        SF.send(By.xpath('//input[@ng-model="payment.description"]'),'test');
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        SF.waitForVisible(By.xpath('//div[@class="jobs-trip-list__body__item"][contains(text(),"test")]'));
+        SF.click(By.xpath('//button[@ng-click="back()"]'));
+        SF.sleep(6);
+    }
+    function EditRequest_AddAdditionalContact(Name, Fam, emeil, AdditionalPhone) {
+        SF.click(By.xpath('//i[@class="icon-user-follow"]'));
+        SF.send(By.xpath('//input[@ng-model="request.field_additional_user.first_name"]'),Name);
+        SF.send(By.xpath('//input[@ng-model="request.field_additional_user.last_name"]'),Fam);
+        SF.send(By.xpath('//input[@ng-model="request.field_additional_user.mail"]'), emeil);
+        SF.send(By.xpath('//input[@ng-model="request.field_additional_user.phone"]'),AdditionalPhone);
+        SF.send(By.xpath('//input[@ng-model="client.field_user_additional_phone"]'), '1234567890');
+        SF.click(By.xpath('//button[@ng-click="saveAddContact()"]'));
+        SF.click(By.xpath('//button[@ng-click="updateAddContact()"]'));
+        MF.WaitWhileToaster();
+    }
+    function SIT_SetDateTripForemanHelper(date) {
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() + msInDay * date);
+        let options = {month: 'short', day: '2-digit', year: 'numeric'};
+        V.dateStart = (now.toLocaleDateString('en-US', options));
+        V.dateEnd = (future.toLocaleDateString('en-US', options));
+        SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'));
+        SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'), V.dateEnd);
+        SF.click(By.xpath('//input[@ng-model="search"]'));
+        SF.sleep(5);
+    }
+    function SIT_CreateStorage(storageSit) {
+        SF.clear (By.xpath('//input[@ng-model="newStorage.name"]'));
+        SF.send (By.xpath('//input[@ng-model="newStorage.name"]'), storageSit.name);
+        SF.clear (By.xpath('//textarea[@ng-model="newStorage.address"]'));
+        SF.send (By.xpath('//textarea[@ng-model="newStorage.address"]'), storageSit.address);
+        SF.clear (By.xpath('//input[@ng-model="newStorage.zip_code"]'));
+        SF.send (By.xpath('//input[@ng-model="newStorage.zip_code"]'), storageSit.zip);
+        SF.sleep(2);
+        SF.click (By.xpath('//md-checkbox[@ng-model="newStorage.default_storage"]'));
+        SF.clear (By.xpath('//input[@ng-model="newStorage.notes"]'));
+        SF.send (By.xpath('//input[@ng-model="newStorage.notes"]'), storageSit.notes);
+        SF.clear (By.xpath('//input[@ng-model="newStorage.email"]'));
+        SF.send (By.xpath('//input[@ng-model="newStorage.email"]'), storageSit.email);
+        SF.clear (By.xpath('//input[@ng-model="newStorage.phones[$index]"]'));
+        SF.send (By.xpath('//input[@ng-model="newStorage.phones[$index]"]'), storageSit.phone);
+        SF.sleep(1);
+        JS.click('span:contains(\\"Save\\")');
+    }
 
     return {
 		FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -2832,6 +3215,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		AccountLocalDetails: AccountLocalDetails,
 		AccountLoadingDetails: AccountLoadingDetails,
 		AccountUnLoadingDetails: AccountUnLoadingDetails,
+        Account_LongDistanceDetailsAdd:Account_LongDistanceDetailsAdd,
 		AccountUnloadingEnterAddress: AccountUnloadingEnterAddress,
 		AccountLoadingEnterAddress: AccountLoadingEnterAddress,
 		AccountToStorageEnterAddress: AccountToStorageEnterAddress,
@@ -2862,6 +3246,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		CreateStorageTenant: CreateStorageTenant,
 		CreateFlatRateFromBoard: CreateFlatRateFromBoard,
 		CreateLongDistanceFromBoard: CreateLongDistanceFromBoard,
+        CreateLongDistanceFromBoardWithCommercialMoveSizeAndStairs:CreateLongDistanceFromBoardWithCommercialMoveSizeAndStairs,
 		RememberDigitsRequestBoard_Up: RememberDigitsRequestBoard_Up,
 		RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
 		RememberDigitsRequestBoard: RememberDigitsRequestBoard,
@@ -2873,6 +3258,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		Validation_Compare_Account_Front_MovStorTo: Validation_Compare_Account_Front_MovStorTo,
 		Validation_Compare_Account_Front_MovStorFrom: Validation_Compare_Account_Front_MovStorFrom,
 		Validation_Compare_CalcLocalMove_Admin: Validation_Compare_CalcLocalMove_Admin,
+        Validation_Compare_Account_Admin_WhenSetNewRate:Validation_Compare_Account_Admin_WhenSetNewRate,
+        Validation_Compare_Admin_HomePortal:Validation_Compare_Admin_HomePortal,
+        Validation_Compare_CarrierInfo:Validation_Compare_CarrierInfo,
+        Validation_Compare_SITstorageInfo:Validation_Compare_SITstorageInfo,
+        RememberAndCompare_Admin_ConfirmationPage_LongDistance:RememberAndCompare_Admin_ConfirmationPage_LongDistance,
 		SetManager: SetManager,
 		SetClientPasswd: SetClientPasswd,
 		FillCardPayModal: FillCardPayModal,
@@ -2982,7 +3372,20 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         Contract_CheckOriginBlockNameZip:Contract_CheckOriginBlockNameZip,
         Contract_CheckDestinationBlockNameZip:Contract_CheckDestinationBlockNameZip,
         AddPackingOnContract:AddPackingOnContract,
-        PaymentCollected_ChooseCurrentDateStartEnd:PaymentCollected_ChooseCurrentDateStartEnd
-
+        PaymentCollected_ChooseCurrentDateStartEnd:PaymentCollected_ChooseCurrentDateStartEnd,
+        FlatRateEditRequest_SendDeliveryDates:FlatRateEditRequest_SendDeliveryDates,
+        Schedule_CheckFlatRateTruck:Schedule_CheckFlatRateTruck,
+        AccountFlatRate_ChoosePickupAndDeliveryDate:AccountFlatRate_ChoosePickupAndDeliveryDate,
+        Payroll_SetDeliveryDateOnlyFlatRate:Payroll_SetDeliveryDateOnlyFlatRate,
+        AccountFlatRate_SendTwoPrefferedDate:AccountFlatRate_SendTwoPrefferedDate,
+        AccountFlatRate_AddExtraPickupAndDropOff:AccountFlatRate_AddExtraPickupAndDropOff,
+        EditRequest_AddCustomPacking:EditRequest_AddCustomPacking,
+        EditRequest_ChangeMoveDate:EditRequest_ChangeMoveDate,
+        EditRequest_SetInHomeEstimateDate:EditRequest_SetInHomeEstimateDate,
+        SIT_CreateCarrier:SIT_CreateCarrier,
+        SIT_CreateCustomPaymentInTPcollectedInClosing:SIT_CreateCustomPaymentInTPcollectedInClosing,
+        EditRequest_AddAdditionalContact:EditRequest_AddAdditionalContact,
+        SIT_SetDateTripForemanHelper:SIT_SetDateTripForemanHelper,
+        SIT_CreateStorage:SIT_CreateStorage,
     };
 };

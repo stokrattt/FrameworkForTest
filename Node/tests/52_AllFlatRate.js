@@ -15,18 +15,7 @@ condition.nowWeDoing = 'создаем флет рейт с верхней фр�
 
 condition.nowWeDoing = 'перешли в аккаунт добавляем опции';
     MF.Account_ClickViewRequest();
-    let now = new Date();
-    let msInDay = 86400000;
-    let future = new Date(now.getTime() + msInDay * 2);
-    let options = { day: 'numeric', month: 'short', year: 'numeric' };
-    V.changedateUp = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//div[contains(@class, "dateRange")]/input'), V.changedateUp);
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 3);
-    options = { day: 'numeric', month: 'short', year: 'numeric' };
-    V.changedateDelivery = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//div[contains(@class, "dateRange delivery")]/input'), V.changedateDelivery);
+    LF.AccountFlatRate_ChoosePickupAndDeliveryDate();
     SF.click(By.xpath('//div[contains(@class, "ng-pristine")]'));
     LF.AccountFR_SeelectOptions();
 
@@ -35,7 +24,6 @@ condition.nowWeDoing = 'добавляем инвенторий в акке';
     MF.Account_SubmitFlatRateAfterAddInventory ();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
 		V.CBFinAccount = SF.cleanPrice(text);
-		console.log(V.CBFinAccount);
 	}),config.timeout);
     JS.scroll ('a[ng-click=\\"vm.Logout()\\"]');
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Request ID")]/span')).getText().then(function (text) {
@@ -53,11 +41,10 @@ condition.nowWeDoing = 'пошли в админку, открыли рекве�
 	JS.scroll('div[ng-show="!request.isInventory"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin = SF.cleanPrice(text);
-		console.log(V.CBFinAdmin);
 		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес после добавления инвентаря в аккаунте и реквесте на мувборде');
 	}),config.timeout);
-	JS.scroll('a[ng-click="select(tabs[6])"]');
-	SF.click(By.xpath('//a[@ng-click="select(tabs[6])"]'));
+	// JS.scroll('a[ng-click="select(tabs[6])"]');
+    MF.EditRequest_OpenTabFlatRateOption();
     LF.FlatRateEditRequest_AddTwoOption();
     /*********************************************************************************************/
     MF.EditRequest_OpenClient ();
@@ -81,21 +68,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     LF.RememberDigitsRequestBoard (V.boardNumbers);
     SF.sleep (1);
     MF.EditRequest_SetAdressToFrom ();
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 4);
-    let second_future = new Date(now.getTime() + msInDay * 7);
-    let month = { month: 'numeric'};
-    let day = {day: 'numeric'};
-    V.firstDate = {};
-    V.secondDate = {};
-    V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
-    V.firstDate.Day = (future.toLocaleDateString('en-US', day));
-    V.secondDate.Month = (second_future.toLocaleDateString('en-US', month)) - 1;
-    V.secondDate.Day = (second_future.toLocaleDateString('en-US', day));
-    SF.sleep(1);
-    SF.click(By.xpath('//div[contains(@class, "dateRange")]/input'));
-    MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
+    LF.FlatRateEditRequest_SendDeliveryDates();
     MF.EditRequest_SetDeliveryStartTime();
     SF.sleep (1);
     /**************************************************************************************************************/
@@ -113,12 +86,8 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
         V.boardNumbersDeliveryDate.moveDate.Year = SF.cleanPrice(dateString.substring(dateString.indexOf(',')));
     }),config.timeout);
     MF.EditRequest_OpenSettings ();
-    SF.sleep(2);
-    JS.click('div[ng-show="::showManagerDropdown(currentManager.first_name)"] button');
-    SF.click (By.xpath('//div[@ng-show="::showManagerDropdown(currentManager.first_name)"]//' +
-        'ul[@ng-show="showManagerDropdown(currentManager.first_name)"]/li/a[contains(text(), "JackSales")]'));
-    MF.SweetConfirm();
-    SF.sleep (5);
+    SF.sleep(1);
+    MF.EditRequest_SetSaleNumber(4);
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
@@ -135,7 +104,6 @@ condition.nowWeDoing = 'идем в акк под клиентом букать 
 	JS.scroll('div[class="inventory row"]');
     driver.wait(driver.findElement(By.xpath('//div[@class="inventory row"]/h2/span/span[4]')).getText().then(function(text) {
 		V.CBFinConfPage = SF.cleanPrice(text);
-		console.log(V.CBFinConfPage);
 		VD.IWant(VD.ToEqual, V.CBFinConfPage ,V.CBFinAdmin,'не совпал вес на мувборде и на конфирмейшн пэйдж');
 	}),config.timeout);
     LF.LogoutFromAccount ();
@@ -158,7 +126,6 @@ condition.nowWeDoing = 'заходим под первым фореманом п
     driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = totalFlatRateClosing()"]/following-sibling::td')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), 5000, 'не показался полный тотал на флет рейт пикап на контракте');
     }),config.timeout);
-
     LF.MakeSignInContractFlatRate();
     LF.MakeSignInContractFlatRate();
     MF.Contract_DeclarationValueA();
@@ -205,8 +172,7 @@ condition.nowWeDoing = 'идем в диспач нзначить команду
     LF.findDayInLocalDispatch(V.boardNumbersDeliveryDate.moveDate.Year, V.boardNumbersDeliveryDate.moveDate.Month, V.boardNumbersDeliveryDate.moveDate.Day);
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.FRId);
-    SF.click(By.xpath('//li[@ng-click="vm.navigation.active = $index"]/a/span[contains(text(), "Delivery crew")]'));
-    SF.sleep(2);
+    MF.Dispach_ClickDeliveryCrewOnlyFlatRate();
     LF.selectCrewFlatRateDelivery();
     MF.Board_LogoutAdmin ();
 
@@ -319,19 +285,7 @@ condition.nowWeDoing = 'начинаем проверять чувачком и�
 		'id=' + V.FRId);
 
 condition.nowWeDoing = 'выбираем цифры helper delivery';
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 4);
-    options = { month: 'short', day: 'numeric', year: 'numeric' };
-    V.changedateDelPayrolol = (future.toLocaleDateString('en-US', options));
-    MF.Payroll_ClickAllDepartment();
-    SF.clear(By.xpath('//input[@ng-model="dateRange.from"]'));
-    SF.send(By.xpath('//input[@ng-model="dateRange.from"]'), V.changedateDelPayrolol);
-    SF.clear(By.xpath('//input[@ng-model="dateRange.to"]'));
-    SF.send(By.xpath('//input[@ng-model="dateRange.to"]'), V.changedateDelPayrolol);
-    SF.click(By.xpath('//button[@ng-click="getByDate();bDateChange=false"]'));
-    SF.sleep(1);
-    MF.WaitWhileBusy ();
+    LF.Payroll_SetDeliveryDateOnlyFlatRate();
     LF.findHelperInPayroll('Test Helper1');
     MF.Payroll_getTotalById(V.FRId, V.payrollNumbersDelivery.Helper);
     VD.IWant(VD.ToEqual, V.payrollNumbersDelivery.Helper.Total, (V.boardNumbersDelivery.Payroll.helpersForComission.total/2), 'не совпали цифры в Payroll helper delivery\n' +

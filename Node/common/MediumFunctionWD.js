@@ -52,6 +52,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="confirmationPageTitlesModal()"]'));
         SF.waitForLocated(By.xpath('//div[@active="activeTab"]'));
     }
+    function BoardSettingsAccountTopText_SendLocalMoveTitleText(RandomTextTitleForAccount) {
+        SF.click(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][1]/input'));
+        SF.clear(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][1]/input'));
+        SF.send(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][1]/input'), RandomTextTitleForAccount);
+        SF.click(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][2]/input'));
+        SF.sleep(3);
+        WaitWhileToaster();
+    }
 
     //================================MAIL.RU  and Gmail=======================================
 
@@ -126,6 +134,17 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@title="Add crew"]'));
         WaitWhileBusy ();
     }
+    function Dispach_ClickDeliveryCrewOnlyFlatRate() {
+        SF.click(By.xpath('//li[@ng-click="vm.navigation.active = $index"]/a/span[contains(text(), "Delivery crew")]'));
+        SF.sleep(2);
+    }
+    function Dispach_SetHelperInAddCrew() {
+        SF.click(By.xpath('//select[@ng-model="crew.helpers[$index]"]'));
+        SF.sleep(1);
+        SF.click(By.xpath("//label[contains(text(),'Additional Helpers')]/following-sibling::div" +
+            "[@ng-repeat='addHelper in crew.helpers track by $index']/select[@ng-model='crew.helpers[$index]']//option[contains(text(),'helper test1')]"));
+        SF.sleep(1);
+    }
     //=================================SIT==============================================
 
     function SIT_ClickAddTrip() {
@@ -187,6 +206,20 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send (By.xpath('//textarea[@ng-model="trip.data.details.description"]'), description);
         SF.send (By.xpath('//input[@ng-model="trip.data.details.internal_code"]'), internalCode);
         SF.sleep(1.5);
+    }
+    function SIT_ClosingClickTpCollected() {
+        SF.click(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
+    }
+    function SIT_TripSendDriveNameAndPhone(driver, driverPhone) {
+        SF.send (By.xpath('//input[@ng-model="trip.data.carrier.driver_name"]'), driver);
+        SF.send (By.xpath('//input[@ng-model="trip.data.carrier.driver_phone"]'), driverPhone);
+        WaitWhileToaster();
+    }
+    function SIT_ClickCreateNewStorage() {
+        SF.click(By.xpath('//button[@ng-click="addStorage()"]'));
+        SF.waitForVisible (By.xpath('//input[@ng-model="newStorage.name"]'));
+        SF.sleep(1);
+        SF.click(By.xpath('//md-checkbox[@ng-model="newStorage.active"]'));
     }
     ///===============================BOARD=========================================
 
@@ -543,8 +576,40 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ui-sref="statistics.paymentsCollected"]'));
         WaitWhileBusy();
     }
-
-
+    function Board_GeneralFlatRateSettingsON() {
+        JS.scroll ('input[ng-model=\\"basicSettings.isflat_rate_miles\\"]');
+        driver.wait(driver.executeScript("if($('input[ng-model=\"basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
+            "return true;}else{$('input[ng-model=\"basicSettings.isflat_rate_miles\"]').click()}"));
+        SF.sleep(3);
+    }
+    function Board_SettingsPendingInfoOFF() {
+        driver.wait(driver.executeScript("if($('input[ng-model=\"setting\"]').hasClass('ng-empty')){return true;}else{" +
+            "$('input[ng-model=\"setting\"] ~span').click()}"),config.timeout);
+        SF.sleep(2);
+        WaitWhileToaster();
+    }
+    function Board_SettingsPendingInfoON() {
+        driver.wait(driver.executeScript("if($('input[ng-model=\"setting\"]').hasClass('ng-not-empty')){return true;}else{" +
+            "$('input[ng-model=\"setting\"] ~span').click()}"),config.timeout);	SF.sleep(2);
+        WaitWhileToaster();
+    }
+    function BoardCalculatorSettings_SelectMinDoubleDriveTime(min) {
+        SF.select(By.xpath('//select[@ng-model="vm.basicSettings.minCATavelTime"]'), min);
+        SF.click(By.xpath('//input[@ng-model="vm.calcSettings.doubleDriveTimeName"]'));
+        SF.sleep(4);
+    }
+    function BoardSettingsCalculator_DoubleDriveTimeON() {
+        driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.doubleDriveTime\"]').hasClass('ng-not-empty')){" +
+            "return true;}else{$('input[ng-model=\"vm.calcSettings.doubleDriveTime\"] ~span').click()}"),config.timeout);
+        SF.sleep(1);
+    }
+    function BoardSettingsCalculator_DoubleDriveTimeOFF() {
+        driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.doubleDriveTime\"]').hasClass('ng-empty')){" +
+            "return true;}else{$('input[ng-model=\"vm.calcSettings.doubleDriveTime\"] ~span').click()}"),config.timeout);
+        SF.sleep(1);
+        SF.click(By.xpath('//input[@ng-model="vm.calcSettings.doubleDriveTimeName"]'));
+        SF.sleep(4);
+    }
     //==============================CALCULATOR SETTINGS===========================
     function CalculatorSettings_OpenBasicSettings(){
 		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[2]'));
@@ -721,6 +786,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(2);
         // SF.click(By.xpath('//input[@ng-model="vm.checkCancel"]'));
         SF.click(By.xpath('//input[@ng-model="vm.checkTerms"]'));
+        SF.sleep(1);
     }
     function Account_ClickConfirmReservation() {
         SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
@@ -829,6 +895,20 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Account_Click60centPerPound() {
         SF.click(By.xpath('//md-checkbox[@ng-change="setValuationType(valuationTypes.PER_POUND)"]'));
+    }
+    function Account_ChangeZipFrom(zipFrom) {
+        SF.click(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'));
+        driver.findElement(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
+        SF.send(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'), zipFrom);
+    }
+    function Account_ChangeZipTo(zipFrom) {
+        SF.click(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
+        driver.findElement(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
+        SF.send(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'), zipFrom);
+    }
+    function Account_ChangeMoveSize(number) {
+        SF.select(By.xpath('//select[@field="request.move_size"]'), number);
+
     }
 
     //===================================CONTRACT===================================
@@ -987,6 +1067,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
         WaitWhileBusy();
         SF.sleep(2);
+    }
+    function Contract_ClickAddCrew() {
+        WaitWhileBusy();
+        SF.click(By.xpath('//a[@ng-click="addCrew()"]'));
+        WaitWhileBusy ();
     }
     //=================================EDIT STORAGE REQUEST=====================================
 
@@ -1765,6 +1850,36 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="saveComments()"]'));
         WaitWhileToaster();
     }
+    function EditRequest_OpenAccountPageInNewWindow() {
+        SF.click(By.xpath('//a[@ng-click="goTo()"]'));
+        SF.sleep(3);
+        SF.openTab(1);
+        SF.sleep(3);
+    }
+    function EditRequest_ChangeZipCodeDestinationTo(zip) {
+        SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
+        driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
+        SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), zip);
+    }
+    function EditRequest_ChangeZipCodeOriginFrom(zip) {
+        SF.click(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'));
+        driver.findElement(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
+        SF.send(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'), zip);
+    }
+    function EditRequest_OpenTabFlatRateOption() {
+        SF.click(By.xpath('//a[@ng-click="select(tabs[6])"]'));
+    }
+    function EditRequest_RemoveSelectedPayment() {
+        SF.click(By.xpath('//a[@ng-click="removeReceipt()"]'));
+        SweetConfirm();
+        SF.sleep (5);
+        WaitWhileBusy ();
+    }
+    function EditRequest_SendTipsOnClosingTab(sum) {
+        SF.click(By.xpath('//input[@ng-model="tips.value"]'));
+        SF.send(By.xpath('//input[@ng-model="tips.value"]'), sum);
+        SF.sleep(3);
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -2222,6 +2337,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         JS.select('select#edit-service',number);
         SF.sleep(1.5);
     }
+    function FrontSite_DownCalculatorClearAllZipCode() {
+        SF.clear (By.id('edit-zip-code-from'));
+        SF.clear (By.id('edit-zip-code-to'));
+    }
 
     //==================================LONG DISTANCE SETTINGS==========================
 
@@ -2289,6 +2408,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusySymbol:WaitWhileBusySymbol,
         ConfirmCalculatorOff:ConfirmCalculatorOff,
         ContractSettings_OpenConfirmationPageTitleSettings:ContractSettings_OpenConfirmationPageTitleSettings,
+        BoardSettingsAccountTopText_SendLocalMoveTitleText:BoardSettingsAccountTopText_SendLocalMoveTitleText,
 
         //==================================MAIL.RU and GMAIL=========================================
 
@@ -2325,6 +2445,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
         Dispach_ClickUnassignTeam:Dispach_ClickUnassignTeam,
         Dispach_ClickAddCrew:Dispach_ClickAddCrew,
+        Dispach_ClickDeliveryCrewOnlyFlatRate:Dispach_ClickDeliveryCrewOnlyFlatRate,
+        Dispach_SetHelperInAddCrew:Dispach_SetHelperInAddCrew,
 
         //------------------------------------SIT-------------------------------------------//
 
@@ -2341,7 +2463,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SIT_RefreshJobsInTrip:SIT_RefreshJobsInTrip,
         SIT_ChangeStatusTripForemanHelper:SIT_ChangeStatusTripForemanHelper,
         SIT_AddDescriptionAndInternalCode:SIT_AddDescriptionAndInternalCode,
-
+        SIT_ClosingClickTpCollected:SIT_ClosingClickTpCollected,
+        SIT_TripSendDriveNameAndPhone:SIT_TripSendDriveNameAndPhone,
+        SIT_ClickCreateNewStorage:SIT_ClickCreateNewStorage,
         //------------------------------------BOARD=========================================
         Board_ClickLongDistanceDispach:Board_ClickLongDistanceDispach,
         Board_LogoutAdmin: Board_LogoutAdmin,
@@ -2400,6 +2524,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 	    Board_OpenSettingsAccountPagePendingInfo:Board_OpenSettingsAccountPagePendingInfo,
         Board_ShowProtectionOnAccountPage : Board_ShowProtectionOnAccountPage,
         Board_OpenPaymentCollected:Board_OpenPaymentCollected,
+        Board_GeneralFlatRateSettingsON:Board_GeneralFlatRateSettingsON,
+        Board_SettingsPendingInfoOFF:Board_SettingsPendingInfoOFF,
+        Board_SettingsPendingInfoON:Board_SettingsPendingInfoON,
+        BoardCalculatorSettings_SelectMinDoubleDriveTime:BoardCalculatorSettings_SelectMinDoubleDriveTime,
+        BoardSettingsCalculator_DoubleDriveTimeON:BoardSettingsCalculator_DoubleDriveTimeON,
+        BoardSettingsCalculator_DoubleDriveTimeOFF:BoardSettingsCalculator_DoubleDriveTimeOFF,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
@@ -2454,6 +2584,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ConfirmationClickPayDeposit:Account_ConfirmationClickPayDeposit,
         Account_ConfirmationClickSaveSignature:Account_ConfirmationClickSaveSignature,
         Account_Click60centPerPound:Account_Click60centPerPound,
+        Account_ChangeZipFrom:Account_ChangeZipFrom,
+        Account_ChangeZipTo:Account_ChangeZipTo,
+        Account_ChangeMoveSize:Account_ChangeMoveSize,
         //===================================CONTRACT=======================================
         Contract_WaitConfirmationPage: Contract_WaitConfirmationPage,
         Contract_WaitBillOfLading: Contract_WaitBillOfLading,
@@ -2485,6 +2618,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_ClickDoneWithInventory:Contract_ClickDoneWithInventory,
         Contract_RemoveMonthlyStorageFee:Contract_RemoveMonthlyStorageFee,
         Contract_PayCash:Contract_PayCash,
+        Contract_ClickAddCrew:Contract_ClickAddCrew,
         //=================================EDIT STORAGE REQUEST=====================================
         EditStorage_RememberId: EditStorage_RememberId,
         EditStorage_OpenLedger: EditStorage_OpenLedger,
@@ -2640,6 +2774,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenFullValueProtection : EditRequest_OpenFullValueProtection,
         EditRequest_OpenSettingsAccountPage:EditRequest_OpenSettingsAccountPage,
         EditRequest_SaveAccountPageSettings:EditRequest_SaveAccountPageSettings,
+        EditRequest_OpenAccountPageInNewWindow:EditRequest_OpenAccountPageInNewWindow,
+        EditRequest_ChangeZipCodeDestinationTo:EditRequest_ChangeZipCodeDestinationTo,
+        EditRequest_ChangeZipCodeOriginFrom:EditRequest_ChangeZipCodeOriginFrom,
+        EditRequest_OpenTabFlatRateOption:EditRequest_OpenTabFlatRateOption,
+        EditRequest_RemoveSelectedPayment:EditRequest_RemoveSelectedPayment,
+        EditRequest_SendTipsOnClosingTab:EditRequest_SendTipsOnClosingTab,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
@@ -2738,6 +2878,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         FrontSiteSmallCalc_SendZipFrom:FrontSiteSmallCalc_SendZipFrom,
         FrontSiteSmallCalc_ClickNeedStorageCheckbox:FrontSiteSmallCalc_ClickNeedStorageCheckbox,
         FrontSiteSmallCalc_SelectServiceType:FrontSiteSmallCalc_SelectServiceType,
+        FrontSite_DownCalculatorClearAllZipCode:FrontSite_DownCalculatorClearAllZipCode,
 		HomeEstimate_Logout:HomeEstimate_Logout,
         //====================================Payment collected==========================================
 

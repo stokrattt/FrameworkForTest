@@ -98,9 +98,7 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 			text = SF.cleanPrice(text.substring(text.indexOf('$')));
 			VD.IWant(VD.ToEqual, V.ValuationChargeinAccount2 ,text ,'не совпали Valuation выбранный во второй раз на аккаунте и в таблице на конфирмейшн пэйдж');
 		}), config.timeout);
-	Debug.pause();
     //driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table"]/tbody/tr[3]/td[4]/span')).getText().then(function (text) {
-        //console.log(text);
         //VD.IWant(VD.ToEqual, V.ValuationChargeinAccount2 + V.boardNumbers.QuoteMin - V.ValuationChargeinAccount2 + V.boardNumbers.QuoteMax ,text ,'не совпали Valuation выбранный во второй раз на аккаунте и в таблице на конфирмейшн пэйдж');
     //}), config.timeout);
 	JS.scroll('div[ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]');

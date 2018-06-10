@@ -33,14 +33,10 @@ condition.nowWeDoing = 'Создаем Long Distance работу, добавл�
     MF.EditRequest_SITmodalClickSave();
 
 condition.nowWeDoing = 'добавляем адишенал, типсы, делаем проплату в клоузинге';
-    SF.click(By.xpath('//input[@ng-model="tips.value"]'));
-    SF.send(By.xpath('//input[@ng-model="tips.value"]'),50);
-    SF.sleep(3);
+    MF.EditRequest_SendTipsOnClosingTab(50);
     LF.EditRequest_AddAdditionalServClosingTab();
-    SF.click(By.xpath('//label[@ng-click="OpenSurchargeInvoiceModal();"]'));
-    SF.click(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
-    SF.clear(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'));
-    SF.send(By.xpath('//input[@ng-model="invoice.request_all_data.surcharge_fuel"]'),200);
+    MF.EditRequest_OpenFuelModalClosingTab();
+    MF.EditRequest_SendSumFuelModalClocingTab(200);
     MF.EditRequest_ClickApplyInFuelWindow();
     SF.sleep(5); //софт тупит
     V.boardNumbersClosingTab1 = {};
@@ -71,7 +67,7 @@ condition.nowWeDoing = 'идем заново в реквест сверяем �
     JS.click('button[ng-click=\\"save()\\"]:visible');
     V.boardNumbersClosingAfterPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterPaymentInRequest);
-    SF.sleep(3);
+    SF.sleep(1);
     LF.closeEditRequest ();
 
 condition.nowWeDoing = 'идем в SIT создаем трип, добавляем в него наш реквест';
@@ -97,11 +93,9 @@ condition.nowWeDoing = 'идем в SIT создаем трип, добавля�
     SF.click(By.xpath('//div[text()="helper test2"]'));
     SF.click(By.xpath('//button[@ng-click="closeSelectBox($event)"]'));
     SF.sleep(3);
-    JS.click('span:contains(\\"Add Pickup/Delivery\\")');
-    MF.WaitWhileBusy();
+    MF.SIT_ClickAddPickupDelivery();
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
-    JS.click('span:contains(\\"Add requests to trip\\")');
-    SF.sleep(8);
+    MF.SIT_AddRequestToTrip();
     MF.SIT_RefreshJobsInTrip();
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openDialog(item)"]/following-sibling::div[@class="big-form__jobs-list__body__item"][5]')).getText().then(function (text) {
         V.TripBalance1 = SF.cleanPrice(text);
@@ -186,10 +180,6 @@ condition.nowWeDoing = 'запоминаем номер трипа, выходи
     MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenSideBar();
     SF.sleep(3);
-    // driver.wait(driver.findElement(By.xpath('//div[@class="trip-list__body trip-list__body_hide"]/div[contains(text(), "'+V.TripID+'")]')).getText().then(function (text) {
-    //     V.TripPlannerID = SF.cleanPrice(text);
-    //     VD.IWant(VD.ToEqual,  V.TripID, V.TripPlannerID, 'нет работы в трипе');
-    // }),config.timeout);
     SF.click(By.xpath('//div[contains(text(), "'+V.TripID+'")]'));
     SF.click(By.xpath('//div[contains(text(), "'+V.TripID+'")]'));
     SF.waitForLocated (By.xpath('//div[@id="trucksTimelineId"]'));

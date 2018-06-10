@@ -88,7 +88,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
     }),config.timeout);
-    Debug.pause();
     MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
     SF.sleep(1);

@@ -42,10 +42,8 @@ condition.nowWeDoing = 'выставляем адреса и зип коды н�
     SF.clear(By.xpath('//input[@ng-model="vm.basicSettings.company_logo_url"]'));
     SF.send(By.xpath('//input[@ng-model="vm.basicSettings.company_logo_url"]'), 'http://stage.themoveboard.com:8001/moveBoard/content/img/moveboardlogo.png');
 
-    JS.scroll ('input[ng-model=\\"basicSettings.isflat_rate_miles\\"]');
-    driver.wait(driver.executeScript("if($('input[ng-model=\"basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
-        "return true;}else{$('input[ng-model=\"basicSettings.isflat_rate_miles\"]').click()}"),config.timeout);
-    SF.sleep(3);
+    MF.Board_GeneralFlatRateSettingsON();
+
     SF.clear(By.xpath('//input[@ng-model="basicSettings.flat_rate_miles"]'));
     SF.send(By.xpath('//input[@ng-model="basicSettings.flat_rate_miles"]'), '150');
 

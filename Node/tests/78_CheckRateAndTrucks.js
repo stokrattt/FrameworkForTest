@@ -51,8 +51,7 @@ condition.nowWeDoing = 'тут мы сделаем пакинг дей с рек
     driver.wait(driver.executeScript("return $('span[ng-click=\"openBindingRequest(request.request_all_data.packing_request_id)\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отвязался пакинг реквест с родительского на мувборде');
     }),config.timeout);
-    SF.click(By.xpath('//a[@ng-click="goTo()"]'));
-    SF.openTab(1);
+    MF.EditRequest_OpenAccountPageInNewWindow();
     MF.Account_WaitForLoadingAccount();
     driver.wait(driver.executeScript("return $('span[ng-show=\"vm.request.service_type.raw != 8\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отвязался пакинг реквест с родительского на аккаунте');
@@ -64,8 +63,7 @@ condition.nowWeDoing = 'тут мы сделаем пакинг дей с рек
     driver.wait(driver.executeScript("return $('div[class=\"addPackingInfo\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не пропал род реквест с пакинг дея в котором мы его отвязали на мувборде');
     }),config.timeout);
-    SF.click(By.xpath('//a[@ng-click="goTo()"]'));
-    SF.openTab(1);
+    MF.EditRequest_OpenAccountPageInNewWindow();
     MF.Account_WaitForLoadingAccount();
     driver.wait(driver.executeScript("return $('a[ng-click=\"vm.goToNewRequest(vm.request.request_all_data.packing_request_id)\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не отвязался родительский от пакинг дея  на аккаунте');

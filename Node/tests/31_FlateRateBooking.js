@@ -13,10 +13,7 @@ condition.nowWeDoing = 'идем в админку проверяем что с�
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsGeneral ();
     SF.sleep (2);
-    JS.scroll ('input[ng-model=\\"basicSettings.isflat_rate_miles\\"]');
-    driver.wait(driver.executeScript("if($('input[ng-model=\"basicSettings.isflat_rate_miles\"]').hasClass('ng-not-empty')){" +
-        "return true;}else{$('input[ng-model=\"basicSettings.isflat_rate_miles\"]').click()}"));
-    SF.sleep(3);
+    MF.Board_GeneralFlatRateSettingsON();
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
 
@@ -25,33 +22,15 @@ condition.nowWeDoing = 'создаем Flat Rate реквест';
 
 condition.nowWeDoing = 'перешли в аккаунт добавляем опции';
     MF.Account_ClickViewRequest();
-    let now = new Date();
-    let msInDay = 86400000;
-    let future = new Date(now.getTime() + msInDay * 2);
-    let options = { day: 'numeric', month: 'short', year: 'numeric' };
-    V.changedateUp = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//div[contains(@class, "dateRange")]/input'), V.changedateUp);
-     now = new Date();
-     msInDay = 86400000;
-     future = new Date(now.getTime() + msInDay * 3);
-     options = { day: 'numeric', month: 'short', year: 'numeric' };
-    V.changedateDelivery = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//div[contains(@class, "dateRange delivery")]/input'), V.changedateDelivery);
-    MF.WaitWhileBusy ();
+    LF.AccountFlatRate_ChoosePickupAndDeliveryDate();
     SF.click(By.xpath('//div[contains(@class, "ng-pristine")]'));
-    SF.select (By.xpath('//select[@ng-model="details.current_door"]'), 30);
-    SF.select (By.xpath('//select[@ng-model="details.new_door"]'), 50);
-    SF.select (By.xpath('//select[@ng-model="details.current_permit"]'), "PM");
-    SF.select (By.xpath('//select[@ng-model="details.new_permit"]'), "PR");
-    JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
-    MF.WaitWhileBusy();
+    LF.AccountFR_SeelectOptions();
 
 condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.AccountFlatRateAddInventory();
     SF.sleep(2);
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
 		V.CBFinAccount = SF.cleanPrice(text);
-		console.log(V.CBFinAccount);
 	}),config.timeout);
     MF.Account_SubmitFlatRateAfterAddInventory ();
     JS.scroll ('a[ng-click=\\"vm.Logout()\\"]');
@@ -69,64 +48,11 @@ condition.nowWeDoing = 'пошли в админку, открыли рекве�
 	JS.scroll('div[ng-show="!request.isInventory"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin = SF.cleanPrice(text);
-		console.log(V.CBFinAdmin);
 		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес после добавления инвентаря в аккаунте и реквесте на мувборде');
 	}),config.timeout);
-	JS.scroll('a[ng-click="select(tabs[6])"]');
-	SF.click(By.xpath('//a[@ng-click="select(tabs[6])"]'));
-    SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
-    SF.sleep (0.5);
-     now = new Date();
-     msInDay = 86400000;
-     future = new Date(now.getTime() + msInDay * 2);
-     options = { month: 'long', day: 'numeric', year: 'numeric' };
-    V.changedateUpAdmin = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//input[@ng-model="option.pickup"]'), V.changedateUpAdmin);
-    SF.select (By.xpath('//select[@ng-model="option.picktime1"]'), 3);
-    SF.select (By.xpath('//select[@ng-model="option.picktime2"]'), 4);
-    SF.sleep (0.5);
-     now = new Date();
-     msInDay = 86400000;
-     future = new Date(now.getTime() + msInDay * 4);
-     options = { month: 'long', day: 'numeric', year: 'numeric' };
-    V.changedateDelAdmin = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//input[@ng-model="option.delivery"]'), V.changedateDelAdmin);
-    SF.select (By.xpath('//select[@ng-model="option.deltime1"]'), 5);
-    SF.select (By.xpath('//select[@ng-model="option.deltime2"]'), 6);
-    SF.send(By.xpath('//input[@ng-model="option.rate"]'), 5000);
-    SF.sleep (0.5);
-    SF.click (By.xpath('//a[@ng-click="addOption()"]'));
-    SF.sleep (4);
-
-condition.nowWeDoing = 'заполняем опции 2';
-    SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
-    SF.sleep (0.5);
-     now = new Date();
-     msInDay = 86400000;
-     future = new Date(now.getTime() + msInDay * 3);
-     options = { month: 'long', day: 'numeric', year: 'numeric' };
-    V.changedateUpAdminLong = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//input[@ng-model="option.pickup"]'), V.changedateUpAdminLong);
-    SF.select (By.xpath('//select[@ng-model="option.picktime1"]'), 5);
-    SF.select (By.xpath('//select[@ng-model="option.picktime2"]'), 7);
-    SF.sleep (0.5);
-     now = new Date();
-     msInDay = 86400000;
-     future = new Date(now.getTime() + msInDay * 5);
-     options = { month: 'long', day: 'numeric', year: 'numeric' };
-    V.changedateDelAdminLong = (future.toLocaleDateString('en-US', options));
-    SF.send(By.xpath('//input[@ng-model="option.delivery"]'), V.changedateDelAdminLong);
-    SF.select (By.xpath('//select[@ng-model="option.deltime1"]'), 8);
-    SF.select (By.xpath('//select[@ng-model="option.deltime2"]'), 9);
-    SF.send(By.xpath('//input[@ng-model="option.rate"]'), 6000);
-    SF.sleep (0.5);
-    JS.scroll ('a[ng-click=\\"addOption()\\"]');
-    SF.click (By.xpath('//a[@ng-click="addOption()"]'));
-    SF.sleep (2);
-    SF.click(By.xpath('//a[@ng-click="saveOptions()"]'));
-    SF.sleep (3);
-    MF.WaitWhileToaster();
-    MF.SweetConfirm ();
+	// JS.scroll('a[ng-click="select(tabs[6])"]');
+    MF.EditRequest_OpenTabFlatRateOption();
+    LF.FlatRateEditRequest_AddTwoOption();
     /*********************************************************************************************/
     MF.EditRequest_OpenClient ();
     LF.SetClientPasswd (V.client.passwd);
@@ -138,7 +64,6 @@ condition.nowWeDoing = 'закрыли реквест и пошли на таб�
     driver.wait(driver.findElement(By.xpath('//td[@ng-click="requestEditModal(request)"][contains(text(),"' + V.FRId + '")]/../td[2]/span')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, 'Flat Rate (Wait Option)', 'реквест не появился на табе нот конферм а должен был, потому что у него статус должен быть Flaat Rate(wait option)');
     }),config.timeout);
-    Debug.pause();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
 
@@ -158,23 +83,7 @@ condition.nowWeDoing = 'добавляем дисконт';
     MF.EditRequest_SendMoneyDiscount(500);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
-    SF.sleep (1);
-    now = new Date();
-    msInDay = 86400000;
-    future = new Date(now.getTime() + msInDay * 4);
-    let second_future = new Date(now.getTime() + msInDay * 7);
-    let month = { month: 'numeric'};
-    let day = {day: 'numeric'};
-    V.firstDate = {};
-    V.secondDate = {};
-    V.firstDate.Month = (future.toLocaleDateString('en-US', month)) - 1;
-    V.firstDate.Day = (future.toLocaleDateString('en-US', day));
-    V.secondDate.Month = (second_future.toLocaleDateString('en-US', month)) - 1;
-    V.secondDate.Day = (second_future.toLocaleDateString('en-US', day));
-    SF.sleep(1);
-    SF.click(By.xpath('//div[contains(@class, "dateRange")]/input'));
-    MF.Account_PreferredPickUpDate(V.firstDate, V.secondDate);
-    SF.sleep (2);
+    LF.FlatRateEditRequest_SendDeliveryDates();
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
@@ -218,7 +127,6 @@ condition.nowWeDoing = 'идем в акк под клиентом 2 раз бу
     }),config.timeout);
 	driver.wait(driver.findElement(By.xpath('//div[@class="inventory row"]/h2/span/span[4]')).getText().then(function(text) {
 		V.CBFinConfPage = SF.cleanPrice(text);
-		console.log(V.CBFinConfPage);
 		VD.IWant(VD.ToEqual, V.CBFinConfPage ,V.CBFinAdmin,'не совпал вес на мувборде и на конфирмейшн пэйдж');
 	}),config.timeout);
     LF.LogoutFromAccount ();
@@ -270,41 +178,7 @@ condition.nowWeDoing = 'идем в админку проверять что р�
 
 condition.nowWeDoing = 'идем в календарь проверять что трак есть на календаре';
     MF.Board_OpenSchedule ();
-    driver.wait(driver.findElement(By.xpath('//span[contains(@class, "current-date")]')).getText().then(function(date){
-        V.current = date;
-         now = new Date();
-         msInDay = 86400000;
-         future = new Date(now.getTime() + msInDay * 2);
-         options = {  month: 'long', year: 'numeric' };
-        V.Dates = (future.toLocaleDateString('en-US', options));
-    }), config.timeout);
-    SF.sleep(8);
-            if (V.current == V.Dates) {
-                 now = new Date();
-                 msInDay = 86400000;
-                 future = new Date(now.getTime() + msInDay * 2);
-                 options = { day: 'numeric' };
-                V.datescedule = (future.toLocaleDateString('en-US', options));
-                SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
-                SF.sleep(5);
-                driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (checkSchedule) {
-                    VD.IWant(VD.NotToEqual, checkSchedule, 0, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся '+V.FRId+'');
-                }),config.timeout);
-            } else {
-                now = new Date();
-                msInDay = 86400000;
-                future = new Date(now.getTime() + msInDay * 2);
-                options = { day: 'numeric' };
-                V.datescedule = (future.toLocaleDateString('en-US', options));
-                SF.click(By.xpath('//i[@ng-click="vm.nextMonth()"]'));
-                SF.sleep(5);
-                SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
-                SF.sleep(5);
-                driver.wait(driver.executeScript("return $('div.line1:contains("+V.FRId+")').length").then (function (checkSchedule) {
-                    VD.IWant(VD.NotToEqual, checkSchedule, 0, 'трак (желтая линия, реквест) на таблице траков в календаре не нашелся (вторая проверка)'+V.FRId+'');
-                }),config.timeout);
-            }
-
+    LF.Schedule_CheckFlatRateTruck(V.FRId);
     SF.sleep(1);
     
     //=========================закончили писать тест=============================

@@ -17,7 +17,6 @@ condition.nowWeDoing = 'создаем лоадинг хелп с аккаунт
     LF.AccountLocalAddInventory();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
 		V.CBFinAccount = SF.cleanPrice(text);
-		console.log(V.CBFinAccount);
 	}),config.timeout);
     LF.AccountLoadingDetails();
     MF.Account_WaitForInventoryCheck();
@@ -35,18 +34,13 @@ condition.nowWeDoing = 'идем в админку,сравниваем данн
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin = SF.cleanPrice(text);
-		console.log(V.CBFinAdmin);
 		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес инвентаря в аккаунте и реквесте на мувборде');
     }),config.timeout);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//select[@id="edit-service"]/option[@value="1"]'));
-    SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
-    driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
-    SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "02222");
-    SF.click(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'));
-    driver.findElement(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
-    SF.send(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'), "01101");
+    MF.EditRequest_ChangeZipCodeDestinationTo("02222");
+    MF.EditRequest_ChangeZipCodeOriginFrom("01101");
     MF.EditRequest_SetAdressToFrom ();
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed();

@@ -18,7 +18,6 @@ condition.nowWeDoing = 'первый раз в аккаунте';
     LF.RememberAccountNumbers(V.accountNumbers);
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'1\' && vm.request.total_weight.weight"]')).getText().then(function(text) {
 		V.CBFinAccount = SF.cleanPrice(text);
-		console.log(V.CBFinAccount);
 	}),config.timeout);
     // LF.addToCleanerJob(V.accountNumbers.Id);
     LF.LogoutFromAccount();

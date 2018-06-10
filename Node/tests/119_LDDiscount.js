@@ -75,7 +75,6 @@ condition.nowWeDoing = 'Создаем ЛД в наш штат с верхней
 condition.nowWeDoing = 'добавляем инвентарь 1й раз, и проверям гранд тотал, должна быть цена по скидке = мин к.ф.+ разница к.ф.* реит. Здесь расчеты для 1й скидки';
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'1\' && vm.request.total_weight.weight"]')).getText().then(function(text) {
 		V.CBFinAccount = SF.cleanPrice(text);
-		console.log(V.CBFinAccount);
 	}),config.timeout);
     LF.AccountLocalAddInventory();
     V.accountNumbersLDAfterFirsrInventory={};
@@ -113,7 +112,6 @@ condition.nowWeDoing = 'идем в модалку проверяем цену, 
     JS.scroll('div[ng-show="!request.isInventory"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin = SF.cleanPrice(text);
-		console.log(V.CBFinAdmin);
 		VD.IWant(VD.ToEqual, V.CBFinAccountAfterInventory2 ,V.CBFinAdmin,'не совпал вес инвентаря в аккаунте и реквесте на мувборде');
 	}),config.timeout);
     V.boardNumbers = {};
@@ -131,7 +129,6 @@ condition.nowWeDoing = 'идем в модалку проверяем цену, 
     MF.EditRequest_SendNumberCustomCubFit(1300);
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.custom_weight.value"]')).getAttribute('value').then(function(text) {
 		V.CBFCustom = SF.cleanPrice(text);
-		console.log(V.CBFCustom);
 	}),config.timeout);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SaveChanges();
@@ -165,7 +162,6 @@ condition.nowWeDoing = 'заходим из-под админа в аккаун�
     SF.sleep(10);
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'3\' && vm.request.custom_weight.value"]')).getText().then(function(text) {
 		V.CBFCustominAccount = SF.cleanPrice(text);
-		console.log(V.CBFCustominAccount);
 		VD.IWant(VD.ToEqual,V.CBFCustom, V.CBFCustominAccount, 'не совпали кубикфты после добавления кастомного кубикфита на реквесте и на аккаунте');
 	}),config.timeout);
     V.accountNumbersLDAfterCustomWeight={};

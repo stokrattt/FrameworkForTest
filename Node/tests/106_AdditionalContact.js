@@ -19,15 +19,7 @@ condition.nowWeDoing = 'создаем мувинг с мувборда';
 
 condition.nowWeDoing = 'создаем адишенал контакт';
     MF.EditRequest_OpenClient();
-    SF.click(By.xpath('//i[@class="icon-user-follow"]'));
-    SF.send(By.xpath('//input[@ng-model="request.field_additional_user.first_name"]'),V.AdditionalName);
-    SF.send(By.xpath('//input[@ng-model="request.field_additional_user.last_name"]'),V.AdditionalFam);
-    SF.send(By.xpath('//input[@ng-model="request.field_additional_user.mail"]'),V.AdditionalEmail);
-    SF.send(By.xpath('//input[@ng-model="request.field_additional_user.phone"]'),V.AdditionalPhone);
-    SF.send(By.xpath('//input[@ng-model="client.field_user_additional_phone"]'), '1234567890');
-    SF.click(By.xpath('//button[@ng-click="saveAddContact()"]'));
-    SF.click(By.xpath('//button[@ng-click="updateAddContact()"]'));
-    MF.WaitWhileToaster();
+    LF.EditRequest_AddAdditionalContact(V.AdditionalName, V.AdditionalFam, V.AdditionalEmail, V.AdditionalPhone);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.WaitWhileBusySymbol();
     MF.WaitWhileToaster();

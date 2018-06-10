@@ -238,7 +238,6 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
 //     LF.OpenRequestInForemanPage(V.boardNumbersClone.Id);
 //     MF.Contract_WaitConfirmationPage();
 //     MF.Contract_OpenInventory();
-//     Debug.pause();
 //     MF.Contract_SubmitInventory();
 //     MF.WaitWhileBusy();
 //     MF.Contract_WaitForRental();

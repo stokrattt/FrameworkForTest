@@ -59,7 +59,6 @@ condition.nowWeDoing = 'Проверяем совпадает ли оценка'
 condition.nowWeDoing = 'удаляем вопрос';
     SF.click(By.xpath('//div[@class="sizeset chat-widget"]//button[contains(text(), \"Remove\")]'));
     MF.WaitWhileBusy();
-    SF.click(By.xpath('//button[contains(text(), \"Confirm\")]'));
-    SF.sleep(1);
+    MF.SweetConfirm();
     SF.endOfTest();
 };

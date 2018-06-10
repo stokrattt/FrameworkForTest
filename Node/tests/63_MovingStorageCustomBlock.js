@@ -133,7 +133,7 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From not confirmed на аккаунте на confirmation page');
     }),config.timeout);
-    Debug.pause();
+
     MF.AccountConfirmationPage_ClickBackToRequest ();
     SF.openTab (0);
     SF.sleep(1);
@@ -212,7 +212,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From confirmed на аккаунте');
     }),config.timeout);
-    Debug.pause();
     MF.Account_ClickViewConfirmationPage ();
     SF.sleep(3);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {

@@ -69,7 +69,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@placeholder="Quantity"]'),V.InvQty);
     driver.wait(driver.findElement(By.xpath('//div[@class="title number nopadding text-right col-xs-7"]')).getText().then(function (text) {
         V.InvTotalDue = SF.cleanPrice (text);
-        console.log(V.InvTotalDue);
     }), config.timeout);
     SF.click(By.xpath('//a[contains(text(), \"Proceed to send invoice\")]'));
     SF.sleep(2);
@@ -79,11 +78,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     condition.nowWeDoing = 'находим наш инвойс в списке и запоминаем его статус и дату';
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="invoice in invoices track by $index"]//td[contains(text(), "'+V.InvDescription+'")]/following-sibling::td[3]')).getText().then(function (text) {
         V.StatusInv = text;
-        console.log(V.StatusInv);
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="invoice in invoices track by $index"]//td[contains(text(), "'+V.InvDescription+'")]/following-sibling::td[1]')).getText().then(function (text) {
         V.DateInv = text;
-        console.log(V.DateInv);
     }), config.timeout);
     SF.click(By.xpath('//button[contains(text(), \"Ok\")]'));
     SF.sleep(4);

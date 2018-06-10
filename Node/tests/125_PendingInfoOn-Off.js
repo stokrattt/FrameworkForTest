@@ -12,10 +12,7 @@ condition.nowWeDoing = 'заходим под админом, выключаем
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
-    driver.wait(driver.executeScript("if($('input[ng-model=\"setting\"]').hasClass('ng-empty')){return true;}else{" +
-		"$('input[ng-model=\"setting\"] ~span').click()}"),config.timeout);
-    SF.sleep(2);
-    MF.WaitWhileToaster();
+    MF.Board_SettingsPendingInfoOFF();
 
 condition.nowWeDoing = 'создаем через криейт реквест и ставим статус нот конферм';
 	LF.CreateLocalMovingFromBoard(V.client);
@@ -71,9 +68,7 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
-    driver.wait(driver.executeScript("if($('input[ng-model=\"setting\"]').hasClass('ng-not-empty')){return true;}else{" +
-        "$('input[ng-model=\"setting\"] ~span').click()}"),config.timeout);	SF.sleep(2);
-	MF.WaitWhileToaster();
+    MF.Board_SettingsPendingInfoON();
 
 	SF.endOfTest();
 };

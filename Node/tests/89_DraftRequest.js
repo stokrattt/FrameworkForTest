@@ -15,19 +15,11 @@ condition.nowWeDoing = 'идем в настройки контракта и м�
     MF.Board_OpenSettingsGeneral ();
     MF.Board_OpenSettingsAccountPageAccountTopText();
     V.RandomTextTitleForAccount = SF.randomBukva(6) + '_title';
-    SF.click(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][1]/input'));
-    SF.clear(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][1]/input'));
-    SF.send(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][1]/input'), V.RandomTextTitleForAccount);
-    SF.click(By.xpath('//div[@ng-repeat="serviceType in serviceTypes"][2]/input'));
-    SF.sleep(3);
-    MF.WaitWhileToaster();
+    MF.BoardSettingsAccountTopText_SendLocalMoveTitleText(V.RandomTextTitleForAccount);
 
 condition.nowWeDoing = 'создаем драфт реквест и  сразу открываем в новой вкладке аккаунт проверить что есть наш тайтл что мы добавили';
     MF.Board_CreateDraftRequest();
-    SF.click(By.xpath('//a[@ng-click="goTo()"]'));
-    SF.sleep(4);
-    SF.openTab(1);
-    SF.sleep(5);
+    MF.EditRequest_OpenAccountPageInNewWindow();
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "service-type-title")]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, (V.RandomTextTitleForAccount).toUpperCase(), 'не нашло на аккаунте тайтл который мы добавили, статус реквеста пендинг');
     }),config.timeout);
@@ -41,9 +33,7 @@ condition.nowWeDoing = 'создаем драфт реквест и  сразу 
     LF.addAdditionalInventoryBoard();
     LF.EditRequest_AddPacking ();
     LF.EditRequest_AddAdditionalServicesFullPack ();
-    SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
-    driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
-    SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), "01247");
+    MF.EditRequest_ChangeZipCodeDestinationTo("02147");
     MF.EditRequest_SetAdressToFrom ();
     SF.sleep(5);
     V.boardNumbers = {};
@@ -126,6 +116,9 @@ condition.nowWeDoing = 'второй раз в админке, добаавим 
     SF.click(By.xpath('//div[@ng-click="choosePayment(option.name);"]/p[contains(text(), "forTestNotDelete")]'));
     SF.sleep(2);
     SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+    SF.sleep(4);
+    MF.WaitWhileBusy();
+    SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
     SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     MF.EditRequest_ClosePayment();
     MF.EditRequest_CloseConfirmWork();
@@ -144,9 +137,7 @@ condition.nowWeDoing = 'второй раз в админке, добаавим 
     MF.EditRequest_OpenPaymentModalWindow();
     SF.click(By.xpath('//span[@ng-if="receipt.transaction_id != \'Custom Payment\'"]'));
     SF.sleep(0.5);
-    SF.click(By.xpath('//a[@ng-click="removeReceipt()"]'));
-    MF.SweetConfirm();
-    SF.sleep(4);
+    MF.EditRequest_RemoveSelectedPayment();
     SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
     SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     SF.click(By.xpath('//input[@ng-click="changePending(receipt)"]'));

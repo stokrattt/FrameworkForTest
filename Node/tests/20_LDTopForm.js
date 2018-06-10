@@ -140,9 +140,7 @@ condition.nowWeDoing = 'открываем наш реквест с измене
     VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterReopenedAndCloseRequest.AdServices, V.boardNumbersClosingTab.AdServices, 'не сохранился Services на табе клозинг');
 
 condition.nowWeDoing = 'идем на страничку аккаунта и конфирмейшн и проверяем, что изменения в клозинге не коснулись аккаунта';
-    SF.click(By.xpath('//a[@ng-click="goTo()"]'));
-    SF.sleep(8);
-    SF.openTab(1);
+    MF.EditRequest_OpenAccountPageInNewWindow();
     V.accountNumbersLDAfterConfirm={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterConfirm);
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDWithInvent, V.accountNumbersLDAfterConfirm);

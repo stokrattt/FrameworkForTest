@@ -20,9 +20,9 @@ condition.nowWeDoing = 'идем в департмент, заходим за с
     SF.sleep(2);
     LF.AdminPermissionsTurnOn();
     MF.Department_ClickPermissionsRequestWindow();
-    driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeAllStatuses\"]').hasClass('ng-empty')){" +
-        "return true;}else{$('input[ng-model=\"request.permissions.canSeeAllStatuses\"]').parent().click()}"));
-    SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeAllStatuses"]/..'));
+    // driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeAllStatuses\"]').hasClass('ng-empty')){" +
+    //     "return true;}else{$('input[ng-model=\"request.permissions.canSeeAllStatuses\"]').parent().click()}"));
+    // SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeAllStatuses"]/..'));
     MF.Department_SaveUser();
     MF.Board_LogoutAdmin();
 

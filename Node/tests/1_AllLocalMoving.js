@@ -34,7 +34,6 @@ condition.nowWeDoing = 'первый раз в админке';
 	JS.scroll('div[ng-show="!request.isInventory"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin = SF.cleanPrice(text);
-		console.log(V.CBFinAdmin);
 		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес после добавления инвентаря в аккаунте и реквесте на мувборде');
 	}),config.timeout);
     V.boardNumbers = {};
@@ -97,7 +96,6 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
 	// JS.scroll('div[ng-show="!request.isInventory"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin2 = SF.cleanPrice(text);
-		console.log(V.CBFinAdmin2);
 		VD.IWant(VD.ToEqual, V.CBFinConfPage ,V.CBFinAdmin2,'не совпал вес на конфирмейшн пэйдж и на ' +
             'мувборде после открытия реквеста в диспатче');
 	}),config.timeout);

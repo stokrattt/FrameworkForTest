@@ -159,6 +159,7 @@ condition.nowWeDoing = 'Заходим в реквест , выставляем 
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork ();
     LF.closeEditRequest ();
+
  condition.nowWeDoing = 'Заходим в PickUp и проверям по филтрам и по введенним даним';
     MF.Board_OpenSideBar();
     SF.sleep(1);

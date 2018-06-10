@@ -88,7 +88,6 @@ condition.nowWeDoing = 'идем в аккаунт букать третью р�
     MF.Account_ClickViewRequest ();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'1\' && vm.request.total_weight.weight"]')).getText().then(function(text) {
 		V.CBFinAccount = SF.cleanPrice(text);
-		console.log(V.CBFinAccount);
 		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес на мувборде и на аккаунте у третьего реквеста');
 	}),config.timeout);
     LF.ConfirmRequestInAccount_WithReservationWithAdress ();

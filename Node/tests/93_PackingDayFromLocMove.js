@@ -46,12 +46,10 @@ condition.nowWeDoing = 'первый раз в админке открываем
     driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
         V.PackingDayID = SF.cleanPrice(text);
     }),config.timeout);
-    Debug.pause();
     MF.EditRequest_CloseCloneRequest();
 
 condition.nowWeDoing = 'тут проверяем что наш пекинг открывается с реквеста по кнопке и закрываем оба реквеста';
     MF.EditRequest_OpenBindingPackingDayRequest();
-    Debug.pause();
     SF.waitForLocated (By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]'));
     MF.WaitWhileBusy();
     JS.click('button[ng-click="cancel()"]:visible');
@@ -60,7 +58,6 @@ condition.nowWeDoing = 'тут проверяем что наш пекинг о�
 condition.nowWeDoing = 'тут открываем наш пекинг дей и сравниваем данные с род реквестом, что все скопировалось правильно и ' +
     'проверяем что род реквест открывается с пекинг реквеста';
     MF.Board_OpenRequest (V.PackingDayID);
-    Debug.pause();
     driver.wait(driver.findElement(By.xpath('//div[contains(@class, "service-type-label")]')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, text, "PACKING DAY", 'тип реквеста не совпал, должен быть Packing Day');
     }),config.timeout);

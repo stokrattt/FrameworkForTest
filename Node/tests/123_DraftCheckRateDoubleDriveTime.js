@@ -28,12 +28,8 @@ condition.nowWeDoing = 'идем в настройки рейтов и выст�
 condition.nowWeDoing = 'идем в настройки калькулятора и включаем дабл драйв тайм и ставим 15 минут';
     MF.Board_OpenSettingsCalculator();
     MF.CalculatorSettings_OpenTravelTime();
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.doubleDriveTime\"]').hasClass('ng-not-empty')){" +
-        "return true;}else{$('input[ng-model=\"vm.calcSettings.doubleDriveTime\"] ~span').click()}"),config.timeout);
-    SF.sleep(1);
-    SF.select(By.xpath('//select[@ng-model="vm.basicSettings.minCATavelTime"]'), 15);
-    SF.click(By.xpath('//input[@ng-model="vm.calcSettings.doubleDriveTimeName"]'));
-    SF.sleep(4);
+    MF.BoardSettingsCalculator_DoubleDriveTimeON();
+    MF.BoardCalculatorSettings_SelectMinDoubleDriveTime(15);
 
 condition.nowWeDoing = 'идем на дашборд и создаем драфт реквест и проверяем что драфт создался с новым рейтом и что есть дабл драйв тайм 15 минут';
     MF.Board_OpenDashboard();
@@ -48,17 +44,7 @@ condition.nowWeDoing = 'идем на дашборд и создаем драф�
     MF.EditRequest_SetAdressToFrom();
 
 condition.nowWeDoing = 'меняем мувдейт в реквесте и конфермим его, запоминаем все данные';
-    SF.click (By.xpath('//input[@ng-click="openCalendar()"]'));
-    let now = new Date();
-    let msInDay = 86400000;
-    let future = new Date(now.getTime() + msInDay * 6);
-    let month = { month: '2-digit'};
-    let day = {day: '2-digit'};
-    V.firstDate = {};
-    V.firstDate.Month = (future.toLocaleDateString('en-US', month));
-    V.firstDate.Day = (future.toLocaleDateString('en-US', day));
-    SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.firstDate.Month + '-' + V.firstDate.Day +'"]'));
-    MF.WaitWhileBusy();
+    LF.EditRequest_ChangeMoveDate(6);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rate.value"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 97, 'после смены мув дейт рейт поменялся, а не должен');
     }), config.timeout);
@@ -102,11 +88,7 @@ condition.nowWeDoing = 'идем на дашборд в конферм рекв�
 condition.nowWeDoing = 'идем в настройки калькулятора и выключаем дабл драйв тайм';
     MF.Board_OpenSettingsCalculator();
     MF.CalculatorSettings_OpenTravelTime();
-    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.doubleDriveTime\"]').hasClass('ng-empty')){" +
-        "return true;}else{$('input[ng-model=\"vm.calcSettings.doubleDriveTime\"] ~span').click()}"),config.timeout);
-    SF.sleep(1);
-    SF.click(By.xpath('//input[@ng-model="vm.calcSettings.doubleDriveTimeName"]'));
-    SF.sleep(4);
+    MF.BoardSettingsCalculator_DoubleDriveTimeOFF();
 
 
 

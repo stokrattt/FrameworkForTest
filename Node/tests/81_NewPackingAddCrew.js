@@ -41,17 +41,7 @@ condition.nowWeDoing = 'первый раз в админке,сверяю то�
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
     LF.EditRequest_AddPacking();
-    SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
-    SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
-    SF.click(By.xpath('//input[@ng-model="add_extra_charge.quantity"][1]'));
-    SF.clear(By.xpath('//input[@ng-model="add_extra_charge.quantity"][1]'));
-    SF.send(By.xpath('//input[@ng-model="add_extra_charge.quantity"][1]'), '888');
-    SF.click(By.xpath('//input[@ng-model="add_extra_charge.rate"][1]'));
-    SF.clear(By.xpath('//input[@ng-model="add_extra_charge.rate"][1]'));
-    SF.send(By.xpath('//input[@ng-model="add_extra_charge.rate"][1]'), '1');
-    SF.click(By.xpath('//button[@ng-click="save()"]'));
-    MF.WaitWhileBusy ();
-    SF.sleep (5);
+    LF.EditRequest_AddCustomPacking(888, 1);
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
     V.boardNumbers = {};
@@ -125,11 +115,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
     MF.Dispach_ClickAddCrew();
-    SF.click(By.xpath('//select[@ng-model="crew.helpers[$index]"]'));
-    SF.sleep(1);
-    SF.click(By.xpath("//label[contains(text(),'Additional Helpers')]/following-sibling::div" +
-        "[@ng-repeat='addHelper in crew.helpers track by $index']/select[@ng-model='crew.helpers[$index]']//option[contains(text(),'helper test1')]"));
-    SF.sleep(1);
+    MF.Dispach_SetHelperInAddCrew();
     SF.click(By.xpath('//a[@ng-click="vm.openSettingsModal($index)"]'));
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="rate.value"]')).getAttribute('value').then(function(text){
@@ -140,8 +126,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     JS.click('a[ng-click=\\"vm.assignTeam(request)\\"]:visible');
     MF.WaitWhileBusy();
     SF.sleep(4);
-    JS.waitForNotExist('div.toast-success:visible');
-    JS.waitForNotExist('div.toast-message:visible');
+    MF.WaitWhileToaster();
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим под форменом,проверяем наличие коробок в конфирмеишен, чтоо там не стало больше чем нужно, и сумму коробок в бил оф лендинг и то что екстра сервисы и пекинг который добавлен на клозинге есть на BOL';
@@ -169,7 +154,6 @@ condition.nowWeDoing = 'заходим под форменом,проверяе�
     }),config.timeout);
     MF.Contract_OpenBillOfLading();
     LF.MakeSignInContract();
-
     driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddPackingBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw != \'7\' && request.service_type.raw != \'5\'"]/following-sibling::td')).getText().then(function (text) {
         V.totalPackingContract = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalPackingContract, V.ClosingPacking, 'на контракте не появился пекинг который мы добавили в реквесте на табе клозинг или не совпала сумма');
@@ -178,15 +162,12 @@ condition.nowWeDoing = 'заходим под форменом,проверяе�
         V.totalAddServices = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalAddServices, V.ClosingAdServices, 'на контракте не появился адишинал сервис который мы добавили в реквесте на табе клозинг или не совпала сумма');
     }),config.timeout);
-
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    MF.WaitWhileBusy();
-    SF.click(By.xpath('//a[@ng-click="addCrew()"]'));
-    MF.WaitWhileBusy ();
+    MF.Contract_ClickAddCrew();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     driver.wait(driver.findElement(By.xpath('//th[contains(text(),"CREW 2")]/following-sibling::td[3]')).getText().then(function(text){

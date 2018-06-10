@@ -18,7 +18,8 @@ condition.nowWeDoing = 'Идем в настройки  ЛД. Так же про
     LF.LongDistanceSettings_AddLDStatusFlag(V.flag);
     MF.Board_OpenSettingsGeneral ();
     MF.Board_OpenSettingsValuation();
-    driver.wait(driver.executeScript("if ($('md-radio-button[area-label=\"By percent\"]').hasClass('md-checked')){return true;} else {$('md-radio-button[area-label=\"By percent\"]').click()}"),config.timeout);
+    driver.wait(driver.executeScript("if ($('md-radio-button[area-label=\"By percent\"]').hasClass('md-checked')){" +
+        "return true;} else {$('md-radio-button[area-label=\"By percent\"]').click()}"),config.timeout);
     driver.wait(driver.executeScript("if($('button[ng-click=\"saveChanges()\"]').hasClass('disabled')){" +
         ";}else{$('button[ng-click=\"saveChanges()\"]').click()}"),config.timeout);
     MF.WaitWhileToaster();
@@ -65,16 +66,8 @@ condition.nowWeDoing = 'пришли на аккаунт,добавляем ин
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
         V.CBFinAccount = SF.cleanPrice(text);
     }),config.timeout);
-    MF.Account_ClickDetails();
-    SF.select(By.xpath('//select[@id="current_door_to_parking"]'), 60);
-    SF.select(By.xpath('//select[@id="new_door_to_parking"]'), 60);
-    SF.select(By.xpath('//select[@id="current_parking_permit"]'), "PDW");
-    SF.select(By.xpath('//select[@id="new_parking_permit"]'), "PDW");
-    driver.executeScript("$('select#new_parking_permit').get(0).scrollIntoView();");
-    SF.click(By.xpath('//div[@ng-blur="details_change(\'Additional Comments\',details.addcomment, \'addcomment\')"]'));
-    MF.Account_ClickSaveDetails();
+    LF.Account_LongDistanceDetailsAdd();
     MF.Account_WaitForDetailsCheck();
-    MF.Account_WaitForInventoryCheck();
     V.accountNumbersLD1={};
     LF.RememberAccountNumbersLD(V.accountNumbersLD1);
     LF.LogoutFromAccount();
@@ -220,13 +213,6 @@ condition.nowWeDoing = 'Идем в настройки  ЛД и удаляем �
     MF.BoardOpenSettingsLongDistanceStatus();
     SF.click(By.xpath('//tr[@ng-repeat="values in longdistance.ldStatus track by $index"]/../tr[last()]/td/div[@ng-click="removeFlag($index,values)"]'));
     SF.sleep(1);
-
-condition.nowWeDoing = 'Идём в настройки Schedule и возвращаем стандартные настройки Reservation Price';
-    MF.Board_OpenSettingsSchedule();
-    SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.longReservationRate"]'), 500);
-    SF.select(By.xpath('//select[@ng-model="vm.scheduleSettings.longReservation"]'), 0);
-    SF.click(By.xpath('//section[@ng-controller="ScheduleContorller as vm"]'));
-    SF.sleep(2);
 
     SF.endOfTest();
 };
