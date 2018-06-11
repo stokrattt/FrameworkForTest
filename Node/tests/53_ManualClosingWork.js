@@ -57,11 +57,8 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     MF.EditRequest_OpenPayment();
     MF.WaitWhileBusy();
     V.cardInput = V.boardNumbersClose.Total;
-    SF.click(By.xpath('//a[@ng-click="addAuthPayment()"]'));
-    SF.sleep(2);
-    SF.click (By.xpath('//input[@ng-model="charge_value.value"]'));
-    SF.send (By.xpath('//input[@ng-model="charge_value.value"]'),V.cardInput);
-    SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
+    MF.EditRequest_ClickAddOnlinePayment();
+    MF.EditRequest_SetSumOnlinePaymentAndClickPaymentInfo(V.cardInput);
     LF.PayCheck();
     JS.waitForExist('div.payment-receipt-modal');
     MF.WaitWhileToaster();

@@ -1376,6 +1376,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Quote (Pending Status)")]' +
             '[contains(text(),"' + email + '")]/../../../following-sibling::div[1]'));
     }
+    function EditRequest_ExpandNotConfirmEmail(email) {
+        SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Local Quote (Not Confirmed Status)")]' +
+            '[contains(text(),"' + email + '")]/../../../following-sibling::div[1]'));
+    }
 
     function EditRequest_RememberId(request){
         driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
@@ -1897,6 +1901,42 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send(By.xpath('//input[@ng-model="tips.value"]'), sum);
         SF.sleep(3);
     }
+    function EditRequest_OpenAddServices() {
+        SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
+        SF.waitForVisible (By.id('extra-service-modal'));
+        SF.sleep(3);
+    }
+    function EditRequest_SaveAddServices() {
+        SF.click(By.xpath('//button[@ng-click="save()"]'));
+        WaitWhileBusy ();
+        SF.sleep (2);
+    }
+    function EditRequest_SetCustiomExtraServices(sum) {
+        SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
+        SF.sleep(0.5);
+        SF.click(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'));
+        SF.send(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'), sum);
+    }
+    function EditRequest_SetPendingReceipt() {
+        SF.click(By.xpath('//input[@ng-click="changePending(receipt)"]'));
+    }
+    function EditRequest_ClickAddOnlinePayment() {
+        SF.click(By.xpath('//a[@ng-click="addAuthPayment()"]'));
+        SF.waitForLocated (By.xpath('//button[@ng-click="goStepTwo();"]'));
+    }
+    function EditRequest_SetSumOnlinePaymentAndClickPaymentInfo(sum) {
+        SF.send(By.xpath('//input[@ng-model="charge_value.value"]'), sum);
+        SF.click (By.xpath('//button[@ng-click="goStepTwo();"]'));
+    }
+    function EditRequest_PayCustomOnlinePayment(nameOnlinePayment) {
+        SF.click(By.xpath('//div[@ng-click="choosePayment(option.name);"]/p[contains(text(), "'+nameOnlinePayment+'")]'));
+        SF.sleep(2);
+        SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+        SF.sleep(4);
+        WaitWhileBusy();
+        SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
+        SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -2407,7 +2447,21 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function PaymentCollected_ChoosePaymentFilter(nameFilter) {
         SF.click(By.xpath('//md-select[@ng-model="$ctrl.pickUpPaymentFilters"]'));
         SF.sleep(0.5);
-        SF.click(By.xpath('//div[contains(text(), "'+nameFilter+'")]'));
+        SF.click(By.xpath('//div[@class="md-text" and contains(text(), "'+nameFilter+'")]'));
+    }
+    function PaymentCollected_RefreshTable() {
+        SF.click(By.xpath('//i[@ng-click="$ctrl.getData()"]'));
+        WaitWhileBusy();
+    }
+    function PaymentCollected_ChoosePaymentFlag(nameFilter) {
+        SF.click(By.xpath('//md-select[@ng-model="$ctrl.additionalChoosedFilters"]'));
+        SF.sleep(0.5);
+        SF.click(By.xpath('//div[contains(text(), "'+nameFilter+'")]/preceding-sibling::div'));
+        SF.click(By.xpath('//md-backdrop[@class="md-select-backdrop md-click-catcher"]'));
+    }
+    function PaymentCollected_RemoveFilters() {
+        SF.click(By.xpath('//button[@ng-click="$ctrl.removeFilters()"]'));
+        WaitWhileBusy();
     }
 
     //==================================TRIPS============================================
@@ -2677,6 +2731,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_CloseEditRequest: EditRequest_CloseEditRequest,
         EditRequest_CloseModal: EditRequest_CloseModal,
         EditRequest_ExpandPendingEmail: EditRequest_ExpandPendingEmail,
+        EditRequest_ExpandNotConfirmEmail:EditRequest_ExpandNotConfirmEmail,
         EditRequest_RememberId:EditRequest_RememberId,
         EditRequest_RememberSale:EditRequest_RememberSale,
         EditRequest_SetSaleNumber:EditRequest_SetSaleNumber,
@@ -2800,6 +2855,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_OpenTabFlatRateOption:EditRequest_OpenTabFlatRateOption,
         EditRequest_RemoveSelectedPayment:EditRequest_RemoveSelectedPayment,
         EditRequest_SendTipsOnClosingTab:EditRequest_SendTipsOnClosingTab,
+        EditRequest_OpenAddServices:EditRequest_OpenAddServices,
+        EditRequest_SaveAddServices:EditRequest_SaveAddServices,
+        EditRequest_SetCustiomExtraServices:EditRequest_SetCustiomExtraServices,
+        EditRequest_SetPendingReceipt:EditRequest_SetPendingReceipt,
+        EditRequest_ClickAddOnlinePayment:EditRequest_ClickAddOnlinePayment,
+        EditRequest_SetSumOnlinePaymentAndClickPaymentInfo:EditRequest_SetSumOnlinePaymentAndClickPaymentInfo,
+        EditRequest_PayCustomOnlinePayment:EditRequest_PayCustomOnlinePayment,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
@@ -2906,5 +2968,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         PaymentCollected_ChooseAdvancedFilter:PaymentCollected_ChooseAdvancedFilter,
         PaymentCollected_SortByDESC:PaymentCollected_SortByDESC,
         PaymentCollected_ChoosePaymentFilter:PaymentCollected_ChoosePaymentFilter,
+        PaymentCollected_RefreshTable:PaymentCollected_RefreshTable,
+        PaymentCollected_ChoosePaymentFlag:PaymentCollected_ChoosePaymentFlag,
+        PaymentCollected_RemoveFilters:PaymentCollected_RemoveFilters,
     };
 };

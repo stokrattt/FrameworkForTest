@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/70_SITAddTripPersonallyForeman.js'];
+    config.suite = ['./tests/PaymentCollected.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 55000;

@@ -2784,21 +2784,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         MF.WaitWhileBusy ();
     }
     function EditRequest_AddAdditionalServicesFullPack() {
-        SF.sleep(0.5);
-        SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
-        SF.waitForVisible (By.id('extra-service-modal'));
-        SF.sleep(3);
+        MF.EditRequest_OpenAddServices();
         SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
         SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
         SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
-        SF.click(By.xpath('//button[@ng-click="save()"]'));
-        MF.WaitWhileBusy ();
-        SF.sleep (2);
+        MF.EditRequest_SaveAddServices();
     }
     function EditRequest_AddValuation() {
-        SF.click(By.xpath('//label[@ng-click="openValuationModal()"]'));
-        SF.waitForLocated (By.xpath('//div[@class="valuation__modal"]'));
-        SF.sleep(1);
+        MF.EditRequest_OpenValuationModal();
         SF.click(By.xpath('//div[@ng-click="setValuationType(valuationTypes.FULL_VALUE)"]'));
         SF.sleep(2);
         SF.click(By.xpath('//table[@class="valuation-modal__info-table"]/tbody[2]/tr[2]/td[3]'));
@@ -2848,15 +2841,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep (2);
     }
     function EditRequest_AddAdditionalServSalesTab() {
-        SF.click(By.xpath('//label[@ng-click="openAddServicesModal();"]'));
-        SF.waitForVisible (By.id('extra-service-modal'));
-        SF.sleep(3);
+        MF.EditRequest_OpenAddServices();
         SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
         SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
         SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
-        SF.click(By.xpath('//button[@ng-click="save()"]'));
-        MF.WaitWhileBusy ();
-        SF.sleep (2);
+        MF.EditRequest_SaveAddServices();
     }
     function BoardRequestPage_SetStartEndDate(start, end) {
         SF.clear (By.xpath('//input[@ng-model="dateFrom"]'));
