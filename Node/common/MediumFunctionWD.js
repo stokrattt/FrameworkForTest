@@ -432,6 +432,38 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible(By.xpath('//h2[contains(text(),"Contract Settings")]'));
         SF.sleep(1);
     }
+    function Board_TurnOnAdditionalContract() {
+        SF.click(By.xpath('//a[contains(text(),"Edit Contract page")]'));
+        SF.openTab(1);
+        SF.waitForVisible(By.xpath('//li[contains(text(),"Additional Pages")]'));
+        SF.click(By.xpath('//li[contains(text(),"Additional Pages")]'));
+        SF.waitForVisible(By.xpath('//a[contains(text(),"new Big T")]'));
+        driver.wait(driver.executeScript("if ($('input[ng-model=\"tab.mainContract\"]').hasClass('ng-empty')){" +
+            "return true;} else {$('span[class=\"switchery switchery-small\"]:visible').click()}"),config.timeout);
+        SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
+        WaitWhileBusy();
+        SweetConfirm();
+        driver.close();
+        SF.openTab(0);
+        SF.sleep(1);
+    }
+    function Board_TurnOffAdditionalContract() {
+        SF.click(By.xpath('//a[contains(text(),"Edit Contract page")]'));
+        SF.openTab(1);
+        SF.waitForVisible(By.xpath('//li[contains(text(),"Additional Pages")]'));
+        SF.click(By.xpath('//li[contains(text(),"Additional Pages")]'));
+        SF.waitForVisible(By.xpath('//a[contains(text(),"new Big T")]'));
+        driver.wait(driver.executeScript("if ($('input[ng-model=\"tab.mainContract\"]').hasClass('ng-not-empty')){" +
+            "return true;} else {$('span[class=\"switchery switchery-small\"]:visible').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if ($('input[ng-model=\" tab.show\"]').hasClass('ng-not-empty')){" +
+            "return true;} else {$('input[ng-change=\"changeShow(tab.index)\"]:visible').click()}"),config.timeout);
+        SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
+        WaitWhileBusy();
+        SweetConfirm();
+        driver.close();
+        SF.openTab(0);
+        SF.sleep(1);
+    }
     function Board_OpenSettingsTemplateBuilder() {
         Board_OpenSettingsGeneral();
         SF.click(By.xpath('//a[@ui-sref="settings.templatebuilder"]'));
@@ -2579,6 +2611,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSettingsAccountPageCustomTooltips:Board_OpenSettingsAccountPageCustomTooltips,
         Board_OpenSettingsAccountPageFlatRate: Board_OpenSettingsAccountPageFlatRate,
         Board_OpenSettingsContract:Board_OpenSettingsContract,
+        Board_TurnOnAdditionalContract:Board_TurnOnAdditionalContract,
+        Board_TurnOffAdditionalContract:Board_TurnOffAdditionalContract,
         Board_OpenStatistic: Board_OpenStatistic,
         Board_OpenProfitLoss: Board_OpenProfitLoss,
 		Board_OpenRequest: Board_OpenRequest,
