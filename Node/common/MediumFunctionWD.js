@@ -1649,6 +1649,23 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SweetConfirm();
         SF.sleep(4);
     }
+    function EditRequest_CreateCustomItem() {
+        SF.sleep(1);
+        SF.click(By.xpath('//a[@ng-click="setCustomItemMode()"]'));
+        SF.sleep(1);
+        SF.send(By.id('customInventoryName'), 'custom item');
+    }
+    function EditRequest_CustomItemSetPounds(number) {
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@ng-model="newItem.pounds.value"]'), number);
+        SF.sleep(1);
+    }
+    function EditRequest_CustomItemSetCount(number) {
+        SF.sleep(1);
+        SF.send(By.xpath('//input[@ng-model="newItem.count.value"]'), number);
+        SF.sleep(1);
+        SF.click(By.xpath('//button[@ng-click="customItemForm.$setSubmitted()"]'));
+    }
     function EditRequest_ClickSaveInventory() {
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
@@ -2725,6 +2742,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_CreateCustomBedroom:EditRequest_CreateCustomBedroom,
         EditRequest_CreateCustomRoom:EditRequest_CreateCustomRoom,
         EditRequest_ClickSaveInventory:EditRequest_ClickSaveInventory,
+        EditRequest_CreateCustomItem:EditRequest_CreateCustomItem,
+        EditRequest_CustomItemSetPounds:EditRequest_CustomItemSetPounds,
+        EditRequest_CustomItemSetCount:EditRequest_CustomItemSetCount,
         EditRequest_ClickHomeEstimateDate:EditRequest_ClickHomeEstimateDate,
 
         EditRequest_SaveChangesClosingTab:EditRequest_SaveChangesClosingTab,
