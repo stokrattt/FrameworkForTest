@@ -33,7 +33,7 @@ condition.nowWeDoing = 'создаем драфт реквест и  сразу 
     LF.addAdditionalInventoryBoard();
     LF.EditRequest_AddPacking ();
     LF.EditRequest_AddAdditionalServicesFullPack ();
-    MF.EditRequest_ChangeZipCodeDestinationTo("02147");
+    MF.EditRequest_ChangeZipCodeDestinationTo("01247");
     MF.EditRequest_SetAdressToFrom ();
     SF.sleep(5);
     V.boardNumbers = {};
