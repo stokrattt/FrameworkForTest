@@ -63,8 +63,7 @@ condition.nowWeDoing = 'второй раз в админке, заходим в
     SF.waitForLocated(By.xpath('//button[@ng-click="changeAll()"]'));
     SF.click(By.xpath('//button[@ng-click="changeAll()"]'));
     MF.WaitWhileBusy();
-    MF.WaitWhileToaster();
-    SF.sleep(8);
+    JS.waitForNotExist('div[ng-if="loading"]:visible');
     MF.EditRequest_OpenRequest();
     LF.closeEditRequest();
     MF.Board_RefreshDashboard();

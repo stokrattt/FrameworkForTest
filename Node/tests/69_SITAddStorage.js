@@ -1,7 +1,13 @@
 
 module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDetector, system, condition, config,constants) {
     global.fiber = Fiber.current;
-
+    V.client = {};
+    V.client.name = SF.randomBukva(6) + '_t';
+    V.client.fam = SF.randomBukva(6) + '_t';
+    V.client.phone = SF.randomCifra(10);
+    V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
+    V.client.passwd = 123;
+    V.boardNumbers = {};
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
@@ -76,7 +82,7 @@ condition.nowWeDoing = 'Проверяем есть ли сторадж в ре�
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
-
+    SF.sleep(5);
 condition.nowWeDoing = 'заходим в настройки аккаунта в реквесте и выключаем галку для смены инвентаря на конферм работе';
     MF.EditRequest_OpenSettings();
     MF.EditRequest_OpenSettingsAccountPage();

@@ -30,7 +30,6 @@ condition.nowWeDoing = 'Создаем Long Distance работу';
     V.carrierNew = {};
 
 condition.nowWeDoing = 'Создаем карьера';
-    MF.SIT_ClickAddCarrier();
     LF.SIT_CreateCarrier(V.carrierNew);
     MF.Board_ClickLongDistanceDispach();
 

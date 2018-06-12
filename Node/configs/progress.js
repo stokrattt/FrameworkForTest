@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/PaymentCollected.js'];
+    config.suite = ['./tests/37_PendingStorage.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 55000;

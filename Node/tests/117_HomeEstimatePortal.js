@@ -9,6 +9,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.salesName = "emilia clarck";
 	V.salesLogin = "emilia";
 	V.salesPassword = 123;
+    V.boardNumbers = {};
 
 condition.nowWeDoing = 'создаем мувинг с фронта, ставим статус инхом эстимеит';
 	SF.get(V.adminURL);
@@ -25,9 +26,9 @@ condition.nowWeDoing = 'создаем мувинг с фронта, стави�
 	SF.click(By.xpath('//input[@ng-model="request.home_estimate_start_time.value"]'));
 	SF.send(By.xpath('//input[@ng-model="request.home_estimate_start_time.value"]'),"12:00 AM");
 	SF.sleep(1);
+    V.boardNumbers.Duration={};
 	SF.click(By.id('home-estimate-duration'));
 	SF.click(By.xpath('//div[@class="ui-timepicker-wrapper"][3]/ul/li[8]'));
-	V.boardNumbers.Duration={};
 	driver.wait(driver.findElement(By.id('home-estimate-duration')).getAttribute('value').then(function (text) {
         V.boardNumbers.Duration= text;
 	}), config.timeout);
@@ -41,7 +42,6 @@ condition.nowWeDoing = 'делаем проплату, чтобы провери
 	LF.EditRequest_Payment_AddOnlinePayment();
 	MF.EditRequest_ClosePayment();
 	MF.EditRequest_WaitForOpenRequest();
-	V.boardNumbers = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	LF.closeEditRequest();
 
@@ -105,8 +105,8 @@ condition.nowWeDoing = 'добавляем инвентарь, делаем пр
 	VD.IWant(VD.NotToEqual, V.boardNumbersPortalcf , V.boardNumbersPortalnewcf , 'если не равны, то пересчет произошел на новые cf, если равные, то баг ');
 
 condition.nowWeDoing = 'изменяем информацию о клиенте, выбираем трак и конфермим работу';
-	// MF.EditRequest_WaitForOpenRequest();
-	// SF.waitForVisible(By.xpath('//div[@ng-class="{\'mobile-subbox-wrapper\': isMobile}"]'));
+	MF.EditRequest_WaitForOpenRequest();
+	SF.waitForVisible(By.xpath('//div[@ng-class="{\'mobile-subbox-wrapper\': isMobile}"]'));
 	LF.HomeEstimate_EditClientInfo();
 	MF.EditRequest_OpenRequest();
 	JS.step(JSstep.selectTruck(4));

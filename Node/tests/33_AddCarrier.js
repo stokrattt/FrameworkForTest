@@ -17,7 +17,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenSideBar ();
 
 condition.nowWeDoing = 'Создаем карьера';
-    MF.SIT_ClickAddCarrier();
     LF.SIT_CreateCarrier(V.carrierNew);
 
 condition.nowWeDoing = 'Редактируем карьера';

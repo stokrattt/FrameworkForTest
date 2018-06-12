@@ -1296,7 +1296,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		JS.waitForNotExist('div.visible-overflow');
 		JS.waitForNotExist('div.toast-message:visible');
 		JS.waitForNotExist('div.toast-success:visible');
-		SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+        JS.waitForNotExist('.busyoverlay:visible, inhome-estimate-request-loading:visible');
+        SF.click(By.xpath('//button[@ng-click="cancel()"]'));
 		SF.sleep(2);
 	}
 

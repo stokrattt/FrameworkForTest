@@ -60,7 +60,7 @@ condition.nowWeDoing = 'иду в аккаунт добавляем еще ка�
     SF.click (By.xpath('//div[@class="inventory__item"][2]//button[@ng-click="onClickCounter(1)"]'));
     SF.click (By.xpath('//div[@class="inventory__item"][3]//button[@ng-click="onClickCounter(1)"]'));
     MF.EditRequest_CreateCustomRoom();
-    // MF.SweetConfirm();
+    MF.SweetConfirm();
     SF.click(By.xpath('//div[@class="inventory__filters opened"]//a[@class="inventory__filter"]/span[contains(text(),"Miscellaneous")]'));
     SF.click (By.xpath('//div[@class="inventory__item"][1]//button[@ng-click="onClickCounter(1)"]'));
     SF.click (By.xpath('//div[@class="inventory__item"][2]//button[@ng-click="onClickCounter(1)"]'));

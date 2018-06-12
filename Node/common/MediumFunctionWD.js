@@ -163,8 +163,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function SIT_AddRequestToTrip() {
         JS.click('span:contains(\\"Add requests to trip\\")');
-        SF.waitForVisible(By.xpath('//input[@ng-model="trip.data.carrier.driver_name"]'));
-        SF.sleep(2);
+        SF.sleep(7);
     }
     function SIT_GoToClosingTab() {
         JS.click('span:contains(\\"Closing\\")');
@@ -1901,6 +1900,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function EditRequest_SaveAccountPageSettings() {
         SF.sleep(0.5);
         SF.click(By.xpath('//button[@ng-click="saveComments()"]'));
+        SF.sleep(4);
         WaitWhileToaster();
     }
     function EditRequest_OpenAccountPageInNewWindow() {

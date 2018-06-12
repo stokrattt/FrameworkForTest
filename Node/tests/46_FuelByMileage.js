@@ -69,7 +69,7 @@ condition.nowWeDoing = 'создаем локал мув где расстоян
     VD.IWant (VD.ToEqual, V.boardNumbers60_100.Fuel, 500, 'не совпал фуел с выставленными настройками на 60 - 100 миль');
 
 condition.nowWeDoing = 'меняем зип код в реквесте, чтобы расстояние было в промежутке 100 - 140 миль и проверяем фуель';
-    MF.EditRequest_ChangeZipCodeDestinationTo("02147");
+    MF.EditRequest_ChangeZipCodeDestinationTo("01247");
     SF.sleep(10);
     MF.EditRequest_SetAdressToFrom ();
     SF.sleep(8);
