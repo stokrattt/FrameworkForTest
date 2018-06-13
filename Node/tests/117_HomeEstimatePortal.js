@@ -35,9 +35,17 @@ condition.nowWeDoing = 'создаем мувинг с фронта, стави�
 	MF.EditRequest_OpenClient();
 	LF.SetClientPasswd(V.client.passwd);
 	MF.EditRequest_OpenRequest();
-	MF.EditRequest_SaveChanges();
+    MF.EditRequest_SaveChanges();
+	JS.click('i[ng-click="openMailDialog()"]');
+	SF.click(By.xpath('//span[contains(text(),"REMINDER")]'));
+	SF.click(By.xpath('//h4[contains(text(),"In-home Estimate Reminder")]'));
+	SF.click(By.xpath('//a[@ng-click="sendEmailsAndClose()"]'));
+	MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(""+V.client.email+"","Your in-home estimate is tomorrow");
+    MF.EditRequest_OpenRequest();
 
-condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
+
+    condition.nowWeDoing = 'делаем проплату, чтобы проверить Insert %';
 	MF.EditRequest_OpenPayment();
 	LF.EditRequest_Payment_AddOnlinePayment();
 	MF.EditRequest_ClosePayment();
