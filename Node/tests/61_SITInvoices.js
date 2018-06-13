@@ -67,6 +67,7 @@ condition.nowWeDoing = 'Сохраняем трип и добавляем раб
         V.ldJobId = text;
     }),config.timeout);
     MF.SIT_AddRequestToTrip();
+    SF.sleep(4);
     MF.SIT_GoToClosingTab();
     SF.waitForVisible(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     SF.click(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
@@ -110,6 +111,7 @@ condition.nowWeDoing = 'вибираем карьера, вибираем раб
 condition.nowWeDoing = 'переходим на страницу просмотра иновоиса и делаем оплату инвоиса';
     MF.WaitWhileToaster();
     SF.waitForVisible(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
+    SF.sleep(3);
     SF.click(By.xpath('//md-fab-trigger[@aria-haspopup="true"]'));
     SF.sleep(2);
     SF.click(By.xpath('//button[@aria-label="Show"]/ng-md-icon[@icon="remove_red_eye"]'));

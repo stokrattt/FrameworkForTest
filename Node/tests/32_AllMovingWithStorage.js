@@ -19,17 +19,17 @@ condition.nowWeDoing = 'зашли первый раз в аккаунт';
     MF.Account_ClickViewRequest();
     LF.AccountToStorageEnterAddress();
     LF.AccountLocalAddInventory();
-    SF.sleep(2);
+    SF.sleep(3);
     LF.AccountLocalDetails();
     MF.Account_WaitForInventoryCheck();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
 		V.CBFinAccount = SF.cleanPrice(text);
 	}),config.timeout);
     MF.Account_WaitForDetailsCheck();
+    SF.sleep(2);
     V.accountNumbersTo = {};
     LF.RememberAccountNumbers(V.accountNumbersTo);
     // LF.addToCleanerJob(V.accountNumbersTo.Id);
-    SF.sleep(1);
 
 condition.nowWeDoing = 'запомнили цифры ToStorage идём на From';
     MF.Account_ClickFromStorage();

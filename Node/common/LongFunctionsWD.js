@@ -1097,6 +1097,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.sleep(2);
 		SF.send(By.xpath('//input[@ng-model="client.password"]'), passwd);
 		MF.Account_ClickUpdateClientInModalWindow();
+        SF.sleep(1);
 		MF.WaitWhileBusySymbol();
 		SF.sleep(1);
 	}
@@ -2817,6 +2818,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
     function EditRequest_AddSpecialPackingClosingTab() {
         SF.click(By.xpath('//label[@ng-click="openAddPackingInvoiceModal();"]'));
         SF.waitForVisible (By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][1]'));
+        SF.sleep(1);
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][5]'));
         SF.sleep (0.5);
         SF.click(By.xpath('//li[@ng-click="addExtraCharges(extra_charge)"][6]'));
@@ -2825,7 +2827,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep (0.5);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         MF.WaitWhileBusy ();
-        SF.sleep (2);
+        SF.sleep (3);
     }
 
     function EditRequest_AddAdditionalServClosingTab() {
@@ -2839,7 +2841,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//div[@class="charge_list"]/li[9]'));
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         MF.WaitWhileBusy ();
-        SF.sleep (2);
+        SF.sleep (3);
     }
     function EditRequest_AddAdditionalServSalesTab() {
         MF.EditRequest_OpenAddServices();
@@ -3131,11 +3133,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep(2);
         MF.SIT_ClickSaveCarrier();
     }
-    function SIT_CreateCustomPaymentInTPcollectedInClosing(sum, NewTPCollectedRemember) {
+    function SIT_CreateCustomPaymentInTPcollectedInClosing(sum, tripNumbers) {
         SF.click(By.xpath('//input[@id="customPaymentAmount"]'));
         SF.send(By.xpath('//input[@id="customPaymentAmount"]'), sum);
         driver.wait(driver.findElement(By.xpath('//div[@class="add-custom-payment-form__toolbar__info"]//span[2]')).getText().then(function(text){
-            NewTPCollectedRemember = SF.cleanPrice(text.substring(text.indexOf('$')));
+            tripNumbers.NewTPCollected = SF.cleanPrice(text.substring(text.indexOf('$')));
         }),config.timeout);
         SF.click(By.xpath('//input[@ng-model="payment.description"]'));
         SF.send(By.xpath('//input[@ng-model="payment.description"]'),'test');

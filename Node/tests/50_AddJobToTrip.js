@@ -84,6 +84,7 @@ condition.nowWeDoing = 'Сохраняем трип и добавляем раб
         V.ldJobId = text;
     }),config.timeout);
     MF.SIT_AddRequestToTrip();
+    SF.sleep(5);
     MF.SIT_GoToClosingTab();
 
 condition.nowWeDoing = 'редактируем поля и проверяем циферки';

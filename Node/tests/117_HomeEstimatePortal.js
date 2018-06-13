@@ -125,6 +125,7 @@ condition.nowWeDoing = 'изменяем информацию о клиенте,
 	SF.waitForVisible(By.xpath('//div[@ng-class="{\'mobile-subbox-wrapper\': isMobile}"]'));
 	V.boardNumbersPortal = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbersPortal);
+	MF.WaitWhileBusy();
 	SF.click(By.xpath('//div/button[@ng-click="cancel()"]'));
 	MF.HomeEstimate_Logout();
 

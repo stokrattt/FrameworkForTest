@@ -158,6 +158,7 @@ condition.nowWeDoing = 'Открываем реквест в Trip-Planner. Ме�
 condition.nowWeDoing = 'Добавляем реквест в трип. Проверямем, что Discount, Fuel, Packing и AdServices не изменились после добавления работы в трип. Проверяем, что баланс реквеста равен 0.';
     SF.click(By.xpath('//div[contains(text(), "' + V.client.name + '")]/..//md-checkbox[@ng-model="item.a_a_selected"]/div[1]'));
     MF.SIT_AddRequestToTrip();
+    SF.sleep(3);
     MF.SIT_RefreshJobsInTrip();
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
     MF.EditRequest_WaitForBalanceVisible();
@@ -194,18 +195,19 @@ condition.nowWeDoing = 'Открываем Closing трипа, открывае�
     MF.SIT_GoToClosingTab();
     SF.sleep(1);
     MF.SIT_ClosingClickTpCollected();
-    V.NewTPCollected = {};
-    LF.SIT_CreateCustomPaymentInTPcollectedInClosing(200, V.NewTPCollected);
+    V.tripNumbers = {};
+    LF.SIT_CreateCustomPaymentInTPcollectedInClosing(200, V.tripNumbers);
 
 condition.nowWeDoing = 'Идём на табу Trip Details, проверяем, что суммы в колонках TP collected и Shipping Balance пересчитались в соответствии с новым TP collected.';
     MF.SIT_ClickTripDetails();
+    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[14]')).getText().then(function(text){
         text = SF.cleanPrice(text.substring(text.indexOf('$')));
-        VD.IWant(VD.ToEqual, V.NewTPCollected,text, 'TP collected в трипе не пересчитался после создания кастомного пеймента на клоузинге трипа');
+        VD.IWant(VD.ToEqual, V.tripNumbers.NewTPCollected,text, 'TP collected в трипе не пересчитался после создания кастомного пеймента на клоузинге трипа');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@class="big-form__jobs-list__body"]//div[15]')).getText().then(function(text){
         text = SF.cleanPrice(text.substring(text.indexOf('$')));
-        VD.IWant(VD.ToEqual, V.NewTPCollected, text, 'Shipping balance в трипе не пересчитался после создания кастомного пеймента на клоузинге трипа');
+        VD.IWant(VD.ToEqual, V.tripNumbers.NewTPCollected, text, 'Shipping balance в трипе не пересчитался после создания кастомного пеймента на клоузинге трипа');
     }),config.timeout);
 
 condition.nowWeDoing = 'Открываем реквест, заходим в Payment и удаляем кастомный пеймент. Проверяем, что баланс реквеста равен нулю. Закрываем реквест.';

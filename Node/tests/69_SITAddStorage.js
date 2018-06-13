@@ -82,7 +82,8 @@ condition.nowWeDoing = 'Проверяем есть ли сторадж в ре�
     SF.click(By.xpath('//a[@ng-click="save()"]'));
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
-    SF.sleep(5);
+    SF.sleep(13);
+
 condition.nowWeDoing = 'заходим в настройки аккаунта в реквесте и выключаем галку для смены инвентаря на конферм работе';
     MF.EditRequest_OpenSettings();
     MF.EditRequest_OpenSettingsAccountPage();

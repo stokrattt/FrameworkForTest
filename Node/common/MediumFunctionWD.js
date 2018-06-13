@@ -19,7 +19,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
     }
     function WaitVisibleDashboard() {
-        SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]|//div[@ng-if="vm.pageParams.totalCount == 0"]'));
+        // SF.waitForVisible(By.xpath('//td[@ng-click="requestEditModal(request)"]|//div[@ng-if="vm.pageParams.totalCount == 0"]'));
+        SF.waitForLocated(By.xpath('//table[@id="datatable"]'));
         WaitWhileBusy();
     }
     function WaitVisibleDashboardForeman() {
@@ -232,6 +233,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		JS.scroll('a[ng-click=\"vm.Logout()\"]');
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]/../../preceding-sibling::*[1]'));
         SF.sleep(1);
+        JS.waitForNotExist('div.toast-message');
         SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
         SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
         SF.sleep(2);
@@ -1211,6 +1213,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy();
     }
     function EditRequest_ClosePayment() {
+        WaitWhileBusy();
 		SF.click (By.xpath('//button[@ng-click="save()"]'));
 		SF.sleep (3);
     }
@@ -1907,7 +1910,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ng-click="goTo()"]'));
         SF.sleep(3);
         SF.openTab(1);
-        SF.sleep(3);
+        SF.sleep(6);
     }
     function EditRequest_ChangeZipCodeDestinationTo(zip) {
         SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));

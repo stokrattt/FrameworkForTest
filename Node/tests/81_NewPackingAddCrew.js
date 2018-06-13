@@ -100,9 +100,10 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
         V.ClosingAdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
     }), config.timeout);
+    SF.sleep(5);
     LF.closeEditRequest();
     LF.OpenRequestDispatch(V.accountNumbers.Id);
-    SF.sleep(2);
+    MF.EditRequest_WaitForBalanceVisible();
     driver.wait(driver.executeScript('return $(\'div.PackingCost:visible\').text()').then(function (text) {
         V.ClosingPackingAfterReopenRequest = SF.cleanPrice(text.substring(text.indexOf('$')));
         VD.IWant(VD.ToEqual, V.ClosingPacking, V.ClosingPackingAfterReopenRequest, 'не совпал пекинг после того как мы добавили пакинг на клозинге закрыли реквест и открыли для проверки')

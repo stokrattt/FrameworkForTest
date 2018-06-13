@@ -89,6 +89,7 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     SF.sleep(1);
     MF.EditRequest_SetSaleNumber(4);
     LF.closeEditRequest ();
+    MF.WaitWhileToaster();
     MF.Board_LogoutAdmin ();
     SF.get(V.accountURL);
 

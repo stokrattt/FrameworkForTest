@@ -52,7 +52,7 @@ condition.nowWeDoing = 'Откриваем первий реквест, Дела
     SF.send(By.xpath('//input[@ng-model="secondRequestNid"]'), V.boardNumbers2.Id);
     JS.click('button[ng-click=\\"update()\\"]:visible');
     JS.waitForExist ('img[ng-click=\\"OpenModal(request.storage_id || request.request_all_data.baseRequestNid)\\"]:visible');
-    SF.sleep(6);
+    SF.sleep(10);
     SF.click(By.xpath('//div[contains(@class,modalId'+V.boardNumbers1.Id+')]//img[@ng-click="OpenModal(request.storage_id || request.request_all_data.baseRequestNid)"]'));
     SF.waitForVisible(By.xpath('//a[contains(text(),"Request #'+V.boardNumbers2.Id+'")]/../../../following-sibling::div//div[@ng-click="chooseTruck(tid)"]'));
     MF.WaitWhileBusy();

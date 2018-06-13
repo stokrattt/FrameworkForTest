@@ -24,6 +24,7 @@ condition.nowWeDoing = 'идем в департмент, заходим за с
     //     "return true;}else{$('input[ng-model=\"request.permissions.canSeeAllStatuses\"]').parent().click()}"));
     // SF.click(By.xpath('//input[@ng-model="request.permissions.canSeeAllStatuses"]/..'));
     MF.Department_SaveUser();
+    MF.WaitWhileToaster();
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим за сеилса, и проверяем видимость меню, которые мы включили';
