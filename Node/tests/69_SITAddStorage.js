@@ -83,6 +83,7 @@ condition.nowWeDoing = 'Проверяем есть ли сторадж в ре�
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     SF.sleep(13);
+    MF.WaitWhileBusySymbol();
 
 condition.nowWeDoing = 'заходим в настройки аккаунта в реквесте и выключаем галку для смены инвентаря на конферм работе';
     MF.EditRequest_OpenSettings();
