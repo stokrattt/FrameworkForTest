@@ -21,7 +21,6 @@ condition.nowWeDoing = 'первый раз в аккаунте';
     SF.sleep(5);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
-    Debug.pause();
     LF.LogoutFromAccount();
 
 condition.nowWeDoing = 'первый раз в админке открываем наш реквест и делаем из него пекинг дей';
@@ -31,7 +30,6 @@ condition.nowWeDoing = 'первый раз в админке открываем
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     LF.Validation_Compare_Account_Admin(V.accountNumbers, V.boardNumbers);
-    Debug.pause();
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     V.managerFirstName = 'emilia';
