@@ -65,9 +65,7 @@ condition.nowWeDoing = 'второй раз в аккаунте,  меняю з�
     SF.sleep(1);
     SF.click(By.xpath('//div[@ng-click="openEditModal()"]'));
     SF.click(By.xpath('//select[@class="form-select form-control"]/option[@value="6"]'));
-    SF.click(By.xpath('//input[@id="edit-moving-from-zip"]'));
-    SF.clear(By.xpath('//input[@id="edit-moving-from-zip"]'));
-    SF.send(By.xpath('//input[@id="edit-moving-from-zip"]'),'02134');
+    MF.Account_ChangeZipFrom('02134');
     MF.Account_ClickUpdateClientInModalWindow();
     MF.Account_SweetUpdateConfirm();
     MF.WaitWhileBusy();
