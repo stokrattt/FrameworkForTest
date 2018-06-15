@@ -29,7 +29,7 @@ module.exports = function(config,V) {
         './tests/67_EditRequestPayrollAdding.js',
         './tests/69_SITAddStorage.js',
         './tests/68_SITPickUpDelivery.js',
-        // './tests/71_ManualEmailing.js',
+        // './tests/ManualEmailing.js',
         './tests/70_SITAddTripPersonallyForeman.js',
         './tests/61_SITInvoices.js',
         './tests/72_ChangingRateAfterConfirming.js',

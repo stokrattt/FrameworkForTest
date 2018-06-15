@@ -110,6 +110,7 @@ condition.nowWeDoing = 'Переводим работу в Closing, провер
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Fuel, V.boardNumbersBeforeSITClosing.Fuel, 'не совпал Fuel  после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, 30, V.boardNumbersBeforeSITClosing.Packing, 'не совпал Packing после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.AdServices, V.boardNumbersBeforeSITClosing.AdServices, 'не совпал AdServices после перевода реквеста с Sales в Closing');
+    Debug.pause();
     MF.EditRequest_OpenSITmodal();
     MF.EditRequest_SITmodalSetStorage('test');
     V.SITRooms = 1;

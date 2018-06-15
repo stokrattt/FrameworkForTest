@@ -80,9 +80,12 @@ condition.nowWeDoing = 'Проверяем есть ли сторадж в ре�
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//option[text()="'+ V.storage2.name +'"]'));
     SF.click(By.xpath('//a[@ng-click="save()"]'));
+    SF.sleep(2);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
-    SF.sleep(13);
+    MF.WaitWhileBusySymbol();
+    SF.sleep(10);
+    MF.WaitWhileBusySymbol();
 
 condition.nowWeDoing = 'заходим в настройки аккаунта в реквесте и выключаем галку для смены инвентаря на конферм работе';
     MF.EditRequest_OpenSettings();

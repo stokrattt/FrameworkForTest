@@ -28,7 +28,8 @@ condition.nowWeDoing = 'перешли в аккаунт добавляем оп
 
 condition.nowWeDoing = 'добавляем инвенторий в акке';
     LF.AccountFlatRateAddInventory();
-    SF.sleep(2);
+    SF.sleep(1);
+    MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
 		V.CBFinAccount = SF.cleanPrice(text);
 	}),config.timeout);

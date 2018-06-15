@@ -101,6 +101,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
         V.ClosingAdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
     }), config.timeout);
     SF.sleep(5);
+    Debug.pause();
     LF.closeEditRequest();
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_WaitForBalanceVisible();
