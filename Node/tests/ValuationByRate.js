@@ -21,7 +21,7 @@ condition.nowWeDoing = 'заходим под админом в настройк
 		";}else{$('button[ng-click=\"saveChanges()\"]').click()}"), config.timeout);
 	MF.Board_ShowProtectionOnAccountPage();
 	JS.scroll('div[class="btn btn-primary btn-block"]');
-	SF.click(By.xpath('//md-checkbox[@aria-label="Full value protection"]'));
+	SF.click(By.xpath('//md-checkbox[@aria-label="Full Value Protection"]'));
 	JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
 	MF.WaitWhileToaster();
 	MF.Board_LogoutAdmin();
@@ -63,9 +63,12 @@ condition.nowWeDoing = 'первый раз на аккаунте';
 		VD.IWant(VD.ToEqual, (V.AmountOfLiability * 30)/1000 ,text,'не совпали Valuation Charge у реквеста с расчетами по формулам(первый дедактбл левел)');
 	}), config.timeout);
 	SF.sleep(1);
+	var number2 = (V.AmountOfLiability * 35)/1000;
+	number2 = Math.round(110.985*100)/100;
+	console.log(number2);
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, (V.AmountOfLiability * 35)/1000 ,text,'не совпали Valuation Charge у реквеста с расчетами по формулам(второй дедактбл левел)');
+		VD.IWant(VD.ToEqual,number2 ,text,'не совпали Valuation Charge у реквеста с расчетами по формулам(второй дедактбл левел)');
 	}), config.timeout);
 	SF.sleep(1);
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[3]')).getText().then(function (text) {
@@ -124,14 +127,29 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
     MF.Board_OpenRequest(V.boardNumbers.Id);
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(500);
-    MF.EditRequest_ClosingTabDiscountModalClickSave();
+    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
+    SF.waitForVisible(By.xpath('//div[@class="toast-message"]'));
     MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_OpenLogs();
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="item.text.search(\'Lot\') == -1 && item.text.search(\'Charges\') == -1 && item.text != \'client notes\'"]' +
+		'/span[2]/span[2]')).getText().then(function(text) {
+        V.TotalinLogs = text;
+        console.log(V.TotalinLogs);
+        }), config.timeout);
+    MF.EditRequest_OpenRequest();
     MF.EditRequest_OpenContractCloseJob();
     SF.openTab(1);
     MF.SweetConfirm();
     //здесь будем проверять что бы в таблицу в 3ей строке не было отрицательных чисел
-
-
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[2]/span')).getText().then(function(text) {
+        VD.IWant(VD.ToEqual,text,'$ 456.13 - $ 516.13','не совпал тотал плюс страховка с тем,что должно было быть(первый левел)');
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[3]/span')).getText().then(function(text) {
+        VD.IWant(VD.ToEqual,text,'$ 471.99 - $ 531.99','не совпал тотал плюс страховка с тем,что должно было быть(второй левел)');
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[4]/span')).getText().then(function(text) {
+        VD.IWant(VD.ToEqual,text,'$ 487.84 - $ 547.84','не совпал тотал плюс страховка с тем,что должно было быть(третий левел)');
+    }), config.timeout);
 
     SF.endOfTest();
 };
