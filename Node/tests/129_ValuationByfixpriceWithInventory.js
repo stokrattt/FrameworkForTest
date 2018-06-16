@@ -94,7 +94,6 @@ condition.nowWeDoing = 'идем на аккаунт, ставим свой amou
 		V.SelectLevelinAccount2 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.NotToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinAccount,'совпали Valuation Charge выбранный на аккаунте в первый раз и во второй раз ( такого быть не должно)');
 	}), config.timeout);
-	Debug.pause();
 	LF.AccountLocalAddInventory(V.accountNumbers);
 	MF.SweetConfirm();
 	MF.Account_WaitForInventoryCheck();

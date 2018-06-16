@@ -195,7 +195,7 @@ condition.nowWeDoing = 'Заходим в пейрол и заполняем и 
 condition.nowWeDoing = 'а тут добавим наши созданные driver expense and cash wires';
     SF.click(By.xpath('//button[@ng-click="addExpenses(event)"]'));
     SF.sleep(2);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[3]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[contains(text(),"' + V.driverExpense + '")]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, V.driverExpense, 'не нашло наш созданный driver expense');
     }),config.timeout);
     SF.click(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[1]'));
@@ -204,7 +204,7 @@ condition.nowWeDoing = 'а тут добавим наши созданные dri
 
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../following-sibling::div/button[@ng-click="addExpenses(event)"]'));
     SF.sleep(2);
-    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[3]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[contains(text(),"' + V.cashWires + '")]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, V.cashWires, 'не нашло наш созданный cash wires');
     }),config.timeout);
     SF.click(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[1]'));

@@ -1530,6 +1530,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function EditRequest_OpenMailDialog(){
         SF.click(By.xpath('//i[@ng-click="openMailDialog()"]'));
+        SF.waitForVisible(By.xpath('//div[@ng-show="isSendEmails"]'));
     }
     function EditRequest_MailDialog_SetEmail(number, email){
         SF.clear(By.xpath('//input[@ng-model="selected.mail"]['+number+']'));
@@ -2345,7 +2346,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function FrontSite_ClickGoToCalculatorResults() {
         SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(8);
+        SF.sleep(30);
         JS.waitForNotExist ('div[ng-if="loadingImg"]');
         SF.sleep(2);
     }
