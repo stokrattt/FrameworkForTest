@@ -2346,7 +2346,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function FrontSite_ClickGoToCalculatorResults() {
         SF.click (By.xpath('//button[@ng-click="goToSummery()"]'));
-        SF.sleep(30);
+        SF.sleep(8);
         JS.waitForNotExist ('div[ng-if="loadingImg"]');
         SF.sleep(2);
     }
