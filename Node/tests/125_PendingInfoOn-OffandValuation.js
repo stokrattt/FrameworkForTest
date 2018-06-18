@@ -69,6 +69,35 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
     MF.Board_SettingsPendingInfoON();
+    condition.nowWeDoing = 'создаем реквест, добавляем ему инвентарь,добавляем страховку со своим амаунт оф лиабилити,сохраняем все' +
+		'переводим его в статус конферм';
+    LF.CreateLocalMovingFromBoard(V.client);
+    MF.EditRequest_OpenInventoryTab();
+    LF.addInventoryBoard(V.boardNumbers);
+    MF.EditRequest_OpenRequest();
+    MF.EditRequest_OpenValuationModal();
+    MF.EditRequest_ClickTabFullValue();
+    MF.EditRequest_SendAmountOfLiability(7000);
+    SF.click(By.xpath('//td[@ng-repeat="value in currentPlan.header track by $index"][2]/div[@ng-click="setDeductibleLevel(value)"]'));
+	MF.EditRequest_ClickSaveValuation();
+    JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
+    MF.WaitWhileBusy();
+    MF.EditRequest_SetToConfirmed();
+    MF.EditRequest_SetAdressToFrom();
+    V.boardNumbers= {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    MF.EditRequest_SaveChanges();
+    condition.nowWeDoing = 'идем на контракт, сравнить наш тотал + страховку, для того,что бы и там,и там были одинаковые значения. ';
+	MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_OpenContractCloseJob();
+    SF.openTab(1);
+    MF.SweetConfirm();
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[3]/span')).getText().then(function(text) {
+        V.IpartofTotalEstimate = V.boardNumbers.Fuel + V.boardNumbers.QuoteMin + V.boardNumbers.Valuation;
+        V.IIpartofTotalEstimate = V.boardNumbers.Fuel + V.boardNumbers.QuoteMax + V.boardNumbers.Valuation;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть(первый левел)");
+    }), config.timeout);
 
-	SF.endOfTest();
+
+    SF.endOfTest();
 };

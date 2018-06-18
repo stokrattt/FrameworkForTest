@@ -44,7 +44,7 @@ module.exports = function(config,V) {
         './tests/115_LDCommercialMoveSizeInSIT.js',
         './tests/40_PayrollTableCheckSumJobs.js',
         './tests/41_ContractPageSettings.js',
-        './tests/125_PendingInfoOn-Off.js',
+        './tests/125_PendingInfoOn-OffandValuation.js',
     ];
     config.timeout = 90000;
     config.chainFail = false;

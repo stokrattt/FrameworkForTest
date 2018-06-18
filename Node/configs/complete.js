@@ -129,7 +129,7 @@ module.exports = function(config,V) {
         './tests/122_MovingAndMovStorageCalcOffCheck.js',
         './tests/123_DraftCheckRateDoubleDriveTime.js',
         './tests/DefaultSettings.js',
-        './tests/125_PendingInfoOn-Off.js',
+        './tests/125_PendingInfoOn-OffandValuation.js',
         './tests/129_ValuationByfixpriceWithInventory.js',
         './tests/124_Pending-InfoWithCalcOffAndCustomReservation.js',
         './tests/51_ServiceTypesOnOff.js',
