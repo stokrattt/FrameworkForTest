@@ -11,6 +11,7 @@ condition.nowWeDoing = 'создаем мувинг с борда, отключ�
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	LF.CreateLocalMovingFromBoard(V.client);
+    V.boardNumbers= {};
 	MF.EditRequest_SwitchCalculator();
 	MF.EditRequest_SetAdressToFrom();
 	MF.EditRequest_OpenClient();
@@ -20,7 +21,7 @@ condition.nowWeDoing = 'создаем мувинг с борда, отключ�
 condition.nowWeDoing = 'начинаем добавлять пэкинг, адишинал,валюэйшн, инвентарь, дисконт и меняем цену на топливо';
     LF.EditRequest_AddAdditionalServicesFullPack();
     LF.EditRequest_AddValuation();
-	driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.request_all_data.valuation.valuation_charge"]')).getAttribute('value').then(function(text){
+	driver.wait(driver.findElement(By.xpath('//span[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]')).getAttribute('value').then(function(text){
 		V.Valuation= text;
 	}),config.timeout);
 	LF.addInventoryBoard();
@@ -31,29 +32,24 @@ condition.nowWeDoing = 'начинаем добавлять пэкинг, ади
 	}),config.timeout);
 
 condition.nowWeDoing = 'отправлемя письмо, сравниваем числа в письме,запоминаем конечные цифры с реквеста при выключенном калькуляторе(начальные)';
-	SF.click(By.xpath('//span[@ng-click="showWarningBeforeSendEmail()"]'));
+    MF.EditRequest_OpenMailDialog();
 	SF.click(By.xpath('//span[contains(.,"Default")]'));
 	SF.sleep(1);
 	SF.click(By.xpath('//h4[contains(text(), "CalculatarOFF")][1]'));
 	SF.sleep(1);
 	MF.EditRequest_MailDialog_ClickSend();
-	V.boardNumbers= {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers);
 	MF.EditRequest_OpenLogs();
-	SF.click(By.xpath('//div[@ng-click="allLogsShow[allLogsIndex] = !allLogsShow[allLogsIndex]"]'));
 	V.sendclient ={};
 	MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Crew Size")]/../following-sibling::div')).getText().then(function(text){
-		V.sendclient.CrewSize=text;
-        VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize +" movers", V.sendclient.CrewSize , ' Crew Size  в логах письма не сошелся со значением в реквесте');
+        VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize +" movers", text , ' Crew Size  в логах письма не сошелся со значением в реквесте');
     }),config.timeout);
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Hourly Rate :")]/../following-sibling::div')).getText().then(function(text){
-		V.sendclient.HourlyRate = text;
-        VD.IWant(VD.ToEqual,"$"+V.boardNumbers.NewHourlyRate+"/hr", V.sendclient.HourlyRate , ' Hourly Rate в логах письма не сошелся со значением в реквесте');
+        VD.IWant(VD.ToEqual,"$"+V.boardNumbers.NewHourlyRate+"/hr", text , ' Hourly Rate в логах письма не сошелся со значением в реквесте');
     }),config.timeout);
 	driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Valuation :")]/../following-sibling::div')).getText().then(function(text){
-		V.sendclient.Valuation = text;
-        VD.IWant(VD.ToEqual,"$"+V.boardNumbers.Valuation, V.sendclient.Valuation , ' Valuation в логах письма не сошелся со значением в реквесте');
+        VD.IWant(VD.ToEqual,"$"+V.boardNumbers.Valuation, text , ' Valuation в логах письма не сошелся со значением в реквесте');
     }),config.timeout);
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
@@ -68,9 +64,8 @@ condition.nowWeDoing = 'запоминаем цифры с аккаунта,чт
 	V.accountNumbers= {};
 	LF.RememberAccountNumbers(V.accountNumbers);
 	LF.Validation_Compare_Account_Admin_WhenSetNewRate(V.boardNumbers, V.accountNumbers);
-	driver.wait(driver.findElement(By.xpath('//div[@id="valuation-block-account"]/div[6]')).getText().then(function(text){
-		V.accountNumbers.Valuation= text;
-        VD.IWant(VD.ToEqual, "$ "+V.boardNumbers.Valuation, V.accountNumbers.Valuation ,'не совпала страховка на реквест/аккаунт');
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"][2]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, "$ "+V.boardNumbers.Valuation, text ,'не совпала страховка на реквест/аккаунт');
 	}),config.timeout);
 	MF.Account_ClickFullPacking();
 	MF.Account_ClickInventoryOpenTab();
@@ -87,24 +82,21 @@ condition.nowWeDoing = 'запоминаем новые цифры после и
 	LF.RememberAccountNumbers(V.accountNumbersNew);
 	LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'идем на мувборд, что бы сверить цифры.Выбираем кастомный вес, меняем цену на топливо, и реит';
+condition.nowWeDoing = 'идем на мувборд, что бы сверить цифры.Выбираем кастомный вес, меняем цену на топливо, рейт и устанавливаем кастомный вес';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
 	MF.Board_OpenRequest(V.boardNumbers.Id);
 	V.boardNumbersNew = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbersNew);
     LF.Validation_Compare_Account_Admin_WhenSetNewRate(V.boardNumbersNew, V.accountNumbersNew);
-	// меняем топливо
 	MF.EditRequest_OpenFuel();
 	MF.EditRequest_SendFlatSurchargeInFuelWindow(222);
 	MF.EditRequest_ClickApplyInFuelWindow();
-	// меняем рейт
 	LF.EditRequest_EditRateCalculOff(444);
     V.boardNumbersAfterEdit = {};
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rateDiscount"]')).getAttribute('value').then(function(text){
 		V.boardNumbersAfterEdit.NewHourlyRate1= text;
 	}),config.timeout);
-	// устанавливаем кастомный вес
 	MF.EditRequest_OpenSettings();
 	MF.EditRequest_ClickCustomCubFit();
 	MF.EditRequest_SendNumberCustomCubFit(666);
@@ -129,8 +121,7 @@ condition.nowWeDoing = 'идем в аккаунт,сверяем цифры, п
     LF.Validation_Compare_Account_Admin_WhenSetNewRate(V.boardNumbersAfterEdit, V.accountNumbersAfterEdit);
 	MF.Account_ClickProceedBookYourMove();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-class="{\'disabled\':vm.admin}"]/div/h2[contains(text(),"Deposit: ")]')).getText().then(function (text) {
-		VD.IWant(VD.ToEqual, text, 'Deposit: $150',
-			'не появился блок с оплатой ');
+		VD.IWant(VD.ToEqual, text, 'Deposit: $150', 'не появился блок с оплатой ');
 	}),config.timeout);
 	MF.Account_ConfirmationBackToRequest();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {

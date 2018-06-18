@@ -1530,6 +1530,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 
     function EditRequest_OpenMailDialog(){
         SF.click(By.xpath('//i[@ng-click="openMailDialog()"]'));
+        SF.waitForVisible(By.xpath('//div[@ng-show="isSendEmails"]'));
     }
     function EditRequest_MailDialog_SetEmail(number, email){
         SF.clear(By.xpath('//input[@ng-model="selected.mail"]['+number+']'));
