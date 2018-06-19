@@ -177,7 +177,7 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
 
 condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт';
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumPacking, (costs.totalPacking).toFixed(2), 'Не совпали суммы Packing');
         // VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }), config.timeout);
     LF.MakeSignInContract();
@@ -253,7 +253,7 @@ condition.nowWeDoing = 'валидация инвентаря на контра�
 condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт';
     MF.Contract_WaitBillOfLading();
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumPacking, (costs.totalPacking).toFixed(2), 'Не совпали суммы Packing');
         // VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }),config.timeout);
     LF.MakeSignInContract();

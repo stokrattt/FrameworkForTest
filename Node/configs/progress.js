@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/124_Pending-InfoWithCalcOffAndCustomReservation.js'];
+    config.suite = ['./tests/120_LDFlag.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 55000;

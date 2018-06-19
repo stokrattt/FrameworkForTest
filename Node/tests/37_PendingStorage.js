@@ -94,7 +94,7 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
         VD.IWant(VD.ToEqual, text, 1, 'не нашло картинку moving to storage в  блоке дестинейшн на контракте на');
     }),config.timeout);
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumPacking, (costs.totalPacking).toFixed(2), 'Не совпали суммы Packing');
         // VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
     }),config.timeout);
     LF.MakeSignInContract();
@@ -164,8 +164,8 @@ condition.nowWeDoing = 'валидация инвентаря на контра�
 condition.nowWeDoing = 'закончили с инвентарём, подписываем второй контракт и  проверяем destination блок';
     SF.waitForVisible(By.xpath('//local-moves[@id="main-contract"]//div[@class="empty-signature"]'));
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
-        VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
+        VD.IWant(VD.ToEqual, costs.sumPacking, (costs.totalPacking).toFixed(2), 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumServices, (costs.totalServices).toFixed(2), 'Не совпали суммы Services');
     }), config.timeout);
     LF.Contract_CheckDestinationBlockNameZip('02136', V.client.name, V.client.fam);
     driver.wait(driver.executeScript("return $('div[class=\"moving-storage-addr\"] img').length").then(function (text) {

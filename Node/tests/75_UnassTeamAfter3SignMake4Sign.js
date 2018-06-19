@@ -77,8 +77,8 @@ condition.nowWeDoing = 'заходим под 1м форменом, открыв
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     driver.wait(driver.executeScript(JSstep.CheckSumsInContract).then(function (costs) {
-        VD.IWant(VD.ToEqual, costs.sumPacking, costs.totalPacking, 'Не совпали суммы Packing');
-        VD.IWant(VD.ToEqual, costs.sumServices, costs.totalServices, 'Не совпали суммы Services');
+        VD.IWant(VD.ToEqual, costs.sumPacking, (costs.totalPacking).toFixed(2), 'Не совпали суммы Packing');
+        VD.IWant(VD.ToEqual, costs.sumServices, (costs.totalServices).toFixed(2), 'Не совпали суммы Services');
     }),config.timeout);
     LF.MakeSignInContract();
     LF.MakeSignInContract();

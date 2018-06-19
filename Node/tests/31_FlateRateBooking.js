@@ -160,6 +160,7 @@ condition.nowWeDoing = 'идем в админку проверять что р�
     SF.sleep (3);
     MF.SweetConfirm();
     MF.Contract_OpenBillOfLading();
+    SF.sleep(2);
     LF.Contract_CheckOriginBlockNameZip('02461', V.client.name, V.client.fam);
     LF.Contract_CheckDestinationBlockNameZip('07304', V.client.name, V.client.fam);
     driver.wait(driver.findElement(By.xpath('//td[@ng-init="grandTotal = totalFlatRateClosing()"]/following-sibling::td')).getText().then(function (text) {
@@ -173,6 +174,7 @@ condition.nowWeDoing = 'идем в админку проверять что р�
         V.totalAddServices = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalAddServices, V.ClosingAdServices, 'на контракте не появился адишинал сервис который мы добавили в реквесте на табе клозинг или не совпала сумма');
     }),config.timeout);
+    SF.sleep(1);
     driver.close();
     SF.openTab(0);
     LF.closeEditRequest();
