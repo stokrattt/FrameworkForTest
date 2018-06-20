@@ -216,7 +216,6 @@ condition.nowWeDoing = 'сравниваем циферки общий пейр�
         V.payroll = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.totalPayroll, V.payroll, 'total Payroll не совпали');
     }),config.timeout);
-Debug.pause();
 condition.nowWeDoing = 'сабмитим пейрол, виходим и заходим обратно и проверяем сохранились ли изменения';
     SF.click(By.xpath('//button[@ng-click="submitPayroll()"]'));
     SF.waitForVisible(By.xpath('//button[@ng-click="dialog.hide()"]'));
