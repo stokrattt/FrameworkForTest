@@ -103,10 +103,6 @@ condition.nowWeDoing = 'идем на мувборд, что бы сверить
 	MF.EditRequest_SendFlatSurchargeInFuelWindow(222);
 	MF.EditRequest_ClickApplyInFuelWindow();
 	LF.EditRequest_EditRateCalculOff(444);
-    V.boardNumbersAfterEdit = {};
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rateDiscount"]')).getAttribute('value').then(function(text){
-		V.boardNumbersAfterEdit.NewHourlyRate1= text;
-	}),config.timeout);
     SF.sleep(2);
 	MF.EditRequest_OpenSettings();
 	MF.EditRequest_ClickCustomCubFit();
@@ -117,7 +113,11 @@ condition.nowWeDoing ='выбираем трак,переводим работу
 	JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed();
+    V.boardNumbersAfterEdit = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbersAfterEdit);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rateDiscount"]')).getAttribute('value').then(function(text){
+        V.boardNumbersAfterEdit.NewHourlyRate= text;
+    }),config.timeout);
 	MF.EditRequest_SaveChanges();
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_LogoutAdmin();
@@ -172,7 +172,9 @@ condition.nowWeDoing = 'проверка цифр последних измен�
     SF.click(By.xpath('//a[@ng-click="addReservationPayment()"]'));
     SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
     LF.FillCardPayModal();
-    MF.WaitWhileToaster();
+    SF.waitForVisible(By.xpath('//div[@ng-show="receipt.transaction_id != \'Custom Payment\' || isAccount"]'));
+    MF.WaitWhileBusy();
+    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     MF.EditRequest_ClosePayment();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
