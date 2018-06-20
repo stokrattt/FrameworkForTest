@@ -188,7 +188,7 @@ condition.nowWeDoing = 'тут делаем поалту нашим добавл
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="step2"]/div')).getText().then(function (text) {
         V.totalPaymentWithPercent = SF.cleanPrice(text);
-        VD.IWant (VD.ToEqual, V.totalPaymentWithPercent, (V.customPaymentPercent).toFixed(2), 'настройка с процентами которую делал Антон не сработала))');
+        VD.IWant (VD.ToEqual, (V.totalPaymentWithPercent).toFixed(1), (V.customPaymentPercent).toFixed(1), 'настройка с процентами которую делал Антон не сработала))');
     }),config.timeout);
     SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
 
