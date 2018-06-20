@@ -371,7 +371,7 @@ condition.nowWeDoing = 'делаем revoke пейрола и изменяем �
     SF.clear(By.xpath('//input[@ng-model="payroll.foreman.mileage_rate"]'));
     SF.send(By.xpath('//input[@ng-model="payroll.foreman.mileage_rate"]'), V.newMileageRate);
     SF.click(By.xpath('//input[@ng-model="search"]'));
-    SF.sleep(3);
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="payroll.foreman.total_mileage"]')).getAttribute('value').then(function (text) {
         V.newCleanTotalMileage = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.newCleanTotalMileage, V.newTotalMileage, 'total Mileage не совпали');

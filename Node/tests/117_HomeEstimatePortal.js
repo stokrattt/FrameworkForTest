@@ -37,6 +37,7 @@ condition.nowWeDoing = 'создаем мувинг с фронта, стави�
 	MF.EditRequest_OpenRequest();
     MF.EditRequest_SaveChanges();
 	JS.click('i[ng-click="openMailDialog()"]');
+	SF.sleep(2);
 	SF.click(By.xpath('//span[contains(text(),"REMINDER")]'));
 	SF.click(By.xpath('//h4[contains(text(),"In-home Estimate Reminder")]'));
 	SF.click(By.xpath('//a[@ng-click="sendEmailsAndClose()"]'));

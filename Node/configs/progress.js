@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/32_AllMovingWithStorage.js'];
+    config.suite = ['./tests/54_LDQuoteAndFuelAndLongCarry.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 55000;
@@ -8,26 +8,26 @@ module.exports = function(config,V) {
     // V.accountURL = 'http://test1.stage.themoveboard.com:81/account/';  //dev
     // V.adminURL = 'http://test1.stage.themoveboard.com:81/moveBoard/';  //dev
 
-    // V.frontURL = 'http://test2.stage.themoveboard.com:82/front_site/';
-    // V.accountURL = 'http://test2.stage.themoveboard.com:82/account/';  //dev
-    // V.adminURL = 'http://test2.stage.themoveboard.com:82/moveBoard/';  //dev
+    V.frontURL = 'http://test2.stage.themoveboard.com:82/front_site/';
+    V.accountURL = 'http://test2.stage.themoveboard.com:82/account/';  //dev
+    V.adminURL = 'http://test2.stage.themoveboard.com:82/moveBoard/';  //dev
 
     // V.frontURL = 'http://test3.stage.themoveboard.com:83/front_site/';
     // V.accountURL = 'http://test3.stage.themoveboard.com:83/account/';  //dev
     // V.adminURL = 'http://test3.stage.themoveboard.com:83/moveBoard/';  //dev
 
-    //
-    V.frontURL = 'http://stage.stage.themoveboard.com:91';                       //stage
-     V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';    //stage
-     V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';    //stage
+    // //
+    // V.frontURL = 'http://stage.stage.themoveboard.com:91';                       //stage
+    //  V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';    //stage
+    //  V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';    //stage
 
     //
     // V.frontURL = 'http://dev.stage.themoveboard.com:90/front_site/';                       //dev
     // V.accountURL = 'http://dev.stage.themoveboard.com:90/account/#/login';      //dev
     // V.adminURL = 'http://dev.stage.themoveboard.com:90/moveBoard/#/login';      //dev
 
-    V.adminLogin = 'WorkAdmin';
-    // V.adminLogin = 'TestAdmin';
+    // V.adminLogin = 'WorkAdmin';
+    V.adminLogin = 'TestAdmin';
     V.adminPassword = 'test';
     V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';
