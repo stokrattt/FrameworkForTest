@@ -45,6 +45,8 @@ module.exports = function(config,V) {
         './tests/40_PayrollTableCheckSumJobs.js',
         './tests/41_ContractPageSettings.js',
         './tests/125_PendingInfoOn-OffandValuation.js',
+        './tests/DefaultSettings.js',
+        './tests/128_LocalMoveValuationWithoutInventory.js',
     ];
     config.timeout = 90000;
     config.chainFail = false;
