@@ -1221,11 +1221,21 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.Account_ClickIAgreeWithAll();
 		MF.Account_ClickConfirmReservation();
 		MakeSignJS('signatureCanvasReservation');
-		SF.click(By.xpath('//button[@ng-click="saveSignature()"]'));
-		MF.SweetConfirm();
+        SF.click(By.xpath('//button[@ng-click="saveSignature()"]'));
+        MF.SweetConfirm();
 		MF.Account_WaitForGreenTextAfterConfirm();
 	}
-
+    function ConfirmRequestInAccount_AfterReservationFromBoard() {
+        MF.Account_ClickProceedBookYourMove();
+        JS.waitForExist('div.confirm');
+        JS.scroll('div.confirm');
+        MF.Account_ClickIAgreeWithAll();
+        MF.Account_ClickConfirmReservationAfterCharge();
+        MakeSignJS('signatureCanvasReserv');
+        SF.click(By.xpath('//button[@ng-click="saveReservSignature();logClickButtons(\'Save reservation sign button clicked\')"]'));
+        MF.WaitWhileSpinner();
+        MF.Account_WaitForGreenTextAfterConfirm();
+    }
 //Permissions for Sales --- start
 	function PermissionsClear() {
 		driver.wait(driver.executeScript("if($('input[ng-model=\"request.permissions.canSeeOtherLeads\"]').hasClass('ng-empty')){" +
@@ -3263,6 +3273,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MakeSignJS: MakeSignJS,
 		ConfirmRequestInAccount_WithReservation: ConfirmRequestInAccount_WithReservation,
 		ConfirmRequestInAccount_NoReservation: ConfirmRequestInAccount_NoReservation,
+        ConfirmRequestInAccount_AfterReservationFromBoard:ConfirmRequestInAccount_AfterReservationFromBoard,
 		ConfirmRequestInAccount_WithReservationWithAdress: ConfirmRequestInAccount_WithReservationWithAdress,
 //Permissions for Sales --- start
 		PermissionsClear: PermissionsClear,

@@ -184,9 +184,8 @@ condition.nowWeDoing = 'идем на аккаунт проверять стат
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
-	LF.ConfirmRequestInAccount_NoReservation();
-	MF.Account_ConfirmationBackToRequest();
-	MF.Account_WaitForGreenTextAfterConfirm();
+	LF.ConfirmRequestInAccount_AfterReservationFromBoard();
+	SF.sleep(1);
 
 	SF.endOfTest();
 };
