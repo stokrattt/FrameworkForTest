@@ -4,7 +4,7 @@ module.exports = function (config, V) {
 
 	config.suite = [
 		'./tests/125_PendingInfoOn-OffandValuation.js'
-		// './tests/31_FlateRateBooking.js'
+		// './tests/31_FlateRateBooking.js
 	];
 	config.chainFail = false;
 	config.browser = 'chrome';

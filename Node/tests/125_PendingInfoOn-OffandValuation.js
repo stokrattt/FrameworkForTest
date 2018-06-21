@@ -97,6 +97,62 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
         V.IIpartofTotalEstimate = V.boardNumbers.Fuel + V.boardNumbers.QuoteMax + V.boardNumbers.Valuation;
         VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть(первый левел)");
     }), config.timeout);
+    condition.nowWeDoing = 'подписываем частично контракт, создаем сторадж, частично вносим туда инвентарь' +
+		'оплачиваем рентал эгринмент, сабмитим до конца контракт';
+    MF.Contract_OpenBillOfLading();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    MF.Contract_DeclarationValueA();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+	MF.Contract_ClickPlusForOpenSubMenuStorageAndOvernight();
+    MF.Contract_ClickCorningToStorage();
+    LF.Contract_AddInventory(3);
+    MF.Contract_ClickDoneWithInventory();
+    MF.Contract_SetTapeNumber(1);
+    MF.Contract_SetTapeColorGreen('Green');
+    LF.MakeSignInInventory(0);
+    LF.MakeSignInInventory(1);
+	MF.Contract_SubmitInventory();
+	MF.Contract_SetRentalPhone('9999999999');
+	MF.Contract_SetRentalAddress('4384029384230');
+	MF.Contract_SetRentalZip('02222');
+    LF.MakeSignInRental();
+    MF.SweetConfirm();
+    LF.payRentalInventory();
+    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+        V.path = path;
+    }), config.timeout);
+    SF.sleep(1);
+    MF.Contract_UploadImage(V.path);
+    MF.Contract_UploadImage(V.path);
+    MF.Contract_SaveImages();
+    MF.Contract_ClickPay();
+    MF.Contract_ClickTips10();
+    MF.Contract_ClickAddTips();
+    MF.Contract_ClickPaymentInfo();
+    LF.FillCardPayModal();
+    LF.Contract_SignMainPayment();
+    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+        V.path = path;
+    }), config.timeout);
+    SF.sleep(1);
+    MF.Contract_UploadImage(V.path);
+    MF.Contract_UploadImage(V.path);
+    MF.Contract_SaveImages();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    V.contractNumbers = {};
+    MF.Contract_Submit(V.contractNumbers);
+    condition.nowWeDoing = 'переходи на наш реквест, сравниваем числа в реквесте и на контракте';
+    SF.openTab(0);
+	MF.EditRequest_CloseEditRequest();
+	MF.Board_OpenDashboard();
+	MF.Board_OpenConfirmed();
+	MF.Board_RefreshDashboard();
+	MF.Board_OpenRequest(V.boardNumbers.Id);
+
 
 
     SF.endOfTest();
