@@ -825,7 +825,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
         SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReservation"]'));
     }
-
+    function Account_ClickConfirmReservationAfterCharge() {
+        SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));
+        SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
+    }
     function Account_SweetUpdateConfirm() {
         JS.waitForExist('button.confirm:contains("Update")');
         SF.sleep(1.5);
@@ -2671,6 +2674,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Account_ClickProceedBookYourMove:Account_ClickProceedBookYourMove,
         Account_ClickIAgreeWithAll:Account_ClickIAgreeWithAll,
         Account_ClickConfirmReservation:Account_ClickConfirmReservation,
+        Account_ClickConfirmReservationAfterCharge:Account_ClickConfirmReservationAfterCharge,
         Account_SweetUpdateConfirm:Account_SweetUpdateConfirm,
         Account_OpenAdressModal:Account_OpenAdressModal,
         Account_WaitForLoadingAccount:Account_WaitForLoadingAccount,
