@@ -152,8 +152,8 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
 	MF.Board_OpenConfirmed();
 	MF.Board_RefreshDashboard();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
-
-
-
+    V.boardNumbersAfterContract= {};
+    LF.RememberDigitsRequestBoard( V.boardNumbersAfterContract);
+    VD.IWant(VD.ToEqual, V.boardNumbersAfterContract.Balance, 0, 'Баланс после закрытия не равен 0');
     SF.endOfTest();
 };

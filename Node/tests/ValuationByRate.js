@@ -125,17 +125,13 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
     LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest(V.boardNumbers.Id);
+    Debug.pause();
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(500);
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
     SF.waitForVisible(By.xpath('//div[@class="toast-message"]'));
     MF.EditRequest_CloseConfirmWork();
     MF.EditRequest_OpenLogs();
-    driver.wait(driver.findElement(By.xpath('//span[@ng-if="item.text.search(\'Lot\') == -1 && item.text.search(\'Charges\') == -1 && item.text != \'client notes\'"]' +
-		'/span[2]/span[2]')).getText().then(function(text) {
-        V.TotalinLogs = text;
-        console.log(V.TotalinLogs);
-        }), config.timeout);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_OpenContractCloseJob();
     SF.openTab(1);
