@@ -83,6 +83,13 @@ condition.nowWeDoing = 'идем на аккаунт, ставим свой amou
 		V.SelectLevelinAccount = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.SelectLevelinAccount ,V.SelectLevel,'не совпали Valuation Charge выбранный на реквесте и на аккаунте');
 	}), config.timeout);
+	MF.Account_ClickProceedBookYourMove();
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[3]/span')).getText().then(function(text) {
+        V.IpartofTotalEstimate = V.boardNumbers.Fuel + V.boardNumbers.QuoteMin + V.boardNumbers.Valuation;
+        V.IIpartofTotalEstimate = V.boardNumbers.Fuel + V.boardNumbers.QuoteMax + V.boardNumbers.Valuation;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть");
+    }), config.timeout);
+    MF.Account_ConfirmationBackToRequest();
 	MF.Account_ClickAndOpenFullValueModal();
 	MF.Account_SendAmountOfLiability(15001);
 	SF.click(By.xpath('//div[@ng-bind-html="textforshow"]'));
@@ -94,6 +101,13 @@ condition.nowWeDoing = 'идем на аккаунт, ставим свой amou
 		V.SelectLevelinAccount2 = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.NotToEqual, V.SelectLevelinAccount2 ,V.SelectLevelinAccount,'совпали Valuation Charge выбранный на аккаунте в первый раз и во второй раз ( такого быть не должно)');
 	}), config.timeout);
+    MF.Account_ClickProceedBookYourMove();
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[3]/span')).getText().then(function(text) {
+        V.IpartofTotalEstimate = V.boardNumbers.Fuel + V.boardNumbers.QuoteMin + V.SelectLevelinAccount2;
+        V.IIpartofTotalEstimate = V.boardNumbers.Fuel + V.boardNumbers.QuoteMax + V.SelectLevelinAccount2;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть");
+    }), config.timeout);
+    MF.Account_ConfirmationBackToRequest();
 	LF.AccountLocalAddInventory(V.accountNumbers);
 	MF.SweetConfirm();
 	MF.Account_WaitForInventoryCheck();
@@ -153,6 +167,8 @@ condition.nowWeDoing = 'идем на аккаунт букать работу,�
 	LF.LoginToAccountAsClient(V.client);
 	MF.Account_OpenRequest(V.boardNumbers.Id);
 	MF.Account_Click60centPerPound();
+    V.accountNumbersBeforeConfirmed = {};
+    LF.RememberAccountNumbers(V.accountNumbersBeforeConfirmed);
 	MF.Account_ClickProceedBookYourMove();
 	driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="charge in calculatedValuations track by $index"]/span')).getText().then(function (text) {
 		VD.IWant(VD.NotToEqual, 0, text,'обнулился Valuation Charge, а не должен был');
@@ -160,6 +176,12 @@ condition.nowWeDoing = 'идем на аккаунт букать работу,�
 	driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="charge in calculatedValuations track by $index"][2]/span')).getText().then(function (text) {
 		VD.IWant(VD.NotToEqual, 0, text,'обнулился Valuation Charge, а не должен был');
 	}), config.timeout);
+	Debug.pause();
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[3]/span')).getText().then(function(text) {
+        V.IpartofTotalEstimate = V.boardNumbersAfterInventory.Fuel + V.boardNumbersAfterInventory.QuoteMin + V.boardNumbersAfterInventory.Valuation;
+        V.IIpartofTotalEstimate = V.boardNumbersAfterInventory.Fuel + V.boardNumbersAfterInventory.QuoteMax + V.boardNumbersAfterInventory.Valuation;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть()");
+    }), config.timeout);
 	MF.Account_ConfirmationBackToRequest();
 	MF.Account_ChangeAmountOfLiability(15000);
 	MF.Account_WaitForLoadingAccount();
@@ -167,8 +189,14 @@ condition.nowWeDoing = 'идем на аккаунт букать работу,�
 	JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]/h2/span')).getText().then(function (text) {
 		V.SelectLevelinConfPage = SF.cleanPrice(text.substring(text.indexOf('$')));
-		VD.IWant(VD.ToEqual, V.SelectLevelinAdmin ,V.SelectLevelinConfPage,'не совпал выбраный deductible level на админке и на конфирмейшн пэйдж');
+		VD.IWant(VD.ToEqual, V.SelectLevelinAdmin ,V.SelectLevelinConfPage,'не совпал выбраный deductible level на аккаунте и на конфирмейшн пэйдж');
 	}), config.timeout);
+	Debug.pause();
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[3]/span')).getText().then(function(text) {
+        V.IpartofTotalEstimate = V.accountNumbersBeforeConfirmed.Fuel + V.accountNumbersBeforeConfirmed.QuoteMin + V.SelectLevelinAdmin;
+        V.IIpartofTotalEstimate = V.accountNumbersBeforeConfirmed.Fuel + V.accountNumbersBeforeConfirmed.QuoteMax + V.SelectLevelinAdmin;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть()");
+    }), config.timeout);
 	MF.Account_ClickIAgreeWithAll();
 	MF.Account_ConfirmationClickPayDeposit();
 	LF.MakeSignJS('signatureCanvasReserv');

@@ -92,15 +92,18 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed', 'должен быть нот конферм статус');
 	}), config.timeout);
-	MF.Account_ClickProceedBookYourMove();
+    condition.nowWeDoing = 'после назначения нового Valuation делаем проверки 3ей строкив таблице на Confirmation Page';
+    MF.Account_ClickProceedBookYourMove();
 	MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table table"]/tbody/tr[2]/td[4]/span')).getText().then(function (text) {
 			text = SF.cleanPrice(text.substring(text.indexOf('$')));
 			VD.IWant(VD.ToEqual, V.ValuationChargeinAccount2 ,text ,'не совпали Valuation выбранный во второй раз на аккаунте и в таблице на конфирмейшн пэйдж');
 		}), config.timeout);
-    //driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table"]/tbody/tr[3]/td[4]/span')).getText().then(function (text) {
-        //VD.IWant(VD.ToEqual, V.ValuationChargeinAccount2 + V.boardNumbers.QuoteMin - V.ValuationChargeinAccount2 + V.boardNumbers.QuoteMax ,text ,'не совпали Valuation выбранный во второй раз на аккаунте и в таблице на конфирмейшн пэйдж');
-    //}), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[4]/span')).getText().then(function(text) {
+        V.IpartofTotalEstimate = V.boardNumbers.Fuel + V.boardNumbers.QuoteMin + V.ValuationChargeinAccount2;
+        V.IIpartofTotalEstimate = V.boardNumbers.Fuel + V.boardNumbers.QuoteMax + V.ValuationChargeinAccount2;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть по расчетам");
+    }), config.timeout);
 	JS.scroll('div[ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]');
 	MF.Account_ClickIAgreeWithAll();
 	MF.Account_ConfirmationClickPayDeposit();
