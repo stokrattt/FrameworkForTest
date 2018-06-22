@@ -96,6 +96,7 @@ condition.nowWeDoing = 'идем в паймент колектед, выбир�
     MF.Board_OpenPaymentCollected();
     LF.PaymentCollected_ChooseCurrentDateStartEnd();
     MF.PaymentCollected_ChoosePaymentFilter('Credit card');
+    SF.sleep(3);
     MF.PaymentCollected_ChooseAdvancedFilter('Reservation by company');
     MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[2]')).getText().then(function (text) {
