@@ -1450,6 +1450,12 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
 		SF.sleep(1);
 	}
+	function MakeSignInAddContract() {
+        SF.click(By.xpath('//div[@class="empty-signature"]'));
+        MakeSignJS("signatureCanvas");
+        SF.click(By.xpath('//button[@ng-click="saveStep()"]'));
+        SF.sleep(1);
+    }
     function MakeSignInContractFlatRate() {
         MF.WaitWhileBusy();
         SF.click(By.xpath('//div[@id="local_moves"]//div[@class="empty-signature"]'));
@@ -3099,8 +3105,40 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         V.firstDate = {};
         V.firstDate.Month = (future.toLocaleDateString('en-US', month));
         V.firstDate.Day = (future.toLocaleDateString('en-US', day));
+        SF.click(By.xpath('//div[@ng-click="prevMonth()"]'));
         SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.firstDate.Month + '-' + V.firstDate.Day +'"]'));
         MF.WaitWhileBusy();
+    }
+    function EditRequest_SetFirstDeliveryDay(){
+        MF.EditRequest_OpenDetails();
+        SF.sleep(3);
+        SF.click(By.xpath('//input[@ng-model="disableDeliveryDatesCheckbox.checkboxValue"]'));
+        SF.sleep(2);
+        SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
+        let now = new Date();
+        let msInDay = 86400000;
+        let future = new Date(now.getTime() + msInDay * 4);
+        let options = { month: 'long', day: 'numeric', year: 'numeric' };
+        V.deliveryDay = (future.toLocaleDateString('en-US', options));
+        SF.send(By.xpath('//input[@ng-model="details.delivery"]'), V.deliveryDay);
+        SF.sleep(0.5);
+        SF.click(By.xpath('//button[contains(text(), "Done")]'));
+        MF.EditRequest_SaveDetails();
+    }
+    function EditRequest_SetScheduleDeliveryDate(){
+        SF.click(By.xpath('//er-datepicker-input[@er-value="scheduleDeliveryDate"]'));
+        now = new Date();
+        msInDay = 86400000;
+        future = new Date(now.getTime() + msInDay * 6);
+        let month = { month: '2-digit'};
+        let day = {day: '2-digit'};
+        V.scheduleDate = {};
+        V.scheduleDate.Month = (future.toLocaleDateString('en-US', month));
+        V.scheduleDate.Day = (future.toLocaleDateString('en-US', day));
+        SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.scheduleDate.Month + '-' + V.scheduleDate.Day +'"]'));
+        SF.sleep(4);
+        SF.click(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
+        SF.sleep(3);
     }
     function EditRequest_SetInHomeEstimateDate(dateInFuture) {
         let now = new Date();
@@ -3293,6 +3331,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		selectCrewFlatRatePickUp: selectCrewFlatRatePickUp,
 		selectCrewFlatRateDelivery: selectCrewFlatRateDelivery,
 		MakeSignInContract: MakeSignInContract,
+        MakeSignInAddContract:MakeSignInAddContract,
         MakeSignInContractFlatRate:MakeSignInContractFlatRate,
 		MakeSignInInventory: MakeSignInInventory,
 		MakeSignInRental: MakeSignInRental,
@@ -3384,6 +3423,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         AccountFlatRate_AddExtraPickupAndDropOff:AccountFlatRate_AddExtraPickupAndDropOff,
         EditRequest_AddCustomPacking:EditRequest_AddCustomPacking,
         EditRequest_ChangeMoveDate:EditRequest_ChangeMoveDate,
+        EditRequest_SetFirstDeliveryDay:EditRequest_SetFirstDeliveryDay,
+        EditRequest_SetScheduleDeliveryDate:EditRequest_SetScheduleDeliveryDate,
         EditRequest_SetInHomeEstimateDate:EditRequest_SetInHomeEstimateDate,
         SIT_CreateCarrier:SIT_CreateCarrier,
         SIT_CreateCustomPaymentInTPcollectedInClosing:SIT_CreateCustomPaymentInTPcollectedInClosing,

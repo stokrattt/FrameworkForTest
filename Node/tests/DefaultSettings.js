@@ -196,6 +196,9 @@ condition.nowWeDoing = 'тут заходим в маркетинг тулс и 
 	SF.sleep(2);
 	MF.WaitWhileToaster();
 
+    condition.nowWeDoing = 'выключение показа и использования доп.контракта как основного';
+    MF.Board_OpenSettingsContract();
+    MF.Board_TurnOffAdditionalContract();
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

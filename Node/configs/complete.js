@@ -132,6 +132,8 @@ module.exports = function(config,V) {
         './tests/125_PendingInfoOn-OffandValuation.js',
         './tests/129_ValuationByfixpriceWithInventory.js',
         './tests/124_Pending-InfoWithCalcOffAndCustomReservation.js',
+        './tests/130_LDCheckScheduleDeliveryDateAndContract.js',
+        './tests/DefaultSettings.js',
         './tests/51_ServiceTypesOnOff.js',
 
         './tests/56_LoadingAllSteps.js',

@@ -1017,6 +1017,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(15);
         SweetConfirm();
     }
+    function Contract_SubmitAddContract() {
+        WaitWhileBusy();
+        SF.sleep(2);
+        SF.click(By.xpath('//button[@ng-click="submitAddContract($index)"]'));
+        SF.sleep(15);
+        SweetConfirm();
+    }
 
     function Contract_ReturnToForeman() {
         JS.scroll('a:contains("Return to foreman page")');
@@ -2713,6 +2720,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_UploadImage: Contract_UploadImage,
         Contract_SaveImages: Contract_SaveImages,
         Contract_Submit: Contract_Submit,
+        Contract_SubmitAddContract:Contract_SubmitAddContract,
         Contract_ReturnToForeman: Contract_ReturnToForeman,
         Contract_OpenInventory: Contract_OpenInventory,
         Contract_SetTapeNumber: Contract_SetTapeNumber,
