@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsAdmin(V.adminLogin, V.adminPassword);
 
 condition.nowWeDoing = 'первый раз в админке';
     LF.CreateLocalMovingFromBoard(V.client);
@@ -77,7 +77,7 @@ condition.nowWeDoing = 'первый раз в акаунте';
     }),config.timeout);
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsAdmin(V.adminLogin, V.adminPassword);
     MF.Board_OpenSettingsCalculator();
     SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][7]'));
     SF.waitForVisible(By.xpath("//span[contains(text(),'Datepicker tooltips')]"));

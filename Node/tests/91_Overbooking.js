@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin();
+    LF.LoginToBoardAsAdmin(V.adminLogin, V.adminPassword);
 
 condition.nowWeDoing = 'в админке создаем первий реквест делаем его нот конферм,виключаем калькулятор , добавляем 2 трака';
     LF.CreateLocalMovingFromBoard(V.client);
