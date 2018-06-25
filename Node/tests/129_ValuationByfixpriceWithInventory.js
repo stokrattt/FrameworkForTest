@@ -182,6 +182,7 @@ condition.nowWeDoing = 'идем на аккаунт букать работу,�
         V.IIpartofTotalEstimate = V.boardNumbersAfterInventory.Fuel + V.boardNumbersAfterInventory.QuoteMax + V.boardNumbersAfterInventory.Valuation;
         VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть()");
     }), config.timeout);
+    console.log(V.boardNumbersAfterInventory.Valuation);
 	MF.Account_ConfirmationBackToRequest();
 	MF.Account_ChangeAmountOfLiability(15000);
 	MF.Account_WaitForLoadingAccount();
@@ -236,5 +237,6 @@ condition.nowWeDoing = 'выходим из аккаунта, идем на ад
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.ValuationClosing ,text,'не совпал выбраный deductible level в табе клозинг и контракте');
 	}), config.timeout);
+	SF.sleep(1);
 	SF.endOfTest();
 };

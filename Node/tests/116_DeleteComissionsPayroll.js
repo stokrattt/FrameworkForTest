@@ -59,6 +59,7 @@ condition.nowWeDoing= 'идем в большой пеирол, оттуда з�
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
+    JS.scroll('div.total-payroll-panel div.total-title:contains(\"Paid\")');
     MF.Payroll_RefreshTable ();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.boardNumbers.Id+'")]/../td[@ng-click="editRequest(\'cb_hourly_rate\', id, \'request\', dataObj.trip_job)"]')).getText().then(function(text){
         V.PayrollHourlyRateForeman = SF.cleanPrice(text);
@@ -99,6 +100,7 @@ condition.nowWeDoing= 'теперь добавляем комисию ему ж�
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
+    JS.scroll('div.total-payroll-panel div.total-title:contains(\"Paid\")');
     MF.Payroll_RefreshTable ();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.boardNumbers.Id+'")]/../td[@ng-click="editRequest(\'tj_bonus\', id, \'request\', dataObj.trip_job)"]')).getText().then(function(text){
         V.PayrollAfterAddBonusForeman = SF.cleanPrice(text);
