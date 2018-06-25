@@ -24,11 +24,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.boardNumbers = {};
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     SF.sleep(1);
-    LF.EditRequest_SetFirstDeliveryDay();
+    LF.EditRequest_SetFirstDeliveryDay(4);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
-    LF.EditRequest_SetScheduleDeliveryDate();
+    LF.EditRequest_SetScheduleDeliveryDate(4);
     MF.EditRequest_SetAdressFrom();
     MF.EditRequest_SetAdressTo();
     MF.EditRequest_OpenFuelSurchModal();
@@ -93,6 +93,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork();
+    V.boardNumbersBeforeChangeWeightType = {};
+    LF.RememberDigitsRequestBoard_Down(V.boardNumbersBeforeChangeWeightType);
+    VD.IWant(VD.ToEqual, V.boardNumbersAfterDeleteInventory.Total - V.boardNumbersAfterDeleteInventory.Packing ,V.boardNumbersBeforeChangeWeightType.Total, 'не совпал Total после перевода реквеста с Sales в Closing');
+    VD.IWant(VD.ToEqual, V.boardNumbersAfterDeleteInventory.Fuel, V.boardNumbersBeforeChangeWeightType.Fuel, 'не совпал Fuel  после перевода реквеста с Sales в Closing');
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeChangeWeightType.Packing, 0, 'Partial packing перенесён в табу closing');
+    VD.IWant(VD.ToEqual, V.boardNumbersAfterDeleteInventory.AdServices, V.boardNumbersBeforeChangeWeightType.AdServices, 'не совпал AdServices после перевода реквеста с Sales в Closing');
+    VD.IWant (VD.ToEqual, V.boardNumbersAfterDeleteInventory.Discount, V.boardNumbersBeforeChangeWeightType.Discount, 'Пересчиталась квота на табе closing после добавляния packing');
     SF.clear(By.xpath('//input[@ng-change="changeClosingWeightValue()"]'));
     SF.send(By.xpath('//input[@ng-change="changeClosingWeightValue()"]'), 900);
     MF.EditRequest_SaveChangesClosingTab();
@@ -105,9 +112,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant (VD.ToEqual, V.boardNumbersClosing2.Fuel, V.boardNumbersClosing1.Fuel, 'Пересчиталось топливо на табе closing после добавляния packing');
     VD.IWant (VD.ToEqual, V.boardNumbersClosing2.Quote, V.boardNumbersClosing1.Quote, 'Пересчиталась квота на табе closing после добавляния packing');
     LF.closeEditRequest();
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    JS.waitForExist("div.toast-success:visible");
-    JS.waitForNotExist('div.toast-success');
 
     condition.nowWeDoing = 'Открываем реквест заново, проверяем что на табе sales всё осталось старым. Назначаем команду';
     MF.Board_OpenConfirmed();
@@ -152,6 +156,19 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Добавляем ещё сервисов и пэкингов, подписываем и самбитим контракт';
     MF.Contract_OpenBillOfLading();
+    driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[1]/tr[12]')).getText().then(function (text){
+        text = SF.cleanPrice (text);
+        VD.IWant(VD.ToEqual, V.boardNumbersClosing2.Packing, text, 'На контракте не совпали или не отображаются пэкинги добавленные в модалке реквеста');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[2]/tr[6]')).getText().then(function (text){
+        text = SF.cleanPrice (text);
+        VD.IWant(VD.ToEqual, V.boardNumbersAfterDeleteInventory.AdServices, text, 'На контракте не совпали или не отображаются сервисы добавленные на аккаунте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@id="contract_total"]')).getAttribute('value').then(function(value){
+        V.ContractTotal = SF.cleanPrice(value.replace('%', ''));
+        VD.IWant(VD.ToEqual,  V.ContractTotal, V.boardNumbersClosing2.Total, 'Не совпал тотал на контракте и в модалке реквеста');
+    }),config.timeout);
+    Debug.pause();
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][1]//select[@ng-model="p.quantity"]'),5);
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][2]//select[@ng-model="p.quantity"]'),5);
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][6]//select[@ng-model="p.quantity"]'),5);
@@ -185,9 +202,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant (VD.ToEqual, V.boardNumbersClosingAfterSubmit.AdServices, V.TotalAdServicesContract, 'На табу клоузинг не добавились сервисы которые были добавлены на контракте');
     VD.IWant (VD.ToEqual, V.boardNumbersClosingAfterSubmit.Packing, V.TotalPackingContract, 'На табу клоузинг не добавились пэкинги которые были добавлены на контракте');
     MF.EditRequest_CloseEditRequest();
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    JS.waitForExist("div.toast-success:visible");
-    JS.waitForNotExist('div.toast-success');
     MF.Board_OpenSettingsContract();
     MF.Board_TurnOffAdditionalContract();
     SF.sleep(1);

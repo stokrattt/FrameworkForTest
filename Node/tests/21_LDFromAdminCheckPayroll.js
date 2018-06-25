@@ -142,7 +142,7 @@ condition.nowWeDoing = 'идем в аккаунт букать работу и 
     MF.Board_SearchRequest(V.request.Id);
     SF.sleep(3);
     MF.Board_SearchOpenRequest (V.request);
-    LF.EditRequest_SetFirstDeliveryDay();
+    LF.EditRequest_SetFirstDeliveryDay(4);
     SF.sleep(3);
     MF.WaitWhileToaster();
     MF.EditRequest_CloseConfirmWork();

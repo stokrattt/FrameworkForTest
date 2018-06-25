@@ -129,9 +129,9 @@ condition.nowWeDoing = 'Заходим в реквест , выставляем 
     SF.click(By.xpath('//div[contains(text(), "'+ V.client.name +'")]/..//div[@ng-click="openRequest(id)"]'));
     MF.EditRequest_WaitForOpenRequest();
     MF.EditRequest_OpenConfirmWork ();
-    LF.EditRequest_SetFirstDeliveryDay();
+    LF.EditRequest_SetFirstDeliveryDay(4);
     MF.EditRequest_OpenConfirmWork ();
-    LF.EditRequest_SetScheduleDeliveryDate();
+    LF.EditRequest_SetScheduleDeliveryDate(4);
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseConfirmWork ();
     LF.closeEditRequest ();
