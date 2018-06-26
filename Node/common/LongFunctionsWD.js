@@ -3109,7 +3109,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.firstDate.Month + '-' + V.firstDate.Day +'"]'));
         MF.WaitWhileBusy();
     }
-    function EditRequest_SetFirstDeliveryDay(){
+    function EditRequest_SetFirstDeliveryDay(dateInFuture) {
         MF.EditRequest_OpenDetails();
         SF.sleep(3);
         SF.click(By.xpath('//input[@ng-model="disableDeliveryDatesCheckbox.checkboxValue"]'));
@@ -3117,7 +3117,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
         let now = new Date();
         let msInDay = 86400000;
-        let future = new Date(now.getTime() + msInDay * 4);
+        let future = new Date(now.getTime() + msInDay * dateInFuture);
         let options = { month: 'long', day: 'numeric', year: 'numeric' };
         V.deliveryDay = (future.toLocaleDateString('en-US', options));
         SF.send(By.xpath('//input[@ng-model="details.delivery"]'), V.deliveryDay);
@@ -3125,11 +3125,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//button[contains(text(), "Done")]'));
         MF.EditRequest_SaveDetails();
     }
-    function EditRequest_SetScheduleDeliveryDate(){
+    function EditRequest_SetScheduleDeliveryDate(dateInFuture) {
         SF.click(By.xpath('//er-datepicker-input[@er-value="scheduleDeliveryDate"]'));
         now = new Date();
         msInDay = 86400000;
-        future = new Date(now.getTime() + msInDay * 6);
+        future = new Date(now.getTime() + msInDay * dateInFuture);
         let month = { month: '2-digit'};
         let day = {day: '2-digit'};
         V.scheduleDate = {};
