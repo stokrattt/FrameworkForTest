@@ -189,12 +189,12 @@ condition.nowWeDoing = 'Заходим в пейрол и заполняем и 
     SF.clear(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.cashAmount);
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//button[@ng-click="update()"]'));
-    SF.sleep(2);
+    SF.sleep(3);
 
 
 condition.nowWeDoing = 'а тут добавим наши созданные driver expense and cash wires';
     SF.click(By.xpath('//button[@ng-click="addExpenses(event)"]'));
-    SF.sleep(2);
+    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[contains(text(),"' + V.driverExpense + '")]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, V.driverExpense, 'не нашло наш созданный driver expense');
     }),config.timeout);
