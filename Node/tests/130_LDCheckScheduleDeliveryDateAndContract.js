@@ -13,6 +13,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsContract();
     MF.Board_TurnOnAdditionalContract();
+    MF.Board_OpenSettingsValuation();
+    driver.wait(driver.executeScript("if ($('md-radio-button[area-label=\"By fixed price\"]').hasClass('md-checked')){return true;} else {$('md-radio-button[area-label=\"By fixed price\"]').click()}"), config.timeout);
+    SF.waitForVisible(By.xpath('//md-radio-button[@class="valuation-plan-settings__radio md-primary md-checked"]'));
+    driver.wait(driver.executeScript("if($('button[ng-click=\"saveChanges()\"]').hasClass('disabled')){" +
+        ";}else{$('button[ng-click=\"saveChanges()\"]').click()}"), config.timeout);
+    MF.WaitWhileToaster();
     LF.CreateLongDistanceFromBoard(V.client);
     V.requestNumber={};
     MF.EditRequest_RememberId(V.requestNumber);
@@ -143,15 +149,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="total in totalEstimatePlus track by $index"][1]')).getText().then(function (text){
         text = SF.cleanPrice (text);
-        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 150, 'Неравильно посчитан тотал и валюэйшен на конфирмейшен пэйдж');
+        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 150, 'Неправильная сумма в третьей строке таблицы валюэйшена. Total Estimate + Valuation Charge.(First deductible level) ');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="total in totalEstimatePlus track by $index"][2]')).getText().then(function (text){
         text = SF.cleanPrice (text);
-        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 200, 'Неравильно посчитан тотал и валюэйшен на конфирмейшен пэйдж');
+        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 200, 'Неправильная сумма в третьей строке таблицы валюэйшена. Total Estimate + Valuation Charge.(Second deductible level)');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="total in totalEstimatePlus track by $index"][3]')).getText().then(function (text){
         text = SF.cleanPrice (text);
-        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 220, 'Неравильно посчитан тотал и валюэйшен на конфирмейшен пэйдж');
+        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 220, 'Неправильная сумма в третьей строке таблицы валюэйшена. Total Estimate + Valuation Charge.(Third deductible level) ');
     }),config.timeout);
 
     condition.nowWeDoing = 'Добавляем ещё сервисов и пэкингов, подписываем и самбитим контракт';
@@ -166,9 +172,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@id="contract_total"]')).getAttribute('value').then(function(value){
         V.ContractTotal = SF.cleanPrice(value.replace('%', ''));
-        VD.IWant(VD.ToEqual,  V.ContractTotal, V.boardNumbersClosing2.Total, 'Не совпал тотал на контракте и в модалке реквеста');
+        VD.IWant(VD.ToEqual,  V.ContractTotal, V.boardNumbersBeforeChangeWeightType.Total + V.boardNumbersClosing2.Packing, 'Не совпал тотал на контракте и в модалке реквеста');
     }),config.timeout);
-    Debug.pause();
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][1]//select[@ng-model="p.quantity"]'),5);
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][2]//select[@ng-model="p.quantity"]'),5);
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][6]//select[@ng-model="p.quantity"]'),5);
