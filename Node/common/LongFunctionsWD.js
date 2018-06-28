@@ -2668,7 +2668,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.send(By.xpath('//table[@ng-show="!discountTabActive"]//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.rate"]'),DiscountPrice);
         SF.clear(By.xpath('//table[@ng-show="!discountTabActive"]//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.startWeight"]'));
         SF.send(By.xpath('//table[@ng-show="!discountTabActive"]//tr[@ng-repeat="row in discounts"]['+numberDiscount+']//input[@ng-model="row.startWeight"]'),DiscountPriceCF);
-        SF.sleep(2);
+        SF.sleep(2.5);
     }
     function LongDistanceSettings_AddLDStatusFlag(text) {
         SF.click(By.xpath('//button[@ng-click="vm.addNewStatus(); vm.addFlag = true"]'));

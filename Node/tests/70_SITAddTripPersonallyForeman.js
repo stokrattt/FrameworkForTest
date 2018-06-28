@@ -209,7 +209,7 @@ condition.nowWeDoing = 'а тут добавим наши созданные dri
     }),config.timeout);
     SF.click(By.xpath('//div[@ng-repeat="item in expensesDialogItem track by $index"]/div[1]'));
     SF.click(By.xpath('//button[@ng-click="add()"]'));
-    SF.sleep(2);
+    SF.sleep(3);
 
 condition.nowWeDoing = 'заполняем и сравниваем циферки для хелперов';
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"helper")]'));
