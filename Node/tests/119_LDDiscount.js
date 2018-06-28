@@ -42,7 +42,8 @@ condition.nowWeDoing = 'Добавляем 3 дисконта';
     V.DiscountPriceThird = 4;
     V.DiscountPriceCFThird = 1300;
     LF.LongDistanceSettings_SetDiscounts(3, V.DiscountPriceThird, V.DiscountPriceCFThird);
-    SF.sleep(5);
+    MF.LongDistanceSettings_SetMinPrice(V.minPrice);
+    SF.sleep(4);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'Создаем ЛД в наш штат с верхней фронт формы';
@@ -109,7 +110,6 @@ condition.nowWeDoing = 'идем в модалку проверяем цену, 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest(V.accountNumbersLD.Id);
-    JS.scroll('div[ng-show="!request.isInventory"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
 		V.CBFinAdmin = SF.cleanPrice(text);
 		VD.IWant(VD.ToEqual, V.CBFinAccountAfterInventory2 ,V.CBFinAdmin,'не совпал вес инвентаря в аккаунте и реквесте на мувборде');
@@ -180,11 +180,11 @@ condition.nowWeDoing = 'Идем в настроику ЛД, удалем нас
     MF.LongDistanceSettings_ClickOnMapState('#jqvmap1_mt');
     MF.Board_OpenSideBar();
     SF.click (By.xpath('//table[@ng-show="!discountTabActive"]//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
-    SF.sleep(1.5);
+    SF.sleep(2);
     SF.click (By.xpath('//table[@ng-show="!discountTabActive"]//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
-    SF.sleep(1.5);
+    SF.sleep(2);
     SF.click (By.xpath('//table[@ng-show="!discountTabActive"]//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
-    SF.sleep(3);
+    SF.sleep(5);
 
 
     SF.endOfTest();
