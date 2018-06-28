@@ -179,24 +179,12 @@ condition.nowWeDoing = 'идем на аккаунт букать работу,�
 	MF.Account_ConfirmationBackToRequest();
 	MF.Account_ChangeAmountOfLiability(15000);
 	MF.Account_WaitForLoadingAccount();
-    //driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_charge"][2]')).getText().then(function (text) {
-	//	V.SelectValuationinAccountAfter60cent = text;
-	//	console.log(V.SelectValuationinAccountAfter60cent);
-    //}), config.timeout);
-	//V.accountNumbersafter60cent = {};
-	//LF.RememberAccountNumbers(V.accountNumbersafter60cent);
 	MF.Account_ClickProceedBookYourMove();
 	JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]/h2/span')).getText().then(function (text) {
 		V.SelectLevelinConfPage = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.SelectLevelinAdmin ,V.SelectLevelinConfPage,'не совпал выбраный deductible level на аккаунте и на конфирмейшн пэйдж');
 	}), config.timeout);
-	//Debug.pause();
-    //driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[3]/span')).getText().then(function(text) {
-      //  V.IpartofTotalEstimate = V.accountNumbersafter60cent.Fuel + V.accountNumbersafter60cent.TotalMin + V.SelectValuationinAccountAfter60cent;
-      //  V.IIpartofTotalEstimate = V.accountNumbersafter60cent.Fuel + V.accountNumbersafter60cent.TotalMax + V.SelectValuationinAccountAfter60cent;
-        //VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть()");
-    //}), config.timeout);
 	MF.Account_ClickIAgreeWithAll();
 	MF.Account_ConfirmationClickPayDeposit();
 	LF.MakeSignJS('signatureCanvasReserv');
@@ -231,6 +219,11 @@ condition.nowWeDoing = 'выходим из аккаунта, идем на ад
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.ValuationClosing ,text,'не совпал выбраный deductible level в табе клозинг и на конфирмейшн пэйдж');
 	}), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[3]/span')).getText().then(function(text) {
+        V.IpartofTotalEstimate = V.boardAfterConfirmed.Fuel + V.boardAfterConfirmed.QuoteMin + V.boardAfterConfirmed.Valuation;
+        V.IIpartofTotalEstimate = V.boardAfterConfirmed.Fuel + V.boardAfterConfirmed.QuoteMax + V.boardAfterConfirmed.Valuation;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть()");
+    }), config.timeout);
 	MF.Contract_OpenBillOfLading();
 	driver.wait(driver.findElement(By.xpath('//tr[@ng-if="finance.valuation && finance.valuation != 0"]/td[2]')).getText().then(function (text) {
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));
