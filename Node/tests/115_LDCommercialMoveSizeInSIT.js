@@ -108,7 +108,7 @@ condition.nowWeDoing = 'Переводим работу в Closing, провер
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersBeforeSITClosing);
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Total - V.accountNumbersAfterFullPacking.Packing ,V.boardNumbersBeforeSITClosing.Total, 'не совпал Total после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Fuel, V.boardNumbersBeforeSITClosing.Fuel, 'не совпал Fuel  после перевода реквеста с Sales в Closing');
-    VD.IWant(VD.ToEqual, 30, V.boardNumbersBeforeSITClosing.Packing, 'не совпал Packing после перевода реквеста с Sales в Closing');
+    VD.IWant(VD.ToEqual, 15, V.boardNumbersBeforeSITClosing.Packing, 'не совпал Packing после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.AdServices, V.boardNumbersBeforeSITClosing.AdServices, 'не совпал AdServices после перевода реквеста с Sales в Closing');
     MF.EditRequest_OpenSITmodal();
     MF.EditRequest_SITmodalSetStorage('test');

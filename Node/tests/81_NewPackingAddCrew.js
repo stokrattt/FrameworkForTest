@@ -208,6 +208,15 @@ condition.nowWeDoing = 'возвращаемся в мувборд, и пров�
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Packing, V.totalPackingContract, 'пакинг добавленный на контракте не отобразился или не совпадает с реквестом на клозинге');
     VD.IWant(VD.ToEqual, V.boardNumbers.AdServices, V.totalAddServices, 'additional services добавленный на контракте не отобразился или не совпадает с реквестом на клозинге');
+    MF.EditRequest_OpenLogs();
+    SF.click(By.xpath('//span[@ng-show="!allLogsShow[allLogsIndex]"]'));
+    SF.click(By.linkText('VIEW CONTRACT PAGE'));
+    SF.openTab(1);
+    SF.sleep(2);
+    SF.waitForVisible(By.xpath('//print-download[@class="download-row"]'));
+    driver.wait(driver.executeScript("return $('img[ng-if=\"showContractImage && data.isSubmitted\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 1, 'Не появился контракт после перехода по ссылке в логах');
+    }),config.timeout);
     SF.sleep(1.5);
 
     SF.endOfTest();
