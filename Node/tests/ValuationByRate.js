@@ -15,16 +15,20 @@ condition.nowWeDoing = 'заходим под админом в настройк
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSideBar();
     MF.Board_OpenSettingsValuation();
-	driver.wait(driver.executeScript("if ($('md-radio-button[area-label=\"By rate\"]').hasClass('md-checked')){return true;} else {$('md-radio-button[area-label=\"By rate\"]').click()}"), config.timeout);
+	driver.wait(driver.executeScript("if ($('md-radio-button[area-label=\"By rate\"]').hasClass('md-checked')){return true;} " +
+		"else {$('md-radio-button[area-label=\"By rate\"]').click()}"), config.timeout);
 	SF.waitForVisible(By.xpath('//md-radio-button[@class="valuation-plan-settings__radio md-primary md-checked"]'));
 	driver.wait(driver.executeScript("if($('button[ng-click=\"saveChanges()\"]').hasClass('disabled')){" +
 		";}else{$('button[ng-click=\"saveChanges()\"]').click()}"), config.timeout);
 	MF.Board_ShowProtectionOnAccountPage();
 	JS.scroll('div[class="btn btn-primary btn-block"]');
-	SF.click(By.xpath('//md-checkbox[@aria-label="Full Value Protection"]'));
+    driver.wait(driver.executeScript("if ($('md-checkbox[aria-label=\"Full Value Protection\"]').hasClass('ng-empty')){" +
+        "return true;} else {$('md-checkbox[aria-label=\"Full Value Protection\"]').click()}"),config.timeout);
 	JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
 	MF.WaitWhileToaster();
+	SF.sleep(2);
 	MF.Board_LogoutAdmin();
+
 
 condition.nowWeDoing = 'выходим из админки, идем на фронт и создаем с верхней формы реквест. идем на аккаунт.';
 	SF.get(V.frontURL);
@@ -38,6 +42,7 @@ condition.nowWeDoing = 'первый раз на аккаунте';
 	MF.Account_ClickUpdateClientInModalWindow();
 	MF.SweetConfirm();
 	MF.SweetConfirm();
+	//MF.SweetConfirm();
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
 	V.accountNumbers={};
@@ -125,26 +130,27 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
     LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest(V.boardNumbers.Id);
-    Debug.pause();
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(500);
     SF.click(By.xpath('//button[@ng-click="Apply()"]'));
     SF.waitForVisible(By.xpath('//div[@class="toast-message"]'));
+    V.boardNumbersAfterAccount = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersAfterAccount);
     MF.EditRequest_CloseConfirmWork();
-    MF.EditRequest_OpenLogs();
-    MF.EditRequest_OpenRequest();
     MF.EditRequest_OpenContractCloseJob();
     SF.openTab(1);
     MF.SweetConfirm();
-    //здесь будем проверять что бы в таблицу в 3ей строке не было отрицательных чисел
+    SF.sleep(2);
+    //здесь будем проверять что бы в таблицу в 3ей строке не было отрицательных чисел ( только 2 проверки, потому что проблемы с округлением )
     driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[2]/span')).getText().then(function(text) {
-        VD.IWant(VD.ToEqual,text,'$ 456.13 - $ 516.13','не совпал тотал плюс страховка с тем,что должно было быть(первый левел)');
+        V.IpartofTotalEstimate = V.boardNumbersAfterAccount.TotalMin + 95.13 ;
+        V.IIpartofTotalEstimate = V.boardNumbersAfterAccount.TotalMax + 95.13 ;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть по расчетам");
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[3]/span')).getText().then(function(text) {
-        VD.IWant(VD.ToEqual,text,'$ 471.99 - $ 531.99','не совпал тотал плюс страховка с тем,что должно было быть(второй левел)');
-    }), config.timeout);
-    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[4]/span')).getText().then(function(text) {
-        VD.IWant(VD.ToEqual,text,'$ 487.84 - $ 547.84','не совпал тотал плюс страховка с тем,что должно было быть(третий левел)');
+        V.IpartofTotalEstimate = V.boardNumbersAfterAccount.TotalMin + 110.99 ;
+        V.IIpartofTotalEstimate = V.boardNumbersAfterAccount.TotalMax + 110.99 ;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть по расчетам");
     }), config.timeout);
 
     SF.endOfTest();
