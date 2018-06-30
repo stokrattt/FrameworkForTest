@@ -2854,7 +2854,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
         SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
         SF.click(By.xpath('//div[@class="charge_list"]/li[5]'));
-        SF.click(By.xpath('//div[@class="charge_list"]/li[9]'));
+        SF.click(By.xpath('//div[@class="charge_list"]/li[7]'));
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         MF.WaitWhileBusy ();
         SF.sleep (3);

@@ -7,7 +7,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin(V.adminLogin, V.adminPassword);
+    LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
 condition.nowWeDoing = 'первый раз в админке';
     LF.CreateLocalMovingFromBoard(V.client);
@@ -17,25 +17,25 @@ condition.nowWeDoing = 'первый раз в админке';
     MF.Board_OpenSettingsGeneral ();
     MF.Board_OpenSettingsAccountPageCustomTooltips();
     MF.Board_OpenSideBar();
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Job Time = Labor Time + Travel Time")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Job Time = Labor Time + Travel Time")]')).getText().then(function(text){
         V.jobTimeText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Labor Time start")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Labor Time start")]')).getText().then(function(text){
         V.laborTimeText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Travel Time - time added to Labor Time")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Travel Time - time added to Labor Time")]')).getText().then(function(text){
         V.travelTimeText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Fuel Surcharge Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Fuel Surcharge Tooltip")]')).getText().then(function(text){
         V.fuelSurchargeText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h5[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
         V.myselfPackingText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h5[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
         V.partialPackingText = text;
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h5[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
         V.fullPackingText = text;
     }),config.timeout);
     MF.Board_LogoutAdmin();
@@ -46,33 +46,33 @@ condition.nowWeDoing = 'первый раз в акаунте';
     SF.click(By.xpath('//button[@ng-click="vm.viewRequest(request.nid)"]'));
     MF.Account_ClickViewRequest();
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.jobTime.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="tips rmtips"]//span[contains(text(), "Job Time = Labor Time + Travel Time")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@class="tips rmtips"]//div[contains(text(), "Job Time = Labor Time + Travel Time")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.jobTimeText, text, 'не совпали Job Time tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.laborTime.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//div[@class="tips rmtips"]//span[contains(text(), "Labor Time start")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@class="tips rmtips"]//div[contains(text(), "Labor Time start")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.laborTimeText, text, 'не совпали Labor Time tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.travelTime.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Travel Time - time added to Labor Time")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Travel Time - time added to Labor Time")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.travelTimeText, text, 'не совпали Travel Time tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.fuelSurchrge.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Fuel Surcharge Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Fuel Surcharge Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.fuelSurchargeText, text, 'не совпали Fuel Surcharge Tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.myselfPacking.isDisplay"]'));
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h5[contains(text(), "Myself Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.myselfPackingText, text, 'не совпали Myself Packing Tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-if="vm.tooltipData.fullPacking.isDisplay"]'));
     SF.sleep(8);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h5[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.fullPackingText, text, 'не совпали Full Packing tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.partialPacking.isDisplay"]'));
     SF.sleep(8);
-    driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//h5[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.partialPackingText, text, 'не совпали Partial Packing tooltip');
     }),config.timeout);
     LF.LogoutFromAccount();
