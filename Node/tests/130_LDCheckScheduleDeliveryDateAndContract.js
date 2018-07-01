@@ -106,11 +106,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeChangeWeightType.Packing, 0, 'Partial packing перенесён в табу closing');
     VD.IWant(VD.ToEqual, V.boardNumbersAfterDeleteInventory.AdServices, V.boardNumbersBeforeChangeWeightType.AdServices, 'не совпал AdServices после перевода реквеста с Sales в Closing');
     VD.IWant (VD.ToEqual, V.boardNumbersAfterDeleteInventory.Discount, V.boardNumbersBeforeChangeWeightType.Discount, 'Пересчиталась квота на табе closing после добавляния packing');
-    SF.clear(By.xpath('//input[@ng-change="changeClosingWeightValue()"]'));
-    SF.send(By.xpath('//input[@ng-change="changeClosingWeightValue()"]'), 900);
-    MF.EditRequest_SaveChangesClosingTab();
+    MF.EditRequest_OpenSettings();
+    MF.EditRequest_ClickCustomCubFit();
+    MF.EditRequest_SendNumberCustomCubFit(500);
+    MF.EditRequest_OpenRequest();
     V.boardNumbersClosing1 = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosing1);
+    MF.EditRequest_CloseConfirmWork();
     LF.EditRequest_AddPackingClosingTab();
     SF.sleep(3);
     V.boardNumbersClosing2 = {};
@@ -125,8 +127,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Board_OpenRequest (V.requestNumber.Id);
     V.boardNumbersClosing = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosing);
-    VD.IWant (VD.ToEqual, V.boardNumbersAfterDeleteInventory.Fuel, V.boardNumbersClosing.Fuel, 'Пересчиталось топливо на табе sales после добавляения packing на closing');
-    VD.IWant (VD.ToEqual, V.boardNumbersAfterDeleteInventory.Quote, V.boardNumbersClosing.Quote, 'Пересчиталась квота на табе sales после добавляения packing на closing');
+    VD.IWant (VD.ToEqual, V.boardNumbersClosing1.Fuel, V.boardNumbersClosing.Fuel, 'Пересчиталось топливо на табе sales после добавляения packing на closing');
+    VD.IWant (VD.ToEqual, V.boardNumbersClosing1.Quote, V.boardNumbersClosing.Quote, 'Пересчиталась квота на табе sales после добавляения packing на closing');/////
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenLocalDispatch();
@@ -149,20 +151,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="total in totalEstimatePlus track by $index"][1]')).getText().then(function (text){
         text = SF.cleanPrice (text);
-        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 150, 'Неправильная сумма в третьей строке таблицы валюэйшена. Total Estimate + Valuation Charge.(First deductible level) ');
+        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 250, 'Неправильная сумма в третьей строке таблицы валюэйшена. Total Estimate + Valuation Charge.(First deductible level) ');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="total in totalEstimatePlus track by $index"][2]')).getText().then(function (text){
         text = SF.cleanPrice (text);
-        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 200, 'Неправильная сумма в третьей строке таблицы валюэйшена. Total Estimate + Valuation Charge.(Second deductible level)');
+        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 300, 'Неправильная сумма в третьей строке таблицы валюэйшена. Total Estimate + Valuation Charge.(Second deductible level)');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[@ng-repeat="total in totalEstimatePlus track by $index"][3]')).getText().then(function (text){
         text = SF.cleanPrice (text);
-        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 220, 'Неправильная сумма в третьей строке таблицы валюэйшена. Total Estimate + Valuation Charge.(Third deductible level) ');
+        VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 350, 'Неправильная сумма в третьей строке таблицы валюэйшена. Total Estimate + Valuation Charge.(Third deductible level) ');
     }),config.timeout);
 
     condition.nowWeDoing = 'Добавляем ещё сервисов и пэкингов, подписываем и самбитим контракт';
     MF.Contract_OpenBillOfLading();
-    driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[1]/tr[12]')).getText().then(function (text){
+    driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[1]/tr[11]')).getText().then(function (text){
         text = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosing2.Packing, text, 'На контракте не совпали или не отображаются пэкинги добавленные в модалке реквеста');
     }),config.timeout);
@@ -172,7 +174,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@id="contract_total"]')).getAttribute('value').then(function(value){
         V.ContractTotal = SF.cleanPrice(value.replace('%', ''));
-        VD.IWant(VD.ToEqual,  V.ContractTotal, V.boardNumbersBeforeChangeWeightType.Total + V.boardNumbersClosing2.Packing, 'Не совпал тотал на контракте и в модалке реквеста');
+        VD.IWant(VD.ToEqual,  V.ContractTotal, V.boardNumbersClosing2.Total, 'Не совпал тотал на контракте и в модалке реквеста');
     }),config.timeout);
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][1]//select[@ng-model="p.quantity"]'),5);
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][2]//select[@ng-model="p.quantity"]'),5);
@@ -180,7 +182,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//a[@ng-click="showAdditionalServicesRef.show = !showAdditionalServicesRef.show"]'));
     SF.click(By.xpath('//li[@ng-click="addService(s)"][contains(text(), "Piano Handling")]'));
     SF.sleep(2);
-    driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[1]/tr[12]')).getText().then(function (text){
+    driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[1]/tr[11]')).getText().then(function (text){
         V.TotalPackingContract = SF.cleanPrice (text);
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[2]/tr[7]')).getText().then(function (text){

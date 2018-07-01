@@ -4,11 +4,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.fam = SF.randomBukva(6) + '_t';
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
+    V.client.passwd = 123;
+    V.client.zipFrom = '02222';
+    V.client.zipTo = '90001';
 
     //=========================начинаем писать тест=============================
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы только ассепт алл квотс';
+condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы только ассепт алл квотс, создаём ЛД реквест с мувборда.';
     LF.gotoSetingsLD ();
     SF.sleep(2);
     JS.click('#jqvmap1_ia');
@@ -40,6 +43,10 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     SF.sleep (2);
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
     SF.sleep (2);
+    LF.CreateLongDistanceFromBoard(V.client);
+    V.requestNumber={};
+    MF.EditRequest_RememberId(V.requestNumber);
+    LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
 
@@ -111,10 +118,32 @@ condition.nowWeDoing = 'создаем реквест второй раз с ф�
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем галку All acept quotes и ставим галочку Move to this state и выставить для всех area какую-нибудь цену';
+condition.nowWeDoing = 'Идём в настройки лд, выключаем опцию Accept all quotes, но не выставляем рейт для айовы. Заходим в наш реквест и выставляем зип айовы, если поменялся значит ошибка.';
     LF.gotoSetingsLD ();
     SF.sleep(2);
     JS.click('#jqvmap1_ia');
+    SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
+    SF.sleep (3);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{" +
+        "$('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').click()}"),config.timeout);
+    SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').hasClass('ng-empty')){" +
+        "return true;}else{" +
+        "$('input[ng-model=\"vm.longdistance.acceptAllQuotes\"]').click()}"),config.timeout);
+    SF.sleep (2);
+    SF.clear (By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].state_rate"]'));
+    SF.sleep (0.5);
+    MF.Board_OpenDashboard();
+    MF.Board_OpenRequest(V.requestNumber.Id);
+    MF.EditRequest_SetZipTo(50201);
+    MF.SweetConfirm();
+    LF.closeEditRequest ();
+
+condition.nowWeDoing = 'выставляем настройки лонг дистанс для айовы - снимаем галку All acept quotes и ставим галочку Move to this state и выставить для всех area какую-нибудь цену';
+    LF.gotoSetingsLD ();
+    SF.sleep(2);
+    JS.click('#jqvmap2_ia');
     SF.waitForVisible (By.xpath('//div[@ng-if="vm.showSidebar"]'));
     SF.sleep (3);
     driver.wait(driver.executeScript("if($('input[ng-model=\"vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].longDistance\"]').hasClass('ng-not-empty')){" +
@@ -151,6 +180,12 @@ condition.nowWeDoing = 'выставляем настройки лонг дис�
     SF.sleep (0.5);
     SF.click(By.xpath('//input[@ng-model="vm.longdistance.stateRates[vm.longdistance.basedState][vm.stateCode].delivery_days"]'));
     SF.sleep (2);
+
+condition.nowWeDoing = 'Возрващаемся в наш реквест и выставляем зип айовы. Если не поменялся значит ошибка, т.к у нас есть рейты.';
+    MF.Board_OpenDashboard();
+    MF.Board_OpenRequest(V.requestNumber.Id);
+    MF.EditRequest_SetZipTo(50201);
+    LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);
 
