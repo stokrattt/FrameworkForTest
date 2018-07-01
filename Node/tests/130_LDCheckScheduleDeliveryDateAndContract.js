@@ -120,8 +120,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant (VD.ToEqual, V.boardNumbersClosing2.Fuel, V.boardNumbersClosing1.Fuel, 'Пересчиталось топливо на табе closing после добавляния packing');
     VD.IWant (VD.ToEqual, V.boardNumbersClosing2.Quote, V.boardNumbersClosing1.Quote, 'Пересчиталась квота на табе closing после добавляния packing');
     LF.closeEditRequest();
-
-    condition.nowWeDoing = 'Открываем реквест заново, проверяем что на табе sales всё осталось старым. Назначаем команду';
+    
+    condition.nowWeDoing = 'Открываем реквест заново, проверяем что на табе sales всё осталось старым. Идём в диспач, проверяем что можно добавить и удалить доп.команду. Назначаем основную команду';
     MF.Board_OpenConfirmed();
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest (V.requestNumber.Id);
@@ -135,6 +135,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.boardNumbers.Id);
+    SF.click(By.xpath('//li[@ng-click="vm.addCrew()"]'));
+    driver.wait(driver.executeScript("return $('li[ng-click=\"vm.data.active = $index + 1\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 1, 'Нет блока Crew 2 после нажатия на Add Crew в диспаче');
+    }),config.timeout);
+    SF.click(By.xpath('//a[@ng-click="vm.removeCrew($index)"]'));
+    driver.wait(driver.executeScript("return $('li[ng-click=\"vm.data.active = $index + 1\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 0, 'Не удаляется блок Crew 2 после нажатия на иконку remove');
+    }),config.timeout);
+    SF.sleep(1);
     V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
     MF.Board_LogoutAdmin();
