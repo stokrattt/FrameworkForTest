@@ -356,7 +356,7 @@ condition.nowWeDoing = 'Проверяем сохранились ли изме�
     MF.Account_OpenRequest(V.requestNumber.Id);
     MF.Account_ClickViewRequest();
     MF.Account_ClickViewConfirmationPage();
-    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="packing in vm.packings"]/div[4]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="packing in vm.packings"]/div[5]')).getText().then(function (text) {
         text = SF.cleanPrice(text.substring(text.indexOf('$')));
         VD.IWant(VD.ToEqual, text,V.boardNumbers.Packing, 'Не отображается partial packing на confirmation page');
     }),config.timeout);

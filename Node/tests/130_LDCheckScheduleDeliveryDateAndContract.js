@@ -110,6 +110,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_ClickCustomCubFit();
     MF.EditRequest_SendNumberCustomCubFit(500);
     MF.EditRequest_OpenRequest();
+    MF.EditRequest_SaveChanges();
+    LF.closeEditRequest();
+    MF.Board_OpenConfirmed();
+    MF.Board_RefreshDashboard();
+    MF.Board_OpenRequest (V.requestNumber.Id);
     V.boardNumbersClosing1 = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosing1);
     MF.EditRequest_CloseConfirmWork();

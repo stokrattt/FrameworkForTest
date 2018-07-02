@@ -104,7 +104,7 @@ condition.nowWeDoing = 'идем в SIT создаем трип, добавля�
     JS.scroll('button[ng-click="getJobs()"]');
 
 condition.nowWeDoing = 'идем в реквест, делаем в клоузинге дисконт, еще одну проплату, запоминаем баланс, и проверям его в трипе';
-    SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_ClosingTabOpenDiscountModal();
     MF.EditRequest_ClosingTabDiscountModalSendMoney(99);
@@ -133,7 +133,7 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     }),config.timeout);
 
 condition.nowWeDoing = 'идем в реквест 2й раз, на одной проплате ставим галочку пендинг, запоминаем баланс реквеста и сравниваем его в трипе';
-    SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenPayment();
     SF.click(By.xpath('//input[@ng-click="changePending(receipt)"]'));
@@ -150,7 +150,7 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     }),config.timeout);
 
  condition.nowWeDoing = 'идем в реквест 3й раз, в салесе добавляем инвентарь и пакинг, а в клоузинг меняем сумму дисконта ';
-    SF.click(By.xpath('//div[@ng-click="openRequest(id)"]'));
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openRequest(id)"][contains(text(),"' + V.requestNumber.Id  + '")]')).click(), config.timeout);
     MF.EditRequest_WaitForBalanceVisible();
     MF.EditRequest_OpenConfirmWork();
     MF.EditRequest_OpenInventoryTab();

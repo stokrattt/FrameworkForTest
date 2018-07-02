@@ -458,8 +458,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(1);
         driver.wait(driver.executeScript("if ($('input[ng-model=\"tab.mainContract\"]').hasClass('ng-empty')){" +
             "return true;} else {$('span[class=\"switchery switchery-small\"]:visible').click()}"),config.timeout);
+        SF.sleep(1);
         driver.wait(driver.executeScript("if ($('input[ng-model=\" tab.show\"]').hasClass('ng-empty')){" +
             "return true;} else {$('input[ng-change=\"changeShow(tab.index)\"]:visible').click()}"),config.timeout);
+        SF.sleep(1.5);
         SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
         WaitWhileBusy();
         SweetConfirm();
