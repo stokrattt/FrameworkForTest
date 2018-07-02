@@ -44,6 +44,14 @@ condition.nowWeDoing = 'отправлемя письмо, сравниваем 
     SF.click(By.xpath('//div[@ng-click="allLogsShow[allLogsIndex] = !allLogsShow[allLogsIndex]"]'));
 	V.sendclient ={};
 	MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Est.Quote :")]/../following-sibling::div')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(0,text.indexOf('-')));
+        VD.IWant(VD.ToEqual, V.boardNumbers.TotalMin, text , ' Quote min в логах письма не сошелся со значением в реквесте после того как мы в ручную поменяли рейт');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Est.Quote :")]/../following-sibling::div')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(text.indexOf('-')+1));
+        VD.IWant(VD.ToEqual, V.boardNumbers.TotalMax, text , ' Quote max в логах письма не сошелся со значением в реквестепосле того как мы в ручную поменяли рейт');
+    }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Crew Size")]/../following-sibling::div')).getText().then(function(text){
         text = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.boardNumbers.CrewSize, text , ' Crew Size  в логах письма не сошелся со значением в реквесте');
@@ -104,6 +112,25 @@ condition.nowWeDoing = 'идем на мувборд, что бы сверить
 	MF.EditRequest_ClickApplyInFuelWindow();
 	LF.EditRequest_EditRateCalculOff(444);
     SF.sleep(2);
+    MF.EditRequest_OpenMailDialog();
+    SF.sleep(5);
+    SF.click(By.xpath('//span[contains(.,"Default")]'));
+    SF.sleep(1);
+    SF.click(By.xpath('//h4[contains(text(), "CalculatarOFF")][1]'));
+    SF.sleep(1);
+    MF.EditRequest_MailDialog_ClickSend();
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    MF.EditRequest_OpenLogs();
+    SF.click(By.xpath('//div[@ng-click="allLogsShow[allLogsIndex] = !allLogsShow[allLogsIndex]"]'));
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Est.Quote :")]/../following-sibling::div')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(0,text.indexOf('-')));
+        VD.IWant(VD.ToEqual, V.boardNumbers.TotalMin, text , ' Quote min в логах письма не сошелся со значением в реквесте после того как мы повторно в ручную поменяли рейт');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td//div[contains(text(),"Est.Quote :")]/../following-sibling::div')).getText().then(function(text){
+        text = SF.cleanPrice(text.substring(text.indexOf('-')+1));
+        VD.IWant(VD.ToEqual, V.boardNumbers.TotalMax, text , ' Quote max в логах письма не сошелся со значением в реквестепосле того как мы повторно в ручную поменяли рейт');
+    }),config.timeout);
 	MF.EditRequest_OpenSettings();
 	MF.EditRequest_ClickCustomCubFit();
 	MF.EditRequest_SendNumberCustomCubFit(666);
