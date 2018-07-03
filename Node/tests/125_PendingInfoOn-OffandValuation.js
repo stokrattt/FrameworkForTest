@@ -130,6 +130,7 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
     MF.Contract_UploadImage(V.path);
     MF.Contract_UploadImage(V.path);
     MF.Contract_SaveImages();
+    MF.WaitWhileBusy();
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();

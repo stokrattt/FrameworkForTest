@@ -40,6 +40,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenFuelSurchModal();
     MF.EditRequest_SendFlatSurchargeInFuelWindow(222);
     MF.EditRequest_ClickApplyInFuelWindow();
+    SF.sleep(4);
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
     SF.sleep(5);
@@ -178,11 +179,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     condition.nowWeDoing = 'Добавляем ещё сервисов и пэкингов, подписываем и самбитим контракт';
     MF.Contract_OpenBillOfLading();
-    driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[1]/tr[11]')).getText().then(function (text){
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddPackingBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw == \'7\' || request.service_type.raw == \'5\'"]/following-sibling::td')).getText().then(function (text){
         text = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.boardNumbersClosing2.Packing, text, 'На контракте не совпали или не отображаются пэкинги добавленные в модалке реквеста');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[2]/tr[6]')).getText().then(function (text){
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddServicesBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw == \'7\' || request.service_type.raw == \'5\'"]/following-sibling::td')).getText().then(function (text){
         text = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.boardNumbersAfterDeleteInventory.AdServices, text, 'На контракте не совпали или не отображаются сервисы добавленные на аккаунте');
     }),config.timeout);
@@ -190,18 +191,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.ContractTotal = SF.cleanPrice(value.replace('%', ''));
         VD.IWant(VD.ToEqual,  V.ContractTotal, V.boardNumbersClosing2.Total, 'Не совпал тотал на контракте и в модалке реквеста');
     }),config.timeout);
+    Debug.pause();
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][1]//select[@ng-model="p.quantity"]'),5);
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][2]//select[@ng-model="p.quantity"]'),5);
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][6]//select[@ng-model="p.quantity"]'),5);
     SF.click(By.xpath('//a[@ng-click="showAdditionalServicesRef.show = !showAdditionalServicesRef.show"]'));
     SF.click(By.xpath('//li[@ng-click="addService(s)"][contains(text(), "Piano Handling")]'));
     SF.sleep(2);
-    driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[1]/tr[11]')).getText().then(function (text){
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddPackingBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw == \'7\' || request.service_type.raw == \'5\'"]/following-sibling::td')).getText().then(function (text){
         V.TotalPackingContract = SF.cleanPrice (text);
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[@class="contract-box-content no-border packing-extra-services"]/table/tbody[2]/tr[7]')).getText().then(function (text){
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddServicesBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw == \'7\' || request.service_type.raw == \'5\'"]/following-sibling::td')).getText().then(function (text){
         V.TotalAdServicesContract = SF.cleanPrice (text);
     }),config.timeout);
+    Debug.pause();
     LF.MakeSignInAddContract();
     LF.MakeSignInAddContract();
     LF.MakeSignInAddContract();
@@ -222,6 +225,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterSubmit);
     VD.IWant (VD.ToEqual, V.boardNumbersClosingAfterSubmit.AdServices, V.TotalAdServicesContract, 'На табу клоузинг не добавились сервисы которые были добавлены на контракте');
     VD.IWant (VD.ToEqual, V.boardNumbersClosingAfterSubmit.Packing, V.TotalPackingContract, 'На табу клоузинг не добавились пэкинги которые были добавлены на контракте');
+    Debug.pause();
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenSettingsContract();
     MF.Board_TurnOffAdditionalContract();

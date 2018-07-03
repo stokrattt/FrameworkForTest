@@ -157,7 +157,7 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
     MF.EditRequest_CloseModal();
-    // MF.SweetConfirm();
+    MF.SweetConfirm();
     MF.WaitWhileBusy();
     SF.click(By.xpath('//div[@ng-if="states.invoiceState"]//span[@ng-if="request.request_all_data.storage_request_id"]'));
     MF.WaitWhileBusy();
@@ -308,16 +308,16 @@ condition.nowWeDoing = 'идем в паймент колектед, выбир�
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[2]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Cash', 'не нашло слово кеш после платежа этим реквестом на контракте кешем или не нашло этот платеж');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers.paidContractCash, 'не совпала сумма оплаченная на контракте кешем с тем что в паймент колектед или не нашло этот платеж');
+    driver.wait(driver.findElement(By.xpath('//tr/td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers.prepaid, ' не совпала сумма оплаченная на контракте за  сторадж pay rental с тем что в паймент колектед или не нашло этот платеж');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//tr[2]//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers.prepaid, 'не совпала сумма оплаченная на контракте за  сторадж pay rental с тем что в паймент колектед или не нашло этот платеж');
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbers.paidContractCash, 'не совпала сумма оплаченная на контракте кешем с тем что в паймент колектед или не нашло этот платеж ');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//tr[2]//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[7]')).getText().then(function (text) {
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbers.Id+'")]/following-sibling::td[7]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Storage first month payment', 'не нашло текст Storage first month payment за оплату стораджа');
     }),config.timeout);
-
+SF.sleep(1);
 condition.nowWeDoing = 'выбираем фильтр кеш и контракт и смотрим что есть два платежа по нашему реквесту';
     MF.PaymentCollected_ChoosePaymentFilter('Cash');
     MF.PaymentCollected_ClickApplyFilters();

@@ -94,22 +94,25 @@ condition.nowWeDoing = 'Возвращаемся на дашборд. Сверя
     MF.EditRequest_OpenFuelSurchModal();
     MF.EditRequest_SendFlatSurchargeInFuelWindow(222);
     MF.EditRequest_ClickApplyInFuelWindow();
-    SF.sleep(8); //soft тупит
+    SF.sleep(3); //soft тупит
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
-    SF.sleep(8); //soft тупит
+    SF.sleep(3); //soft тупит
     LF.EditRequest_AddPacking();
+    Debug.pause();
     V.boardNumbersBeforeSITSales = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersBeforeSITSales);
 
-condition.nowWeDoing = 'Переводим работу в Closing, проверяем чтобы все цифры сходились с теми что были в Sales, добавляем работу в SIT. Сохраняем, закрываем реквест и идём в Jobs in SIT проверять, что реквест добавлен в SIT.';
+condition.nowWeDoing = 'Переводим работу в Closing, проверяем чтобы все цифры сходились с теми что были в Sales, добавляем работу в SIT. ' +
+    'Сохраняем, закрываем реквест и идём в Jobs in SIT проверять, что реквест добавлен в SIT.';
     MF.EditRequest_CloseConfirmWork();
     V.boardNumbersBeforeSITClosing = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersBeforeSITClosing);
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Total - V.accountNumbersAfterFullPacking.Packing ,V.boardNumbersBeforeSITClosing.Total, 'не совпал Total после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.Fuel, V.boardNumbersBeforeSITClosing.Fuel, 'не совпал Fuel  после перевода реквеста с Sales в Closing');
-    VD.IWant(VD.ToEqual, 15, V.boardNumbersBeforeSITClosing.Packing, 'не совпал Packing после перевода реквеста с Sales в Closing');
+    VD.IWant(VD.ToEqual, (V.boardNumbersBeforeSITSales.Packing - V.boardNumbersAfterDeleteInventory.Packing), V.boardNumbersBeforeSITClosing.Packing, 'не совпал Packing после перевода реквеста с Sales в Closing');
     VD.IWant(VD.ToEqual, V.boardNumbersBeforeSITSales.AdServices, V.boardNumbersBeforeSITClosing.AdServices, 'не совпал AdServices после перевода реквеста с Sales в Closing');
+    Debug.pause();
     MF.EditRequest_OpenSITmodal();
     MF.EditRequest_SITmodalSetStorage('test');
     V.SITRooms = 1;
