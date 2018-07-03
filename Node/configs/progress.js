@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/77_CustomTooltips.js'];
+    config.suite = ['./tests/125_PendingInfoOn-OffandValuation.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 45000;
