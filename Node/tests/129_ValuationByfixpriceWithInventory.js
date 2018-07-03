@@ -122,9 +122,12 @@ condition.nowWeDoing = 'идем на аккаунт, ставим свой amou
 	LF.RememberAccountNumbers(V.accountNumbersAfterInventory);
 	LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'идем на мувборд, проверяем наш инвенторий и страховку,ставим статус нот конферм.';
+condition.nowWeDoing = 'идем на мувборд,проверяем кастомеров онлайн, проверяем наш инвенторий и страховку,ставим статус нот конферм.';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
+        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+    }),config.timeout);
 	MF.Board_OpenRequest(V.boardNumbers.Id);
 	V.boardNumbersAfterInventory={};
 	LF.RememberDigitsRequestBoard(V.boardNumbersAfterInventory);
@@ -197,10 +200,13 @@ condition.nowWeDoing = 'идем на аккаунт букать работу,�
 	LF.RememberAccountNumbers(V.accountNumbersAfterConfirmed);
 	LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'выходим из аккаунта, идем на админку,проверяем значения и сверяем что наш валюэйшен есть в табе сейлс и клозинг,переходим на контракт' +
+condition.nowWeDoing = 'выходим из аккаунта, идем на админку,проверяем кастомеров онлайн,значения и сверяем что наш валюэйшен есть в табе сейлс и клозинг,переходим на контракт' +
 	', сравниваем что бы там была страховка,которую мы выставили на аккаунте';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
+        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+    }),config.timeout);
 	MF.Board_OpenConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
 	V.boardAfterConfirmed = {};

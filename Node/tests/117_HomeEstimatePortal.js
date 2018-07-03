@@ -113,7 +113,7 @@ condition.nowWeDoing = 'добавляем инвентарь, делаем пр
 	SF.sleep(1);
 	VD.IWant(VD.NotToEqual, V.boardNumbersPortalcf , V.boardNumbersPortalnewcf , 'если не равны, то пересчет произошел на новые cf, если равные, то баг ');
 
-condition.nowWeDoing = 'изменяем информацию о клиенте, выбираем трак и конфермим работу';
+condition.nowWeDoing = 'изменяем информацию о клиенте, выбираем трак и конфермим работу, делаем проверку онлайн юзеров на портале';
 	MF.EditRequest_WaitForOpenRequest();
 	SF.waitForVisible(By.xpath('//div[@ng-class="{\'mobile-subbox-wrapper\': isMobile}"]'));
 	LF.HomeEstimate_EditClientInfo();
@@ -128,11 +128,17 @@ condition.nowWeDoing = 'изменяем информацию о клиенте,
 	LF.RememberDigitsRequestBoard(V.boardNumbersPortal);
 	MF.WaitWhileBusy();
 	SF.click(By.xpath('//div/button[@ng-click="cancel()"]'));
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг');
+        }),config.timeout);
 	MF.HomeEstimate_Logout();
 
-condition.nowWeDoing = 'идем на дэшборд, сверяем цифры портала с цифрами в реквесте';
+condition.nowWeDoing = 'идем на дэшборд,проверяем кастомеров онлайн,сверяем цифры портала с цифрами в реквесте';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
+        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+    }),config.timeout);
 	MF.Board_OpenConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
 	V.boardAfterPortal = {};

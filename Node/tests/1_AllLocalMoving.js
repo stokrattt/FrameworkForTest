@@ -30,6 +30,9 @@ condition.nowWeDoing = 'первый раз в аккаунте';
 condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
+        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг');
+    }),config.timeout);
     MF.Board_OpenRequest(V.accountNumbers.Id);
 	JS.scroll('div[ng-show="!request.isInventory"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
@@ -86,6 +89,9 @@ condition.nowWeDoing = 'второй раз в аккаунте, конфёрм�
 condition.nowWeDoing = 'второй раз в админке, локал диспатч';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
+        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+    }),config.timeout);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
@@ -144,6 +150,9 @@ condition.nowWeDoing = 'заходим под форменом, открывае
 
 condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
+        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+    }),config.timeout);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();

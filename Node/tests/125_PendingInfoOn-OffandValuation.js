@@ -58,9 +58,13 @@ condition.nowWeDoing = 'выходим с мувборда,заходим под
 	}), config.timeout);
 	LF.LogoutFromAccount();
 
-condition.nowWeDoing = 'выходим с аккаунта, проверяем все изменения на мувборде, включаем настройку пэдинг-инфо';
+condition.nowWeDoing = 'выходим с аккаунта, проверяем все изменения на мувборде, ' +
+    'включаем настройку пэдинг-инфо, делаем проверку на кастомер-онлайн';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
+        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+    }),config.timeout);
 	MF.Board_OpenNotConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
 	SF.sleep(2);
@@ -150,6 +154,9 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
     MF.Contract_Submit(V.contractNumbers);
     condition.nowWeDoing = 'переходи на наш реквест, сравниваем числа в реквесте и на контракте';
     SF.openTab(0);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
+        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг');
+    }),config.timeout);
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_OpenDashboard();
 	MF.Board_OpenConfirmed();
