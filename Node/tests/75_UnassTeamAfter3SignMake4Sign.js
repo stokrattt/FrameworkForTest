@@ -14,6 +14,7 @@ condition.nowWeDoing = 'заполняем калькулятор верхний
 condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickViewRequest();
     LF.AccountLocalEnterAddress();
+    SF.sleep(2);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'1\' && vm.request.total_weight.weight"]')).getText().then(function(text) {
