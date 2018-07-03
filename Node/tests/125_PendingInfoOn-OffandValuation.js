@@ -50,6 +50,7 @@ condition.nowWeDoing = 'выходим с мувборда,заходим под
     LF.AccountFR_SeelectOptions();
 	MF.Account_WaitForDetailsCheck();
 	MF.Account_ClickFullPacking();
+	SF.sleep(2);
 	V.accountNumbersNew={};
 	LF.RememberAccountNumbers(V.accountNumbersNew);
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
@@ -62,6 +63,7 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 	MF.Board_OpenNotConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
+	SF.sleep(2);
 	V.boardNumbers.New = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers.New);
 	LF.Validation_Compare_Account_Admin(V.accountNumbersNew, V.boardNumbers.New);

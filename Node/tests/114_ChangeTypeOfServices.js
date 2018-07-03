@@ -59,6 +59,7 @@ condition.nowWeDoing = 'второй раз в аккаунте,  меняю з�
     LF.LoginToAccountAsClient(V.client);
     MF.Account_CheckRequestStatus_NotConfirmed(V.accountNumbers.Id);
     MF.Account_OpenRequest(V.accountNumbers.Id);
+    SF.sleep(2);
     V.accountNumbersChangeToMoving={};
     LF.RememberAccountNumbers(V.accountNumbersChangeToMoving);
     LF.Validation_Compare_Account_Admin(V.accountNumbersChangeToMoving, V.boardNumbersAfterChangeToMoving);
