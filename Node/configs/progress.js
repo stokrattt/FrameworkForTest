@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/115_LDCommercialMoveSizeInSIT.js'];
+    config.suite = ['./tests/130_LDCheckScheduleDeliveryDateAndContract.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 45000;
