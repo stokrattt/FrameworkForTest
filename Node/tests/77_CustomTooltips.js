@@ -77,7 +77,7 @@ condition.nowWeDoing = 'первый раз в акаунте';
     }),config.timeout);
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
-    LF.LoginToBoardAsAdmin(V.adminLogin, V.adminPassword);
+    LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
     MF.Board_OpenSettingsCalculator();
     SF.click(By.xpath('//li[@ng-repeat="tab in vm.tabs"][7]'));
     SF.waitForVisible(By.xpath("//span[contains(text(),'Datepicker tooltips')]"));
