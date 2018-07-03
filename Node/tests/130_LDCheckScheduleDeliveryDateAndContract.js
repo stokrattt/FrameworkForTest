@@ -191,7 +191,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         V.ContractTotal = SF.cleanPrice(value.replace('%', ''));
         VD.IWant(VD.ToEqual,  V.ContractTotal, V.boardNumbersClosing2.Total, 'Не совпал тотал на контракте и в модалке реквеста');
     }),config.timeout);
-    Debug.pause();
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][1]//select[@ng-model="p.quantity"]'),5);
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][2]//select[@ng-model="p.quantity"]'),5);
     SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][6]//select[@ng-model="p.quantity"]'),5);
@@ -204,7 +203,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddServicesBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw == \'7\' || request.service_type.raw == \'5\'"]/following-sibling::td')).getText().then(function (text){
         V.TotalAdServicesContract = SF.cleanPrice (text);
     }),config.timeout);
-    Debug.pause();
     LF.MakeSignInAddContract();
     LF.MakeSignInAddContract();
     LF.MakeSignInAddContract();
@@ -225,7 +223,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterSubmit);
     VD.IWant (VD.ToEqual, V.boardNumbersClosingAfterSubmit.AdServices, V.TotalAdServicesContract, 'На табу клоузинг не добавились сервисы которые были добавлены на контракте');
     VD.IWant (VD.ToEqual, V.boardNumbersClosingAfterSubmit.Packing, V.TotalPackingContract, 'На табу клоузинг не добавились пэкинги которые были добавлены на контракте');
-    Debug.pause();
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenSettingsContract();
     MF.Board_TurnOffAdditionalContract();
