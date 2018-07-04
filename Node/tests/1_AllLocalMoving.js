@@ -31,7 +31,7 @@ condition.nowWeDoing = 'первый раз в админке';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
-        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг');
+        VD.IWant(VD.ToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг');
     }),config.timeout);
     MF.Board_OpenRequest(V.accountNumbers.Id);
 	JS.scroll('div[ng-show="!request.isInventory"]');
@@ -90,7 +90,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
-        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+        VD.IWant(VD.ToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
     }),config.timeout);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -151,7 +151,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
 condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
-        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+        VD.IWant(VD.ToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
     }),config.timeout);
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);

@@ -137,7 +137,7 @@ condition.nowWeDoing = 'идем на дэшборд,проверяем каст
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
-        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+        VD.IWant(VD.ToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
     }),config.timeout);
 	MF.Board_OpenConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
@@ -187,6 +187,9 @@ condition.nowWeDoing = 'заходим под фореманом, идем на 
 
 condition.nowWeDoing = 'возвращаемся в диспатч, смотрим пейролл';
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+    }),config.timeout);
 	MF.Board_OpenLocalDispatch();
 	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
 	MF.Dispatch_GridView();

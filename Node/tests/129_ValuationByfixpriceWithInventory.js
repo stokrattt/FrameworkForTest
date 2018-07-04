@@ -126,7 +126,7 @@ condition.nowWeDoing = 'идем на мувборд,проверяем каст
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
-        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+        VD.IWant(VD.ToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
     }),config.timeout);
 	MF.Board_OpenRequest(V.boardNumbers.Id);
 	V.boardNumbersAfterInventory={};
@@ -205,7 +205,7 @@ condition.nowWeDoing = 'выходим из аккаунта, идем на ад
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
-        VD.IWant(VD.NotToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
+        VD.IWant(VD.ToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг ');
     }),config.timeout);
 	MF.Board_OpenConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
