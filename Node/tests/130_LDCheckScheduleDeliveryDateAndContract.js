@@ -206,6 +206,9 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.MakeSignInAddContract();
     LF.MakeSignInAddContract();
     LF.MakeSignInAddContract();
+    //driver.wait(driver.executeScript("return $('div[ng-if=\"data.signatures[stepId].value\"] img').length").then(function (text) {
+        //VD.IWant(VD.ToEqual, text, 3, 'не сохранились подписи на доп.контракте');
+    //}),config.timeout);
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
