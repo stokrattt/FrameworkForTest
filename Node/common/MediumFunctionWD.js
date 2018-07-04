@@ -2502,7 +2502,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function PaymentCollected_ChoosePaymentFilter(nameFilter) {
         SF.click(By.xpath('//md-select[@ng-model="$ctrl.pickUpPaymentFilters"]'));
         SF.sleep(0.5);
-        SF.click(By.xpath('//div[@class="md-text" and contains(text(), "'+nameFilter+'")]'));
+        SF.click(By.xpath('//md-option[@value="'+nameFilter+'"]'));
+        // SF.click(By.xpath('//div[@class="md-text" and contains(text(), "'+nameFilter+'")]'));
     }
     function PaymentCollected_RefreshTable() {
         SF.click(By.xpath('//i[@ng-click="$ctrl.getData()"]'));

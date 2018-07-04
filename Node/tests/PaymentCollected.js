@@ -113,7 +113,7 @@ condition.nowWeDoing = 'идем в админку проверять разны
         VD.IWant(VD.ToEqual, text, 'Pending, Reservation by customer', 'не нашло слово Pending, Reservation by customer после галлочки пендинг на резеервацю');
     }),config.timeout);
     MF.PaymentCollected_ChoosePaymentFlag('Pending');
-    SF.click(By.xpath('//md-backdrop[@class="md-select-backdrop md-click-catcher"]'));
+    // SF.click(By.xpath('//md-backdrop[@class="md-select-backdrop md-click-catcher"]'));
     MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Pending, Reservation by customer', 'не нашло слово Pending, Reservation by customer после галлочки пендинг на резеервацю и ' +
