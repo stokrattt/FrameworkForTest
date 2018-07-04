@@ -459,7 +459,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         driver.wait(driver.executeScript("if ($('input[ng-model=\"tab.mainContract\"]').hasClass('ng-empty')){" +
             "return true;} else {$('span[class=\"switchery switchery-small\"]:visible').click()}"),config.timeout);
         SF.sleep(1);
-        driver.wait(driver.executeScript("if ($('input[ng-model=\" tab.show\"]').hasClass('ng-empty')){" +
+        driver.wait(driver.executeScript("if ($('input[ng-change=\"changeShow(tab.index)\"]').hasClass('ng-empty')){" +
             "return true;} else {$('input[ng-change=\"changeShow(tab.index)\"]:visible').click()}"),config.timeout);
         SF.sleep(1.5);
         SF.click(By.xpath('//button[@ng-click="vm.save(true)"]'));
@@ -2126,7 +2126,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
         SF.sleep(2);
     }
-
+    function Schedule_SetHourReservationLocalTo(hour) {
+        SF.click(By.xpath('//select[@ng-model="vm.scheduleSettings.localReservation"]'));
+        SF.select(By.xpath('//select[@ng-model="vm.scheduleSettings.localReservation"]'), hour);
+        SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.flatReservationRate"]'));
+        SF.sleep(2);
+    }
     //=================================DEPARTMENT=========================================
     function Department_OpenSales() {
         SF.click(By.xpath('//ul[@class="nav nav-pills nav-stacked compose-nav"]/li[3]/a'));
@@ -2943,6 +2948,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		Payroll_getTotalById: Payroll_getTotalById,
         //==================================SCHEDULE========================================
         Schedule_SetReservationLocalTo: Schedule_SetReservationLocalTo,
+        Schedule_SetHourReservationLocalTo:Schedule_SetHourReservationLocalTo,
         //==================================DEPARTMENT======================================
         Department_OpenSales: Department_OpenSales,
         Department_OpenHuman: Department_OpenHuman,
