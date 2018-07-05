@@ -499,6 +499,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForLocated (By.xpath('//div[@ng-show="searchRequests.length"]'));
     }
     function Board_SearchOpenRequest(request) {
+        SF.sleep(3);
         SF.click(By.xpath('//div[@ng-bind-html="request.nid | searchfilter:search"]/span[contains(text(),"' + request.Id + '")]/..'));
         EditRequest_WaitForOpenRequest();
     }

@@ -179,7 +179,7 @@ condition.nowWeDoing = 'запоминаем номер трипа, выходи
     }),config.timeout);
     MF.Board_ClickLongDistanceDispach();
     MF.Board_OpenSideBar();
-    SF.sleep(3);
+    SF.sleep(4);
     SF.click(By.xpath('//div[contains(text(), "'+V.TripID+'")]'));
     SF.click(By.xpath('//div[contains(text(), "'+V.TripID+'")]'));
     SF.waitForLocated (By.xpath('//div[@id="trucksTimelineId"]'));
