@@ -141,16 +141,28 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
     SF.openTab(1);
     MF.SweetConfirm();
     SF.sleep(2);
+    condition.nowWeDoing = 'на конфирмейшн пейдж берем страховку которая у нас в таблице и прибавляем с нашим тоталом, что' +
+        'бы узнать верная у нас страховка в 3ей строке или нет.';
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[2]/td[2]/span')).getText().then(function(text) {
+			V.ValuationinConfPageFirstCharge = text;
+            V.ValuationinConfPageFirstCharge = SF.cleanPrice(text.substring(text.indexOf('$')));
+    }), config.timeout);
     //здесь будем проверять что бы в таблицу в 3ей строке не было отрицательных чисел ( только 2 проверки, потому что проблемы с округлением )
     driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[2]/span')).getText().then(function(text) {
-        V.IpartofTotalEstimate = V.boardNumbersAfterAccount.TotalMin + 95.13 ;
-        V.IIpartofTotalEstimate = V.boardNumbersAfterAccount.TotalMax + 95.13 ;
-        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть по расчетам");
+        V.IpartofTotalEstimatePlusValuation = V.boardNumbersAfterAccount.TotalMin + V.ValuationinConfPageFirstCharge ;
+        V.IIpartofTotalEstimatePlusValuation = V.boardNumbersAfterAccount.TotalMax + V.ValuationinConfPageFirstCharge ;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimatePlusValuation + ' - ' + '$ ' + V.IIpartofTotalEstimatePlusValuation),"не совпал тотал плюс страховка  в третьей строке таблицы" +
+            "с тем,что должно было быть по расчетам");
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[2]/td[3]/span')).getText().then(function(text) {
+        V.ValuationinConfPageSecondCharge = text;
+        V.ValuationinConfPageSecondCharge = SF.cleanPrice(text.substring(text.indexOf('$')));
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[3]/span')).getText().then(function(text) {
-        V.IpartofTotalEstimate = V.boardNumbersAfterAccount.TotalMin + 110.99 ;
-        V.IIpartofTotalEstimate = V.boardNumbersAfterAccount.TotalMax + 110.99 ;
-        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть по расчетам");
+        V.IpartofTotalEstimatePlusValuation = V.boardNumbersAfterAccount.TotalMin + V.ValuationinConfPageSecondCharge ;
+        V.IIpartofTotalEstimatePlusValuation = V.boardNumbersAfterAccount.TotalMax + V.ValuationinConfPageSecondCharge  ;
+        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimatePlusValuation + ' - ' + '$ ' + V.IIpartofTotalEstimatePlusValuation),"не совпал тотал плюс страховка в третьей строке таблицы" +
+            "(вторая колонка) с тем,что должно было быть по расчетам");
     }), config.timeout);
 
     SF.endOfTest();
