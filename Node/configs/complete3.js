@@ -41,6 +41,8 @@ module.exports = function(config,V) {
         './tests/DefaultSettings.js',
         './tests/56_LoadingAllSteps.js',
         // './tests/107_SallaryProfitLossAndPayroll.js',
+        './tests/126_ValuationByRateAnd60CentperPoundWithDiscount.js',
+        './tests/DefaultSettings.js',
     ];
     config.timeout = 90000;
     config.chainFail = false;
