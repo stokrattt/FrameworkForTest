@@ -8,8 +8,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	V.client.passwd = 123;
 
 
-condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by rate,создаем реквест и проверяем ' +
-		'сходятся ли расчеты в таблице Valuation с формулой расчетов ';
+condition.nowWeDoing = 'заходим под админом в настройки валюэйшн by rate, включаем настройку By Rate, отключаем возможность на аккаунте клиенту' +
+    'выбирать Full Value Protection,создаем реквест и проверяем сходятся ли расчеты в таблице Valuation с формулой расчетов ';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
 	MF.Board_OpenSettingsGeneral();
@@ -102,7 +102,7 @@ condition.nowWeDoing = 'первый раз на аккаунте';
     MF.EditRequest_CloseEditRequest();
     MF.Board_LogoutAdmin();
 
-condition.nowWeDoing = 'идем на аккаунт  проверять нашу страховку, все числа,выбираем 60 уент пер паунд, букаем работу';
+condition.nowWeDoing = 'идем на аккаунт  проверять нашу страховку, все числа,выбираем 60 цент пер паунд, букаем работу';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.boardNumbers.Id);

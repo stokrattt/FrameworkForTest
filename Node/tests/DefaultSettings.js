@@ -199,6 +199,16 @@ condition.nowWeDoing = 'тут заходим в маркетинг тулс и 
     condition.nowWeDoing = 'выключение показа и использования доп.контракта как основного';
     MF.Board_OpenSettingsContract();
     MF.Board_TurnOffAdditionalContract();
+
+    condition.nowWeDoing = 'включение настройки на аккаунте Full Value Protection';
+    MF.Board_OpenSettingsGeneral();
+    MF.Board_OpenSettingsValuation();
+    MF.Board_ShowProtectionOnAccountPage();
+    driver.wait(driver.executeScript("if ($('md-checkbox[aria-label=\"Full Value Protection\"]').hasClass('ng-not-empty')){" +
+        "return false;} else {$('md-checkbox[aria-label=\"Full Value Protection\"]').click()}"),config.timeout);
+    JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
+    MF.WaitWhileToaster();
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
