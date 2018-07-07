@@ -166,7 +166,7 @@ condition.nowWeDoing = 'Заходим в пейрол и заполняем и 
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../following-sibling::div/button[@ng-click="addNewExpense()"]'));
     SF.sleep(2);
     V.cashAmount = 80;
-    SF.click(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]/div/div[contains(text(),"$0.00")]'));
+    SF.click(By.xpath('//div[@ng-if="$mdTabsCtrl.enableDisconnect || tab.shouldRender()"]//expenses-list[2]//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]'));
     SF.sleep(1);
     SF.clear(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.cashAmount);
