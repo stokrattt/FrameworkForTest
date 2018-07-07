@@ -3,7 +3,7 @@ module.exports = function (config, V) {
 	config.timeout = 120000;
 
 	config.suite = [
-		'./tests/86_SITAddPersonallyForemanTripPayroll.js'
+		'./tests/113_CheckAdminPermissions.js'
 		// './tests/31_FlateRateBooking.js
 	];
 	config.chainFail = false;
