@@ -35,7 +35,7 @@ condition.nowWeDoing = 'идем в диспач первый раз тут за
     driver.wait (driver.findElement(By.xpath('//div[@id="request_'+V.request.Id+'"]')).getCssValue("background-color").then(function (color) {
         VD.IWant(VD.ToEqual, color, "rgba(251, 143, 80, 1)", 'после того как назначили команду цвет не стал оранжевым, а должен')
     }),config.timeout);
-    JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
+    JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
     MF.Dispach_ClickUnassignTeam();
     MF.SweetConfirm ();
     MF.WaitWhileBusy ();

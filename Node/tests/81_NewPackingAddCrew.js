@@ -124,7 +124,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     }),config.timeout);
     SF.click(By.xpath('//button[@ng-click="saveSettings()"]'));
     MF.WaitWhileBusy ();
-    JS.click('a[ng-click=\\"vm.assignTeam(request)\\"]:visible');
+    JS.click('button[ng-click=\\"vm.assignTeam(request)\\"]:visible');
     MF.WaitWhileBusy();
     SF.sleep(4);
     MF.WaitWhileToaster();

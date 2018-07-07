@@ -96,7 +96,7 @@ condition.nowWeDoing = 'третий раз в админке, анассаин 
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
 
-    JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
+    JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
     MF.WaitWhileBusy();
     MF.Dispach_ClickUnassignTeam();
     MF.SweetConfirm();

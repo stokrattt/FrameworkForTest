@@ -127,9 +127,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     //====================================DISPACH=======================================
 
     function Dispach_ClickUnassignTeam() {
-        JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
+        JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
         SF.sleep(1.5);
-        SF.click(By.xpath('//a[@ng-click="vm.unAssignTeam()"]'));
+        SF.click(By.xpath('//button[@ng-click="vm.unAssignTeam()"]'));
     }
     function Dispach_ClickAddCrew() {
         SF.click(By.xpath('//a[@title="Add crew"]'));
