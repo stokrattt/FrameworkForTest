@@ -1401,15 +1401,15 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 					driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper2')]")).click());
 				}
 			}), config.timeout);
-		driver.wait(
-			driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']")).then(function (count) {
-				if (count.length > 0) {
-					driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']")).click());
-					driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
-				}
-			}), config.timeout);
+		// driver.wait(
+		// 	driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']")).then(function (count) {
+		// 		if (count.length > 0) {
+		// 			driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']")).click());
+		// 			driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.pickedUpCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
+		// 		}
+		// 	}), config.timeout);
 		JS.scroll('button[ng-click=\"super.vm.assignTeam(request)\"]');
-		SF.sleep(1);
+		SF.sleep(2);
 		SF.click(By.xpath("//button[@ng-click=\"super.vm.assignTeam(request)\"]"));
 		MF.WaitWhileBusy();
 		JS.waitForExist('div.toast-success');
@@ -1421,7 +1421,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath("//select[@ng-model='super.vm.data.deliveryCrew.foreman']/option[contains(text(),'FlatRate Foreman')]"));
 		SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']"));
 		SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
-		JS.scroll('button[ng-click=\"super.vm.assignTeam(request)\"]:visible');
+		JS.scroll('button[ng-click=\"super.vm.assignTeam()\"]:visible');
 		SF.sleep(1);
 		driver.wait(
 			driver.findElements(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']")).then(function (count) {
@@ -1430,16 +1430,16 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 					driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']//option[contains(text(),'Test Helper2')]")).click());
 				}
 			}), config.timeout);
-		driver.wait(
-			driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']")).then(function (count) {
-				if (count.length > 0) {
-					driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']")).click());
-					driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
-				}
-			}), config.timeout);
-		JS.scroll('button[ng-click=\"super.vm.assignTeam(request)\"]');
-		SF.sleep(1);
-		JS.click('button[ng-click=\\"super.vm.assignTeam(request)\\"]:visible');
+		// driver.wait(
+		// 	driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']")).then(function (count) {
+		// 		if (count.length > 0) {
+		// 			driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']")).click());
+		// 			driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
+		// 		}
+		// 	}), config.timeout);
+		JS.scroll('button[ng-click=\"super.vm.assignTeam()\"]');
+		SF.sleep(2);
+		JS.click('button[ng-click=\\"super.vm.assignTeam()\\"]:visible');
 		MF.WaitWhileBusy();
 		MF.WaitWhileToaster();
 	}
