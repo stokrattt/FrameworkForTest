@@ -31,10 +31,9 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     }), config.timeout);
     MF.EditRequest_OpenClient ();
     SF.sleep (3);
-    driver.wait(driver.executeScript('return $("div:contains(\\"All Moves\\") tbody tr.request").length').then(function (length) {
+    driver.wait(driver.executeScript('return $("div:contains(\\"All Moves\\") tbody tr td.sorting_1").length').then(function (length) {
         VD.IWant (VD.ToEqual, length, '3', 'на вкладке клиент нету всех работ данного юзера');
     }),config.timeout);
-
 condition.nowWeDoing = 'тут проверяем одной функцией или совпадате или вообще есть статус реквеста на табе клиент';
     driver.wait(driver.findElement(By.xpath('//td[@class="dtStatus "]/span[@ng-hide="request.status.raw == 9 && request.service_type.raw == 7"]')).getText().then(function
         (text) {
