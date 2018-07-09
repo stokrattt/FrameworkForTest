@@ -1371,6 +1371,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 				}
 			}), config.timeout);
 		JS.click('button[ng-click="vm.assignTeam()"]');
+		JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
 		SF.sleep(1);
 		driver.wait(
 			driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function (count) {
@@ -1380,7 +1381,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 						"//option[contains(text(),'Test Helper3')]")).click());
 				}
 			}), config.timeout);
-		// JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
+		// JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
 		SF.sleep(1);
         JS.click('button[ng-click="vm.assignTeam()"]');
         JS.waitForExist('div.toast-success');

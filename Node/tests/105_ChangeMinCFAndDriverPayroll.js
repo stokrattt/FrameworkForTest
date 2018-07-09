@@ -88,9 +88,9 @@ condition.nowWeDoing = 'идем в локал диспач назначать �
     SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'"+V.foremanName+"')]"));
     SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
     SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'test driver')]"));
-    JS.scroll('a[ng-click=\"vm.assignTeam(request)\"]');
+    JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
     SF.sleep(1);
-    SF.click(By.xpath("//a[@ng-click=\"vm.assignTeam(request)\"]"));
+    SF.click(By.xpath("//button[@ng-click=\"vm.assignTeam()\"]"));
     JS.waitForExist('div.toast-success');
     MF.WaitWhileToaster();
     LF.OpenRequestDispatch(V.boardNumbers.Id);
