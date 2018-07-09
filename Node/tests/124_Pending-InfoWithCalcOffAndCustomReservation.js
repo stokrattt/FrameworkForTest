@@ -163,7 +163,7 @@ condition.nowWeDoing = 'идем в аккаунт,сверяем цифры, п
 	}),config.timeout);
 	MF.Account_ConfirmationBackToRequest();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
-		VD.IWant(VD.NotToEqual, Status, 'PENDING-INFO', 'Реквест перешел в пендинг инфо после просмотра confirmation page');
+		VD.IWant(VD.NotToEqual, Status, 'PENDING INFO', 'Реквест перешел в пендинг инфо после просмотра confirmation page');
 	}), config.timeout);
 	MF.Account_ClickPartialPacking();
 	MF.SweetConfirm();
