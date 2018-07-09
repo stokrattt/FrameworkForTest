@@ -173,7 +173,7 @@ condition.nowWeDoing = 'заходим под форменом,проверяе�
     LF.MakeSignInContract();
     driver.wait(driver.findElement(By.xpath('//th[contains(text(),"CREW 2")]/following-sibling::td[3]')).getText().then(function(text){
         V.RateContr = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.RateCrew, V.RateContr, 'Rate не совпадает');
+        VD.IWant(VD.ToEqual, V.RateCrew + V.boardNumbers.HourlyRate, V.RateContr, 'Rate Crew 2 не совпадает');
     }),config.timeout);
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();

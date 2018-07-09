@@ -32,7 +32,8 @@ condition.nowWeDoing = 'идем в диспач назначем команду
     LF.selectCrew(V.foremanName);
 
 condition.nowWeDoing = 'переходим сразу с диспача на контракт и подписываем его не до конца ';
-    driver.wait(driver.executeScript("window.open('"+''+"'+$('a:contains(\"View Contract\")').attr('href'));"),config.timeout);
+    JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
+    SF.click(By.xpath('//button[@ng-click="vm.openContractInBlack()"]'));
     SF.openTab (1);
     MF.Contract_WaitConfirmationPage ();
     MF.Contract_OpenBillOfLading ();

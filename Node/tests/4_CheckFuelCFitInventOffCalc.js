@@ -52,7 +52,7 @@ condition.nowWeDoing = 'включили калькулятор';
 
 condition.nowWeDoing = 'идем в коферм и проверяем букед и move дейт';
     MF.Board_OpenConfirmed ();
-    SF.select(By.xpath('//select[@ng-model="vm.conf_filter"]'), 2);
+    SF.select(By.xpath('//select[@ng-model="vm.searchParams.conf_filter"]'), 2);
     MF.WaitWhileBusy ();
     SF.sleep(3);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"request in requests track by $index\"]:visible').length").then(function (text) {

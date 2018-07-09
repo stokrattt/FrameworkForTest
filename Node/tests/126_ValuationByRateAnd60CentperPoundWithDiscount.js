@@ -132,8 +132,7 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
     MF.Board_OpenRequest(V.boardNumbers.Id);
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(500);
-    SF.click(By.xpath('//button[@ng-click="Apply()"]'));
-    SF.waitForVisible(By.xpath('//div[@class="toast-message"]'));
+    SF.sleep(3);
     V.boardNumbersAfterAccount = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAfterAccount);
     MF.EditRequest_CloseConfirmWork();
