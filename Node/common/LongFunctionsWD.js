@@ -1437,9 +1437,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		// 			driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='super.vm.data.deliveryCrew.helpers[$index]']//option[contains(text(),'Test Helper3')]")).click());
 		// 		}
 		// 	}), config.timeout);
-		JS.scroll('button[ng-click=\"super.vm.assignTeam()\"]');
+		JS.scroll('button[ng-click=\"super.vm.assignTeam(request)\"]');
 		SF.sleep(2);
-		JS.click('button[ng-click=\\"super.vm.assignTeam()\\"]:visible');
+		JS.click('button[ng-click=\\"super.vm.assignTeam(request)\\"]:visible');
 		MF.WaitWhileBusy();
 		MF.WaitWhileToaster();
 	}
