@@ -103,7 +103,12 @@ condition.nowWeDoing = 'добавляем дисконт';
     driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Flat Rate Quote")]/../../../../../../' +
         'following-sibling::td[1]//div')).getText().then(function(text){
         V.FlatRateQuote = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.FlatRateQuote, 4500, 'в письме клиенту не сработал дискаунт и тотал отправился неверный');
+        VD.IWant(VD.ToEqual, V.FlatRateQuote, 5000, 'в письме клиенту отправлена неправильная квота');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//span[@aria-hidden="false"]//h3[contains(text(),"Flat Rate Grand total")]/../../../../../../' +
+        'following-sibling::td[1]//div')).getText().then(function(text){
+        V.FlatRateGranTotal = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.FlatRateGranTotal, 4500, 'в письме клиенту не сработал дискаунт и тотал отправился неверный');
     }),config.timeout);
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
