@@ -21,7 +21,7 @@ condition.nowWeDoing = 'создаем мувинг с фронта, стави�
     //    "{return true;}else {$('input[name=\"Show credit option card in contract payment\"]').click()}"), config.timeout);
     //SF.click(By.xpath('//button[@ng-click="save()"]'));
     //MF.WaitWhileToaster();
-    //LF.CreateLocalMovingFromBoard(V.client);
+    LF.CreateLocalMovingFromBoard(V.client);
 	MF.EditRequest_SetAdressToFrom();
 	MF.EditRequest_ChangeStatusRequest (4);
 	MF.EditRequest_ClickHomeEstimateDate();

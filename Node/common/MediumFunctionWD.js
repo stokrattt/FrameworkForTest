@@ -429,8 +429,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenSideBar();
         JS.scroll ('h1:contains("General Settings")');
         SF.sleep(0.5);
-        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[6]'));
-        SF.waitForVisible(By.xpath('//h2[contains(text(),"Contract page")]'));
+        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[7]'));
+        SF.waitForVisible(By.xpath('//a[contains(text(),"Edit Contract page")]'));
         SF.sleep(1);
     }
     function Board_TurnOnAdditionalContract() {

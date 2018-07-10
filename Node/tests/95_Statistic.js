@@ -15,6 +15,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
 condition.nowWeDoing = 'запоминаем на дашборде кол-во конфермнутых работ по Move дата и Booked дата';
     MF.Board_OpenConfirmed();
+    SF.click(By.xpath('//select[@ng-model="vm.searchParams.conf_filter"]/option[contains(text(),"Booked This month")]'));
+    SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="vm.select(2)"]//span[@ng-show="vm.searchParams.conf_filter == 1"]')).getText().then(function (text) {
         V.ConfBoard = SF.cleanPrice(text);
     }),config.timeout);
@@ -29,7 +31,6 @@ condition.nowWeDoing = 'открываем статистику и провер�
         V.Confirmedinperiod = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.Confirmedinperiod, V.ConfBoard,'не совпал Common stat и работы из дашборда');
     }),config.timeout);
-    Debug.pause();
     driver.wait(driver.findElement(By.xpath('//statistic-table[@index="5"]//tr[@class="advanced-info-total"]/td[3]')).getText().then(function(text) {
         V.Source = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.Source, V.Confirmedinperiod,'не совпал  Source и Common stat');
