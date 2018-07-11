@@ -1374,7 +1374,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			}), config.timeout);
 		// JS.click('button[ng-click="vm.assignTeam()"]');
         SF.sleep(1.5);
-		JS.scroll('label:contains("Helper No. 4")');
+		JS.scroll('button[ng-click=\"vm.openContractInBlack()\"]');
         SF.sleep(1.5);
 		driver.wait(
 			driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function (count) {
