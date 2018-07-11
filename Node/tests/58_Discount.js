@@ -88,7 +88,7 @@ condition.nowWeDoing = 'пошли в админку второй раз, кон
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.accountNumbers.Id);
-    LF.selectCrew(V.foremanName);
+    LF.selectBigCrew(V.foremanName);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'заходим под форменом, открываем контракт, запоминавем тотал, используем купон и проверяем что сумма уменьшилась';

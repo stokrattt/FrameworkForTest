@@ -163,6 +163,21 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
         VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimatePlusValuation + ' - ' + '$ ' + V.IIpartofTotalEstimatePlusValuation),"не совпал тотал плюс страховка в третьей строке таблицы" +
             "(вторая колонка) с тем,что должно было быть по расчетам");
     }), config.timeout);
+    driver.close();
+    SF.openTab(0);
+    SF.sleep(2);
+    MF.EditRequest_CloseEditRequest();
+
+    condition.nowWeDoing = 'идём в настройки валюэйшена и включаем обратно возможность на аккаунте клиенту выбирать Full Value Protection';
+    MF.Board_OpenSettingsGeneral();
+    MF.Board_OpenSideBar();
+    MF.Board_OpenSettingsValuation();
+    MF.Board_ShowProtectionOnAccountPage();
+    driver.wait(driver.executeScript("if ($('md-checkbox[aria-label=\"Full Value Protection\"]').hasClass('ng-not-empty')){" +
+        "return true;} else {$('md-checkbox[aria-label=\"Full Value Protection\"]').click()}"),config.timeout);
+    JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
+    MF.WaitWhileToaster();
+    SF.sleep(2);
 
     SF.endOfTest();
 };

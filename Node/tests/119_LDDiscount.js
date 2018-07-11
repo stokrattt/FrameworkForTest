@@ -145,7 +145,7 @@ condition.nowWeDoing = 'конфермим, переводим в клоузин
     V.boardNumbersSales = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersSales);
     MF.EditRequest_CloseConfirmWork ();
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="invoice.field_long_distance_rate.value"]')).getAttribute('value').then(function (rate) {
         V.RateLDAfterCustomWeightClosing = rate;
         VD.IWant(VD.ToEqual, V.RateLDAfterCustomWeightClosing, V.DiscountPriceThird, 'реит не поменялся при смене веса на кастомный, это 3я скидка');
     }),config.timeout);

@@ -1374,8 +1374,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			}), config.timeout);
 		// JS.click('button[ng-click="vm.assignTeam()"]');
         SF.sleep(1.5);
-		JS.scroll('button[ng-click=\"vm.openContractInBlack()\"]');
-        SF.sleep(1.5);
 		driver.wait(
 			driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function (count) {
 				if (count.length > 0) {
@@ -1401,6 +1399,45 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         JS.waitForExist('div.toast-success');
 		MF.WaitWhileToaster();
 	}
+    function selectBigCrew(ForemanName) {
+        SF.click(By.xpath("//select[@ng-model='vm.data.foreman']"));
+        SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'" + ForemanName + "')]"));
+        SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
+        SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'Test Helper1')]"));
+        driver.wait(
+            driver.findElements(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function (count) {
+                if (count.length > 0) {
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).click());
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 3')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']" +
+                        "//option[contains(text(),'Test Helper2')]")).click());
+                }
+            }), config.timeout);
+        SF.sleep(1.5);
+        JS.scroll('label:contains("Helper No. 4")');
+        SF.sleep(1.5);
+        driver.wait(
+            driver.findElements(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function (count) {
+                if (count.length > 0) {
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).click());
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 4')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']" +
+                        "//option[contains(text(),'Test Helper3')]")).click());
+                }
+            }), config.timeout);
+        SF.sleep(0.5);
+        driver.wait(
+            driver.findElements(By.xpath("//label[contains(text(),'Helper No. 5')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function (count) {
+                if (count.length > 0) {
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 5')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).click());
+                    driver.wait(driver.findElement(By.xpath("//label[contains(text(),'Helper No. 5')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']" +
+                        "//option[contains(text(),'Test Helper4')]")).click());
+                }
+            }), config.timeout);
+        JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
+        SF.sleep(1);
+        JS.click('button[ng-click="vm.assignTeam()"]');
+        JS.waitForExist('div.toast-success');
+        MF.WaitWhileToaster();
+    }
 
 	function selectCrewFlatRatePickUp(ForemanName) {
 		SF.click(By.xpath("//select[@ng-model='super.vm.data.pickedUpCrew.foreman']"));
@@ -3343,6 +3380,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		OpenRequestDispatch: OpenRequestDispatch,
 		OpenRequestInForemanPage: OpenRequestInForemanPage,
 		selectCrew: selectCrew,
+        selectBigCrew: selectBigCrew,
 		selectCrewFlatRatePickUp: selectCrewFlatRatePickUp,
 		selectCrewFlatRateDelivery: selectCrewFlatRateDelivery,
 		MakeSignInContract: MakeSignInContract,
