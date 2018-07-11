@@ -133,11 +133,9 @@ module.exports = function(config,V) {
         './tests/129_ValuationByfixpriceWithInventory.js',
         './tests/124_Pending-InfoWithCalcOffAndCustomReservation.js',
         './tests/130_LDCheckScheduleDeliveryDateAndContract.js',
-        './tests/DefaultSettings.js',
-        './tests/51_ServiceTypesOnOff.js',
         './tests/126_ValuationByRateAnd60CentperPoundWithDiscount.js',
         './tests/DefaultSettings.js',
-
+        './tests/51_ServiceTypesOnOff.js',
         './tests/56_LoadingAllSteps.js',
         './tests/26_CloneRequest.js',
 

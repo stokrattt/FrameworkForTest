@@ -206,7 +206,7 @@ condition.nowWeDoing = 'тут заходим в маркетинг тулс и 
     MF.Board_OpenSettingsValuation();
     MF.Board_ShowProtectionOnAccountPage();
     driver.wait(driver.executeScript("if ($('md-checkbox[aria-label=\"Full Value Protection\"]').hasClass('ng-not-empty')){" +
-        "return false;} else {$('md-checkbox[aria-label=\"Full Value Protection\"]').click()}"),config.timeout);
+        "return true;} else {$('md-checkbox[aria-label=\"Full Value Protection\"]').click()}"),config.timeout);
     JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
     MF.WaitWhileToaster();
 
