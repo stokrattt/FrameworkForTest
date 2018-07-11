@@ -128,7 +128,9 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
     SF.send (By.id('edit-moving-from'), 'otkuda edem');
     SF.send (By.id('edit-moving-from-apt'), 324535);
     MF.Account_ClickUpdateClientInModalWindow();
+    SF.sleep(1);
     MF.SweetConfirm();
+    SF.sleep(1);
     MF.SweetConfirm();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');

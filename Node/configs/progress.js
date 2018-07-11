@@ -1,9 +1,9 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/96_CommercialMoveFromFront.js'];
+    config.suite = ['./tests/58_Discount.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
-    config.timeout = 35000;
+    config.timeout = 45000;
     // V.frontURL = 'http://test1.stage.themoveboard.com:81/front_site/';
     // V.accountURL = 'http://test1.stage.themoveboard.com:81/account/';  //dev
     // V.adminURL = 'http://test1.stage.themoveboard.com:81/moveBoard/';  //dev

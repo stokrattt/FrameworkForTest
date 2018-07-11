@@ -13,8 +13,11 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'идем в департмент, заходим за сеилса, добавляем outgoing email, проверяем Signature';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsDepartment ();
+    SF.sleep(1);
     MF.Department_OpenSales();
+    SF.sleep(1);
     MF.Department_OpenHuman('Rick Pret');
+    SF.sleep(1);
     MF.Department_User_OpenAccount();
     SF.click (By.xpath('//input[@name="outgoingEmail"]'));
     SF.send (By.xpath('//input[@name="outgoingEmail"]'), V.Outgoingemail);

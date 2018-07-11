@@ -346,7 +346,7 @@ condition.nowWeDoing = 'делаем revoke пейрола и изменяем �
     SF.clear(By.xpath('//input[@ng-model="payroll.foreman.total_days"]'));
     SF.send(By.xpath('//input[@ng-model="payroll.foreman.total_days"]'), V.newTotalDays);
     SF.click(By.xpath('//input[@ng-model="search"]'));
-    SF.sleep(3);
+    SF.sleep(4);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="payroll.foreman.total_daily"]')).getAttribute('value').then(function (text) {
         V.newCleanTotalDaily = SF.cleanPrice (text);
         VD.IWant(VD.ToEqual, V.newCleanTotalDaily, V.newTotalDaily, 'total Daily не совпали');
@@ -385,11 +385,11 @@ condition.nowWeDoing = 'делаем revoke пейрола и изменяем �
     SF.sleep(2);
     V.newCashAmount = 70;
     SF.click(By.xpath('//div[@ng-click="openEditDialog(item, \'amountEditDialogOpen\')"]/div/div[contains(text(),"'+V.cashAmount+'")]'));
-    SF.sleep(1);
+    SF.sleep(2);
     SF.clear(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'));
     SF.send(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//input[@ng-model="data.value"]'), V.newCashAmount);
     SF.click(By.xpath('//h2[contains(text(), "Cash Advanced and Wires")]/../../following-sibling::div//div[@value="item.amount"]//button[@ng-click="update()"]'));
-    SF.sleep(1);
+    SF.sleep(12);
     SF.click(By.xpath('//md-tab-item[@ng-click="$mdTabsCtrl.select(tab.getIndex())"]/span[contains(text(),"helper")]'));
     SF.waitForVisible (By.xpath('//div[contains(text(), "helper test1")]/following-sibling::div[@ng-click="openDailyAmountEditDialog(item)"]'));
     SF.sleep(3);

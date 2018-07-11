@@ -115,7 +115,7 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Send TO Foreman")]/../../../following-sibling::div[1]'));
     SF.sleep(2);
     SF.click(By.xpath('//a[contains(text(), "Auto login for Foreman")]'));
-    SF.sleep (3);
+    SF.sleep (5);
     MF.WaitWhileBusy();
     MF.Contract_OpenBillOfLading();
     MF.Contract_WaitBillOfLading ();
