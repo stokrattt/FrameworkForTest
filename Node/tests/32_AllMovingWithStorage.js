@@ -138,7 +138,7 @@ condition.nowWeDoing = 'Зайти в local Dispatch, найти первый р
     LF.SelectRequestDispatch(V.accountNumbersTo.Id);
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbersTo.Id);
-    MF.WaitWhileBusy ();
+    SF.sleep(60); //почта на бэк перенесена и потому так долго отправляется письмо
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving With Storage Quote (Confirmed)");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");

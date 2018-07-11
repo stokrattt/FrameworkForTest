@@ -117,6 +117,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
+    SF.sleep(60); //почта на бэк перенесена и потому так долго отправляется письмо
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Loading Confirmed");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
