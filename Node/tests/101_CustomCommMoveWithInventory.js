@@ -46,7 +46,7 @@ condition.nowWeDoing = 'ставим трак и идем в логи прове
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Long Distance Quote (Pending Status");
-    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "New Request Notification");
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'закрываем и открываем наш реквест и еще раз сверяем данные которые были до закрытия';

@@ -58,7 +58,7 @@ condition.nowWeDoing = 'первый раз в админке';
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.client.email, "Unloading created (Pending)");
-    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "New Request Notification");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
@@ -103,7 +103,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     MF.EditRequest_Check1EmailExist(V.client.email, "Unloading Confirmed");
     MF.EditRequest_Check1EmailExist(V.client.email, 'New Message From emilia');
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
-    MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
+    MF.EditRequest_Check1EmailExist(V.foremanEmail, "New Job");
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 

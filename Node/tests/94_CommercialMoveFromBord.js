@@ -47,7 +47,7 @@ condition.nowWeDoing = 'ставим трак нот конферм и идем 
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Quote (Pending Status)");
-    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "New Request Notification");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Local Quote (Not Confirmed Status)");
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Local Quote (Not Confirmed Status)")]' +
         '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
@@ -59,6 +59,7 @@ condition.nowWeDoing = 'ставим трак нот конферм и идем 
     SF.sleep(1);
     VD.IWant(VD.ToEqual, V.LogsQuoteMin, V.boardNumbers.TotalMin, 'в письме клиенту  тотал min отправился неверный');
     VD.IWant(VD.ToEqual, V.LogsQuotelMax, V.boardNumbers.TotalMax, 'в письме клиенту  тотал max отправился неверный');
+    Debug.pause();
     LF.closeEditRequest();
 
 condition.nowWeDoing = 'переходим на вкладку нот конферм, открываем наш реквест и еще раз сверяем данные которые были до закрытия';
