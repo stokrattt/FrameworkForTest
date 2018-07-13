@@ -81,7 +81,7 @@ condition.nowWeDoing = 'первый раз в админке';
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
-	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text){
 		V.CBFinAdmin = SF.cleanPrice(text);
 		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не сошелся вес после добавления инвентория на аккаунте и в реквесте на мувборде');
 	}),config.timeout);
@@ -121,7 +121,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Loading Confirmed");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
-    MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
+    MF.EditRequest_Check1EmailExist(V.foremanEmail, "Foreman Job Notification");
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 

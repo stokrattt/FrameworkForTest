@@ -39,7 +39,7 @@ condition.nowWeDoing = 'первый раз в админке';
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
-	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text){
 		V.CBFinAdmin = SF.cleanPrice(text);
 		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'различный вес на аккаунте и в реквесте на мувборде(хотя инвенторий не добавлялся и одинаковые сервис типы)');
 	}),config.timeout);
@@ -113,6 +113,7 @@ condition.nowWeDoing = 'заходим под 2м форменом, доподп
     MF.Contract_OpenBillOfLading();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
+    Debug.pause();
     SF.sleep(3);
     SF.click(By.xpath('//input[@ng-model="crew.timer.timeOff"]'));
     SF.sleep(0.5);

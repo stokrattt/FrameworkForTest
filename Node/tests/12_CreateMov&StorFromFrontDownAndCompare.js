@@ -75,7 +75,7 @@ condition.nowWeDoing = 'сравниваем аккаунт и админку, �
         VD.IWant(VD.ToEqual, (V.boardNumbersToAfterCustomCBF.MonthlyStorageMax).toFixed(2), 450, 'не совпал montly storage fee max на мувборде после смены кубик фита на касомный. Мы поставили 1000, значит ее нужно умножить на 0,45');
     }),config.timeout);
     LF.addInventoryBoard();
-    driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text){
         V.CBFInventory = SF.cleanPrice(text);
     }),config.timeout);
     MF.WaitWhileBusy();

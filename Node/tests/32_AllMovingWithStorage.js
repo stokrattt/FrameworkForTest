@@ -142,7 +142,7 @@ condition.nowWeDoing = 'Зайти в local Dispatch, найти первый р
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving With Storage Quote (Confirmed)");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
-    MF.EditRequest_Check1EmailExist(V.foremanEmail, "Send TO Foreman");
+    MF.EditRequest_Check1EmailExist(V.foremanEmail, "Foreman Job Notification");
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 

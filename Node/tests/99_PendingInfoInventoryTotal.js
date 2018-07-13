@@ -21,7 +21,7 @@ condition.nowWeDoing = 'создаем локал мув с борда и ста
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed();
-	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text){
 		V.CBFinAdmin = SF.cleanPrice(text);
 	}),config.timeout);
     MF.EditRequest_SaveChanges();

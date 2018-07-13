@@ -66,7 +66,7 @@ condition.nowWeDoing = 'создаем третий реквест, ставим
     SF.click (By.xpath('//div[@ng-click="chooseTruck(tid)"][contains(text(), "'+V.truck+'")]'));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
-	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text){
 		V.CBFinAdmin = text;
 	}),config.timeout);
     MF.EditRequest_SaveChanges ();
