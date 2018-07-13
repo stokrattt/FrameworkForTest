@@ -92,7 +92,7 @@ condition.nowWeDoing = 'идем в админку в локал диспач и
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Packing Day");
     MF.EditRequest_Check1EmailExist(V.client.email, "YOUR MOVE IS CONFIRMED AND SCHEDULED!");
-    MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Confirmed");
     MF.EditRequest_Check1EmailExist(V.foremanEmail, "New Job");
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();

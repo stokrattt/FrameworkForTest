@@ -141,8 +141,8 @@ condition.nowWeDoing = 'Зайти в local Dispatch, найти первый р
     SF.sleep(60); //почта на бэк перенесена и потому так долго отправляется письмо
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving With Storage Quote (Confirmed)");
-    MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
-    MF.EditRequest_Check1EmailExist(V.foremanEmail, "Foreman Job Notification");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Confirmed");
+    MF.EditRequest_Check1EmailExist(V.foremanEmail, "New Job");
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 

@@ -120,8 +120,8 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     SF.sleep(60); //почта на бэк перенесена и потому так долго отправляется письмо
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Loading Confirmed");
-    MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
-    MF.EditRequest_Check1EmailExist(V.foremanEmail, "Foreman Job Notification");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Confirmed");
+    MF.EditRequest_Check1EmailExist(V.foremanEmail, "New Job");
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
