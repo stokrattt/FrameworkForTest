@@ -100,7 +100,6 @@ condition.nowWeDoing = 'идём в логи';
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "New Request Notification");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Long Distance Quote (Not Confirmed Status)");
-    Debug.pause();
     V.logNumbers={};
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Request Long Distance Quote (Not Confirmed Status)")]' +
         '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));

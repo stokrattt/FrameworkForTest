@@ -85,7 +85,7 @@ condition.nowWeDoing = 'идем в аккаунт, проверить что с
 condition.nowWeDoing = 'заходим в портал как сейлс и открываем реквест';
 	SF.get(V.adminURL);
 	LF.HomeEstimate_SalesGoInPortalandOpenRequest(V.salesLogin,V.salesPassword, V.boardNumbers);
-	SF.sleep(2);
+	SF.sleep(4);
 	V.homeestimateNumbers ={};
 	LF.RememberDigitsRequestBoard(V.homeestimateNumbers);
 
@@ -106,7 +106,7 @@ condition.nowWeDoing = 'добавляем пэкинг и адишенал се
 	LF.EditRequest_AddAdditionalServSalesTab();
 
 condition.nowWeDoing = 'запоминаем исходное значение c/f';
-	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]/span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
 		V.boardNumbersPortalcf=text;
 	}),config.timeout);
 
@@ -114,9 +114,9 @@ condition.nowWeDoing = 'добавляем инвентарь, делаем пр
 	LF.AddInventory_InHomeEstimate();
 	SF.waitForVisible(By.xpath('//div[@ng-show="isShowParklot"]'));
 	// JS.scroll('span[ng-if="!states.invoiceState"]');
-	driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
+	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]/span[@ng-if="!states.invoiceState"]')).getText().then(function(text){
 		V.boardNumbersPortalnewcf=text;
-	}),config.timeout);
+    }),config.timeout);
 	SF.sleep(1);
 	VD.IWant(VD.NotToEqual, V.boardNumbersPortalcf , V.boardNumbersPortalnewcf , 'если не равны, то пересчет произошел на новые cf, если равные, то баг ');
 

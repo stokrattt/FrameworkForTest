@@ -86,7 +86,6 @@ condition.nowWeDoing = 'Возвращаемся на дашборд. Сверя
     MF.Board_OpenRequest (V.requestNumber.Id);
     V.boardNumbersAfterDeleteInventory = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAfterDeleteInventory);
-    console.log(V.boardNumbersAfterDeleteInventory);
     LF.Validation_Compare_Account_Admin_LongDistance(V.accountNumbersAfterFullPacking, V.boardNumbersAfterDeleteInventory);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="!states.invoiceState"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '1500', 'Cubic feet на дашборде не вернулся к дефолтному значению в 1500 после удаления инвентаря на аккаунте')

@@ -32,7 +32,6 @@ condition.nowWeDoing = 'создаем пекинг дей с фронта';
     MF.EditRequest_Check1EmailExist(V.client.email, "Packing Not Confirm Day");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "New Request Notification");
     MF.EditRequest_Check1EmailExist(V.client.email, "Packing Day");
-    Debug.pause();
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"Packing Not Confirm Day")]' +
         '[contains(text(),"'+V.client.email+'")]/../../../following-sibling::div[1]'));
     driver.wait(driver.findElement(By.xpath('//h3[contains(text(),"Logistic")]/../../../../../../' +
@@ -95,7 +94,6 @@ condition.nowWeDoing = 'идем в админку в локал диспач и
     MF.EditRequest_Check1EmailExist(V.client.email, "YOUR MOVE IS CONFIRMED AND SCHEDULED!");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Send to Admin when confirmed");
     MF.EditRequest_Check1EmailExist(V.foremanEmail, "New Job");
-    Debug.pause();
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 

@@ -70,7 +70,6 @@ condition.nowWeDoing = 'первый раз на аккаунте';
 	SF.sleep(1);
 	var number2 = (V.AmountOfLiability * 35)/1000;
 	number2 = Math.round(110.985*100)/100;
-	console.log(number2);
 	driver.wait(driver.findElement(By.xpath('//td[contains(text(),"Valuation Charge")]/following-sibling::td[2]')).getText().then(function (text) {
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual,number2 ,text,'не совпали Valuation Charge у реквеста с расчетами по формулам(второй дедактбл левел)');

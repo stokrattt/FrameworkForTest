@@ -113,7 +113,6 @@ condition.nowWeDoing = 'добавляем дисконт';
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "New Request Notification");
-    Debug.pause();
     LF.closeEditRequest ();
     MF.Board_LogoutAdmin ();
     SF.get (V.accountURL);
