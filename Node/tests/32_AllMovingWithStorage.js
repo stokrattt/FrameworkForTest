@@ -65,7 +65,7 @@ condition.nowWeDoing = 'Зайти на админку, найти реквес�
     MF.EditRequest_Check1EmailExist(V.client.email, "Thank you for submitting a quote.");
     MF.EditRequest_Check1EmailExist(V.client.email, "How To Work With Your New Account.");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Moving and Storage Quote (Pending Status)");
-    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Quote (Pending Status)");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "New Request Notification");
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
