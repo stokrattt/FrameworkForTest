@@ -90,7 +90,6 @@ condition.nowWeDoing = 'Возвращаемся на дашборд. Сверя
     driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, '1500', 'Cubic feet на дашборде не вернулся к дефолтному значению в 1500 после удаления инвентаря на аккаунте')
     }),config.timeout);
-    Debug.pause();
     MF.EditRequest_OpenFuelSurchModal();
     MF.EditRequest_SendFlatSurchargeInFuelWindow(222);
     MF.EditRequest_ClickApplyInFuelWindow();

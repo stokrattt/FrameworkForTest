@@ -113,7 +113,6 @@ condition.nowWeDoing = 'заходим под 2м форменом, доподп
     MF.Contract_OpenBillOfLading();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    Debug.pause();
     SF.sleep(3);
     SF.click(By.xpath('//input[@ng-model="crew.timer.timeOff"]'));
     SF.sleep(0.5);
