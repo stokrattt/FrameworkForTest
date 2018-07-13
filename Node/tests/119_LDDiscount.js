@@ -48,7 +48,7 @@ condition.nowWeDoing = 'Добавляем 3 дисконта';
 
 condition.nowWeDoing = 'Создаем ЛД в наш штат с верхней фронт формы';
     SF.get(V.frontURL);
-    MF.FrontSiteSmallCalc_SendZipCode('02461', '59012');
+    MF.FrontSiteSmallCalc_SendZipCode('02461', '59401');
     MF.FrontSiteSmallCalc_ClickCalendar();
     V.frontNumbers = {};
     driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (D) {
