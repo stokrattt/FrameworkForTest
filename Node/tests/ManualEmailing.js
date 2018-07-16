@@ -16,7 +16,7 @@ condition.nowWeDoing = 'открываем любой реквест и отпр
 	MF.EditRequest_CloseEditRequest();
 	MF.WaitWhileToaster ();
 	MF.Board_LogoutAdmin();
-	SF.sleep(60);
+	SF.sleep(40);
 
 condition.nowWeDoing = 'открываем тестовую почту и ищем письмо';
 	SF.get('http://mail.ru');

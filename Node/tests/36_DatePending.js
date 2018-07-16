@@ -67,7 +67,7 @@ condition.nowWeDoing = 'создаем третий реквест, ставим
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text){
-		V.CBFinAdmin = text;
+		V.CBFinAdmin = SF.cleanPrice(text);
 	}),config.timeout);
     MF.EditRequest_SaveChanges ();
     MF.EditRequest_OpenClient ();
