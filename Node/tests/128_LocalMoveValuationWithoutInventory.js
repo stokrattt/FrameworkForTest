@@ -82,6 +82,7 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, text ,V.SelectLevel,'не совпали Valuation выбранный на реквесте и на аккаунте');
 	}), config.timeout);
+	//MF.SweetConfirm();
 	MF.Account_ClickAndOpenFullValueModal();
 	SF.click(By.xpath('//td[4]/md-checkbox[@aria-label="$ 500"]'));
 	SF.sleep(0.5);
