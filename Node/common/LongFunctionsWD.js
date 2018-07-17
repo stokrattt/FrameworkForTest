@@ -405,6 +405,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function RememberAccountNumbers(accountNumbers) {
+		SF.sleep(2.5);
 		driver.wait(driver.executeScript('return $("div:contains(\\"Move Date :\\"):last").next().text()').then(function (dateString) {
 			dateString = dateString.toUpperCase();
 			accountNumbers.moveDate = {};
