@@ -37,9 +37,10 @@ condition.nowWeDoing = 'считаем квоту от времени и гра�
     V.QuoteLaborTravelRate = ((V.LaborTime + V.boardNumbers.TravelTime)/60)*V.boardNumbers.HourlyRate;
     V.boardNumbersClose = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbersClose);
-    VD.IWant (VD.ToEqual, V.boardNumbersClose.QuoteMax, V.QuoteLaborTravelRate, 'не правильно посчитало квоту по формуле лабор+травел*rate');
-    V.TotalSum = V.boardNumbersClose.QuoteMax + V.boardNumbersClose.Fuel + V.boardNumbersClose.AdServices;
+    VD.IWant (VD.ToEqual, V.boardNumbersClose.Quote, V.QuoteLaborTravelRate, 'не правильно посчитало квоту по формуле лабор+травел*rate');
+    V.TotalSum = V.boardNumbersClose.Quote + V.boardNumbersClose.Fuel + V.boardNumbersClose.AdServices;
     VD.IWant (VD.ToEqual, V.boardNumbersClose.Total, V.TotalSum, 'не правильно посчитало гранд  по формуле фуел + квота');
+
 
 condition.nowWeDoing = 'добавляем два паймента, один кастомный, один карточкой, так чтобы баланс был равен 0 и закрываем реквест, так же добавляем кастомный рефанд и проверяем что он отнимается от тотала';
     MF.EditRequest_OpenPayment();
