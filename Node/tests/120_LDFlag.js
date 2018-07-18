@@ -146,7 +146,7 @@ condition.nowWeDoing = 'Идём в админку, ставим статус no
     }),config.timeout);
     driver.wait(driver.executeScript('return $("input#reserv_price").val()').then(function(text){
         V.Deposit = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.Deposit , 500,'не совпали reservation price у реквеста с расчетами по формулам');
+        VD.IWant(VD.ToEqual, V.Deposit ,V.boardNumbers3.Quote * 0.25,'не совпали reservation price у реквеста с расчетами по формулам');
     }),config.timeout);
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();

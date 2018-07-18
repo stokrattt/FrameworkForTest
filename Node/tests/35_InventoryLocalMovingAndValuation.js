@@ -19,7 +19,6 @@ condition.nowWeDoing = 'Зайти на аккаунт, добавить инв�
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
     LF.RememberAccountNumbers(V.accountNumbers);
-    Debug.pause();
     SF.sleep(1);
     LF.LogoutFromAccount();
     SF.sleep(1);
@@ -59,7 +58,6 @@ condition.nowWeDoing = 'второй раз в аккаунте сверяем �
     V.accountNumbers = {};
     SF.sleep(2);
     LF.RememberAccountNumbers(V.accountNumbers);
-    Debug.pause();
     driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[2]')).getText().then(function (text) {
         text = SF.cleanPrice (text);
         VD.IWant (VD.ToEqual, text, 10570, 'не совпал full valuation с тем что выставили на админке в реквесте');
