@@ -1,11 +1,11 @@
 module.exports = function(config,V) {
-    config.suite = ['./tests/83_PayrollAllDepartment.js'];
+    config.suite = ['./tests/TotalInvoices.js'];
     config.chainFail = false;
     config.browser = 'chrome';
-    config.timeout = 60000;
-    V.frontURL = 'http://stage.themoveboard.com:8001/front_site/';
-    V.accountURL = 'http://stage.themoveboard.com:8001/account/#/login';
-    V.adminURL = 'http://stage.themoveboard.com:8001/moveBoard/#/login';
+    config.timeout = 25000;
+    V.frontURL = 'http://stage.stage.themoveboard.com:91/';
+    V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';
+    V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';
     V.adminLogin = 'TestYarem';
     V.adminPassword = 'test';
     V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
