@@ -6,12 +6,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
 
-condition.nowWeDoing = 'создаем локал мув и идем в настройки контракта и включаем less initial contract';
+condition.nowWeDoing = 'создаем локал мув и идем в настройки контракта, включаем less initial contract и выключаем Use Credit Card Photo and ID on Contract';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsGeneral();
     SF.click(By.linkText('Contract page'));
     SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[id=\"Use Credit Card Photo and ID on Contract\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[id=\"Use Credit Card Photo and ID on Contract\"]').click()}"),config.timeout);
+    SF.sleep(0.3);
     driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.lessInitialContract\"]').hasClass('ng-not-empty')){" +
         "return true;}else{$('input[ng-model=\"contract_page.lessInitialContract\"]').click()}"),config.timeout);
     SF.sleep(0.5);
@@ -101,14 +104,14 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_ClickPaymentInfo();
     LF.FillCardPayModal();
     LF.Contract_SignMainPayment();
-    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-        V.path = path;
-    }), config.timeout);
-    SF.sleep(1);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_UploadImage(V.path);
-    MF.Contract_SaveImages();
-    SF.sleep(3);
+    // driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+    //     V.path = path;
+    // }), config.timeout);
+    // SF.sleep(1);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_SaveImages();
+    // SF.sleep(3);
     LF.MakeSignInContract();
     V.contractNumbers = {};
     MF.Contract_Submit(V.contractNumbers);
@@ -165,6 +168,8 @@ condition.nowWeDoing = 'идем в паймент и проверяем что 
     SF.sleep (2);
     driver.wait(driver.executeScript("if($('input[ng-model=\"contract_page.lessInitialContract\"]').hasClass('ng-empty')){" +
         "return true;}else{$('input[ng-model=\"contract_page.lessInitialContract\"]').click()}"),config.timeout);
+    driver.wait(driver.executeScript("if($('input[id=\"Use Credit Card Photo and ID on Contract\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[id=\"Use Credit Card Photo and ID on Contract\"]').click()}"),config.timeout);
     SF.sleep(0.5);
     SF.click (By.xpath('//button[@ng-click="save()"]'));
     SF.sleep (2); //сохранялка

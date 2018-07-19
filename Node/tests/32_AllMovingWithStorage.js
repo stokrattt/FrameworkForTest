@@ -167,6 +167,7 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     MF.SweetConfirm ();
     MF.WaitWhileBusy();
     LF.payRentalInventory();
+    JS.waitForExist('input#inputImage');
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);

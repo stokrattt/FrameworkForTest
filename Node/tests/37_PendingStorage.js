@@ -12,6 +12,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'создаём с борда MovingWithStorage';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenSettingsGeneral();
+    SF.click(By.linkText('Contract page'));
+    SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[id=\"Use Credit Card Photo and ID on Storage\"]').hasClass('ng-empty')){" +
+        "return true;}else{$('input[id=\"Use Credit Card Photo and ID on Storage\"]').click()}"),config.timeout);
+    SF.sleep(0.3);
+    SF.click (By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep (2); //сохранялка
+    MF.WaitWhileToaster();
     LF.CreateMovAndStorFromBoard(V.client, 25);
 
 condition.nowWeDoing = 'Законфёрмить сразу реквест';
@@ -79,14 +88,16 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     LF.MakeSignInRental();
     MF.SweetConfirm ();
     MF.WaitWhileBusy();
-    LF.payRentalInventoryCash(V.boardNumbersTo);
-    JS.waitForExist('input#inputImage');
-    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-        V.path = path;
-    }), config.timeout);
+    LF.payRentalInventory(V.boardNumbersTo);
+    // JS.waitForExist('input#inputImage');
+    // driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+    //     V.path = path;
+    // }), config.timeout);
+    // SF.sleep(1);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_UploadImage(V.path);
+    // MF.Contract_SaveImages();
     SF.sleep(2);
-    JS.click('button[ng-click=\\"saveFile();logClickButtons(\\\'Save Images button clicked\\\')\\"]');
-    SF.sleep(5);
 
 condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт и проверяем орижин блок';
     LF.Contract_CheckOriginBlockNameZip('02032', V.client.name, V.client.fam);
@@ -189,9 +200,17 @@ condition.nowWeDoing = 'закончили с инвентарём, подпис
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
-condition.nowWeDoing="Зайти в Storsge pending, найти реквест";
+condition.nowWeDoing="Зайти в Storage pending, найти реквест";
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    MF.Board_OpenSideBar ();
+    MF.Board_OpenSettingsGeneral();
+    SF.click(By.linkText('Contract page'));
+    SF.sleep (2);
+    driver.wait(driver.executeScript("if($('input[id=\"Use Credit Card Photo and ID on Storage\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[id=\"Use Credit Card Photo and ID on Storage\"]').click()}"),config.timeout);
+    SF.sleep(0.3);
+    SF.click (By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep (2); //сохранялка
+    MF.WaitWhileToaster();
     MF.Board_OpenStorages ();
     SF.waitForVisible(By.xpath('//td[contains(text(),"'+V.client.name+' '+V.client.fam+'")]'));
     LF.OpenRequestDispatch(V.client.name+' '+V.client.fam);

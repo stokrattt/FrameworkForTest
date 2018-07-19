@@ -45,6 +45,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.executeScript("if ($('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').hasClass('ng-not-empty')){" +
         "return true;} else {$('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').click()}"),config.timeout);
     SF.sleep(0.5);
+    driver.wait(driver.executeScript("if($('input[id=\"Use Credit Card Photo and ID on Contract\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[id=\"Use Credit Card Photo and ID on Contract\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
+    driver.wait(driver.executeScript("if($('input[id=\"Use Credit Card Photo and ID on Storage\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[id=\"Use Credit Card Photo and ID on Storage\"]').click()}"),config.timeout);
+    SF.sleep(0.5);
     SF.click (By.xpath('//button[@ng-click="save()"]'));
     SF.sleep (5); //сохранялка
 

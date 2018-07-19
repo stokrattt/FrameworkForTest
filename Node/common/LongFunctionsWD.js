@@ -1546,7 +1546,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		FillCardPayModal();
 		MakeSignJS('signatureCanvasPayment');
 		SF.click(By.xpath('//div[@ng-init="payment.canvasInit(\'signatureCanvasPayment\')"]//button[@ng-click="saveSignature()"]'));
-		JS.waitForExist('input#inputImage');
 	}
     function payRentalInventoryCash(boardNumbers) {
         SF.click(By.xpath('//button[@ng-click="openPayment()"]'));

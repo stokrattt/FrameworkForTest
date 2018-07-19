@@ -127,6 +127,7 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
     LF.MakeSignInRental();
     MF.SweetConfirm();
     LF.payRentalInventory();
+    JS.waitForExist('input#inputImage');
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
