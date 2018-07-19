@@ -46,7 +46,9 @@ condition.nowWeDoing = 'первый раз на аккаунте';
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
 	V.accountNumbers={};
+	SF.sleep(3);
 	LF.RememberAccountNumbers(V.accountNumbers);
+	Debug.pause();
 	LF.LogoutFromAccount();
 	condition.nowWeDoing = 'идем в админку, проверяем наши числа,сверяем страховку( должна быть ))' +
 		'ставим фулл вэлью протекшен,нот конферм';
@@ -55,6 +57,7 @@ condition.nowWeDoing = 'первый раз на аккаунте';
 	MF.Board_OpenRequest(V.accountNumbers.Id);
     V.boardNumbers={};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
+    Debug.pause();
     LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbers);
 	MF.EditRequest_OpenValuationModal();
 	MF.EditRequest_OpenFullValueProtection();
