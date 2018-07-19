@@ -68,6 +68,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.send(By.xpath('//input[@placeholder="Cost"]'),V.InvUnitCost);
     SF.click(By.xpath('//input[@placeholder="Quantity"]'));
     SF.send(By.xpath('//input[@placeholder="Quantity"]'),V.InvQty);
+    SF.click(By.xpath('//textarea[@placeholder="Notes"]'));
     driver.wait(driver.findElement(By.xpath('//div[@class="totals_row nopadding row totaldue"]/../div')).getText().then(function (text) {
         V.InvTotalDue = SF.cleanPrice (text);
     }), config.timeout);
