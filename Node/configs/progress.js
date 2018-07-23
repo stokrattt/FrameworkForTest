@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/56_LoadingAllSteps.js'];
+    config.suite = ['./tests/TotalInvoices.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 45000;

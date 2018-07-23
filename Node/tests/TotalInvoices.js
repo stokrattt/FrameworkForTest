@@ -14,8 +14,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-    condition.nowWeDoing = 'Открываем табу Total invoices и делаем проверки совпадают ли тоталы сумм и инвойсов';
-    SF.click(By.xpath('//div[@ng-if="vm.canSeeInvoices"]'));
+condition.nowWeDoing = 'Открываем табу Total invoices и делаем проверки совпадают ли тоталы сумм и инвойсов';
+    MF.Board_OpenTotoalInvoices();
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.canSeeInvoices"]//span[@class="total text-center"]')).getText().then(function (text) {
         V.TotalInvoices = SF.cleanPrice (text);
     }), config.timeout);
@@ -45,7 +45,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, SF.cleanPrice(text.substring(text.indexOf('of'), text.indexOf('entries'))), V.TotalPaidInv+V.TotalUnpaidInv, 'не совпало количество инвойсов внизу, после сумирования колличества оплаченых/неоплаченых инвойсов');
     }),config.timeout);
 
-    condition.nowWeDoing = 'создаем реквест';
+condition.nowWeDoing = 'создаем реквест';
     LF.CreateLocalMovingFromBoard(V.client);
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SetAdressToFrom ();
@@ -55,9 +55,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.WaitWhileBusy();
     MF.EditRequest_SaveChanges ();
 
-    condition.nowWeDoing = 'создаем инвойс';
-    SF.click(By.xpath('//div/label[@ng-click="OpenPaymentModal();"]'));
-    SF.sleep(1);
+condition.nowWeDoing = 'создаем инвойс';
+    MF.EditRequest_OpenPaymentModalWindow();
     SF.click(By.xpath('//span[contains(text(), \"Create  Invoice\")]'));
     SF.sleep(0.5);
     SF.click(By.xpath('//input[@placeholder="Item Name"]'));
@@ -76,7 +75,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     SF.click(By.xpath('//a[contains(text(), \"Send & Close\")]'));
 
-    condition.nowWeDoing = 'находим наш инвойс в списке и запоминаем его статус и дату';
+condition.nowWeDoing = 'находим наш инвойс в списке и запоминаем его статус и дату';
     SF.waitForLocated (By.xpath('//tr[@ng-repeat="invoice in invoices track by $index"]//td[contains(text(), "'+V.InvDescription+'")]'));
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="invoice in invoices track by $index"]//td[contains(text(), "'+V.InvDescription+'")]/following-sibling::td[3]')).getText().then(function (text) {
         V.StatusInv = text;
@@ -91,7 +90,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//i[@class="dashboard_icon icon-refresh"]'));
     SF.sleep(1.5);
 
-    condition.nowWeDoing = 'проверяем появился ли новый инвойс и правильно ли увеличились сумма и количество';
+condition.nowWeDoing = 'проверяем появился ли новый инвойс и правильно ли увеличились сумма и количество';
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="vm.canSeeInvoices"]//span[@class="total text-center"]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.TotalInvoices+1, 'не прибавился новый инвойс после создания к колличеству, сверху в блоке')
     }), config.timeout);
@@ -122,13 +121,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, text, V.StatusInv, 'не совпал статус инвойса в строке созданого инвойса')
     }), config.timeout);
 
-    condition.nowWeDoing = 'фильтруем по unpaid';
+condition.nowWeDoing = 'фильтруем по unpaid';
     SF.click(By.xpath('//div[contains(text(), \"All\")]'));
     SF.waitForLocated (By.xpath('//md-option[@id="select_option_17"]//div[contains(text(), \"unpaid\")]'));
     SF.click(By.xpath('//md-option[@id="select_option_17"]//div[contains(text(), \"unpaid\")]'));
     SF.sleep(1);
 
-    condition.nowWeDoing = 'проверяем что Тотал Паид стал 0 сверху и что есть наш инвойс';
+condition.nowWeDoing = 'проверяем что Тотал Паид стал 0 сверху и что есть наш инвойс';
     driver.wait(driver.findElement(By.xpath('//div/span[@uib-tooltip="Total Paid"]')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, SF.cleanPrice(text.substring(text.indexOf('('))), 0, 'тотал пейд не стал 0 после сортировки по unpaid');
     }), config.timeout);
@@ -139,11 +138,10 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, text, V.ClientNameFam, 'после сортировки не совпали имя фамилия клиента')
     }), config.timeout);
 
-    condition.nowWeDoing = 'открываем реквест, и через логи идем его оплачивать, паралельно проверив статус инвойса';
+condition.nowWeDoing = 'открываем реквест, и через логи идем его оплачивать, паралельно проверив статус инвойса';
     JS.click('td:contains(\\"Open Request #'+V.boardNumbers.Id+'\\")');
-    SF.sleep(2);
-    SF.click(By.xpath('//a[contains(text(), \"Log\")]'));
-    SF.sleep(1);
+    MF.EditRequest_WaitForOpenRequest ();
+    MF.EditRequest_OpenLogs();
     SF.click(By.xpath('//span[contains(text(), \"Expand\")]'));
     SF.click(By.xpath('//a[contains(text(), \"vIEW INVOICE\")]'));
     SF.sleep(3);
@@ -159,8 +157,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.InvTotalDue, 'не совпала сумма в Total Balance Due на странице оплаты инвойса')
     }), config.timeout);
     SF.openTab(0);
-    SF.click(By.xpath('//a[contains(text(), "Request #'+V.boardNumbers.Id+'")]'));
-    SF.click(By.xpath('//div/label[@ng-click="OpenPaymentModal();"]'));
+    MF.EditRequest_OpenRequest();
+    MF.EditRequest_OpenPaymentModalWindow();
     SF.waitForLocated (By.xpath('//tr[@ng-repeat="invoice in invoices track by $index"]//td[contains(text(), "'+V.InvDescription+'")]'));
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="invoice in invoices track by $index"]//td[contains(text(), "'+V.InvDescription+'")]/following-sibling::td[3]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'viewed', 'статус инвойса не поменялся на viewed в окне инвойсов модалки реквеста, после того как мы открыли инвойс в новой табе');
@@ -203,13 +201,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.close();
     SF.openTab (0);
 
-    condition.nowWeDoing = 'фильтруем по paid';
+condition.nowWeDoing = 'фильтруем по paid';
     SF.click(By.xpath('//div[contains(text(), \"unpaid\")]'));
     SF.sleep(1);
     SF.click(By.xpath('//md-option[@id="select_option_16"]//div[contains(text(), \"paid\")]'));
     SF.sleep(2);
 
-    condition.nowWeDoing = 'проверяем что Тотал АнПаид стал 0 сверху, и что есть наш инвойс и что у него статус Paid, а также суммы';
+condition.nowWeDoing = 'проверяем что Тотал АнПаид стал 0 сверху, и что есть наш инвойс и что у него статус Paid, а также суммы';
     driver.wait(driver.findElement(By.xpath('//div/span[@uib-tooltip="Total Unpaid"]')).getText().then(function (text) {
         VD.IWant (VD.ToEqual, SF.cleanPrice(text.substring(text.indexOf('('))), 0, 'тотал анпейд не стал 0 после сортировки по paid');
     }), config.timeout);
@@ -238,13 +236,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, text, 'paid', 'статус инвойса не поменялся на paid в строки инвойса, после оплаты')
     }), config.timeout);
 
-    condition.nowWeDoing = 'открываем реквест, сравниваем суммы: Payment, и Total в окне инвойсов, + сравниваем что поменялся статус';
+condition.nowWeDoing = 'открываем реквест, сравниваем суммы: Payment, и Total в окне инвойсов, + сравниваем что поменялся статус';
     JS.click('td:contains(\\"Open Request #'+V.boardNumbers.Id+'\\")');
-    SF.waitForLocated (By.xpath('//div/label[@ng-click="OpenPaymentModal();"]'));
+    MF.EditRequest_WaitForOpenRequest ();
     driver.wait(driver.findElement(By.xpath('//label[contains(text(), "Payment: ")]/../div')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.InvTotalDue, 'не совпала сумма Payment в окне реквеста, после оплаты')
     }), config.timeout);
-    SF.click(By.xpath('//div/label[@ng-click="OpenPaymentModal();"]'));
+    MF.EditRequest_OpenPaymentModalWindow();
     SF.waitForLocated (By.xpath('//tr[@ng-repeat="invoice in invoices track by $index"]//td[contains(text(), "'+V.InvDescription+'")]'));
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="invoice in invoices track by $index"]//td[contains(text(), "'+V.InvDescription+'")]/following-sibling::td[3]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'paid', 'статус инвойса не поменялся на paid в окне создания инвойсов, после оплаты');
@@ -258,7 +256,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.click(By.xpath('//button[contains(text(), \"×\")]'));
     SF.sleep(1);
 
-    condition.nowWeDoing = 'идем статистику/инвойсы, и сравниваем вверху в блоках суммы и колличество';
+condition.nowWeDoing = 'идем статистику/инвойсы, и сравниваем вверху в блоках суммы и колличество';
     MF.Board_OpenStatistic ();
     SF.click(By.xpath('//a[@ui-sref="statistics.invoices"]'));
     SF.sleep (3);
@@ -280,6 +278,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     driver.wait(driver.findElement(By.xpath('//div[@class="panel-body redBox"]/span')).getText().then(function(text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text.substring(text.indexOf('('))), V.TotalUnpaidInv, 'в статистике инвойсов не совпало общее колличество НЕоплаченых инвойсов сверху в красном блоке');
     }),config.timeout);
+    SF.sleep(1);
 
     SF.endOfTest();
 };

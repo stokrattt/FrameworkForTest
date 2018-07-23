@@ -648,6 +648,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//input[@ng-model="vm.calcSettings.doubleDriveTimeName"]'));
         SF.sleep(4);
     }
+    function Board_OpenTotoalInvoices() {
+        SF.click(By.xpath('//div[@ng-if="vm.canSeeInvoices"]'));
+    }
     //==============================CALCULATOR SETTINGS===========================
     function CalculatorSettings_OpenBasicSettings(){
 		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[2]'));
@@ -1988,6 +1991,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
         SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     }
+    function EditRequest_PaymentModalClickCreateInvoice() {
+        SF.click(By.xpath('//span[contains(text(), \"Create  Invoice\")]'));
+        SF.sleep(0.5);
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -2660,6 +2667,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         BoardCalculatorSettings_SelectMinDoubleDriveTime:BoardCalculatorSettings_SelectMinDoubleDriveTime,
         BoardSettingsCalculator_DoubleDriveTimeON:BoardSettingsCalculator_DoubleDriveTimeON,
         BoardSettingsCalculator_DoubleDriveTimeOFF:BoardSettingsCalculator_DoubleDriveTimeOFF,
+        Board_OpenTotoalInvoices:Board_OpenTotoalInvoices,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
@@ -2923,6 +2931,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_ClickAddOnlinePayment:EditRequest_ClickAddOnlinePayment,
         EditRequest_SetSumOnlinePaymentAndClickPaymentInfo:EditRequest_SetSumOnlinePaymentAndClickPaymentInfo,
         EditRequest_PayCustomOnlinePayment:EditRequest_PayCustomOnlinePayment,
+        EditRequest_PaymentModalClickCreateInvoice:EditRequest_PaymentModalClickCreateInvoice,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
