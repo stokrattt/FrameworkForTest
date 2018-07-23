@@ -190,7 +190,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
         V.cleanCrewTotal = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.crewTotal, V.cleanCrewTotal, 'Не совпали Crew total price');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//tr[@ng-hide="!travelTimeSetting && !isDoubleDriveTime || laborOnly"]/following-sibling::tr/td[2]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-hide="!travelTimeSetting && !isDoubleDriveTime"]/following-sibling::tr/td[2]')).getText().then(function(text){
         V.totalHW = text;
     }),config.timeout);
     MF.Contract_ClickPay();
