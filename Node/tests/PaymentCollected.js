@@ -120,6 +120,7 @@ condition.nowWeDoing = 'идем в админку проверять разны
             'после выбора фильтров reservation by customer and pending');
     }),config.timeout);
 
+condition.nowWeDoing = 'тут проверяем оплату кастомный онлайн пайментом созданным в конртакт сеттингс';
     MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
     MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
     MF.EditRequest_OpenPaymentModalWindow();
@@ -134,11 +135,85 @@ condition.nowWeDoing = 'идем в админку проверять разны
     MF.PaymentCollected_ChoosePaymentFilter('Custom');
     MF.PaymentCollected_ClickApplyFilters();
     MF.PaymentCollected_SortByDESC();
-    SF.click(By.xpath('//md-option[@value="Custom"]'));
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Сustom receipt', 'не нашло слово Сustom receipt прии оплате кастомным онлайн пайментом');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[4]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'forTestNotDelete', 'не нашло оплату кастомным онлайн пайментом');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 20, 'не нашло 20 dol при оплате кастомным онлайн пайментом');
+    }),config.timeout);
 
-
-
+condition.nowWeDoing = 'тут делаем оплату чеком (онлайн паймент) и прoверяем что он отобразится в паймент колектед';
+    MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
+    MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
+    MF.EditRequest_OpenPaymentModalWindow();
+    MF.EditRequest_ClickAddOnlinePayment();
+    MF.EditRequest_SetSumOnlinePaymentAndClickPaymentInfo(30);
+    MF.EditRequest_PayCheckOnlinePayment();
     MF.EditRequest_ClosePayment();
+    LF.closeEditRequest();
+    MF.PaymentCollected_ChoosePaymentFilter('Check');
+    MF.PaymentCollected_ClickApplyFilters();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[2]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Check', 'не нашло слово Check прии оплате чеком (онлайн паймент)');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 30, 'не нашло 30 dol при оплате чеком (онлайн паймент)');
+    }),config.timeout);
+
+condition.nowWeDoing = 'тут делаем оплату кешем (онлайн паймент) и прoверяем что он отобразится в паймент колектед';
+    MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
+    MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
+    MF.EditRequest_OpenPaymentModalWindow();
+    MF.EditRequest_ClickAddOnlinePayment();
+    MF.EditRequest_SetSumOnlinePaymentAndClickPaymentInfo(25);
+    MF.Contract_PayCash();
+    SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
+    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+    MF.EditRequest_ClosePayment();
+    LF.closeEditRequest();
+    MF.PaymentCollected_ChoosePaymentFilter('Cash');
+    MF.PaymentCollected_ClickApplyFilters();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[2]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Cash', 'не нашло слово Cash прии оплате Cash (онлайн паймент)');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 25, 'не нашло 30 dol при оплате Cash (онлайн паймент)');
+    }),config.timeout);
+
+condition.nowWeDoing = 'тут открываем реквест и делаем платеж онлайн пайментом - пендином и проверим что он отобразится в пендинге в паймент колектед';
+    MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
+    MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
+    MF.EditRequest_OpenPaymentModalWindow();
+    SF.click(By.xpath('//span[contains(text(), "#forTestNotDelete")]/../following-sibling::td[4]/input[@ng-click="changePending(receipt)"]'));
+    MF.EditRequest_ClosePayment();
+    LF.closeEditRequest();
+    MF.PaymentCollected_ChoosePaymentFilter('Custom');
+    MF.PaymentCollected_ChoosePaymentFlag('Pending');
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Сustom receipt, Pending', 'не нашло слово Сustom receipt, Pending после галлочки пендинг на кастомный онлайн паймент forTestNoDelete и ' +
+            'после выбора фильтров Сustom and pending');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 20, 'не нашло 20 dol в  пендинге после галлочки пендинг на кастомный онлайн паймент forTestNoDelete и '  +
+            ' после выбора фильтров Сustom and pending');
+    }),config.timeout);
+    MF.PaymentCollected_RemoveFilters();
+
+condition.nowWeDoing = 'открываем реквест и делаем кастомный платеж кешем и проверим что он отобразится в пендинге в паймент колектед';
+    MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
+    MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
+    MF.EditRequest_OpenPaymentModalWindow();
+    MF.EditRequest_ClickAddCustomPayment();
+    MF.EditRequest_CustomPayCash(33);
+    LF.closeEditRequest();
+
+
+
+
+
 
 
     //=========================закончили писать тест=============================

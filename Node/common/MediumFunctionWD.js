@@ -1991,6 +1991,16 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
         SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     }
+    function EditRequest_PayCheckOnlinePayment() {
+        SF.click(By.xpath('//div[@ng-click="choosePayment(\'checkPay\');"]'));
+        SF.sleep(1);
+        SF.send (By.xpath('//input[@ng-model="paymentCheck.check_num"]'), 56556566);
+        SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
+        WaitWhileBusy ();
+        SF.sleep(3);
+        SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
+        SF.click(By.xpath('//button[@ng-click="cancel()"]'));
+    }
     function EditRequest_PaymentModalClickCreateInvoice() {
         SF.click(By.xpath('//span[contains(text(), \"Create  Invoice\")]'));
         SF.sleep(0.5);
@@ -2932,6 +2942,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SetSumOnlinePaymentAndClickPaymentInfo:EditRequest_SetSumOnlinePaymentAndClickPaymentInfo,
         EditRequest_PayCustomOnlinePayment:EditRequest_PayCustomOnlinePayment,
         EditRequest_PaymentModalClickCreateInvoice:EditRequest_PaymentModalClickCreateInvoice,
+        EditRequest_PayCheckOnlinePayment:EditRequest_PayCheckOnlinePayment,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,

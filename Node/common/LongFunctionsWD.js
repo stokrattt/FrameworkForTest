@@ -3287,6 +3287,18 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep(1);
         JS.click('span:contains(\\"Save\\")');
     }
+    function EditRequest_CustomPayCash(sum) {
+        SF.click (By.xpath('//input[@ng-model="receipt.amount"]'));
+        SF.send (By.xpath('//input[@ng-model="receipt.amount"]'),sum);
+        SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
+        SF.sleep (1);
+        SF.click(By.xpath('//button[@ng-click="Save()"]'));
+        SF.sleep (1);
+        MF.WaitWhileToaster();
+        JS.click('button[ng-click=\\"save()\\"]:visible');
+        SF.sleep (1);
+        MF.WaitWhileBusy ();
+    }
 
     return {
 		FullSmallCalcAsLocal: FullSmallCalcAsLocal,
@@ -3484,5 +3496,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         EditRequest_AddAdditionalContact:EditRequest_AddAdditionalContact,
         SIT_SetDateTripForemanHelper:SIT_SetDateTripForemanHelper,
         SIT_CreateStorage:SIT_CreateStorage,
+        EditRequest_CustomPayCash:EditRequest_CustomPayCash,
     };
 };
