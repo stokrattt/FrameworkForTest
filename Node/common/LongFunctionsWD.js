@@ -3287,9 +3287,27 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep(1);
         JS.click('span:contains(\\"Save\\")');
     }
-    function EditRequest_CustomPayCash(sum) {
+    function EditRequest_CustomPay(sum) {
         SF.click (By.xpath('//input[@ng-model="receipt.amount"]'));
         SF.send (By.xpath('//input[@ng-model="receipt.amount"]'),sum);
+        SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
+        SF.sleep (1);
+        SF.click(By.xpath('//button[@ng-click="Save()"]'));
+        SF.sleep (1);
+        MF.WaitWhileToaster();
+        JS.click('button[ng-click=\\"save()\\"]:visible');
+        SF.sleep (1);
+        MF.WaitWhileBusy ();
+    }
+    function EditRequest_CustomPayCreditCard(sum, nameCard) {
+        SF.click (By.xpath('//input[@ng-model="receipt.amount"]'));
+        SF.send (By.xpath('//input[@ng-model="receipt.amount"]'),sum);
+		SF.select(By.xpath('//select[@ng-model="receipt.cctype"]'), nameCard);
+        SF.send (By.xpath('//input[@ng-model="receipt.ccardN"]'), 4111111111111111);
+        SF.send (By.xpath('//input[@ng-model="receipt.cvv"]'), 123);
+        SF.select(By.xpath('//select[@ng-model="receipt.expmonth"]'), 5);
+        SF.select(By.xpath('//select[@ng-model="receipt.expyear"]'), 2019);
+        SF.send (By.xpath('//input[@ng-model="receipt.auth_code"]'), 5555);
         SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
         SF.sleep (1);
         SF.click(By.xpath('//button[@ng-click="Save()"]'));
@@ -3496,6 +3514,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         EditRequest_AddAdditionalContact:EditRequest_AddAdditionalContact,
         SIT_SetDateTripForemanHelper:SIT_SetDateTripForemanHelper,
         SIT_CreateStorage:SIT_CreateStorage,
-        EditRequest_CustomPayCash:EditRequest_CustomPayCash,
+        EditRequest_CustomPay:EditRequest_CustomPay,
+        EditRequest_CustomPayCreditCard:EditRequest_CustomPayCreditCard,
     };
 };

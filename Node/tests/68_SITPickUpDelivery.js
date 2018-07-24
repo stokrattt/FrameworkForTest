@@ -41,19 +41,12 @@ condition.nowWeDoing = 'Проверяем пэймент в пэндинге. �
     MF.EditRequest_OpenPaymentModalWindow();
     MF.EditRequest_ClickAddCustomPayment();
     V.cashPayment = 100;
-    SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));
-    SF.send(By.xpath('//input[@ng-model="receipt.amount"]'), V.cashPayment);
-    SF.click(By.xpath('//button[@ng-click="Save()"]'));
-    SF.waitForLocated (By.xpath('//input[@ng-model="receipt.account_number"]'));
-    MF.WaitWhileBusy();
-    JS.click('button[ng-click=\\"save()\\"]:visible');
-    MF.WaitWhileBusy();
+    LF.EditRequest_CustomPay(V.cashPayment);
     driver.wait(driver.findElement(By.xpath('//label[@ng-click="OpenPaymentModal();"]/following-sibling::div')).getText().then(function(text){
         V.cleanPayment = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanPayment, V.cashPayment, 'не совпали Payment в модалке реквеста до включения галочки pending');
     }),config.timeout);
     MF.EditRequest_OpenPaymentModalWindow();
-    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total")]')).getText().then(function(text){
         V.cleanTotal = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTotal, V.cashPayment, 'не совпали Payment и тотал в модалке реквеста до включения галочки pending');

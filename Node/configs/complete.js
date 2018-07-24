@@ -7,6 +7,7 @@ module.exports = function(config,V) {
         './tests/91_Overbooking.js',
         './tests/4_CheckFuelCFitInventOffCalc.js',
         './tests/19_SignForemanJobAndUnssignetJob.js',
+        './tests/3_PaymentCollected.js',
         './tests/7_DepartmenTest.js',
         './tests/DefaultSettings.js',
         './tests/47_SendMessage.js',

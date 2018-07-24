@@ -2005,6 +2005,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//span[contains(text(), \"Create  Invoice\")]'));
         SF.sleep(0.5);
     }
+    function EditRequest_SelectCustomTypePayment(typePayment) {
+        SF.select(By.xpath('//select[@ng-model="receipt.type"]'), typePayment);
+    }
 
     //=================================LOCAL DISPATCH============================
 
@@ -2521,7 +2524,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//md-select[@ng-model="$ctrl.pickUpPaymentFilters"]'));
         SF.sleep(0.5);
         SF.click(By.xpath('//md-option[@value="'+nameFilter+'"]'));
-        // SF.click(By.xpath('//div[@class="md-text" and contains(text(), "'+nameFilter+'")]'));
     }
     function PaymentCollected_RefreshTable() {
         SF.click(By.xpath('//i[@ng-click="$ctrl.getData()"]'));
@@ -2536,6 +2538,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function PaymentCollected_RemoveFilters() {
         SF.click(By.xpath('//button[@ng-click="$ctrl.removeFilters()"]'));
         WaitWhileBusy();
+    }
+    function PaymentCollected_ChooseCardTypes(nameFilter) {
+        SF.click(By.xpath('//md-select[@ng-model="$ctrl.pickUpCreditCards"]'));
+        SF.sleep(0.5);
+        SF.click(By.xpath('//md-option[@value="'+nameFilter+'"]'));
     }
 
     //==================================TRIPS============================================
@@ -2943,6 +2950,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_PayCustomOnlinePayment:EditRequest_PayCustomOnlinePayment,
         EditRequest_PaymentModalClickCreateInvoice:EditRequest_PaymentModalClickCreateInvoice,
         EditRequest_PayCheckOnlinePayment:EditRequest_PayCheckOnlinePayment,
+        EditRequest_SelectCustomTypePayment:EditRequest_SelectCustomTypePayment,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
@@ -3053,5 +3061,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         PaymentCollected_RefreshTable:PaymentCollected_RefreshTable,
         PaymentCollected_ChoosePaymentFlag:PaymentCollected_ChoosePaymentFlag,
         PaymentCollected_RemoveFilters:PaymentCollected_RemoveFilters,
+        PaymentCollected_ChooseCardTypes:PaymentCollected_ChooseCardTypes,
     };
 };

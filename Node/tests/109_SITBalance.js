@@ -59,12 +59,7 @@ condition.nowWeDoing = 'идем заново в реквест сверяем �
     MF.EditRequest_OpenPayment();
     MF.EditRequest_ClickAddCustomPayment();
     V.cashPayment = 100;
-    SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));
-    SF.send(By.xpath('//input[@ng-model="receipt.amount"]'), V.cashPayment);
-    SF.click(By.xpath('//button[@ng-click="Save()"]'));
-    SF.waitForLocated (By.xpath('//input[@ng-model="receipt.account_number"]'));
-    MF.WaitWhileBusy();
-    JS.click('button[ng-click=\\"save()\\"]:visible');
+    LF.EditRequest_CustomPay(V.cashPayment);
     V.boardNumbersClosingAfterPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterPaymentInRequest);
     SF.sleep(1);
@@ -116,13 +111,7 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     SF.sleep(1);
     MF.EditRequest_ClickAddCustomPayment();
     V.cashPayment2 = 200;
-    SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));
-    SF.send(By.xpath('//input[@ng-model="receipt.amount"]'), V.cashPayment2);
-    SF.click(By.xpath('//button[@ng-click="Save()"]'));
-    SF.waitForLocated (By.xpath('//input[@ng-model="receipt.account_number"]'));
-    MF.WaitWhileBusy();
-    JS.click('button[ng-click=\\"save()\\"]:visible');
-    SF.sleep(2);
+    LF.EditRequest_CustomPay(V.cashPayment2);
     V.boardNumbersClosingAfterDiscountAndPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterDiscountAndPaymentInRequest);
     LF.closeEditRequest();

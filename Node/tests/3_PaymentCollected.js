@@ -113,14 +113,14 @@ condition.nowWeDoing = 'идем в админку проверять разны
         VD.IWant(VD.ToEqual, text, 'Pending, Reservation by customer', 'не нашло слово Pending, Reservation by customer после галлочки пендинг на резеервацю - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     MF.PaymentCollected_ChoosePaymentFlag('Pending');
-    // SF.click(By.xpath('//md-backdrop[@class="md-select-backdrop md-click-catcher"]'));
+    // SF.click(By.xpath('//div[@ng-if="paymentsData.meta.totalCount"]'));
     MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Pending, Reservation by customer', 'не нашло слово Pending, Reservation by customer после галлочки пендинг на резеервацю и ' +
             'после выбора фильтров reservation by customer and pending - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
 
-condition.nowWeDoing = 'тут проверяем оплату кастомный онлайн пайментом созданным в конртакт сеттингс';
+condition.nowWeDoing = 'создаем и проверяем оплату кастомный онлайн пайментом созданным в конртакт сеттингс';
     MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
     MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
     MF.EditRequest_OpenPaymentModalWindow();
@@ -203,15 +203,91 @@ condition.nowWeDoing = 'тут открываем реквест и делаем
     }),config.timeout);
     MF.PaymentCollected_RemoveFilters();
 
-condition.nowWeDoing = 'открываем реквест и делаем кастомный платеж кешем и проверим что он отобразится в пендинге в паймент колектед';
+condition.nowWeDoing = 'открываем реквест и делаем кастомный платеж кешем и проверим что он отобразится в паймент колектед';
     MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
     MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
     MF.EditRequest_OpenPaymentModalWindow();
     MF.EditRequest_ClickAddCustomPayment();
-    MF.EditRequest_CustomPayCash(33);
+    LF.EditRequest_CustomPay(33);
     LF.closeEditRequest();
+    LF.PaymentCollected_ChooseCurrentDateStartEnd();
+    MF.PaymentCollected_ChoosePaymentFilter('Cash');
+    MF.PaymentCollected_ClickApplyFilters();
+    MF.PaymentCollected_SortByDESC();
+    driver.wait(driver.findElement(By.xpath('//tr[2]/td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 33, 'не нашло 33 dol при оплате кастомным кешем и'  +
+            ' после выбора фильтров Cash - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
+    }),config.timeout);
 
+condition.nowWeDoing = 'открываем реквест и делаем кастомный платеж check и проверим что он отобразится в паймент колектед';
+    MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
+    MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
+    MF.EditRequest_OpenPaymentModalWindow();
+    MF.EditRequest_ClickAddCustomPayment();
+    MF.EditRequest_SelectCustomTypePayment('check');
+    LF.EditRequest_CustomPay(12);
+    LF.closeEditRequest();
+    MF.PaymentCollected_ChoosePaymentFilter('Check');
+    MF.PaymentCollected_ClickApplyFilters();
+    driver.wait(driver.findElement(By.xpath('//tr[2]/td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 12, 'не нашло 12 dol при оплате кастомным чеком  и'  +
+            ' после выбора фильтров Check - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
+    }),config.timeout);
 
+condition.nowWeDoing = 'открываем реквест и делаем кастомный платеж карточкой и проверим что он отобразится в паймент колектед';
+    MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
+    MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
+    MF.EditRequest_OpenPaymentModalWindow();
+    MF.EditRequest_ClickAddCustomPayment();
+    MF.EditRequest_SelectCustomTypePayment('creditcard');
+    LF.EditRequest_CustomPayCreditCard(19, 'master');
+    LF.closeEditRequest();
+    MF.PaymentCollected_ChoosePaymentFilter('Credit card');
+    MF.PaymentCollected_ChooseCardTypes('MASTERCARD');
+    MF.PaymentCollected_ClickApplyFilters();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 19, 'не нашло 19 dol при оплате кастомной кредитной картой mastercard и'  +
+            ' после выбора фильтров Credit card and mastercard - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
+    }),config.timeout);
+
+condition.nowWeDoing = 'открываем реквест и делаем кастомный платеж credit card с меткой резервация и проверим что он отобразится в паймент колектед';
+    MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
+    MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
+    MF.EditRequest_OpenPaymentModalWindow();
+    MF.EditRequest_ClickAddCustomPayment();
+    MF.EditRequest_SelectCustomTypePayment('Reservation');
+    LF.EditRequest_CustomPayCreditCard(17, 'americanexpress');
+    LF.closeEditRequest();
+    MF.PaymentCollected_ChooseCardTypes('AMEX');
+    MF.PaymentCollected_ChooseAdvancedFilter('Reservation by company');
+    MF.PaymentCollected_ClickApplyFilters();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 19, 'не нашло 17 dol при оплате кастомной кредитной картой american express и'  +
+            ' после выбора фильтров Credit card and mastercard and AMEX and Reservation by company - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Reservation by company', 'не нашло метку Reservation by company при оплате кастомной кредитной картой american express за резервацию и'  +
+            ' после выбора фильтров Credit card and mastercard and AMEX and Reservation by company - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
+    }),config.timeout);
+
+condition.nowWeDoing = 'открываем реквест и делаем кастомный платеж custom refund и проверим что он отобразится в паймент колектед';
+    MF.Board_SearchRequest(V.boardNumbersAfterAddMinusExtraServ.Id);
+    MF.Board_SearchOpenRequest(V.boardNumbersAfterAddMinusExtraServ);
+    MF.EditRequest_OpenPaymentModalWindow();
+    MF.EditRequest_ClickAddCustomPayment();
+    MF.EditRequest_SelectCustomTypePayment('customrefund');
+    LF.EditRequest_CustomPay(99);
+    LF.closeEditRequest();
+    MF.PaymentCollected_RemoveFilters();
+    LF.PaymentCollected_ChooseCurrentDateStartEnd();
+    MF.PaymentCollected_ChoosePaymentFlag('Refund');
+    MF.PaymentCollected_ClickApplyFilters();
+    MF.PaymentCollected_SortByDESC();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 99, 'не нашло 99 dol при оплате кастомным рефандом и'  +
+            ' после выбора фильтров Refund - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
+    }),config.timeout);
+    SF.sleep(1);
 
 
 
