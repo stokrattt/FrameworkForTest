@@ -87,10 +87,10 @@ condition.nowWeDoing = 'идем в админку проверять разны
     MF.PaymentCollected_ClickApplyFilters();
     MF.PaymentCollected_SortByDESC();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'Reservation by customer', 'не нашло слово Reservation by customer после оплаты резеервации на аккаунте клиентом');
+        VD.IWant(VD.ToEqual, text, 'Reservation by customer', 'не нашло слово Reservation by customer после оплаты резеервации на аккаунте клиентом - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 150, 'не нашло сумму в 150 дол Reservation by customer после оплаты резеервации на аккаунте клиентом');
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 150, 'не нашло сумму в 150 дол Reservation by customer после оплаты резеервации на аккаунте клиентом - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Total")]/following-sibling::h2')).getText().then(function (text) {
         V.TotalReceiptInTop = SF.cleanPrice(text);
@@ -107,17 +107,17 @@ condition.nowWeDoing = 'идем в админку проверять разны
     MF.PaymentCollected_RefreshTable();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(), "Total")]/following-sibling::h2')).getText().then(function (text) {
         V.TotalReceiptInTopAfterPendingReceipt = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.TotalReceiptInTopAfterPendingReceipt, (V.TotalReceiptInTop - 150), 'не сработала галочка пендинг в паймент колектед');
+        VD.IWant(VD.ToEqual, V.TotalReceiptInTopAfterPendingReceipt, (V.TotalReceiptInTop - 150), 'не сработала галочка пендинг в паймент колектед  - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'Pending, Reservation by customer', 'не нашло слово Pending, Reservation by customer после галлочки пендинг на резеервацю');
+        VD.IWant(VD.ToEqual, text, 'Pending, Reservation by customer', 'не нашло слово Pending, Reservation by customer после галлочки пендинг на резеервацю - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     MF.PaymentCollected_ChoosePaymentFlag('Pending');
     // SF.click(By.xpath('//md-backdrop[@class="md-select-backdrop md-click-catcher"]'));
     MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Pending, Reservation by customer', 'не нашло слово Pending, Reservation by customer после галлочки пендинг на резеервацю и ' +
-            'после выбора фильтров reservation by customer and pending');
+            'после выбора фильтров reservation by customer and pending - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
 
 condition.nowWeDoing = 'тут проверяем оплату кастомный онлайн пайментом созданным в конртакт сеттингс';
@@ -136,13 +136,13 @@ condition.nowWeDoing = 'тут проверяем оплату кастомны�
     MF.PaymentCollected_ClickApplyFilters();
     MF.PaymentCollected_SortByDESC();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'Сustom receipt', 'не нашло слово Сustom receipt прии оплате кастомным онлайн пайментом');
+        VD.IWant(VD.ToEqual, text, 'Сustom receipt', 'не нашло слово Сustom receipt прии оплате кастомным онлайн пайментом - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[4]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'forTestNotDelete', 'не нашло оплату кастомным онлайн пайментом');
+        VD.IWant(VD.ToEqual, text, 'forTestNotDelete', 'не нашло оплату кастомным онлайн пайментом  - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 20, 'не нашло 20 dol при оплате кастомным онлайн пайментом');
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 20, 'не нашло 20 dol при оплате кастомным онлайн пайментом - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
 
 condition.nowWeDoing = 'тут делаем оплату чеком (онлайн паймент) и прoверяем что он отобразится в паймент колектед';
@@ -157,10 +157,10 @@ condition.nowWeDoing = 'тут делаем оплату чеком (онлай�
     MF.PaymentCollected_ChoosePaymentFilter('Check');
     MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[2]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'Check', 'не нашло слово Check прии оплате чеком (онлайн паймент)');
+        VD.IWant(VD.ToEqual, text, 'Check', 'не нашло слово Check прии оплате чеком (онлайн паймент) - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 30, 'не нашло 30 dol при оплате чеком (онлайн паймент)');
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 30, 'не нашло 30 dol при оплате чеком (онлайн паймент) - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
 
 condition.nowWeDoing = 'тут делаем оплату кешем (онлайн паймент) и прoверяем что он отобразится в паймент колектед';
@@ -177,10 +177,10 @@ condition.nowWeDoing = 'тут делаем оплату кешем (онлай�
     MF.PaymentCollected_ChoosePaymentFilter('Cash');
     MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[2]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, text, 'Cash', 'не нашло слово Cash прии оплате Cash (онлайн паймент)');
+        VD.IWant(VD.ToEqual, text, 'Cash', 'не нашло слово Cash прии оплате Cash (онлайн паймент)  - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 25, 'не нашло 30 dol при оплате Cash (онлайн паймент)');
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 25, 'не нашло 30 dol при оплате Cash (онлайн паймент)  - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
 
 condition.nowWeDoing = 'тут открываем реквест и делаем платеж онлайн пайментом - пендином и проверим что он отобразится в пендинге в паймент колектед';
@@ -192,13 +192,14 @@ condition.nowWeDoing = 'тут открываем реквест и делаем
     LF.closeEditRequest();
     MF.PaymentCollected_ChoosePaymentFilter('Custom');
     MF.PaymentCollected_ChoosePaymentFlag('Pending');
+    MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, text, 'Сustom receipt, Pending', 'не нашло слово Сustom receipt, Pending после галлочки пендинг на кастомный онлайн паймент forTestNoDelete и ' +
-            'после выбора фильтров Сustom and pending');
+            'после выбора фильтров Сustom and pending - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), 20, 'не нашло 20 dol в  пендинге после галлочки пендинг на кастомный онлайн паймент forTestNoDelete и '  +
-            ' после выбора фильтров Сustom and pending');
+            ' после выбора фильтров Сustom and pending - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     MF.PaymentCollected_RemoveFilters();
 
