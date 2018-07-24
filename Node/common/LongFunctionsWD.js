@@ -111,7 +111,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			V.frontNumbers.moveDate = D;
 			console.log(V.frontNumbers.moveDate);
 		}), config.timeout);
-		SF.sleep(2);
+		SF.sleep(1.5);
 		driver.wait(driver.executeScript("$('ultrasmall-form input[ng-model=\"request.deliveryDate\"]').focus();"), config.timeout);
 		JS.waitForExist('div.er-picker__box:visible');
 		SF.sleep(2);
@@ -164,7 +164,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.Account_OpenAdressModal();
 		SF.click(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'));
 		SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'Otkuda edem');
-		SF.sleep(2);
+		SF.sleep(1);
         MF.Account_ClickUpdateClientInModalWindow();
         SF.sleep(2);
 		MF.Account_SweetUpdateConfirm();
@@ -177,7 +177,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.Account_OpenAdressModal();
 		SF.click(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'));
 		SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Kuda edem');
-		SF.sleep(2);
+		SF.sleep(1);
         MF.Account_ClickUpdateClientInModalWindow();
 		MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
@@ -185,7 +185,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function AccountFlatRateAddInventory() {
-		SF.sleep(2);
+		SF.sleep(1);
 		JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
 		SF.sleep(2);
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(1)"]'));
@@ -201,7 +201,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[4]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-		SF.sleep(5);
+		MF.WaitWhileBusy();
 	}
 
 	function AccountLocalAddInventory(accountNumbers) {
@@ -246,7 +246,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('(//div[@class="new-inventory-item"])[5]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(3);
         MF.WaitWhileBusy();
         // MF.Account_ClickSaveInventory();
         // if (accountNumbers != undefined) {
@@ -274,14 +273,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('//button[@class="inventory__save-button md-button md-ink-ripple"]'));
 		MF.WaitWhileBusy();
-		SF.sleep(1);
 	}
 
 	function ContractAdditionalInventoryAdd() {
 		SF.sleep(1);
 		SF.click(By.xpath('//button[@ng-click="openAdditionalInventory()"]'));
 		JS.waitForExist('a[ng-repeat="filter in room.filters track by $id(filter)"]');
-		SF.sleep(3);
+		SF.sleep(1.5);
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(1)"]'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(1)"]'));
@@ -307,7 +305,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	function AccountLocalAddAdditionalInventory() {
 		MF.WaitWhileBusy();
 		JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
-		SF.sleep(3);
+		SF.sleep(1);
 		MF.WaitWhileBusy();
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
 		SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
@@ -325,7 +323,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
     function AccountLocalAddAdditionalInventoryWhenCalcOff() {
         MF.WaitWhileBusy();
         JS.click('a[ng-click=\\"vm.select(tab)\\"]:contains(\\"Inventory\\")');
-        SF.sleep(3);
+        SF.sleep(1);
         SF.click(By.xpath('(//div[@class="new-inventory-item"])[1]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click(By.xpath('(//div[@class="new-inventory-item"])[2]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
@@ -339,7 +337,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('(//div[@class="new-inventory-item"])[3]//button[@ng-click="onClickCounter(-1)"]/following-sibling::button'));
         SF.sleep(1);
         SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-        SF.sleep(2);
+        MF.WaitWhileBusy();
     }
 	function Account_DeleteInventory() {
         SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
@@ -352,7 +350,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
         SF.click (By.xpath('//div[@class="new-inventory-item__col"]//button[@ng-click="onClickCounter(-1)"]'));
         MF.Account_ClickSaveInventory();
-        SF.sleep(5);
+        MF.WaitWhileBusy();
     }
 
 	function HomeEstimate_CheckStatusinMoveboard() {
@@ -528,7 +526,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.sleep(1);
 		SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
 		SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
-		SF.sleep(2);
+		SF.sleep(1);
 	}
 
 	function LogoutFromBoardForeman() {
@@ -538,7 +536,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.sleep(1);
 		SF.click(By.xpath('//a[@ng-click="vm.Logout()"]'));
 		SF.waitForVisible(By.xpath('//form[@ng-submit="login()"]'));
-		SF.sleep(2);
+		SF.sleep(1);
 	}
 
 	function LoginToBoardAsAdmin() {
@@ -621,7 +619,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
     function CreateOvernightFromBoard(client) {
-        JS.waitForNotExist('div.toast-success');
         MF.WaitWhileBusy();
         MF.Board_ClickCreate();
         MF.CreateRequest_SelectServiceType(6);
@@ -644,11 +641,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         MF.CreateRequest_ClickContinue();
         MF.CreateRequest_SendClientInfo(client);
         MF.CreateRequest_ClickCreate();
-        console.log('создали реквест');
     }
 
 	function CreateLocalMovingFromBoard(client) {
-		JS.waitForNotExist('div.toast-success');
 		MF.WaitWhileBusy();
 		MF.Board_ClickCreate();
 		MF.CreateRequest_SelectServiceType(1);
@@ -671,11 +666,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.CreateRequest_ClickContinue();
 		MF.CreateRequest_SendClientInfo(client);
 		MF.CreateRequest_ClickCreate();
-		console.log('создали реквест');
 	}
 
 	function CreateFlatRateFromBoard(client) {
-		JS.waitForNotExist('div.toast-success');
 		MF.WaitWhileBusy();
 		MF.Board_ClickCreate();
 		MF.CreateRequest_SelectServiceType(5);
@@ -696,7 +689,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.CreateRequest_ClickContinue();
 		MF.CreateRequest_SendClientInfo(client);
 		MF.CreateRequest_ClickCreate();
-		console.log('создали реквест');
 	}
 
 	function CreateMovAndStorFromBoard(client, period) {
@@ -729,7 +721,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.CreateRequest_ClickContinue();
 		MF.CreateRequest_SendClientInfo(client);
 		MF.CreateRequest_ClickCreate();
-		console.log('создали реквест');
 	}
 
 	function CreateLongDistanceFromBoard(client) {
@@ -751,12 +742,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.CreateRequest_SelectExtraRooms(1);
 		SF.send(By.id("edit-zip-code-from"), client.zipFrom);
 		SF.send(By.id("edit-zip-code-to"), client.zipTo);
-		SF.sleep(4);
+		SF.sleep(3);
 		MF.CreateRequest_ClickCalculate();
 		MF.CreateRequest_ClickContinue();
 		MF.CreateRequest_SendClientInfo(client);
 		MF.CreateRequest_ClickCreate();
-		console.log('создали реквест');
 	}
 	function CreateLongDistanceFromBoardWithCommercialMoveSizeAndStairs() {
         MF.Board_ClickCreate();
@@ -788,12 +778,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.sleep(0.5);
 		MF.CreateRequest_SelectExtraRooms(1);
 		MF.FrontSiteDown_SendZipCodeFrom('02032');
-		SF.sleep(4);
+		SF.sleep(3);
 		MF.CreateRequest_ClickCalculate();
 		MF.CreateRequest_ClickContinue();
 		MF.CreateRequest_SendClientInfo(client);
 		MF.CreateRequest_ClickCreate();
-		console.log('создали реквест');
 	}
 
 	function CreatePackingDayFromBoard(client) {
@@ -808,12 +797,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.sleep(0.5);
 		MF.CreateRequest_SelectExtraRooms(1);
 		MF.FrontSiteDown_SendZipCodeFrom('02136');
-		SF.sleep(4);
+		SF.sleep(3);
 		MF.CreateRequest_ClickCalculate();
 		MF.CreateRequest_ClickContinue();
 		MF.CreateRequest_SendClientInfo(client);
 		MF.CreateRequest_ClickCreate();
-		console.log('создали реквест');
 	}
 
 	function RememberDigitsRequestBoard_Up(boardNumbers) {
@@ -1097,7 +1085,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function SetClientPasswd(passwd) {
-		SF.sleep(2);
+		SF.sleep(1);
 		SF.send(By.xpath('//input[@ng-model="client.password"]'), passwd);
 		MF.Account_ClickUpdateClientInModalWindow();
         SF.sleep(1);
@@ -1181,7 +1169,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('//input[@ng-value="request.apt_to.value"]'));
 		SF.send(By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
 		MF.Account_ClickUpdateClientInModalWindow();
-		SF.sleep(3);
+		SF.sleep(2);
 		MF.SweetConfirm();
 		SF.sleep(2);
 		MF.SweetConfirm();
@@ -1306,8 +1294,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 
 //Permissions for Sales --- end
 	function closeEditRequest() {
-		JS.waitForNotExist('div.toast-message:visible');
-		JS.waitForNotExist('div.visible-overflow');
+		// JS.waitForNotExist('div.toast-message:visible');
+		// JS.waitForNotExist('div.visible-overflow');
 		JS.waitForNotExist('div.toast-message:visible');
 		JS.waitForNotExist('div.toast-success:visible');
         JS.waitForNotExist('.busyoverlay:visible, inhome-estimate-request-loading:visible');
@@ -2004,7 +1992,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		    frontNumbersDown.MonthlyStorageMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));
 		}), config.timeout);
 		SF.sleep(1);
-
 		console.log(frontNumbersDown);
 	}
 
@@ -2065,7 +2052,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.waitForVisible(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
 		SF.click(By.xpath('//a[@ui-sref="settings.longdistance"]'));
 		SF.waitForVisible(By.xpath('//a[@ui-sref="settings.longdistance"]'));
-		SF.sleep(4);
+		SF.sleep(2);
 	}
 
 	function deletePendingRequest() {
@@ -2073,7 +2060,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.EditRequest_SaveChanges();
 		MF.WaitWhileBusy();
 		closeEditRequest();
-		SF.sleep(2);
 	}
 
 	function addInventoryBoard(boardNumbers) {
@@ -2096,7 +2082,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			}), config.timeout);
 		}
 		SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-		SF.sleep(4);
+		SF.sleep(2.5);
 		MF.WaitWhileBusy();
 	}
 
@@ -2120,7 +2106,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 			}), config.timeout);
 		}
 		SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-		SF.sleep(5);
+		SF.sleep(3);
 		MF.WaitWhileBusy();
 	}
 
@@ -2318,7 +2304,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
 
 	function CreateFlatRateDownForm(client) {
-		SF.sleep(4);
+		SF.sleep(3);
 		JS.scroll('move-calculator');
 		MF.FrontSite_ClickQuoteCalculator();
 		MF.FrontSite_ClickDesireMoveDate();
@@ -2453,11 +2439,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		driver.wait(driver.executeScript("return $('div.total-payroll-panel div.total-title:contains(\"Paid\")').next().text()").then(function (paid) {
 			payrollNumbersInside.paid = SF.cleanPrice(paid);
 		}), config.timeout);
-		SF.sleep(1);
 		driver.wait(driver.executeScript("return $('div.total-payroll-panel div.total-title:contains(\"Balance\")').next().text()").then(function (balanceTop) {
 			payrollNumbersInside.balanceTop = SF.cleanPrice(balanceTop);
 		}), config.timeout);
-		SF.sleep(1);
 		driver.wait(driver.executeScript("return $('.mdDataTable-header-alternate td:last-child').text()").then(function (balanceDown) {
 			payrollNumbersInside.balanceDown = SF.cleanPrice(balanceDown);
 		}), config.timeout);
@@ -2468,7 +2452,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		driver.wait(driver.findElement(By.xpath('//td[contains(text(), "' + workerName + '")]/following-sibling::td[@ng-show="columns.fields[\'total\'].selected"][last()]')).getText().then(function (total) {
 			payrollNumbersOutside.total = SF.cleanPrice(total);
 		}), config.timeout);
-		SF.sleep(0, 5);
 		driver.wait(driver.findElement(By.xpath('//td[contains(text(), "' + workerName + '")]/following-sibling::td[@ng-show="columns.fields[\'paid\'].selected"][last()]')).getText().then(function (paid) {
 			payrollNumbersOutside.paid = SF.cleanPrice(paid);
 		}), config.timeout);
@@ -2569,7 +2552,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.send(By.xpath('//input[@ng-model="option.rate"]'), 5000);
         SF.sleep (0.5);
         SF.click (By.xpath('//a[@ng-click="addOption()"]'));
-        SF.sleep (4);
+        SF.sleep (2.5);
 
         condition.nowWeDoing = 'заполняем опции 2';
         SF.clear (By.xpath('//input[@ng-model="option.pickup"]'));
@@ -2597,7 +2580,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click (By.xpath('//a[@ng-click="addOption()"]'));
         SF.sleep (2);
         SF.click(By.xpath('//a[@ng-click="saveOptions()"]'));
-        SF.sleep (3);
+        SF.sleep (1.5);
         MF.WaitWhileToaster();
         MF.SweetConfirm ();
 	}
@@ -2646,7 +2629,6 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		 	VD.IWant(VD.ToEqual, Status, 'In-home Estimate');
 		 }), config.timeout);
 		MF.Board_LogoutAdmin();
-		SF.sleep(1);
 	}
 
 	function HomeEstimate_SalesGoInPortalandOpenRequest(salesLogin, salesPassword, boardNumbers) {
@@ -2731,7 +2713,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.send(By.xpath('//input[@ng-model="newFlag.color"]'), '#4f2e2e');
         SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="saveNewFlag(); "]'));
-        SF.sleep(3);
+        SF.sleep(2);
     }
 	function PayCheck() {
         JS.waitForExist('input[ng-model="payment.card_num"]');
@@ -2801,7 +2783,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         JS.click('button[ng-click=\\"saveDetails()\\"]:visible');
         SF.sleep(1);
         MF.WaitWhileBusy ();
-        SF.sleep (2);
+        SF.sleep (1);
     }
     function EditRequest_AddPacking() {
         MF.WaitWhileBusy ();
@@ -2815,7 +2797,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep (0.5);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         MF.WaitWhileBusy ();
-        SF.sleep (3);
+        SF.sleep (2);
     }
     function EditRequest_AddPackingAndFullPAcking() {
         SF.click(By.xpath('//label[@ng-click="openAddPackingModal();"]'));
@@ -2830,7 +2812,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         JS.click('label[ng-model="packing_service"]:contains("Full Packing"):visible');
         SF.sleep(0.5);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
-        SF.sleep (3);
+        SF.sleep (2);
         MF.WaitWhileBusy ();
     }
     function EditRequest_AddPartialPacking() {
@@ -2840,7 +2822,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         JS.click('label[ng-model="packing_service"]:contains("Partial Packing"):visible');
         SF.sleep(0.5);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
-        SF.sleep (3);
+        SF.sleep (2);
         MF.WaitWhileBusy ();
     }
     function EditRequest_AddFullPacking() {
@@ -2850,7 +2832,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         JS.click('label[ng-model="packing_service"]:contains("Full Packing"):visible');
         SF.sleep(0.5);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
-        SF.sleep (3);
+        SF.sleep (2);
         MF.WaitWhileBusy ();
     }
     function EditRequest_AddAdditionalServicesFullPack() {
@@ -2895,13 +2877,13 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.sleep (0.5);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         MF.WaitWhileBusy ();
-        SF.sleep (3);
+        SF.sleep (2);
     }
 
     function EditRequest_AddAdditionalServClosingTab() {
         SF.click(By.xpath('//label[@ng-click="openAddServicesInvoiceModal();"]'));
         SF.waitForVisible (By.id('extra-service-modal'));
-        SF.sleep(3);
+        SF.sleep(2);
         SF.click(By.xpath('//div[@class="charge_list"]/li[1]'));
         SF.click(By.xpath('//div[@class="charge_list"]/li[3]'));
         SF.click(By.xpath('//div[@class="charge_list"]/li[4]'));
@@ -2909,7 +2891,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//div[@class="charge_list"]/li[7]'));
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         MF.WaitWhileBusy ();
-        SF.sleep (3);
+        SF.sleep (2);
     }
     function EditRequest_AddAdditionalServSalesTab() {
         MF.EditRequest_OpenAddServices();
@@ -3124,7 +3106,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         MF.Account_PreferredDeliveryDate(V.firstDate, V.secondDate);
     }
     function AccountFlatRate_AddExtraPickupAndDropOff() {
-        SF.sleep(3);
+        SF.sleep(2);
         SF.click(By.xpath('//i[@ng-click="extraPickup=true"]'));
         SF.sleep(1);
         SF.send(By.xpath('//input[@ng-value="request.field_extra_pickup.postal_code"]'),'02461');
@@ -3145,7 +3127,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.send(By.xpath('//input[@ng-model="add_extra_charge.rate"][1]'), rate);
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         MF.WaitWhileBusy ();
-        SF.sleep (5);
+        SF.sleep (2);
     }
     function EditRequest_ChangeMoveDate(dateInFuture) {
         SF.click (By.xpath('//input[@ng-click="openCalendar()"]'));
@@ -3163,7 +3145,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
     }
     function EditRequest_SetFirstDeliveryDay(dateInFuture) {
         MF.EditRequest_OpenDetails();
-        SF.sleep(3);
+        SF.sleep(2);
         SF.click(By.xpath('//input[@ng-model="disableDeliveryDatesCheckbox.checkboxValue"]'));
         SF.sleep(2);
         SF.click(By.xpath('//input[@ng-model="details.delivery"]'));
@@ -3188,9 +3170,9 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         V.scheduleDate.Month = (future.toLocaleDateString('en-US', month));
         V.scheduleDate.Day = (future.toLocaleDateString('en-US', day));
         SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.scheduleDate.Month + '-' + V.scheduleDate.Day +'"]'));
-        SF.sleep(4);
-        SF.click(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
         SF.sleep(3);
+        SF.click(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
+        SF.sleep(2);
     }
     function EditRequest_SetInHomeEstimateDate(dateInFuture) {
         let now = new Date();
@@ -3244,7 +3226,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//button[@ng-click="save()"]'));
         SF.waitForVisible(By.xpath('//div[@class="jobs-trip-list__body__item"][contains(text(),"test")]'));
         SF.click(By.xpath('//button[@ng-click="back()"]'));
-        SF.sleep(6);
+        SF.sleep(3.5);
     }
     function EditRequest_AddAdditionalContact(Name, Fam, emeil, AdditionalPhone) {
         SF.click(By.xpath('//i[@class="icon-user-follow"]'));
@@ -3267,7 +3249,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.clear(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'));
         SF.send(By.xpath('//md-datepicker[@ng-model="trip.data.details.end"]/div/input'), V.dateEnd);
         SF.click(By.xpath('//input[@ng-model="search"]'));
-        SF.sleep(5);
+        SF.sleep(3.5);
     }
     function SIT_CreateStorage(storageSit) {
         SF.clear (By.xpath('//input[@ng-model="newStorage.name"]'));

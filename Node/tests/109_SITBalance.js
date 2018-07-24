@@ -38,7 +38,6 @@ condition.nowWeDoing = 'добавляем адишенал, типсы, дел�
     MF.EditRequest_OpenFuelModalClosingTab();
     MF.EditRequest_SendSumFuelModalClocingTab(200);
     MF.EditRequest_ClickApplyInFuelWindow();
-    SF.sleep(5); //софт тупит
     V.boardNumbersClosingTab1 = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingTab1);
     // MF.EditRequest_SaveChangesClosingTab();
@@ -104,7 +103,6 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     MF.EditRequest_ClosingTabOpenDiscountModal();
     MF.EditRequest_ClosingTabDiscountModalSendMoney(99);
     MF.EditRequest_ClosingTabDiscountModalClickSave();
-    SF.sleep(5);
     MF.WaitWhileToaster();
     MF.EditRequest_OpenPayment();
     MF.WaitWhileBusy();
@@ -151,7 +149,6 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     MF.EditRequest_ClosingTabOpenDiscountModal();
     MF.EditRequest_ClosingTabDiscountModalSendMoney(300);
     MF.EditRequest_ClosingTabDiscountModalClickSave();
-    SF.sleep(5);
     MF.WaitWhileToaster();
     V.boardNumbersClosingAfterAddInventory = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterAddInventory);

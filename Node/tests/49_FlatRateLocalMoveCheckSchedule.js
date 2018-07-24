@@ -164,15 +164,14 @@ condition.nowWeDoing = 'выбираем цифры helper';
         V.datescedule = (future.toLocaleDateString('en-US', options));
         SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right") and contains(text(), "' + V.datescedule + '")]'));
         MF.WaitWhileBusy();
-        SF.sleep(5);
         driver.wait(driver.executeScript("return $('div.line1:contains("+V.request.Id+")').length").then (function (checkSchedule) {
             VD.INeed(VD.NotToEqual, checkSchedule, 1, 'работа есть на текущую дату на таблице траков в календаре, а должна быть через 4 дня в schedule, реквест номер '+V.request.Id+'');
         }),config.timeout);
     } else {
         SF.click(By.xpath('//i[@ng-click="vm.nextMonth()"]'));
-        SF.sleep(5);
+        SF.sleep(3);
         SF.click(By.xpath('//div[contains(@class, "cal-day-inmonth")]/span[contains(@class, "pull-right")] and [contains(text(), "' + V.datescedule + '")]'));
-        SF.sleep(5);
+        SF.sleep(3);
         driver.wait(driver.executeScript("return $('div.line1:contains("+V.request.Id+")').length").then (function (checkSchedule) {
             VD.INeed(VD.NotToEqual, checkSchedule, 1, 'работа есть на текущую дату на таблице траков в календаре, а должна быть через 4 дня в schedule (вторая проверка)');
         }),config.timeout);

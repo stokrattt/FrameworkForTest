@@ -66,12 +66,12 @@ condition.nowWeDoing = 'первый раз в акаунте';
         VD.IWant(VD.ToEqual, V.myselfPackingText, text, 'не совпали Myself Packing Tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-if="vm.tooltipData.fullPacking.isDisplay"]'));
-    SF.sleep(8);
+    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//h5[contains(text(), "Full Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.fullPackingText, text, 'не совпали Full Packing tooltip');
     }),config.timeout);
     SF.click(By.xpath('//i[@ng-show="vm.tooltipData.partialPacking.isDisplay"]'));
-    SF.sleep(8);
+    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//h5[contains(text(), "Partial Packing Tooltip")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, V.partialPackingText, text, 'не совпали Partial Packing tooltip');
     }),config.timeout);

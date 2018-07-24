@@ -70,7 +70,7 @@ condition.nowWeDoing = 'зашли в аккаунт и добавляем ин�
     MF.Account_CheckRequestStatus_Pending (V.accountNumbersLD.Id);
     MF.Account_OpenRequest (V.accountNumbersLD.Id);
     LF.AccountLocalAddInventory();
-    SF.sleep(13);
+    SF.sleep(2);
 
 condition.nowWeDoing = 'запоминаем данные по лонг дистансу после добавления инвентори на аккаунте';
     V.accountNumbersLDWithInvent={};

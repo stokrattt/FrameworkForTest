@@ -159,7 +159,7 @@ condition.nowWeDoing = 'заходим из-под админа в аккаун�
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickViewRequest();
     SF.openTab(1);
-    SF.sleep(10);
+    SF.sleep(6);
 	driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'3\' && vm.request.custom_weight.value"]')).getText().then(function(text) {
 		V.CBFCustominAccount = SF.cleanPrice(text);
 		VD.IWant(VD.ToEqual,V.CBFCustom, V.CBFCustominAccount, 'не совпали кубикфты после добавления кастомного кубикфита на реквесте и на аккаунте');
@@ -184,7 +184,7 @@ condition.nowWeDoing = 'Идем в настроику ЛД, удалем нас
     SF.click (By.xpath('//table[@ng-show="!discountTabActive"]//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
     SF.sleep(2);
     SF.click (By.xpath('//table[@ng-show="!discountTabActive"]//div[@class="manageRow"]/div[@ng-click="removeDiscount($index)"]'));
-    SF.sleep(5);
+    SF.sleep(4);
 
 
     SF.endOfTest();

@@ -82,7 +82,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для Loading not confirmed на аккаунте');
     }),config.timeout);
     MF.Account_ClickProceedBookYourMove();
-    SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для Loading not confirmed на аккаунте на confirmation page');
     }),config.timeout);
@@ -125,7 +124,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для нот �
     SF.click(By.xpath('//div[@class="custom-block loadinghelp"]//tr[@ng-repeat="confirmed_tab in movingConfirmedBody[$index]"][1]//button[@ng-click="saveCustomBlockSettings()"]'));
     SF.sleep(2);
     MF.Board_SearchRequest(V.boardNumbers.Id);
-    SF.sleep(5);
     MF.Board_SearchOpenRequest (V.boardNumbers);
     MF.EditRequest_SetToConfirmed ();
     MF.EditRequest_SaveChanges ();

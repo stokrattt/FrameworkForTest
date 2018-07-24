@@ -68,10 +68,10 @@ condition.nowWeDoing = 'добавляем сторадж и инвентарь 
     }),config.timeout);
     SF.sleep(1);
     SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
-    SF.sleep(8);
+    SF.sleep(5);
     SF.click(By.xpath('//button[@ng-click="openAdditionalInventory()"]'));
     JS.waitForExist('div[class=\"inventory__toolbar\"]');
-    SF.sleep(7);
+    SF.sleep(3);
 
 condition.nowWeDoing = 'тут после добавления адишинал инвентаря и кастомного айтема мы закрыли модалку с инвентарем и опять октрыли для сравнения что все что добавили осталось на месте';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Total Items:")]/span[@ng-bind="total.count"]')).getText().then(function (text) {
@@ -118,7 +118,7 @@ condition.nowWeDoing = 'добавляем артикли к инвентарю,
     }), config.timeout);
     SF.sleep(2);
     JS.click('button[ng-click=\\"saveFile();logClickButtons(\\\'Save Images button clicked\\\')\\"]');
-    SF.sleep(5);
+    SF.sleep(3);
     LF.MakeSignInContract();
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();

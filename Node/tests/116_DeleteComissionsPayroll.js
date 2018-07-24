@@ -166,7 +166,7 @@ condition.nowWeDoing= 'идем за сеилса и удаляем сеилса
     SF.click(By.xpath('//span[@ng-click="removeWorker(salesPersonIndex, \'salesPerson\')"]'));
     MF.SweetConfirm();
     MF.WaitWhileToaster();
-    SF.sleep(5);
+    SF.sleep(2);
     MF.EditRequest_PayrollSubmit();
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();

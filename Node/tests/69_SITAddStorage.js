@@ -36,7 +36,7 @@ condition.nowWeDoing = 'Редактируем Storage';
     SF.sleep(3);
     SF.click(By.xpath('//div[text()="'+ V.storage.name +'"]'));
     JS.waitForExist('input[ng-model=\\"newStorage.name\\"]');
-    SF.sleep(5);
+    SF.sleep(3);
     V.storage2.name = SF.randomBukva(6) + '_t';
     V.storage2.address = SF.randomBukva(10) + '_t';
     V.storage2.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
@@ -56,7 +56,7 @@ condition.nowWeDoing = 'сравниваем сохранились ли изм�
     LF.RememberStorage(V.storage3);
     LF.Validation_Compare_SITstorageInfo(V.storage, V.storage2, V.storage3);
     SF.click(By.xpath('//md-checkbox[@ng-model="newStorage.active"]'));
-    SF.sleep(5);
+    SF.sleep(3);
     JS.click('span:contains(\\"Save\\")');
     SF.waitForVisible (By.xpath('//input[@ng-model="searchTerm"]'));
 
@@ -80,12 +80,12 @@ condition.nowWeDoing = 'Проверяем есть ли сторадж в ре�
     SF.click(By.xpath('//select[@ng-model="sit.storage_id"]'));
     SF.click(By.xpath('//option[text()="'+ V.storage2.name +'"]'));
     SF.click(By.xpath('//a[@ng-click="save()"]'));
-    SF.sleep(8);
+    SF.sleep(3);
     MF.WaitWhileToaster();
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     MF.WaitWhileBusySymbol();
-    SF.sleep(10);
+    SF.sleep(3);
     MF.WaitWhileBusySymbol();
 
 condition.nowWeDoing = 'заходим в настройки аккаунта в реквесте и выключаем галку для смены инвентаря на конферм работе';

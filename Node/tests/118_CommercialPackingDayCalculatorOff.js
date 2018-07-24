@@ -32,13 +32,13 @@ condition.nowWeDoing = 'создаем пакинг дей с фронта с в
     MF.Account_OpenEditModal();
     MF.Account_SetCommercialMoveSize();
     MF.Account_SendAdressFromModalWindow();
-    SF.sleep(5);
+    SF.sleep(2);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(5);
+    SF.sleep(2);
     LF.AccountLocalAddInventory ();
-    SF.sleep(5);
+    SF.sleep(2);
     V.accountNumbers = {};
     LF.RememberAccountNumbers(V.accountNumbers);
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="vm.request.move_size.raw == 11"]/div/span')).getText().then(function(text) {
