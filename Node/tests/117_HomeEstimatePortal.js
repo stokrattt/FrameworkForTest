@@ -14,13 +14,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'создаем мувинг с фронта, ставим статус инхом эстимеит';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
-	//MF.Board_OpenSettingsContract();
-    //driver.wait(driver.executeScript("if ($('input[name=\"Show check option in contract payment\"]').hasClass('ng-empty'))" +
-	//	"{return true;}else {$('input[name=\"Show check option in contract payment\"]').click()}"), config.timeout);
-    //driver.wait(driver.executeScript("if ($('input[name=\"Show credit option card in contract payment\"]').hasClass('ng-empty'))" +
-    //    "{return true;}else {$('input[name=\"Show credit option card in contract payment\"]').click()}"), config.timeout);
-    //SF.click(By.xpath('//button[@ng-click="save()"]'));
-    //MF.WaitWhileToaster();
     LF.CreateLocalMovingFromBoard(V.client);
 	MF.EditRequest_SetAdressToFrom();
 	MF.EditRequest_ChangeStatusRequest (4);
