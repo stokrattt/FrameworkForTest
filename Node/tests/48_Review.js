@@ -47,7 +47,7 @@ condition.nowWeDoing = 'создаем локал мув, конфермим е�
     SF.sleep (2);
 
 condition.nowWeDoing = 'переходим с логов по ссылке в акк и ставим 5 звезд, подтверждаем';
-    LF.LoginToAccountAsClient (V.client);
+    //LF.LoginToAccountAsClient (V.client);
     MF.Account_ClickViewRequest ();
     SF.waitForLocated (By.id('reviews-moveboard'));
     SF.sleep(2);

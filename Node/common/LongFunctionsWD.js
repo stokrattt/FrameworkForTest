@@ -1982,7 +1982,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 
 		condition.nowWeDoing = 'запоминаем данные с мувинг сторадж Estimated Labor и Estimated Monthly Storage';
 
-		driver.wait(driver.findElement(By.xpath('//div[contains(@class, form_block)]/div[@ng-if="basicsettings.showQuoteFront[request.serviceType]"]' +
+		driver.wait(driver.findElement(By.xpath('//div[contains(@class, form_block)]/div[@ng-if="getFrontQuoteExplanation()"]' +
 		    '//h3[contains(text(), "Estimated labor:")]/following-sibling::span')).getText().then(function(text){
 		    frontNumbersDown.EstimatedLaborMin = SF.cleanPrice(text.substring(0, text.indexOf('-')));
 		    frontNumbersDown.EstimatedLaborMax = SF.cleanPrice(text.substring(text.indexOf('-') + 1));

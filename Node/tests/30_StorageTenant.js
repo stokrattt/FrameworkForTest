@@ -26,6 +26,8 @@ condition.nowWeDoing = 'идем в леджер и создаем паймен�
     SF.sleep (1);
     MF.EditRequest_ClickAddCustomPayment();
     LF.EditRequest_CustomPay(150);
+    JS.click('button[ng-click=\\"openPayment()\\"]:visible');
+    SF.sleep (1);
     JS.click('a[ng-click=\\"addAuthPayment()\\"]:visible');
     SF.click (By.xpath('//input[@ng-model="charge_value.value"]'));
     SF.send (By.xpath('//input[@ng-model="charge_value.value"]'),1050);

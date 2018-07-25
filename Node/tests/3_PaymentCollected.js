@@ -244,6 +244,7 @@ condition.nowWeDoing = 'открываем реквест и делаем кас
     LF.closeEditRequest();
     MF.PaymentCollected_ChoosePaymentFilter('Credit card');
     MF.PaymentCollected_ChooseCardTypes('MASTERCARD');
+    SF.click(By.xpath('//md-backdrop[@class="md-select-backdrop md-click-catcher"]'));
     MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), 19, 'не нашло 19 dol при оплате кастомной кредитной картой mastercard и'  +
@@ -259,10 +260,11 @@ condition.nowWeDoing = 'открываем реквест и делаем кас
     LF.EditRequest_CustomPayCreditCard(17, 'americanexpress');
     LF.closeEditRequest();
     MF.PaymentCollected_ChooseCardTypes('AMEX');
+    SF.click(By.xpath('//md-backdrop[@class="md-select-backdrop md-click-catcher"]'));
     MF.PaymentCollected_ChooseAdvancedFilter('Reservation by company');
     MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
-        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 19, 'не нашло 17 dol при оплате кастомной кредитной картой american express и'  +
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 17, 'не нашло 17 dol при оплате кастомной кредитной картой american express и'  +
             ' после выбора фильтров Credit card and mastercard and AMEX and Reservation by company - реквест № "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'"');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.boardNumbersAfterAddMinusExtraServ.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
