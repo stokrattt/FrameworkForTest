@@ -33,7 +33,7 @@ condition.nowWeDoing = 'начинаем добавлять пэкинг, ади
 
 condition.nowWeDoing = 'отправлемя письмо, сравниваем числа в письме,запоминаем конечные цифры с реквеста при выключенном калькуляторе(начальные)';
     MF.EditRequest_OpenMailDialog();
-    SF.sleep(5);
+    SF.sleep(3);
 	SF.click(By.xpath('//span[contains(.,"Default")]'));
 	SF.sleep(1);
 	SF.click(By.xpath('//h4[contains(text(), "CalculatarOFF")][1]'));
@@ -105,7 +105,7 @@ condition.nowWeDoing = 'идем на мувборд, что бы сверить
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.rateDiscount"]')).getAttribute('value').then(function (text) {
         V.boardNumbersNew.NewHourlyRate = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(2);
+    SF.sleep(1);
     LF.Validation_Compare_Account_Admin_WhenSetNewRate(V.boardNumbersNew, V.accountNumbersNew);
 	MF.EditRequest_OpenFuel();
 	MF.EditRequest_SendFlatSurchargeInFuelWindow(222);
@@ -113,7 +113,7 @@ condition.nowWeDoing = 'идем на мувборд, что бы сверить
 	LF.EditRequest_EditRateCalculOff(444);
     SF.sleep(2);
     MF.EditRequest_OpenMailDialog();
-    SF.sleep(5);
+    SF.sleep(3);
     SF.click(By.xpath('//span[contains(.,"Default")]'));
     SF.sleep(1);
     SF.click(By.xpath('//h4[contains(text(), "CalculatarOFF")][1]'));
@@ -188,12 +188,11 @@ condition.nowWeDoing = 'переходим на мувборд, проверяе
         V.boardNumbersLastNumbers.NewHourlyRate= text;
     }),config.timeout);
 	LF.RememberDigitsRequestBoard(V.boardNumbersLastNumbers);
-	SF.sleep(2);
 
 condition.nowWeDoing = 'проверка цифр последних изменений на аккаунте и новых чисел на мув-борде.';
     LF.Validation_Compare_Account_Admin_WhenSetNewRate(V.boardNumbersLastNumbers, V.accountNumbersLastEdit);
 
-    condition.nowWeDoing = 'переводим в статус нот конферм   снова, проверяем оплату кастомным платежом';
+condition.nowWeDoing = 'переводим в статус нот конферм   снова, проверяем оплату кастомным платежом';
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_OpenPaymentModalWindow();
     SF.click(By.xpath('//a[@ng-click="addReservationPayment()"]'));

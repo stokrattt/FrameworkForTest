@@ -28,10 +28,10 @@ condition.nowWeDoing = 'создаем локал мув, пендинг, и и�
     MF.EditRequest_OpenSettings ();
     MF.EditRequest_ClickViewRequest();
     SF.openTab (1);
-    SF.sleep(5);
+    SF.sleep(2);
     MF.WaitWhileBusy();
     SF.waitForLocated (By.id('tab_Move Overview'));
-    SF.sleep(5);
+    SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга пендинг на аккаунте');
     }),config.timeout);
@@ -84,7 +84,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
     }),config.timeout);
     JS.scroll("a[ng-click=\"vm.Logout()\"]");
     MF.Account_ClickProceedBookYourMove();
-    SF.sleep(3);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинга not confirmed на аккаунте на confirmation page');
     }),config.timeout);

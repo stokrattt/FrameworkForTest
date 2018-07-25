@@ -23,7 +23,7 @@ condition.nowWeDoing = 'идем в настройки рейтов и выст�
         SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
         SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),97);
     }
-    SF.sleep(4);
+    SF.sleep(3);
 
 condition.nowWeDoing = 'идем в настройки калькулятора и включаем дабл драйв тайм и ставим 15 минут';
     MF.Board_OpenSettingsCalculator();

@@ -8,7 +8,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.passwd = 123;
 
     //=========================начинаем писать тест=============================
-    condition.nowWeDoing = 'Создаем ЛД реквест с борда. Создаём кастомный айтем, выставляем delivery day и schedule delivery day. Меняем топливо, добавляем пэкинг, дискаунт.';
+
+condition.nowWeDoing = 'Создаем ЛД реквест с борда. Создаём кастомный айтем, выставляем delivery day и schedule delivery day. Меняем топливо, добавляем пэкинг, дискаунт.';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenSettingsContract();
@@ -29,7 +30,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_ClickSaveInventory();
     V.boardNumbers = {};
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
-    SF.sleep(1);
+    MF.WaitWhileBusy();
     LF.EditRequest_SetFirstDeliveryDay(4);
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
@@ -40,16 +41,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_OpenFuelSurchModal();
     MF.EditRequest_SendFlatSurchargeInFuelWindow(222);
     MF.EditRequest_ClickApplyInFuelWindow();
-    SF.sleep(4);
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(30);
-    SF.sleep(5);
     LF.EditRequest_AddPartialPacking();
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
 
-    condition.nowWeDoing = 'Открываем реквест заново и проверяем, что всё сохранилось.';
+condition.nowWeDoing = 'Открываем реквест заново и проверяем, что всё сохранилось.';
     MF.Board_OpenDashboard();
     MF.Board_OpenRequest(V.requestNumber.Id);
     V.boardNumbers2 = {};
@@ -69,7 +68,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     VD.IWant(VD.ToEqual, V.boardNumbers.Discount ,V.boardNumbers2.Discount, 'Total не сохранился после того как мы выставили schedule delivery day и открыли реквест заново');
     MF.EditRequest_CloseEditRequest();
 
-    condition.nowWeDoing = 'Идём на аккаунт, сверяем всё. Добавляем экстра айтемы, проверяем что они добавлены на аккаунт.';
+condition.nowWeDoing = 'Идём на аккаунт, сверяем всё. Добавляем экстра айтемы, проверяем что они добавлены на аккаунт.';
     MF.Board_LogoutAdmin();
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient (V.client, V.client.passwd);
@@ -90,7 +89,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     }),config.timeout);
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'Возвращаемся на дашборд. Ставим статус Confirmed, меняем Weight type. В табе Closing добавляем Packing. Проверяем, что квота и топливо при этом не пересчитались';
+condition.nowWeDoing = 'Возвращаемся на дашборд. Ставим статус Confirmed, меняем Weight type. В табе Closing добавляем Packing. Проверяем, что квота и топливо при этом не пересчитались';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest (V.requestNumber.Id);
@@ -120,14 +119,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosing1);
     MF.EditRequest_CloseConfirmWork();
     LF.EditRequest_AddPackingClosingTab();
-    SF.sleep(3);
     V.boardNumbersClosing2 = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosing2);
     VD.IWant (VD.ToEqual, V.boardNumbersClosing2.Fuel, V.boardNumbersClosing1.Fuel, 'Пересчиталось топливо на табе closing после добавляния packing');
     VD.IWant (VD.ToEqual, V.boardNumbersClosing2.Quote, V.boardNumbersClosing1.Quote, 'Пересчиталась квота на табе closing после добавляния packing');
     LF.closeEditRequest();
     
-    condition.nowWeDoing = 'Открываем реквест заново, проверяем что на табе sales всё осталось старым. Идём в диспач, проверяем что можно добавить и удалить доп.команду. Назначаем основную команду';
+condition.nowWeDoing = 'Открываем реквест заново, проверяем что на табе sales всё осталось старым. Идём в диспач, проверяем что можно добавить и удалить доп.команду. Назначаем основную команду';
     MF.Board_OpenConfirmed();
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest (V.requestNumber.Id);
@@ -135,7 +133,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosing);
     VD.IWant (VD.ToEqual, V.boardNumbersClosing1.Fuel, V.boardNumbersClosing.Fuel, 'Пересчиталось топливо на табе sales после добавляения packing на closing');
     VD.IWant (VD.ToEqual, V.boardNumbersClosing1.Quote, V.boardNumbersClosing.Quote, 'Пересчиталась квота на табе sales после добавляения packing на closing');/////
-    SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenLocalDispatch();
     LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);
@@ -154,7 +151,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.selectCrew(V.foremanName);
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'заходим под форменом, открываем контракт и проверяем третью табличку валюэйшена';
+condition.nowWeDoing = 'заходим под форменом, открываем контракт и проверяем третью табличку валюэйшена';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
@@ -177,7 +174,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual,text,V.boardNumbersClosing.Total + 350, 'Неправильная сумма в третьей строке таблицы валюэйшена. Total Estimate + Valuation Charge.(Third deductible level) ');
     }),config.timeout);
 
-    condition.nowWeDoing = 'Добавляем ещё сервисов и пэкингов, подписываем и самбитим контракт';
+condition.nowWeDoing = 'Добавляем ещё сервисов и пэкингов, подписываем и самбитим контракт';
     MF.Contract_OpenBillOfLading();
     driver.wait(driver.findElement(By.xpath('//tr[@ng-if="showAddPackingBtn()"]/following-sibling::tr/td[@ng-if="request.service_type.raw == \'7\' || request.service_type.raw == \'5\'"]/following-sibling::td')).getText().then(function (text){
         text = SF.cleanPrice (text);
@@ -218,7 +215,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
-    condition.nowWeDoing = 'Возвращаемся на мувборд. Проверяем, что сервисы и пэкинги добавленные на аккаунте добавились в табу клоузинг. Выключаем доп.контракт';
+condition.nowWeDoing = 'Возвращаемся на мувборд. Проверяем, что сервисы и пэкинги добавленные на аккаунте добавились в табу клоузинг. Выключаем доп.контракт';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest (V.requestNumber.Id);
@@ -229,6 +226,5 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenSettingsContract();
     MF.Board_TurnOffAdditionalContract();
-    SF.sleep(1);
     SF.endOfTest();
 };

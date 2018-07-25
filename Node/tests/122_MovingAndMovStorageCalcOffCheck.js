@@ -35,7 +35,7 @@ condition.nowWeDoing = 'создаем локал мув и драфт рекв�
     MF.EditRequest_SetZipCodeFrom('02136');
     MF.EditRequest_SetZipTo('02032');
     MF.EditRequest_SetAdressToFrom();
-    SF.sleep(5);
+    SF.sleep(2);
     MF.EditRequest_SaveChanges();
     MF.FrontSiteSmallCalc_SelectServiceType(2);
     MF.SweetConfirm();
@@ -84,11 +84,11 @@ condition.nowWeDoing = 'меняем мув сайз и после него ср
     MF.Account_ChangeMoveSize(9);
     MF.Account_SendAdressFromModalWindow();
     MF.Account_SendAdressToModalWindow();
-    SF.sleep(6); // долго обновляется смена мув сайза на акке
+    SF.sleep(2); // долго обновляется смена мув сайза на акке
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(12); // долго обновляется смена мув сайза на акке
+    SF.sleep(3); // долго обновляется смена мув сайза на акке
     V.accountNumbersLMChangeMoveSize = {};
     LF.RememberAccountNumbers (V.accountNumbersLMChangeMoveSize);
     LF.Validation_Compare_Account_Admin (V.boardNumbersLM, V.accountNumbersLMChangeMoveSize);
@@ -96,11 +96,11 @@ condition.nowWeDoing = 'меняем мув сайз и после него ср
 condition.nowWeDoing= 'меняем зип код и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
     MF.Account_ChangeZipTo("01001");
-    SF.sleep(6);
+    SF.sleep(2);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(12);
+    SF.sleep(3);
     V.accountNumbersLMChangeMoveSizeChangeZip = {};
     LF.RememberAccountNumbers (V.accountNumbersLMChangeMoveSizeChangeZip);
     LF.Validation_Compare_Account_Admin (V.boardNumbersLM, V.accountNumbersLMChangeMoveSizeChangeZip);
@@ -115,7 +115,7 @@ condition.nowWeDoing= 'меняем details и опять сверяем есл�
 
 condition.nowWeDoing= 'добавляем инветорий и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     LF.AccountLocalAddInventoryWhenCalcOff ();
-    SF.sleep(3);
+    SF.sleep(2);
     V.accountNumbersLMChangeMoveSizeChangeZipChangeDetailsAddInventory = {};
     LF.RememberAccountNumbers (V.accountNumbersLMChangeMoveSizeChangeZipChangeDetailsAddInventory);
     LF.Validation_Compare_Account_Admin (V.boardNumbersLM, V.accountNumbersLMChangeMoveSizeChangeZipChangeDetailsAddInventory);
@@ -135,11 +135,11 @@ condition.nowWeDoing = 'мувинг сторадж ТУ - меняем мув �
     MF.Account_OpenEditModal ();
     MF.Account_ChangeMoveSize(9);
     MF.Account_SendAdressFromModalWindow();
-    SF.sleep(6); // долго обновляется смена мув сайза на акке
+    SF.sleep(2); // долго обновляется смена мув сайза на акке
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(12); // долго обновляется смена мув сайза на акке
+    SF.sleep(3); // долго обновляется смена мув сайза на акке
     V.accountNumbersMStoChangeMoveSize = {};
     LF.RememberAccountNumbers (V.accountNumbersMStoChangeMoveSize);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSto, V.accountNumbersMStoChangeMoveSize);
@@ -147,11 +147,11 @@ condition.nowWeDoing = 'мувинг сторадж ТУ - меняем мув �
 condition.nowWeDoing= 'мувинг сторадж ТУ - меняем зип код и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
     MF.Account_ChangeZipFrom("01001");
-    SF.sleep(6);
+    SF.sleep(2);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(12);
+    SF.sleep(3);
     V.accountNumbersMStoChangeMoveSizeChangeZip = {};
     LF.RememberAccountNumbers (V.accountNumbersMStoChangeMoveSizeChangeZip);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSto, V.accountNumbersMStoChangeMoveSizeChangeZip);
@@ -166,7 +166,7 @@ condition.nowWeDoing= 'мувинг сторадж ТУ - меняем details �
 
 condition.nowWeDoing= 'мувинг сторадж ТУ - добавляем инветорий и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     LF.AccountLocalAddInventoryWhenCalcOff ();
-    SF.sleep(3);
+    SF.sleep(2);
     V.accountNumbersMStoChangeMoveSizeChangeZipChangeDetailsAddInventory = {};
     LF.RememberAccountNumbers (V.accountNumbersMStoChangeMoveSizeChangeZipChangeDetailsAddInventory);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSto, V.accountNumbersMStoChangeMoveSizeChangeZipChangeDetailsAddInventory);
@@ -185,11 +185,11 @@ condition.nowWeDoing = 'мувинг сторадж from - меняем мув �
     MF.Account_OpenEditModal ();
     MF.Account_ChangeMoveSize(9);
     MF.Account_SendAdressToModalWindow();
-    SF.sleep(7); // долго обновляется смена мув сайза на акке
+    SF.sleep(2); // долго обновляется смена мув сайза на акке
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(10); // долго обновляется смена мув сайза на акке
+    SF.sleep(3); // долго обновляется смена мув сайза на акке
     V.accountNumbersMSfromChangeMoveSize = {};
     LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSize);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSize);
@@ -197,11 +197,11 @@ condition.nowWeDoing = 'мувинг сторадж from - меняем мув �
 condition.nowWeDoing= 'мувинг сторадж from - меняем зип код и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     MF.Account_OpenEditModal ();
     MF.Account_ChangeZipTo("01001");
-    SF.sleep(6);
+    SF.sleep(2);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.SweetConfirm();
-    SF.sleep(12);
+    SF.sleep(3);
     V.accountNumbersMSfromChangeMoveSizeChangeZip = {};
     LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSizeChangeZip);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSizeChangeZip);
@@ -216,7 +216,7 @@ condition.nowWeDoing= 'мувинг сторадж from - меняем details �
 
 condition.nowWeDoing= 'мувинг сторадж from - добавляем инветорий и опять сверяем если упадет то бага, потому как кальк выключен и не должно ничено не пересчитываться';
     LF.AccountLocalAddAdditionalInventoryWhenCalcOff ();
-    SF.sleep(3);
+    SF.sleep(2);
     V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetailsAddInventory = {};
     LF.RememberAccountNumbers (V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetailsAddInventory);
     LF.Validation_Compare_Account_Admin (V.boardNumbersMSfrom, V.accountNumbersMSfromChangeMoveSizeChangeZipChangeDetailsAddInventory);

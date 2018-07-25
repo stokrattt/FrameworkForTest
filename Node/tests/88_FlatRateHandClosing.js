@@ -41,7 +41,7 @@ condition.nowWeDoing = 'проверяем двойную дату';
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Preferred Delivery:")]/following-sibling::div')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, V.deliveryDates, 'не совпали prefered deliveryDate на акаунте');
     }),config.timeout);
-    SF.sleep(15);
+    SF.sleep(10);
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
 

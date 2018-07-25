@@ -31,7 +31,7 @@ condition.nowWeDoing = 'создаём реквест localMoving';
 		SF.clear(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'));
 		SF.send(By.xpath('(//input[@ng-change="vm.saveRates()"])['+(V.targets[t]+1)+']'),245);
 	}
-	SF.sleep(5);
+	SF.sleep(2);
 	MF.Board_OpenDashboard();
 	MF.Board_OpenConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);

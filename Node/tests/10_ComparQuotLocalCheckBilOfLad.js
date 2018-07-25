@@ -110,7 +110,7 @@ condition.nowWeDoing = 'закрываем работу и переходим в
     LF.SelectRequestDispatch(V.accountNumbers.Id);
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.accountNumbers.Id);
-    SF.sleep(40); //почта на бэк перенесена и потому так долго отправляется письмо
+    SF.sleep(60); //почта на бэк перенесена и потому так долго отправляется письмо
     MF.EditRequest_OpenLogs ();
     SF.click(By.xpath('//span[@ng-bind-html="toTrustedHTML(item.text)"][contains(text(),"New Job")]/../../../following-sibling::div[1]'));
     SF.sleep(2);

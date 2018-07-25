@@ -50,7 +50,6 @@ condition.nowWeDoing = 'выходим с мувборда,заходим под
     LF.AccountFR_SeelectOptions();
 	MF.Account_WaitForDetailsCheck();
 	MF.Account_ClickFullPacking();
-	SF.sleep(2);
 	V.accountNumbersNew={};
 	LF.RememberAccountNumbers(V.accountNumbersNew);
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
@@ -67,7 +66,6 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
     }),config.timeout);
 	MF.Board_OpenNotConfirmed();
 	MF.Board_OpenRequest(V.boardNumbers.Id);
-	SF.sleep(2);
 	V.boardNumbers.New = {};
 	LF.RememberDigitsRequestBoard(V.boardNumbers.New);
 	LF.Validation_Compare_Account_Admin(V.accountNumbersNew, V.boardNumbers.New);
@@ -75,7 +73,8 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
 	MF.Board_OpenSettingsGeneral();
 	MF.Board_OpenSettingsAccountPagePendingInfo();
     MF.Board_SettingsPendingInfoON();
-    condition.nowWeDoing = 'создаем реквест, добавляем ему инвентарь,добавляем страховку со своим амаунт оф лиабилити,сохраняем все' +
+
+condition.nowWeDoing = 'создаем реквест, добавляем ему инвентарь,добавляем страховку со своим амаунт оф лиабилити,сохраняем все' +
 		'переводим его в статус конферм';
     LF.CreateLocalMovingFromBoard(V.client);
     MF.EditRequest_OpenInventoryTab();
@@ -93,7 +92,8 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
     V.boardNumbers= {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
     MF.EditRequest_SaveChanges();
-    condition.nowWeDoing = 'идем на контракт, сравнить наш тотал + страховку, для того,что бы и там,и там были одинаковые значения. ';
+
+condition.nowWeDoing = 'идем на контракт, сравнить наш тотал + страховку, для того,что бы и там,и там были одинаковые значения. ';
 	MF.EditRequest_CloseConfirmWork();
     MF.EditRequest_OpenContractCloseJob();
     SF.openTab(1);
@@ -103,7 +103,8 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
         V.IIpartofTotalEstimate = V.boardNumbers.Fuel + V.boardNumbers.QuoteMax + V.boardNumbers.Valuation;
         VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimate + ' - ' + '$ ' + V.IIpartofTotalEstimate),"не совпал тотал плюс страховка с тем,что должно было быть(первый левел)");
     }), config.timeout);
-    condition.nowWeDoing = 'подписываем частично контракт, создаем сторадж, частично вносим туда инвентарь' +
+
+condition.nowWeDoing = 'подписываем частично контракт, создаем сторадж, частично вносим туда инвентарь' +
 		'оплачиваем рентал эгринмент, сабмитим до конца контракт';
     MF.Contract_OpenBillOfLading();
     LF.MakeSignInContract();
@@ -153,7 +154,8 @@ condition.nowWeDoing = 'выходим с аккаунта, проверяем �
     LF.MakeSignInContract();
     V.contractNumbers = {};
     MF.Contract_Submit(V.contractNumbers);
-    condition.nowWeDoing = 'переходи на наш реквест, сравниваем числа в реквесте и на контракте';
+
+condition.nowWeDoing = 'переходи на наш реквест, сравниваем числа в реквесте и на контракте';
     SF.openTab(0);
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openCustomerOnlineModal()"]/div/h3')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text , 0 , 'онлайн кастомеров больше,чем 0.баг');

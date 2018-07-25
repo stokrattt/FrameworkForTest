@@ -18,7 +18,6 @@ condition.nowWeDoing = 'добавляем два разы инвенторий 
     LF.AccountLocalAddInventory ();
     LF.AccountLocalAddAdditionalInventory ();
     MF.Account_ClickFullPacking();
-    SF.sleep(8); //долго добавляет пакинг
     V.accountNumbers = {};
     LF.RememberAccountNumbers (V.accountNumbers);
     LF.LogoutFromAccount ();
@@ -102,7 +101,7 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     LF.MakeSignInContract();
     LF.MakeSignInContract();
     LF.MakeSignInContract();
-    SF.sleep(5);
+    SF.sleep(2);
     JS.scroll('span[ng-click="showDiscountInContract()"]');
     SF.click(By.xpath('//span[@ng-click="showDiscountInContract()"]'));
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
@@ -115,7 +114,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     SF.send(By.xpath('//input[@placeholder="Promo code"]'), V.DiscountCode);
     MF.WaitWhileBusy ();
     MF.SweetConfirm();
-    SF.sleep(5);
     MF.SweetConfirm ();
     driver.wait(driver.findElement(By.xpath('//p[contains(text(), "Total less deposit received:")]/../following-sibling::td')).getText().then(function (text) {
         V.TotalLessWithDiscount = SF.cleanPrice(text);

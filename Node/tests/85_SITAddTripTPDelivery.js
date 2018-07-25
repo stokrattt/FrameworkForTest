@@ -153,7 +153,7 @@ condition.nowWeDoing = 'Создаем TP Delivery, заполняем поля 
     V.tpToReceive = V.tpTotalJob - V.tpPayment - V.orderBalance;
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.to_receive"]'));
-    SF.sleep(7);
+    SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.cleanTpToReceive = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanTpToReceive, V.tpToReceive, 'to receive не совпали 1');
@@ -174,7 +174,7 @@ condition.nowWeDoing = 'Создаем TP Delivery, заполняем поля 
     SF.click(By.xpath('//button[@ng-click="updateSit()"]'));
     SF.waitForVisible (By.xpath('//button[@ng-click="createTpDelivery()"]'));
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
-    SF.sleep(5);
+    SF.sleep(3);
     SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.sleep(3);
 
@@ -296,19 +296,19 @@ condition.nowWeDoing = 'Редактируем TP Delivery, заполняем �
     V.newTpToReceive = V.newTpTotalJob - V.newTpPayment - V.newOrderBalance;
     SF.click(By.xpath('//button[@ng-click="save()"]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.to_receive"]'));
-    SF.sleep(7);
+    SF.sleep(5);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.to_receive"]')).getAttribute('value').then(function (text) {
         V.newCleanTpToReceive = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpToReceive, V.newTpToReceive, 'to receive не совпали 3');
     }),config.timeout);
     JS.click('button[ng-click=\\"createTpDelivery()\\"]');
-    SF.sleep(5);
+    SF.sleep(3);
     SF.waitForVisible (By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
 
 condition.nowWeDoing = 'Проверяем сохранились ли изменения в TP Delivery';
     SF.click(By.xpath('//div[@ng-if="item.ld_tp_delivery_id && item.ld_tp_delivery_id != null"]//span[contains(text(), "'+V.tpDeliveryJobId+'")]'));
     SF.waitForVisible (By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]'));
-    SF.sleep(5);
+    SF.sleep(3);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="tp.closing.rate_per_cf"]')).getAttribute('value').then(function (text) {
         V.newCleanTpDeliveryRatePerCF = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.newCleanTpDeliveryRatePerCF, V.newTpDeliveryRatePerCF, 'Rate per cf не совпали');

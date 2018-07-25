@@ -47,7 +47,6 @@ condition.nowWeDoing = 'идем в аккаунт букать работу п�
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickViewRequest ();
     MF.Account_ClickProceedBookYourMove();
-    JS.waitForExist('div.confirm');
     JS.scroll('div.confirm');
     MF.Account_ClickIAgreeWithAll();
     SF.click(By.xpath('//input[@ng-click="confirmReservation()"]'));

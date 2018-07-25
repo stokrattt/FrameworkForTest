@@ -11,7 +11,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
 
-condition.nowWeDoing= 'зосдаем локал мув и сразу его конфермим';
+condition.nowWeDoing= 'создаем локал мув и сразу его конфермим';
     LF.CreateLocalMovingFromBoard(V.client);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard(V.boardNumbers);
@@ -45,16 +45,7 @@ condition.nowWeDoing = 'считаем квоту от времени и гра�
 condition.nowWeDoing = 'добавляем два паймента, один кастомный, один карточкой, так чтобы баланс был равен 0 и закрываем реквест, так же добавляем кастомный рефанд и проверяем что он отнимается от тотала';
     MF.EditRequest_OpenPayment();
     MF.EditRequest_ClickAddCustomPayment();
-    SF.click (By.xpath('//input[@ng-model="receipt.amount"]'));
-    SF.send (By.xpath('//input[@ng-model="receipt.amount"]'),100);
-    SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
-    SF.sleep (1);
-    SF.click(By.xpath('//button[@ng-click="Save()"]'));
-    MF.WaitWhileToaster();
-    MF.WaitWhileBusy ();
-    JS.click('button[ng-click=\\"save()\\"]:visible');
-    SF.sleep (3);
-    MF.WaitWhileBusy ();
+    LF.EditRequest_CustomPay(100);
     MF.EditRequest_OpenPayment();
     MF.WaitWhileBusy();
     V.cardInput = V.boardNumbersClose.Total;
@@ -69,16 +60,8 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
         V.totalBeforeRefund = SF.cleanPrice(text);
     }),config.timeout);
     MF.EditRequest_ClickAddCustomPayment();
-    SF.select(By.xpath('//select[@ng-model="receipt.type"]'), 'customrefund');
-    SF.send (By.xpath('//input[@ng-model="receipt.amount"]'),100);
-    SF.click(By.xpath('//textarea[@ng-model="receipt.description"]'));
-    SF.sleep (1);
-    SF.click(By.xpath('//button[@ng-click="Save()"]'));
-    MF.WaitWhileToaster();
-    MF.WaitWhileBusy ();
-    JS.click('button[ng-click=\\"save()\\"]:visible');
-    SF.sleep (3);
-    MF.WaitWhileBusy ();
+    MF.EditRequest_SelectCustomTypePayment('customrefund');
+    LF.EditRequest_CustomPay(100);
     MF.EditRequest_OpenPayment();
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="entity_type != fieldData.enums.entities.STORAGEREQUEST"]')).getText().then(function (text) {

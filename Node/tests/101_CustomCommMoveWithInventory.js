@@ -81,7 +81,7 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
         VD.IWant(VD.ToEqual, V.accountcbf, V.boardNumbers.cbf, 'не совпал кубик фит на акке с бордом нот конферм');
     }),config.timeout);
     LF.AccountLocalAddInventory();
-    SF.sleep(5);
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[2]')).getText().then(function(text){
         V.accountcbfWithInventory = SF.cleanPrice(text.substring(text.indexOf('Inventory ')+9, text.indexOf('c.f.')));
         VD.IWant(VD.NotToEqual, V.accountcbfWithInventory, V.accountcbf, 'не поменялся кубик фит на инвенторий, после, добавления его');
@@ -91,7 +91,6 @@ condition.nowWeDoing = 'идем в аккаунт добавлять инвен
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Total, V.accountNumbersLD.Total, 'не изменился гранд тотал после добавления инвентрая');
     VD.IWant(VD.NotToEqual, V.accountNumbersLDAfterAddInven.Fuel, V.accountNumbersLD.Fuel, 'не изменился fuel после добавления инвентрая');
     MF.Account_ClickFullPacking();
-    SF.sleep(9);
     V.accountNumbersLDAfterAddInvenAfterAddFullPacing={};
     LF.RememberAccountNumbersLD(V.accountNumbersLDAfterAddInvenAfterAddFullPacing);
     LF.LogoutFromAccount();
@@ -115,7 +114,7 @@ condition.nowWeDoing = 'идем в админку делать нот конф�
     MF.EditRequest_ClickSizeInventory();
     SF.sleep(2);
     MF.EditRequest_OpenRequest();
-    SF.sleep(6);
+    SF.sleep(2);
     MF.EditRequest_SetToNotConfirmed();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_OpenLogs();
@@ -177,7 +176,7 @@ condition.nowWeDoing = 'идем в админку проверять что ч�
     MF.EditRequest_CloseJob();
     SF.click(By.xpath('//div[@class="request-view"]'));
     SF.openTab(1);
-    SF.sleep(8);
+    SF.sleep(6);
     MF.Account_ClickViewConfirmationPage();
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Grand Total")]/following-sibling::span')).getText().then(function(text){
         V.ConfirmationTotal = SF.cleanPrice(text.substring(text.indexOf('$')));

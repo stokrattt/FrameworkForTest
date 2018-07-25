@@ -100,7 +100,6 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     driver.wait(driver.executeScript('return $(\'div.ServicesCost:visible\').text()').then(function (text) {
         V.ClosingAdServices = SF.cleanPrice(text.substring(text.indexOf('$')));
     }), config.timeout);
-    SF.sleep(5);
     LF.closeEditRequest();
     LF.OpenRequestDispatch(V.accountNumbers.Id);
     MF.EditRequest_WaitForBalanceVisible();

@@ -59,7 +59,7 @@ condition.nowWeDoing = 'создаем лонг дистанс реквест и
 condition.nowWeDoing = 'добавляем комнаты и опять пересчитываем фуел, квоту и тотал';
     MF.EditRequest_SetSizeOfMoveNumber (9);
     MF.EditRequest_SetAdressFrom ();
-    SF.sleep(10);
+    SF.sleep(2);
     V.boardNumbersAddRoom = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddRoom);
     V.quoteAddRoom = V.boardNumbersAddRoom.cbf * 10;
@@ -71,7 +71,7 @@ condition.nowWeDoing = 'добавляем комнаты и опять пере
 
 condition.nowWeDoing = 'добавляем инвенторий и опять пересчитываем фуел, квоту и тотал';
     LF.addInventoryBoard ();
-    SF.sleep(8); // ждем обновления фуела
+    SF.sleep(2); // ждем обновления фуела
     V.boardNumbersAddInventory = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAddInventory);
     V.quoteAddInventory = V.boardNumbersAddInventory.cbf * 10;

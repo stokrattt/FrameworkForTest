@@ -1,9 +1,9 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/56_LoadingAllSteps.js'];
+    config.suite = ['./tests/124_Pending-InfoWithCalcOffAndCustomReservation.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
-    config.timeout = 45000;
+    config.timeout = 30000;
     // V.frontURL = 'http://test1.stage.themoveboard.com:81/front_site/';
     // V.accountURL = 'http://test1.stage.themoveboard.com:81/account/';  //dev
     // V.adminURL = 'http://test1.stage.themoveboard.com:81/moveBoard/';  //dev

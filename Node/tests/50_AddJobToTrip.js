@@ -84,7 +84,7 @@ condition.nowWeDoing = 'Сохраняем трип и добавляем раб
         V.ldJobId = text;
     }),config.timeout);
     MF.SIT_AddRequestToTrip();
-    SF.sleep(5);
+    SF.sleep(2);
     MF.SIT_GoToClosingTab();
 
 condition.nowWeDoing = 'редактируем поля и проверяем циферки';
@@ -121,7 +121,7 @@ condition.nowWeDoing = 'редактируем поля и проверяем ц
     SF.clear(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'));
     SF.send(By.xpath('//input[@ng-model="add_extra_charge.extra_services[0].services_default_value"]'), V.parkingCost);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
-    SF.sleep(5);
+    SF.sleep(3);
     SF.click(By.xpath('//div[@ng-click="showTpCollected(item, item.balance)"]'));
     SF.waitForVisible(By.xpath('//input[@ng-model="payment.amount"]'));
     V.somePayment = 100;

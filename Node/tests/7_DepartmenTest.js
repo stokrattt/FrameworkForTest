@@ -55,7 +55,6 @@ condition.nowWeDoing='Создаем хелпера*****************************
     V.helperLastName = "testhelper";
     MF.Department_SendFirstLastNameAndPhone (V.helperFirstName, V.helperLastName, '12345678960');
     MF.Department_CreateUser();
-    SF.sleep(5);
 
 condition.nowWeDoing='Создали хелпера**************************************';
     MF.Department_OpenForeman();

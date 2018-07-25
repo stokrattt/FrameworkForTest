@@ -35,7 +35,7 @@ condition.nowWeDoing = 'добавляем письма';
     SF.click(By.xpath('//h4[contains(text(), "Holiday test")][1]'));
     SF.sleep(1);
     SF.click(By.xpath('//div[@ng-hide="isSendEmails"]/a[@ng-click="save()"]'));
-    SF.sleep(5);
+    SF.sleep(2);
     MF.CreateRequest_ClickCreate();
     V.request.Id = {};
     driver.wait(driver.findElement(By.xpath('//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
@@ -52,7 +52,7 @@ condition.nowWeDoing = 'идём в логи, потом выставляем с
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SendRateForLD (15);
     MF.ConfirmCalculatorOff();
-    SF.sleep(8); // save
+    SF.sleep(2); // save
     MF.EditRequest_RememberId (V.boardNumbersBeforeAddInvent);
     LF.RememberDigitsRequestBoard (V.boardNumbersBeforeAddInvent);
     MF.EditRequest_SaveChanges();
@@ -69,7 +69,7 @@ condition.nowWeDoing = 'идем на аккаунт, добавляем инв�
     LF.Validation_Compare_Account_Admin_LongDistance (V.accountNumbersLDBeforeAddInvent, V.boardNumbersBeforeAddInvent);
     LF.AccountLocalAddInventoryWhenCalcOff();
     LF.AccountLocalAddAdditionalInventoryWhenCalcOff();
-    SF.sleep(6);
+    SF.sleep(2);
     MF.WaitWhileBusy();
     V.accountNumbersLD = {};
     LF.RememberAccountNumbersLD (V.accountNumbersLD);

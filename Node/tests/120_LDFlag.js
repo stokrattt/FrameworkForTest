@@ -63,7 +63,7 @@ condition.nowWeDoing = 'пришли на аккаунт,добавляем ин
     MF.SweetConfirm();
     MF.SweetConfirm();
     LF.AccountLocalAddInventory(V.accountNumbersLD);
-    SF.sleep(5);
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
         V.CBFinAccount = SF.cleanPrice(text);
     }),config.timeout);
@@ -107,7 +107,6 @@ condition.nowWeDoing = 'идем на аккаунт клиентом, пров�
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {
         V.CBFinAccountAfterInventory = SF.cleanPrice(text);
     }),config.timeout);
-    SF.sleep(2);
 
 condition.nowWeDoing = 'Открываем Full value protection, меняем amount of liability и выбираем deductible level. Проверяем, что charge посчитан правильно и появился блок explanation';
     MF.Account_ClickAndOpenFullValueModal();
@@ -157,7 +156,7 @@ condition.nowWeDoing = 'Идём клиентом на аккаунт букат
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.boardNumbers.Id);
     MF.Account_ClickProceedBookYourMove();
-    JS.scroll('div[ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]');
+    // JS.scroll('div[ng-if="vm.request.reservation_rate.value !=0 && vm.request.status.raw != 3 && vm.request.status.raw == 2"]');
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Deposit:")]')).getText().then(function (text) {
         text = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.Deposit, text,'не совпал reservation price на реквесте и на странице confirmation page');

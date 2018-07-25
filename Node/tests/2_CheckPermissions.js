@@ -63,7 +63,7 @@ condition.nowWeDoing = 'заходим под сейлсом и проверяе
     VD.IWant (VD.NotToEqual, V.requestNew.SaleName, V.requestSale.SaleName, 'пермишины не сработали, так как сейл не изменился');
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SetSizeOfMoveNumber(8);
-    SF.sleep(10);
+    SF.sleep(2);
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
     MF.Board_RefreshDashboard();

@@ -106,14 +106,14 @@ condition.nowWeDoing = 'иду в админку в наш реквест, св�
 condition.nowWeDoing = 'открываем инвенторий, через поиск ищем несуществующий элемент и проверяем что нам подставит система ввести кастомный айтем' +
         'создаем сразу кастомный айтем и потом делаем нот конферм и проверим в емейле что отправляется правильный кубик фит и тотал айтемс';
     MF.EditRequest_OpenInventoryTab();
-    SF.sleep(8);
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[@class="inventory__toolbar-item inventory__toolbar-item_info"]/span[@ng-bind="total.count"]')).getText().then(function (text) {
         V.InventoryTotalRequest = SF.cleanPrice(text.replace('Total Items:', ''));
         VD.IWant(VD.ToEqual,V.InventoryTotalItemsAccount, V.InventoryTotalRequest, 'Сравниваем кол-во аитемов в аккаунте и модалке');
     }), config.timeout);
     SF.click(By.xpath('//div[@class="inventory__toolbar-item"]/input[@ng-change="search()"]'));
     SF.send(By.xpath('//div[@class="inventory__toolbar-item"]/input[@ng-change="search()"]'), 'tralala');
-    SF.sleep(8);
+    SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="newItem.title.value"]')).getAttribute('value').then(function (text) {
         VD.IWant(VD.ToEqual, text, 'tralala', 'не открылся ввод для кастомного айтема и не подставилось наше имя в поле item name');
     }),config.timeout);
@@ -164,7 +164,7 @@ condition.nowWeDoing = 'тут открываем в новой вкладке �
 
 condition.nowWeDoing = 'удаляем все аитемы, и проверяем что вес вернулся в дефолтный';
     MF.EditRequest_OpenInventoryTab();
-    SF.sleep(8);
+    SF.sleep(2);
     SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
     SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));
     SF.click (By.xpath('//div[@class="inventory__item"]//button[@ng-click="onClickCounter(-1)"]'));

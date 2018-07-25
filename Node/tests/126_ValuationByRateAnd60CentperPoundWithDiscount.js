@@ -26,7 +26,7 @@ condition.nowWeDoing = 'заходим под админом в настройк
         "return true;} else {$('md-checkbox[aria-label=\"Full Value Protection\"]').click()}"),config.timeout);
 	JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
 	MF.WaitWhileToaster();
-	SF.sleep(2);
+	SF.sleep(1);
 	MF.Board_LogoutAdmin();
 
 
@@ -46,10 +46,10 @@ condition.nowWeDoing = 'первый раз на аккаунте';
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
 	V.accountNumbers={};
-	SF.sleep(3);
 	LF.RememberAccountNumbers(V.accountNumbers);
 	LF.LogoutFromAccount();
-	condition.nowWeDoing = 'идем в админку, проверяем наши числа,сверяем страховку( должна быть ))' +
+
+condition.nowWeDoing = 'идем в админку, проверяем наши числа,сверяем страховку( должна быть ))' +
 		'ставим фулл вэлью протекшен,нот конферм';
 	SF.get(V.adminURL);
 	LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -124,7 +124,8 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
     V.accountNumbersAfterConfirmed={};
     LF.RememberAccountNumbers(V.accountNumbersAfterConfirmed);
     LF.LogoutFromAccount();
-    condition.nowWeDoing = 'идем в админку, ставим дискаунт, переходим на табу клоузинг, идем на конфирмейшн пэйдж со стороны админа' +
+
+condition.nowWeDoing = 'идем в админку, ставим дискаунт, переходим на табу клоузинг, идем на конфирмейшн пэйдж со стороны админа' +
 		'проверяем что там нет отрицательных чисел в третьей строке с тоталом ивалюэйшн чардж';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
@@ -132,7 +133,6 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
     MF.Board_OpenRequest(V.boardNumbers.Id);
     MF.EditRequest_OpenDiscountModal();
     MF.EditRequest_SendMoneyDiscount(500);
-    SF.sleep(3);
     V.boardNumbersAfterAccount = {};
     LF.RememberDigitsRequestBoard(V.boardNumbersAfterAccount);
     MF.EditRequest_CloseConfirmWork();
@@ -140,7 +140,8 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
     SF.openTab(1);
     MF.SweetConfirm();
     SF.sleep(2);
-    condition.nowWeDoing = 'на конфирмейшн пейдж берем страховку которая у нас в таблице и прибавляем с нашим тоталом, что' +
+
+condition.nowWeDoing = 'на конфирмейшн пейдж берем страховку которая у нас в таблице и прибавляем с нашим тоталом, что' +
         'бы узнать верная у нас страховка в 3ей строке или нет.';
     driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[2]/td[2]/span')).getText().then(function(text) {
 			V.ValuationinConfPageFirstCharge = text;
@@ -165,10 +166,10 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
     }), config.timeout);
     driver.close();
     SF.openTab(0);
-    SF.sleep(2);
+    SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
 
-    condition.nowWeDoing = 'идём в настройки валюэйшена и включаем обратно возможность на аккаунте клиенту выбирать Full Value Protection';
+condition.nowWeDoing = 'идём в настройки валюэйшена и включаем обратно возможность на аккаунте клиенту выбирать Full Value Protection';
     MF.Board_OpenSettingsGeneral();
     MF.Board_OpenSideBar();
     MF.Board_OpenSettingsValuation();
@@ -177,7 +178,7 @@ condition.nowWeDoing = 'идем на аккаунт  проверять наш�
         "return true;} else {$('md-checkbox[aria-label=\"Full Value Protection\"]').click()}"),config.timeout);
     JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
     MF.WaitWhileToaster();
-    SF.sleep(2);
+    SF.sleep(1);
 
     SF.endOfTest();
 };

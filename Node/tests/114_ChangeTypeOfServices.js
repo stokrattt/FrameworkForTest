@@ -71,7 +71,7 @@ condition.nowWeDoing = 'второй раз в аккаунте,  меняю з�
     MF.Account_SweetUpdateConfirm();
     MF.WaitWhileBusy();
     SF.waitForLocated(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
-    SF.sleep(10);
+    SF.sleep(3);
     V.accountNumbersChangeToOvernightFirst={};
     LF.RememberAccountNumbers(V.accountNumbersChangeToOvernightFirst);
     MF.Account_ClickFromStorage ();

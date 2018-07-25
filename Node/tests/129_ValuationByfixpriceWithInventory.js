@@ -132,10 +132,7 @@ condition.nowWeDoing = 'идем на мувборд,проверяем каст
 	V.boardNumbersAfterInventory={};
 	LF.RememberDigitsRequestBoard(V.boardNumbersAfterInventory);
 	LF.Validation_Compare_Account_Admin(V.accountNumbersAfterInventory,V.boardNumbersAfterInventory);
-	MF.EditRequest_OpenClient();
-	LF.SetClientPasswd(V.client.passwd);
-	MF.EditRequest_OpenRequest();
-    MF.EditRequest_OpenValuationModal();
+	MF.EditRequest_OpenValuationModal();
 	driver.wait(driver.findElement(By.xpath('//input[@ng-model="valuation.selected.liability_amount"]')).getAttribute('value').then(function (text) {
 		V.AmountOfLiabylytiforleter = Math.floor(SF.cleanPrice(text));
 	}), config.timeout);
@@ -182,9 +179,8 @@ condition.nowWeDoing = 'идем на аккаунт букать работу,�
 	}), config.timeout);
 	MF.Account_ConfirmationBackToRequest();
 	MF.Account_ChangeAmountOfLiability(15000);
-	MF.Account_WaitForLoadingAccount();
 	MF.Account_ClickProceedBookYourMove();
-	JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
+	// JS.scroll('div[ng-if="confirmation_table_show || isFullAmount"]');
 	driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.valuation.selected.valuation_charge"]/h2/span')).getText().then(function (text) {
 		V.SelectLevelinConfPage = SF.cleanPrice(text.substring(text.indexOf('$')));
 		VD.IWant(VD.ToEqual, V.SelectLevelinAdmin ,V.SelectLevelinConfPage,'не совпал выбраный deductible level на аккаунте и на конфирмейшн пэйдж');

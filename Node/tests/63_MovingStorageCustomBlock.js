@@ -34,9 +34,9 @@ condition.nowWeDoing = 'создаем мувинг сторадж, пендин
     MF.EditRequest_OpenSettings ();
     MF.EditRequest_ClickViewRequest ();
     SF.openTab (1);
-    SF.sleep(5);
+    SF.sleep(2);
     SF.waitForLocated (By.id('tab_Move Overview'));
-    SF.sleep(5);
+    SF.sleep(2);
     V.accountNumbersTo = {};
     LF.RememberAccountNumbers (V.accountNumbersTo);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
@@ -113,7 +113,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж To not confirmed на аккаунте');
     }),config.timeout);
     MF.Account_ClickProceedBookYourMove();
-    SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[class=\"estimated_job_time_row\"]:visible').length").then(function (text) {
         VD.IWant (VD.NotToEqual, text, 1, 'Job time на confirmation page отображается с выключенной настройкой show job time & quote on confirmation page ');
     }),config.timeout);
@@ -129,7 +128,6 @@ condition.nowWeDoing = 'тут включаем чекбоксы для пенд
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From not confirmed на аккаунте');
     }),config.timeout);
     MF.Account_ClickProceedBookYourMove();
-    SF.sleep(3);
     driver.wait(driver.executeScript("return $('div[ng-repeat=\"block in customBlocks\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло кастомный блок для мувинг сторадж From not confirmed на аккаунте на confirmation page');
     }),config.timeout);

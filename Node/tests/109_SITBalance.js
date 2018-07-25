@@ -38,7 +38,6 @@ condition.nowWeDoing = 'добавляем адишенал, типсы, дел�
     MF.EditRequest_OpenFuelModalClosingTab();
     MF.EditRequest_SendSumFuelModalClocingTab(200);
     MF.EditRequest_ClickApplyInFuelWindow();
-    SF.sleep(5); //софт тупит
     V.boardNumbersClosingTab1 = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingTab1);
     // MF.EditRequest_SaveChangesClosingTab();
@@ -59,12 +58,7 @@ condition.nowWeDoing = 'идем заново в реквест сверяем �
     MF.EditRequest_OpenPayment();
     MF.EditRequest_ClickAddCustomPayment();
     V.cashPayment = 100;
-    SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));
-    SF.send(By.xpath('//input[@ng-model="receipt.amount"]'), V.cashPayment);
-    SF.click(By.xpath('//button[@ng-click="Save()"]'));
-    SF.waitForLocated (By.xpath('//input[@ng-model="receipt.account_number"]'));
-    MF.WaitWhileBusy();
-    JS.click('button[ng-click=\\"save()\\"]:visible');
+    LF.EditRequest_CustomPay(V.cashPayment);
     V.boardNumbersClosingAfterPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterPaymentInRequest);
     SF.sleep(1);
@@ -109,20 +103,13 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     MF.EditRequest_ClosingTabOpenDiscountModal();
     MF.EditRequest_ClosingTabDiscountModalSendMoney(99);
     MF.EditRequest_ClosingTabDiscountModalClickSave();
-    SF.sleep(5);
     MF.WaitWhileToaster();
     MF.EditRequest_OpenPayment();
     MF.WaitWhileBusy();
     SF.sleep(1);
     MF.EditRequest_ClickAddCustomPayment();
     V.cashPayment2 = 200;
-    SF.clear(By.xpath('//input[@ng-model="receipt.amount"]'));
-    SF.send(By.xpath('//input[@ng-model="receipt.amount"]'), V.cashPayment2);
-    SF.click(By.xpath('//button[@ng-click="Save()"]'));
-    SF.waitForLocated (By.xpath('//input[@ng-model="receipt.account_number"]'));
-    MF.WaitWhileBusy();
-    JS.click('button[ng-click=\\"save()\\"]:visible');
-    SF.sleep(2);
+    LF.EditRequest_CustomPay(V.cashPayment2);
     V.boardNumbersClosingAfterDiscountAndPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterDiscountAndPaymentInRequest);
     LF.closeEditRequest();
@@ -162,7 +149,6 @@ condition.nowWeDoing = 'идем в реквест 2й раз, на одной �
     MF.EditRequest_ClosingTabOpenDiscountModal();
     MF.EditRequest_ClosingTabDiscountModalSendMoney(300);
     MF.EditRequest_ClosingTabDiscountModalClickSave();
-    SF.sleep(5);
     MF.WaitWhileToaster();
     V.boardNumbersClosingAfterAddInventory = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterAddInventory);

@@ -18,7 +18,6 @@ condition.nowWeDoing = 'первый раз в аккаунте';
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
-    SF.sleep(5);
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
     LF.LogoutFromAccount();

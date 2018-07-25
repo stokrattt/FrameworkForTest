@@ -59,14 +59,14 @@ condition.nowWeDoing='Включаем только Local,Loading,Unloading,Long
     SF.sleep(1);
     if (V.CompanyServices.Long) {console.log('выкл Long');SF.click(By.xpath(V.longSelector+'/..'));}
     JS.scroll ('h1:contains("General Settings")');
-    SF.sleep(5);
+    SF.sleep(2);
     MF.Board_Refresh ();
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing='проверяем на фронте: включено ли только Local,Loading,Unloading,Flat';
     SF.get(V.frontURL);
     JS.waitForExist('input[ng-change=\\"serviceneed = true\\"]:visible');
-    SF.sleep(6);
+    SF.sleep(3);
     SF.click(By.xpath('//input[@ng-change="serviceneed = true"]/..'));
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Move") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
@@ -166,14 +166,14 @@ condition.nowWeDoing='Включаем только Storage,Overnight,Long';
     if (V.CompanyServices.Flat) {SF.click(By.xpath(V.flatSelector+'/..'));}
     SF.sleep(1);
     if (!V.CompanyServices.Long) {SF.click(By.xpath(V.longSelector+'/..'));}
-    SF.sleep(6);
+    SF.sleep(4);
     MF.Board_Refresh ();
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing='проверяем на фронте: включено ли только Storage,Overnight,Long';
     SF.get(V.frontURL);
     JS.waitForExist('select[ng-model=\\"request.serviceType\\"]:visible');
-    SF.sleep(8);
+    SF.sleep(4);
     driver.wait(driver.findElements(By.xpath('//select[@ng-model="request.serviceType"]/option[contains(text(),"Local Move") and ' +
         'not (contains(@class,"ng-hide"))]')).then(function(array){
         VD.IWant(VD.ToEqual,array.length,0,'не работает настройка Local Moving');

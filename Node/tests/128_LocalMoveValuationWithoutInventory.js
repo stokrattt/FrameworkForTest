@@ -95,7 +95,6 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 	}), config.timeout);
     condition.nowWeDoing = 'после назначения нового Valuation делаем проверки 3ей строкив таблице на Confirmation Page';
     MF.Account_ClickProceedBookYourMove();
-	MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//table[@class="valuation-confirmation-table table"]/tbody/tr[2]/td[4]/span')).getText().then(function (text) {
 			text = SF.cleanPrice(text.substring(text.indexOf('$')));
 			VD.IWant(VD.ToEqual, V.ValuationChargeinAccount2 ,text ,'не совпали Valuation выбранный во второй раз на аккаунте и в таблице на конфирмейшн пэйдж');
@@ -134,7 +133,7 @@ condition.nowWeDoing = 'идем на мувборд,проверяем цифр
 		VD.IWant(VD.ToEqual, V.ValuationSales ,text,'не совпали Valuation на Sales и Closing');
 	}), config.timeout);
 
-condition.nowWeDoing = 'идем в локалдиспатч, назначаем работников';
+condition.nowWeDoing = 'идем в локал диспатч, назначаем работников';
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_OpenLocalDispatch();
 	LF.findDayInLocalDispatch(V.boardNumbers.moveDate.Year, V.boardNumbers.moveDate.Month, V.boardNumbers.moveDate.Day);

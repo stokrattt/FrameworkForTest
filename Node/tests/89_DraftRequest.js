@@ -35,7 +35,7 @@ condition.nowWeDoing = 'создаем драфт реквест и  сразу 
     LF.EditRequest_AddAdditionalServicesFullPack ();
     MF.EditRequest_ChangeZipCodeDestinationTo("01247");
     MF.EditRequest_SetAdressToFrom ();
-    SF.sleep(5);
+    SF.sleep(2);
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard (V.boardNumbers);
 

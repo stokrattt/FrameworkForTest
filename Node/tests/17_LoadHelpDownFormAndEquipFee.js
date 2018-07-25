@@ -36,7 +36,7 @@ condition.nowWeDoing = 'зашли под админом и включаем е�
     SF.click(By.xpath('//input[@ng-model="vm.newEquipmentFee.amount"]'));
     SF.send(By.xpath('//input[@ng-model="vm.newEquipmentFee.amount"]'), '100');
     SF.click(By.xpath('//button[@ng-click="vm.saveNewEquipmentFee(); "]'));
-    SF.sleep(5);
+    SF.sleep(3);
     MF.Board_Refresh ();
     MF.Board_LogoutAdmin ();
     SF.get(V.frontURL);

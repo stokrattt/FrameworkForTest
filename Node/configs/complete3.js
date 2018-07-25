@@ -1,6 +1,7 @@
 module.exports = function(config,V) {
     config.suite = [
         './tests/DefaultSettings.js',
+        './tests/3_PaymentCollected.js',
         './tests/78_CheckRateAndTrucks.js',
         './tests/40_PayrollTableCheckSumJobs.js',
         './tests/79_ExtraFeeForAdditionalPickUp.js',
