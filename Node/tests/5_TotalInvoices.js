@@ -280,5 +280,17 @@ condition.nowWeDoing = 'идем статистику/инвойсы, и сра�
     }),config.timeout);
     SF.sleep(1);
 
+condition.nowWeDoing = 'идем статистику/пеймент колектед, сортируем по пеймент флагу Инвойсы, и смотрим есть ли наш инвойс';
+    SF.click(By.xpath('//a[@ui-sref="statistics.paymentsCollected"]'));
+    SF.sleep(4);
+    MF.PaymentCollected_ChoosePaymentFlag('Invoices');
+    MF.PaymentCollected_ClickApplyFilters();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.ClientNameFam+'")]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, V.ClientNameFam, 'в пеймент коллектед не совпали имя/фамилия клиента нешего инвойса')
+    }), config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.ClientNameFam+'")]/following-sibling::td[5]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.InvTotalDue, 'не совпала сумма в строке инвойса в пеймент колектед')
+    }), config.timeout);
+
     SF.endOfTest();
 };
