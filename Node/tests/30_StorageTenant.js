@@ -26,6 +26,8 @@ condition.nowWeDoing = 'идем в леджер и создаем паймен�
     SF.sleep (1);
     MF.EditRequest_ClickAddCustomPayment();
     LF.EditRequest_CustomPay(150);
+    JS.click('button[ng-click=\\"openPayment()\\"]:visible');
+    SF.sleep (1);
     JS.click('a[ng-click=\\"addAuthPayment()\\"]:visible');
     SF.click (By.xpath('//input[@ng-model="charge_value.value"]'));
     SF.send (By.xpath('//input[@ng-model="charge_value.value"]'),1050);
@@ -185,6 +187,30 @@ condition.nowWeDoing = 'старт рекуринг';
 condition.nowWeDoing = 'идем проверять что он есть в Move in';
     MF.StorageTenant_OpenStorages(V.storage.Id);
     MF.EditStorage_CloseOpenModal();
+
+condition.nowWeDoing = 'идем в паймент колектед проверять или есть все пайменты по фильтру сторадж тенант, сделанные в нашем сторадже';
+    MF.Board_OpenSideBar();
+    MF.Board_OpenPaymentCollected();
+    LF.PaymentCollected_ChooseCurrentDateStartEnd();
+    MF.PaymentCollected_ChooseAdvancedFilter('Storage Tenant');
+    MF.PaymentCollected_ClickApplyFilters();
+    MF.PaymentCollected_SortByDESC();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.storage.Id+'")]/following-sibling::td[3]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, text, 'Сustom receipt, Storage Tenant', 'не нашло слово  Сustom receipt, Storage Tenant после оплаты в сторадже кастомным кешем - сторадж № "'+ V.storage.Id+'"');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.storage.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 150, 'не нашло сумму в 150 дол  Сustom receipt, Storage Tenant после оплаты в сторадже кастомным кешем - сторадж № "'+ V.storage.Id+'"');
+    }),config.timeout);
+    // это раскоментировать и доделать проверку на инвойс от стораджа, пока там бага
+    // MF.PaymentCollected_ChoosePaymentFlag('Invoices');
+    // MF.PaymentCollected_ClickApplyFilters();
+    // driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+ V.storage.Id+'")]/following-sibling::td[6]')).getText().then(function (text) {
+    //     VD.IWant(VD.ToEqual, SF.cleanPrice(text), 780, 'не нашло сумму в 150 дол  Сustom receipt, Storage Tenant после оплаты в сторадже кастомным кешем - сторадж № "'+ V.storage.Id+'"');
+    // }),config.timeout);
+
+
+
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

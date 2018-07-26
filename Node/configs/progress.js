@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/124_Pending-InfoWithCalcOffAndCustomReservation.js'];
+    config.suite = ['./tests/30_StorageTenant.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 30000;

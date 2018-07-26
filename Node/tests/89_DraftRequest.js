@@ -83,6 +83,9 @@ condition.nowWeDoing = 'второй раз в админке, добаавим 
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
+    SF.select(By.xpath('//select[@ng-model="vm.searchParams.conf_filter"]'), 1);
+    MF.WaitWhileBusy ();
+    SF.sleep(1);
     MF.Board_OpenRequest(V.boardNumbers.Id);
     MF.EditRequest_OpenPaymentModalWindow();
     SF.click(By.xpath('//input[@ng-click="changePending(receipt)"]'));
