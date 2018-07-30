@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/30_StorageTenant.js'];
+    config.suite = ['./tests/20_LDTopForm.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 30000;
@@ -22,9 +22,9 @@ module.exports = function(config,V) {
      V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';    //stage
 
 
-    // V.frontURL = 'http://dev.stage.themoveboard.com:90/front_site/';                       //dev
-    // V.accountURL = 'http://dev.stage.themoveboard.com:90/account/#/login';      //dev
-    // V.adminURL = 'http://dev.stage.themoveboard.com:90/moveBoard/#/login';      //dev
+    // V.frontURL = 'https://dev.stage.themoveboard.com:90/front_site/';                       //dev
+    // V.accountURL = 'https://dev.stage.themoveboard.com:90/account/#/login';      //dev
+    // V.adminURL = 'https://dev.stage.themoveboard.com:90/moveBoard/#/login';      //dev
 
     V.adminLogin = 'WorkAdmin';
     // V.adminLogin = 'TestAdmin';

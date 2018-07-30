@@ -151,7 +151,7 @@ condition.nowWeDoing = 'на конфирмейшн пейдж берем стр
     driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[3]/td[2]/span')).getText().then(function(text) {
         V.IpartofTotalEstimatePlusValuation = V.boardNumbersAfterAccount.TotalMin + V.ValuationinConfPageFirstCharge ;
         V.IIpartofTotalEstimatePlusValuation = V.boardNumbersAfterAccount.TotalMax + V.ValuationinConfPageFirstCharge ;
-        VD.IWant(VD.ToEqual,text,('$ ' + V.IpartofTotalEstimatePlusValuation + ' - ' + '$ ' + V.IIpartofTotalEstimatePlusValuation),"не совпал тотал плюс страховка  в третьей строке таблицы" +
+        VD.IWant(VD.ToEqual,text,('$ ' + (V.IpartofTotalEstimatePlusValuation).toFixed(2) + ' - ' + '$ ' + (V.IIpartofTotalEstimatePlusValuation).toFixed(2)),"не совпал тотал плюс страховка  в третьей строке таблицы" +
             "с тем,что должно было быть по расчетам");
     }), config.timeout);
     driver.wait(driver.findElement(By.xpath('//table[@ng-if="confirmation_table_show || isFullAmount"]/tbody/tr[2]/td[3]/span')).getText().then(function(text) {
