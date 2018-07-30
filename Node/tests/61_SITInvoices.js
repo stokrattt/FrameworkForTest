@@ -120,6 +120,10 @@ condition.nowWeDoing = 'переходим на страницу просмот�
     SF.sleep(3);
     SF.click(By.xpath('//a[@ng-click="vm.invoicePayment();"]'));
     LF.InvoiceOnlinePayment();
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.entitytype != vm.fieldData.enums.entities.STORAGEREQUEST"]/span[@class="invoice-float-right"]/b')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), 0, 'после оплаты инвойса, баланс не ноль, а должен быть нульом');
+    }),config.timeout);
+    SF.sleep(1);
     SF.openTab(0);
 
 condition.nowWeDoing = 'Проверяем есть ли в реситах оплачений инвоис';
