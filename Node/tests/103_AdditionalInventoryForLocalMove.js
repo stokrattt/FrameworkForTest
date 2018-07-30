@@ -15,6 +15,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 condition.nowWeDoing = 'создаем реквест ';
     LF.CreateLocalMovingFromBoard (V.client);
     LF.addInventoryBoard ();
+    SF.sleep(2); //сохранялка для инвентаря
     MF.EditRequest_OpenSettings();
     LF.SetManager(V.managerFirstName);
     MF.EditRequest_OpenClient();
