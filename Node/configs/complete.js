@@ -136,6 +136,7 @@ module.exports = function(config,V) {
         './tests/130_LDCheckScheduleDeliveryDateAndContract.js',
         './tests/126_ValuationByRateAnd60CentperPoundWithDiscount.js',
         './tests/37_PendingStorage.js',
+        './tests/131_CheckCouponsAndReservationByHourlyRate.js',
         './tests/DefaultSettings.js',
         './tests/51_ServiceTypesOnOff.js',
         './tests/56_LoadingAllSteps.js',
