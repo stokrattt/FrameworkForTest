@@ -100,8 +100,8 @@ condition.nowWeDoing = 'Зайти под форменом, найти перв�
     SF.sleep(2);
 
 condition.nowWeDoing = 'закончили с инвентарём, подписываем первый контракт и проверяем орижин блок';
+    MF.Contract_WaitBillOfLading();
     LF.Contract_CheckOriginBlockNameZip('02032', V.client.name, V.client.fam);
-    SF.sleep(2);
     driver.wait(driver.executeScript("return $('div[class=\"moving-storage-addr\"] img').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло картинку moving to storage в  блоке дестинейшн на контракте на');
     }),config.timeout);
