@@ -283,6 +283,7 @@ condition.nowWeDoing = 'идем статистику/инвойсы, и сра�
 condition.nowWeDoing = 'идем статистику/пеймент колектед, сортируем по пеймент флагу Инвойсы, и смотрим есть ли наш инвойс';
     SF.click(By.xpath('//a[@ui-sref="statistics.paymentsCollected"]'));
     SF.sleep(4);
+    LF.PaymentCollected_ChooseCurrentDateStartEnd();
     MF.PaymentCollected_ChoosePaymentFlag('Invoices');
     MF.PaymentCollected_ClickApplyFilters();
     driver.wait(driver.findElement(By.xpath('//td[contains(text(), "'+V.ClientNameFam+'")]')).getText().then(function (text) {
