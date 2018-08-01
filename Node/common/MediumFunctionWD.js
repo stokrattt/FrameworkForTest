@@ -331,6 +331,28 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ui-sref="settings.schedule"]'));
         SF.sleep(2);
     }
+    function Board_TurnOffCrewsAlwaysAvailable() {
+        Board_OpenSideBar();
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+        SF.sleep(2);
+        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[19]'));
+        SF.waitForVisible(By.xpath('//div[@class="dispatch-crew-setting__body"]'));
+        SF.sleep(1);
+        driver.wait(driver.executeScript("if ($('input[ng-model=\"isCrewAlwaysAvailable\"]').hasClass('ng-empty')){" +
+            "return true;} else {$('input[ng-model=\"isCrewAlwaysAvailable\"]:visible').click()}"),config.timeout);
+        WaitWhileToaster();
+    }
+    function Board_TurnOnCrewsAlwaysAvailable() {
+        Board_OpenSideBar();
+        SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
+        SF.sleep(2);
+        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[19]'));
+        SF.waitForVisible(By.xpath('//div[@class="dispatch-crew-setting__body"]'));
+        SF.sleep(1);
+        driver.wait(driver.executeScript("if ($('input[ng-model=\"isCrewAlwaysAvailable\"]').hasClass('ng-not-empty')){" +
+            "return true;} else {$('input[ng-model=\"isCrewAlwaysAvailable\"]:visible').click()}"),config.timeout);
+        WaitWhileToaster();
+    }
     function Board_OpenCompanyServices() {
         Board_OpenSideBar();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
@@ -2625,6 +2647,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenNotConfirmed: Board_OpenNotConfirmed,
         Board_OpenConfirmed: Board_OpenConfirmed,
         Board_OpenSettingsSchedule: Board_OpenSettingsSchedule,
+        Board_TurnOffCrewsAlwaysAvailable: Board_TurnOffCrewsAlwaysAvailable,
+        Board_TurnOnCrewsAlwaysAvailable: Board_TurnOnCrewsAlwaysAvailable,
         Board_OpenCompanyServices:Board_OpenCompanyServices,
         Board_OpenSettingsGeneral: Board_OpenSettingsGeneral,
 		Board_OpenSettingsRates: Board_OpenSettingsRates,

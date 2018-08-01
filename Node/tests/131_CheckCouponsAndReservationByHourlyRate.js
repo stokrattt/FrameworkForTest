@@ -89,8 +89,6 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         text = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual,  V.ReservationPriceNew1, text,'не совпал reservation price на реквесте и на странице confirmation page');
     }), config.timeout);
-    MF.AccountConfirmationPage_ClickBackToRequest();
-    MF.Account_WaitForLoadingAccount();
     LF.LogoutFromAccount ();
 
     condition.nowWeDoing = 'Возвращаемся на мувборд, назначаем команду.';

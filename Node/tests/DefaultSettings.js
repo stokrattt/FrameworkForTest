@@ -216,13 +216,6 @@ condition.nowWeDoing = 'тут заходим в маркетинг тулс и 
     JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
     MF.WaitWhileToaster();
 
-    condition.nowWeDoing = 'Включение фиксированой резервации для локал мув';
-    MF.Board_OpenSettingsSchedule();
-    V.ReservationHour = 0;
-    MF.Schedule_SetHourReservationLocalTo(V.ReservationHour);
-    V.ReservationPrice = 150;
-    MF.Schedule_SetReservationLocalTo(V.ReservationPrice);
-
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };
