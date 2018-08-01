@@ -158,7 +158,7 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
     MF.EditRequest_CloseModal();
-    MF.SweetConfirm();
+    // MF.SweetConfirm();
     MF.WaitWhileBusy();
     SF.click(By.xpath('//div[@ng-if="states.invoiceState"]//span[@ng-if="request.request_all_data.storage_request_id"]'));
     MF.WaitWhileBusy();

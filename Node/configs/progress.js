@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/68_SITPickUpDelivery.js'];
+    config.suite = ['./tests/65_StorageEmailTemplate.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 30000;

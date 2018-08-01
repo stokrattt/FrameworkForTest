@@ -150,7 +150,13 @@ condition.nowWeDoing = 'заходим в Storage Tenants, создаем инв
     driver.wait(driver.findElement(By.xpath('//h2[contains(text(),"Storage Statement URL")]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text, 'Storage Statement URL', 'не совпали темплейти Storage');
     }),config.timeout);
-    JS.click('a:contains("Preview Template"):visible');
+    JS.click('a:contains(\"Preview Template\"):visible');
     MF.WaitWhileBusy();
+    JS.link('a:contains("vIEW INVOICE"):visible');
+    driver.wait(driver.executeScript("return $('tr[ng-repeat=\"bill in bills track by $index\"]').length").then(function (text) {
+        VD.IWant(VD.NotToEqual, text,0, 'не нашло сторадж стейтмент урл (BILLING HISTORY) на аккаунте у клиента после перехода по этой ссылке');
+    }),config.timeout);
+
+
     SF.endOfTest();
 };

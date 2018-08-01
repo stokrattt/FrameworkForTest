@@ -30,7 +30,7 @@ condition.nowWeDoing = 'Создаем Long Distance работу с мувбо�
     MF.EditRequest_OpenRequest();
     LF.EditRequest_AddPartialPacking();
     MF.EditRequest_SetToConfirmed();
-    SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 'number:1');
+    SF.select(By.xpath('//select[@ng-model="request.ld_status"]'), 'number:2');
     SF.sleep(1);
     MF.EditRequest_SetSizeOfMoveNumber(8);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
@@ -144,6 +144,7 @@ condition.nowWeDoing = 'Заходим в реквест , выставляем 
     SF.click(By.xpath('//div[text()="MA - Massachusetts"]'));
     SF.sleep(2);
     SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
+    SF.sleep(2);
     SF.waitForVisible (By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[9]'));
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"'+ V.client.name +'")]/..//div[9]')).getText().then(function(text){
