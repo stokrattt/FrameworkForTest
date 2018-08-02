@@ -1388,6 +1388,22 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         JS.waitForExist('div.toast-success');
 		MF.WaitWhileToaster();
 	}
+    function createNewTeam(crewForemanName, firstHelperName, secondHelperName) {
+        JS.click('img[ng-click=\\"vm.openCrewModal()\\"]');
+        SF.waitForVisible (By.xpath('//div[@ng-click="addCrew()"]'));
+        SF.click(By.xpath('//div[@ng-click="addCrew()"]'));
+        SF.waitForVisible (By.xpath('//div[@class="crew-modal__body-crew-control crews-tab"]'));
+        SF.click(By.xpath('//select[@ng-model="activeCrew.foreman.uid"]//option[@label="'+ crewForemanName +'"]'));
+        SF.click(By.xpath('//oi-select[@ng-model="activeCrew.helpers"]'));
+        SF.click(By.xpath('//div[@class="select-dropdown"]/ul/li[contains(text(), "'+ firstHelperName +'")]'));
+        SF.click(By.xpath('//oi-select[@ng-model="activeCrew.helpers"]'));
+        SF.click(By.xpath('//div[@class="select-dropdown"]/ul/li[contains(text(), "'+ secondHelperName +'")]'));
+        SF.click(By.xpath('//button[@ng-click="saveAllCrews()"]'));
+        MF.WaitWhileBusy();
+        SF.click(By.xpath('//button[@ng-click="closeCrewManagementModal()"]'));
+        SF.sleep(1);
+    }
+
     function selectBigCrew(ForemanName) {
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']"));
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'" + ForemanName + "')]"));
@@ -3393,6 +3409,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		OpenRequestInForemanPage: OpenRequestInForemanPage,
 		selectCrew: selectCrew,
         selectBigCrew: selectBigCrew,
+        createNewTeam: createNewTeam,
 		selectCrewFlatRatePickUp: selectCrewFlatRatePickUp,
 		selectCrewFlatRateDelivery: selectCrewFlatRateDelivery,
 		MakeSignInContract: MakeSignInContract,
