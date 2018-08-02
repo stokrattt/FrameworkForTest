@@ -158,6 +158,7 @@ condition.nowWeDoing = 'заходим в Storage Tenants, создаем инв
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"bill in bills track by $index\"]').length").then(function (text) {
         VD.IWant(VD.NotToEqual, text,0, 'не нашло сторадж стейтмент урл (BILLING HISTORY) на аккаунте у клиента после перехода по этой ссылке');
     }),config.timeout);
+    SF.sleep(1);
 
 
     SF.endOfTest();
