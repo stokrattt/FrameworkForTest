@@ -153,6 +153,8 @@ condition.nowWeDoing = 'заходим в Storage Tenants, создаем инв
     JS.click('a:contains(\"Preview Template\"):visible');
     MF.WaitWhileBusy();
     JS.link('a:contains("vIEW INVOICE"):visible');
+    SF.waitForLocated(By.xpath('//th[contains(text(), "Total Balance Due (USD)")]'));
+    SF.sleep(3);
     driver.wait(driver.executeScript("return $('tr[ng-repeat=\"bill in bills track by $index\"]').length").then(function (text) {
         VD.IWant(VD.NotToEqual, text,0, 'не нашло сторадж стейтмент урл (BILLING HISTORY) на аккаунте у клиента после перехода по этой ссылке');
     }),config.timeout);
