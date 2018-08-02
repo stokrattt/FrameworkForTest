@@ -121,6 +121,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     MF.WaitWhileBusy();
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="rate.value"]')).getAttribute('value').then(function(text){
         V.RateCrew = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, V.RateCrew, V.boardNumbers.HourlyRate + 35, 'Неправильно посчитан рейт для additional crew в crew settings локал диспача');
     }),config.timeout);
     SF.click(By.xpath('//button[@ng-click="saveSettings()"]'));
     MF.WaitWhileBusy ();
