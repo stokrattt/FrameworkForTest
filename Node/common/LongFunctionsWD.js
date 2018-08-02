@@ -1388,7 +1388,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         JS.waitForExist('div.toast-success');
 		MF.WaitWhileToaster();
 	}
-    function createNewTeam(crewForemanName, firstHelperName, secondHelperName) {
+    function createNewTeam(crewForemanName, firstHelperName, secondHelperName, crewName) {
         JS.click('img[ng-click=\\"vm.openCrewModal()\\"]');
         SF.waitForVisible (By.xpath('//div[@ng-click="addCrew()"]'));
         SF.click(By.xpath('//div[@ng-click="addCrew()"]'));
@@ -1398,6 +1398,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//div[@class="select-dropdown"]/ul/li[contains(text(), "'+ firstHelperName +'")]'));
         SF.click(By.xpath('//oi-select[@ng-model="activeCrew.helpers"]'));
         SF.click(By.xpath('//div[@class="select-dropdown"]/ul/li[contains(text(), "'+ secondHelperName +'")]'));
+        driver.actions().mouseMove(driver.findElement(By.xpath('//span[@class="crew-modal__crew-name"][contains(text(), "'+ crewForemanName +'")]'))).doubleClick().perform();
+        SF.click(By.xpath('//div[@class="crew-modal__crew-button editable-crew"]'));
+        SF.clear(By.xpath('//div[@class="crew-modal__crew-button editable-crew"]//input[@ng-change="changeCrewTitle(crew)"]'));
+        SF.send(By.xpath('//div[@class="crew-modal__crew-button editable-crew"]//input[@ng-change="changeCrewTitle(crew)"]'), crewName);
+        SF.sleep(1);
         SF.click(By.xpath('//button[@ng-click="saveAllCrews()"]'));
         MF.WaitWhileBusy();
         SF.click(By.xpath('//button[@ng-click="closeCrewManagementModal()"]'));
