@@ -92,6 +92,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
     driver.wait(driver.executeScript("return $('speedy-inventory-icon[speedy-field=\"request.field_speedy_id\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 1, 'не нашло спиди значок на конферм работе');
     }),config.timeout);
+    MF.WaitWhileBusy();
     LF.EditRequest_AddSpecialPackingClosingTab();
     LF.EditRequest_AddAdditionalServClosingTab();
     driver.wait(driver.executeScript('return $(\'div.PackingCost:visible\').text()').then(function (text) {
@@ -172,7 +173,7 @@ condition.nowWeDoing = 'заходим под форменом,проверяе�
     LF.MakeSignInContract();
     driver.wait(driver.findElement(By.xpath('//th[contains(text(),"CREW 2")]/following-sibling::td[3]')).getText().then(function(text){
         V.RateContr = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, V.RateCrew + V.boardNumbers.HourlyRate, V.RateContr, 'Rate Crew 2 не совпадает');
+        VD.IWant(VD.ToEqual, V.RateCrew, V.RateContr, 'Rate Crew 2 не совпадает');
     }),config.timeout);
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
