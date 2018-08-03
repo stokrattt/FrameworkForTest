@@ -1408,6 +1408,16 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//button[@ng-click="closeCrewManagementModal()"]'));
         SF.sleep(1);
     }
+    function deleteTeam(crewName) {
+        JS.click('img[ng-click=\\"vm.openCrewModal()\\"]');
+        SF.waitForVisible (By.xpath('//div[@ng-click="addCrew()"]'));
+        SF.click(By.xpath('//span[@class="crew-modal__crew-name"][contains(text(), "'+ crewName +'")]'));
+        SF.click(By.xpath('//div[@class="crew-modal__crew-button editable-crew"]/i[@ng-click="removeCrew($index)"]'));
+        MF.SweetConfirm();
+        MF.WaitWhileBusy();
+        SF.click(By.xpath('//button[@ng-click="closeCrewManagementModal()"]'));
+        SF.sleep(1);
+    }
     function selectNewTeam(crewName) {
         SF.click(By.xpath('//select[@ng-model="vm.data.crew"]//option[@label="'+ crewName +'"]'));
         JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
@@ -3423,6 +3433,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         selectBigCrew: selectBigCrew,
         createNewTeam: createNewTeam,
         selectNewTeam: selectNewTeam,
+        deleteTeam: deleteTeam,
 		selectCrewFlatRatePickUp: selectCrewFlatRatePickUp,
 		selectCrewFlatRateDelivery: selectCrewFlatRateDelivery,
 		MakeSignInContract: MakeSignInContract,
