@@ -39,6 +39,7 @@ condition.nowWeDoing = 'идем в админку,сравниваем данн
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//select[@id="edit-service"]/option[@value="1"]'));
+    MF.WaitWhileBusy();
     MF.EditRequest_ChangeZipCodeDestinationTo("02222");
     MF.EditRequest_ChangeZipCodeOriginFrom("01101");
     MF.EditRequest_SetAdressToFrom ();
