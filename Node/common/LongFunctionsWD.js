@@ -1408,7 +1408,14 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         SF.click(By.xpath('//button[@ng-click="closeCrewManagementModal()"]'));
         SF.sleep(1);
     }
-
+    function selectNewTeam(crewName) {
+        SF.click(By.xpath('//select[@ng-model="vm.data.crew"]//option[@label="'+ crewName +'"]'));
+        JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
+        SF.sleep(1);
+        JS.click('button[ng-click="vm.assignTeam()"]');
+        JS.waitForExist('div.toast-success');
+        MF.WaitWhileToaster();
+    }
     function selectBigCrew(ForemanName) {
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']"));
         SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'" + ForemanName + "')]"));
@@ -3415,6 +3422,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		selectCrew: selectCrew,
         selectBigCrew: selectBigCrew,
         createNewTeam: createNewTeam,
+        selectNewTeam: selectNewTeam,
 		selectCrewFlatRatePickUp: selectCrewFlatRatePickUp,
 		selectCrewFlatRateDelivery: selectCrewFlatRateDelivery,
 		MakeSignInContract: MakeSignInContract,

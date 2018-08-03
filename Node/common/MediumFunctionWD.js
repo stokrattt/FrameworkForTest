@@ -2047,7 +2047,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
         WaitWhileBusy();
     }
-
+    function Dispatch_ScheduleView() {
+        SF.click(By.xpath('//i[contains(@ng-click,"view.schedule = true;")]'));
+        WaitWhileBusy();
+    }
     function Dispatch_ShowDoneJobs() {
         SF.select(By.xpath('//select[@ng-model="vm.reqFilter.type"]'), 0);
         WaitWhileBusy();
@@ -2972,6 +2975,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_SelectCustomTypePayment:EditRequest_SelectCustomTypePayment,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
+        Dispatch_ScheduleView: Dispatch_ScheduleView,
         Dispatch_ShowDoneJobs: Dispatch_ShowDoneJobs,
         Dispatch_WaitForCalendar: Dispatch_WaitForCalendar,
         Dispatch_ShowScheduledJobs:Dispatch_ShowScheduledJobs,
