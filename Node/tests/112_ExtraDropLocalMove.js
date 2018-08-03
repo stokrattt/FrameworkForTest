@@ -49,6 +49,7 @@ condition.nowWeDoing = 'заходим заново в реквест, и про
 condition.nowWeDoing = 'идем в аккаунт, и на конфирмеишен от админа проверяем эналичие экстра сервисов ';
     MF.EditRequest_OpenSettings();
     MF.EditRequest_ClickViewRequest();
+    SF.sleep(2);
     SF.openTab(1);
     MF.Account_WaitForLoadingAccount();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(), "Extra Drop-off")]')).getText().then(function(text){
