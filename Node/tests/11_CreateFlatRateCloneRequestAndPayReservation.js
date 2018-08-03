@@ -75,16 +75,15 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
         VD.IWant(VD.ToEqual, text, V.client.name, 'не совпало имя клиента с начальным реквестом, а должно');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="client.field_user_last_name"]')).getAttribute('value').then(function (text) {
-        VD.IWant(VD.ToEqual, text, V.client.fam , 'не совпало имя клиента с начальным реквестом, а должно');
+        VD.IWant(VD.ToEqual, text, V.client.fam , 'не совпало фамилия клиента с начальным реквестом, а должно');
     }),config.timeout);
     driver.wait(driver.findElement(By.xpath('//input[@ng-model="client.field_primary_phone"]')).getAttribute('value').then(function (text) {
         text = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, text, '-'+V.client.phone , 'не совпало имя клиента с начальным реквестом, а должно');
+        VD.IWant(VD.ToEqual, text, '-'+V.client.phone , 'не совпало телефон клиента с начальным реквестом, а должно');
     }),config.timeout);
     LF.SetClientPasswd(V.client.passwd);
     MF.EditRequest_OpenRequest();
-    MF.EditRequest_SetAdressToFrom();
-    MF.EditRequest_SendFlatRateSumm(4000);
+    MF.EditRequest_SendFlatRateSumm(3000);
     MF.EditRequest_SetToNotConfirmed();
     JS.step(JSstep.selectTruck(4));
     MF.WaitWhileBusy();
@@ -96,15 +95,20 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
     MF.Board_LogoutAdmin();
+
     condition.nowWeDoing = 'выходим из мувборда, заходим на аккаунт, октрываем клонированный реквест,переходим на конфирмейшн' +
         'сравниваем резервации в склонированном реквесте на мувборде и на аккаунте';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.IdClone);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-hide="vm.getGrandTotal(\'flatrate\', vm.request) == 0"]')).getText().then(function (text) {
+        text = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, text, 3000, 'не совпал рейт с тем, что мы выставили вручную на мувборде');
+    }),config.timeout);
     MF.Account_ClickProceedBookYourMove();
     driver.wait(driver.findElement(By.xpath('//div[@ng-class="{\'disabled\':vm.admin}"]/div/h2[contains(text(),"Deposit: ")]')).getText().then(function (text) {
         text = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, text, V.CloneReservation, 'резервация не совпала с той суммой, что указана на мувборде в склонированном реквесте и на конфирмейшн пэйдж');
+        VD.IWant(VD.ToEqual, text, 350, 'резервация не совпала с той суммой, что указана на мувборде в склонированном реквесте и на конфирмейшн пэйдж');
     }),config.timeout);
     MF.Account_ClickIAgreeWithAll();
     SF.click(By.xpath('//div[@ng-click="addReservationPayment()"]'));
@@ -127,7 +131,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep(1);
     driver.wait(driver.findElement(By.xpath('//tr[@ng-click="prepareToDelete($index, receipt.id)"]/td[4]')).getText().then(function (text) {
         text = SF.cleanPrice(text);
-        VD.IWant(VD.ToEqual, text, V.CloneReservation, 'резервация не совпала с той суммой, что указана на мувборде в склонированном реквесте и на конфирмейшн пэйдж');
+        VD.IWant(VD.ToEqual, text, 350, 'оплата не совпала с той суммой,которую мы оплатили на конфирмейшн пэйдж');
     }),config.timeout);
 
     SF.endOfTest();
