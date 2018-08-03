@@ -331,6 +331,12 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//a[@ui-sref="settings.schedule"]'));
         SF.sleep(2);
     }
+    function Board_OpenMiscellaneous (){
+        Board_OpenSideBar();
+        Board_OpenSettingsGeneral();
+        SF.click(By.xpath('//li[@ng-show="vm.PermissionsServices.hasPermission(\'canSeeSettingsMenu\');"]//span[contains(text(), \"Miscellaneous\")]'));
+        SF.sleep(1);
+    }
     function Board_TurnOffCrewsAlwaysAvailable() {
         Board_OpenSideBar();
         SF.click(By.xpath('//a[@ng-click="vm.goToPage(\'settings.general\', \'\')"]'));
@@ -386,6 +392,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 		SF.waitForVisible(By.xpath('//input[@ng-change="vm.saveRates()"]'));
 		SF.sleep(1);
 	}
+	function Board_OpenSettingsSMTP (){
+        Board_OpenSettingsGeneral();
+        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[17]'));
+        SF.sleep(1);
+    }
     function Board_OpenSettingsAccountPageCustomBlock() {
         SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
         SF.sleep(3);
@@ -2704,6 +2715,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         BoardSettingsCalculator_DoubleDriveTimeON:BoardSettingsCalculator_DoubleDriveTimeON,
         BoardSettingsCalculator_DoubleDriveTimeOFF:BoardSettingsCalculator_DoubleDriveTimeOFF,
         Board_OpenTotoalInvoices:Board_OpenTotoalInvoices,
+        Board_OpenMiscellaneous : Board_OpenMiscellaneous,
+        Board_OpenSettingsSMTP : Board_OpenSettingsSMTP,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,

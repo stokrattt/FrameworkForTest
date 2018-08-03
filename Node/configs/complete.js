@@ -20,6 +20,7 @@ module.exports = function(config,V) {
        // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/DefaultSettings.js',
         './tests/10_ComparQuotLocalCheckBilOfLad.js',
+        './tests/11_CreateFlatRateCloneRequestAndCheckPayReservation',
         './tests/12_CreateMov&StorFromFrontDownAndCompare.js',
         './tests/14_LoadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
@@ -122,7 +123,7 @@ module.exports = function(config,V) {
         './tests/120_LDFlag.js',
         './tests/131_CheckCouponsAndReservationByHourlyRate.js',
         './tests/SetReservationPrice.js',
-        './tests/121_FAQ.js',
+        //'./tests/121_FAQ.js',
         './tests/21_LDFromAdminCheckPayroll.js',
         './tests/117_HomeEstimatePortal.js',
         './tests/111_ZIPCode.js',
