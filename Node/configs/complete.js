@@ -20,7 +20,7 @@ module.exports = function(config,V) {
        // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/DefaultSettings.js',
         './tests/10_ComparQuotLocalCheckBilOfLad.js',
-        './tests/11_CreateFlatRateCloneRequestAndCheckPayReservation',
+        './tests/11_CreateFlatRateCloneRequestAndPayReservation.js',
         './tests/12_CreateMov&StorFromFrontDownAndCompare.js',
         './tests/14_LoadingHelpTopForm.js',
         './tests/SetReservationPrice.js',
