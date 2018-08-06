@@ -394,7 +394,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 	}
 	function Board_OpenSettingsSMTP (){
         Board_OpenSettingsGeneral();
-        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[17]'));
+        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[16]'));
         SF.sleep(1);
     }
     function Board_OpenSettingsAccountPageCustomBlock() {
