@@ -9,9 +9,13 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 
     //=========================начинаем писать тест=============================
 
-condition.nowWeDoing = 'создаем пекинг дей с фронта';
+condition.nowWeDoing = ' идем в настройки и включаем минимум hours 3 часа и создаем пекинг дей с мувборда';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
+    MF.Board_OpenSettingsCalculator();
+    MF.CalculatorSettings_OpenBasicSettings();
+    SF.select(By.xpath('//select[@ng-model="vm.calcSettings.min_hours"]'),3);
+    SF.sleep(2);
     LF.CreatePackingDayFromBoard(V.client);
     LF.addInventoryBoard ();
     MF.EditRequest_SetAdressFrom ();
@@ -97,17 +101,39 @@ condition.nowWeDoing = 'идем в админку в локал диспач и
     LF.closeEditRequest();
     MF.Board_LogoutAdmin();
 
-condition.nowWeDoing = 'заходим под форменом, открываем контракт';
+condition.nowWeDoing = 'заходим под форменом, открываем контракт и  проверим что минимум hours 3 часа стоит в тексте local hourly option';
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
     LF.OpenRequestInForemanPage(V.boardNumbers.Id);
     MF.Contract_WaitConfirmationPage();
     MF.Contract_OpenBillOfLading();
     LF.MakeSignInContract();
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="::minHours"]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, '( 3 hour minimum)', text, 'в тексте local hourly option не нашло 3 hour minimum часа или стоит другое число ');
+    }),config.timeout);
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
     LF.MakeSignInContract();
+
+condition.nowWeDoing = 'тут выставим общее время работы 1.5 и травел тайм 1.15 и проверим что тотал часов должен быть 3 часа, так как ми выставили в найстройках минимум hours 3 часа';
+    MF.Contract_SendStartTime("11:00 AM");
+    MF.Contract_SendTravelTime("01:15");
+    MF.Contract_SendStopTime("12:45 PM");
+    MF.Contract_SendTimeOFF("00:15");
     LF.MakeSignInContract();
     LF.MakeSignInContract();
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="crew in data.crews"]/td[4]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, 1.5, SF.cleanPrice(text), 'не правильно посчитало время работы, мы перед этим выставили старт тайм в 11 am и енд тайм в 12.45 pm и' +
+            ' добавили перерыв на 15 минут, так что время работы должно быть 1,5 часа');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="crew in data.crews"]/td[5]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, (V.boardNumbers.HourlyRate*1.5), SF.cleanPrice(text), 'не совпал тотал по работе по формуле рейт умножено на количество часов');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//th[contains(text(), "Total hourly charge")]/following-sibling::td[2]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, 3, SF.cleanPrice(text), 'total hourly charge не 3 часа, а должно, потому что мы в настройках выставили минимум hourly 3 часа');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//th[contains(text(), "Total hourly charge")]/following-sibling::td[3]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, (V.boardNumbers.HourlyRate*3), SF.cleanPrice(text), 'не совпал total hourly charge по работе по формуле рейт умножено на количество часов');
+    }),config.timeout);
     MF.Contract_ClickPay();
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
@@ -139,8 +165,20 @@ condition.nowWeDoing = 'возвращаемся в диспатч, смотри
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Balance, 0, 'Баланс после закрытия не равен 0');
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="invoice.work_time"]')).getAttribute('value').then(function (text) {
+        VD.IWant(VD.ToEqual, text, '01:45', 'не совпал лабор тайм с тем что выставили на контракте');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="invoice.travel_time.value"]')).getAttribute('value').then(function (text) {
+        VD.IWant(VD.ToEqual, text, '01:15', 'не совпал травел тайм с тем что выставили на контракте');
+    }),config.timeout);
     MF.EditRequest_OpenPayroll();
     LF.RememberAndValidatePayroll_In_EditRequest(V.managerName, V.boardNumbers, V.contractNumbers);
+    VD.IWant(VD.ToEqual, 3, V.boardNumbers.Payroll.foremanForCommission.Hourly.forCommission, 'фореману посчиталась комисия НЕ за три часа, а должна была, потому что минимум пейрол hours стоит 3 часа');
+    driver.wait(driver.findElement(By.xpath('//div[@ng-repeat="helpers in helper track by $index"][1]' +
+        '//tr[@ng-repeat="helper in helpers.commissions track by $index"][4]/td[3]/input[@ng-model="helper.for_commission"]')).getAttribute('value').then(function (text) {
+        V.helpersHourlyRate = Math.floor(SF.cleanPrice(text));
+        VD.IWant(VD.ToEqual, 3, V.helpersHourlyRate, 'helpery посчиталась комисия НЕ за три часа, а должна была, потому что минимум пейрол hours стоит 3 часа');
+    }),config.timeout);
     MF.EditRequest_CloseModal();
     LF.closeEditRequest();
 
@@ -156,6 +194,11 @@ condition.nowWeDoing = 'выбираем цифры формена';
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(),"'+V.boardNumbers.Id+'")]/../td[10]')).getText().then(
+        function(text){
+            VD.IWant(VD.ToEqual, text, 3, 'в пейроле у форемана не три часа за эту работу, а должно быть три часа'+ V.boardNumbers.Id)
+        }
+    ),config.timeout);
     MF.Payroll_ClickAllDepartment();
 
 condition.nowWeDoing = 'выбираем цифры менеджера';
@@ -163,6 +206,12 @@ condition.nowWeDoing = 'выбираем цифры менеджера';
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Sale);
     VD.IWant(VD.ToEqual, V.payrollNumbers.Sale.Total, V.boardNumbers.Payroll.managerForCommission.total, 'не совпали цифры в Payroll manager\n' +
         'id=' + V.boardNumbers.Id);
+    SF.sleep(1);
+    MF.Board_OpenSettingsCalculator();
+    MF.CalculatorSettings_OpenBasicSettings();
+    SF.select(By.xpath('//select[@ng-model="vm.calcSettings.min_hours"]'),1);
+    SF.sleep(1);
+    MF.Board_OpenSideBar();
     SF.sleep(1);
     //=========================закончили писать тест=============================
     SF.endOfTest();

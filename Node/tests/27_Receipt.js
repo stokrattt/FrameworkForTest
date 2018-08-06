@@ -69,17 +69,9 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_OpenBillOfLading();
     LF.MakeSignInContract();
     MF.Contract_DeclarationValueA();
-    SF.click(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'));
-    SF.clear(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'));
-    SF.send(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'), "12:00 PM");
-
-    SF.click(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'));
-    SF.clear(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'));
-    SF.send(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'), "15:30 PM");
-
-    SF.click(By.xpath('//input[@ng-model="crew.timer.timeOff"]'));
-    SF.clear(By.xpath('//input[@ng-model="crew.timer.timeOff"]'));
-    SF.send(By.xpath('//input[@ng-model="crew.timer.timeOff"]'), "00:30");
+    MF.Contract_SendStartTime("12:00 PM");
+    MF.Contract_SendStopTime("15:30 PM");
+    MF.Contract_SendTimeOFF("00:30");
     MF.Contract_DeclarationValueA();
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="crew in data.crews"]/td[1]')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, V.boardNumbers.Trucks, text, 'не совпало количество траков на контракте и в реквесте');
@@ -104,14 +96,6 @@ condition.nowWeDoing = 'заходим под форменом, открывае
     MF.Contract_ClickPaymentInfo();
     LF.FillCardPayModal();
     LF.Contract_SignMainPayment();
-    // driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
-    //     V.path = path;
-    // }), config.timeout);
-    // SF.sleep(1);
-    // MF.Contract_UploadImage(V.path);
-    // MF.Contract_UploadImage(V.path);
-    // MF.Contract_SaveImages();
-    // SF.sleep(3);
     LF.MakeSignInContract();
     V.contractNumbers = {};
     MF.Contract_Submit(V.contractNumbers);

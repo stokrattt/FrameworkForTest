@@ -126,9 +126,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     LF.LoginToBoardAsCustom(V.manager.name,V.manager.passwd);
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest(V.IdClone);
-    JS.scroll('label[ng-click="OpenPaymentModal();"]');
-    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
-    SF.sleep(1);
+    MF.EditRequest_OpenPayment();
     driver.wait(driver.findElement(By.xpath('//tr[@ng-click="prepareToDelete($index, receipt.id)"]/td[4]')).getText().then(function (text) {
         text = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, text, 350, 'оплата не совпала с той суммой,которую мы оплатили на конфирмейшн пэйдж');
