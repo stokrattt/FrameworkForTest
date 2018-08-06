@@ -686,7 +686,8 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     //==============================CALCULATOR SETTINGS===========================
     function CalculatorSettings_OpenBasicSettings(){
-		SF.click(By.xpath('(//a[@ng-click="vm.select(tab)"])[2]'));
+        SF.click(By.linkText('Basic Settings'));
+		SF.sleep(1);
     }
 	function CalculatorSettings_OpenTravelTime(){
         SF.click(By.xpath('//h1[contains(text(),"General Settings")]'));
@@ -1153,6 +1154,26 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy();
         SF.click(By.xpath('//a[@ng-click="addCrew()"]'));
         WaitWhileBusy ();
+    }
+    function Contract_SendStartTime(time) {
+        SF.click(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'));
+        SF.clear(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'));
+        SF.send(By.xpath('//input[@ng-value="crew.timer.start  || request.start_time1.value"]'), time);
+    }
+    function Contract_SendStopTime(time) {
+        SF.click(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'));
+        SF.clear(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'));
+        SF.send(By.xpath('//input[@ng-value="crew.timer.stop || request.start_time2.value"]'), time);
+    }
+    function Contract_SendTravelTime(time) {
+        SF.click(By.xpath('//input[@ng-value="travelTime.value"]'));
+        SF.clear(By.xpath('//input[@ng-value="travelTime.value"]'));
+        SF.send(By.xpath('//input[@ng-value="travelTime.value"]'), time);
+    }
+    function Contract_SendTimeOFF(time) {
+        SF.click(By.xpath('//input[@ng-model="crew.timer.timeOff"]'));
+        SF.clear(By.xpath('//input[@ng-model="crew.timer.timeOff"]'));
+        SF.send(By.xpath('//input[@ng-model="crew.timer.timeOff"]'), time);
     }
     //=================================EDIT STORAGE REQUEST=====================================
 
@@ -2811,6 +2832,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_RemoveMonthlyStorageFee:Contract_RemoveMonthlyStorageFee,
         Contract_PayCash:Contract_PayCash,
         Contract_ClickAddCrew:Contract_ClickAddCrew,
+        Contract_SendStartTime:Contract_SendStartTime,
+        Contract_SendStopTime:Contract_SendStopTime,
+        Contract_SendTravelTime:Contract_SendTravelTime,
+        Contract_SendTimeOFF:Contract_SendTimeOFF,
         //=================================EDIT STORAGE REQUEST=====================================
         EditStorage_RememberId: EditStorage_RememberId,
         EditStorage_OpenLedger: EditStorage_OpenLedger,
