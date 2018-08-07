@@ -123,7 +123,7 @@ module.exports = function(config,V) {
         './tests/120_LDFlag.js',
         './tests/131_CheckCouponsAndReservationByHourlyRate.js',
         './tests/SetReservationPrice.js',
-        //'./tests/121_FAQ.js',
+        './tests/121_FAQ.js',
         './tests/21_LDFromAdminCheckPayroll.js',
         './tests/117_HomeEstimatePortal.js',
         './tests/111_ZIPCode.js',
