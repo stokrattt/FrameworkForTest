@@ -126,9 +126,7 @@ condition.nowWeDoing = 'удаляем вопрос';
     LF.LoginToBoardAsCustom(V.managername, V.managerpasswd);
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest(V.boardNumbers.Id);
-    JS.scroll('label[ng-click="OpenPaymentModal();"]');
-    SF.click(By.xpath('//label[@ng-click="OpenPaymentModal();"]'));
-    SF.waitForVisible(By.xpath('//tr[@ng-dblclick="showReceipt(receipt.id)"]'));
+    MF.EditRequest_OpenPayment();
     driver.wait(driver.findElement(By.xpath('//tr[@ng-click="prepareToDelete($index, receipt.id)"]/td[4]')).getText().then(function (text) {
         text = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, text, 350, 'оплата не совпала с той суммой,которую мы оплатили на конфирмейшн пэйдж');
