@@ -394,7 +394,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 	}
 	function Board_OpenSettingsSMTP (){
         Board_OpenSettingsGeneral();
-        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[16]'));
+        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[17]'));
         SF.sleep(1);
     }
     function Board_OpenSettingsAccountPageCustomBlock() {
@@ -703,6 +703,25 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Board_OpenTotoalInvoices() {
         SF.click(By.xpath('//div[@ng-if="vm.canSeeInvoices"]'));
     }
+    function Board_UpdateSMTP(){
+        SF.click(By.xpath('//button[@ng-click="vm.updateSMTP()"]'));
+        SF.sleep(2);
+    }
+    function Board_SMTPEncryptionSettingsSSL(){
+        JS.click('input[ng-model="vm.smtpEncryptionSettings.ssl"]');
+        SF.sleep(0.5);
+    }
+    function Board_SMTPEncryptionSettingsTLS() {
+        SF.click(By.xpath('//input[@ng-model="vm.smtpEncryptionSettings.tls"]'));
+        SF.sleep(0.5);
+    }
+    function Board_TestConnectionSMTP () {
+        SF.click(By.xpath('//button[@ng-click="vm.testSMTP()"]'));
+        SF.waitForVisible(By.xpath('//div[@data-animation="pop"]'));
+        SweetConfirm();
+        SF.sleep(1);
+    }
+
     //==============================CALCULATOR SETTINGS===========================
     function CalculatorSettings_OpenBasicSettings(){
         SF.click(By.linkText('Basic Settings'));
@@ -2764,6 +2783,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_ChangeReservationRateIncreaseFixPrice : Board_ChangeReservationRateIncreaseFixPrice,
         Board_MiscellaneousChangeReservationRateIncrease72Hour : Board_MiscellaneousChangeReservationRateIncrease72Hour,
         Board_ChangeReservationRateIncreasePercentMaxQoute : Board_ChangeReservationRateIncreasePercentMaxQoute,
+        Board_UpdateSMTP : Board_UpdateSMTP,
+        Board_SMTPEncryptionSettingsSSL : Board_SMTPEncryptionSettingsSSL,
+        Board_SMTPEncryptionSettingsTLS : Board_SMTPEncryptionSettingsTLS,
+        Board_TestConnectionSMTP : Board_TestConnectionSMTP,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
