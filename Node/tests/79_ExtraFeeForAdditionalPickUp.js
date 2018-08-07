@@ -32,6 +32,7 @@ condition.nowWeDoing = 'Создаем Long Distance работу в админ�
     MF.EditRequest_AddExtraPickUpZip(V.client.zipFrom);
     MF.EditRequest_SetExtraPickUpAdress(V.extraPickUpAddress);
     MF.EditRequest_SetExtraPickUpApt(V.extraPickUpApt);
+    MF.WaitWhileBusy();
     MF.EditRequest_SetExtraPickUpStairs(3);
     MF.WaitWhileBusy();
     MF.EditRequest_AddExtraDropOffZip(V.client.zipTo);
