@@ -34,12 +34,8 @@ condition.nowWeDoing = 'идем в настроики FAQ, добавляем �
     // увеличится на 200 долларов по фиксированному тарифу "
     SF.click(By.xpath('//li[@ng-show="vm.PermissionsServices.hasPermission(\'canSeeSettingsMenu\');"]//span[contains(text(), \"Miscellaneous\")]'));
     SF.sleep(1);
-    SF.click(By.xpath('//select[@ng-model="vm.scheduleSettings.whenReservationRateIncrease"]'));
-    SF.click(By.xpath('//select[@ng-model="vm.scheduleSettings.whenReservationRateIncrease"]//option[@value= 48]'));
-    SF.sleep(0.5);
-    SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.ReservationRateIncreaseRate"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.ReservationRateIncreaseRate"]'),200);
-    SF.click(By.xpath('//section[@ng-controller="ScheduleContorller as vm"]'));
+    MF.Board_MiscellaneousChangeReservationRateIncrease48Hour();
+    MF.Board_ChangeReservationRateIncreaseFixPrice(200);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'создаем реквест с фронта, проверяем в аккаунте вопрос который мы создали';
@@ -141,11 +137,9 @@ condition.nowWeDoing = 'удаляем вопрос';
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenMiscellaneous();
-    SF.click(By.xpath('//select[@ng-model="vm.scheduleSettings.whenReservationRateIncrease"]'));
-    SF.click(By.xpath('//select[@ng-model="vm.scheduleSettings.whenReservationRateIncrease"]//option[@value= 72]'));
-    SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.ReservationRateIncreaseRate"]'));
-    SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.ReservationRateIncreaseRate"]'),0);
-    SF.click(By.xpath('//select[@ng-class="{\'fadeout\':vm.scheduleSettings.ReservationRateIncreaseRate}"]/option[@value = 20]'));
+    MF.Board_MiscellaneousChangeReservationRateIncrease72Hour();
+    MF.Board_ChangeReservationRateIncreaseFixPrice(0);
+    MF.Board_ChangeReservationRateIncreasePercentMaxQoute(20);
     SF.click(By.xpath('//section[@ng-controller="ScheduleContorller as vm"]'));
     SF.sleep(1);
     driver.navigate().refresh();

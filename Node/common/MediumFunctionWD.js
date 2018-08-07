@@ -432,6 +432,25 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.waitForVisible (By.xpath('//a[@ui-sref="settings.longdistance"]'));
         SF.sleep (2);
     }
+    function Board_MiscellaneousChangeReservationRateIncrease48Hour(){
+        SF.click(By.xpath('//select[@ng-model="vm.scheduleSettings.whenReservationRateIncrease"]'));
+        SF.click(By.xpath('//select[@ng-model="vm.scheduleSettings.whenReservationRateIncrease"]//option[@value= 48]'));
+        SF.sleep(0.5);
+    }
+    function Board_ChangeReservationRateIncreaseFixPrice(number){
+        SF.click(By.xpath('//input[@ng-model="vm.scheduleSettings.ReservationRateIncreaseRate"]'));
+        SF.send(By.xpath('//input[@ng-model="vm.scheduleSettings.ReservationRateIncreaseRate"]'),number);
+        SF.click(By.xpath('//section[@ng-controller="ScheduleContorller as vm"]'));
+    }
+    function Board_MiscellaneousChangeReservationRateIncrease72Hour(){
+        SF.click(By.xpath('//select[@ng-model="vm.scheduleSettings.whenReservationRateIncrease"]'));
+        SF.click(By.xpath('//select[@ng-model="vm.scheduleSettings.whenReservationRateIncrease"]//option[@value=72]'));
+        SF.sleep(0.5);
+    }
+    function Board_ChangeReservationRateIncreasePercentMaxQoute(number){
+        SF.click(By.xpath('//select[@ng-class="{\'fadeout\':vm.scheduleSettings.ReservationRateIncreaseRate}"]/option[@value = "' + number + '" ]'));
+    }
+
     function Board_OpenSettingsAccountPagePendingInfo() {
 	    SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
 	    SF.click(By.xpath('//span[@ng-if="greetingsSettings.showPeriod === \'first\'"]'));
@@ -2741,6 +2760,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_OpenTotoalInvoices:Board_OpenTotoalInvoices,
         Board_OpenMiscellaneous : Board_OpenMiscellaneous,
         Board_OpenSettingsSMTP : Board_OpenSettingsSMTP,
+        Board_MiscellaneousChangeReservationRateIncrease48Hour : Board_MiscellaneousChangeReservationRateIncrease48Hour,
+        Board_ChangeReservationRateIncreaseFixPrice : Board_ChangeReservationRateIncreaseFixPrice,
+        Board_MiscellaneousChangeReservationRateIncrease72Hour : Board_MiscellaneousChangeReservationRateIncrease72Hour,
+        Board_ChangeReservationRateIncreasePercentMaxQoute : Board_ChangeReservationRateIncreasePercentMaxQoute,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
