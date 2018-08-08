@@ -133,8 +133,6 @@ condition.nowWeDoing = 'второй раз в админке, добаавим 
     SF.click(By.xpath('//span[@ng-if="receipt.transaction_id != \'Custom Payment\'"]'));
     SF.sleep(0.5);
     MF.EditRequest_RemoveSelectedPayment();
-    SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
-    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep(1);
     SF.click(By.xpath('//input[@ng-click="changePending(receipt)"]'));
     MF.EditRequest_ClosePayment();

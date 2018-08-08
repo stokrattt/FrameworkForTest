@@ -199,8 +199,6 @@ condition.nowWeDoing = 'переводим в статус нот конферм
     SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
     LF.FillCardPayModal();
     SF.waitForVisible(By.xpath('//div[@ng-show="receipt.transaction_id != \'Custom Payment\' || isAccount"]'));
-    MF.WaitWhileBusy();
-    SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     MF.EditRequest_ClosePayment();
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();

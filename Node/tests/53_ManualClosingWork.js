@@ -52,10 +52,8 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
     MF.EditRequest_ClickAddOnlinePayment();
     MF.EditRequest_SetSumOnlinePaymentAndClickPaymentInfo(V.cardInput);
     LF.PayCheck();
-    JS.waitForExist('div.payment-receipt-modal');
     MF.WaitWhileToaster();
     MF.WaitWhileBusy ();
-    SF.click(By.xpath('//div[contains(@class,"payment-receipt-modal")]/following-sibling::div[1]/button[@ng-click="cancel()"]'));
     driver.wait(driver.findElement(By.xpath('//div[@ng-if="entity_type != fieldData.enums.entities.STORAGEREQUEST"]')).getText().then(function (text) {
         V.totalBeforeRefund = SF.cleanPrice(text);
     }),config.timeout);
@@ -69,8 +67,8 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
         VD.IWant(VD.ToEqual, V.totalAfterRefund, (V.totalBeforeRefund - 100), 'не сработал кастомный рефанд');
     }),config.timeout);
     SF.sleep(1);
-    SF.click(By.xpath('//div[contains(@class,"modal-footer")]/button[@ng-click="cancel()" and contains(text(),"Cancel")]'));
-    SF.sleep(1);
+    MF.EditRequest_ClosePayment();
+    MF.EditRequest_ClosePayment();
     MF.EditRequest_CloseEditRequest();
 
 condition.nowWeDoing = 'идем в коферм работы на борде,открываем наш реквест, закрываем работу и проверяем что баланс равен 0';

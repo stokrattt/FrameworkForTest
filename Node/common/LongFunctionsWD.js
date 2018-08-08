@@ -2761,7 +2761,7 @@ function SetManager(name) {
 		SF.click(By.xpath('//input[@ng-model="payment.creditCardFee"]'));
 		FillCardPayModal();
 		MF.WaitWhileBusy();
-		SF.waitForVisible(By.xpath('//div[@ng-show="receipt.transaction_id != \'Custom Payment\' || isAccount"]'));
+        driver.actions().mouseMove(driver.findElement(By.xpath('//tr[@ng-dblclick="showReceipt(receipt.id)"]'))).doubleClick().perform();
 		driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount: ")]/following-sibling::span')).getText().then(function (text) {
 			V.PaymentInsert = SF.cleanPrice(text);
 			VD.IWant(VD.ToEqual, V.PaymentInsert, amount * (1 + creditFee / 100), 'оплата не совпала')
@@ -3438,7 +3438,6 @@ function SetManager(name) {
         SF.click(By.xpath('//button[@ng-click="Save()"]'));
         SF.sleep (1);
         MF.WaitWhileToaster();
-        JS.click('button[ng-click=\\"save()\\"]:visible');
         SF.sleep (1);
         MF.WaitWhileBusy ();
     }

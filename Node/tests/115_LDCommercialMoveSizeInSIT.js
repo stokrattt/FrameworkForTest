@@ -216,7 +216,6 @@ condition.nowWeDoing = 'Открываем реквест, заходим в Pay
     MF.EditRequest_OpenPayment();
     SF.click(By.xpath('//span[@ng-if="receipt.transaction_id == \'Custom Payment\'"]'));
     MF.EditRequest_RemoveSelectedPayment();
-    SF.click(By.xpath('//button[@ng-click="cancel()"][contains(text(),"Close")]'));
     SF.sleep (1);
     JS.click('button[ng-click=\\"save()\\"]:visible');
     V.boardNumbersDelCustomPayment = {};
