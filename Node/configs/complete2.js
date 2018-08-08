@@ -33,7 +33,7 @@ module.exports = function(config,V) {
         './tests/70_SITAddTripPersonallyForeman.js',
         './tests/61_SITInvoices.js',
         './tests/72_ChangingRateAfterConfirming.js',
-        './tests/121_FAQ.js',
+        './tests/121_FAQAndReservationIncrease.js',
         './tests/122_MovingAndMovStorageCalcOffCheck.js',
         './tests/73_CustomTrackSpeed.js',
         // './tests/TheCleaner.js',//==============================уборка=========================

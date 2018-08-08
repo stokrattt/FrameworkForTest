@@ -205,43 +205,43 @@ condition.nowWeDoing = 'удаляем вопрос';
     SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
-    MF.Board_LogoutAdmin();
+    //MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'заходим в настройки SMTP';
-    LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
-    MF.Board_OpenSettingsSMTP();
-    JS.scroll('div[class="pageheader"]');
-    MF.Board_SMTPEncryptionSettingsSSL();
-    MF.Board_UpdateSMTP();
-    driver.navigate().refresh();
-    SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[17]'));
-    JS.scroll('div[class="pageheader"]');
-    driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.ssl\"]')" +
-        ".hasClass('ng-empty')")
-        .then(function (text) {
-        VD.IWant (VD.ToEqual, text, 1, 'Ошиибка! Мы убирали чекбокс,он появился после сохранения и обновления страницы.Значит бага.');
-    }),config.timeout);
-    driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.tls\"]')" +
-        ".hasClass('ng-empty')")
-        .then(function (text) {
-            VD.IWant (VD.ToEqual, text, 1, 'Ошибка! Там не должен стоять чек-бокс,ибо мы его не выбирали!');
-        }),config.timeout);
-    MF.Board_TestConnectionSMTP();
-    MF.Board_SMTPEncryptionSettingsTLS();
-    driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.tls\"]')" +
-      ".hasClass('ng-not-empty')")
-       .then(function (text) {
-          VD.IWant (VD.ToEqual, text, 1, 'Ошибка!Значит пропал чек-бокс,т.к мы его выбрали');
-        }),config.timeout);
-    driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.ssl\"]')" +
-        ".hasClass('ng-empty')")
-        .then(function (text) {
-            VD.IWant (VD.ToEqual, text, 1, 'Ошибка!Не должен там стоять чек-бокс,т.к мы выбрали другую настройку.');
-        }),config.timeout);
+    //condition.nowWeDoing = 'заходим в настройки SMTP';
+    //LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
+    //MF.Board_OpenSettingsSMTP();
+    //JS.scroll('div[class="pageheader"]');
+    //MF.Board_SMTPEncryptionSettingsSSL();
+    //MF.Board_UpdateSMTP();
+    //driver.navigate().refresh();
+    //SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[17]'));
+    //JS.scroll('div[class="pageheader"]');
+    //driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.ssl\"]')" +
+      //  ".hasClass('ng-empty')")
+       // .then(function (text) {
+       // VD.IWant (VD.ToEqual, text, 1, 'Ошиибка! Мы убирали чекбокс SSL,а он появился после сохранения и обновления страницы.Значит бага.');
+    //}),config.timeout);
+    //driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.tls\"]')" +
+      //  ".hasClass('ng-empty')")
+       // .then(function (text) {
+        //    VD.IWant (VD.ToEqual, text, 1, 'Ошибка!В TLS не должен стоять чек-бокс,ибо мы его не выбирали!');
+        //}),config.timeout);
+    //MF.Board_TestConnectionSMTP();
+    //MF.Board_SMTPEncryptionSettingsTLS();
+    //driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.tls\"]')" +
+      //".hasClass('ng-not-empty')")
+       //.then(function (text) {
+        //  VD.IWant (VD.ToEqual, text, 1, 'Ошибка!Значит пропал чек-бокс TLS,т.к мы его выбрали');
+        //}),config.timeout);
+    //driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.ssl\"]')" +
+      //  ".hasClass('ng-empty')")
+       // .then(function (text) {
+        //    VD.IWant (VD.ToEqual, text, 1, 'Ошибка!Не должен стоять чек-бокс SSL,т.к мы выбрали TLS настройку.');
+        //}),config.timeout);
     //возвращаем настройки на место и проверяем работу SMTP
-    MF.Board_SMTPEncryptionSettingsSSL();
-    MF.Board_UpdateSMTP();
-    MF.Board_TestConnectionSMTP();
+    //MF.Board_SMTPEncryptionSettingsSSL();
+    //MF.Board_UpdateSMTP();
+    //MF.Board_TestConnectionSMTP();
 
     // возврат настроек Increased, выставляем на самый минимум (24ч)
     MF.Board_OpenMiscellaneous();
