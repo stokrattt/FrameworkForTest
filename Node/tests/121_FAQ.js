@@ -34,7 +34,7 @@ condition.nowWeDoing = 'идем в настроики FAQ, добавляем �
     // увеличится на 200 долларов по фиксированному тарифу "
     SF.click(By.xpath('//li[@ng-show="vm.PermissionsServices.hasPermission(\'canSeeSettingsMenu\');"]//span[contains(text(), \"Miscellaneous\")]'));
     SF.sleep(1);
-    MF.Board_MiscellaneousChangeReservationRateIncrease48Hour();
+    MF.Board_MiscellaneousChangeReservationRateIncreaseHour(48);
     MF.Board_ChangeReservationRateIncreaseFixPrice(200);
     MF.Board_LogoutAdmin();
 
@@ -135,7 +135,7 @@ condition.nowWeDoing = 'удаляем вопрос';
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenMiscellaneous();
-    MF.Board_MiscellaneousChangeReservationRateIncrease72Hour();
+    MF.Board_MiscellaneousChangeReservationRateIncreaseHour(72);
     MF.Board_ChangeReservationRateIncreaseFixPrice(0);
     MF.Board_ChangeReservationRateIncreasePercentMaxQoute(20);
     SF.click(By.xpath('//section[@ng-controller="ScheduleContorller as vm"]'));
@@ -205,43 +205,47 @@ condition.nowWeDoing = 'удаляем вопрос';
     SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     SF.sleep(1);
     MF.EditRequest_CloseEditRequest();
-    //MF.Board_LogoutAdmin();
+    MF.Board_LogoutAdmin();
 
-    //condition.nowWeDoing = 'заходим в настройки SMTP';
-    //LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
-    //MF.Board_OpenSettingsSMTP();
-    //JS.scroll('div[class="pageheader"]');
-    //MF.Board_SMTPEncryptionSettingsSSL();
-    //MF.Board_UpdateSMTP();
-    //driver.navigate().refresh();
-    //SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[17]'));
-    //JS.scroll('div[class="pageheader"]');
-    //driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.ssl\"]')" +
-      //  ".hasClass('ng-empty')")
-        //.then(function (text) {
-        //VD.IWant (VD.ToEqual, text, 1, 'Ошиибка! Мы убирали чекбокс,он появился после сохранения и обновления страницы.Значит бага.');
-    //}),config.timeout);
-    //driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.tls\"]')" +
-     //   ".hasClass('ng-empty')")
-      //  .then(function (text) {
-        //    VD.IWant (VD.ToEqual, text, 1, 'Ошибка! Там не должен стоять чек-бокс,ибо мы его не выбирали!');
-        //}),config.timeout);
-    //MF.Board_TestConnectionSMTP();
-    //MF.Board_SMTPEncryptionSettingsTLS();
-    //driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.tls\"]')" +
-      //  ".hasClass('ng-not-empty')")
-       // .then(function (text) {
-         //   VD.IWant (VD.ToEqual, text, 1, 'Ошибка!Значит пропал чек-бокс,т.к мы его выбрали');
-        //}),config.timeout);
-    //driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.ssl\"]')" +
-      //  ".hasClass('ng-empty')")
-       // .then(function (text) {
-        //    VD.IWant (VD.ToEqual, text, 1, 'Ошибка!Не должен там стоять чек-бокс,т.к мы выбрали другую настройку.');
-        //}),config.timeout);
+    condition.nowWeDoing = 'заходим в настройки SMTP';
+    LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
+    MF.Board_OpenSettingsSMTP();
+    JS.scroll('div[class="pageheader"]');
+    MF.Board_SMTPEncryptionSettingsSSL();
+    MF.Board_UpdateSMTP();
+    driver.navigate().refresh();
+    SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[17]'));
+    JS.scroll('div[class="pageheader"]');
+    driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.ssl\"]')" +
+        ".hasClass('ng-empty')")
+        .then(function (text) {
+        VD.IWant (VD.ToEqual, text, 1, 'Ошиибка! Мы убирали чекбокс,он появился после сохранения и обновления страницы.Значит бага.');
+    }),config.timeout);
+    driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.tls\"]')" +
+        ".hasClass('ng-empty')")
+        .then(function (text) {
+            VD.IWant (VD.ToEqual, text, 1, 'Ошибка! Там не должен стоять чек-бокс,ибо мы его не выбирали!');
+        }),config.timeout);
+    MF.Board_TestConnectionSMTP();
+    MF.Board_SMTPEncryptionSettingsTLS();
+    driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.tls\"]')" +
+      ".hasClass('ng-not-empty')")
+       .then(function (text) {
+          VD.IWant (VD.ToEqual, text, 1, 'Ошибка!Значит пропал чек-бокс,т.к мы его выбрали');
+        }),config.timeout);
+    driver.wait(driver.executeScript("return $('input[ng-model=\"vm.smtpEncryptionSettings.ssl\"]')" +
+        ".hasClass('ng-empty')")
+        .then(function (text) {
+            VD.IWant (VD.ToEqual, text, 1, 'Ошибка!Не должен там стоять чек-бокс,т.к мы выбрали другую настройку.');
+        }),config.timeout);
     //возвращаем настройки на место и проверяем работу SMTP
-    //MF.Board_SMTPEncryptionSettingsSSL();
-    //MF.Board_UpdateSMTP();
-    //MF.Board_TestConnectionSMTP();
+    MF.Board_SMTPEncryptionSettingsSSL();
+    MF.Board_UpdateSMTP();
+    MF.Board_TestConnectionSMTP();
+
+    // возврат настроек Increased, выставляем на самый минимум (24ч)
+    MF.Board_OpenMiscellaneous();
+    MF.Board_MiscellaneousChangeReservationRateIncreaseHour(24);
 
     SF.endOfTest();
 };

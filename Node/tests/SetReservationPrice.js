@@ -25,6 +25,8 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.sleep (2);
     SF.click (By.xpath('//input[@ng-model="vm.scheduleSettings.ReservationRateIncreaseRate"]'));
     SF.sleep(2);
+    MF.Board_MiscellaneousChangeReservationRateIncreaseHour(24);
+    SF.sleep(2);
 
 
     driver.navigate().refresh();
