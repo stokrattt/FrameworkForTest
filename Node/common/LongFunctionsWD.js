@@ -1075,8 +1075,129 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
             VD.IWant(VD.ToEqual, text, boardNumbers.Quote, 'не совпал Quote на Confirmation Page c Quote в дашборде');
         }),config.timeout);
     }
+    function CheckCrewInCrewPreview(boardNumbers, firstHelperName, secondHelperName) {
+    driver.wait(driver.findElement(By.xpath('//div[contains(@job-id,"'+ boardNumbers.Id +'")]/div/div[1]/span[@class="crew-preview__user-name"]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text,  crewForemanName, 'Фореман не отображается или отображается неправильно в крю первью диспача');
+    }),config.timeout);
+    SF.click(By.xpath('//div[contains(@job-id,"'+ boardNumbers.Id +'")]/div/div[1]/span[@class="crew-preview__user-name"]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(@job-id,"'+ boardNumbers.Id +'")]/div/div[2]/span[@class="crew-preview__row__additional__text"]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text,   firstHelperName, 'Хелпер №1 не отображается или отображается неправильно в крю первью диспача');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//div[contains(@job-id,"'+ boardNumbers.Id +'")]/div/div[3]/span[@class="crew-preview__row__additional__text"]')).getText().then(function(text){
+        VD.IWant(VD.ToEqual, text,   secondHelperName, 'Хелпер №2 не отображается или отображается неправильно в крю первью диспача');
+    }),config.timeout);
+    }
+    function CheckDisabledCrewInWorkWithSameStartTime(crewForemanName, firstHelperName, secondHelperName, crewName) {
+    driver.wait(driver.findElement(By.xpath('//select[@ng-model="vm.data.foreman"]//option[contains(text(),"'+crewForemanName+'") and @ng-selected="user.uid == vm.data.foreman"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Не сработала проверка по времени. Не дисейблед фореман занятый на другой работе в этот старт тайм');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 2")]/following-sibling::select/optgroup/option[contains(text(),"'+crewForemanName+'") ' +
+		'and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Не сработала проверка по времени. В селект листе для хелпера №1 не дисейблед фореман занятый на другой работе в этот старт тайм');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 3")]/following-sibling::select/optgroup/option[contains(text(),"'+crewForemanName+'") ' +
+		'and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Не сработала проверка по времени. В селект листе для хелпера №2 не дисейблед фореман занятый на другой работе в этот старт тайм');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 3")]/following-sibling::select/optgroup/option[contains(text(),"'+firstHelperName+'")' +
+		' and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Не сработала проверка по времени. Не дисейблед хелпер №1 занятый на другой работе в этот старт тайм');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 2")]/following-sibling::select/optgroup/option[contains(text(),"'+firstHelperName+'")' +
+		' and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Не сработала проверка по времени. В селект листе для хелпера №2 не дисейблед хелпер №1 занятый на другой работе в этот старт тайм');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 3")]/following-sibling::select/optgroup/option[contains(text(),"'+secondHelperName+'") ' +
+		'and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Не сработала проверка по времени. Не дисейблед хелпер №1 занятый на другой работе в этот старт тайм');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 2")]/following-sibling::select/optgroup/option[contains(text(),"'+secondHelperName+'") ' +
+		'and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Не сработала проверка по времени. В селект листе для хелпера №1 не дисейблед хелпер №2 занятый на другой работе в этот старт тайм');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//select[@ng-model="vm.data.crew"]//option[@label="'+ crewName +'"]')).getAttribute('disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Не сработала проверка по времени. Крю, занятая на другой работе, не дисейблед');
+    }),config.timeout);
+    }
+    function CheckDisabledCrewInSameWork(crewForemanName, firstHelperName, secondHelperName) {
+         driver.wait(driver.findElement(By.xpath('//select[@ng-model="vm.data.foreman"]//option[contains(text(),"'+crewForemanName+'") ' +
+			 'and @selected="selected"]')).getAttribute('aria-disabled').then(function(text){
+           VD.IWant(VD.ToEqual, text, 'true','Назначен неправильный крю фореман или он не дисейблед');
+       }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 2")]/following-sibling::select/optgroup/option[contains(text(),"'+crewForemanName+'") ' +
+			'and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+           VD.IWant(VD.ToEqual, text, 'true','Назначеный в крю фореман не дисейблед в селект листе хелпера №2');
+       }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 3")]/following-sibling::select/optgroup/option[contains(text(),"'+crewForemanName+'")' +
+			' and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+           VD.IWant(VD.ToEqual, text, 'true','Назначеный в крю фореман не дисейблед в селект листе хелпера №2');
+       }),config.timeout);
+        driver.wait(driver.findElement(By.xpath('//select[@ng-model="vm.data.baseCrew.helpers[$index]"]//optgroup[@label=" Helper"]//option[contains(text(),"'+firstHelperName+'")' +
+			' and @selected="selected"]')).getAttribute('aria-disabled').then(function(text){
+           VD.IWant(VD.ToEqual, text, 'true','Назначен неправильный крю хелпер (первый) или он не дисейблед');
+       }),config.timeout);
+       driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 3")]/following-sibling::select/optgroup/option[contains(text(),"'+firstHelperName+'") ' +
+		   'and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+            VD.IWant(VD.ToEqual, text, 'true','Назначеный в крю хелпер №1 не дисейблед в селект листе хелпера №2');
+       }),config.timeout);
+       driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 3")]/following-sibling::select/optgroup/option[contains(text(),"'+secondHelperName+'") ' +
+		   'and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+           VD.IWant(VD.ToEqual, text, 'true','Назначен неправильный крю хелпер (первый) или он не дисейблед');
+       }),config.timeout);
+       driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 2")]/following-sibling::select/optgroup/option[contains(text(),"'+secondHelperName+'") ' +
+		   'and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+           VD.IWant(VD.ToEqual, text, 'true','Назначеный в крю хелпер №2 не дисейблед в селект листе хелпера №1');
+       }),config.timeout);
+    }
 
-	function SetManager(name) {
+    function CheckWorkersInAdCrew(crewForemanName, firstHelperName, secondHelperName) {
+    SF.sleep(1.5);
+    SF.click(By.xpath('//li[@ng-click="vm.addCrew()"]'));
+    driver.wait(driver.executeScript("return $('li[ng-click=\"vm.data.active = $index + 1\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 1, 'Нет блока Crew 2 после нажатия на Add Crew в диспаче');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//select[@ng-change="vm.setWorker(crew.helpers[$index], oldValue)"]//optgroup[@label="Foreman"]//option[contains(text(),"'+crewForemanName+'")' +
+		' and @ng-selected="helper.uid == addHelper"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Фореман с основной команды не дисейблед в адишенал крю');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//select[@ng-change="vm.setWorker(crew.helpers[$index], oldValue)"]//optgroup[@label=" Helper"]//option[contains(text(),"'+firstHelperName+'")' +
+		' and @ng-selected="helper.uid == addHelper"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Хелпер №1 с основной команды не дисейблед в адишенал крю');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//select[@ng-change="vm.setWorker(crew.helpers[$index], oldValue)"]//optgroup[@label=" Helper"]//option[contains(text(),"'+secondHelperName+'")' +
+		' and @ng-selected="helper.uid == addHelper"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Хелпер №2 с основной команды не дисейблед в адишенал крю');
+    }),config.timeout);
+    SF.click(By.xpath('//a[@ng-click="vm.removeCrew($index)"]'));
+    driver.wait(driver.executeScript("return $('li[ng-click=\"vm.data.active = $index + 1\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 0, 'Не удаляется блок Crew 2 после нажатия на иконку remove');
+    }),config.timeout);
+    }
+
+    function CheckWorkersInAddNewWorkerList(crewForemanName, firstHelperName, secondHelperName) {
+    SF.sleep(1);
+    JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
+    SF.click(By.xpath("//button[@ng-click='vm.addWorker()']"));
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 4")]/following-sibling::select/optgroup/option[contains(text(),"'+crewForemanName+'")' +
+		' and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Крю фореман не дисейблед в селект листе нового работника (добавлен через знак +)');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 4")]/following-sibling::select/optgroup/option[contains(text(),"'+firstHelperName+'") ' +
+		'and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Крю хелпер №1 не дисейблед в селект листе нового работника (добавлен через знак +)');
+    }),config.timeout);
+    driver.wait(driver.findElement(By.xpath('//label[contains(text(),"Helper No. 4")]/following-sibling::select/optgroup/option[contains(text(),"'+secondHelperName+'") ' +
+		'and @ng-init="oldValue = worker"]')).getAttribute('aria-disabled').then(function(text){
+        VD.IWant(VD.ToEqual, text, 'true','Крю хелпер №2 не дисейблед в селект листе нового работника (добавлен через знак +)');
+    }),config.timeout);
+    SF.click(By.xpath("//button[@ng-click='vm.deleteWorker()']"));
+    SF.sleep(5);
+    driver.wait(driver.executeScript("return $('div label:contains(\"Helper No. 4\")').length").then(function (check) {
+        VD.IWant (VD.ToEqual, check, 0, 'Не работает кнопка Delete worker в диспаче');
+    }),config.timeout);
+    }
+
+function SetManager(name) {
 		JS.click('div[ng-show="::showManagerDropdown(currentManager.first_name)"] button');
 		SF.click(By.xpath('//a[@ng-click="setManager(manager.uid)"][contains(text(),"' + name + '")]'));
 		MF.SweetConfirm();
@@ -1390,7 +1511,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 	}
     function createNewTeam(crewForemanName, firstHelperName, secondHelperName, crewName) {
         JS.click('img[ng-click=\\"vm.openCrewModal()\\"]');
-        SF.waitForVisible (By.xpath('//div[@ng-click="addCrew()"]'));
+        SF.waitForVisible (By.xpath('//button[@ng-click="saveAllCrews()"]'));
+        SF.sleep(1);
         SF.click(By.xpath('//div[@ng-click="addCrew()"]'));
         SF.waitForVisible (By.xpath('//div[@class="crew-modal__body-crew-control crews-tab"]'));
         SF.click(By.xpath('//select[@ng-model="activeCrew.foreman.uid"]//option[@label="'+ crewForemanName +'"]'));
@@ -1410,7 +1532,8 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
     }
     function deleteTeam(crewName) {
         JS.click('img[ng-click=\\"vm.openCrewModal()\\"]');
-        SF.waitForVisible (By.xpath('//div[@ng-click="addCrew()"]'));
+        SF.waitForVisible (By.xpath('//button[@ng-click="saveAllCrews()"]'));
+        SF.sleep(1);
         SF.click(By.xpath('//span[@class="crew-modal__crew-name"][contains(text(), "'+ crewName +'")]'));
         SF.click(By.xpath('//div[@class="crew-modal__crew-button editable-crew"]/i[@ng-click="removeCrew($index)"]'));
         MF.SweetConfirm();
@@ -3405,6 +3528,11 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
         Validation_Compare_CarrierInfo:Validation_Compare_CarrierInfo,
         Validation_Compare_SITstorageInfo:Validation_Compare_SITstorageInfo,
         RememberAndCompare_Admin_ConfirmationPage_LongDistance:RememberAndCompare_Admin_ConfirmationPage_LongDistance,
+        CheckDisabledCrewInSameWork: CheckDisabledCrewInSameWork,
+        CheckDisabledCrewInWorkWithSameStartTime: CheckDisabledCrewInWorkWithSameStartTime,
+        CheckWorkersInAdCrew: CheckWorkersInAdCrew,
+        CheckCrewInCrewPreview: CheckCrewInCrewPreview,
+        CheckWorkersInAddNewWorkerList: CheckWorkersInAddNewWorkerList,
 		SetManager: SetManager,
 		SetClientPasswd: SetClientPasswd,
 		FillCardPayModal: FillCardPayModal,
