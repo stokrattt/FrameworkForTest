@@ -59,10 +59,11 @@ condition.nowWeDoing = 'идем заново в реквест сверяем �
     MF.EditRequest_ClickAddCustomPayment();
     V.cashPayment = 100;
     LF.EditRequest_CustomPay(V.cashPayment);
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
     V.boardNumbersClosingAfterPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterPaymentInRequest);
     SF.sleep(1);
-    LF.closeEditRequest ();
+    MF.EditRequest_CloseEditRequest();
 
 condition.nowWeDoing = 'идем в SIT создаем трип, добавляем в него наш реквест';
     MF.Board_OpenSideBar();
@@ -112,7 +113,8 @@ condition.nowWeDoing = 'идем в реквест, делаем в клоузи
     LF.EditRequest_CustomPay(V.cashPayment2);
     V.boardNumbersClosingAfterDiscountAndPaymentInRequest = {};
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterDiscountAndPaymentInRequest);
-    LF.closeEditRequest();
+    SF.click(By.xpath('//button[@ng-click="save()"]'));
+    MF.EditRequest_CloseEditRequest();
     MF.SIT_RefreshJobsInTrip();
     driver.wait(driver.findElement(By.xpath('//div[@ng-click="openDialog(item)"]/following-sibling::div[@class="big-form__jobs-list__body__item"][5]')).getText().then(function (text) {
         V.TripBalance2 = SF.cleanPrice(text);
