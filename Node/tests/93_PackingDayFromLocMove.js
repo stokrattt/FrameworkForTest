@@ -96,6 +96,7 @@ condition.nowWeDoing = 'идем в аккаунт букать обе рабо�
     LF.RememberAccountNumbers(V.packingdayAccount);
     LF.Validation_Compare_Account_Admin(V.packingdayAccount, V.packingday);
     LF.ConfirmRequestInAccount_WithReservation();
+
     SF.sleep(1);
     LF.LogoutFromAccount();
 
