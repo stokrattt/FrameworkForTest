@@ -1045,7 +1045,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Contract_ClickPay() {
         WaitWhileBusy ();
         SF.sleep(1);
-        JS.click('div[ng-click=\\"applyPayment(paymentButton())\\"]:visible');
+        JS.click('div[ng-click=\\"applyPayment({step: paymentButton()})\\"]:visible');
         SF.sleep(1)
     }
 

@@ -136,7 +136,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'Address From');
 		SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Address To');
         MF.Account_ClickUpdateClientInModalWindow();
-		MF.Account_SweetUpdateConfirm();
+		// MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
 		MF.WaitWhileBusy();
 	}
