@@ -32,6 +32,7 @@ condition.nowWeDoing = 'закрываем конферм работу, выст
             + SF.cleanPrice(time.substring(time.indexOf(':')));
     }),config.timeout);
     SF.sleep(1);
+    MF.EditRequest_SaveChangesClosingTab();
 
 condition.nowWeDoing = 'считаем квоту от времени и гранд тотал или првильный и все это сравниваем';
     V.QuoteLaborTravelRate = ((V.LaborTime + V.boardNumbers.TravelTime)/60)*V.boardNumbers.HourlyRate;
@@ -67,6 +68,7 @@ condition.nowWeDoing = 'добавляем два паймента, один к�
         VD.IWant(VD.ToEqual, V.totalAfterRefund, (V.totalBeforeRefund - 100), 'не сработал кастомный рефанд');
     }),config.timeout);
     SF.sleep(1);
+    MF.EditRequest_ClosePayment();
     MF.EditRequest_ClosePayment();
     MF.EditRequest_ClosePayment();
     MF.EditRequest_CloseEditRequest();
