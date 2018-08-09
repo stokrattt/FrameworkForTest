@@ -35,7 +35,6 @@ condition.nowWeDoing = 'создаем пакинг дей с фронта с в
     SF.sleep(2);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
-    MF.SweetConfirm();
     SF.sleep(2);
     LF.AccountLocalAddInventory ();
     SF.sleep(2);
