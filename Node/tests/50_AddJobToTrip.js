@@ -88,8 +88,9 @@ condition.nowWeDoing = 'Сохраняем трип и добавляем раб
     MF.SIT_GoToClosingTab();
 
 condition.nowWeDoing = 'редактируем поля и проверяем циферки';
-    SF.waitForVisible(By.xpath('//div[@ng-repeat="item in jobs track by $index"]//div[@ng-click="openRequest(id)"]'));
-    SF.click(By.xpath('//div[@ng-repeat="item in jobs track by $index"]//div[@ng-click="openRequest(id)"]'));
+    SF.waitForVisible(By.xpath('//div[@ng-repeat="item in jobs track by $index"]//..//div[@ng-click="openRequest(id)"]'));
+    SF.sleep(2);
+    SF.click(By.xpath('//div[@ng-repeat="item in jobs track by $index"]//..//div[@ng-click="openRequest(id)"]'));
     MF.EditRequest_WaitForOpenRequest();
     V.boardNumbers = {};
     LF.RememberDigitsRequestBoard_Down(V.boardNumbers);
