@@ -207,6 +207,7 @@ condition.nowWeDoing = 'открываем реквест и делаем кас
     MF.EditRequest_OpenPaymentModalWindow();
     MF.EditRequest_ClickAddCustomPayment();
     LF.EditRequest_CustomPay(33);
+    MF.EditRequest_ClosePayment();
     LF.closeEditRequest();
     LF.PaymentCollected_ChooseCurrentDateStartEnd();
     MF.PaymentCollected_ChoosePaymentFilter('Cash');
@@ -224,6 +225,7 @@ condition.nowWeDoing = 'открываем реквест и делаем кас
     MF.EditRequest_ClickAddCustomPayment();
     MF.EditRequest_SelectCustomTypePayment('check');
     LF.EditRequest_CustomPay(12);
+    MF.EditRequest_ClosePayment();
     LF.closeEditRequest();
     MF.PaymentCollected_ChoosePaymentFilter('Check');
     MF.PaymentCollected_ClickApplyFilters();
@@ -277,6 +279,7 @@ condition.nowWeDoing = 'открываем реквест и делаем кас
     MF.EditRequest_ClickAddCustomPayment();
     MF.EditRequest_SelectCustomTypePayment('customrefund');
     LF.EditRequest_CustomPay(99);
+    MF.EditRequest_ClosePayment();
     LF.closeEditRequest();
     MF.PaymentCollected_RemoveFilters();
     LF.PaymentCollected_ChooseCurrentDateStartEnd();
