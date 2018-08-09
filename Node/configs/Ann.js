@@ -3,7 +3,7 @@ module.exports = function (config, V) {
 	config.timeout = 120000;
 
 	config.suite = [
-		'./tests/121_FAQAndReservationIncrease.js'
+		'./tests/93_PackingDayFromLocMove.js'
 		// './tests/31_FlateRateBooking.js
 	];
 	config.chainFail = false;

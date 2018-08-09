@@ -6,3 +6,4 @@
 /Node/server.jar
 /Node/chromedriver*
 /Node/geckodriver*
+/Node/bmp.log

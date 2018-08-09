@@ -6,6 +6,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     V.client.phone = SF.randomCifra(10);
     V.client.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
     V.client.passwd = 123;
+    V.secondclient = {};
+    V.secondclient.name = SF.randomBukva(6) + '_t';
+    V.secondclient.fam = SF.randomBukva(6) + '_t';
+    V.secondclient.phone = SF.randomCifra(10);
+    V.secondclient.email = SF.randomBukvaSmall(6) + '@' + SF.randomBukvaSmall(4) + '.tes';
+    V.secondclient.passwd = 123;
 
     //=========================начинаем писать тест=============================
     SF.get(V.frontURL);
@@ -91,6 +97,46 @@ condition.nowWeDoing = 'идем в аккаунт букать обе рабо�
     LF.Validation_Compare_Account_Admin(V.packingdayAccount, V.packingday);
     LF.ConfirmRequestInAccount_WithReservation();
     SF.sleep(1);
+    LF.LogoutFromAccount();
+
+    condition.nowWeDoing = 'возвращаемся на moveboard, создаем реквест, привязываем к реквесту пэкинг дей.';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.adminLogin, V.adminPassword);
+    LF.CreateLocalMovingFromBoard(V.secondclient);
+    MF.EditRequest_SetAdressToFrom();
+    MF.EditRequest_SaveChanges();
+    V.boardNumbersparentRequest = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersparentRequest);
+    MF.EditRequest_ClickCreatePAckingDay();
+    V.numbersPackingDayRequest = {};
+    LF.RememberDigitsRequestBoard(V.numbersPackingDayRequest);
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.packing_request_id"]/label')).getText().then(function (text) {
+        text = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, text,V.boardNumbersparentRequest.Id , 'не совпал номер реквеста с которого создавался пэкинг дей, в области,где указан адрес FROM');
+    }),config.timeout);
+    SF.click(By.xpath('//i[@ng-click="unbindPackingDay()"]'));
+    MF.WaitWhileToaster();
+    MF.EditRequest_CloseEditRequest();
+    MF.EditRequest_CloseEditRequest();
+    MF.Board_RefreshDashboard();
+    MF.Board_OpenRequest(V.numbersPackingDayRequest.Id);
+    SF.click(By.xpath('//div[@ng-if="!request.request_all_data.packing_request_id"]'));
+    SF.waitForVisible(By.xpath('//input[@ng-model="secondRequestNid"]'));
+    SF.send(By.xpath('//input[@ng-model="secondRequestNid"]'),V.boardNumbersparentRequest.Id);
+    SF.click(By.xpath('//button[@ng-click="update()"]'));
+    MF.WaitWhileBusy();
+    MF.WaitWhileToaster();
+    driver.wait(driver.findElement(By.xpath('//div[@ng-if="request.request_all_data.packing_request_id"]/label')).getText().then(function (text) {
+        text = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, text,V.boardNumbersparentRequest.Id , 'после привязки пэкинг дея к родительскому реквесту указан не верный номер родительского реквеста в адрес форме');
+    }),config.timeout);
+    MF.EditRequest_CloseEditRequest();
+    MF.Board_RefreshDashboard();
+    MF.Board_OpenRequest(V.boardNumbersparentRequest.Id);
+    driver.wait(driver.findElement(By.xpath('//span[@ng-click="openBindingRequest(request.request_all_data.packing_request_id)"]')).getText().then(function (text) {
+        text = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual, text,V.numbersPackingDayRequest.Id , 'в родительском реквесте указан не тот номер пэкинг дея,который должен быть');
+    }),config.timeout);
 
     //=========================закончили писать тест=============================
     SF.endOfTest();
