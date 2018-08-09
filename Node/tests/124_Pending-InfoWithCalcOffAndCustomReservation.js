@@ -203,7 +203,7 @@ condition.nowWeDoing = 'переводим в статус нот конферм
     MF.EditRequest_SaveChanges();
     MF.EditRequest_CloseEditRequest();
     MF.Board_LogoutAdmin();
-
+ 
 condition.nowWeDoing = 'идем на аккаунт проверять статус реквеста и букаемся без оплаты резервейшн прайс';
 	SF.get(V.accountURL);
 	LF.LoginToAccountAsClient(V.client);
