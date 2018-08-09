@@ -78,7 +78,7 @@ condition.nowWeDoing = 'первый раз в админке, ищем перв
     JS.step(JSstep.selectTruck((V.boardNumbersNoRes.LaborTimeMax + V.boardNumbersNoRes.TravelTime)/60));
     MF.WaitWhileBusy();
     SF.click(By.xpath('//input[@ng-model="request.reservation_rate.value"]'));
-    SF.click(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
+    SF.click(By.xpath('//input[@id="edit-moving-to"]'));
     SF.sleep(1);
 
 condition.nowWeDoing = 'сравниваем аккаунт и админку без резервации';

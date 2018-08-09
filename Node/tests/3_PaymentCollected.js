@@ -152,7 +152,6 @@ condition.nowWeDoing = 'тут делаем оплату чеком (онлай�
     MF.EditRequest_ClickAddOnlinePayment();
     MF.EditRequest_SetSumOnlinePaymentAndClickPaymentInfo(30);
     MF.EditRequest_PayCheckOnlinePayment();
-    MF.EditRequest_ClosePayment();
     LF.closeEditRequest();
     MF.PaymentCollected_ChoosePaymentFilter('Check');
     MF.PaymentCollected_ClickApplyFilters();
@@ -172,7 +171,6 @@ condition.nowWeDoing = 'тут делаем оплату кешем (онлай�
     MF.Contract_PayCash();
     SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
     SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-    MF.EditRequest_ClosePayment();
     LF.closeEditRequest();
     MF.PaymentCollected_ChoosePaymentFilter('Cash');
     MF.PaymentCollected_ClickApplyFilters();

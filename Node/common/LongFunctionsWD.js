@@ -1420,8 +1420,9 @@ function SetManager(name) {
 		JS.waitForNotExist('div.toast-message:visible');
 		JS.waitForNotExist('div.toast-success:visible');
         JS.waitForNotExist('.busyoverlay:visible, inhome-estimate-request-loading:visible');
+        SF.sleep(2);
         SF.click(By.xpath('//button[@ng-click="cancel()"]'));
-		SF.sleep(2);
+		SF.sleep(1);
 	}
 
 	function SelectRequestDispatch(request) {

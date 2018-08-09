@@ -164,8 +164,8 @@ condition.nowWeDoing = 'идем в админку проверять что ч�
     MF.Board_OpenRequest(V.boardNumbers.Id);
     SF.clear (By.id('edit-moving-from'));
     SF.send (By.id('edit-moving-from'), 'new adress from');
-    SF.clear (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
-    SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'new adress to');
+    SF.clear (By.xpath('//input[@id="edit-moving-to"]'));
+    SF.send (By.xpath('//input[@id="edit-moving-to"]'), 'new adress to');
     MF.EditRequest_SaveChanges();
     LF.closeEditRequest();
     MF.Board_OpenRequest(V.boardNumbers.Id);
