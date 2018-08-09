@@ -61,8 +61,8 @@ condition.nowWeDoing = 'ждем и добавляем инвентория';
     MF.EditRequest_SetSizeOfMoveNumber (6);
     SF.clear (By.id('edit-moving-from'));
     SF.send (By.id('edit-moving-from'), 'From Addres Clone');
-    SF.clear (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
-    SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 'To Addres Clone');
+    SF.clear (By.xpath('//input[@id="edit-moving-to"]'));
+    SF.send (By.xpath('//input[@id="edit-moving-to"]'), 'To Addres Clone');
     driver.wait(driver.findElement(By.xpath("(//div[@ng-show='!request.isInventory']/span)[1]")).getText().then(function (text){
         V.boardNumbersCubFitClone = SF.cleanPrice (text);
     }),config.timeout);
@@ -82,7 +82,7 @@ condition.nowWeDoing = 'идем открывать первый реквест 
     driver.wait(driver.findElement(By.id('edit-moving-from')).getText().then(function (text){
         VD.IWant (VD.NotToEqual, text, 'From Addres Clone', 'клон затер adress from первого реквеста');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]')).getText().then(function (text){
+    driver.wait(driver.findElement(By.xpath('//input[@id="edit-moving-to"]')).getText().then(function (text){
         VD.IWant (VD.NotToEqual, text, 'To Addres Clone', 'клон затер adress to первого реквеста');
     }),config.timeout);
     VD.IWant(VD.NotToEqual, V.boardNumbers.QuoteMin, V.boardNumbersClone.QuoteMin, 'совпали QuoteMin первого реквеста и клона, хотя не должно было');

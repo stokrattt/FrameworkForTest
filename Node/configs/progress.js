@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/121_FAQ.js'];
+    config.suite = ['./tests/19_SignForemanJobAndUnssignetJob.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 30000;

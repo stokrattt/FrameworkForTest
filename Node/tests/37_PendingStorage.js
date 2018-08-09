@@ -36,7 +36,7 @@ condition.nowWeDoing = 'Законфёрмить сразу реквест';
     LF.SetManager('emilia');
     MF.EditRequest_OpenRequest ();
     MF.EditRequest_SetToConfirmed ();
-    SF.send(By.xpath('//input[@ng-model="request.field_moving_from.thoroughfare"]'),'Address From');
+    SF.send(By.xpath('//input[@id="edit-moving-from"]'),'Address From');
     MF.EditRequest_SaveChanges ();
     LF.closeEditRequest();
 
