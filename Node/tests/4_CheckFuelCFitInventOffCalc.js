@@ -66,6 +66,7 @@ condition.nowWeDoing = 'тут мы делаем оплату через кас�
     MF.EditRequest_OpenPaymentModalWindow();
     MF.EditRequest_ClickAddCustomPayment();
     LF.EditRequest_CustomPay(150);
+    MF.EditRequest_ClosePayment();
     LF.closeEditRequest();
     MF.Board_OpenRequest (V.boardNumbers.Id);
     LF.RememberDigitsRequestBoard_Down (V.boardNumbers);
