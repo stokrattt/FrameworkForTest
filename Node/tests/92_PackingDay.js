@@ -92,7 +92,7 @@ condition.nowWeDoing = 'идем в админку в локал диспач и
     V.foremanName = 'Test Foreman';
     LF.selectCrew(V.foremanName);
     LF.OpenRequestDispatch(V.boardNumbers.Id);
-    SF.sleep(40); //почта на бэк перенесена и потому так долго отправляется письмо
+    SF.sleep(60); //почта на бэк перенесена и потому так долго отправляется письмо
     MF.EditRequest_OpenLogs();
     MF.EditRequest_Check1EmailExist(V.client.email, "Packing Day");
     MF.EditRequest_Check1EmailExist(V.client.email, "YOUR MOVE IS CONFIRMED AND SCHEDULED!");
