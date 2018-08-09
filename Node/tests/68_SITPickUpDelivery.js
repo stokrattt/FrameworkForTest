@@ -46,6 +46,7 @@ condition.nowWeDoing = 'Проверяем пэймент в пэндинге. �
         V.cleanPayment = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual, V.cleanPayment, V.cashPayment, 'не совпали Payment в модалке реквеста до включения галочки pending');
     }),config.timeout);
+    MF.EditRequest_ClosePayment();
     MF.EditRequest_OpenPaymentModalWindow();
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Total")]')).getText().then(function(text){
         V.cleanTotal = SF.cleanPrice(text);
