@@ -99,7 +99,6 @@ condition.nowWeDoing= 'меняем зип код и опять сверяем �
     SF.sleep(2);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
-    MF.SweetConfirm();
     SF.sleep(3);
     V.accountNumbersLMChangeMoveSizeChangeZip = {};
     LF.RememberAccountNumbers (V.accountNumbersLMChangeMoveSizeChangeZip);
@@ -138,7 +137,6 @@ condition.nowWeDoing = 'мувинг сторадж ТУ - меняем мув �
     SF.sleep(2); // долго обновляется смена мув сайза на акке
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
-    MF.SweetConfirm();
     SF.sleep(3); // долго обновляется смена мув сайза на акке
     V.accountNumbersMStoChangeMoveSize = {};
     LF.RememberAccountNumbers (V.accountNumbersMStoChangeMoveSize);
@@ -149,7 +147,6 @@ condition.nowWeDoing= 'мувинг сторадж ТУ - меняем зип к
     MF.Account_ChangeZipFrom("01001");
     SF.sleep(2);
     MF.Account_ClickUpdateClientInModalWindow();
-    MF.SweetConfirm();
     MF.SweetConfirm();
     SF.sleep(3);
     V.accountNumbersMStoChangeMoveSizeChangeZip = {};

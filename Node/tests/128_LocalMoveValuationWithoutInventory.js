@@ -76,7 +76,6 @@ condition.nowWeDoing = 'идем на аккаунт,проверяем все �
 	MF.Account_SendAdressFromModalWindow();
 	MF.Account_ClickUpdateClientInModalWindow();
 	MF.SweetConfirm();
-	MF.SweetConfirm();
 	MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-show="request.request_all_data.valuation.selected.valuation_type == valuationTypes.FULL_VALUE"]/div[6]')).getText().then(function (text) {
 		text = SF.cleanPrice(text.substring(text.indexOf('$')));

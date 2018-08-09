@@ -3333,7 +3333,7 @@ function SetManager(name) {
         V.scheduleDate.Day = (future.toLocaleDateString('en-US', day));
         SF.click(By.xpath('//div[@class="erDatepicker"]//div[@date-attribute="2018-'+ V.scheduleDate.Month + '-' + V.scheduleDate.Day +'"]'));
         SF.sleep(3);
-        SF.click(By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'));
+        SF.click(By.xpath('//input[@ng-model="request.inventory.move_details.delivery_days"]'));
         SF.sleep(2);
     }
     function EditRequest_SetInHomeEstimateDate(dateInFuture) {

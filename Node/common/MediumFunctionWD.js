@@ -1046,7 +1046,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy ();
         SF.sleep(1);
         JS.click('div[ng-click=\\"applyPayment({step: paymentButton()})\\"]:visible');
+        '//div[@ng-click="applyPayment(paymentButton())"]'
         SF.sleep(1)
+    }
+    function Contract_BIGTClickPay() {
+        SF.sleep(1);
+        JS.click('div[ng-click="applyPayment(paymentButton())"]');
+        SF.sleep(1);
     }
 
     function Contract_ClickTips10() {
@@ -2876,6 +2882,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Contract_SendStopTime:Contract_SendStopTime,
         Contract_SendTravelTime:Contract_SendTravelTime,
         Contract_SendTimeOFF:Contract_SendTimeOFF,
+        Contract_BIGTClickPay : Contract_BIGTClickPay,
         //=================================EDIT STORAGE REQUEST=====================================
         EditStorage_RememberId: EditStorage_RememberId,
         EditStorage_OpenLedger: EditStorage_OpenLedger,

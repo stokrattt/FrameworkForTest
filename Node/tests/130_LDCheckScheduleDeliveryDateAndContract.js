@@ -206,7 +206,7 @@ condition.nowWeDoing = 'Добавляем ещё сервисов и пэкин
     driver.wait(driver.executeScript("return $('div[ng-if=\"data.signatures[stepId].value\"] img').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 3, 'не сохранились подписи на доп.контракте');
     }),config.timeout);
-    MF.Contract_ClickPay();
+    MF.Contract_BIGTClickPay();
     MF.Contract_ClickTips10();
     MF.Contract_ClickAddTips();
     MF.Contract_ClickPaymentInfo();
