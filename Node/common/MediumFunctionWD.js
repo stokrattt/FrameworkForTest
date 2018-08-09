@@ -1574,13 +1574,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function EditRequest_SetAdressToFrom() {
         SF.send (By.id('edit-moving-from'), 2342342342424);
-        SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
+        SF.send (By.id('edit-moving-to'), 34654564564);
     }
     function EditRequest_SetAdressFrom() {
         SF.send (By.id('edit-moving-from'), 2342342342424);
     }
     function EditRequest_SetAdressTo() {
-        SF.send (By.xpath('//input[@ng-model="request.field_moving_to.thoroughfare"]'), 34654564564);
+        SF.send (By.id('edit-moving-to'), 34654564564);
     }
 
     function EditRequest_CloseConfirmWork() {
@@ -2018,14 +2018,14 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.sleep(6);
     }
     function EditRequest_ChangeZipCodeDestinationTo(zip) {
-        SF.click(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'));
-        driver.findElement(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
-        SF.send(By.xpath('//input[@ng-model="request.field_moving_to.postal_code"]'), zip);
+        SF.click(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'));
+        driver.findElement(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
+        SF.send(By.xpath('//input[@ng-value="request.field_moving_to.postal_code"]'), zip);
     }
     function EditRequest_ChangeZipCodeOriginFrom(zip) {
-        SF.click(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'));
-        driver.findElement(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
-        SF.send(By.xpath('//input[@ng-model="request.field_moving_from.postal_code"]'), zip);
+        SF.click(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'));
+        driver.findElement(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]')).sendKeys(Key.chord((Key.CONTROL + 'a')));
+        SF.send(By.xpath('//input[@ng-value="request.field_moving_from.postal_code"]'), zip);
     }
     function EditRequest_OpenTabFlatRateOption() {
         SF.click(By.xpath('//a[@ng-click="select(tabs[6])"]'));
@@ -2074,8 +2074,6 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//input[@ng-click="applyPayment()"]'));
         SF.sleep(2);
         WaitWhileBusy();
-        SF.waitForLocated(By.xpath('//button[@ng-click="cancel()"]'));
-        SF.click(By.xpath('//button[@ng-click="cancel()"]'));
     }
     function EditRequest_PayCheckOnlinePayment() {
         SF.click(By.xpath('//div[@ng-click="choosePayment(\'checkPay\');"]'));
