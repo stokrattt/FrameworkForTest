@@ -102,7 +102,6 @@ condition.nowWeDoing = 'Заходим на акаунт и проверяем 
     }),config.timeout);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
-    MF.SweetConfirm();
     SF.sleep(1);
     LF.LogoutFromAccount();
     SF.get(V.adminURL);
@@ -110,16 +109,16 @@ condition.nowWeDoing = 'Заходим на акаунт и проверяем 
 condition.nowWeDoing = 'идем в админку проверять что применились новый адрес для екстра и тсави нот конферм и трак';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenRequest (V.boardNumbers.Id);
-    driver.wait(driver.findElement(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_pickup\')"]')).getAttribute('value').then(function(text){
+    driver.wait(driver.findElement(By.xpath('//select[@ng-value="request.field_extra_pickup.organisation_name"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.extraPickUpValue, text, 'extra PickUp Value должно бить равно');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//select[@ng-change="changeRequestField(\'field_extra_dropoff\')"]')).getAttribute('value').then(function(text){
+    driver.wait(driver.findElement(By.xpath('//select[@ng-value="request.field_extra_dropoff.organisation_name"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.extraDropOffValue, text, 'extra Drop Off Value должно бить равно');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_extra_pickup.thoroughfare"]')).getAttribute('value').then(function(text){
+    driver.wait(driver.findElement(By.xpath('//input[@ng-value="request.field_extra_pickup.thoroughfare"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.newExtraPickUpAddress, text, 'extra PickUp адрес должен бить равен');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.field_extra_dropoff.thoroughfare"]')).getAttribute('value').then(function(text){
+    driver.wait(driver.findElement(By.xpath('//input[@ng-value="request.field_extra_dropoff.thoroughfare"]')).getAttribute('value').then(function(text){
         VD.IWant(VD.ToEqual, V.newExtraDropOffAddress, text, 'extra Drop Off адрес должен бить равен');
     }),config.timeout);
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));

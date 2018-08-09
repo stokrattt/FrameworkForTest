@@ -1897,10 +1897,10 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send (By.xpath('//input[@ng-value="request.field_extra_dropoff.thoroughfare"]'), ExtraDropOffAdress);
     }
     function EditRequest_SetExtraPickUpApt(ExtraPickUpApt) {
-        SF.send(By.xpath('//input[@ng-value="request.field_extra_pickup.thoroughfare"]'), ExtraPickUpApt);
+        SF.send(By.xpath('//input[@ng-value="request.field_extra_pickup.premise"]'), ExtraPickUpApt);
     }
     function EditRequest_SetExtraDropOffApt(ExtraDropOffApt) {
-        SF.send(By.xpath('//input[@ng-value="request.field_extra_dropoff.thoroughfare"]'), ExtraDropOffApt);
+        SF.send(By.xpath('//input[@ng-value="request.field_extra_dropoff.premise"]'), ExtraDropOffApt);
     }
     function EditRequest_SetExtraPickUpStairs(number) {
         SF.select(By.xpath('//select[@ng-value="request.field_extra_pickup.organisation_name"]'), number);
