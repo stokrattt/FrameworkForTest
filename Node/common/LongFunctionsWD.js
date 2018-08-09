@@ -145,7 +145,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		MF.Account_OpenAdressModal();
 		SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Address To');
         MF.Account_ClickUpdateClientInModalWindow();
-		MF.Account_SweetUpdateConfirm();
+		//MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
 		MF.WaitWhileBusy();
 	}
@@ -155,7 +155,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.click(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'));
 		SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'From Address');
         MF.Account_ClickUpdateClientInModalWindow();
-		MF.Account_SweetUpdateConfirm();
+		//MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
 		MF.WaitWhileBusy();
 	}
@@ -166,9 +166,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.send(By.xpath('//input[@type="field_moving_from"][@placeholder="From Address"]'), 'Otkuda edem');
 		SF.sleep(1);
         MF.Account_ClickUpdateClientInModalWindow();
-        SF.sleep(2);
-		MF.Account_SweetUpdateConfirm();
-        SF.sleep(2);
+		//MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
 		MF.WaitWhileBusy();
 	}
@@ -179,7 +177,7 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
 		SF.send(By.xpath('//input[@type="field_moving_to"][@placeholder="To Address"]'), 'Kuda edem');
 		SF.sleep(1);
         MF.Account_ClickUpdateClientInModalWindow();
-		MF.Account_SweetUpdateConfirm();
+		//MF.Account_SweetUpdateConfirm();
 		MF.SweetConfirm();
 		MF.WaitWhileBusy();
 	}
