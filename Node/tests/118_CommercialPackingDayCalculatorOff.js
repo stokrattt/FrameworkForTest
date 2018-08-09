@@ -60,7 +60,7 @@ condition.nowWeDoing = 'идем в админку сверять данные, 
 		VD.IWant(VD.ToEqual, V.CBFinAccount ,V.CBFinAdmin,'не совпал вес инвентаря в аккаунте и реквесте на мувборде');
 	}),config.timeout);
     MF.EditRequest_OpenSettings();
-    V.managerFirstName = 'emilia';
+    V.managerFirstName = 'emilia';  
     LF.SetManager(V.managerFirstName);
     MF.EditRequest_OpenRequest();
     MF.EditRequest_SwitchCalculator();
