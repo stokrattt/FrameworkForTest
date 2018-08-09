@@ -45,7 +45,7 @@ condition.nowWeDoing = 'создаем второй реквест, ставим
         // LF.addToCleanerJob(V.Id2);
     }), config.timeout);
     SF.sleep (1);
-    MF.EditRequest_SetStartTime('01:00 PM');
+    MF.EditRequest_SetStartTime('1:00 PM');
     SF.click(By.xpath('//div[contains(text(),"ZAZ")]'));
     MF.WaitWhileBusy();
     MF.EditRequest_SetToNotConfirmed ();

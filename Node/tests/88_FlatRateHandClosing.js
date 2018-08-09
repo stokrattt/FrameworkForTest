@@ -66,7 +66,7 @@ condition.nowWeDoing = 'идем в акк подтвердить выбранн
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
     MF.WaitWhileBusy();
-    MF.SweetConfirm();
+    // MF.SweetConfirm();
     LF.LogoutFromAccount ();
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
@@ -89,10 +89,10 @@ condition.nowWeDoing = 'идем в админку ставить нот кон�
     /**************************************************************************************************************/
     JS.step(JSstep.selectTruck((V.boardNumbers.LaborTimeMax + V.boardNumbers.TravelTime)/60));
     MF.WaitWhileBusy();
-    driver.wait(driver.findElement(By.xpath('//select[@ng-model="request.field_extra_pickup.organisation_name"]')).getAttribute("value").then(function(text){
+    driver.wait(driver.findElement(By.xpath('//select[@ng-value="request.field_extra_pickup.organisation_name"]')).getAttribute("value").then(function(text){
         VD.IWant(VD.ToEqual, text, 2, 'не совпали extra pick up етажи на акаунте и мувборде');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//select[@ng-model="request.field_extra_dropoff.organisation_name"]')).getAttribute("value").then(function(text){
+    driver.wait(driver.findElement(By.xpath('//select[@ng-value="request.field_extra_dropoff.organisation_name"]')).getAttribute("value").then(function(text){
         VD.IWant(VD.ToEqual, text, 3, 'не совпали drop off етажи на акаунте и мувборде');
     }),config.timeout);
 
