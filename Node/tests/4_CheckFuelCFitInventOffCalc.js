@@ -9,12 +9,14 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
-    V.boardNumbers = {};
-    LF.RememberDigitsRequestBoard(V.boardNumbers);
+    V.boardNumbersBeforeAddRooms={};
+    MF.EditRequest_RememberCbf(V.boardNumbersBeforeAddRooms);
     MF.EditRequest_AddRoomNumber(4);
     MF.EditRequest_AddRoomNumber(5);
     MF.EditRequest_AddRoomNumber(6);
     SF.sleep (4);
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
     //*****************************************************************************
 condition.nowWeDoing = 'считаем бензин';
     MF.EditRequest_OpenFuel();
@@ -26,7 +28,7 @@ condition.nowWeDoing = 'считаем бензин';
     V.boardNumbersNew={};
     SF.sleep(1);
     MF.EditRequest_RememberCbf(V.boardNumbersNew);
-    VD.IWant(VD.NotToEqual, V.boardNumbers.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
+    VD.IWant(VD.NotToEqual, V.boardNumbersBeforeAddRooms.cbf, V.boardNumbersNew.cbf, 'Кубик фит не изменился, хотя должен был');
     V.boardNumbers = {};
     V.boardNumbersNew = {};
     MF.EditRequest_RememberCbf(V.boardNumbers);
