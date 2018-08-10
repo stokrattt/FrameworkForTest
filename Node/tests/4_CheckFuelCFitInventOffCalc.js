@@ -9,12 +9,12 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     LF.CreateLocalMovingFromBoard(V.client);
+    V.boardNumbers = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbers);
     MF.EditRequest_AddRoomNumber(4);
     MF.EditRequest_AddRoomNumber(5);
     MF.EditRequest_AddRoomNumber(6);
     SF.sleep (4);
-    V.boardNumbers = {};
-    LF.RememberDigitsRequestBoard(V.boardNumbers);
     //*****************************************************************************
 condition.nowWeDoing = 'считаем бензин';
     MF.EditRequest_OpenFuel();

@@ -61,7 +61,6 @@ condition.nowWeDoing = 'пришли на аккаунт,добавляем ин
     MF.Account_SendAdressToModalWindow();
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
-    MF.SweetConfirm();
     LF.AccountLocalAddInventory(V.accountNumbersLD);
     SF.sleep(2);
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.request.field_useweighttype.value == \'2\' && vm.request.inventory_weight.cfs"]')).getText().then(function(text) {

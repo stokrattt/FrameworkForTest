@@ -130,8 +130,6 @@ condition.nowWeDoing = 'зашли под клиенто и букаем раб�
     MF.Account_ClickUpdateClientInModalWindow();
     SF.sleep(1);
     MF.SweetConfirm();
-    SF.sleep(1);
-    MF.SweetConfirm();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);

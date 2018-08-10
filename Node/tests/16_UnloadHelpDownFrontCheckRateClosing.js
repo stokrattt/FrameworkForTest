@@ -105,7 +105,6 @@ condition.nowWeDoing = 'зашли под клиентом букаем  раб�
     SF.send (By.xpath('//input[@ng-value="request.apt_to.value"]'), 324535);
     MF.Account_ClickUpdateClientInModalWindow();
     MF.SweetConfirm();
-    MF.SweetConfirm();
     SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
     LF.MakeSignJS('signatureCanvasReserv');
     SF.sleep(0.5);

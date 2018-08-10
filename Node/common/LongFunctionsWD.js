@@ -1290,8 +1290,6 @@ function SetManager(name) {
 		MF.Account_ClickUpdateClientInModalWindow();
 		SF.sleep(2);
 		MF.SweetConfirm();
-		SF.sleep(2);
-		MF.SweetConfirm();
 		SF.waitForVisible(By.xpath('//canvas[@id="signatureCanvasReserv"]'));
 		MakeSignJS('signatureCanvasReserv');
 		SF.sleep(0.5);

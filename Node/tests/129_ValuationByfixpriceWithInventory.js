@@ -74,7 +74,6 @@ condition.nowWeDoing = 'идем на аккаунт, ставим свой amou
 	MF.Account_SendAdressFromModalWindow();
 	MF.Account_ClickUpdateClientInModalWindow();
 	MF.SweetConfirm();
-	MF.SweetConfirm();
 	MF.WaitWhileBusy();
 	driver.wait(driver.findElement(By.xpath('//div[@ng-include="vm.statusTemplate"]/div/p[contains(text(),"Status: Not Confirmed")]')).getText().then(function (Status) {
 		VD.IWant(VD.ToEqual, Status, 'Status: Not Confirmed');
