@@ -124,7 +124,6 @@ condition.nowWeDoing = 'переходим на страницу просмот�
     driver.wait(driver.findElement(By.xpath('//span[@ng-if="vm.entitytype != vm.fieldData.enums.entities.STORAGEREQUEST"]/span[@class="invoice-float-right"]/b')).getText().then(function (text) {
         VD.IWant(VD.ToEqual, SF.cleanPrice(text), 0, 'после оплаты инвойса, баланс не ноль, а должен быть нульом');
     }),config.timeout);
-    Debug.pause();
     SF.sleep(1);
     SF.openTab(0);
 
@@ -141,7 +140,7 @@ condition.nowWeDoing = 'Проверяем есть ли в реситах оп�
         VD.IWant(VD.ToEqual, V.amount, V.receiptsAmount, 'не совпали Amount');
     }),config.timeout);
     condition.nowWeDoing = 'Проверяем есть ли в вкладке Invoices инвоис';
-    JS.click('span:contains(\\"Invoices\\")');
+    JS.click('span:contains(\\"Invoices\\"):visible');
     SF.waitForVisible(By.xpath('//span[contains(text(), "Amount")]'));
     driver.wait(driver.findElement(By.xpath('//span[contains(text(), "Amount")]/..')).getText().then(function(text){
         V.invoicesAmount = SF.cleanPrice(text);
