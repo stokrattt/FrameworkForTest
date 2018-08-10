@@ -41,7 +41,6 @@ condition.nowWeDoing = 'первый раз на аккаунте';
 	MF.Account_SendAdressToModalWindow();
 	MF.Account_ClickUpdateClientInModalWindow();
 	MF.SweetConfirm();
-	MF.SweetConfirm();
 	//MF.SweetConfirm();
     LF.AccountLocalAddInventory();
     MF.Account_WaitForInventoryCheck();
