@@ -215,8 +215,8 @@ condition.nowWeDoing = 'возвращаемся в мувборд, и пров�
     SF.openTab(1);
     SF.sleep(2);
     SF.waitForVisible(By.xpath('//print-download[@class="download-row"]'));
-    driver.wait(driver.executeScript("return $('img[ng-if=\"showContractImage && data.isSubmitted\"]').length").then(function (text) {
-        VD.IWant(VD.ToEqual, text, 1, 'Не появился контракт после перехода по ссылке в логах');
+    driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
+        VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')
     }),config.timeout);
     SF.sleep(1.5);
 

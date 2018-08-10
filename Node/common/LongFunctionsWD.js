@@ -1953,7 +1953,7 @@ function SetManager(name) {
 			.then(function (count) {
 				V.countSales = count;
 			}), config.timeout);
-		SF.sleep(1);
+		SF.sleep(2);
 		VD.IWant(VD.ToEqual, V.countSales, 1, 'не сохранился Sale');
 		SF.click(By.xpath('//a[@ng-click="select(tabs[1])"][contains(text(),"Foreman")]'));
 		SF.sleep(1);
