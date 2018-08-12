@@ -69,7 +69,6 @@ condition.nowWeDoing = 'второй раз в аккаунте,  меняю з�
     SF.click(By.xpath('//select[@class="form-select form-control"]/option[@value="6"]'));
     MF.Account_ChangeZipFrom('02134');
     MF.Account_ClickUpdateClientInModalWindow();
-    MF.Account_SweetUpdateConfirm();
     MF.WaitWhileBusy();
     SF.waitForLocated(By.xpath('//a[@ng-click="vm.goToRequest(vm.request.storage_id)"]'));
     SF.sleep(3);

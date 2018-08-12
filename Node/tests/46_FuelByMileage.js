@@ -42,6 +42,7 @@ condition.nowWeDoing = 'идем в настройки фуела и добав�
     SF.send (By.xpath('//tr[@ng-if="vm.addSurcharge"]//input[@ng-model="vm.newSurcharge.amount"]'), 800);
     SF.sleep(1);
     SF.click(By.xpath('//button[@ng-click="vm.saveNewSurcharge();"]'));
+    SF.sleep(1);
     MF.Board_Refresh ();
 
 condition.nowWeDoing = 'создаем локал мув где расстояние будет от 60 до 100 миль';
