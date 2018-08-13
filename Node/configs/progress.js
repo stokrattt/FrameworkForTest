@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/120_LDFlag.js'];
+    config.suite = ['./tests/81_NewPackingAddCrew.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 30000;
