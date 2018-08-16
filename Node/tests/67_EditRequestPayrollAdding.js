@@ -70,7 +70,7 @@ condition.nowWeDoing = 'создаём local moving';
     LF.findTestForemanInPayroll(V.foremanName);
     MF.Payroll_getTotalById(V.boardNumbers.Id, V.payrollNumbers.Foreman);
     SF.sleep(1);
-    VD.IWant(VD.ToEqual, V.payrollNumbers.Foreman.Total, V.boardNumbers.Payroll.foremanForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
+    VD.IWant(VD.ToEqual, Math.floor(V.payrollNumbers.Foreman.Total), V.boardNumbers.Payroll.foremanForCommission.Total, 'не совпали цифры в Payroll foreman\n' +
         'id=' + V.boardNumbers.Id);
 
 condition.nowWeDoing = 'тут будем проверять hourly rate, что он сейчас совпадает с маленьким пейролом, потом мы в маленьком пейроле поставим ноль, сделаем ресабмит' +
