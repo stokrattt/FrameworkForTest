@@ -209,6 +209,7 @@ condition.nowWeDoing = 'возвращаемся в мувборд, и пров�
     MF.EditRequest_ScrollDown();
     VD.IWant(VD.ToEqual, V.boardNumbers.Packing, V.totalPackingContract, 'пакинг добавленный на контракте не отобразился или не совпадает с реквестом на клозинге');
     VD.IWant(VD.ToEqual, V.boardNumbers.AdServices, V.totalAddServices, 'additional services добавленный на контракте не отобразился или не совпадает с реквестом на клозинге');
+    SF.sleep(50); //delay launch
     MF.EditRequest_OpenLogs();
     SF.click(By.xpath('//span[@ng-show="!allLogsShow[allLogsIndex]"]'));
     SF.click(By.linkText('VIEW CONTRACT PAGE'));

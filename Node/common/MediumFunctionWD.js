@@ -1775,6 +1775,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send(By.xpath('//input[@ng-model="request.delivery_start_time.value"]'),  '02:00 AM');
     }
     function EditRequest_OpenFuelSurchModal() {
+        WaitWhileBusy();
         SF.click(By.xpath('//label[@ng-click="OpenSurchargeModal();"]'));
         SF.waitForVisible(By.xpath('//input[@ng-model="request.request_all_data.surcharge_fuel"]'));
         SF.sleep(2);

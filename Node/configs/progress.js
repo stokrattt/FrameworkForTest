@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/81_NewPackingAddCrew.js'];
+    config.suite = ['./tests/48_Review.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 30000;
