@@ -5,7 +5,6 @@ module.exports = function(config,V) {
         './tests/34_ContractPageCustomBlock.js',
         './tests/35_InventoryLocalMovingAndValuation.js',
         './tests/36_DatePending.js',
-        './tests/37_PendingStorage.js',
         './tests/38_CustomPayrollInRequest.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
 
@@ -45,10 +44,11 @@ module.exports = function(config,V) {
         './tests/40_PayrollTableCheckSumJobs.js',
         './tests/41_ContractPageSettings.js',
         './tests/125_PendingInfoOn-OffandValuation.js',
+        './tests/37_PendingStorage.js',
         './tests/DefaultSettings.js',
         './tests/128_LocalMoveValuationWithoutInventory.js',
     ];
-    config.timeout = 90000;
+    config.timeout = 40000;
     config.chainFail = false;
     config.browser = 'chrome';
     config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu", "window-size=1500,850"] };

@@ -46,7 +46,7 @@ module.exports = function(config,V) {
         './tests/126_ValuationByRateAnd60CentperPoundWithDiscount.js',
         './tests/DefaultSettings.js',
     ];
-    config.timeout = 90000;
+    config.timeout = 40000;
     config.chainFail = false;
     config.browser = 'chrome';
     config.chromeOptions = { "args" : ["--no-sandbox", "--headless", "--disable-gpu", "window-size=1500,850"] };
