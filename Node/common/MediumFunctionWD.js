@@ -1903,6 +1903,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.send(By.xpath('//input[@ng-value="request.field_extra_dropoff.premise"]'), ExtraDropOffApt);
     }
     function EditRequest_SetExtraPickUpStairs(number) {
+        WaitWhileBusy();
         SF.select(By.xpath('//select[@ng-value="request.field_extra_pickup.organisation_name"]'), number);
     }
     function EditRequest_SetExtraDropOffStairs(number) {

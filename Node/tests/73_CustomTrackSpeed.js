@@ -29,6 +29,7 @@ module.exports = function main(SF, JS, MF, LF, JSstep, VD, V, By, until,FileDete
 	VD.IWant(VD.ALessB, V.boardNumbers2.TravelTime, V.boardNumbers.TravelTime, 'время как-то глючит');
 	MF.EditRequest_CloseEditRequest();
 	MF.Board_OpenSettingsCalculator();
+	SF.sleep(3);
 	MF.CalculatorSettings_OpenTravelTime();
 	MF.CalculatorSettings_CustomTrackSpeedTurnOff();
 	//=========================закончили писать тест=============================
