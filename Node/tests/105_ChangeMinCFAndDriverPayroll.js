@@ -94,7 +94,6 @@ condition.nowWeDoing = 'идем в локал диспач назначать �
     JS.waitForExist('div.toast-success');
     MF.WaitWhileToaster();
     LF.OpenRequestDispatch(V.boardNumbers.Id);
-    MF.WaitWhileBusy();
     MF.EditRequest_CloseJob();
 
 condition.nowWeDoing = 'идем первый раз в маленький пеирол добаялем и назначаем комиссии драивера,как хелпера';
