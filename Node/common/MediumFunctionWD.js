@@ -2116,6 +2116,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
 
     function Dispatch_GridView() {
+        WaitWhileBusy();
         SF.click(By.xpath('//i[contains(@ng-click,"view.grid = true;")]'));
         WaitWhileBusy();
     }
