@@ -145,7 +145,7 @@ condition.nowWeDoing = 'тут проверяем блок орижин и бл�
 
 condition.nowWeDoing = 'добавляем разных пакингови and екстра сервисов и запоминаем числа чтобы потом сравнить на админке';
     LF.AddPackingOnContract();
-
+    Debug.pause();
     driver.wait(driver.findElement(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][1]/td[4]')).getText().then(function (text) {
         V.totalPackingSmallBox = text;
         VD.IWant(VD.NotToEqual, V.totalPackingSmallBox, '$ 0.00', 'не добавился пекинг на контракте small box');
