@@ -3128,7 +3128,6 @@ function SetManager(name) {
         SF.click(By.xpath('//li[@ng-click="addPacking()"]'));
         SF.sleep(0.3);
         SF.select(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][9]//select[@ng-model="p.quantity"]'),5);
-        SF.clear(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][9]//input[@ng-model="p.rate"]'));
         SF.send(By.xpath('//tr[@ng-repeat="p in extra.selectedPackings track by $index "][9]//input[@ng-model="p.rate"]'),10);
         SF.sleep(0.5);
     }
