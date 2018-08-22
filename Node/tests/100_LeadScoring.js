@@ -42,7 +42,7 @@ condition.nowWeDoing = 'первый раз в аккаунте, добавля�
 condition.nowWeDoing = 'первый раз в админке,сверяю очки,проверяю логи, включаю дисконт';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
-    SF.sleep(70);
+    SF.sleep(120);
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest(V.accountNumbers.Id);
     V.boardNumbers = {};
