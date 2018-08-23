@@ -33,6 +33,7 @@ condition.nowWeDoing = 'идем в диспач назначем команду
 
 condition.nowWeDoing = 'переходим сразу с диспача на контракт и подписываем его не до конца ';
     JS.scroll('button[ng-click=\"vm.assignTeam()\"]');
+    JS.scroll('img[ng-click="vm.openCrewModal()"]');
     SF.click(By.xpath('//button[@ng-click="vm.openContractInBlack()"]'));
     SF.openTab (1);
     MF.Contract_WaitConfirmationPage ();
