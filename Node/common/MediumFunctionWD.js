@@ -132,6 +132,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="vm.unAssignTeam()"]'));
     }
     function Dispach_ClickAddCrew() {
+        JS.scroll('img[ng-click="vm.openCrewModal()"]');
         SF.click(By.xpath('//a[@title="Add crew"]'));
         WaitWhileBusy ();
     }
@@ -2143,6 +2144,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     }
     function Payroll_RefreshTable() {
         SF.sleep(1.5);
+        JS.scroll('div[ng-if="isDisplayUserTable() && mainColumns[dTable].totalFields.isVisible"]');
         SF.click(By.xpath('//a[@ng-click="getByDate()"]/i'));
         WaitWhileBusy ();
     }
