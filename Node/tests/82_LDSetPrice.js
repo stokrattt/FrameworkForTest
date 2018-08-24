@@ -49,6 +49,7 @@ condition.nowWeDoing = 'Создаем ЛД работу и проверям min
     VD.IWant(VD.ToEqual, V.grandTotal, V.boardNumbers.Total, 'не совпали Grand Total 1');
 
 condition.nowWeDoing = 'Первий раз проверям логи';
+    SF.sleep(3);
     MF.EditRequest_OpenLogs();
     SF.click(By.xpath('//span[@ng-show="!allLogsShow[allLogsIndex]"]'));
     SF.sleep(1);
