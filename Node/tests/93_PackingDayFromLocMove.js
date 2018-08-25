@@ -17,6 +17,7 @@ condition.nowWeDoing = 'первый раз в аккаунте';
     MF.Account_ClickPartialPacking();
     LF.AccountLocalEnterAddress();
     LF.AccountLocalAddInventory();
+    MF.SweetConfirm();
     MF.Account_WaitForInventoryCheck();
     V.accountNumbers={};
     LF.RememberAccountNumbers(V.accountNumbers);
