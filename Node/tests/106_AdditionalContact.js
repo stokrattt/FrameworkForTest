@@ -64,6 +64,14 @@ condition.nowWeDoing = 'отправиляем письмо вручную, и �
     MF.EditRequest_OpenClient();
     LF.SetClientPasswd(V.client.passwd);
     LF.closeEditRequest();
+
+condition.nowWeDoing = 'проверяем поиск по телефону';
+    MF.Board_SearchRequest(V.client.phone);
+    V.SearchRequest={};
+    SF.sleep(2);
+    MF.Board_GetFirstFoundedId(V.SearchRequest);
+    VD.IWant (VD.ToEqual, V.boardNumbers.Id, V.SearchRequest.Id, 'не нашло реквест по поиску телефона');
+    SF.sleep(1);
     MF.Board_LogoutAdmin();
 
 condition.nowWeDoing = 'Зайти в аккаунт на конфирмейшн и проверить что есть и основной контакт доп телефон и доп контакт, а  также проверить компани полиси что открывается и сенселатион полиси';
