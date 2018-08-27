@@ -216,6 +216,10 @@ condition.nowWeDoing = 'тут заходим в маркетинг тулс и 
     JS.click('button[ng-click="vm.updateValuationSetting(directivePresets)"]');
     MF.WaitWhileToaster();
 
+    condition.nowWeDoing = 'возврат настроек SMTP на место,если 121 тест упадет';
+    MF.Board_SMTPEncryptionSettingsSSL();
+    MF.Board_UpdateSMTP();
+
     //=========================закончили писать тест=============================
     SF.endOfTest();
 };

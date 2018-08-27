@@ -394,7 +394,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
 	}
 	function Board_OpenSettingsSMTP (){
         Board_OpenSettingsGeneral();
-        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[17]'));
+        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[16]'));
         SF.sleep(1);
     }
     function Board_OpenSettingsAccountPageCustomBlock() {
@@ -715,6 +715,9 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
     function Board_TestConnectionSMTP () {
         SF.click(By.xpath('//button[@ng-click="vm.testSMTP()"]'));
         SF.waitForVisible(By.xpath('//div[@data-animation="pop"]'));
+        driver.wait(driver.findElement(By.xpath('//div[@data-has-confirm-button="true"]/h2')).getText().then(function(text){
+            VD.IWant(VD.ToEqual, text, "Connection established",'текст другой,видимо ошибка подключения,а должен быть только таким,,как в сравнении');
+        }),config.timeout);
         SweetConfirm();
         SF.sleep(1);
     }
