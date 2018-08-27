@@ -59,9 +59,35 @@ condition.nowWeDoing = 'тут мы сделаем пакинг дей с рек
     driver.close();
     SF.openTab(0);
     LF.closeEditRequest ();
+
+condition.nowWeDoing = 'тут проверим что  после закрытия и открытия реквеста пакинг дея нет';
+    MF.Board_OpenRequest (V.boardNumbers.Id);
+    driver.wait(driver.executeScript("return $('span[ng-click=\"openBindingRequest(request.request_all_data.packing_request_id)\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 0, 'не отвязался пакинг реквест с родительского на мувборде поссле закрытия и открытия реквеста');
+    }),config.timeout);
+    LF.closeEditRequest ();
+
+condition.nowWeDoing = 'тут проверим и пакинг дей, что работает привязка к реквесту который мы отвязали а также проверим что в пакинг дее не отображается род реквест и на мувборде и на аккаунте';
     MF.Board_OpenRequest (V.PackingDayID);
     driver.wait(driver.executeScript("return $('div[class=\"addPackingInfo\"]').length").then(function (text) {
         VD.IWant(VD.ToEqual, text, 0, 'не пропал род реквест с пакинг дея в котором мы его отвязали на мувборде');
+    }),config.timeout);
+    SF.click(By.xpath('//div[@ng-click="openGroupModal()"]'));
+    JS.waitForExist('input[ng-model="secondRequestNid"]:visible');
+    SF.send(By.xpath('//input[@ng-model="secondRequestNid"]'), V.boardNumbers.Id);
+    JS.click('button[ng-click=\\"update()\\"]:visible');
+    SF.sleep(2);
+    MF.WaitWhileToaster();
+    driver.wait(driver.executeScript("return $('div[class=\"addPackingInfo\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 1, 'не появился род реквест в пакинг дее в котором мы привязали его повторно для проверки на мувборде');
+    }),config.timeout);
+    SF.click(By.xpath('//i[@ng-click="unbindPackingDay()"]'));
+    SF.sleep(5);
+    MF.WaitWhileToaster();
+    LF.closeEditRequest ();
+    MF.Board_OpenRequest (V.PackingDayID);
+    driver.wait(driver.executeScript("return $('div[class=\"addPackingInfo\"]').length").then(function (text) {
+        VD.IWant(VD.ToEqual, text, 0, 'не пропал род реквест с пакинг дея в котором мы его отвязали поттом привязали и еще раз отвязали на мувборде');
     }),config.timeout);
     MF.EditRequest_OpenAccountPageInNewWindow();
     MF.Account_WaitForLoadingAccount();
