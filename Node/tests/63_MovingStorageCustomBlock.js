@@ -259,9 +259,10 @@ condition.nowWeDoing = 'Открываем настройки контракта
     driver.wait(driver.executeScript("if ($('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').hasClass('ng-not-empty')){" +
         "return true;} else {$('input[ng-model=\"contract_page.confirmationShowQuote.selected\"]').click()}"),config.timeout);
     SF.click(By.xpath('//button[@ng-click="save()"]'));
+    SF.sleep(2);
     MF.WaitWhileBusy();
     SF.openTab (1);
-    SF.sleep(1);
+    SF.sleep(3);
     MF.Account_Refresh ();
     MF.Account_ClickViewConfirmationPage ();
     driver.wait(driver.executeScript("return $('div[class=\"estimated_job_time_row\"]:visible').length").then(function (text) {

@@ -214,7 +214,7 @@ condition.nowWeDoing = 'возвращаемся в мувборд, и пров�
     SF.click(By.xpath('//span[@ng-show="!allLogsShow[allLogsIndex]"]'));
     SF.click(By.linkText('VIEW CONTRACT PAGE'));
     SF.openTab(1);
-    SF.sleep(5);
+    SF.sleep(8);
     SF.waitForVisible(By.xpath('//print-download[@class="download-row"]'));
     driver.wait(driver.findElement(By.xpath('//button[@ng-if="data.isSubmitted"]')).getText().then(function(text) {
         VD.IWant (VD.ToEqual, text, 'Job is Done', 'страница бил оф ладинг не загрузилась')

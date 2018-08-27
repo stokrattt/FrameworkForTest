@@ -132,8 +132,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//button[@ng-click="vm.unAssignTeam()"]'));
     }
     function Dispach_ClickAddCrew() {
-        JS.scroll('img[ng-click="vm.openCrewModal()"]');
-        SF.click(By.xpath('//a[@title="Add crew"]'));
+        JS.click('a[title="Add crew"]');
         WaitWhileBusy ();
     }
     function Dispach_ClickDeliveryCrewOnlyFlatRate() {

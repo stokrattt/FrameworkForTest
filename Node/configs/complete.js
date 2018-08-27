@@ -18,6 +18,7 @@ module.exports = function(config,V) {
         './tests/1_AllLocalMoving.js',
         './tests/2_CheckPermissions.js',
        // './tests/TheCleaner.js',//==============================уборка=========================
+        './tests/125_PendingInfoOn-OffandValuation.js',
         './tests/DefaultSettings.js',
         './tests/10_ComparQuotLocalCheckBilOfLad.js',
         './tests/11_CreateFlatRateCloneRequestAndPayReservation.js',
@@ -34,7 +35,7 @@ module.exports = function(config,V) {
         './tests/20_LDTopForm.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
         './tests/22_WeDontMoveToThisState.js',
-
+        './tests/93_PackingDayFromLocMove.js',
         './tests/25_ChangeDateDispatch.js',
         './tests/29_CheckFewMoverForUserCalcOffManual.js',
         // './tests/TheCleaner.js',//==============================уборка=========================
@@ -92,7 +93,6 @@ module.exports = function(config,V) {
         './tests/87_ForgotPassword.js',
         './tests/90_ChangeEmailUser.js',
         './tests/42_DrivingTimeLocalMoveMarketToolsOFF.js',
-        './tests/93_PackingDayFromLocMove.js',
         './tests/94_CommercialMoveFromBord.js',
         './tests/4_CheckFuelCFitInventOffCalc.js',
         './tests/89_DraftRequest.js',
@@ -128,11 +128,9 @@ module.exports = function(config,V) {
         './tests/117_HomeEstimatePortal.js',
         './tests/111_ZIPCode.js',
 	    './tests/128_LocalMoveValuationWithoutInventory.js',
-        './tests/95_Statistic.js',
         './tests/122_MovingAndMovStorageCalcOffCheck.js',
         './tests/123_DraftCheckRateDoubleDriveTime.js',
         './tests/DefaultSettings.js',
-        './tests/125_PendingInfoOn-OffandValuation.js',
         './tests/129_ValuationByfixpriceWithInventory.js',
         './tests/124_Pending-InfoWithCalcOffAndCustomReservation.js',
         './tests/126_ValuationByRateAnd60CentperPoundWithDiscount.js',
@@ -141,6 +139,7 @@ module.exports = function(config,V) {
         './tests/DefaultSettings.js',
         './tests/51_ServiceTypesOnOff.js',
         './tests/56_LoadingAllSteps.js',
+        './tests/95_Statistic.js',
         './tests/26_CloneRequest.js',
 
         // './tests/107_SallaryProfitLossAndPayroll.js',
