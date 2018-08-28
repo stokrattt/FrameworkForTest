@@ -217,7 +217,10 @@ condition.nowWeDoing = 'тут заходим в маркетинг тулс и 
     MF.WaitWhileToaster();
 
     condition.nowWeDoing = 'возврат настроек SMTP на место,если 121 тест упадет';
-    MF.Board_SMTPEncryptionSettingsSSL();
+    MF.Board_AdminOpenSettingsSMTP();
+    JS.scroll('div[class="pageheader"]');
+    driver.wait(driver.executeScript("if($('input[ng-model=\"vm.smtpEncryptionSettings.ssl\"]').hasClass('ng-not-empty')){" +
+        "return true;}else{$('input[ng-model=\"vm.smtpEncryptionSettings.ssl\"]').click()}"),config.timeout);
     MF.Board_UpdateSMTP();
 
     //=========================закончили писать тест=============================

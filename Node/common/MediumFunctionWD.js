@@ -397,6 +397,11 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[16]'));
         SF.sleep(1);
     }
+    function Board_AdminOpenSettingsSMTP (){
+        Board_OpenSettingsGeneral();
+        SF.click(By.xpath('(//li[@ng-repeat="tab in vm.tabs"]/a[@ng-click="vm.select(tab)"])[17]'));
+        SF.sleep(1);
+    }
     function Board_OpenSettingsAccountPageCustomBlock() {
         SF.click(By.xpath('//a[@ui-sref="settings.accountPageSettings"]'));
         SF.sleep(3);
@@ -2792,6 +2797,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         Board_SMTPEncryptionSettingsSSL : Board_SMTPEncryptionSettingsSSL,
         Board_SMTPEncryptionSettingsTLS : Board_SMTPEncryptionSettingsTLS,
         Board_TestConnectionSMTP : Board_TestConnectionSMTP,
+        Board_AdminOpenSettingsSMTP : Board_AdminOpenSettingsSMTP,
         //====================================SETTINGS CALCULATOR===========================
         CalculatorSettings_OpenBasicSettings: CalculatorSettings_OpenBasicSettings,
 		CalculatorSettings_OpenTravelTime: CalculatorSettings_OpenTravelTime,
