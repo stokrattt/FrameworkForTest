@@ -1637,6 +1637,13 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
             VD.IWant(VD.ToEqual, array.length,1,'имейл '+Subject+' не был отправлен на '+receiver+' или отправлен несколько раз');
         }), config.timeout);
     }
+    function EditRequest_Check1EmailExistForHelper(receiver1, receiver2, Subject) {
+        driver.wait(driver.findElements(By.xpath('//div[@ng-show="tabs[0].selected"]//span[' +
+            'contains(text(),\'Mail was sent to "'+receiver1+'", "'+receiver2+'" .\') and ' +
+            'contains(text(),\'Subject: "'+Subject+'\')]')).then(function(array){
+            VD.IWant(VD.ToEqual, array.length,1,'имейл '+Subject+' не был отправлен двум тест хелперам на '+receiver1+' and '+receiver2+' или отправлен несколько раз');
+        }), config.timeout);
+    }
     function EditRequest_Check1EmailNotExist(receiver, Subject) {
         driver.wait(driver.findElements(By.xpath('//div[@ng-show="tabs[0].selected"]//span[' +
             'contains(text(),\'Mail was sent to "'+receiver+'".\') and ' +
@@ -2956,6 +2963,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_CloseJob: EditRequest_CloseJob,
         EditRequest_OpenContractCloseJob: EditRequest_OpenContractCloseJob,
         EditRequest_Check1EmailExist:EditRequest_Check1EmailExist,
+        EditRequest_Check1EmailExistForHelper:EditRequest_Check1EmailExistForHelper,
         EditRequest_OpenConfirmWork: EditRequest_OpenConfirmWork,
         EditRequest_ClickCloneRequest: EditRequest_ClickCloneRequest,
         EditRequest_WaitForVisibleCloneRequest: EditRequest_WaitForVisibleCloneRequest,

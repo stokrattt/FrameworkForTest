@@ -107,6 +107,7 @@ condition.nowWeDoing = 'второй раз в админке, локал дис
 	}),config.timeout);
     SF.sleep(60); //почта на бэк перенесена и потому так долго отправляется письмо
     MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExistForHelper (V.testHelper1email, V.testHelper2email, "New Job Helper");
     MF.EditRequest_Check1EmailExist(V.client.email, "Request Local Quote (Confirmed)");
     MF.EditRequest_Check1EmailExist(V.client.email, "YOUR MOVE IS CONFIRMED AND SCHEDULED!");
     MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Confirmed");

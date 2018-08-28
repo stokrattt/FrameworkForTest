@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/106_AdditionalContact.js'];
+    config.suite = ['./tests/130_LDCheckScheduleDeliveryDateAndContract.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 30000;
@@ -32,6 +32,8 @@ module.exports = function(config,V) {
     V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';
     V.foremanLoginFlatRate = 'FlatRateForeman';
+    V.foremanFlatRate = 'FlatRate Foreman';
+    V.foremanFlatRateEmail = 'FlatRateForeman@mail.com';
     V.foremanPassword = '123';
     V.foremanName = 'Test Foreman';
     V.foremanLogin2 = 'ForemanFlow1';
@@ -40,6 +42,8 @@ module.exports = function(config,V) {
     V.helperName = 'Test Helper1';
     V.adminName = 'Test';
     V.foremanEmail = 'TestForeman@mail.com';
+    V.testHelper1email = 'TestHelper1@themoveboard.com';
+    V.testHelper2email = 'TestHelper2@themoveboard.com';
     V.managerName = 'emilia clark';
     V.managerFirstName = 'emilia';
     V.ForEmail = 'ivanforeman173@gmail.com';

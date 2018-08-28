@@ -117,6 +117,15 @@ condition.nowWeDoing = 'идем в админку в диспач';
     MF.Dispatch_GridView();
     LF.SelectRequestDispatch(V.FRId);
     LF.selectCrewFlatRatePickUp(V.foremanName);
+    LF.OpenRequestDispatch(V.FRId);
+    MF.WaitWhileBusy ();
+    SF.sleep(60); //почта на бэк перенесена и потому так долго отправляется письмо
+    MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExistForHelper (V.testHelper1email, V.testHelper2email, "New Job Helper");
+    MF.EditRequest_Check1EmailExist(V.client.email, "Confirmed flat rate");
+    MF.EditRequest_Check1EmailExist(V.adminEmail, "Request Confirmed");
+    MF.EditRequest_Check1EmailExist(V.foremanEmail, "New Job");
+    LF.closeEditRequest();
     MF.Board_LogoutAdmin ();
     LF.LoginToBoardAsCustomForeman(V.foremanLogin, V.foremanPassword);
 
@@ -175,6 +184,12 @@ condition.nowWeDoing = 'идем в диспач нзначить команду
     LF.SelectRequestDispatch(V.FRId);
     MF.Dispach_ClickDeliveryCrewOnlyFlatRate();
     LF.selectCrewFlatRateDelivery();
+    LF.OpenRequestDispatch(V.FRId);
+    MF.WaitWhileBusy ();
+    SF.sleep(60); //почта на бэк перенесена и потому так долго отправляется письмо
+    MF.EditRequest_OpenLogs();
+    MF.EditRequest_Check1EmailExist(V.foremanFlatRateEmail, "New Job");
+    LF.closeEditRequest();
     MF.Board_LogoutAdmin ();
 
 condition.nowWeDoing = 'заходим под вторым фореманом подписывать delivery контракт';
