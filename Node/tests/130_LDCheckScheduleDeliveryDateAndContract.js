@@ -221,11 +221,14 @@ condition.nowWeDoing = 'Добавляем ещё сервисов и пэкин
     MF.Contract_ClickAddTips();
     MF.Contract_ClickPaymentInfo();
     MF.Contract_PayCash();
+    driver.wait(driver.findElement(By.xpath('//input[@ng-model="contractPage.balance_due"]')).getText().then(function (text){
+        VD.IWant(VD.ToEqual, text, 0, 'После оплаты Balance due на контракте не равен 0');
+    }),config.timeout);
     MF.Contract_SubmitAddContract();
     MF.Contract_ReturnToForeman();
     LF.LogoutFromBoardForeman();
 
-condition.nowWeDoing = 'Возвращаемся на мувборд. Проверяем, что сервисы и пэкинги добавленные на аккаунте добавились в табу клоузинг. Выключаем доп.контракт';
+    condition.nowWeDoing = 'Возвращаемся на мувборд. Проверяем, что сервисы и пэкинги добавленные на аккаунте добавились в табу клоузинг. Выключаем доп.контракт';
     LF.LoginToBoardAsCustom(V.adminLogin,V.adminPassword);
     MF.Board_OpenConfirmed();
     MF.Board_OpenRequest (V.requestNumber.Id);
@@ -233,6 +236,7 @@ condition.nowWeDoing = 'Возвращаемся на мувборд. Прове
     LF.RememberDigitsRequestBoard_Down (V.boardNumbersClosingAfterSubmit);
     VD.IWant (VD.ToEqual, V.boardNumbersClosingAfterSubmit.AdServices, V.TotalAdServicesContract, 'На табу клоузинг не добавились сервисы которые были добавлены на контракте');
     VD.IWant (VD.ToEqual, V.boardNumbersClosingAfterSubmit.Packing, V.TotalPackingContract, 'На табу клоузинг не добавились пэкинги которые были добавлены на контракте');
+    VD.IWant(VD.ToEqual, V.boardNumbersClosingAfterSubmit.Balance,'0', 'Balance в реквесте не равен 0 после оплаты и сабмита контракта');
     MF.EditRequest_CloseEditRequest();
     MF.Board_OpenSettingsContract();
     MF.Board_TurnOffAdditionalContract();
