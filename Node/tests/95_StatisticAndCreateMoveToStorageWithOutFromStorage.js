@@ -150,7 +150,7 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'возвращаемся на moveboard, что бы проверить что наш реквест в табе confirmed и назначить команду на эту рабоу';
+    condition.nowWeDoing = 'возвращаемся на moveboard, что бы проверить что наш реквест в табе confirmed';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
     MF.Board_OpenConfirmed();
@@ -225,6 +225,9 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     V.contractNumbers = {};
     MF.Contract_Submit(V.contractNumbers);
     SF.openTab(0);
+
+    condition.nowWeDoing = 'переходим на вкладку,где наш реквест, закрываем, обновляем dashboard' +
+        'открываем заново наш реквест, проверяем баланс, и вес в табе клоузинг, табе сэйлс и в самом storage';
     MF.EditRequest_CloseEditRequest();
     MF.Board_RefreshDashboard();
     MF.Board_OpenRequest(V.boardNumbersAfterInventory.Id);
@@ -239,7 +242,7 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     MF.EditRequest_OpenConfirmWork();
     driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
         text = SF.cleanPrice(text);
-        VD.IWant(VD.NotToEqual,text ,V.cbfInTabClosing , 'вес либо совпал, либо какая-то другая ошибка')
+        VD.IWant(VD.NotToEqual,text ,V.cbfInTabClosing , 'вес в табе клоузинг и табе сэйлс совпал , либо какая-то другая ошибка')
     }),config.timeout);
     SF.click(By.xpath('//span[@ng-click="openStorageRequest(request.request_all_data.storage_request_id)"]'));
     MF.WaitWhileBusy();
