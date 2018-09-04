@@ -31,6 +31,7 @@ module.exports = function(config,V) {
         './tests/SetReservationPrice.js',
         './tests/16_UnloadHelpDownFrontCheckRateClosing.js',
         './tests/17_LoadHelpDownFormAndEquipFee.js',
+        './tests/8_ShowQuoteCheckAllServiceType.js',
         './tests/DefaultSettings.js',
         './tests/20_LDTopForm.js',
         // './tests/TheCleaner.js',//==============================уборка=========================

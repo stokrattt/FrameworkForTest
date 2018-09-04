@@ -2055,6 +2055,42 @@ function SetManager(name) {
 		MF.FrontSite_ClickGoToCalculatorResults();
 	}
 
+    function CreateLocalMoveFromFrontDown(client) {
+        MF.FrontSite_ClickQuoteCalculator();
+        MF.FrontSite_ClickDesireMoveDate();
+        V.request = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (MovDateFront) {
+            V.request.moveDate = MovDateFront;
+            console.log(V.request);
+        }), config.timeout);
+        SF.sleep(0.5);
+        MF.FrontSiteDown_SendZipCode('02032', '02136');
+        MF.FrontDown_SelectMoveSize(8);
+        MF.FrontDown_SetEntrance();
+        MF.FrontSite_ClickCalculate();
+        MF.FrontSite_SetClientInfoDown(client);
+        MF.FrontSite_SelectPreferedStartTime();
+        MF.FrontSite_SelectGoogleSearch();
+        MF.FrontSite_ClickGoToCalculatorResults();
+    }
+    function CreateLongDistanceFromFrontDown(client) {
+        MF.FrontSite_ClickQuoteCalculator();
+        MF.FrontSite_ClickDesireMoveDate();
+        V.request = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (MovDateFront) {
+            V.request.moveDate = MovDateFront;
+            console.log(V.request);
+        }), config.timeout);
+        SF.sleep(0.5);
+        MF.FrontSiteDown_SendZipCode('02032', '90001');
+        MF.FrontDown_SelectMoveSize(8);
+        MF.FrontDown_SetEntrance();
+        MF.FrontSite_ClickCalculate();
+        MF.FrontSite_SetClientInfoDown(client);
+        MF.FrontSite_SelectPreferedStartTime();
+        MF.FrontSite_SelectGoogleSearch();
+        MF.FrontSite_ClickGoToCalculatorResults();
+    }
 	function CreateOvernightDownForm(client) {
 		MF.FrontSite_ClickQuoteCalculator();
 		MF.FrontSite_ClickDesireMoveDate();
@@ -2194,6 +2230,27 @@ function SetManager(name) {
 		MF.FrontSite_SelectGoogleSearch();
 		MF.FrontSite_ClickGoToCalculatorResults();
 	}
+
+    function CreatePackingDayDownForm(client) {
+        MF.FrontSite_ClickQuoteCalculator();
+        MF.FrontSite_ClickDesireMoveDate();
+        V.request = {};
+        driver.wait(driver.executeScript(JSstep.Click4DaysNewCalendar).then(function (MovDateFront) {
+            V.request.moveDate = MovDateFront;
+            console.log(V.request);
+        }), config.timeout);
+        SF.sleep(0.5);
+        MF.FrontSite_SelectServiceType(8);
+        MF.FrontSiteDown_SendZipCodeFrom('02032');
+        MF.FrontDown_SelectMoveSize(8);
+        MF.FrontDown_SetEntrance();
+        MF.FrontSite_ClickCalculate();
+        MF.FrontSite_SetClientInfoDown(client);
+        MF.FrontSite_SelectPreferedStartTime();
+        SF.sleep(0.5);
+        MF.FrontSite_SelectGoogleSearch();
+        MF.FrontSite_ClickGoToCalculatorResults();
+    }
 
 	function addToCleanerJob(Id) {
 		if (V.cleanerJob == undefined) {
@@ -3457,68 +3514,172 @@ function SetManager(name) {
         MF.WaitWhileBusy ();
     }
 
+    function CalculatorSettings_ShowQuoteTurnON() {
+        SF.sleep(1);
+        driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.calcauto\"]').hasClass('ng-not-empty')){" +
+            "return true;}else{$('input[ng-model=\"vm.calcSettings.calcauto\"] ~span').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving\")):first input:first').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving\")):first input:last').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving & Storage\")):first input:first').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving & Storage\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving & Storage\")):first input:last').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving & Storage\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Loading Help\")):first input:first').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Loading Help\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Loading Help\")):first input:last').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Loading Help\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Unloading Help\")):first input:first').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Unloading Help\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Unloading Help\")):first input:last').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Unloading Help\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Flat Rate\")):first input:first').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Flat Rate\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Flat Rate\")):first input:last').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Flat Rate\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Overnight\")):first input:first').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Overnight\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Overnight\")):first input:last').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Overnight\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Long Distance\")):first input:first').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Long Distance\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Long Distance\")):first input:last').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Long Distance\")):first span:last').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Packing Day\")):first input:first').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Packing Day\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Packing Day\")):first input:last').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Packing Day\")):first span:last').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Commercial Move\")):first input:first').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Commercial Move\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Commercial Move\")):first input:last').hasClass('ng-not-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Commercial Move\")):first span:last').click()}"),config.timeout);
+        SF.sleep(2);
+        JS.scroll('.pageheader');
+    }
+    function CalculatorSettings_ShowQuoteTurnOFF() {
+        SF.sleep(1);
+        driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.calcauto\"]').hasClass('ng-empty')){" +
+            "return true;}else{$('input[ng-model=\"vm.calcSettings.calcauto\"] ~span').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving\")):first input:first').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving\")):first input:last').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving & Storage\")):first input:first').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving & Storage\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving & Storage\")):first input:last').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Moving & Storage\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Loading Help\")):first input:first').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Loading Help\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Loading Help\")):first input:last').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Loading Help\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Unloading Help\")):first input:first').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Unloading Help\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Unloading Help\")):first input:last').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Unloading Help\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Flat Rate\")):first input:first').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Flat Rate\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Flat Rate\")):first input:last').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Flat Rate\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Overnight\")):first input:first').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Overnight\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Overnight\")):first input:last').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Overnight\")):first span:last').click()}"),config.timeout);
+        SF.sleep(0.5);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Long Distance\")):first input:first').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Long Distance\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Long Distance\")):first input:last').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Long Distance\")):first span:last').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Packing Day\")):first input:first').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Packing Day\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Packing Day\")):first input:last').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Packing Day\")):first span:last').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Commercial Move\")):first input:first').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Commercial Move\")):first span:first').click()}"),config.timeout);
+        driver.wait(driver.executeScript("if($('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Commercial Move\")):first input:last').hasClass('ng-empty')){" +
+            "return true;}else{$('div[ng-repeat=\"(id, value) in vm.allowedServiceTypes\"]:has(label:contains(\"Commercial Move\")):first span:last').click()}"),config.timeout);
+        SF.sleep(3);
+        JS.scroll('.pageheader');
+    }
+
     return {
-		FullSmallCalcAsLocal: FullSmallCalcAsLocal,
-		FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
-		FullSmallCalcAsLoading: FullSmallCalcAsLoading,
-		FullSmallCalcAsMovingWithStorage: FullSmallCalcAsMovingWithStorage,
-		FullSmallCalcAsLD: FullSmallCalcAsLD,
-		FullSmallCalcAsFlateRate: FullSmallCalcAsFlateRate,
-		AccountLocalEnterAddress: AccountLocalEnterAddress,
-		AccountLocalAddInventory: AccountLocalAddInventory,
+        FullSmallCalcAsLocal: FullSmallCalcAsLocal,
+        FullSmallCalcAsUnloading: FullSmallCalcAsUnloading,
+        FullSmallCalcAsLoading: FullSmallCalcAsLoading,
+        FullSmallCalcAsMovingWithStorage: FullSmallCalcAsMovingWithStorage,
+        FullSmallCalcAsLD: FullSmallCalcAsLD,
+        FullSmallCalcAsFlateRate: FullSmallCalcAsFlateRate,
+        AccountLocalEnterAddress: AccountLocalEnterAddress,
+        AccountLocalAddInventory: AccountLocalAddInventory,
         AccountLocalAddInventoryWhenCalcOff:AccountLocalAddInventoryWhenCalcOff,
-		AccountLocalAddAdditionalInventory: AccountLocalAddAdditionalInventory,
+        AccountLocalAddAdditionalInventory: AccountLocalAddAdditionalInventory,
         AccountLocalAddAdditionalInventoryWhenCalcOff:AccountLocalAddAdditionalInventoryWhenCalcOff,
         Account_DeleteInventory:Account_DeleteInventory,
-		ContractAdditionalInventoryAdd: ContractAdditionalInventoryAdd,
-		AccountFlatRateAddInventory: AccountFlatRateAddInventory,
-		AddInventory_InHomeEstimate: AddInventory_InHomeEstimate,
-		AccountLocalDetails: AccountLocalDetails,
-		AccountLoadingDetails: AccountLoadingDetails,
-		AccountUnLoadingDetails: AccountUnLoadingDetails,
+        ContractAdditionalInventoryAdd: ContractAdditionalInventoryAdd,
+        AccountFlatRateAddInventory: AccountFlatRateAddInventory,
+        AddInventory_InHomeEstimate: AddInventory_InHomeEstimate,
+        AccountLocalDetails: AccountLocalDetails,
+        AccountLoadingDetails: AccountLoadingDetails,
+        AccountUnLoadingDetails: AccountUnLoadingDetails,
         Account_LongDistanceDetailsAdd:Account_LongDistanceDetailsAdd,
-		AccountUnloadingEnterAddress: AccountUnloadingEnterAddress,
-		AccountLoadingEnterAddress: AccountLoadingEnterAddress,
-		AccountToStorageEnterAddress: AccountToStorageEnterAddress,
-		AccountFromStorageEnterAddress: AccountFromStorageEnterAddress,
-		Account_CheckSignature: Account_CheckSignature,
-		RememberAccountNumbers: RememberAccountNumbers,
-		RememberAccountNumbersLD: RememberAccountNumbersLD,
-		LogoutFromAccount: LogoutFromAccount,
-		LogoutFromBoardForeman: LogoutFromBoardForeman,
-		LoginToBoardAsAdmin: LoginToBoardAsAdmin,
-		LoginToBoardAsForeman: LoginToBoardAsForeman,
-		LoginToBoardAsForemanDeliveryFlatRate: LoginToBoardAsForemanDeliveryFlatRate,
-		LoginToBoardAsCustom: LoginToBoardAsCustom,
-		LoginToBoardAsCustomForeman: LoginToBoardAsCustomForeman,
-		LoginToAccountAsClient: LoginToAccountAsClient,
-		LoginToBoardAs_Roma4ke_Admin: LoginToBoardAs_Roma4ke_Admin,
-		OpenRequestFlatRate: OpenRequestFlatRate,
-		CreateMovAndStorFromFrontDown: CreateMovAndStorFromFrontDown,
-		CreateUnloadingHelpDownForm: CreateUnloadingHelpDownForm,
-		CreateLoadingHelpDownForm: CreateLoadingHelpDownForm,
-		CreateOvernightDownForm: CreateOvernightDownForm,
-		CreateLocalMovingFromBoard: CreateLocalMovingFromBoard,
+        AccountUnloadingEnterAddress: AccountUnloadingEnterAddress,
+        AccountLoadingEnterAddress: AccountLoadingEnterAddress,
+        AccountToStorageEnterAddress: AccountToStorageEnterAddress,
+        AccountFromStorageEnterAddress: AccountFromStorageEnterAddress,
+        Account_CheckSignature: Account_CheckSignature,
+        RememberAccountNumbers: RememberAccountNumbers,
+        RememberAccountNumbersLD: RememberAccountNumbersLD,
+        LogoutFromAccount: LogoutFromAccount,
+        LogoutFromBoardForeman: LogoutFromBoardForeman,
+        LoginToBoardAsAdmin: LoginToBoardAsAdmin,
+        LoginToBoardAsForeman: LoginToBoardAsForeman,
+        LoginToBoardAsForemanDeliveryFlatRate: LoginToBoardAsForemanDeliveryFlatRate,
+        LoginToBoardAsCustom: LoginToBoardAsCustom,
+        LoginToBoardAsCustomForeman: LoginToBoardAsCustomForeman,
+        LoginToAccountAsClient: LoginToAccountAsClient,
+        LoginToBoardAs_Roma4ke_Admin: LoginToBoardAs_Roma4ke_Admin,
+        OpenRequestFlatRate: OpenRequestFlatRate,
+        CreateMovAndStorFromFrontDown: CreateMovAndStorFromFrontDown,
+        CreateLocalMoveFromFrontDown:CreateLocalMoveFromFrontDown,
+        CreateLongDistanceFromFrontDown:CreateLongDistanceFromFrontDown,
+        CreatePackingDayDownForm:CreatePackingDayDownForm,
+        CreateUnloadingHelpDownForm: CreateUnloadingHelpDownForm,
+        CreateLoadingHelpDownForm: CreateLoadingHelpDownForm,
+        CreateOvernightDownForm: CreateOvernightDownForm,
+        CreateLocalMovingFromBoard: CreateLocalMovingFromBoard,
         CreateOvernightFromBoard: CreateOvernightFromBoard,
         CreateMovAndStorFromBoard: CreateMovAndStorFromBoard,
-		CreateLoadingHelpFromBoard: CreateLoadingHelpFromBoard,
-		CreatePackingDayFromBoard: CreatePackingDayFromBoard,
-		CreateFlatRateDownForm: CreateFlatRateDownForm,
-		CreateStorageTenant: CreateStorageTenant,
-		CreateFlatRateFromBoard: CreateFlatRateFromBoard,
-		CreateLongDistanceFromBoard: CreateLongDistanceFromBoard,
+        CreateLoadingHelpFromBoard: CreateLoadingHelpFromBoard,
+        CreatePackingDayFromBoard: CreatePackingDayFromBoard,
+        CreateFlatRateDownForm: CreateFlatRateDownForm,
+        CreateStorageTenant: CreateStorageTenant,
+        CreateFlatRateFromBoard: CreateFlatRateFromBoard,
+        CreateLongDistanceFromBoard: CreateLongDistanceFromBoard,
         CreateLongDistanceFromBoardWithCommercialMoveSizeAndStairs:CreateLongDistanceFromBoardWithCommercialMoveSizeAndStairs,
-		RememberDigitsRequestBoard_Up: RememberDigitsRequestBoard_Up,
-		RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
-		RememberDigitsRequestBoard: RememberDigitsRequestBoard,
-		RememberFrontNumbersMovAndStorDown: RememberFrontNumbersMovAndStorDown,
-		RememberLocalMoveDigitsCalc: RememberLocalMoveDigitsCalc,
-		Validation_Compare_Account_Admin: Validation_Compare_Account_Admin,
-		Validation_Compare_Account_Admin_PackingDay: Validation_Compare_Account_Admin_PackingDay,
-		Validation_Compare_Account_Admin_LongDistance: Validation_Compare_Account_Admin_LongDistance,
-		Validation_Compare_Account_Front_MovStorTo: Validation_Compare_Account_Front_MovStorTo,
-		Validation_Compare_Account_Front_MovStorFrom: Validation_Compare_Account_Front_MovStorFrom,
-		Validation_Compare_CalcLocalMove_Admin: Validation_Compare_CalcLocalMove_Admin,
+        RememberDigitsRequestBoard_Up: RememberDigitsRequestBoard_Up,
+        RememberDigitsRequestBoard_Down: RememberDigitsRequestBoard_Down,
+        RememberDigitsRequestBoard: RememberDigitsRequestBoard,
+        RememberFrontNumbersMovAndStorDown: RememberFrontNumbersMovAndStorDown,
+        RememberLocalMoveDigitsCalc: RememberLocalMoveDigitsCalc,
+        Validation_Compare_Account_Admin: Validation_Compare_Account_Admin,
+        Validation_Compare_Account_Admin_PackingDay: Validation_Compare_Account_Admin_PackingDay,
+        Validation_Compare_Account_Admin_LongDistance: Validation_Compare_Account_Admin_LongDistance,
+        Validation_Compare_Account_Front_MovStorTo: Validation_Compare_Account_Front_MovStorTo,
+        Validation_Compare_Account_Front_MovStorFrom: Validation_Compare_Account_Front_MovStorFrom,
+        Validation_Compare_CalcLocalMove_Admin: Validation_Compare_CalcLocalMove_Admin,
         Validation_Compare_Account_Admin_WhenSetNewRate:Validation_Compare_Account_Admin_WhenSetNewRate,
         Validation_Compare_Admin_HomePortal:Validation_Compare_Admin_HomePortal,
         Validation_Compare_CarrierInfo:Validation_Compare_CarrierInfo,
@@ -3529,91 +3690,91 @@ function SetManager(name) {
         CheckWorkersInAdCrew: CheckWorkersInAdCrew,
         CheckCrewInCrewPreview: CheckCrewInCrewPreview,
         CheckWorkersInAddNewWorkerList: CheckWorkersInAddNewWorkerList,
-		SetManager: SetManager,
-		SetClientPasswd: SetClientPasswd,
-		FillCardPayModal: FillCardPayModal,
-		InvoiceOnlinePayment: InvoiceOnlinePayment,
-		FillCardPayModalBuyCoupon: FillCardPayModalBuyCoupon,
-		MakeSignJS: MakeSignJS,
-		ConfirmRequestInAccount_WithReservation: ConfirmRequestInAccount_WithReservation,
-		ConfirmRequestInAccount_NoReservation: ConfirmRequestInAccount_NoReservation,
+        SetManager: SetManager,
+        SetClientPasswd: SetClientPasswd,
+        FillCardPayModal: FillCardPayModal,
+        InvoiceOnlinePayment: InvoiceOnlinePayment,
+        FillCardPayModalBuyCoupon: FillCardPayModalBuyCoupon,
+        MakeSignJS: MakeSignJS,
+        ConfirmRequestInAccount_WithReservation: ConfirmRequestInAccount_WithReservation,
+        ConfirmRequestInAccount_NoReservation: ConfirmRequestInAccount_NoReservation,
         ConfirmRequestInAccount_AfterReservationFromBoard:ConfirmRequestInAccount_AfterReservationFromBoard,
-		ConfirmRequestInAccount_WithReservationWithAdress: ConfirmRequestInAccount_WithReservationWithAdress,
+        ConfirmRequestInAccount_WithReservationWithAdress: ConfirmRequestInAccount_WithReservationWithAdress,
 //Permissions for Sales --- start
-		PermissionsClear: PermissionsClear,
-		AdminPermissionsClear: AdminPermissionsClear,
-		PermissionCanSeeOtherLeads: PermissionCanSeeOtherLeads,
-		PermissionCanSearchOtherLeads: PermissionCanSearchOtherLeads,
-		PermissionCanEditOtherLeads: PermissionCanEditOtherLeads,
-		PermissionCanSeeUnsignedLeads: PermissionCanSeeUnsignedLeads,
-		PermissionCanSignedSales: PermissionCanSignedSales,
+        PermissionsClear: PermissionsClear,
+        AdminPermissionsClear: AdminPermissionsClear,
+        PermissionCanSeeOtherLeads: PermissionCanSeeOtherLeads,
+        PermissionCanSearchOtherLeads: PermissionCanSearchOtherLeads,
+        PermissionCanEditOtherLeads: PermissionCanEditOtherLeads,
+        PermissionCanSeeUnsignedLeads: PermissionCanSeeUnsignedLeads,
+        PermissionCanSignedSales: PermissionCanSignedSales,
         AdminPermissionsTurnOn:AdminPermissionsTurnOn,
 //Permissions for Sales --- end
-		closeEditRequest: closeEditRequest,
-		SelectRequestDispatch: SelectRequestDispatch,
-		OpenRequestDispatch: OpenRequestDispatch,
-		OpenRequestInForemanPage: OpenRequestInForemanPage,
-		selectCrew: selectCrew,
+        closeEditRequest: closeEditRequest,
+        SelectRequestDispatch: SelectRequestDispatch,
+        OpenRequestDispatch: OpenRequestDispatch,
+        OpenRequestInForemanPage: OpenRequestInForemanPage,
+        selectCrew: selectCrew,
         selectBigCrew: selectBigCrew,
         createNewTeam: createNewTeam,
         selectNewTeam: selectNewTeam,
         deleteTeam: deleteTeam,
-		selectCrewFlatRatePickUp: selectCrewFlatRatePickUp,
-		selectCrewFlatRateDelivery: selectCrewFlatRateDelivery,
-		MakeSignInContract: MakeSignInContract,
+        selectCrewFlatRatePickUp: selectCrewFlatRatePickUp,
+        selectCrewFlatRateDelivery: selectCrewFlatRateDelivery,
+        MakeSignInContract: MakeSignInContract,
         MakeSignInAddContract:MakeSignInAddContract,
         MakeSignInContractFlatRate:MakeSignInContractFlatRate,
-		MakeSignInInventory: MakeSignInInventory,
-		MakeSignInRental: MakeSignInRental,
-		payRentalInventory: payRentalInventory,
-		RememberDateFromRequest: RememberDateFromRequest,
-		findDayInLocalDispatch: findDayInLocalDispatch,
-		EditRequestPayroll_RememberManager: EditRequestPayroll_RememberManager,
-		EditRequestPayroll_RememberForeman: EditRequestPayroll_RememberForeman,
-		RememberAndValidatePayroll_In_EditRequest: RememberAndValidatePayroll_In_EditRequest,
-		ValidationWorkersSmallPayroll_In_EditRequest: ValidationWorkersSmallPayroll_In_EditRequest,
-		findTestForemanInPayroll: findTestForemanInPayroll,
-		findFlatRateDeliveryForemanInPayroll: findFlatRateDeliveryForemanInPayroll,
-		findSaleInPayroll: findSaleInPayroll,
-		findHelperInPayroll: findHelperInPayroll,
-		selectDateInPayroll: selectDateInPayroll,
-		addToCleanerJob: addToCleanerJob,
-		gotoSetingsLD: gotoSetingsLD,
-		deletePendingRequest: deletePendingRequest,
-		addInventoryBoard: addInventoryBoard,
-		addAdditionalInventoryBoard: addAdditionalInventoryBoard,
-		RememberStorageNumbers: RememberStorageNumbers,
-		ValidatePendingStorageRequest: ValidatePendingStorageRequest,
-		RememberCarrier: RememberCarrier,
-		RememberStorage: RememberStorage,
-		Contract_SignMainPayment: Contract_SignMainPayment,
-		Contract_AddInventory: Contract_AddInventory,
-		Contract_SubmitInventoryDelivery:Contract_SubmitInventoryDelivery,
-		Contract_ReviewGive: Contract_ReviewGive,
-		RememberAndValidatePayroll_In_EditRequestFlatRatePickup: RememberAndValidatePayroll_In_EditRequestFlatRatePickup,
-		RememberAndValidatePayroll_In_EditRequestFlatRateDelivery: RememberAndValidatePayroll_In_EditRequestFlatRateDelivery,
-		FlatRateEditRequest_AddTwoOption: FlatRateEditRequest_AddTwoOption,
+        MakeSignInInventory: MakeSignInInventory,
+        MakeSignInRental: MakeSignInRental,
+        payRentalInventory: payRentalInventory,
+        RememberDateFromRequest: RememberDateFromRequest,
+        findDayInLocalDispatch: findDayInLocalDispatch,
+        EditRequestPayroll_RememberManager: EditRequestPayroll_RememberManager,
+        EditRequestPayroll_RememberForeman: EditRequestPayroll_RememberForeman,
+        RememberAndValidatePayroll_In_EditRequest: RememberAndValidatePayroll_In_EditRequest,
+        ValidationWorkersSmallPayroll_In_EditRequest: ValidationWorkersSmallPayroll_In_EditRequest,
+        findTestForemanInPayroll: findTestForemanInPayroll,
+        findFlatRateDeliveryForemanInPayroll: findFlatRateDeliveryForemanInPayroll,
+        findSaleInPayroll: findSaleInPayroll,
+        findHelperInPayroll: findHelperInPayroll,
+        selectDateInPayroll: selectDateInPayroll,
+        addToCleanerJob: addToCleanerJob,
+        gotoSetingsLD: gotoSetingsLD,
+        deletePendingRequest: deletePendingRequest,
+        addInventoryBoard: addInventoryBoard,
+        addAdditionalInventoryBoard: addAdditionalInventoryBoard,
+        RememberStorageNumbers: RememberStorageNumbers,
+        ValidatePendingStorageRequest: ValidatePendingStorageRequest,
+        RememberCarrier: RememberCarrier,
+        RememberStorage: RememberStorage,
+        Contract_SignMainPayment: Contract_SignMainPayment,
+        Contract_AddInventory: Contract_AddInventory,
+        Contract_SubmitInventoryDelivery:Contract_SubmitInventoryDelivery,
+        Contract_ReviewGive: Contract_ReviewGive,
+        RememberAndValidatePayroll_In_EditRequestFlatRatePickup: RememberAndValidatePayroll_In_EditRequestFlatRatePickup,
+        RememberAndValidatePayroll_In_EditRequestFlatRateDelivery: RememberAndValidatePayroll_In_EditRequestFlatRateDelivery,
+        FlatRateEditRequest_AddTwoOption: FlatRateEditRequest_AddTwoOption,
 //Payroll
-		Payroll_DeleteAllMiscPaymentCycle: Payroll_DeleteAllMiscPaymentCycle,
-		Payroll_DeleteAllPaycheckPaycashCycle: Payroll_DeleteAllPaycheckPaycashCycle,
-		Payroll_SelectPeriod20Days: Payroll_SelectPeriod20Days,
-		RememberPayrollNumbers_OutsideNameWorker: RememberPayrollNumbers_OutsideNameWorker,
-		RememberPayrollNumbers_InsideWorker: RememberPayrollNumbers_InsideWorker,
-		ProfitAndLoss_SelectPeriod20Days: ProfitAndLoss_SelectPeriod20Days,
+        Payroll_DeleteAllMiscPaymentCycle: Payroll_DeleteAllMiscPaymentCycle,
+        Payroll_DeleteAllPaycheckPaycashCycle: Payroll_DeleteAllPaycheckPaycashCycle,
+        Payroll_SelectPeriod20Days: Payroll_SelectPeriod20Days,
+        RememberPayrollNumbers_OutsideNameWorker: RememberPayrollNumbers_OutsideNameWorker,
+        RememberPayrollNumbers_InsideWorker: RememberPayrollNumbers_InsideWorker,
+        ProfitAndLoss_SelectPeriod20Days: ProfitAndLoss_SelectPeriod20Days,
 //Departmnet
-		Department_TurnOnAllCommission: Department_TurnOnAllCommission,
+        Department_TurnOnAllCommission: Department_TurnOnAllCommission,
 
-		CreateGeneralDefaultStorage: CreateGeneralDefaultStorage,
+        CreateGeneralDefaultStorage: CreateGeneralDefaultStorage,
 
-		EditRequest_Payment_AddOnlinePayment: EditRequest_Payment_AddOnlinePayment,
-		HomeEstimateRequest_Check: HomeEstimateRequest_Check,
-		HomeEstimate_CheckStatusinMoveboard: HomeEstimate_CheckStatusinMoveboard,
-		HomeEstimate_CheckAccount: HomeEstimate_CheckAccount,
-	    HomeEstimate_SalesGoInPortalandOpenRequest: HomeEstimate_SalesGoInPortalandOpenRequest,
-		HomeEstimate_ReservationPage: HomeEstimate_ReservationPage,
-		HomeEstimate_EditClientInfo:  HomeEstimate_EditClientInfo,
-		EditRequest_EditRateCalculOff:EditRequest_EditRateCalculOff,
-		EditRequest_EditCrewCalculOff:EditRequest_EditCrewCalculOff,
+        EditRequest_Payment_AddOnlinePayment: EditRequest_Payment_AddOnlinePayment,
+        HomeEstimateRequest_Check: HomeEstimateRequest_Check,
+        HomeEstimate_CheckStatusinMoveboard: HomeEstimate_CheckStatusinMoveboard,
+        HomeEstimate_CheckAccount: HomeEstimate_CheckAccount,
+        HomeEstimate_SalesGoInPortalandOpenRequest: HomeEstimate_SalesGoInPortalandOpenRequest,
+        HomeEstimate_ReservationPage: HomeEstimate_ReservationPage,
+        HomeEstimate_EditClientInfo:  HomeEstimate_EditClientInfo,
+        EditRequest_EditRateCalculOff:EditRequest_EditRateCalculOff,
+        EditRequest_EditCrewCalculOff:EditRequest_EditCrewCalculOff,
         EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff:EditRequest_SetMaxWorkTimeAndTravelTimeWhenCalcOff,
         LongDistanceSettings_SetDiscounts:LongDistanceSettings_SetDiscounts,
         LongDistanceSettings_AddLDStatusFlag:LongDistanceSettings_AddLDStatusFlag,
@@ -3663,5 +3824,7 @@ function SetManager(name) {
         SIT_CreateStorage:SIT_CreateStorage,
         EditRequest_CustomPay:EditRequest_CustomPay,
         EditRequest_CustomPayCreditCard:EditRequest_CustomPayCreditCard,
+        CalculatorSettings_ShowQuoteTurnON:CalculatorSettings_ShowQuoteTurnON,
+        CalculatorSettings_ShowQuoteTurnOFF:CalculatorSettings_ShowQuoteTurnOFF,
     };
 };

@@ -798,7 +798,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         WaitWhileBusy();
         SF.click(By.xpath('//label[@for="full"]/input[@ng-model="vm.packing_service"]'));
         WaitWhileBusy();
-        SF.sleep(3);
+        SF.sleep(5);
     }
 
     function Account_CheckRequestStatus_NotConfirmed(Id) {
