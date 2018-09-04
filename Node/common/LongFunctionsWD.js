@@ -1668,6 +1668,12 @@ function SetManager(name) {
 		SF.click(By.xpath('//div[@id="signatureInventoryPad"]//button[@ng-click="saveStep()"]'));
 		SF.sleep(1);
 	}
+	function MakeSignInAddInventory(step) {
+        SF.click(By.xpath('//div[@id="step_addInventoryMoving_' + step + '"]/div[@class="empty-signature"]/..'));
+        MakeSignJS("signatureAddInventoryCanvas");
+        SF.click(By.xpath('//div[@id="signatureAddInventoryPad"]//button[@ng-click="saveStep()"]'));
+        SF.sleep(1);
+	}
 
 	function MakeSignInRental() {
 		SF.sleep(1);
@@ -2231,6 +2237,7 @@ function SetManager(name) {
 		MF.FrontSite_ClickGoToCalculatorResults();
 	}
 
+
     function CreatePackingDayDownForm(client) {
         MF.FrontSite_ClickQuoteCalculator();
         MF.FrontSite_ClickDesireMoveDate();
@@ -2251,6 +2258,7 @@ function SetManager(name) {
         MF.FrontSite_SelectGoogleSearch();
         MF.FrontSite_ClickGoToCalculatorResults();
     }
+
 
 	function addToCleanerJob(Id) {
 		if (V.cleanerJob == undefined) {
@@ -3513,7 +3521,10 @@ function SetManager(name) {
         SF.sleep (1);
         MF.WaitWhileBusy ();
     }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     function CalculatorSettings_ShowQuoteTurnON() {
         SF.sleep(1);
         driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.calcauto\"]').hasClass('ng-not-empty')){" +

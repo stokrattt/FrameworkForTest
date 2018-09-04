@@ -1,17 +1,17 @@
 module.exports = function (config, V) {
 
-	config.timeout = 120000;
+	config.timeout = 100000;
 
 	config.suite = [
-		'./tests/117_HomeEstimatePortal.js'
+		'./tests/95_Statistic.js'
 		// './tests/31_FlateRateBooking.js
 	];
 	config.chainFail = false;
 	config.browser = 'chrome';
 
-	//V.frontURL = 'http://dev.stage.themoveboard.com:90/';                    //dev
-	//V.accountURL = 'http://dev.stage.themoveboard.com:90/account/#/login';  //dev
-	//V.adminURL = 'http://dev.stage.themoveboard.com:90/moveBoard/#/login';  //dev
+	//V.frontURL = 'https://dev.stage.themoveboard.com:90/';                    //dev
+	//V.accountURL = 'https://dev.stage.themoveboard.com:90/account/#/login';  //dev
+	//V.adminURL = 'https://dev.stage.themoveboard.com:90/moveBoard/#/login';  //dev
 	V.frontURL = 'http://stage.stage.themoveboard.com:91/';        //stage
 	V.accountURL = 'http://stage.stage.themoveboard.com:91/account/#/login';  //stage
 	V.adminURL = 'http://stage.stage.themoveboard.com:91/moveBoard/#/login';  //stage
@@ -38,6 +38,7 @@ module.exports = function (config, V) {
 	V.foremanLoginFlatRate = 'FlatRateForeman';
 	V.foremanPassword = '123';
 	V.managerName = 'emilia clark';
+    V.helperName = 'Test Helper2';
 	V.ForEmail = 'dd4978255@gmail.com';
 	V.testMail = {
 		login: 'test.boston',

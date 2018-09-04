@@ -105,6 +105,149 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     }),config.timeout);
     SF.sleep(1);
 
+    condition.nowWeDoing = 'создаем draft request, делаем из него move to storage без from storage' +
+        'переводим в статус нот конферм, ставим трак, меняем zip code, добавляем packing and additional services,';
+
+    MF.Board_CreateDraftRequest();
+    JS.scroll('select[id="edit-service"]');
+    SF.click(By.xpath('//select[@id="edit-service"]/option[@value=2]'));
+    MF.SweetCancel();
+    V.boardNumbers = {};
+    MF.EditRequest_SetAdressFrom();
+    MF.EditRequest_SetZipCodeFrom('01970');
+    MF.EditRequest_OpenInventoryTab();
+    LF.addInventoryBoard(V.boardNumbers);
+    MF.EditRequest_OpenRequest();
+    JS.step(JSstep.selectTruck(4));
+    MF.WaitWhileBusy();
+    MF.EditRequest_SetToNotConfirmed();
+    LF.EditRequest_AddPackingAndFullPAcking();
+    LF.EditRequest_AddAdditionalServicesFullPack();
+    V.boardNumbersAfterInventory = {};
+    LF.RememberDigitsRequestBoard(V.boardNumbersAfterInventory);
+    MF.EditRequest_SaveChanges();
+    MF.EditRequest_OpenClient();
+    LF.SendClientInfoForDraftRequest(V.client);
+    LF.SetClientPasswd(V.client.passwd);
+    MF.EditRequest_CloseEditRequest();
+    MF.Board_LogoutAdmin();
+
+    condition.nowWeDoing = 'идем на аккаунт,что бы сравнить числа и забукать работу';
+    SF.get(V.accountURL);
+    LF.LoginToAccountAsClient(V.client);
+    MF.Account_OpenRequest(V.boardNumbersAfterInventory.Id);
+    MF.Account_ClickViewRequest();
+    V.accountNumbers = {};
+    LF.RememberAccountNumbers(V.accountNumbers);
+    LF.Validation_Compare_Account_Admin(V.accountNumbers,V.boardNumbersAfterInventory);
+    MF.Account_ClickProceedBookYourMove();
+    MF.Account_ClickIAgreeWithAll();
+    MF.Account_ConfirmationClickPayDeposit();
+    LF.MakeSignJS('signatureCanvasReserv');
+    MF.Account_ConfirmationClickSaveSignature();
+    LF.FillCardPayModal();
+    MF.WaitWhileSpinner();
+    MF.Account_WaitForGreenTextAfterConfirm();
+    LF.LogoutFromAccount();
+
+    condition.nowWeDoing = 'возвращаемся на moveboard, что бы проверить что наш реквест в табе confirmed и назначить команду на эту рабоу';
+    SF.get(V.adminURL);
+    LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
+    MF.Board_OpenConfirmed();
+    driver.wait(driver.findElement(By.xpath('//td[contains(text(), "' + V.boardNumbersAfterInventory.Id + '")]')).getText().then(function (text) {
+        VD.IWant(VD.ToEqual, SF.cleanPrice(text), V.boardNumbersAfterInventory.Id, 'реквеста нет в табе Confirmed после оплаты резервации')
+    }), config.timeout);
+    MF.Board_OpenRequest(V.boardNumbersAfterInventory.Id);
+    MF.EditRequest_CloseConfirmWork();
+    MF.EditRequest_OpenContractCloseJob();
+    SF.openTab(1);
+    MF.SweetConfirm();
+
+    condition.nowWeDoing = 'пришли на контракт, начинаем добавлять обычный инвентарь, добавляем адишинал инвентарь и его же заносим в сторадж';
+    MF.Contract_OpenInventory();
+    LF.Contract_AddInventory(9);
+    MF.Contract_SetTapeNumber(1);
+    MF.Contract_SetTapeColorGreen('Green');
+    LF.MakeSignInInventory(0);
+    LF.MakeSignInInventory(1);
+    MF.Contract_SubmitInventory();
+    MF.SweetConfirm();
+    LF.ContractAdditionalInventoryAdd();
+    SF.click(By.xpath('//span[contains(text(), "Save Inventory")]'));
+    SF.click(By.xpath('//canvas[@id="signatureCanvasAgreement"]'));
+    LF.MakeSignJS("signatureCanvasAgreement");
+    SF.click(By.xpath('//button[@ng-click="saveService()"]'));
+    SF.sleep(2);
+    LF.Contract_AddInventory(9);
+    MF.Contract_SetTapeNumber(1);
+    MF.Contract_SetTapeColorGreen('Green');
+    LF.MakeSignInAddInventory(0);
+    LF.MakeSignInAddInventory(1);
+    MF.Contract_SubmitInventory();
+    MF.SweetCancel();
+    MF.Contract_WaitForRental();
+    MF.Contract_SetRentalPhone("1111111111");
+    MF.Contract_SetRentalAddress("123456");
+    MF.Contract_SetRentalZip("02222");
+    JS.scroll('div[ng-if="!data.agreement.signatures[0].value"]');
+    SF.click(By.xpath('//div[@ng-if="!data.agreement.signatures[0].value"]'));
+    LF.MakeSignJS("signatureCanvasService");
+    SF.click(By.xpath('//button[@ng-click="saveService()"]'));
+    MF.WaitWhileBusy();
+    MF.SweetConfirm();
+    LF.payRentalInventory(V.boardNumbersAfterInventory.Id);
+
+    condition.nowWeDoing = 'подписываем контракт до конца.';
+    driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
+        V.path = path;
+    }), config.timeout);
+    SF.sleep(1);
+    MF.Contract_UploadImage(V.path);
+    MF.Contract_UploadImage(V.path);
+    MF.Contract_SaveImages();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    MF.Contract_DeclarationValueA();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    MF.Contract_ClickPay();
+    SF.click(By.xpath('//div[@ng-if="tips.perc == 0 && tips.amount == 0"]'));
+    SF.click(By.xpath('//button[@ng-click="goStepTwo();"]'));
+    LF.FillCardPayModal();
+    LF.Contract_SignMainPayment();
+    SF.sleep(1);
+    MF.Contract_UploadImage(V.path);
+    MF.Contract_UploadImage(V.path);
+    MF.Contract_SaveImages();
+    LF.MakeSignInContract();
+    LF.MakeSignInContract();
+    V.contractNumbers = {};
+    MF.Contract_Submit(V.contractNumbers);
+    SF.openTab(0);
+    MF.EditRequest_CloseEditRequest();
+    MF.Board_RefreshDashboard();
+    MF.Board_OpenRequest(V.boardNumbersAfterInventory.Id);
+    V.boardNumbersAfterAddInventory = {};
+    LF.RememberDigitsRequestBoard_Down(V.boardNumbersAfterAddInventory);
+    MF.EditRequest_ScrollDown();
+    VD.IWant(VD.ToEqual, V.boardNumbersAfterAddInventory.Balance, 0, 'Баланс после закрытия не равен 0');
+    V.cbfInTabClosing = {};
+    driver.wait(driver.findElement(By.xpath('//span[@ng-if="!longDistance && states.invoiceState"]')).getText().then(function(text) {
+        V.cbfInTabClosing = SF.cleanPrice(text);
+    }),config.timeout);
+    MF.EditRequest_OpenConfirmWork();
+    driver.wait(driver.findElement(By.xpath('//div[@ng-show="!request.isInventory"]')).getText().then(function(text) {
+        text = SF.cleanPrice(text);
+        VD.IWant(VD.NotToEqual,text ,V.cbfInTabClosing , 'вес либо совпал, либо какая-то другая ошибка')
+    }),config.timeout);
+    SF.click(By.xpath('//span[@ng-click="openStorageRequest(request.request_all_data.storage_request_id)"]'));
+    MF.WaitWhileBusy();
+    driver.wait(driver.findElement(By.id('volume')).getAttribute('value').then(function(text) {
+        text = SF.cleanPrice(text);
+        VD.IWant(VD.ToEqual,text ,V.cbfInTabClosing , 'вес в сторадже не равен весу в табе closing')
+    }),config.timeout);
+
     SF.endOfTest();
 };
 
