@@ -2237,7 +2237,6 @@ function SetManager(name) {
 		MF.FrontSite_ClickGoToCalculatorResults();
 	}
 
-
     function CreatePackingDayDownForm(client) {
         MF.FrontSite_ClickQuoteCalculator();
         MF.FrontSite_ClickDesireMoveDate();
@@ -3521,10 +3520,7 @@ function SetManager(name) {
         SF.sleep (1);
         MF.WaitWhileBusy ();
     }
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
     function CalculatorSettings_ShowQuoteTurnON() {
         SF.sleep(1);
         driver.wait(driver.executeScript("if($('input[ng-model=\"vm.calcSettings.calcauto\"]').hasClass('ng-not-empty')){" +
@@ -3736,6 +3732,7 @@ function SetManager(name) {
         MakeSignInAddContract:MakeSignInAddContract,
         MakeSignInContractFlatRate:MakeSignInContractFlatRate,
         MakeSignInInventory: MakeSignInInventory,
+        MakeSignInAddInventory : MakeSignInAddInventory,
         MakeSignInRental: MakeSignInRental,
         payRentalInventory: payRentalInventory,
         RememberDateFromRequest: RememberDateFromRequest,

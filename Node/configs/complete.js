@@ -141,7 +141,7 @@ module.exports = function(config,V) {
         './tests/DefaultSettings.js',
         './tests/51_ServiceTypesOnOff.js',
         './tests/56_LoadingAllSteps.js',
-        './tests/95_Statistic.js',
+        './tests/95_StatisticAndCreateMoveToStorageWithOutFromStorage.js',
         './tests/26_CloneRequest.js',
 
         // './tests/107_SallaryProfitLossAndPayroll.js',

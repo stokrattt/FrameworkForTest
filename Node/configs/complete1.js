@@ -47,7 +47,7 @@ module.exports = function(config,V) {
         './tests/49_FlatRateLocalMoveCheckSchedule.js',
         './tests/111_ZIPCode.js',
         './tests/116_DeleteComissionsPayroll.js',
-        './tests/95_Statistic.js',
+        './tests/95_StatisticAndCreateMoveToStorageWithOutFromStorage.js',
         './tests/51_ServiceTypesOnOff.js',
         './tests/24_FiltrationMoveDateCreateDate.js',
     ];
