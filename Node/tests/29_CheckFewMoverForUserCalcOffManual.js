@@ -34,12 +34,32 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
     driver.wait(driver.executeScript('return $("div:contains(\\"All Moves\\") tbody tr td.sorting_1").length').then(function (length) {
         VD.IWant (VD.ToEqual, length, '3', 'на вкладке клиент нету всех работ данного юзера');
     }),config.timeout);
-condition.nowWeDoing = 'тут проверяем одной функцией или совпадате или вообще есть статус реквеста на табе клиент';
+
+condition.nowWeDoing = 'меняем макс ворк тайм но калькулятор не выключаем, то есть не сохраняем изменения и потом проверим, что время не поменялось и что калькулятор остался включенным и что нет измененных сохранений';
     driver.wait(driver.findElement(By.xpath('//td[@class="dtStatus "]/span[@ng-hide="request.status.raw == 9 && request.service_type.raw == 7"]')).getText().then(function
         (text) {
         VD.IWant(VD.ToEqual, 'Pending', text, 'не нашло статус реквеста на табе клиент или не совпало' );
     }), config.timeout);
     MF.EditRequest_OpenRequest ();
+    V.boardNumbersBeforeTryCalcOFF = {};
+    MF.EditRequest_RememberWorkTime(V.boardNumbersBeforeTryCalcOFF);
+    SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
+    SF.click(By.xpath('//li[@class="ui-timepicker-selected"]/following-sibling::li[5]'));
+    SF.waitForVisible(By.xpath('//h2[contains(text(),"Are you sure you want to set time manualy?")]'));
+    SF.sleep(2);
+    SF.click(By.xpath('//button[contains(text(),"No, cancel pls!")]'));
+    JS.click('button[ng-click=\\"UpdateRequest()\\"]');
+    JS.waitForExist("h2:contains(\"Nothing to Update!\")");
+    // MF.SweetConfirm();
+    LF.closeEditRequest ();
+    MF.Board_OpenRequest(V.request.Id2);
+    V.boardNumbersAfterTryCalcOFF = {};
+    MF.EditRequest_RememberWorkTime(V.boardNumbersAfterTryCalcOFF);
+    SF.sleep(1);
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeTryCalcOFF.LaborTimeMin, V.boardNumbersAfterTryCalcOFF.LaborTimeMin, 'перерсчитался мин ворк тайм, а не должен был, потому что мы отказались выключать калькуялтор');
+    VD.IWant(VD.ToEqual, V.boardNumbersBeforeTryCalcOFF.LaborTimeMax, V.boardNumbersAfterTryCalcOFF.LaborTimeMax, 'перерсчитался макс ворк тайм, а не должен был, потому что мы отказались выключать калькуялтор');
+
+condition.nowWeDoing = 'тут проверяем одной функцией или совпадате или вообще есть статус реквеста на табе клиент';
     SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
     SF.click(By.xpath('//li[@class="ui-timepicker-selected"]/following-sibling::li[2]'));
     SF.waitForVisible(By.xpath('//h2[contains(text(),"Are you sure you want to set time manualy?")]'));

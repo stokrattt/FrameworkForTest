@@ -2115,6 +2115,23 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.select(By.xpath('//select[@ng-model="receipt.type"]'), typePayment);
     }
 
+    function EditRequest_RememberWorkTime(boardnumbers) {
+        driver.wait(driver.findElements(By.xpath('//input[@ng-model="request.minimum_time.value"]')).then(function (elements) {
+            if (elements.length > 0) {
+                elements[0].getAttribute('value').then(function (value) {
+                    boardnumbers.LaborTimeMin = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
+                        + SF.cleanPrice(value.substring(value.indexOf(':')));
+                });
+            } else {
+                boardnumbers.LaborTimeMin = 0;
+            }
+        }), config.timeout);
+        driver.wait(driver.findElement(By.xpath('//input[@ng-model="request.maximum_time.value"]')).getAttribute('value').then(function (value) {
+            boardnumbers.LaborTimeMax = SF.cleanPrice(value.substring(0, value.indexOf(':'))) * 60
+                + SF.cleanPrice(value.substring(value.indexOf(':')));
+        }), config.timeout);
+        console.log(boardnumbers);
+    }
     //=================================LOCAL DISPATCH============================
 
     function Board_OpenLocalDispatch() {
@@ -3077,6 +3094,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         EditRequest_PaymentModalClickCreateInvoice:EditRequest_PaymentModalClickCreateInvoice,
         EditRequest_PayCheckOnlinePayment:EditRequest_PayCheckOnlinePayment,
         EditRequest_SelectCustomTypePayment:EditRequest_SelectCustomTypePayment,
+        EditRequest_RememberWorkTime:EditRequest_RememberWorkTime,
         //=================================LOCAL DISPATCH===================================
         Dispatch_GridView: Dispatch_GridView,
         Dispatch_ScheduleView: Dispatch_ScheduleView,
