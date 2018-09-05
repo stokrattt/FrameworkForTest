@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/29_CheckFewMoverForUserCalcOffManual.js'];
+    config.suite = ['./tests/95_StatisticAndCreateMoveToStorageWithOutFromStorage.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 30000;

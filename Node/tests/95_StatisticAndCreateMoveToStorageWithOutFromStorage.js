@@ -105,7 +105,7 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     }),config.timeout);
     SF.sleep(1);
 
-    condition.nowWeDoing = 'создаем draft request, делаем из него move to storage без from storage' +
+condition.nowWeDoing = 'создаем draft request, делаем из него move to storage без from storage' +
         'переводим в статус нот конферм, ставим трак, меняем zip code, добавляем packing and additional services,';
 
     MF.Board_CreateDraftRequest();
@@ -132,7 +132,7 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     MF.EditRequest_CloseEditRequest();
     MF.Board_LogoutAdmin();
 
-    condition.nowWeDoing = 'идем на аккаунт,что бы сравнить числа и забукать работу';
+condition.nowWeDoing = 'идем на аккаунт,что бы сравнить числа и забукать работу';
     SF.get(V.accountURL);
     LF.LoginToAccountAsClient(V.client);
     MF.Account_OpenRequest(V.boardNumbersAfterInventory.Id);
@@ -150,7 +150,7 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     MF.Account_WaitForGreenTextAfterConfirm();
     LF.LogoutFromAccount();
 
-    condition.nowWeDoing = 'возвращаемся на moveboard, что бы проверить что наш реквест в табе confirmed';
+condition.nowWeDoing = 'возвращаемся на moveboard, что бы проверить что наш реквест в табе confirmed';
     SF.get(V.adminURL);
     LF.LoginToBoardAsCustom(V.salesLogin,V.salesPassword);
     MF.Board_OpenConfirmed();
@@ -163,7 +163,7 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     SF.openTab(1);
     MF.SweetConfirm();
 
-    condition.nowWeDoing = 'пришли на контракт, начинаем добавлять обычный инвентарь, добавляем адишинал инвентарь и его же заносим в сторадж';
+condition.nowWeDoing = 'пришли на контракт, начинаем добавлять обычный инвентарь, добавляем адишинал инвентарь и его же заносим в сторадж';
     MF.Contract_OpenInventory();
     LF.Contract_AddInventory(9);
     MF.Contract_SetTapeNumber(1);
@@ -197,7 +197,7 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     MF.SweetConfirm();
     LF.payRentalInventory(V.boardNumbersAfterInventory.Id);
 
-    condition.nowWeDoing = 'подписываем контракт до конца.';
+condition.nowWeDoing = 'подписываем контракт до конца.';
     driver.wait(new FileDetector().handleFile(driver, system.path.resolve('./files/squirrel.jpg')).then(function (path) {
         V.path = path;
     }), config.timeout);
@@ -226,7 +226,7 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
     MF.Contract_Submit(V.contractNumbers);
     SF.openTab(0);
 
-    condition.nowWeDoing = 'переходим на вкладку,где наш реквест, закрываем, обновляем dashboard' +
+condition.nowWeDoing = 'переходим на вкладку,где наш реквест, закрываем, обновляем dashboard' +
         'открываем заново наш реквест, проверяем баланс, и вес в табе клоузинг, табе сэйлс и в самом storage';
     MF.EditRequest_CloseEditRequest();
     MF.Board_RefreshDashboard();
@@ -250,7 +250,7 @@ condition.nowWeDoing = 'заходим за сеилса, в статистик�
         text = SF.cleanPrice(text);
         VD.IWant(VD.ToEqual,text ,V.cbfInTabClosing , 'вес в сторадже не равен весу в табе closing')
     }),config.timeout);
-
+SF.sleep(1);
     SF.endOfTest();
 };
 
