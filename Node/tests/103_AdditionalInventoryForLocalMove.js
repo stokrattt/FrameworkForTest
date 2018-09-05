@@ -173,9 +173,25 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
     SF.click(By.xpath('//button[@ng-click="closeModal()"]'));
     SF.sleep(2);
     MF.EditRequest_WaitForBalanceVisible();
+//     Debug.pause();
 //
-//
-// condition.nowWeDoing = 'создаем клон из реквеста, конфермим его и идем подписывать контракт и сделаем трансфер инвентаря с уже подписанного реквеста в этот клон';
+// condition.nowWeDoing = 'открываем созданный фром сторадж, запоминаем его номер реквеста и конфермим его, пойдем в настройки и проверим что можно для этого реквеста выбать вес предыдущего (дефолт+адишинал инвенторий)';
+//     V.fromStorage = {};
+//     driver.wait(driver.findElement(By.xpath('//div[@ng-if="states.invoiceState"]//div[@ng-click="OpenModal(request.request_all_data.storageRequestNid)"]/label')).getText().then(function (text) {
+//         V.fromStorage.Id = SF.cleanPrice(text);
+//     }),config.timeout);
+//     LF.closeEditRequest();
+//     MF.Board_SearchRequest(V.fromStorage.Id);
+//     SF.sleep(3);
+//     MF.Board_SearchOpenRequest (V.fromStorage);
+//     MF.EditRequest_SetAdressTo ();
+//     JS.step(JSstep.selectTruck(3));
+//     MF.WaitWhileBusy();
+//     MF.EditRequest_SetToConfirmed ();
+//     MF.EditRequest_SaveChanges ();
+//     MF.EditRequest_OpenSettings();
+/*****************************************************************************************************/
+
 //     MF.EditRequest_ClickCreateClone();
 //     MF.EditRequest_WaitForVisibleCloneRequest();
 //     driver.wait(driver.findElement(By.xpath('//div[contains(@class,"requestModal status_1")]//a[@ng-click="select(tabs[0])"]')).getText().then(function(text){
@@ -226,7 +242,7 @@ condition.nowWeDoing="Вернуться в localDispatch, найти рекве
 //     }),config.timeout);
 //     SF.sleep(1);
 //     MF.EditRequest_SaveChanges ();
-    LF.closeEditRequest();
+//     LF.closeEditRequest();
 //     LF.findDayInLocalDispatch(V.boardNumbersClone.moveDate.Year, V.boardNumbersClone.moveDate.Month, V.boardNumbersClone.moveDate.Day);
 //     MF.Dispatch_ShowScheduledJobs();
 //     LF.SelectRequestDispatch(V.boardNumbersClone.Id);
