@@ -1073,15 +1073,15 @@ module.exports = function (SF, JS, MF, JSstep, VD, V, By, until, FileDetector, s
             VD.IWant(VD.ToEqual, text, boardNumbers.Quote, 'не совпал Quote на Confirmation Page c Quote в дашборде');
         }),config.timeout);
     }
-    function CheckCrewInCrewPreview(boardNumbers, firstHelperName, secondHelperName) {
-    driver.wait(driver.findElement(By.xpath('//div[contains(@job-id,"'+ boardNumbers.Id +'")]/div/div[1]/span[@class="crew-preview__user-name"]')).getText().then(function(text){
+    function CheckCrewInCrewPreview(boardNumbers, crewForemanName, firstHelperName, secondHelperName) {
+    driver.wait(driver.findElement(By.xpath('//div[contains(@job-id,"'+ boardNumbers +'")]/div/div[1]/span[@class="crew-preview__user-name"]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text,  crewForemanName, 'Фореман не отображается или отображается неправильно в крю первью диспача');
     }),config.timeout);
-    SF.click(By.xpath('//div[contains(@job-id,"'+ boardNumbers.Id +'")]/div/div[1]/span[@class="crew-preview__user-name"]'));
-    driver.wait(driver.findElement(By.xpath('//div[contains(@job-id,"'+ boardNumbers.Id +'")]/div/div[2]/span[@class="crew-preview__row__additional__text"]')).getText().then(function(text){
+    SF.click(By.xpath('//div[contains(@job-id,"'+ boardNumbers +'")]/div/div[1]/span[@class="crew-preview__user-name"]'));
+    driver.wait(driver.findElement(By.xpath('//div[contains(@job-id,"'+ boardNumbers +'")]/div/div[2]/span[@class="crew-preview__row__additional__text"]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text,   firstHelperName, 'Хелпер №1 не отображается или отображается неправильно в крю первью диспача');
     }),config.timeout);
-    driver.wait(driver.findElement(By.xpath('//div[contains(@job-id,"'+ boardNumbers.Id +'")]/div/div[3]/span[@class="crew-preview__row__additional__text"]')).getText().then(function(text){
+    driver.wait(driver.findElement(By.xpath('//div[contains(@job-id,"'+ boardNumbers +'")]/div/div[3]/span[@class="crew-preview__row__additional__text"]')).getText().then(function(text){
         VD.IWant(VD.ToEqual, text,   secondHelperName, 'Хелпер №2 не отображается или отображается неправильно в крю первью диспача');
     }),config.timeout);
     }
