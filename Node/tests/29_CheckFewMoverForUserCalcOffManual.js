@@ -61,7 +61,7 @@ condition.nowWeDoing = 'меняем макс ворк тайм но кальк�
 
 condition.nowWeDoing = 'тут проверяем одной функцией или совпадате или вообще есть статус реквеста на табе клиент';
     SF.click(By.xpath('//input[@ng-model="request.maximum_time.value"]'));
-    SF.click(By.xpath('//li[@class="ui-timepicker-selected"]/following-sibling::li[2]'));
+    SF.click(By.xpath('//li[@class="ui-timepicker-selected"]/following-sibling::li[contains(text(), "04:00")]'));
     SF.waitForVisible(By.xpath('//h2[contains(text(),"Are you sure you want to set time manualy?")]'));
     SF.sleep(2);
     SF.click(By.xpath('//button[contains(text(),"Yes, let\'s do it!")]'));
