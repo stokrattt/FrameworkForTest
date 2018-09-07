@@ -1622,6 +1622,7 @@ module.exports = function (SF, JS, JSstep, VD, V, By, until,FileDetector, system
         SF.click(By.xpath('//div[contains(@class, "ui-timepicker-wrapper") and contains(@style,"display: block;")]/ul/li[contains(text(),"'+time+'")]'));
     }
     function EditRequest_CloseJob() {
+        WaitWhileBusy();
         SF.click (By.xpath('//div[@ng-click="closeJob();"]'));
         SF.sleep (3);
         WaitWhileBusy();

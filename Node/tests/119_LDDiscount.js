@@ -64,6 +64,7 @@ condition.nowWeDoing = 'Создаем ЛД в наш штат с верхней
     MF.FrontSite_SelectGoogleSearch();
     MF.FrontSiteSmallCalc_SubmitQuoteAndGoToAccount();
     MF.Account_ClickViewRequest();
+    SF.sleep(3);
     V.accountNumbersLD={};
     LF.RememberAccountNumbersLD(V.accountNumbersLD);
     driver.wait(driver.findElement(By.xpath('//div[contains(text(),"Move Size")]/following-sibling::div[1]')).getText().then(function (text) {

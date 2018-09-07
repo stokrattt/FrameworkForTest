@@ -86,6 +86,7 @@ condition.nowWeDoing = 'идем в локал диспач назначать �
     V.foremanName = 'Test Foreman';
     SF.click(By.xpath("//select[@ng-model='vm.data.foreman']"));
     SF.click(By.xpath("//select[@ng-model='vm.data.foreman']/option[contains(text(),'"+V.foremanName+"')]"));
+    SF.sleep(3);
     SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']"));
     SF.click(By.xpath("//label[contains(text(),'Helper No. 2')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']//option[contains(text(),'test driver')]"));
     JS.scroll('button[ng-click=\"vm.assignTeam()\"]');

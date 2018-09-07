@@ -30,7 +30,7 @@ condition.nowWeDoing = 'создаем три реквеста на одно ч�
         // LF.addToCleanerJob(V.request.Id3);
     }), config.timeout);
     MF.EditRequest_OpenClient ();
-    SF.sleep (3);
+    SF.sleep (4);
     driver.wait(driver.executeScript('return $("div:contains(\\"All Moves\\") tbody tr td.sorting_1").length').then(function (length) {
         VD.IWant (VD.ToEqual, length, '3', 'на вкладке клиент нету всех работ данного юзера');
     }),config.timeout);

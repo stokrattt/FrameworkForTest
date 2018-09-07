@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/105_ChangeMinCFAndDriverPayroll.js'];
+    config.suite = ['./tests/4_CheckFuelCFitInventOffCalc.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 30000;
