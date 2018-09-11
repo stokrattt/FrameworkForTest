@@ -1570,7 +1570,9 @@ function SetManager(name) {
                         "//option[contains(text(),'Test Helper3')]")).click());
                 }
             }), config.timeout);
-        SF.sleep(0.5);
+        SF.sleep(1.5);
+        JS.scroll('label:contains("Helper No. 5")');
+        SF.sleep(1.5);
         driver.wait(
             driver.findElements(By.xpath("//label[contains(text(),'Helper No. 5')]/following-sibling::select[@ng-model='vm.data.baseCrew.helpers[$index]']")).then(function (count) {
                 if (count.length > 0) {
