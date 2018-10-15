@@ -1,0 +1,9 @@
+package-lock.json
+*.json
+configs/progress.js
+/npm
+/node
+*.log
+*.exe
+/chromedriver
+/node_modules/
