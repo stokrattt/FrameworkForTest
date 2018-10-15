@@ -59,15 +59,15 @@ module.exports = function(config,V) {
     V.accountURL = 'http://test2.stage.themoveboard.com:82/account/#/login';
     V.adminURL = 'http://test2.stage.themoveboard.com:82/moveBoard/#/login';
     V.adminLogin = 'TestAdmin';
-    V.adminPassword = 'test';
+    V.adminPassword = '';
     V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';
-    V.foremanPassword = '123';
+    V.foremanPassword = '';
     V.foremanLoginFlatRate = 'FlatRateForeman';
-    V.foremanPassword = '123';
+    V.foremanPassword = '';
     V.foremanName = 'Test Foreman';
     V.foremanLogin2 = 'ForemanFlow1';
-    V.foremanPassword2 = '123';
+    V.foremanPassword2 = '';
     V.foremanName2 = 'Foreman Flow1';
     V.helperName = 'Test Helper1';
     V.adminName = 'Test';
@@ -80,14 +80,14 @@ module.exports = function(config,V) {
     V.managerFirstName = 'emilia';
     V.ForEmail = 'dd4978255@gmail.com';
     V.googleloginFor =  'dd4978255';
-    V.googlePasFor =  'qwertyuio90';
+    V.googlePasFor =  '';
     V.salesEmail = 'truks8158@gmail.com';
     V.googleloginSale =  'truks8158';
-    V.googlePasSale =  'qwertyuio9';
+    V.googlePasSale =  '';
     V.testMail = {
         login: 'bostonflat.test',
         mail: 'bostonflat.test@mail.ru',
-        password: 'YLZ60tO^ycpz'
+        password: ''
     };
 
 };

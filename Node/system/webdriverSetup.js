@@ -38,13 +38,23 @@ module.exports = (system, config, condition, webdriver, proxy, proxyAddr) => {
 							console.log('Ошибка selenium: '.red, e);
 							global.driver.wait(global.driver.takeScreenshot().then(function (image) {
 								console.log("Сделал скрин".yellow);
-								writeErrorFiles(condition, image, e, config);
-								if (!config.D) {
-									global.driver.quit().then(function () {
-										console.log('Закрыл браузер'.blue);
-										system.myEmitter.emit('event');
-									});
-								}
+                                //
+                                // driver.manage().logs().get("browser").then(function(logsEntries) {
+                                //     logsEntries.forEach( (item) => {
+                                //         console.log( "LOG LEVEL:", item.level.name, item.message );
+                                //     });
+                                // });
+
+                                global.driver.wait(driver.manage().logs().get("browser").then(function(logsEntries) {
+                                    logsEntries.forEach( (item) => {
+                                    writeErrorFiles(condition, image, e, logsEntries, item.message, config);
+                                    if (!config.D) {
+                                        global.driver.quit().then(function () {
+                                            console.log('Закрыл браузер'.blue);
+                                            system.myEmitter.emit('event');
+                                        });
+                                    }
+                                })}));
 							}));
 						})
 						.catch(() => {

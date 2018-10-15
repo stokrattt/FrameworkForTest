@@ -27,6 +27,19 @@ function writeErrorText(condition, error) {
 	});
 }
 
+module.exports.writeErrorLog = writeErrorLog;
+function writeErrorLog(condition, logsEntries, item) {
+    console.log("Сохраняю текст".yellow);
+    let fileName = 'reports/' + condition.testName + '/' + condition.errorNumber + '.log';
+    fs.writeFile(fileName, condition.nowWeDoing + '\n' + logsEntries + '\n' + item.message,  function (err) {
+        if (err != null) {
+            console.log(err);
+        } else {
+            console.log(`Ошибка жоgf записана в файл ${fileName}`.yellow);
+        }
+    }).toString();
+}
+
 module.exports.makeDir = makeDir;
 function makeDir(condition) {
 	let exist = fs.existsSync('reports/' + condition.testName);
@@ -37,12 +50,13 @@ function makeDir(condition) {
 }
 
 module.exports.writeErrorFiles = writeErrorFiles;
-function writeErrorFiles(_condition, image, error, config) {
+function writeErrorFiles(_condition, image, error, config, logsEntries) {
 	_condition.errorNumber++;
 	let condition = Object.assign({}, _condition);
 	makeDir(condition);
 	writeScreenshot(condition, image);
 	writeErrorText(condition, error);
+    writeErrorLog(condition, logsEntries);
 	if (config.P) saveHAR(condition);
 }
 

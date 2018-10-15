@@ -3,7 +3,7 @@ module.exports = function(config,V) {
     config.suite = ['./tests/103_AdditionalInventoryForLocalMove.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
-    config.timeout = 30000;
+    config.timeout = 20000;
     // V.frontURL = 'http://test1.stage.themoveboard.com:81/front_site/';
     // V.accountURL = 'http://test1.stage.themoveboard.com:81/account/';  //dev
     // V.adminURL = 'http://test1.stage.themoveboard.com:81/moveBoard/';  //dev
@@ -28,16 +28,16 @@ module.exports = function(config,V) {
 
     V.adminLogin = 'WorkAdmin';
     // V.adminLogin = 'TestAdmin';
-    V.adminPassword = 'test';
+    V.adminPassword = '';
     V.adminEmail = 'test.boston@mail.ru';//сюда будут прилетать все письма
     V.foremanLogin = 'TestForeman';
     V.foremanLoginFlatRate = 'FlatRateForeman';
     V.foremanFlatRate = 'FlatRate Foreman';
     V.foremanFlatRateEmail = 'FlatRateForeman@mail.com';
-    V.foremanPassword = '123';
+    V.foremanPassword = '';
     V.foremanName = 'Test Foreman';
     V.foremanLogin2 = 'ForemanFlow1';
-    V.foremanPassword2 = '123';
+    V.foremanPassword2 = '';
     V.foremanName2 = 'Foreman Flow1';
     V.helperName = 'Test Helper1';
     V.adminName = 'Test';
@@ -48,14 +48,14 @@ module.exports = function(config,V) {
     V.managerFirstName = 'emilia';
     V.ForEmail = 'ivanforeman173@gmail.com';
     V.googleloginFor =  'ivanforeman173';
-    V.googlePasFor =  'qwertyuio9';
+    V.googlePasFor =  '';
     V.salesEmail = 'truks8158@gmail.com';
     V.googleloginSale =  'truks8158';
-    V.googlePasSale =  'qwertyuio9';
+    V.googlePasSale =  '';
     V.testMail = {
         login: 'test.boston',
         mail: 'bostonflat.test@mail.ru',
-        password: 'YLZ60tO^ycpz'
+        password: ''
     }
 
 
