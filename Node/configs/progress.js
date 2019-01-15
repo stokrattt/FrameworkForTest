@@ -1,6 +1,6 @@
 module.exports = function(config,V) {
 
-    config.suite = ['./tests/103_AdditionalInventoryForLocalMove.js'];
+    config.suite = ['./tests/Registration.js'];
     config.chainFail = false ;
     config.browser = 'chrome';
     config.timeout = 20000;
